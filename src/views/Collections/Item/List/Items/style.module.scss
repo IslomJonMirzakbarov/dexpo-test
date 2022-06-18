@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  .header {
+    width: 100%;
+    .select {
+      width: 140px;
+      margin-left: 10px;
+    }
+  }
+}

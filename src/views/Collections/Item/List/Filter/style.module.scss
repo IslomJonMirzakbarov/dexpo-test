@@ -1,0 +1,9 @@
+@use '/src/scss/colors';
+
+.container {
+  background-color: colors.$page-background;
+  padding: 10px;
+  border-radius: 0;
+  min-height: 20vh;
+  height: 100%;
+}

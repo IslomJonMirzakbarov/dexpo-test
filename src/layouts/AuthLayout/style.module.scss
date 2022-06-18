@@ -1,0 +1,11 @@
+@use '/src/scss/colors';
+
+.layout {
+}
+.navList {
+  display: flex;
+  align-items: center;
+}
+.navItem {
+  white-space: nowrap;
+}

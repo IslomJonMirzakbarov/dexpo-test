@@ -1,0 +1,16 @@
+.container {
+  overflow: hidden;
+  margin-top: 50px;
+  h2 {
+    font-family: 'Inter', sans-serif !important;
+  }
+  .block {
+    margin-top: 40px;
+    .collection {
+      margin: 20px 0;
+      .card {
+        padding: 0 10px;
+      }
+    }
+  }
+}

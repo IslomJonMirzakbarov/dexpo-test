@@ -1,0 +1,159 @@
+@use '/src/scss/colors';
+
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 60px;
+  height: 90vh;
+  overflow-y: auto;
+
+  .title {
+    font-weight: 700;
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .subtitle {
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    line-height: 24px;
+    margin-bottom: 48px;
+  }
+
+  .typeSwitchRow {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 48px;
+
+    .typeSwitchButton {
+      padding: 15px 24px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: 6px;
+      cursor: pointer;
+      transition-duration: 0.3s;
+
+      &.active {
+        border-color: colors.$primary;
+        color: colors.$primary;
+
+        &:hover {
+          border-color: colors.$primary;
+        }
+      }
+
+      &:hover {
+        border-color: #000;
+        // color: colors.$primary;
+      }
+    }
+  }
+
+  .form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .formArea {
+      display: flex;
+      flex: 1;
+      margin: 0 auto;
+      min-height: 30vh;
+      align-items: center;
+      .wallets {
+        margin: auto 0;
+        p {
+          font-size: 18px;
+          max-width: 500px;
+        }
+        ul {
+          list-style: none;
+          margin: 20px 0;
+          padding: 0;
+          li {
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #dddddd;
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #e8e8e8;
+              .info {
+                img {
+                  transform: scale(1.1);
+                }
+              }
+            }
+            &:first-child {
+              border-top-left-radius: 4px;
+              border-top-right-radius: 4px;
+            }
+            &:last-child {
+              border-top-color: transparent;
+              border-bottom-left-radius: 4px;
+              border-bottom-right-radius: 4px;
+            }
+            .info {
+              display: flex;
+              align-items: center;
+              img {
+                transition: all 0.4s ease-in-out;
+              }
+              span {
+                font-weight: 900;
+                font-size: 18px;
+                margin-left: 20px;
+              }
+            }
+          }
+        }
+      }
+      .formRow {
+        .label {
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+        margin-bottom: 20px;
+      }
+    }
+
+    .buttonsArea {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+  }
+}
+
+.publickOfferRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  box-shadow: inset 0px -1px 0px #e5e9eb;
+
+  .nameBlock {
+    flex: 1;
+
+    .fileName {
+      line-height: 24px;
+    }
+
+    .fileSize {
+      color: #84919a;
+    }
+  }
+}
+
+.checkboxLabel {
+  color: colors.$grey;
+}
