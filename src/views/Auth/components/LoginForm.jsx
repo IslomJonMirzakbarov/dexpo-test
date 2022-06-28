@@ -1,5 +1,11 @@
 import { Button } from "@mui/material"
 import classes from "../style.module.scss"
+import { useWeb3React } from "@web3-react/core";
+import { connectors } from "../../../constants/connectors";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { walletActions } from "../../../store/wallet/wallet.slice";
+import useUserNonce from '../../../hooks/useUserNonce'
 
 const wallets = [
   {
@@ -18,6 +24,21 @@ const wallets = [
 
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
+  const { activate, account, } = useWeb3React();
+  const { data } = useUserNonce(account)
+
+  const handleClick = (type) => {
+    if(type === 'metamask') activate(connectors.injected)
+  }
+
+  console.log(account);
+
+  useEffect(() => {
+    // if(!account) return
+    console.log(data);
+    // dispatch(walletActions.setAccount(account))
+  },[data])
 
   return (
     <div className={classes.form}>
@@ -29,7 +50,7 @@ const LoginForm = () => {
           <ul>
             {
               wallets.map(wallet => 
-                <li key={wallet.key}>
+                <li key={wallet.key} onClick={() => handleClick(wallet.key)}>
                   <div className={classes.info}>
                     <img src={wallet.img} alt={wallet.name} width={50}/>
                     <span>{wallet.name}</span>

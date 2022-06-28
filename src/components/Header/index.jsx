@@ -98,7 +98,7 @@ const Header = ({
 
   return (
     <div className={`${styles.header} ${sticky ? styles.sticky : ''}`}  {...props}>
-      <div className={styles.leftSide} onClick={() => navigate('/home')}> 
+      <div className={styles.leftSide} onClick={() => navigate('/')}> 
         {backButtonLink && <BackButton link={backButtonLink} />}
 
         {icon && <IconGenerator className={styles.icon} icon={icon} />}

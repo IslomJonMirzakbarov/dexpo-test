@@ -40,7 +40,7 @@ const NFTCollections = () => {
                                 alignItems="center"
                             >
                                 <Typography variant='h2'>{item.title}</Typography>
-                                <NavLink to={`/marketplace/${item.title}`}>
+                                <NavLink to={`/marketplace/12`}>
                                     <Button variant="outlined">More &nbsp;&nbsp;<ArrowForwardIcon/></Button>
                                 </NavLink>
                             </Box>

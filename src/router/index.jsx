@@ -1,41 +1,13 @@
-import { useSelector } from "react-redux"
-import { Navigate, Route, Routes } from "react-router-dom"
-import Login from "../views/Auth/Login"
-import CollectionItem from "../views/Collections/Item"
-import Home from "../views/Home"
+import { useRoutes } from "react-router-dom"
+import { useWeb3React } from '@web3-react/core'
+import { privateRoutes } from "./privateRoute"
+import { publicRoutes } from "./publicRoute"
 
 const Router = () => {
-  const isAuth = useSelector((state) => state.auth.isAuth)
+  // const { account } = useWeb3React()
+  const routes = useRoutes( publicRoutes )
 
-  if (!isAuth)
-    return (
-      <Routes>
-        <Route path="/">
-          <Route path="home" element={<Home />} />
-          <Route path="marketplace" element={<h2>Marketplace</h2>} />
-          <Route path="/marketplace/:id" element={<CollectionItem />} />
-          
-          <Route index element={<Navigate to="/login " />} />
-          
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
-    )
-
-  return (
-    <Routes>
-      <Route path="/">
-        <Route index element={<Navigate to="/home" />} />
-        <Route path="home" element={<Home />} />
-        <Route path="marketplace" element={<h2>Marketplace</h2>} />
-        <Route path="/marketplace/:id" element={<h2>Marketplace details</h2>} />
-        <Route path="*" element={<Navigate to="home" />} />
-      </Route>
-      <Route path="*" element={<Navigate to="home" />} />
-    </Routes>
-  )
+  return routes
 }
 
 export default Router

@@ -1,21 +1,26 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import Login from '../views/Auth/Login';
+import Home from '../views/Home';
 import { marketplaceRoutes } from './marketplaceRoute';
 
-export const authorizedRoutes = [
+export const publicRoutes = [
   {
     path: '/',
     children: [
       {
+        path: '',
+        element: <Home />
+      },
+      {
         path: 'login',
         element: <Login />
       },
-      {
-        path: '',
-        element: <Navigate to="/login" replace/>
-      },
+      {...marketplaceRoutes},
     ]
   },
-  {...marketplaceRoutes},
+  {
+    path:'*',
+    element: <Navigate to="/" replace/>
+  }
 ];
