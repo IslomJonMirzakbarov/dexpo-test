@@ -1,13 +1,13 @@
-import { useRoutes } from "react-router-dom"
-import { useWeb3React } from '@web3-react/core'
-import { privateRoutes } from "./privateRoute"
-import { publicRoutes } from "./publicRoute"
+import { useRoutes } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
+import { privateRoutes } from "./privateRoute";
+import { publicRoutes } from "./publicRoute";
 
 const Router = () => {
   // const { account } = useWeb3React()
-  const routes = useRoutes( publicRoutes )
+  const routes = useRoutes(privateRoutes);
 
-  return routes
-}
+  return routes;
+};
 
-export default Router
+export default Router;

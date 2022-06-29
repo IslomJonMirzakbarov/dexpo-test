@@ -1,17 +1,18 @@
-import React from 'react';
-import Home from '../views/Home';
-import { marketplaceRoutes } from './marketplaceRoute';
+import React from "react";
+import ArtistForm from "../views/ArtistForm";
+import Home from "../views/Home";
+import { marketplaceRoutes } from "./marketplaceRoute";
 
 export const privateRoutes = [
   {
-    path: '/',
+    path: "/",
     children: [
       {
-        path: '',
-        element: <Home />
+        path: "",
+        element: <Home />,
       },
-      {...marketplaceRoutes},
-    ]
+      { path: "/artist-form", element: <ArtistForm /> },
+      { ...marketplaceRoutes },
+    ],
   },
- 
 ];
