@@ -37,4 +37,19 @@
       padding: 3px;
     }
   }
+
+}
+
+.IconContainer {
+  // display: none;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: green;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }

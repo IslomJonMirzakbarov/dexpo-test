@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import styles from "./style.module.scss";
 import FormInputText from "../../components/FormInputText";
+import ModalCard from "../../components/ModalCard";
 
 const ArtistForm = () => {
+  const [showModal, setShowModal] = useState(false);
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       artistName: "",
@@ -18,6 +20,7 @@ const ArtistForm = () => {
     console.log(data);
     // ... logic when connected to the api
     reset();
+    setShowModal(true);
   };
   return (
     <div className={styles.Container}>
@@ -71,6 +74,21 @@ const ArtistForm = () => {
 
         <button>Submit</button>
       </form>
+      {showModal && (
+        <ModalCard
+          page="artist-form"
+          onClose={() => setShowModal(false)}
+          // title="kfdslsafkld"
+          onSaveButtonClick={() => setShowModal(false)}
+        >
+          <div className={styles.IconContainer}>icon</div>
+          <p>
+            Artist information has been sent successfully. We'll review your
+            application form and inform you via email. <br />
+            You can also check your status on My Page -{">"} Myapplicationtab.
+          </p>
+        </ModalCard>
+      )}
     </div>
   );
 };
