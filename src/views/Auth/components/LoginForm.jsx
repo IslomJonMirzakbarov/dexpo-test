@@ -2,9 +2,9 @@ import { Button } from "@mui/material"
 import classes from "../style.module.scss"
 import { useWeb3React } from "@web3-react/core";
 import { connectors } from "../../../constants/connectors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { walletActions } from "../../../store/wallet/wallet.slice";
+import { setNonce, setSignature, walletActions } from "../../../store/wallet/wallet.slice";
 import useUserNonce from '../../../hooks/useUserNonce'
 
 const wallets = [
@@ -25,20 +25,43 @@ const wallets = [
 
 const LoginForm = () => {
   const dispatch = useDispatch()
-  const { activate, account, } = useWeb3React();
+  const { activate, account, library } = useWeb3React();
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
   const { data } = useUserNonce(account)
+
+  const signMessage = async () => {
+    if (!library) return;
+    try {
+      const signature = await library.provider.request({
+        method: "personal_sign",
+        params: [message, account]
+      });
+      
+      dispatch(setSignature(signature))
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   const handleClick = (type) => {
     if(type === 'metamask') activate(connectors.injected)
   }
 
-  console.log(account);
+  useEffect(() => {
+    const nonce = data?.data?.nonce
+    if(!nonce) return
+
+    setMessage(String(nonce))
+    dispatch(setNonce(String(nonce)))
+  },[data])
 
   useEffect(() => {
-    // if(!account) return
-    console.log(data);
-    // dispatch(walletActions.setAccount(account))
-  },[data])
+    if(!message) return
+
+    signMessage()
+  },[message])
 
   return (
     <div className={classes.form}>
@@ -47,6 +70,7 @@ const LoginForm = () => {
           <p>
             <b>Connect your wallet</b> one of available provider by importing or creating new one.
           </p>
+          { error && <p style={{ color: 'red' }}>{error}</p> }
           <ul>
             {
               wallets.map(wallet => 

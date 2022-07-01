@@ -1,11 +1,11 @@
 import { useRoutes } from "react-router-dom"
-import { useWeb3React } from '@web3-react/core'
 import { privateRoutes } from "./privateRoute"
 import { publicRoutes } from "./publicRoute"
+import { useSelector } from "react-redux"
 
 const Router = () => {
-  // const { account } = useWeb3React()
-  const routes = useRoutes( publicRoutes )
+  const { signature } = useSelector(store => store.wallet)
+  const routes = useRoutes( signature ? privateRoutes :publicRoutes )
 
   return routes
 }

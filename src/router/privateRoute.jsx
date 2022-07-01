@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import Home from '../views/Home';
 import { marketplaceRoutes } from './marketplaceRoute';
 
@@ -13,5 +14,8 @@ export const privateRoutes = [
       {...marketplaceRoutes},
     ]
   },
- 
+ {
+   path: '*',
+   element: <Navigate to="/"/>
+ }
 ];
