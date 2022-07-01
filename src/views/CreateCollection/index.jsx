@@ -24,6 +24,12 @@ const CreateCollection = () => {
     reset();
     setShowModal(true);
   };
+
+  const highlighter = (bool1, bool2) => {
+    setHiglight1(bool1);
+    setHiglight2(bool2);
+  };
+
   return (
     <div className={styles.Container}>
       <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
@@ -34,10 +40,7 @@ const CreateCollection = () => {
             className={classNames(styles.SingleMode, {
               [styles.Higlighted]: highlight1,
             })}
-            onClick={() => {
-              setHiglight1(true);
-              setHiglight2(false);
-            }}
+            onClick={() => highlighter(true, false)}
           >
             <div>Single</div>
             <div>ERC-721</div>
@@ -47,10 +50,7 @@ const CreateCollection = () => {
             className={classNames(styles.MultipleMode, {
               [styles.Higlighted]: highlight2,
             })}
-            onClick={() => {
-              setHiglight1(false);
-              setHiglight2(true);
-            }}
+            onClick={() => highlighter(false, true)}
           >
             <div>Single</div>
             <div>ERC-721</div>
