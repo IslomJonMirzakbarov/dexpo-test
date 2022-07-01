@@ -1,0 +1,41 @@
+@mixin fontTitleXXL {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 46px;
+}
+
+@mixin fontTitleXL {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 34px;
+}
+
+@mixin fontTitleXS {
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 28px;
+}
+
+@mixin fontTitleS {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+@mixin fontBodyXXL {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 174.4%;
+}
+
+@mixin fontBodyXL {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+@mixin fontBodyXS {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+}

@@ -1,49 +1,68 @@
-import { useCallback, useRef, useState } from "react"
-import MoveToInboxIcon from "@mui/icons-material/MoveToInbox"
-import { useDropzone } from "react-dropzone"
-import { CircularProgress } from "@mui/material"
-import "./style.scss"
-import RingLoader from "../Loaders/RingLoader"
+import { useCallback, useRef, useState } from "react";
+import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
+import { useDropzone } from "react-dropzone";
+import { CircularProgress } from "@mui/material";
+import RingLoader from "../Loaders/RingLoader";
+import styles from "./style.module.scss";
+import classNames from "classnames";
 
-const FileUploadWithDrag = ({ onUpload, loader }) => {
-  const inputRef = useRef(null)
-
-
+const FileUploadWithDrag = ({ onUpload, loader, page }) => {
+  const inputRef = useRef(null);
 
   const onDrop = useCallback((files) => {
-    const file = files[0]
-    const data = new FormData()
+    const file = files[0];
+    const data = new FormData();
 
-    data.append('file', file)
+    data.append("file", file);
 
-    onUpload(data)
-  }, [])
+    onUpload(data);
+  }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop })
-
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className="FileUploadWithDrag">
+    <div
+      className={classNames(
+        styles.FileUploadWithDrag,
+        {
+          [styles.FileUploadCreateCollection]:
+            page === "create-collection" || page === "edit-collection",
+        },
+        { [styles.BackImg]: page === "edit-collection" }
+      )}
+    >
       <div
         {...getRootProps()}
-        className="dropzone"
+        className={styles.dropzone}
         ref={inputRef}
-        style={{ height: 164 }}
+        style={{
+          height:
+            page === "create-collection" || page === "edit-collection"
+              ? 100
+              : 164,
+        }}
       >
         <input {...getInputProps()} />
         {!loader ? (
-            <>
-              <MoveToInboxIcon className="dropzone-icon" />
-              <p className="dropzone-title">
-                Upload file
+          <>
+            {!(page === "create-collection" || page === "edit-collection") && (
+              <MoveToInboxIcon className={styles.dropzoneIcon} />
+            )}
+            {page !== "edit-collection" && (
+              <p className={styles.dropzoneTitle}>
+                Upload {page === "create-collection" ? "logo" : "file"}
               </p>
-            </>
-          ) : (
-            <RingLoader />
-          )}
+            )}
+            {page === "edit-collection" && (
+              <div className={styles.DownCover}>img-svg</div>
+            )}
+          </>
+        ) : (
+          <RingLoader />
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FileUploadWithDrag
+export default FileUploadWithDrag;

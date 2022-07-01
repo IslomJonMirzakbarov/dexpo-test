@@ -119,8 +119,6 @@ const Header = ({
         </div>
       </div>
 
-   
-
       <div style={styles.rightSide}>{extra}</div>
     </div>
   )
