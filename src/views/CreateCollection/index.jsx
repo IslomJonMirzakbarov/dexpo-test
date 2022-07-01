@@ -1,8 +1,8 @@
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import classNames from "classnames";
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import FormInputText from "../../components/FormInputText";
+import ModalCard from "../../components/ModalCard";
 import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
@@ -10,6 +10,7 @@ import styles from "./style.module.scss";
 const CreateCollection = () => {
   const [highlight1, setHiglight1] = useState(false);
   const [highlight2, setHiglight2] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       collectionName: "",
@@ -21,6 +22,7 @@ const CreateCollection = () => {
     console.log(data);
     // ... logic when connected to the api
     reset();
+    setShowModal(true);
   };
   return (
     <div className={styles.Container}>
@@ -78,6 +80,20 @@ const CreateCollection = () => {
         </div>
         <button>Submit</button>
       </form>
+      {showModal && (
+        <ModalCard
+          page="create-collection"
+          onClose={() => setShowModal(false)}
+          onSaveButtonClick={() => setShowModal(false)}
+        >
+          <div className={styles.IconContainer}>icon</div>
+          <p>
+            Your collection is submitted successfully and sent to admin to
+            review. You can also check your status on My Page -{">"}
+            Myapplicationtab.
+          </p>
+        </ModalCard>
+      )}
     </div>
   );
 };

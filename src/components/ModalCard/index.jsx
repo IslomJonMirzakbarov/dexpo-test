@@ -11,7 +11,7 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
         <Card className={styles.card}>
           <div className={styles.header}>
             <div></div>
-            {page !== "artist-form" && (
+            {!(page === "artist-form" || page === "create-collection") && (
               <>
                 <div className={styles.cardTitle}>{title}</div>
                 <IconButton className={styles.closeButton} onClick={onClose}>
@@ -24,7 +24,7 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
           <div className={styles.body}>{children}</div>
 
           <dir className={styles.footer}>
-            {page !== "artist-form" && (
+            {page === "artist-form" || page === "create-collection" ? null : (
               <SecondaryButton className={styles.button} onClick={onClose}>
                 Cancel
               </SecondaryButton>
@@ -33,7 +33,9 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
               className={styles.button}
               onClick={onSaveButtonClick}
             >
-              {page === "artist-form" ? "Confirm" : "Save"}
+              {page === "artist-form" || page === "create-collection"
+                ? "Confirm"
+                : "Save"}
             </PrimaryButton>
           </dir>
         </Card>

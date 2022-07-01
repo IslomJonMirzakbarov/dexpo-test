@@ -22,12 +22,12 @@
       border: 1px dashed rgba(247, 102, 89, 1);
     }
 
-    .dropzone-icon {
+    .dropzoneIcon {
       color: #6b6966;
       font-size: 50px;
     }
 
-    .dropzone-title {
+    .dropzoneIitle {
       font-size: 16px;
       line-height: 24px;
       text-align: center;
@@ -49,14 +49,22 @@
   }
 }
 
+.BackImg {
+  background-image: url("https://images.unsplash.com/photo-1656504020198-7eb1a82027f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .FileUploadCreateCollection {
+  border-radius: 50%;
   box-sizing: border-box;
   position: relative;
   width: 100px;
-
+  
   .dropzone {
+    position: relative;
     cursor: pointer;
-    position: static;
+    // position: static;
     border-radius: 50%;
     left: 0px;
     top: 0px;
@@ -66,6 +74,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+
+    .DownCover {
+      position: absolute;
+      bottom: 1rem;
+      background-color: rgb(180, 180, 180);
+      height: 3rem;
+      margin-bottom: -0.97rem;
+      width: 8rem;
+      display: flex;
+      justify-content: center;
+      padding-top: 2px;
+    }
 
     &.error {
       border: 1px dashed rgba(247, 102, 89, 1);
