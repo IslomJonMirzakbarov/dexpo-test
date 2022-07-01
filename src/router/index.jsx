@@ -4,9 +4,10 @@ import { publicRoutes } from "./publicRoute"
 import { useSelector } from "react-redux"
 
 const Router = () => {
-  const { signature } = useSelector(store => store.wallet)
-  const routes = useRoutes( signature ? privateRoutes :publicRoutes )
-
+  const { token } = useSelector(store => store.auth)
+  const filteredRoutes = token ? privateRoutes : publicRoutes
+  const routes = useRoutes( filteredRoutes )
+  
   return routes
 }
 
