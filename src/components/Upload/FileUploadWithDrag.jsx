@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useDropzone } from "react-dropzone";
 import { CircularProgress } from "@mui/material";
 import RingLoader from "../Loaders/RingLoader";
@@ -45,12 +46,13 @@ const FileUploadWithDrag = ({ onUpload, loader, page }) => {
         <input {...getInputProps()} />
         {!loader ? (
           <>
-            {!(page === "create-collection" || page === "edit-collection") && (
-              <MoveToInboxIcon className={styles.dropzoneIcon} />
+            {page === "create-nft" && (
+              <AddCircleIcon className={styles.dropzoneIcon} />
             )}
             {page !== "edit-collection" && (
               <p className={styles.dropzoneTitle}>
-                Upload {page === "create-collection" ? "logo" : "file"}
+                Upload {page === "create-collection" ? "logo" : "file"}{" "}
+                {page === "create-nft" && "(image)"}
               </p>
             )}
             {page === "edit-collection" && (
