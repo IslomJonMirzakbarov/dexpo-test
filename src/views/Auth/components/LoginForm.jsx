@@ -1,11 +1,10 @@
 import { Button } from "@mui/material"
 import classes from "../style.module.scss"
-import { useWeb3React } from "@web3-react/core";
-import { connectors } from "../../../constants/connectors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { walletActions } from "../../../store/wallet/wallet.slice";
+import { setNonce, setSignature, setAccount} from "../../../store/wallet/wallet.slice";
 import useUserNonce from '../../../hooks/useUserNonce'
+import useVerifySign from "../../../hooks/useVerifySign";
 
 const wallets = [
   {
@@ -25,20 +24,68 @@ const wallets = [
 
 const LoginForm = () => {
   const dispatch = useDispatch()
-  const { activate, account, } = useWeb3React();
-  const { data } = useUserNonce(account)
 
-  const handleClick = (type) => {
-    if(type === 'metamask') activate(connectors.injected)
+  const { mutation } = useVerifySign()
+  const [accountWallet, setAccountWallet] = useState("")
+  const [message, setMessage] = useState("");
+  const [sign, setSignatureState] = useState("");
+
+  const { data } = useUserNonce(accountWallet)
+
+  const handleMetaMask = () => {
+    if (typeof window.ethereum !== 'undefined') {
+      getAccount()
+    } else {
+      alert('Please install MetaMask');
+    }
   }
 
-  console.log(account);
+  const handleClick = (type) => {
+    if(type === 'metamask') {
+      handleMetaMask()
+    }
+  }
+
+  async function getAccount() {
+    const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts'
+    });
+    const account = accounts[0];
+
+    dispatch(setAccount(account))
+    setAccountWallet(account)
+  }
 
   useEffect(() => {
-    // if(!account) return
-    console.log(data);
-    // dispatch(walletActions.setAccount(account))
+    const nonce = data?.data?.nonce
+    if(!nonce) return
+
+    setMessage(`Nonce: ${nonce}`)
+    dispatch(setNonce(nonce))
   },[data])
+
+  useEffect(() => {
+    if(!message) return 
+
+    handleSign()
+  }, [message])
+  
+  useEffect(() => {
+    if(!sign) return
+
+    mutation.mutate({
+      wallet_address: accountWallet,
+      signature: sign
+    })
+  },[sign])
+
+  const handleSign = async () => {
+    const signature = await window.ethereum.request({method: 'personal_sign', params: [message, accountWallet]});
+    dispatch(setSignature(signature))
+    setSignatureState(signature)
+  }
+
+
 
   return (
     <div className={classes.form}>

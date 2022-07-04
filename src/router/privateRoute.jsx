@@ -1,9 +1,11 @@
+import { Navigate } from 'react-router-dom';
 import React from "react";
 import ArtistForm from "../views/ArtistForm";
 import CreateCollection from "../views/CreateCollection";
 import EditCollection from "../views/CreateCollection/EditCollection";
 import Home from "../views/Home";
 import { marketplaceRoutes } from "./marketplaceRoute";
+
 
 export const privateRoutes = [
   {
@@ -19,4 +21,8 @@ export const privateRoutes = [
       { ...marketplaceRoutes },
     ],
   },
+ {
+   path: '*',
+   element: <Navigate to="/"/>
+ }
 ];

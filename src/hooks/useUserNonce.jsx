@@ -9,7 +9,7 @@ const useUserNonce = (wallet) => {
     })
 
     return {
-        data,
+        data: data?.data,
         refetch,
         isLoading
     }
