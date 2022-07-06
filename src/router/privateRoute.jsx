@@ -5,6 +5,7 @@ import CreateCollection from "../views/CreateCollection";
 import EditCollection from "../views/CreateCollection/EditCollection";
 import Home from "../views/Home";
 import { marketplaceRoutes } from "./marketplaceRoute";
+import { artistRoutes } from './artistRoute';
 
 
 export const privateRoutes = [
@@ -15,10 +16,10 @@ export const privateRoutes = [
         path: "",
         element: <Home />,
       },
-      { path: "/artist-form", element: <ArtistForm /> },
       { path: "/create-collection", element: <CreateCollection /> },
       { path: "/edit-collection", element: <EditCollection /> },
       { ...marketplaceRoutes },
+      { ...artistRoutes }
     ],
   },
  {
