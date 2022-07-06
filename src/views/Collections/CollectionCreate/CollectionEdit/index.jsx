@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import FormInputText from "../../../components/FormInputText";
-import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
+import FormInputText from "../../../../components/FormInputText";
+import FileUploadWithDrag from "../../../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
 

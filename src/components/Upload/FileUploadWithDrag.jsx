@@ -12,14 +12,29 @@ const FileUploadWithDrag = ({ onUpload, loader, page }) => {
 
   const onDrop = useCallback((files) => {
     const file = files[0];
-    const data = new FormData();
 
-    data.append("file", file);
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      onUpload({ ...file, src: e.target.result });
+    };
+    reader.readAsDataURL(file);
+    return file;
+    // console.log(file);
+    // const data = new FormData();
 
-    onUpload(data);
+    // data.append("file", file);
+    // const preview = URL.createObjectURL(file);
+    // console.log(preview);
+
+    // onUpload(file);
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      image: [".png", ".jpeg"],
+    },
+  });
 
   return (
     <div

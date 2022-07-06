@@ -1,6 +1,6 @@
 import React from "react";
-import CollectionCreate from "../views/CollectionCreate";
-import CollectionEdit from "../views/CollectionCreate/CollectionEdit";
+import CollectionCreate from "../views/Collections/CollectionCreate";
+import CollectionEdit from "../views/Collections/CollectionCreate/CollectionEdit";
 
 export const collectionRoutes = {
   path: "collection",

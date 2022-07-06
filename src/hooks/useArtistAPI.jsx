@@ -11,14 +11,20 @@ const getArtist = (token) =>
     .get("/api/artist/detail")
     .then((res) => res.data);
 
-const useArtistAPI = () => {
+const useArtistAPI = ({ isDetail, onSuccess }) => {
   const { token } = useSelector((store) => store.auth);
 
-  const { data, isLoading, error } = useQuery("get-artist", () =>
-    getArtist(token)
+  const { data, isLoading, error } = useQuery(
+    "get-artist",
+    () => getArtist(token),
+    {
+      enabled: isDetail || false,
+    }
   );
 
-  const mutation = useMutation((data) => createArtist(data, token));
+  const mutation = useMutation((data) => createArtist(data, token), {
+    onSuccess,
+  });
 
   return {
     create: mutation,

@@ -18,6 +18,8 @@ const NftCreate = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentCollection, setCurrentCollection] = useState("select");
   const [checked, setChecked] = useState(false);
+  const [uploadedImg, setUploadedImg] = useState({});
+  console.log(uploadedImg);
 
   const {
     handleSubmit,
@@ -41,7 +43,6 @@ const NftCreate = () => {
     if (errorChecker === 0) {
       setShowModal(true);
     }
-    // setShowModal(true);
   });
 
   const handleChange = (event) => {
@@ -58,7 +59,8 @@ const NftCreate = () => {
               Content types supported: JPG, PNG
             </div>
             <div className={styles.DropZone}>
-              <FileUploadWithDrag page="create-nft" />
+              <FileUploadWithDrag onUpload={setUploadedImg} page="create-nft" />
+              <img src={uploadedImg?.src} alt="fd" />
             </div>
           </div>
         </div>
