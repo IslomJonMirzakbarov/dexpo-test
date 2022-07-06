@@ -1,13 +1,15 @@
-import { useRoutes } from "react-router-dom";
-import { useWeb3React } from "@web3-react/core";
-import { privateRoutes } from "./privateRoute";
-import { publicRoutes } from "./publicRoute";
+import { useRoutes } from "react-router-dom"
+import { privateRoutes } from "./privateRoute"
+import { publicRoutes } from "./publicRoute"
+import { useSelector } from "react-redux"
 
 const Router = () => {
-  // const { account } = useWeb3React()
-  const routes = useRoutes(privateRoutes);
+  const { token } = useSelector(store => store.auth)
+  const filteredRoutes = token ? privateRoutes : publicRoutes
+  const routes = useRoutes( filteredRoutes )
+  
+  return routes
+}
 
-  return routes;
-};
 
 export default Router;

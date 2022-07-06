@@ -1,6 +1,6 @@
 import { Button, List, ListItem } from '@mui/material'
-import { useWeb3React } from '@web3-react/core'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
@@ -12,7 +12,7 @@ const BUTTON_LABEL = 'Connect Wallet'
 
 const MergedLayout = ({children}) => {
     const navigate = useNavigate()
-    const { account } = useWeb3React()
+    const { account } = useSelector(store => store.wallet)
 
     const label = account ? truncateAddress(account) : BUTTON_LABEL
     
