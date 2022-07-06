@@ -32,8 +32,8 @@ const NFTCollections = () => {
         <Box className={styles.container}>
             <Container>
                 {
-                    data.map(item => 
-                        <Box className={styles.block}>
+                    data.map((item, idx) => 
+                        <Box className={styles.block} key={idx}>
                             <Box 
                                 display="flex" 
                                 justifyContent="space-between"
@@ -47,7 +47,7 @@ const NFTCollections = () => {
                             <Box className={styles.collection}>
                                 <Slider {...settings}>
                                     {
-                                        item.collections.map((card,c) => 
+                                        item.collections.map((card, c) => 
                                             <div className={styles.card} key={c}>
                                                 <NFTCard {...card}/>
                                             </div>    

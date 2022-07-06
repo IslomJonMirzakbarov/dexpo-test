@@ -7,7 +7,7 @@ import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
 
-const CreateCollection = () => {
+const CollectionCreate = () => {
   const [highlight1, setHiglight1] = useState(false);
   const [highlight2, setHiglight2] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -98,4 +98,4 @@ const CreateCollection = () => {
   );
 };
 
-export default CreateCollection;
+export default CollectionCreate;

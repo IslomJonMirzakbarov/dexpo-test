@@ -6,7 +6,7 @@ import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
 
-const EditCollection = () => {
+const CollectionEdit = () => {
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       collectionName: "",
@@ -49,4 +49,4 @@ const EditCollection = () => {
   );
 };
 
-export default EditCollection;
+export default CollectionEdit;

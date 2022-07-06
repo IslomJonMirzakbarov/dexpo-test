@@ -14,7 +14,7 @@ import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
 
-const CreateNft = () => {
+const NftCreate = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentCollection, setCurrentCollection] = useState("select");
   const [checked, setChecked] = useState(false);
@@ -38,7 +38,7 @@ const CreateNft = () => {
     console.log(data);
     // ... logic when connected to the api
     reset();
-    if(errorChecker===0) {
+    if (errorChecker === 0) {
       setShowModal(true);
     }
     // setShowModal(true);
@@ -170,4 +170,4 @@ const CreateNft = () => {
   );
 };
 
-export default CreateNft;
+export default NftCreate;

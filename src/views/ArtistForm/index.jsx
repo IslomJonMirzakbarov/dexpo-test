@@ -35,7 +35,7 @@ const ArtistForm = () => {
     setShowModal(true);
   };
   return (
-      <Container maxWidth>
+      <Container>
         <Box display="flex" justifyContent="center">
           <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.Title}>Artist application form</div>
