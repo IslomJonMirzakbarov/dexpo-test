@@ -19,7 +19,7 @@ const NftCreate = () => {
   const [currentCollection, setCurrentCollection] = useState("select");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
-  console.log(uploadedImg);
+  console.log(Object.keys(uploadedImg).length);
 
   const {
     handleSubmit,
@@ -59,8 +59,26 @@ const NftCreate = () => {
               Content types supported: JPG, PNG
             </div>
             <div className={styles.DropZone}>
-              <FileUploadWithDrag onUpload={setUploadedImg} page="create-nft" />
-              <img src={uploadedImg?.src} alt="fd" />
+              {Object.keys(uploadedImg).length > 0 ? (
+                <div className={styles.PrevImg}>
+                  <img
+                    className={styles.PrevImg}
+                    src={uploadedImg?.preview}
+                    alt="fd"
+                  />
+                  <div
+                    className={styles.RemoveBtn}
+                    onClick={() => setUploadedImg({})}
+                  >
+                    X
+                  </div>
+                </div>
+              ) : (
+                <FileUploadWithDrag
+                  onUpload={setUploadedImg}
+                  page="create-nft"
+                />
+              )}
             </div>
           </div>
         </div>
