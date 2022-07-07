@@ -14,28 +14,26 @@ const FileUploadWithDrag = ({ onUpload, loader, page }) => {
     const file = files[0];
 
     if (page === "create-nft") {
+      const reader = new FileReader();
       Object.assign(file, {
         preview: URL.createObjectURL(file),
       });
-
-      const reader = new FileReader();
       reader.onload = function (e) {
-        onUpload({ ...file, src: e.target.result });
+        file["src"] = e.target.result;
+        onUpload(file);
       };
       reader.readAsDataURL(file);
-      return file;
     }
 
     const data = new FormData();
+
     data.append("file", file);
-    onUpload(file);
+
+    onUpload(data);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: page === "create-nft" && {
-      image: [".png", ".jpeg"],
-    },
   });
 
   return (

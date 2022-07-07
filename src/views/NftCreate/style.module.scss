@@ -30,8 +30,17 @@
           .PrevImg {
             width: 220px;
             height: 164px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 6px;
             position: relative;
+
+            .InvalidType {
+              text-align: center;
+              color: red;
+              font-size: 12px;
+            }
 
             img {
               width: 100%;

@@ -7,6 +7,7 @@ import {
   Select,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import FormInputText from "../../components/FormInputText";
 import ModalCard from "../../components/ModalCard";
@@ -19,7 +20,16 @@ const NftCreate = () => {
   const [currentCollection, setCurrentCollection] = useState("select");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
-  console.log(Object.keys(uploadedImg).length);
+  const [errBool, setErrBool] = useState(false);
+
+  const imgBool =
+    uploadedImg.type === "image/png" || uploadedImg.type === "image/jpg";
+
+  useEffect(() => {
+    if (Object.keys(uploadedImg).length > 0) {
+      setErrBool(false);
+    }
+  }, [Object.keys(uploadedImg).length]);
 
   const {
     handleSubmit,
@@ -37,10 +47,10 @@ const NftCreate = () => {
   const errorChecker = Object.keys(errors).length;
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    // ... logic when connected to the api
-    reset();
-    if (errorChecker === 0) {
+    if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
+      // console.log(data);
+      // ... logic when connected to the api
+      reset();
       setShowModal(true);
     }
   });
@@ -48,6 +58,7 @@ const NftCreate = () => {
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
+
   return (
     <div className={styles.Container}>
       <div className={styles.TopSide}>
@@ -61,11 +72,18 @@ const NftCreate = () => {
             <div className={styles.DropZone}>
               {Object.keys(uploadedImg).length > 0 ? (
                 <div className={styles.PrevImg}>
-                  <img
-                    className={styles.PrevImg}
-                    src={uploadedImg?.preview}
-                    alt="fd"
-                  />
+                  {!imgBool ? (
+                    <div className={styles.InvalidType}>
+                      Invalid file type <br /> Please choose JPG or PNG types
+                    </div>
+                  ) : (
+                    <img
+                      className={styles.PrevImg}
+                      src={uploadedImg?.preview}
+                      alt="fd"
+                    />
+                  )}
+
                   <div
                     className={styles.RemoveBtn}
                     onClick={() => setUploadedImg({})}
@@ -156,13 +174,18 @@ const NftCreate = () => {
           onClick={() => {
             if (checked) {
               onSubmit();
+              if (Object.keys(uploadedImg).length === 0) {
+                setErrBool(true);
+              } else {
+                setErrBool(false);
+              }
             }
           }}
           variant="contained"
         >
           Mint
         </Button>
-        {errorChecker > 0 && (
+        {(errorChecker > 0 || errBool) && (
           <div className={styles.Error}>Please enter all requiredvalues.</div>
         )}
         <div className={styles.MintTxt}>
