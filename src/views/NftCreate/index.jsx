@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
   Button,
   Checkbox,
@@ -6,9 +8,6 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
 import FormInputText from "../../components/FormInputText";
 import ModalCard from "../../components/ModalCard";
 import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
@@ -29,7 +28,7 @@ const NftCreate = () => {
     if (Object.keys(uploadedImg).length > 0) {
       setErrBool(false);
     }
-  }, [Object.keys(uploadedImg).length]);
+  }, [uploadedImg]);
 
   const {
     handleSubmit,
@@ -48,15 +47,30 @@ const NftCreate = () => {
 
   const onSubmit = handleSubmit((data) => {
     if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-      // console.log(data);
+      data['src'] = uploadedImg.src;
+      // console.log(uploadedImg);
+      console.log(data);
       // ... logic when connected to the api
       reset();
+      setUploadedImg({});
+      setChecked(false);
       setShowModal(true);
     }
   });
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
+  };
+
+  const mintClick = () => {
+    if (checked) {
+      onSubmit();
+      if (Object.keys(uploadedImg).length === 0) {
+        setErrBool(true);
+      } else {
+        setErrBool(false);
+      }
+    }
   };
 
   return (
@@ -171,16 +185,7 @@ const NftCreate = () => {
         </div>
         <Button
           className={checked ? styles.CheckedBtn : null}
-          onClick={() => {
-            if (checked) {
-              onSubmit();
-              if (Object.keys(uploadedImg).length === 0) {
-                setErrBool(true);
-              } else {
-                setErrBool(false);
-              }
-            }
-          }}
+          onClick={mintClick}
           variant="contained"
         >
           Mint
