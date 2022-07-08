@@ -1,5 +1,6 @@
 import { Close } from "@mui/icons-material";
 import { Card, IconButton, Modal } from "@mui/material";
+import classNames from "classnames";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import styles from "./style.module.scss";
@@ -8,7 +9,11 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
   return (
     <div>
       <Modal open className={styles.modal} onClose={onClose}>
-        <Card className={styles.card}>
+        <Card
+          className={classNames(styles.card, {
+            [styles.SellRequestCard]: page === "sell-request",
+          })}
+        >
           <div className={styles.header}>
             <div></div>
             {!(page === "artist-form" || page === "create-collection") && (
@@ -21,10 +26,20 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
             )}
           </div>
 
-          <div className={styles.body}>{children}</div>
+          <div
+            className={page === "sell-request" ? styles.srbody : styles.body}
+          >
+            {children}
+          </div>
 
-          <dir className={styles.footer}>
-            {page === "artist-form" || page === "create-collection" ? null : (
+          <dir
+            className={
+              page === "sell-request" ? styles.srfooter : styles.footer
+            }
+          >
+            {page === "artist-form" ||
+            page === "create-collection" ||
+            page === "sell-request" ? null : (
               <SecondaryButton className={styles.button} onClick={onClose}>
                 Cancel
               </SecondaryButton>
@@ -33,7 +48,9 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
               className={styles.button}
               onClick={onSaveButtonClick}
             >
-              {page === "artist-form" || page === "create-collection"
+              {page === "artist-form" ||
+              page === "create-collection" ||
+              page === "sell-request"
                 ? "Confirm"
                 : "Save"}
             </PrimaryButton>

@@ -124,4 +124,22 @@
       text-align: center;
     }
   }
+
+}
+
+.IconContainer {
+  width: 15rem;
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  img {
+    width: 70%;
+    height: 70%;
+  }
 }
