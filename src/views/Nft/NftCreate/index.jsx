@@ -8,13 +8,15 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import FormInputText from "../../components/FormInputText";
-import ModalCard from "../../components/ModalCard";
-import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
+import FormInputText from "../../../components/FormInputText";
+import ModalCard from "../../../components/ModalCard";
+import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const NftCreate = () => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [currentCollection, setCurrentCollection] = useState("select");
   const [checked, setChecked] = useState(false);
@@ -200,7 +202,7 @@ const NftCreate = () => {
 
       {showModal && (
         <ModalCard
-          page='sell-request'
+          page="sell-request"
           onClose={() => {
             setShowModal(false);
             setUploadedImg({});
@@ -208,6 +210,7 @@ const NftCreate = () => {
           onSaveButtonClick={() => {
             setShowModal(false);
             setUploadedImg({});
+            navigate("/nft/sell-request");
           }}
         >
           <div className={styles.IconContainer}>
