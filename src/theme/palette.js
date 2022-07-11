@@ -10,7 +10,7 @@ function createGradient(color1, color2) {
 const PRIMARY = {
   lighter: '#aac4ff',
   light: '#6794ff',
-  main: '#007AFF',
+  main: '#FF006B',
   dark: '#005fc4',
   darker: '#00339b'
 };
@@ -82,7 +82,8 @@ const GREY = {
   500_48: alpha('#919EAB', 0.48),
   500_56: alpha('#919EAB', 0.56),
   500_80: alpha('#919EAB', 0.8),
-  1000: '#7D8890'
+  1000: '#7D8890',
+  1100: '#595959'
 };
 
 const BUTTON_GRADIENTS = {

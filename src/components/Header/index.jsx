@@ -15,14 +15,16 @@ const useStyles = makeStyles(theme => ({
       padding: '2px 4px', 
       display: 'flex', 
       alignItems: 'center', 
-      width: 200,
-      border:'1px solid #c1c1c1',
+      width: 500,
+      border: `1.5px solid ${theme.palette.grey[1100]}`,
+      borderRadius: 7,
       transition:'0.4s ease-in-out',
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
       zIndex: 11,
-      position: 'relative'
+      position: 'relative',
+      color: theme.palette.grey[1100]
     },
     active: {
-      width: 400,
       borderColor: theme.palette.primary.main,
       '& svg':{
         color: theme.palette.primary.main,
@@ -67,14 +69,14 @@ const SearchField = () => {
             )
           }
         >
+          <SearchIcon />
           <InputBase
             className={classes.input}
-            placeholder="Search NFTs Artists"
+            placeholder="Search items, collections, and accounts"
             inputProps={{ 'aria-label': 'search nfts' }}
             onFocus={onFocus} 
             onBlur={onBlur}
           />
-          <SearchIcon />
         </Paper>
 
         <Box className={classnames(classes.overlay,`${focused && classes.overlayOn}`)}></Box>
@@ -90,6 +92,7 @@ const Header = ({
   loader,
   backButtonLink,
   icon,
+  img,
   sticky,
   ...props
 }) => {
@@ -103,23 +106,25 @@ const Header = ({
 
         {icon && <IconGenerator className={styles.icon} icon={icon} />}
 
+        {img && <img src={img} alt="logo" width={132}/>}
+
         <div className={styles.titleBlock}>
           {title && <div className={styles.title}>{title}</div>}
           {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
         </div>
 
-        <div className={styles.line} />
-
-        <div>
-          {children}
-        </div>
-        
         <div className={styles.search}>
           <SearchField />
         </div>
       </div>
 
-      <div style={styles.rightSide}>{extra}</div>
+      <div className={styles.rightSide}>
+
+        <div className={styles.links}>
+          {children}
+        </div>
+        {extra}
+      </div>
     </div>
   )
 }
