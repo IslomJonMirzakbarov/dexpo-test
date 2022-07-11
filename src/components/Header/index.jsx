@@ -12,7 +12,7 @@ import { Box } from "@mui/material";
 
 const useStyles = makeStyles(theme => ({
     paper: { 
-      padding: '2px 4px', 
+      padding: '4px 8px', 
       display: 'flex', 
       alignItems: 'center', 
       width: 500,
@@ -32,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     },
     input: {
       marginLeft: 5,
-      flex: 1
+      flex: 1,
+      ...theme.typography.placeholder
     },
     overlay:{
       transition:'0.4s ease-in-out all'
@@ -69,7 +70,7 @@ const SearchField = () => {
             )
           }
         >
-          <SearchIcon />
+          <SearchIcon style={{fontSize: 25}}/>
           <InputBase
             className={classes.input}
             placeholder="Search items, collections, and accounts"

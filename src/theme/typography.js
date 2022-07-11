@@ -75,8 +75,9 @@ const typography = {
     fontSize: pxToRem(16)
   },
   body2: {
-    lineHeight: 22 / 14,
-    fontSize: pxToRem(14)
+    fontWeight: 500,
+    lineHeight: 24 / 16.5,
+    fontSize: pxToRem(19)
   },
   caption: {
     lineHeight: 1.5,
@@ -94,6 +95,11 @@ const typography = {
     lineHeight: 24 / 14,
     fontSize: pxToRem(14),
     textTransform: 'capitalize'
+  },
+  placeholder: {
+    fontWeight: 300,
+    lineHeight: 24 / 16.5,
+    fontSize: pxToRem(19)
   }
 };
 
