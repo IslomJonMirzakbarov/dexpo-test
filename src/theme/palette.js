@@ -1,7 +1,6 @@
-
 // ----------------------------------------------------------------------
 
-import { alpha } from "@mui/system";
+import { alpha } from '@mui/system';
 
 function createGradient(color1, color2) {
   return `linear-gradient(to bottom, ${color1}, ${color2})`;
@@ -14,7 +13,13 @@ const PRIMARY = {
   main: '#007AFF',
   dark: '#005fc4',
   darker: '#00339b'
-}; 
+};
+
+const MAIN = {
+  pink: '#FF006B',
+  pink_hovered: '#DB0060'
+};
+
 const SECONDARY = {
   lighter: '#FFAB91',
   light: '#F4511E',
@@ -76,7 +81,13 @@ const GREY = {
   500_32: alpha('#919EAB', 0.32),
   500_48: alpha('#919EAB', 0.48),
   500_56: alpha('#919EAB', 0.56),
-  500_80: alpha('#919EAB', 0.8)
+  500_80: alpha('#919EAB', 0.8),
+  1000: '#7D8890'
+};
+
+const BUTTON_GRADIENTS = {
+  primary: 'linear-gradient(262.28deg, #E2007F 10.59%, #1E4CED 96.44%)',
+  secondary: 'linear-gradient(91.78deg, #E2007F 4.92%, #1E4CED 95.68%);'
 };
 
 const GRADIENTS = {
@@ -84,13 +95,16 @@ const GRADIENTS = {
   info: createGradient(INFO.light, INFO.main),
   success: createGradient(SUCCESS.light, SUCCESS.main),
   warning: createGradient(WARNING.light, WARNING.main),
-  error: createGradient(ERROR.light, ERROR.main)
+  error: createGradient(ERROR.light, ERROR.main),
+  secondary: BUTTON_GRADIENTS.primary,
+  secondary1: BUTTON_GRADIENTS.secondary
 };
 
 const COMMON = {
   common: { black: '#000', white: '#fff' },
   primary: { ...PRIMARY, contrastText: '#fff' },
   secondary: { ...SECONDARY, contrastText: '#fff' },
+  main: { ...MAIN, contrastText: '#fff' },
   info: { ...INFO, contrastText: '#fff' },
   success: { ...SUCCESS, contrastText: GREY[800] },
   warning: { ...WARNING, contrastText: GREY[800] },

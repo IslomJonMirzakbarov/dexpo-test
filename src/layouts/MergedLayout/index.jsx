@@ -26,7 +26,7 @@ const MergedLayout = ({children}) => {
             title="DEXPO" 
             sticky={true}
             extra={
-                <Button variant="contained" onClick={handleClick}>{label}</Button>
+                <Button variant="containedSecondary" onClick={handleClick}>{label}</Button>
             }
         >
             <List className={styles.navList}>
