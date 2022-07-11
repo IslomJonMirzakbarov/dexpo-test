@@ -1,13 +1,13 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import FormInputText from "../../components/FormInputText";
-import ModalCard from "../../components/ModalCard";
-import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
+import FormInputText from "../../../components/FormInputText";
+import ModalCard from "../../../components/ModalCard";
+import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
 
-const CreateCollection = () => {
+const CollectionCreate = () => {
   const [highlight1, setHiglight1] = useState(false);
   const [highlight2, setHiglight2] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -98,4 +98,4 @@ const CreateCollection = () => {
   );
 };
 
-export default CreateCollection;
+export default CollectionCreate;

@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useDropzone } from "react-dropzone";
 import { CircularProgress } from "@mui/material";
 import RingLoader from "../Loaders/RingLoader";
@@ -11,6 +12,19 @@ const FileUploadWithDrag = ({ onUpload, loader, page }) => {
 
   const onDrop = useCallback((files) => {
     const file = files[0];
+
+    if (page === "create-nft") {
+      const reader = new FileReader();
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      });
+      reader.onload = function (e) {
+        file["src"] = e.target.result;
+        onUpload(file);
+      };
+      reader.readAsDataURL(file);
+    }
+
     const data = new FormData();
 
     data.append("file", file);
@@ -18,7 +32,9 @@ const FileUploadWithDrag = ({ onUpload, loader, page }) => {
     onUpload(data);
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+  });
 
   return (
     <div
@@ -45,12 +61,13 @@ const FileUploadWithDrag = ({ onUpload, loader, page }) => {
         <input {...getInputProps()} />
         {!loader ? (
           <>
-            {!(page === "create-collection" || page === "edit-collection") && (
-              <MoveToInboxIcon className={styles.dropzoneIcon} />
+            {page === "create-nft" && (
+              <AddCircleIcon className={styles.dropzoneIcon} />
             )}
             {page !== "edit-collection" && (
               <p className={styles.dropzoneTitle}>
-                Upload {page === "create-collection" ? "logo" : "file"}
+                Upload {page === "create-collection" ? "logo" : "file"}{" "}
+                {page === "create-nft" && "(image)"}
               </p>
             )}
             {page === "edit-collection" && (

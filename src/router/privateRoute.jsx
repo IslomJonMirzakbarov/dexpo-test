@@ -1,12 +1,10 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 import React from "react";
-import ArtistForm from "../views/ArtistForm";
-import CreateCollection from "../views/CreateCollection";
-import EditCollection from "../views/CreateCollection/EditCollection";
 import Home from "../views/Home";
 import { marketplaceRoutes } from "./marketplaceRoute";
-import { artistRoutes } from './artistRoute';
-
+import { artistRoutes } from "./artistRoute";
+import { collectionRoutes } from "./collectionRoutes";
+import { nftRoutes } from "./nftRoutes";
 
 export const privateRoutes = [
   {
@@ -16,14 +14,14 @@ export const privateRoutes = [
         path: "",
         element: <Home />,
       },
-      { path: "/create-collection", element: <CreateCollection /> },
-      { path: "/edit-collection", element: <EditCollection /> },
+      { ...nftRoutes },
+      { ...artistRoutes },
       { ...marketplaceRoutes },
-      { ...artistRoutes }
+      { ...collectionRoutes },
     ],
   },
- {
-   path: '*',
-   element: <Navigate to="/"/>
- }
+  {
+    path: "*",
+    element: <Navigate to="/" />,
+  },
 ];
