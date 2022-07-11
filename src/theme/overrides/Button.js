@@ -7,6 +7,7 @@ export default function Button(theme) {
         root: {
           textTransform: 'none',
           borderRadius: theme.shape.borderRadius,
+          ...theme.typography.body2,
           '&:hover': {
             boxShadow: 'none'
           }
