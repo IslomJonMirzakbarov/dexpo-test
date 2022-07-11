@@ -27,7 +27,7 @@ const NftCreate = () => {
   const [errBool, setErrBool] = useState(false);
 
   const imgBool =
-    uploadedImg.type === "image/png" || uploadedImg.type === "image/jpg";
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg";
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {

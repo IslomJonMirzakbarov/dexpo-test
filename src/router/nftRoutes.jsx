@@ -1,5 +1,5 @@
 import React from "react";
-import NftCreate from "../views/Nft/NftCreate";
+import Create from "../views/Nft/Create";
 import SellRequest from "../views/Nft/SellRequest";
 
 export const nftRoutes = {
@@ -7,7 +7,7 @@ export const nftRoutes = {
   children: [
     {
       path: "create",
-      element: <NftCreate />,
+      element: <Create />,
     },
     {
       path: "sell-request",
