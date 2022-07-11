@@ -14,8 +14,11 @@ import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { assignLike, assignNftItem } from "../../../store/nft/nft.slice";
 
 const NftCreate = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [currentCollection, setCurrentCollection] = useState("select");
@@ -50,7 +53,9 @@ const NftCreate = () => {
   const onSubmit = handleSubmit((data) => {
     if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
       data["src"] = uploadedImg.src;
-      // console.log(data);
+
+      dispatch(assignLike());
+      dispatch(assignNftItem(data));
       // ... logic when connected to the api
       reset();
       setChecked(false);

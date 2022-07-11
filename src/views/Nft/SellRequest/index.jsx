@@ -1,32 +1,40 @@
-import { Button, Select } from "@mui/material";
 import React from "react";
+import { Button, Select } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { addLike } from "../../../store/nft/nft.slice";
 
 import styles from "./style.module.scss";
 
 const SellRequest = () => {
+  const dispatch = useDispatch();
+  const { newNftItem, likeCount } = useSelector((store) => store.nft);
+  console.log(newNftItem);
+  const { src, collection, artworkName, artworkDescription } = newNftItem;
   return (
     <div className={styles.Container}>
       <div className={styles.ImgContainer}>
-        <img src="" alt="nftImg" />
+        <img src={src} alt="" />
         <div className={styles.LikeBtn}>
-          <div className={styles.Heart}>Heart</div>
-          <div className={styles.HeartCountNum}>250</div>
+          <div className={styles.Heart} onClick={() => dispatch(addLike())}>
+            {/* when we get the icons will be replaced below */}
+            heart
+          </div>
+          <div className={styles.HeartCountNum}>{likeCount}</div>
         </div>
       </div>
 
       <div className={styles.DescriptionContainer}>
-        <div className={styles.Title}>gemma #3583</div>
+        <div className={styles.Title}>{collection} #3583</div>
         <div className={styles.TagPhrase}>Artist: TRISTAN EATON</div>
         <div className={styles.ImgDescription}>
-          EMMA (The Generative Electronic Museum of Metaverse Art) is a
-          comprehensive generative art collection by Tristan Eaton. Combining
-          Eaton’s stunning portraiture and layered collage, each piece carries
-          its own unique personality and identity.
+          {artworkDescription}
         </div>
         <div className={styles.ItemDescContainer}>
           <div className={styles.PriceType}>
             <Select>
               <option value="erc1155">erc1155</option>
+              <option value="erc711">erc711</option>
             </Select>
           </div>
           <div className={styles.ItemDescription}>
