@@ -24,8 +24,12 @@ export default function Button(theme) {
         },
         containedPrimary: {
           boxShadow: theme.customShadows.primary,
-          backgroundColor: theme.palette.common.black,
-          color: theme.palette.common.white
+          backgroundColor: theme.palette.main.pink,
+          color: theme.palette.common.white,
+          padding: '12px 62px',
+          '&:hover': {
+            backgroundColor: theme.palette.main.pink_hovered
+          }
         },
         containedSecondary: {
           background: theme.palette.gradients.secondary,
@@ -45,6 +49,7 @@ export default function Button(theme) {
           border: `1px solid ${theme.palette.common.white}`,
           backgroundColor: 'transparent',
           color: theme.palette.common.white,
+          padding: '12px 62px',
           '&:hover': {
             color: theme.palette.grey[1000],
             borderColor: theme.palette.grey[1000]
