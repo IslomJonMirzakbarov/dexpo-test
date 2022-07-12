@@ -45,10 +45,6 @@ const settings = {
     nextArrow: <ArrowForwardIosRoundedIcon />,
 };
 
-const arrowStyle = {
-
-}
-
 const NFTCollections = () => {
     return (
         <Box className={classNames(styles.container,'collections')}>

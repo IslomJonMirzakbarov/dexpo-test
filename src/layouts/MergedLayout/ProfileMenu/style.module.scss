@@ -1,0 +1,48 @@
+@use '../../../scss/colors';
+@import 'src/styles/fonts';
+
+.menu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  .wrapper {
+    width: 180px;
+    background: #ffffff;
+    box-shadow: 5px 5px 30px rgba(180, 180, 180, 0.3);
+    border-radius: 7px;
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      .item,
+      .item svg,
+      .item svg path {
+        transition: 0.4s ease-in-out all;
+      }
+      .item {
+        cursor: pointer;
+        width: 100%;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        border-radius: 7px;
+        @include fontBodyXL2;
+        svg {
+          margin-right: 10px;
+          color: colors.$icon;
+        }
+        &:hover {
+          background: #fff;
+          box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+          svg {
+            color: colors.$primary;
+            path {
+              fill: colors.$primary !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

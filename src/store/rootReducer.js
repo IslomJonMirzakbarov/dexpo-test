@@ -5,6 +5,7 @@ import { authReducer } from './auth/auth.slice';
 import storage from 'redux-persist/lib/storage';
 import { constructorTableReducer } from './constructorTable/constructorTable.slice';
 import { walletReducer } from './wallet/wallet.slice';
+import { popupReducer } from './popup/popup.slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -21,6 +22,11 @@ const constructorTablePersistConfig = {
   storage
 };
 
+const popupPersistConfig = {
+  key: 'popup',
+  storage
+};
+
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   wallet: persistReducer(walletPersistConfig, walletReducer),
@@ -28,7 +34,8 @@ const rootReducer = combineReducers({
     constructorTablePersistConfig,
     constructorTableReducer
   ),
-  alert: alertReducer
+  alert: alertReducer,
+  popup: persistReducer(popupPersistConfig, popupReducer)
 });
 
 export default rootReducer;
