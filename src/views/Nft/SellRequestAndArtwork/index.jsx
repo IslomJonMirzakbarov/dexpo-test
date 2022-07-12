@@ -22,6 +22,7 @@ const SellRequest = () => {
   const [priceType, setPriceType] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showNftItem, setShowNftItem] = useState(false);
+  const [showAuctionFixed, setShowAuctionFixed] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
   const { src, collection, artworkName, artworkDescription } = newNftItem;
@@ -30,10 +31,15 @@ const SellRequest = () => {
     setPriceType(event.target.value);
   };
 
-  const sellClick = () => {
+  const sellRequestClick = () => {
     // onSubmit() when what type of data is known for sending to backend
     // ... logic when connected to the api
     setShowModal(true);
+  };
+  const sellArtworkClick = () => {
+    // onSubmit() when what type of data is known for sending to backend
+    // ... logic when connected to the api
+    setShowAuctionFixed(true);
   };
 
   return (
@@ -120,7 +126,16 @@ const SellRequest = () => {
           </div>
         </div>
         <div className={styles.Btn}>
-          <Button variant="contained" onClick={sellClick}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              if (!confirmed) {
+                sellRequestClick();
+              } else {
+                sellArtworkClick();
+              }
+            }}
+          >
             {!confirmed ? "Sell Request" : "Sell Artwork"}
           </Button>
         </div>
@@ -162,6 +177,37 @@ const SellRequest = () => {
           <div className={styles.NftImgContainer}>
             {/* <img src={uploadedImg.preview} alt={uploadedImg.name} /> */}
             <img src={src} alt="nft-img-popup" />
+          </div>
+        </ModalCard>
+      )}
+      {showAuctionFixed && (
+        <ModalCard
+          page="nft-img-popup"
+          onClose={() => {
+            setShowAuctionFixed(false);
+          }}
+        >
+          <div className={styles.AcFixContainer}>
+            <div className={styles.Fixed}>
+              <div className={styles.ImgContainer}>icon</div>
+              <div className={styles.DescContainer}>
+                <div>Fixed</div>
+                <div>
+                  * Method of selling NFT Artwork at theprice specified by
+                  theowner.
+                </div>
+              </div>
+            </div>
+            <div className={styles.Auction}>
+              <div className={styles.ImgContainer}>icon</div>
+              <div className={styles.DescContainer}>
+                <div>Fixed</div>
+                <div>
+                  * Method of selling NFT Artwork at theprice specified by
+                  theowner.
+                </div>
+              </div>
+            </div>
           </div>
         </ModalCard>
       )}
