@@ -39,14 +39,14 @@
     .leftDays {
       position: absolute;
       bottom: 0;
-      z-index: 12;
+      z-index: 2;
       width: 100%;
       background-color: rgba(0, 0, 0, 0.5);
       color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 5px;
+      padding: 9px;
       @include fontBodyXSS;
       .icon {
         font-size: 15px;
@@ -58,6 +58,7 @@
   .body {
     display: flex;
     padding: 10px 13px;
+    background-color: #fff;
     .artist,
     .actions {
       display: flex;
@@ -102,6 +103,7 @@
       }
       .price {
         display: flex;
+        justify-content: flex-end;
         img {
           width: 20px;
           height: 20px;
