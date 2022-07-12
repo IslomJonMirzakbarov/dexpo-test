@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
+import NumberFormat from 'react-number-format';
 import styles from './style.module.scss'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
@@ -42,13 +43,14 @@ const NFTCard = ({
                 </div>
                 <div className={styles.actions}>
                     <span className={classNames(styles.count,{[styles.liked]: liked})}>
-                        <span>{purchaseCount}</span>
+                        <NumberFormat value={purchaseCount} displayType={'text'} thousandSeparator={true} />
                         { liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon/> }
-                        
                     </span>
                     <div className={styles.price}>
                         <img src="src/assets/images/con-token.svg" alt="token"/>
-                        <span className={styles.price}>{price}</span>
+                        <span className={styles.price}>
+                            <NumberFormat value={price} displayType={'text'} thousandSeparator={true} />
+                        </span>
                     </div>
                 </div>
             </Box>
