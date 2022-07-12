@@ -17,9 +17,9 @@ export default function Button(theme) {
         },
         containedInherit: {
           color: theme.palette.common.white,
-          backgroundColor: theme.palette.main.pink,
+          backgroundColor: theme.palette.common.black,
           '&:hover': {
-            backgroundColor: theme.palette.main.pink_hovered
+            color: theme.palette.common.black
           }
         },
         containedPrimary: {
@@ -33,11 +33,17 @@ export default function Button(theme) {
         },
         containedSecondary: {
           background: theme.palette.gradients.secondary,
-          color: theme.palette.common.white
+          color: theme.palette.common.white,
+          '&:hover': {
+            backgroundColor: theme.palette.main.pink
+          }
         },
         containedSecondary1: {
           background: theme.palette.gradients.secondary1,
-          color: theme.palette.common.white
+          color: theme.palette.common.white,
+          '&:hover': {
+            backgroundColor: theme.palette.main.pink
+          }
         },
         outlinedInherit: {
           border: `1px solid ${theme.palette.grey[500_32]}`,

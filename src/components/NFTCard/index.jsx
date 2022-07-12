@@ -1,47 +1,67 @@
-import { Box, Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import styles from './style.module.scss'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import classNames from 'classnames';
 
 const NFTCard = ({
     img,
     name,
     price,
+    liked = false,
+    onClick,
     leftDays,
+    onAction,
+    hasAction = true,
     priceType,
     artistName,
     description,
-    purchaseCount
+    purchaseCount,
+    buttonVariant = 'containedInherit'
 }) => {
     return (
         <Box className={styles.card}>
-            <Box className={styles.card_header}>
+            <Box className={styles.header} onClick={onClick}>
                 <img src={img} alt={name}/>
-                <span className={styles.nft_name}>{name}</span>
+                { priceType && <span className={styles.price_type}>{priceType}</span>} 
+                { leftDays &&  
+                    <Box className={styles.leftDays}>
+                        <TimelapseRoundedIcon className={styles.icon}/>
+                        <span>{leftDays} days left</span>
+                    </Box>
+                }
             </Box>
-            <Box className={styles.card_body}>
-                <div className={styles.box}>
-                    <span className={styles.artist_name}>{artistName}</span>
-                    <span className={styles.price_type}>{priceType}</span>
+            <Box className={styles.body}>
+                <div className={styles.artist}>
+                    <span className={styles.name}>{artistName}</span>
+                    <Typography variant="placeholder">
+                        {description}
+                    </Typography>
                 </div>
-                <div className={styles.box}>
-                    <span className={styles.art_info}>{description}</span>
-                    <div className={styles.price_block}>
+                <div className={styles.actions}>
+                    <span className={classNames(styles.count,{[styles.liked]: liked})}>
+                        <span>{purchaseCount}</span>
+                        { liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon/> }
+                        
+                    </span>
+                    <div className={styles.price}>
+                        <img src="src/assets/images/con-token.svg" alt="token"/>
                         <span className={styles.price}>{price}</span>
-                        <span className={styles.leftDays}>
-                            <AccessTimeIcon/> <span>{leftDays} days left</span>
-                        </span>
                     </div>
                 </div>
-                <div className={styles.box}>
-                    <Button className={styles.purchase_count}>
-                        <FavoriteBorderIcon/> 
-                        <span>{purchaseCount}</span>
-                    </Button>
-                    <Button>Buy now</Button>
-                </div>
             </Box>
+            {
+                hasAction && 
+                <Box className={styles.footer}>
+                    <Button 
+                        fullWidth 
+                        variant={buttonVariant}
+                        onClick = {onAction}
+                    >Buy now</Button>
+                </Box>
+            }
         </Box>
     )
 }
