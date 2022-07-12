@@ -2,13 +2,13 @@
 
 .header {
   height: 56px;
-  background-color: #fff;
+  background-color: #000;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  box-shadow: inset 0px -1px 0px #e5e9eb;
+  box-shadow: inset 0px -1px 0px #2d2d2d;
 
   &.sticky {
     position: sticky;
@@ -51,6 +51,14 @@
       width: 1px;
       background-color: colors.$borders;
       margin: 0 24px;
+    }
+  }
+
+  .rightSide {
+    display: flex;
+    align-items: center;
+    .links {
+      margin: 0 10px;
     }
   }
 }
