@@ -9,11 +9,11 @@ import { truncateAddress } from '../../utils'
 import PersonIcon from '@mui/icons-material/Person';
 import styles from "../AuthLayout/style.module.scss"
 
-const BUTTON_LABEL = 'Connect Wallet'
+const BUTTON_LABEL = "Connect Wallet";
 
-const MergedLayout = ({children}) => {
-    const navigate = useNavigate()
-    const { account } = useSelector(store => store.wallet)
+const MergedLayout = ({ children }) => {
+  const navigate = useNavigate();
+  const { account } = useSelector((store) => store.wallet);
 
     const label = account ? truncateAddress(account) : BUTTON_LABEL
     
@@ -47,6 +47,7 @@ const MergedLayout = ({children}) => {
         {children}
         <Footer/>
     </>
-}
+  );
+};
 
-export default MergedLayout
+export default MergedLayout;
