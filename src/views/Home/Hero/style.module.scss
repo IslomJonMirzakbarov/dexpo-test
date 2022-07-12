@@ -1,2 +1,10 @@
-.container {
+.wrapper {
+  width: 100%;
+  height: calc(100vh - 50px);
+  background: url('src/assets/images/hero-bg1.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  .container {
+  }
 }
