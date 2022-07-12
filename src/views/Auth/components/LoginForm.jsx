@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Button, Typography } from "@mui/material"
 import classes from "../style.module.scss"
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -13,12 +13,12 @@ const wallets = [
     img:'https://cdn.iconscout.com/icon/free/png-256/metamask-2728406-2261817.png',
     isPopular:true
   },
-  {
-    name:'Kaikas',
-    key:'kaikas',
-    img:"https://www.yadawallets.com/wp-content/uploads/2021/10/Kaikas-wallet-logo.png",
-    isPopular:false
-  }
+  // {
+  //   name:'Kaikas',
+  //   key:'kaikas',
+  //   img:"https://www.yadawallets.com/wp-content/uploads/2021/10/Kaikas-wallet-logo.png",
+  //   isPopular:false
+  // }
 ]
 
 
@@ -91,18 +91,22 @@ const LoginForm = () => {
     <div className={classes.form}>
       <div className={classes.formArea}>
         <div className={classes.wallets}>
-          <p>
-            <b>Connect your wallet</b> one of available provider by importing or creating new one.
-          </p>
+          <Typography variant="h2">Connect your wallet</Typography>
+          <Typography variant="p">
+            Connect your wallet one of available provider by importing or creating new one.
+          </Typography>
           <ul>
             {
               wallets.map(wallet => 
                 <li key={wallet.key} onClick={() => handleClick(wallet.key)}>
-                  <div className={classes.info}>
-                    <img src={wallet.img} alt={wallet.name} width={50}/>
-                    <span>{wallet.name}</span>
-                  </div>  
-                  {wallet.isPopular && <Button>Popular</Button>}
+                  <div className={classes.content}>
+                    <div className={classes.info}>
+                      <img src={wallet.img} alt={wallet.name} width={30}/>
+                      <Typography variant="placeholder">{wallet.name}</Typography>
+                    </div>  
+                    {wallet.isPopular && <p>Popular</p>}
+                  </div>
+                  <div className={classes.overlay}></div>
                 </li>
               )
             }
