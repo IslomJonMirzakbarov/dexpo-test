@@ -5,7 +5,14 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import styles from "./style.module.scss";
 
-const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
+const ModalCard = ({
+  page,
+  nftImg,
+  title,
+  children,
+  onClose,
+  onSaveButtonClick,
+}) => {
   return (
     <div>
       <Modal open className={styles.modal} onClose={onClose}>
@@ -32,29 +39,31 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
             {children}
           </div>
 
-          <dir
-            className={
-              page === "sell-request" ? styles.srfooter : styles.footer
-            }
-          >
-            {page === "artist-form" ||
-            page === "create-collection" ||
-            page === "sell-request" ? null : (
-              <SecondaryButton className={styles.button} onClick={onClose}>
-                Cancel
-              </SecondaryButton>
-            )}
-            <PrimaryButton
-              className={styles.button}
-              onClick={onSaveButtonClick}
+          {page !== "nft-img-popup" && (
+            <dir
+              className={classNames(styles.footer, {
+                [styles.srfooter]: page === "sell-request",
+              })}
             >
               {page === "artist-form" ||
               page === "create-collection" ||
-              page === "sell-request"
-                ? "Confirm"
-                : "Save"}
-            </PrimaryButton>
-          </dir>
+              page === "sell-request" ? null : (
+                <SecondaryButton className={styles.button} onClick={onClose}>
+                  Cancel
+                </SecondaryButton>
+              )}
+              <PrimaryButton
+                className={styles.button}
+                onClick={onSaveButtonClick}
+              >
+                {page === "artist-form" ||
+                page === "create-collection" ||
+                page === "sell-request"
+                  ? "Confirm"
+                  : "Save"}
+              </PrimaryButton>
+            </dir>
+          )}
         </Card>
       </Modal>
     </div>

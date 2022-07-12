@@ -21,6 +21,7 @@ const SellRequest = () => {
   const { newNftItem, likeCount } = useSelector((store) => store.nft);
   const [priceType, setPriceType] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showNftItem, setShowNftItem] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
   const { src, collection, artworkName, artworkDescription } = newNftItem;
@@ -38,7 +39,7 @@ const SellRequest = () => {
   return (
     <div className={styles.Container}>
       <div className={styles.ImgContainer}>
-        <img src={src} alt="" />
+        <img src={src} alt="" onClick={() => setShowNftItem(true)} />
         <div className={styles.LikeBtn}>
           <div className={styles.Heart} onClick={() => dispatch(addLike())}>
             {/* when we get the icons will be replaced below */}
@@ -120,7 +121,7 @@ const SellRequest = () => {
         </div>
         <div className={styles.Btn}>
           <Button variant="contained" onClick={sellClick}>
-            {!confirmed ? 'Sell Request' : 'Sell Artwork'}
+            {!confirmed ? "Sell Request" : "Sell Artwork"}
           </Button>
         </div>
       </div>
@@ -149,6 +150,19 @@ const SellRequest = () => {
               Myapplicationtab.
             </span>
           </p>
+        </ModalCard>
+      )}
+      {showNftItem && (
+        <ModalCard
+          page="nft-img-popup"
+          onClose={() => {
+            setShowNftItem(false);
+          }}
+        >
+          <div className={styles.NftImgContainer}>
+            {/* <img src={uploadedImg.preview} alt={uploadedImg.name} /> */}
+            <img src={src} alt="nft-img-popup" />
+          </div>
         </ModalCard>
       )}
     </div>
