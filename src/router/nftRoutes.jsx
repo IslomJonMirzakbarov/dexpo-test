@@ -1,6 +1,6 @@
 import React from "react";
 import Create from "../views/Nft/Create";
-import SellRequest from "../views/Nft/SellRequest";
+import SellRequest from "../views/Nft/SellRequestAndArtwork";
 
 export const nftRoutes = {
   path: "nft",
@@ -10,7 +10,7 @@ export const nftRoutes = {
       element: <Create />,
     },
     {
-      path: "sell-request",
+      path: "sell-request-artwork",
       element: <SellRequest />,
     },
   ],

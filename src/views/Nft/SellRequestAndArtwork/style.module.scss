@@ -91,3 +91,25 @@
     }
   }
 }
+
+.IconContainer {
+  width: 15rem;
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background-color: rgb(86, 86, 194);
+  color: white;
+
+  img {
+    width: 70%;
+    height: 70%;
+  }
+}
+
+.Span {
+  font-weight: bold;
+}

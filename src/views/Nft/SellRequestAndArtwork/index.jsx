@@ -12,16 +12,29 @@ import { addLike } from "../../../store/nft/nft.slice";
 
 import styles from "./style.module.scss";
 import { useState } from "react";
+import ModalCard from "../../../components/ModalCard";
+import { useNavigate } from "react-router-dom";
 
 const SellRequest = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { newNftItem, likeCount } = useSelector((store) => store.nft);
   const [priceType, setPriceType] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+
+  const { src, collection, artworkName, artworkDescription } = newNftItem;
 
   const handleChange = (event) => {
     setPriceType(event.target.value);
   };
-  const { src, collection, artworkName, artworkDescription } = newNftItem;
+
+  const sellClick = () => {
+    // onSubmit() when what type of data is known for sending to backend
+    // ... logic when connected to the api
+    setShowModal(true);
+  };
+
   return (
     <div className={styles.Container}>
       <div className={styles.ImgContainer}>
@@ -106,9 +119,38 @@ const SellRequest = () => {
           </div>
         </div>
         <div className={styles.Btn}>
-          <Button variant="contained">Sell Request</Button>
+          <Button variant="contained" onClick={sellClick}>
+            {!confirmed ? 'Sell Request' : 'Sell Artwork'}
+          </Button>
         </div>
       </div>
+
+      {showModal && (
+        <ModalCard
+          page="sell-request"
+          onClose={() => {
+            setShowModal(false);
+          }}
+          onSaveButtonClick={() => {
+            setShowModal(false);
+            // navigate("/nft/sell-request");
+            setConfirmed(true);
+          }}
+        >
+          <div className={styles.IconContainer}>
+            {/* <img src={uploadedImg.preview} alt={uploadedImg.name} /> */}
+            icon
+          </div>
+          <p>
+            Your request is submitted successfully and sent to <br /> admin to
+            review. You can also check your status on <br />{" "}
+            <span className={styles.Span}>
+              My Page -{">"}
+              Myapplicationtab.
+            </span>
+          </p>
+        </ModalCard>
+      )}
     </div>
   );
 };
