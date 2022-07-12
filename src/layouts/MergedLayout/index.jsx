@@ -46,7 +46,7 @@ const MergedLayout = ({ children }) => {
         </Header>
         {children}
         <Footer/>
-    </>}
+    </>
 };
 
 export default MergedLayout;
