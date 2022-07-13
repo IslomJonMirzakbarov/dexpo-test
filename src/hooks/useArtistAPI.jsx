@@ -13,8 +13,6 @@ const getArtist = (token) =>
 
 const useArtistAPI = ({ isDetail, onSuccess }) => {
   const { token } = useSelector((store) => store.auth);
-  console.log(token);
-
   const { data, isLoading, error } = useQuery(
     "get-artist",
     () => getArtist(token),

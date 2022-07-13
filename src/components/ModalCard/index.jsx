@@ -1,14 +1,26 @@
 import { Close } from "@mui/icons-material";
 import { Card, IconButton, Modal } from "@mui/material";
+import classNames from "classnames";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import styles from "./style.module.scss";
 
-const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
+const ModalCard = ({
+  page,
+  nftImg,
+  title,
+  children,
+  onClose,
+  onSaveButtonClick,
+}) => {
   return (
     <div>
       <Modal open className={styles.modal} onClose={onClose}>
-        <Card className={styles.card}>
+        <Card
+          className={classNames(styles.card, {
+            [styles.SellRequestCard]: page === "sell-request",
+          })}
+        >
           <div className={styles.header}>
             <div></div>
             {!(page === "artist-form" || page === "create-collection") && (
@@ -21,23 +33,37 @@ const ModalCard = ({ page, title, children, onClose, onSaveButtonClick }) => {
             )}
           </div>
 
-          <div className={styles.body}>{children}</div>
+          <div
+            className={page === "sell-request" ? styles.srbody : styles.body}
+          >
+            {children}
+          </div>
 
-          <dir className={styles.footer}>
-            {page === "artist-form" || page === "create-collection" ? null : (
-              <SecondaryButton className={styles.button} onClick={onClose}>
-                Cancel
-              </SecondaryButton>
-            )}
-            <PrimaryButton
-              className={styles.button}
-              onClick={onSaveButtonClick}
+          {page !== "nft-img-popup" && (
+            <dir
+              className={classNames(styles.footer, {
+                [styles.srfooter]: page === "sell-request",
+              })}
             >
-              {page === "artist-form" || page === "create-collection"
-                ? "Confirm"
-                : "Save"}
-            </PrimaryButton>
-          </dir>
+              {page === "artist-form" ||
+              page === "create-collection" ||
+              page === "sell-request" ? null : (
+                <SecondaryButton className={styles.button} onClick={onClose}>
+                  Cancel
+                </SecondaryButton>
+              )}
+              <PrimaryButton
+                className={styles.button}
+                onClick={onSaveButtonClick}
+              >
+                {page === "artist-form" ||
+                page === "create-collection" ||
+                page === "sell-request"
+                  ? "Confirm"
+                  : "Save"}
+              </PrimaryButton>
+            </dir>
+          )}
         </Card>
       </Modal>
     </div>
