@@ -4,22 +4,50 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 90px;
+  margin-bottom: 200px;
 
   .FormContainer {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 61px;
+    width: 650px;
 
     .Title {
+      height: 60px;
+      font-family: "Poppins";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 60px;
+      /* identical to box height */
       text-align: center;
-      font-weight: bold;
-      font-size: 15px;
+      /* text */
+      color: #1f1f1f;
     }
 
     div {
       display: flex;
       flex-direction: column;
+
+      .Label {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 22px;
+        margin-left: 10px;
+        /* identical to box height */
+
+        /* text */
+
+        color: #1f1f1f;
+        margin-bottom: 5px;
+        display: inline;
+
+        .LabelSpan {
+          color: red;
+        }
+      }
     }
 
     .DescriptionContainer {
@@ -27,17 +55,36 @@
       flex-direction: column;
     }
 
-    button {
-      border-radius: 10px;
-      background-color: #007aff;
-      width: 50%;
+    .Btn {
       margin: auto;
-      color: white;
+      width: 180px;
+      height: 55px;
+      /* line */
+      background: #dedede;
+      border-radius: 7px;
       border: none;
-      padding: 3px;
+
+      &:hover {
+        background: linear-gradient(91.78deg, #e2007f 4.92%, #1e4ced 95.68%);
+        /* bt_Shadow2 */
+        box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
+      }
+    }
+
+    .ErrorPhrase {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      /* identical to box height */
+
+      text-align: center;
+
+      color: #db0027;
+      margin-top: 13px;
     }
   }
-
 }
 
 .IconContainer {

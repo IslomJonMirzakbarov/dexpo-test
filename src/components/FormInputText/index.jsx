@@ -3,23 +3,38 @@ import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 import styles from "./style.module.scss";
+import classNames from "classnames";
 
-const FormInputText = ({ name, control, label }) => {
+const FormInputText = ({ name, control, label, artistInput }) => {
   return (
-    <div className={styles.Test}>
+    <div
+      className={classNames(styles.Test, { [styles.ArtistInput]: artistInput })}
+    >
       <Controller
         name={name}
         control={control}
         rules={{ required: true }}
-        render={({ field }) => (
-          <TextField
-            InputProps={{ className: styles.InputText }}
-            id="outlined-basic"
-            variant="outlined"
-            placeholder={label}
-            {...field}
-          />
-        )}
+        render={({ field }) =>
+          name === "description" ? (
+            <textarea
+              placeholder="Describe your fields of artwork"
+              className={classNames(
+                styles.ArtistInputText,
+                styles.DescriptionInput
+              )}
+              {...field}
+            />
+          ) : (
+            <input
+              disabled={name === "walletAddress"}
+              className={classNames(styles.InputText, {
+                [styles.ArtistInputText]: artistInput,
+              })}
+              placeholder={label}
+              {...field}
+            />
+          )
+        }
       />
     </div>
   );

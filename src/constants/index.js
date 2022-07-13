@@ -1,7 +1,7 @@
 export const pages = [
   {
     name: 'Create NFT',
-    to: '/nft'
+    to: '/nft/create'
   },
   {
     name: 'Marketplace',
