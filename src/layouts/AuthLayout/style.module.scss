@@ -1,4 +1,4 @@
-@use '/src/scss/colors';
+@use 'src/scss/colors';
 
 .layout {
 }
@@ -8,8 +8,17 @@
 }
 .navItem {
   white-space: nowrap;
+  &.active {
+    a {
+      color: colors.$primary;
+    }
+  }
   a {
     color: white;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s all;
+    &:hover {
+      color: colors.$primary;
+    }
   }
 }
 
@@ -18,4 +27,9 @@
   font-size: 30px;
   margin-left: 20px;
   cursor: pointer;
+  transition: 0.4s ease-in-out all;
+  &.active,
+  &:hover {
+    color: colors.$primary;
+  }
 }
