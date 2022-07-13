@@ -1,6 +1,7 @@
-import { Box, Container, Paper, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import DSelect from '../../../components/DSelect';
+import CollectionCard from './CollectionCard';
 import styles from './style.module.scss'
 
 const mockList = [
@@ -21,10 +22,7 @@ const mockList = [
 const TopCollections = () => {
     const [filter,setFilter] = useState(mockList[0])
 
-    const handleSelect = (item) => {
-        console.log(item);
-        setFilter(item)
-    }
+    const handleSelect = (item) => setFilter(item)
 
     return (
         <Paper variant="div" className={styles.container}>
@@ -32,7 +30,7 @@ const TopCollections = () => {
                 <Box display="flex" justifyContent="center">
                     <Typography variant="h2">Top Collections</Typography>
                 </Box>
-                <Box display="flex" justifyContent="end">
+                <Box display="flex" justifyContent="end" mt={2}>
                     <DSelect 
                         label="last 24 hours" 
                         isDark={true}
@@ -41,7 +39,38 @@ const TopCollections = () => {
                         onSelect={(item) => handleSelect(item)}
                     />
                 </Box>
-                <Box display="flex" justifyContent="center"></Box>
+                <Grid container spacing={2} mt={2}>
+                    <Grid item lg={4}>
+                        {
+                            Array(4).fill(1).map((_,i) =>
+                                <Box key={i} mt={2} pr={2}>
+                                    <CollectionCard index={i+1}/>
+                                </Box>
+                            )
+                        }
+                    </Grid>
+                    <Grid item lg={4}>
+                        {
+                            Array(4).fill(1).map((_,i) =>
+                                <Box key={i} mt={2}>
+                                    <CollectionCard index={i+5}/>
+                                </Box>
+                            )
+                        }
+                    </Grid>
+                    <Grid item lg={4}>
+                        {
+                            Array(4).fill(1).map((_,i) =>
+                                <Box key={i} mt={2} pl={2}>
+                                    <CollectionCard index={i+9}/>
+                                </Box>
+                            )
+                        }
+                    </Grid>
+                </Grid>
+                <Box display="flex" justifyContent="center" mt={10}>
+                    <Button variant="containedPrimary">Go To Rankings</Button>
+                </Box>
             </Container>
         </Paper>
     )
