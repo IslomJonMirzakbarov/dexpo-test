@@ -69,7 +69,7 @@ const TopCollections = () => {
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={10}>
-                    <Button variant="containedPrimary">Go To Rankings</Button>
+                    <Button variant="containedPrimary" href='/rankings'>Go To Rankings</Button>
                 </Box>
             </Container>
         </Paper>

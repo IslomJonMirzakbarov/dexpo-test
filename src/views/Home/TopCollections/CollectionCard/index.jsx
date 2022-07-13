@@ -7,10 +7,11 @@ const CollectionCard = ({
     index = 1,
     src = 'src/assets/images/collection-item.png',
     name = 'RR/BAYC',
-    price =  2792.57
+    price =  2792.57,
+    onClick
 }) => {
     return (
-        <Paper className={styles.card} onClick={() => {}}>
+        <Paper className={styles.card} onClick={onClick}>
             <Box className={styles.index}>
                 <Typography>{index}</Typography>
             </Box>
