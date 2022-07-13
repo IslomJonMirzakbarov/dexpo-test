@@ -5,14 +5,16 @@ import styles from "./style.module.scss";
 import FormInputText from "../../components/FormInputText";
 import ModalCard from "../../components/ModalCard";
 import { Box, Container } from "@mui/system";
-import { Button } from "@mui/material";
 import useArtistAPI from "../../hooks/useArtistAPI";
 import { useDispatch } from "react-redux";
 import { assignArtist } from "../../store/artist/artist.slice";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
+import { useSelector } from "react-redux";
 
 const ArtistForm = () => {
   const dispatch = useDispatch();
+  const { account } = useSelector((store) => store.wallet);
+  // account = walletAddress (just for reference)
   const [showModal, setShowModal] = useState(false);
   const { create, artist } = useArtistAPI({ isDetail: true });
 
@@ -25,7 +27,7 @@ const ArtistForm = () => {
     defaultValues: {
       artistName: "",
       email: "",
-      walletAddress: "0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E",
+      walletAddress: account,
       youtubeURL: "",
       description: "",
     },
@@ -118,7 +120,9 @@ const ArtistForm = () => {
           <Box>
             <PrimaryButton className={styles.Btn}>Submit</PrimaryButton>
             {Object.keys(errors).length > 0 && (
-              <Box className={styles.ErrorPhrase}>Please enter all required values.</Box>
+              <Box className={styles.ErrorPhrase}>
+                Please enter all required values.
+              </Box>
             )}
           </Box>
         </form>

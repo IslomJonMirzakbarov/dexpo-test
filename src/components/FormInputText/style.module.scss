@@ -28,6 +28,11 @@
     line-height: 22px;
     /* identical to box height */
     color: #1f1f1f;
+
+    &:focus {
+      outline: none;
+      border: 1.5px solid #7d8890;
+    }
   }
   .DescriptionInput {
     height: 185px;

@@ -13,7 +13,7 @@ const FormInputText = ({ name, control, label, artistInput }) => {
       <Controller
         name={name}
         control={control}
-        rules={{ required: true }}
+        rules={{ required: name !== "youtubeURL" }}
         render={({ field }) =>
           name === "description" ? (
             <textarea
