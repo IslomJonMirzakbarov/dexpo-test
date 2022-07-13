@@ -8,13 +8,18 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import FormInputText from "../../components/FormInputText";
-import ModalCard from "../../components/ModalCard";
-import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
+import FormInputText from "../../../components/FormInputText";
+import ModalCard from "../../../components/ModalCard";
+import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { assignLike, assignNftItem } from "../../../store/nft/nft.slice";
 
 const NftCreate = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [currentCollection, setCurrentCollection] = useState("select");
   const [checked, setChecked] = useState(false);
@@ -22,7 +27,7 @@ const NftCreate = () => {
   const [errBool, setErrBool] = useState(false);
 
   const imgBool =
-    uploadedImg.type === "image/png" || uploadedImg.type === "image/jpg";
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg";
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {
@@ -47,12 +52,12 @@ const NftCreate = () => {
 
   const onSubmit = handleSubmit((data) => {
     if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-      data['src'] = uploadedImg.src;
-      // console.log(uploadedImg);
-      console.log(data);
+      data["src"] = uploadedImg.src;
+
+      dispatch(assignLike());
+      dispatch(assignNftItem(data));
       // ... logic when connected to the api
       reset();
-      setUploadedImg({});
       setChecked(false);
       setShowModal(true);
     }
@@ -202,16 +207,21 @@ const NftCreate = () => {
 
       {showModal && (
         <ModalCard
-          page="create-nft"
-          onClose={() => setShowModal(false)}
-          onSaveButtonClick={() => setShowModal(false)}
+          page="sell-request"
+          onClose={() => {
+            setShowModal(false);
+            setUploadedImg({});
+          }}
+          onSaveButtonClick={() => {
+            setShowModal(false);
+            setUploadedImg({});
+            navigate("/nft/sell-request");
+          }}
         >
-          <div className={styles.IconContainer}>icon</div>
-          <p>
-            Your collection is submitted successfully and sent to admin to
-            review. You can also check your status on My Page -{">"}
-            Myapplicationtab.
-          </p>
+          <div className={styles.IconContainer}>
+            <img src={uploadedImg.preview} alt={uploadedImg.name} />
+          </div>
+          <p>Congrats you created GEMMA #3583!</p>
         </ModalCard>
       )}
     </div>

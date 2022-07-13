@@ -7,12 +7,14 @@ import ModalCard from "../../components/ModalCard";
 import { Box, Container } from "@mui/system";
 import { Button } from "@mui/material";
 import useArtistAPI from "../../hooks/useArtistAPI";
+import { useDispatch } from "react-redux";
+import { assignArtist } from "../../store/artist/artist.slice";
+import { useSelector } from "react-redux";
 
 const ArtistForm = () => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const { create, artist } = useArtistAPI({isDetail: true});
-
-  console.log(artist);
+  const { create, artist } = useArtistAPI({ isDetail: true });
 
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
@@ -23,6 +25,7 @@ const ArtistForm = () => {
       description: "",
     },
   });
+
   const onSubmit = (data) => {
     const payload = {
       artist_name: data.artistName,
@@ -33,9 +36,13 @@ const ArtistForm = () => {
 
     create.mutate(payload);
 
+    const { artist_name, artist_wallet_address } = artist.data;
+    dispatch(assignArtist({ artist_name, artist_wallet_address }));
+
     reset();
     setShowModal(true);
   };
+  
   return (
     <Container>
       <Box display="flex" justifyContent="center">
