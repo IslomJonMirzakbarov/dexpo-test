@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 500
   },
   title:{
-    fontFamily:'Inter',
+    fontFamily:'Poppins',
     textAlign: 'center'
   }
 }))
