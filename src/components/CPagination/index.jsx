@@ -1,11 +1,23 @@
-import { Pagination } from "@mui/material"
+import { Box, Pagination } from "@mui/material"
 
 
 const CPagination = ({ setCurrentPage = () => {}, ...props }) => {
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '15px' }} >
-      <Pagination color="primary" onChange={(e, val) => setCurrentPage(val)} { ...props } />
-    </div>
+    <Box 
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      mt={10}
+    >
+      <Pagination 
+        color="primary"
+        shape="rounded"
+        onChange={(e, val) => setCurrentPage(val)}
+        hidePrevButton
+        hideNextButton
+        { ...props }
+      />
+    </Box>
   )
 }
 

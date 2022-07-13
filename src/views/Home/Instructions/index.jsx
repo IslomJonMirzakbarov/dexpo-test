@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 
@@ -7,7 +7,7 @@ const data = [
     title: 'What is DEXPO NFT Marketplace ?',
     description: `DEXPO NFT Marketplace brings together artists, creators, and crypto enthusiasts on a single platform to create and trade top NFTs.
     Marketplace: Mint, purchase, and bid on NFTs from creators around the world`,
-    icon: '❓'
+    icon: 'src/assets/images/detail1.png'
   },
   {
     title: 'How do I create an NFT ?',
@@ -20,7 +20,7 @@ const data = [
     create a revised/new NFT, you
     will have to start the process
     again.`,
-    icon: '🛠'
+    icon: 'src/assets/images/detail2.png'
   },
   {
     title: 'How do I sell an NFT ?',
@@ -35,7 +35,7 @@ const data = [
     Marketplace as either an
     auction or fixed price sale,
     according to your preference.`,
-    icon: '💰'
+    icon: 'src/assets/images/detail3.png'
   },
   {
     title: 'How do I buy an NFT ?',
@@ -50,11 +50,19 @@ const data = [
     a higher bid than you, your funds will be
     unlocked. To join the auction again, you’ll
     have to place a new bid.`,
-    icon: '💡'
+    icon: 'src/assets/images/detail4.png'
   },
 ]
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+  container:{
+    backgroundImage: 'url(src/assets/images/detail-bg.png)',
+    backgroundPosition: "center center",
+    backgroundSize: 'cover',
+    borderRadius: 0,
+    padding: '115px 0',
+    color: theme.palette.common.white
+  },
   description:{
     maxWidth: 500
   },
@@ -62,44 +70,41 @@ const useStyles = makeStyles({
     fontFamily:'Inter',
     textAlign: 'center'
   }
-})
+}))
 
 const Instructions = () => {
   const classes = useStyles()
   return (
-    <Container>
-      <Grid container my={10}>
-        <Grid item lg={12} display="flex" justifyContent="center"> 
-          <Typography variant="h2">
-            Create and sell your NFTs
-          </Typography>
+    <Paper className={classes.container}>
+      <Container>
+        <Grid container spacing={3}>
+          {
+            data.map((item,i) =>
+              <Grid 
+                item 
+                lg={6} 
+                key={i} 
+                px={3} 
+                mt={5}
+              >
+                <Box display="flex" flexDirection="column" alignItems="center">
+                  <img src={item.icon} alt={'icon'} width={108} height={108}/>
+                  <Typography mt={3} variant="h4" className={classes.title} fontWeight={700}>{item.title}</Typography>
+                  <Typography 
+                    variant="p" 
+                    textAlign="center" 
+                    className={classes.description}
+                    mt={1}
+                  >
+                    {item.description}
+                  </Typography>
+                </Box>
+              </Grid>
+            )
+          }
         </Grid>
-        {
-          data.map((item,i) =>
-            <Grid 
-              item 
-              lg={3} 
-              key={i} 
-              px={3} 
-              mt={5}
-            >
-              <Box display="flex" flexDirection="column" alignItems="center">
-                <Typography variant="h3">{item.icon}</Typography>
-                <Typography variant="h4" className={classes.title}>{item.title}</Typography>
-                <Typography 
-                  variant="p" 
-                  textAlign="center" 
-                  className={classes.description}
-                  mt={2}
-                >
-                  {item.description}
-                </Typography>
-              </Box>
-            </Grid>
-          )
-        }
-      </Grid>
-    </Container>
+      </Container>
+    </Paper>
   );
 };
 

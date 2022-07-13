@@ -5,15 +5,14 @@ import { marketplaceRoutes } from "./marketplaceRoute";
 import { artistRoutes } from "./artistRoute";
 import { collectionRoutes } from "./collectionRoutes";
 import { nftRoutes } from "./nftRoutes";
+import Ratings from "../views/Ratings";
+import { commonRoutes } from "./commonRoutes";
 
 export const privateRoutes = [
   {
     path: "/",
     children: [
-      {
-        path: "",
-        element: <Home />,
-      },
+      ...commonRoutes,
       { ...nftRoutes },
       { ...artistRoutes },
       { ...marketplaceRoutes },

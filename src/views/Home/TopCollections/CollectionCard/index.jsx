@@ -13,7 +13,7 @@ const CollectionCard = ({
     return (
         <Paper className={styles.card} onClick={onClick}>
             <Box className={styles.index}>
-                <Typography>{index}</Typography>
+                <Typography> {index < 10 && '0'}{index}</Typography>
             </Box>
             <Box className={styles.thumb}>
                 <img src={src} alt={name} width={50} height={50}/>
