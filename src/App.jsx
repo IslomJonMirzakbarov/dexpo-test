@@ -14,6 +14,7 @@ import PageFallback from "./components/PageFallback"
 import MergedLayout from "./layouts/MergedLayout"
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
@@ -27,7 +28,9 @@ function App() {
                     <GlobalFunctionsProvider />
                     <BrowserRouter>
                       <MergedLayout>
-                        <Router />
+                        <ScrollToTop>
+                          <Router />
+                        </ScrollToTop>
                       </MergedLayout>
                     </BrowserRouter>
                   </AlertProvider>

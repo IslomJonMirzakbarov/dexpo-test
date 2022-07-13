@@ -61,7 +61,12 @@ const Ratings = () => {
                             </CTableHeadRow>
                         </CTableHead>
                         {
-                            <CTableBody loader={false} ref={ref} columnsCount={3} dataLength={3}>
+                            <CTableBody 
+                                ref={ref} 
+                                loader={false} 
+                                columnsCount={6} 
+                                dataLength={3}
+                            >
                                 {
                                     tableData.map((item,i) =>
                                         <TableItem key={i} index={i+1} {...item}/>

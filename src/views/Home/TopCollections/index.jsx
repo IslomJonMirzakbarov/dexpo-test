@@ -1,5 +1,6 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import DSelect from '../../../components/DSelect';
 import CollectionCard from './CollectionCard';
 import styles from './style.module.scss'
@@ -20,6 +21,7 @@ const mockList = [
 ]
 
 const TopCollections = () => {
+    const navigate = useNavigate()
     const [filter,setFilter] = useState(mockList[0])
 
     const handleSelect = (item) => setFilter(item)
@@ -69,7 +71,10 @@ const TopCollections = () => {
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={10}>
-                    <Button variant="containedPrimary" href='/rankings'>Go To Rankings</Button>
+                    <Button 
+                        variant="containedPrimary" 
+                        onClick={() => navigate('/rankings')}
+                    >Go To Rankings</Button>
                 </Box>
             </Container>
         </Paper>
