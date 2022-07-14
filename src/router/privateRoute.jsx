@@ -7,15 +7,14 @@ import { collectionRoutes } from "./collectionRoutes";
 import { nftRoutes } from "./nftRoutes";
 import { myPageRoutes } from "./myPageRoutes";
 import ArtistForm from "../views/ArtistForm";
+import Ratings from "../views/Ratings";
+import { commonRoutes } from "./commonRoutes";
 
 export const privateRoutes = [
   {
     path: "/",
     children: [
-      {
-        path: "",
-        element: <Home />,
-      },
+      ...commonRoutes,
       { ...nftRoutes },
       {
         path: "artist",

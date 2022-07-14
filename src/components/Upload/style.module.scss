@@ -37,7 +37,7 @@
 
     .button {
       .btn-title {
-        font-family: Inter;
+        font-family: 'Poppins', sans-serif;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -50,7 +50,7 @@
 }
 
 .BackImg {
-  background-image: url("https://images.unsplash.com/photo-1656504020198-7eb1a82027f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80");
+  background-image: url('https://images.unsplash.com/photo-1656504020198-7eb1a82027f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -60,7 +60,7 @@
   box-sizing: border-box;
   position: relative;
   width: 100px;
-  
+
   .dropzone {
     position: relative;
     cursor: pointer;
@@ -107,7 +107,7 @@
 
     .button {
       .btn-title {
-        font-family: Inter;
+        font-family: 'Poppins', sans-serif;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;

@@ -1,51 +1,36 @@
-
 .CTableContainer {
   width: 100%;
-  padding: 16px;
 
   .table {
     width: 100%;
-    overflow: auto;
     border-radius: 8px;
-    border: 1px solid #E5E9EB;
     position: relative;
-    
+
     table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-
-      td {
-        border-bottom: 1px solid #E5E9EB;
-        border-left: 1px solid #E5E9EB;
-      }
-      
-      // tr td:first-child {
-      //   border-left: none;
-      // }
-
-      tr:last-child td {
-        // border-bottom: none;
-      }
-    
     }
-
-
-
   }
 }
 
 .CTableHead {
-  position: sticky;
-  top: 0;
-  background-color: #f4f6fa91;
-  z-index: 2;
-
+  background: #f4f4f4;
+  tr {
+    outline: 1px solid #dedede;
+    border-radius: 7px 7px 0px 0px !important;
+    td {
+      &:first-child {
+        border-top-left-radius: 10px;
+      }
+      &:last-child {
+        border-top-right-radius: 10px;
+      }
+    }
+  }
   tr td {
-    border-bottom: 1px solid #E5E9EB !important;
     font-weight: bold;
   }
-
 }
 
 .CTableCell {
@@ -54,22 +39,14 @@
 
 .CTableRow {
   cursor: pointer;
-  transition-duration: .2s;
-  
-  &:nth-of-type(even)  {
-
-    &:hover td {
-      background-color: #F5FBFF;
-    }
-
-    td {
-      background-color: #f4f6fa91;
-    }
-    
+  transition-duration: 0.2s;
+  td {
+    border-bottom: 1px solid #dedede !important;
   }
 
   &:hover {
-    background-color: rgba(#F5FBFF, 1) !important;
+    background: #ffffff;
+    box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
   }
 }
 
