@@ -37,7 +37,7 @@ const NFTCard = ({
             <Box className={styles.body}>
                 <div className={styles.artist}>
                     <span className={styles.name}>{artistName}</span>
-                    <Typography variant="placeholder">
+                    <Typography variant="placeholder" fontWeight={500}>
                         {description}
                     </Typography>
                 </div>
