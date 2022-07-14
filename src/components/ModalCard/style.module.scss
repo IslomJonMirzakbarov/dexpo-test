@@ -3,17 +3,20 @@
   align-items: center;
   justify-content: center;
   overflow: auto;
+  background: #1b1b1b;
+  margin-top: -20%;
 
   .card {
-    min-width: 650px;
-    padding: 32px;
-    border: none;
+    width: 480px;
+    height: 430px;
+    background: #ffffff;
+    border-radius: 7px;
 
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
+      // display: flex;
+      // justify-content: space-between;
+      // align-items: center;
+      // margin-bottom: 16px;
 
       .cardTitle {
         font-weight: 600;
@@ -30,8 +33,6 @@
     }
 
     .body {
-      height: calc(100vh - 300px);
-      overflow: auto;
     }
 
     .srbody {
@@ -46,10 +47,18 @@
     .footer {
       display: flex;
       align-items: center;
-      gap: 24px;
+      position: absolute;
+      bottom: 0;
+      width: 480px;
+      height: 55px;
+      /* main Gradation */
+      background: linear-gradient(91.78deg, #e2007f 4.92%, #1e4ced 95.68%);
+      border-radius: 0px 0px 7px 7px;
 
       .button {
         flex: 1;
+        background: none;
+        border: none;
       }
     }
 

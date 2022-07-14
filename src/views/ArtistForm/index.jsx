@@ -11,12 +11,17 @@ import { assignArtist } from "../../store/artist/artist.slice";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
+import ArtistFormSuccess from "../../assets/icons/artist-form-success.svg?component";
+import ArtistFormReject from "../../assets/icons/artist-form-reject.svg?component";
+import { useNavigate } from "react-router-dom";
 
 const ArtistForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { account } = useSelector((store) => store.wallet);
   // account = walletAddress (just for reference)
   const [showModal, setShowModal] = useState(false);
+  const [rejectCasePopup, setRejectCasePopup] = useState(true);
   const { create, artist } = useArtistAPI({ isDetail: true });
 
   const {
@@ -47,10 +52,26 @@ const ArtistForm = () => {
     if (artist.data !== null) {
       const { artist_name, artist_wallet_address } = artist.data;
       dispatch(assignArtist({ artist_name, artist_wallet_address }));
+
+      if (
+        artist.code.toString()[0] === "4" ||
+        artist.code.toString()[0] === "5"
+      ) {
+        setRejectCasePopup(true);
+      }
     }
 
     reset();
     setShowModal(true);
+  };
+
+  const modalClick = () => {
+    setShowModal(false);
+    if (!rejectCasePopup) {
+      navigate("/my-page");
+    } else {
+      navigate('/');
+    }
   };
 
   return (
@@ -129,17 +150,31 @@ const ArtistForm = () => {
         </form>
       </Box>
       {showModal && (
-        <ModalCard
-          page="artist-form"
-          onClose={() => setShowModal(false)}
-          onSaveButtonClick={() => setShowModal(false)}
-        >
-          <Box className={styles.IconContainer}>icon</Box>
-          <p>
-            Artist information has been sent successfully. We'll review your
-            application form and inform you via email. <br />
-            You can also check your status on My Page -{">"} Myapplicationtab.
-          </p>
+        <ModalCard page="artist-form" onSaveButtonClick={modalClick}>
+          <Box className={styles.IconContainer}>
+            {rejectCasePopup ? <ArtistFormReject /> : <ArtistFormSuccess />}
+          </Box>
+          <Typography className={styles.ProcessTitle}>
+            {rejectCasePopup ? "Rejected!" : "Sent!"}
+          </Typography>
+          <Typography className={styles.ProcessDesc}>
+            {rejectCasePopup ? (
+              <>
+                Artist registration has been rejected.Please contact
+                [support@dexpo.world] <br />
+                for resubmission.{" "}
+              </>
+            ) : (
+              <>
+                Your request is submitted successfully <br /> and sent to admin
+                to review. <br />
+                You can also check your status on <br />{" "}
+                <span className={styles.MainDesc}>
+                  My Page {">"} My application tab.
+                </span>
+              </>
+            )}
+          </Typography>
         </ModalCard>
       )}
     </Container>

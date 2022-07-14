@@ -1,5 +1,5 @@
-@use '/src/scss/colors';
-@import '/src/styles/fonts';
+@use "/src/scss/colors";
+@import "/src/styles/fonts";
 
 .Container {
   width: 100%;
@@ -78,14 +78,42 @@
 }
 
 .IconContainer {
-  width: 15rem;
-  height: 15rem;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: green;
-  margin: auto;
-  margin-top: 2rem;
+  width: 100%;
+  margin-top: 62px;
   margin-bottom: 2rem;
+  margin-left: 9px;
+}
+
+.ProcessTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  /* identical to box height */
+  text-align: center;
+  /* text */
+  color: #1f1f1f;
+  height: 33px;
+  margin-top: 46px;
+}
+
+.ProcessDesc {
+  width: 290px;
+  height: 115px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  /* text */
+  color: #1f1f1f;
+  margin: auto;
+  margin-top: 10px;
+
+  .MainDesc {
+    color: #ff006b;
+  }
 }
