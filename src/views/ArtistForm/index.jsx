@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { assignArtist } from "../../store/artist/artist.slice";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
 
 const ArtistForm = () => {
   const dispatch = useDispatch();
@@ -62,9 +63,9 @@ const ArtistForm = () => {
           <Box className={styles.Title}>Artist application form</Box>
 
           <Box className={styles.NameContainer}>
-            <Box className={styles.Label}>
+            <Typography variant="label" className={styles.Label}>
               Artist Name<span className={styles.LabelSpan}>*</span>
-            </Box>
+            </Typography>
             <FormInputText
               artistInput
               name="artistName"

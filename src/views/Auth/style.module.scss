@@ -23,39 +23,6 @@
     margin-bottom: 48px;
   }
 
-  .typeSwitchRow {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin-bottom: 48px;
-
-    .typeSwitchButton {
-      padding: 15px 24px;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1.5px solid rgba(0, 0, 0, 0.08);
-      border-radius: 6px;
-      cursor: pointer;
-      transition-duration: 0.3s;
-
-      &.active {
-        border-color: colors.$primary;
-        color: colors.$primary;
-
-        &:hover {
-          border-color: colors.$primary;
-        }
-      }
-
-      &:hover {
-        border-color: #000;
-        // color: colors.$primary;
-      }
-    }
-  }
-
   .form {
     flex: 1;
     display: flex;
@@ -63,30 +30,68 @@
 
     .formArea {
       display: flex;
-      flex: 1;
       margin: 0 auto;
       min-height: 30vh;
-      align-items: center;
+      align-items: flex-start;
       .wallets {
         margin: auto 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
         p {
-          font-size: 18px;
-          max-width: 500px;
+          color: colors.$text;
         }
         ul {
           list-style: none;
-          margin: 20px 0;
+          margin: 50px 0;
           padding: 0;
           li {
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid #dddddd;
+            position: relative;
+            z-index: 2;
+            width: 750px;
             transition: all 0.4s ease-in-out;
-            cursor: pointer;
+
+            p {
+              color: colors.$text;
+              transition: all 0.4s ease-in-out;
+            }
+
+            .content {
+              padding: 10px 15px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              background-color: #fff;
+              border-radius: 7px;
+              cursor: pointer;
+            }
+
+            .overlay {
+              position: absolute;
+              z-index: -2;
+              top: -1px;
+              left: -1px;
+              width: calc(100% + 2px);
+              height: calc(100% + 2px);
+              background: #dedede;
+              border-radius: 7px;
+              transition: all 0.4s ease-in-out;
+            }
 
             &:hover {
-              background-color: #e8e8e8;
+              box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+
+              .overlay {
+                background: linear-gradient(
+                  91.78deg,
+                  #e2007f 4.92%,
+                  #1e4ced 95.68%
+                );
+              }
+
+              p {
+                color: colors.$primary;
+              }
               .info {
                 img {
                   transform: scale(1.1);
@@ -97,11 +102,11 @@
               border-top-left-radius: 4px;
               border-top-right-radius: 4px;
             }
-            &:last-child {
-              border-top-color: transparent;
-              border-bottom-left-radius: 4px;
-              border-bottom-right-radius: 4px;
-            }
+            // &:last-child {
+            //   border-top-color: transparent;
+            //   border-bottom-left-radius: 4px;
+            //   border-bottom-right-radius: 4px;
+            // }
             .info {
               display: flex;
               align-items: center;
@@ -110,8 +115,7 @@
               }
               span {
                 font-weight: 900;
-                font-size: 18px;
-                margin-left: 20px;
+                margin-left: 25px;
               }
             }
           }
@@ -130,26 +134,6 @@
       display: flex;
       flex-direction: column;
       gap: 18px;
-    }
-  }
-}
-
-.publickOfferRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  box-shadow: inset 0px -1px 0px #e5e9eb;
-
-  .nameBlock {
-    flex: 1;
-
-    .fileName {
-      line-height: 24px;
-    }
-
-    .fileSize {
-      color: #84919a;
     }
   }
 }

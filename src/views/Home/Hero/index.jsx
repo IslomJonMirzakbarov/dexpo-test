@@ -1,20 +1,25 @@
-import { Container } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import React from 'react'
 import styles from './style.module.scss'
 import CarouselItem from './CarouselItem';
 import Slider from 'react-slick'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import classNames from 'classnames';
 
 var items = [
-    {
-        name: "Create, sell and collect extraordinary NFTs",
+    {   
+        pretitle: "Create,sell and collect",
+        name: "Extraordinary NFTs",
         description: "Great chance for artists to create their own items. Lowest fee for selling and buying NFTs",
-        img:"https://cdn.mos.cms.futurecdn.net/8AsM5fpkAi5tDaPZpXheWQ.jpg"
+        img:"src/assets/images/hero.png"
     },
-    {
-        name: "Random Name #2",
-        description: "Hello World!",
-        img:"https://cdn.forbes.ru/forbes-static/1082x609/new/2022/02/Untitled-1-620f86cfbaf3f.webp"
-    }
+    {   
+        pretitle: "Create,sell and collect",
+        name: "Extraordinary NFTs",
+        description: "Great chance for artists to create their own items. Lowest fee for selling and buying NFTs",
+        img:"src/assets/images/hero.png"
+    },
 ]
 
 const settings = {
@@ -22,18 +27,22 @@ const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    prevArrow: <ArrowBackIosNewRoundedIcon />,
+    nextArrow: <ArrowForwardIosRoundedIcon />,
   };
 
 const Hero = () => {
     return (
-        <Container className={styles.container}>
-            <Slider {...settings}>
-                {
-                    items.map( (item, i) => <CarouselItem key={i} item={item} /> )
-                }
-            </Slider>
-        </Container>
+        <Box className={classNames(styles.wrapper,'hero')}>
+            <Container className={styles.container} maxWidth>
+                <Slider {...settings}>
+                    {
+                        items.map( (item, i) => <CarouselItem key={i} item={item} /> )
+                    }
+                </Slider>
+            </Container>
+        </Box>
     )
 }
 

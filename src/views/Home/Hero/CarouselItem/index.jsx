@@ -1,38 +1,77 @@
-import React from 'react'
-import { Box , Button, ButtonGroup }from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Box , Button, ButtonGroup, Typography }from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import classNames from 'classnames'
+import AbstractItem from '../AbstractItem'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root:{
-        height:'55vh'
+        height:'calc(100vh - 100px)'
     },
     box: {
         width: '50%',
         height: '100%',
+        color: theme.palette.common.white,
+        display: 'flex',
+        justifyContent: 'center',
         '& img':{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
+            objectFit: 'cover',
         }
     },
+    firstBox: {
+        padding: '0 70px'
+    },
+    pretitle:{
+        fontWeight: theme.typography.fontWeighBold,
+        textTransform: 'uppercase',
+        color: theme.palette.grey[500_8],
+        transition: '0.4s ease-in-out all',
+        marginLeft: 5
+    },
     title:{
-        margin: '20px 70px',
-        fontSize: 42,
+        fontSize: 75,
+        lineHeight: '90px',
         width: '70%',
+        color: theme.palette.grey[500_8],
+        transition: '0.4s ease-in-out all'
     },
     description:{
-        fontSize: 20,
         width: '70%',
-        margin: '20px 70px'
+        color: theme.palette.grey[500_8],
+        transition: '0.4s ease-in-out all'
     },
     buttonGroup:{
-        margin: '20px 70px',
-        width: '100%',
+        marginTop: 80
+    },
+    buttonRight:{
+        margin: '0 10px'
+    },
+    active: {
+        color: theme.palette.common.white
+    },
+    active_grey: {
+        color: theme.palette.grey[1200]
     }
-})
+}))
 
 const CarouselItem = ({item}) => {
     const classes = useStyles()
+    const [active,setActive] = useState(['h4'])
+
+    useEffect(() => {
+        if(active.length === 3) return
+        
+        const interval = setInterval(()=>{
+            if(active.includes('h4')) setActive(['h2'])
+            if(active.includes('h2')) setActive(['p'])
+            if(active.includes('p')) setActive(['h2','h4','p'])
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
+    },[active])
+
     return (
         <Box 
             className={classes.root}
@@ -41,24 +80,53 @@ const CarouselItem = ({item}) => {
             justifyContent="space-between"
         >
             <Box 
-                className={classes.box}
-                display="flex" 
-                justifyContent="center" 
+                className={classNames(classes.box,classes.firstBox)}
                 flexDirection="column"
+                alignItems="flex-start"
             >
-                <h2 className={classes.title}>{item.name}</h2>
-                <p className={classes.description}>{item.description}</p>
-                <ButtonGroup className={classes.buttonGroup}>
-                    <Button variant='contained'>
+                <Typography 
+                    variant='h4' 
+                    className={
+                        classNames(
+                            classes.pretitle,
+                            { 
+                                [classes.active_grey]: active.includes('h4') 
+                            }
+                        )
+                    }
+                >{item.pretitle}</Typography>
+                <Typography 
+                    variant='h2' 
+                    className={classNames(
+                        classes.title,
+                        { 
+                            [classes.active]: active.includes('h2') 
+                        }
+                    )}
+                >{item.name}</Typography>
+                <Typography 
+                    variant='placeholder' 
+                    className={classNames(
+                        classes.description,
+                        { 
+                            [classes.active_grey]: active.includes('p') 
+                        }
+                    )}
+                >{item.description}</Typography>
+                <Box display="flex" className={classes.buttonGroup}>
+                    <Button variant='containedPrimary'>
                         Create
                     </Button>
-                    <Button variant='outlined'>
+                    <Button variant='outlinedDark' className={classes.buttonRight}>
                         Explore
                     </Button>
-                </ButtonGroup>
+                </Box>
             </Box>
-            <Box className={classes.box}>
-                <img src={item.img} alt={item.name}/>
+            <Box 
+                className={classes.box}
+                alignItems="center"
+            >
+                <AbstractItem />
             </Box>
         </Box>
     )

@@ -1,5 +1,9 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
+import YoutubeIcon from "../../assets/icons/youtube.svg?component";
+import FacebookIcon from "../../assets/icons/facebook.svg?component";
+import DiscordIcon from "../../assets/icons/discord.svg?component";
+import TelegramIcon from "../../assets/icons/telegram.svg?component";
 import { NavLink } from "react-router-dom";
 import styles from "./style.module.scss";
 
@@ -52,36 +56,41 @@ const list = [
     ],
   },
   {
-    title: "Community",
-    children: [
-      {
-        title: "Youtube",
-        link: "/youtube",
-      },
-      {
-        title: "Facebook",
-        link: "/facebook",
-      },
-      {
-        title: "Telegram",
-        link: "/telegram",
-      },
-      {
-        title: "Kakaotalk",
-        link: "/kakaotalk",
-      },
-      {
-        title: "Discord",
-        link: "/discrod",
-      },
-    ],
-  },
-  {
     title: "Company",
     children: [
       {
         title: "About",
         link: "/about",
+      },
+    ],
+  },
+  {
+    title: "Community",
+    icons: true,
+    children: [
+      {
+        title: "Youtube",
+        link: "/youtube",
+        icon: <YoutubeIcon />,
+      },
+      {
+        title: "Facebook",
+        link: "/facebook",
+        icon: <FacebookIcon />,
+      },
+      {
+        title: "Telegram",
+        link: "/telegram",
+        icon: <TelegramIcon />,
+      },
+      // {
+      //     title: 'Kakaotalk',
+      //     link: '/kakaotalk'
+      // },
+      {
+        title: "Discord",
+        link: "/discrod",
+        icon: <DiscordIcon />,
       },
     ],
   },
@@ -94,46 +103,43 @@ const Footer = () => {
         <Grid container py={4} mt={4}>
           <Grid item lg={3}>
             <Box display="flex" flexDirection="column">
-              <Typography variant="h2">DEXPO</Typography>
-              <Typography variant="p">
+              <img src="src/assets/images/logo.svg" width={132} alt="logo" />
+              <Typography variant="p" mt={2}>
                 DEXPO NFT Marketplace brings together artists, creators, and
                 crypto enthusiasts on a single platform to create and trade top
                 NFTs.
               </Typography>
             </Box>
           </Grid>
-          <Grid item lg={9}>
+          <Grid item lg={9} pt={5}>
             <Grid container>
               <Grid item lg={2}></Grid>
               {list.map((item, i) => (
                 <Grid item key={i} lg={2}>
                   <Typography variant="h4">{item.title}</Typography>
-                  <ul className={styles.links}>
-                    {item.children.map((link) => (
-                      <li key={link.link}>
-                        <NavLink to={link.link}>{link.title}</NavLink>
-                      </li>
-                    ))}
-                  </ul>
+                  {!item.icons ? (
+                    <ul className={styles.links}>
+                      {item.children.map((link) => (
+                        <li key={link.link}>
+                          <NavLink to={link.link}>{link.title}</NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <ul className={styles.links_icons}>
+                      {item.children.map((link) => (
+                        <li key={link.link}>
+                          <NavLink to={link.link}>{link.icon}</NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </Grid>
               ))}
             </Grid>
           </Grid>
         </Grid>
       </Container>
-      <Box
-        display="flex"
-        justifyContent="center"
-        className={styles.author}
-        p={1}
-      >
-        <h3>
-          Developed by{" "}
-          <a href="https://conun.io" target="_blank" rel="noreferrer">
-            Conun
-          </a>
-        </h3>
-      </Box>
     </footer>
   );
 };

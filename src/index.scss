@@ -17,3 +17,52 @@ body {
   scroll-behavior: smooth;
   user-select: none;
 }
+
+.slick-dots li {
+  width: 35px;
+  height: 3px;
+  background: #dedede;
+}
+
+.slick-dots li.slick-active {
+  background: #ff006b;
+}
+
+.slick-dots li button::before {
+  display: none;
+}
+
+.collections .slick-arrow {
+  color: #7d8890;
+  z-index: 13;
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+  border: 1px solid #7d8890;
+  border-radius: 50%;
+}
+
+.collections .slick-prev {
+  left: -50px;
+}
+
+.collections .slick-dots {
+  bottom: -65px;
+}
+
+.collections .slick-next {
+  right: -50px;
+}
+
+.hero .slick-arrow {
+  color: white;
+  z-index: 13;
+}
+
+.hero .slick-prev {
+  left: 0;
+}
+
+.hero .slick-next {
+  right: 0;
+}
