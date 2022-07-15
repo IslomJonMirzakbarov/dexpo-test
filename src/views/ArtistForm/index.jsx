@@ -5,22 +5,35 @@ import styles from "./style.module.scss";
 import FormInputText from "../../components/FormInputText";
 import ModalCard from "../../components/ModalCard";
 import { Box, Container } from "@mui/system";
-import { Button } from "@mui/material";
 import useArtistAPI from "../../hooks/useArtistAPI";
 import { useDispatch } from "react-redux";
 import { assignArtist } from "../../store/artist/artist.slice";
+import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
+import ArtistFormSuccess from "../../assets/icons/artist-form-success.svg?component";
+import ArtistFormReject from "../../assets/icons/artist-form-reject.svg?component";
+import { useNavigate } from "react-router-dom";
 
 const ArtistForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { account } = useSelector((store) => store.wallet);
+  // account = walletAddress (just for reference)
   const [showModal, setShowModal] = useState(false);
+  const [rejectCasePopup, setRejectCasePopup] = useState(true);
   const { create, artist } = useArtistAPI({ isDetail: true });
 
-  const { handleSubmit, control, reset } = useForm({
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    reset,
+  } = useForm({
     defaultValues: {
       artistName: "",
       email: "",
-      walletAddress: "",
+      walletAddress: account,
       youtubeURL: "",
       description: "",
     },
@@ -36,84 +49,132 @@ const ArtistForm = () => {
 
     create.mutate(payload);
 
-    const { artist_name, artist_wallet_address } = artist.data;
-    dispatch(assignArtist({ artist_name, artist_wallet_address }));
+    if (artist.data !== null) {
+      const { artist_name, artist_wallet_address } = artist.data;
+      dispatch(assignArtist({ artist_name, artist_wallet_address }));
+
+      if (
+        artist.code.toString()[0] === "4" ||
+        artist.code.toString()[0] === "5"
+      ) {
+        setRejectCasePopup(true);
+      }
+    }
 
     reset();
     setShowModal(true);
   };
-  
+
+  const modalClick = () => {
+    setShowModal(false);
+    if (!rejectCasePopup) {
+      navigate("/my-page");
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
-    <Container>
+    <Container className={styles.Container}>
       <Box display="flex" justifyContent="center">
         <form
           className={styles.FormContainer}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className={styles.Title}>Artist application form</div>
+          <Box className={styles.Title}>Artist application form</Box>
 
-          <div className={styles.NameContainer}>
-            <label htmlFor="name">Artist Name*</label>
+          <Box className={styles.NameContainer}>
+            <Typography variant="label" className={styles.Label}>
+              Artist Name<span className={styles.LabelSpan}>*</span>
+            </Typography>
             <FormInputText
+              artistInput
               name="artistName"
               control={control}
               label="Enter an artist name"
             />
-          </div>
+          </Box>
 
-          <div className={styles.EmailContainer}>
-            <label htmlFor="email">E-mail*</label>
+          <Box className={styles.EmailContainer}>
+            <Box className={styles.Label}>
+              E-mail<span className={styles.LabelSpan}>*</span>
+            </Box>
             <FormInputText
+              artistInput
               name="email"
               control={control}
               label="Enter your email address"
             />
-          </div>
+          </Box>
 
-          <div className={styles.WalletAddressContainer}>
-            <label htmlFor="wallet">Wallet address</label>
+          <Box className={styles.WalletAddressContainer}>
+            <Box className={styles.Label}>Wallet address</Box>
             <FormInputText
+              artistInput
               name="walletAddress"
               control={control}
-              label="0xA66FD7138A2"
+              label="0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E"
             />
-          </div>
+          </Box>
 
-          <div className={styles.YouTubeContainer}>
-            <label htmlFor="name">YouTube URL (optional)</label>
+          <Box className={styles.YouTubeContainer}>
+            <Box className={styles.Label}>YouTube URL (optional)</Box>
             <FormInputText
+              artistInput
               name="youtubeURL"
               control={control}
               label="Enter your YouTube url"
             />
-          </div>
+          </Box>
 
-          <div className={styles.DescriptionContainer}>
-            <label htmlFor="name">Description of content*</label>
+          <Box className={styles.DescriptionContainer}>
+            <Box className={styles.Label}>
+              Description of content<span className={styles.LabelSpan}>*</span>
+            </Box>
             <FormInputText
+              artistInput
               name="description"
               control={control}
               label="Describe your fields of artwork"
             />
-          </div>
+          </Box>
 
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
+          <Box>
+            <PrimaryButton className={styles.Btn}>Submit</PrimaryButton>
+            {Object.keys(errors).length > 0 && (
+              <Box className={styles.ErrorPhrase}>
+                Please enter all required values.
+              </Box>
+            )}
+          </Box>
         </form>
       </Box>
       {showModal && (
-        <ModalCard
-          page="artist-form"
-          onClose={() => setShowModal(false)}
-          onSaveButtonClick={() => setShowModal(false)}
-        >
-          <div className={styles.IconContainer}>icon</div>
-          <p>
-            Artist information has been sent successfully. We'll review your
-            application form and inform you via email. <br />
-            You can also check your status on My Page -{">"} Myapplicationtab.
-          </p>
+        <ModalCard page="artist-form" onSaveButtonClick={modalClick}>
+          <Box className={styles.IconContainer}>
+            {rejectCasePopup ? <ArtistFormReject /> : <ArtistFormSuccess />}
+          </Box>
+          <Typography className={styles.ProcessTitle}>
+            {rejectCasePopup ? "Rejected!" : "Sent!"}
+          </Typography>
+          <Typography className={styles.ProcessDesc}>
+            {rejectCasePopup ? (
+              <>
+                Artist registration has been rejected.Please contact
+                [support@dexpo.world] <br />
+                for resubmission.{" "}
+              </>
+            ) : (
+              <>
+                Your request is submitted successfully <br /> and sent to admin
+                to review. <br />
+                You can also check your status on <br />{" "}
+                <span className={styles.MainDesc}>
+                  My Page {">"} My application tab.
+                </span>
+              </>
+            )}
+          </Typography>
         </ModalCard>
       )}
     </Container>

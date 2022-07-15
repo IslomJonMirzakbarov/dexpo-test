@@ -15,6 +15,6 @@ const Home = () => {
         <TopCollections />
         <Instructions />
     </div>
-}
+};
 
-export default Home
+export default Home;

@@ -1,26 +1,26 @@
-import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
-import NumberFormat from 'react-number-format';
-import styles from './style.module.scss'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import classNames from 'classnames';
+import { Box, Button, Typography } from "@mui/material";
+import React from "react";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import classNames from "classnames";
 
 const NFTCard = ({
-    img,
-    name,
-    price,
-    liked = false,
-    onClick,
-    leftDays,
-    onAction,
-    hasAction = true,
-    priceType,
-    artistName,
-    description,
-    purchaseCount,
-    buttonVariant = 'containedInherit'
+  img,
+  name,
+  price,
+  liked = false,
+  onClick,
+  leftDays,
+  onAction,
+  hasAction = true,
+  priceType,
+  artistName,
+  description,
+  purchaseCount,
+  buttonVariant = "containedInherit",
 }) => {
     return (
         <Box className={styles.card}>
@@ -65,7 +65,9 @@ const NFTCard = ({
                 </Box>
             }
         </Box>
-    )
-}
+      )}
+    </Box>
+  );
+};
 
-export default NFTCard
+export default NFTCard;
