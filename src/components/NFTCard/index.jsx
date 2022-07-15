@@ -62,8 +62,6 @@ const NFTCard = ({
                     >Buy now</Button>
                 </Box>
             }
-        </Box>
-      )}
     </Box>
   );
 };
