@@ -48,9 +48,7 @@ const NFTCard = ({
                     </span>
                     <div className={styles.price}>
                         <img src="src/assets/images/con-token.svg" alt="token"/>
-                        <span className={styles.price}>
-                            <NumberFormat value={price} displayType={'text'} thousandSeparator={true} />
-                        </span>
+                        <NumberFormat value={price} displayType={'text'} thousandSeparator={true} />
                     </div>
                 </div>
             </Box>
