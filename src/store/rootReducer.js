@@ -8,6 +8,7 @@ import { walletReducer } from './wallet/wallet.slice';
 import { popupReducer } from './popup/popup.slice';
 import { nftReducer } from "./nft/nft.slice";
 import { artistReducer } from "./artist/artist.slice";
+import { collectionReducer } from './collection/collection.slice';
 
 const authPersistConfig = {
   key: "auth",
@@ -34,6 +35,11 @@ const artistPersistConfig = {
   storage,
 };
 
+const collectionPersistConfig = {
+  key: "collection",
+  storage,
+};
+
 const popupPersistConfig = {
   key: 'popup',
   storage
@@ -49,6 +55,7 @@ const rootReducer = combineReducers({
   popup: persistReducer(popupPersistConfig, popupReducer),
   nft: persistReducer(nftPersistConfig, nftReducer),
   artist: persistReducer(artistPersistConfig, artistReducer),
+  collection: persistReducer(collectionPersistConfig, collectionReducer),
   alert: alertReducer
 });
 

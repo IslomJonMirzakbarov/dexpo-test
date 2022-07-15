@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 
 const Router = () => {
   const { token } = useSelector((store) => store.auth);
-  const { artistName } = useSelector((store) => store.artist);
-  console.log(artistName);
+  // const { artistName } = useSelector((store) => store.artist);
+  const artistName = "";
   let filteredRoutes;
   if (token) {
     if (artistName.length > 0) {

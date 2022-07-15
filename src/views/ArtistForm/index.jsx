@@ -50,8 +50,8 @@ const ArtistForm = () => {
     create.mutate(payload);
 
     if (artist.data !== null) {
-      const { artist_name, artist_wallet_address } = artist.data;
-      dispatch(assignArtist({ artist_name, artist_wallet_address }));
+      const { artist_name, artist_wallet_address, id } = artist.data;
+      dispatch(assignArtist({ artist_name, artist_wallet_address, id }));
 
       if (
         artist.code.toString()[0] === "4" ||
@@ -70,7 +70,7 @@ const ArtistForm = () => {
     if (!rejectCasePopup) {
       navigate("/my-page");
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
 
