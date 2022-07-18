@@ -1,0 +1,83 @@
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
+
+.flip-countdown {
+  display: flex;
+  margin: 0;
+
+  .flip-countdown-piece {
+    display: flex !important;
+    flex-direction: column-reverse;
+
+    .flip-countdown-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: colors.$lightGreyBg;
+      border-radius: 7px;
+      width: 45px;
+      height: 45px;
+      margin: 0 3px;
+
+      .flip-countdown-card-sec {
+        box-shadow: none;
+
+        .card__bottom,
+        .card__top,
+        .card__back {
+          width: 12px;
+        }
+
+        .card__bottom,
+        .card__top {
+          background-color: colors.$lightGreyBg !important;
+          color: #1f1f1f !important;
+          border-bottom: none !important;
+          @include fontBodyXXL;
+          font-weight: 600;
+        }
+        .card__back {
+          color: #1f1f1f !important;
+        }
+
+        .card__bottom {
+          top: 46% !important;
+        }
+      }
+    }
+
+    .flip-countdown-title {
+      text-align: left;
+      @include fontBodyXSS; /* identical to box height */
+      font-weight: 500;
+      margin: 2px 3px;
+
+      color: colors.$text;
+    }
+  }
+}
+
+.flip-countdown.theme-light
+  .flip-countdown-piece
+  .flip-countdown-card
+  .flip-countdown-card-sec
+  .card__top,
+.flip-countdown.theme-light
+  .flip-countdown-piece
+  .flip-countdown-card
+  .flip-countdown-card-sec
+  .card__bottom,
+.flip-countdown.theme-light
+  .flip-countdown-piece
+  .flip-countdown-card
+  .flip-countdown-card-sec
+  .card__back::before,
+.flip-countdown.theme-light
+  .flip-countdown-piece
+  .flip-countdown-card
+  .flip-countdown-card-sec
+  .card__back::after {
+  color: #1f1f1f !important;
+  @include fontBodyXXL;
+  font-weight: 600;
+}

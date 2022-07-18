@@ -1,5 +1,4 @@
 @use '/src/scss/colors';
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 html {
@@ -33,12 +32,12 @@ body {
 }
 
 .collections .slick-arrow {
-  color: #7d8890;
+  color: colors.$text;
   z-index: 13;
   width: 30px;
   height: 30px;
   padding: 8px;
-  border: 1px solid #7d8890;
+  border: 1px solid colors.$text;
   border-radius: 50%;
 }
 
