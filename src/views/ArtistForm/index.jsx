@@ -50,8 +50,8 @@ const ArtistForm = () => {
     create.mutate(payload);
 
     if (artist.data !== null) {
-      const { artist_name, artist_wallet_address, id } = artist.data;
-      dispatch(assignArtist({ artist_name, artist_wallet_address, id }));
+      const { artist_name, wallet_address} = artist.data;
+      dispatch(assignArtist({ artist_name, wallet_address }));
 
       if (
         artist.code.toString()[0] === "4" ||

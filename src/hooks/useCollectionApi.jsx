@@ -2,7 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { securedAPI } from "../services/api";
 import { useMutation, useQuery } from "react-query";
-import { assignNewCollection } from "../store/collection/collection.slice";
+import {
+  assignCollectionList,
+  assignNewCollection,
+} from "../store/collection/collection.slice";
 
 const useCollectionAPI = ({ isDetail, onSuccess }) => {
   const dispatch = useDispatch();
@@ -17,7 +20,6 @@ const useCollectionAPI = ({ isDetail, onSuccess }) => {
     securedAPI(token)
       .post("/api/collection/create", formData, config)
       .then((res) => {
-        // console.log(res);
         dispatch(assignNewCollection(res.data));
       });
 
@@ -30,7 +32,11 @@ const useCollectionAPI = ({ isDetail, onSuccess }) => {
   const getCollectionList = (token) =>
     securedAPI(token)
       .get("/api/collection/list", { params: collectionListParams })
-      .then((res) => res.data);
+      .then((res) => {
+        dispatch(assignCollectionList(res.data.data));
+        // console.log(res.data);
+        return res.data;
+      });
 
   const { data, isLoading, error } = useQuery(
     "get-collection-list",
