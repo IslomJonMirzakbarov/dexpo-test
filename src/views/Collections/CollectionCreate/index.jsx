@@ -18,11 +18,10 @@ const CollectionCreate = () => {
   const navigate = useNavigate();
   const { create } = useCollectionAPI({ isDetail: true });
   const [showModal, setShowModal] = useState(false);
+  const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
   const [type, setType] = useState(collectionType.SINGLE);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
-
-  const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
 
   const {
     handleSubmit,
