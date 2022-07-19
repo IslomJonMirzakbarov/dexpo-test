@@ -1,0 +1,50 @@
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
+
+.container {
+  padding: 162px 0;
+
+  .img {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background: #fff;
+
+    border: 1px solid colors.$icon;
+    border-radius: 7px;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+      border-radius: 0 !important;
+      padding: 0;
+      margin: 0;
+    }
+
+    span {
+      font-weight: 600;
+      color: colors.$text;
+      cursor: pointer;
+      transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.4s all;
+
+      &.active {
+        color: colors.$primary;
+      }
+
+      &:hover {
+        color: colors.$primary;
+      }
+
+      svg {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .link {
+    color: #515151;
+    text-decoration: underline;
+
+    @include fontBodyXS;
+  }
+}

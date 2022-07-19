@@ -1,5 +1,5 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
 
 .Container {
   width: 100%;
@@ -18,13 +18,13 @@
 
     .Title {
       height: 60px;
-      font-family: "Poppins";
+      font-family: 'Poppins';
       font-style: normal;
       font-weight: 700;
       font-size: 40px;
       line-height: 60px;
       text-align: center;
-      color: #1f1f1f;
+      color: colors.$greyBg;
     }
 
     div {
@@ -37,7 +37,7 @@
         font-size: 15px;
         line-height: 22px;
         margin-left: 10px;
-        color: #1f1f1f;
+        color: colors.$greyBg;
         margin-bottom: 5px;
         display: inline;
 
@@ -95,7 +95,7 @@
   /* identical to box height */
   text-align: center;
   /* text */
-  color: #1f1f1f;
+  color: colors.$greyBg;
   height: 33px;
   margin-top: 46px;
 }
@@ -109,7 +109,7 @@
   line-height: 22px;
   text-align: center;
   /* text */
-  color: #1f1f1f;
+  color: colors.$greyBg;
   margin: auto;
   margin-top: 10px;
 

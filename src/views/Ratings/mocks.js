@@ -1,3 +1,5 @@
+import collectionItemImg from '../../assets/images/collection-item.png';
+
 export const rankingSorts = [
   {
     label: 'last 24 hours',
@@ -49,7 +51,7 @@ export const tableRows = [
 
 export const tableData = [
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 2792.57,
     type: 'up',
@@ -59,7 +61,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 56.7,
     type: 'down',
@@ -69,7 +71,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 2792.57,
     type: 'up',
@@ -79,7 +81,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 56.7,
     type: 'down',
@@ -89,7 +91,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 2792.57,
     type: 'up',
@@ -99,7 +101,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 56.7,
     type: 'down',
@@ -109,7 +111,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 2792.57,
     type: 'up',
@@ -119,7 +121,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 56.7,
     type: 'down',
@@ -129,7 +131,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 2792.57,
     type: 'up',
@@ -139,7 +141,7 @@ export const tableData = [
     ownersCount: '2.5K'
   },
   {
-    img: 'src/assets/images/collection-item.png',
+    img: collectionItemImg,
     name: 'RR/BAYC',
     volume: 56.7,
     type: 'down',

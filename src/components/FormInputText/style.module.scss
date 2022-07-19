@@ -1,4 +1,6 @@
-@import "../../styles/scrollbar.scss";
+@use '/src/scss/colors';
+@import '../../styles/scrollbar.scss';
+
 .Test {
   .InputText {
     padding-left: 8px;
@@ -11,7 +13,7 @@
   input::-webkit-input-placeholder {
     /* Chrome/Opera/Safari/Edge */
     /*styles here*/
-    color: #7d8890;
+    color: colors.$text;
   }
   .ArtistInputText {
     background: #f3f3f3;
@@ -31,7 +33,7 @@
 
     &:focus {
       outline: none;
-      border: 1.5px solid #7d8890;
+      border: 1.5px solid colors.$text;
     }
   }
   .DescriptionInput {

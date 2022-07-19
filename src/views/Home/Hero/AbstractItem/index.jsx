@@ -3,6 +3,13 @@ import { makeStyles } from '@mui/styles'
 import { motion } from 'framer-motion'
 import React from 'react'
 import classnames from 'classnames'
+import heroCard1Img from '../../../../assets/images/hero/hero-card1.png'
+import heroCard2Img from '../../../../assets/images/hero/hero-card2.png'
+import heroCard3Img from '../../../../assets/images/hero/hero-card3.png'
+import abstractBallImg from '../../../../assets/images/hero/abstract-ball.svg'
+import gradientBallImg from '../../../../assets/images/hero/gradient-ball.svg'
+import greyBallImg from '../../../../assets/images/hero/grey-ball.svg'
+import whiteBallImg from '../../../../assets/images/hero/white-ball.svg'
 
 const useStyles = makeStyles(theme => ({
     root:{
@@ -109,11 +116,11 @@ const AbstractItem = () => {
     return (
         <Box className={classes.root}>
             <motion.img 
-                src="src/assets/images/hero/hero-card1.png" 
+                src={heroCard1Img} 
                 className={classes.card1}
             />
             <motion.img 
-                src="src/assets/images/hero/hero-card2.png" 
+                src={heroCard2Img}
                 className={classnames(classes.card1,classes.card2)}
                 animate="animate"
                 initial="hidden"
@@ -121,7 +128,7 @@ const AbstractItem = () => {
                 transition={card2Transition}
             />
             <motion.img 
-                src="src/assets/images/hero/hero-card3.png" 
+                src={heroCard3Img}
                 className={classnames(classes.card1,classes.card3)}
                 animate="animate"
                 initial="hidden"
@@ -130,7 +137,7 @@ const AbstractItem = () => {
             />
             <motion.img 
                 className={classes.abstractBall} 
-                src="src/assets/images/hero/abstract-ball.svg" 
+                src={abstractBallImg}
                 animate="animate"
                 initial="hidden"
                 variants={abstractVariant}
@@ -138,7 +145,7 @@ const AbstractItem = () => {
             />
             <motion.img 
                 className={classes.gradientBall} 
-                src="src/assets/images/hero/gradient-ball.svg" 
+                src={gradientBallImg} 
                 animate="animate"
                 initial="hidden"
                 variants={abstractVariant}
@@ -146,7 +153,7 @@ const AbstractItem = () => {
             />
             <motion.img 
                 className={classes.greyBall} 
-                src="src/assets/images/hero/grey-ball.svg" 
+                src={greyBallImg} 
                 animate="animate"
                 initial="hidden"
                 variants={abstractVariant}
@@ -154,7 +161,7 @@ const AbstractItem = () => {
             />
             <motion.img 
                 className={classes.whiteBall} 
-                src="src/assets/images/hero/white-ball.svg" 
+                src={whiteBallImg} 
                 animate="animate"
                 initial="hidden"
                 variants={abstractVariant}

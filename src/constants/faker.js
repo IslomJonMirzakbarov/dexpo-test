@@ -1,8 +1,14 @@
 import { priceType } from './index';
+import nft1Img from '../assets/images/nft1.png';
+import nft2Img from '../assets/images/nft2.png';
+import nft3Img from '../assets/images/nft3.png';
+import nft4Img from '../assets/images/nft4.png';
+import nft5Img from '../assets/images/nft5.png';
+import nft6Img from '../assets/images/nft6.png';
 
 export const fakeNFTs = [
   {
-    img: 'src/assets/images/nft1.png',
+    img: nft1Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -12,7 +18,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft2.png',
+    img: nft2Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -22,7 +28,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft3.png',
+    img: nft3Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -32,7 +38,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft4.png',
+    img: nft4Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -42,7 +48,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft5.png',
+    img: nft5Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -52,7 +58,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft6.png',
+    img: nft6Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -62,7 +68,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft1.png',
+    img: nft1Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -72,7 +78,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft2.png',
+    img: nft2Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
@@ -82,7 +88,7 @@ export const fakeNFTs = [
     purchaseCount: 1999
   },
   {
-    img: 'src/assets/images/nft3.png',
+    img: nft3Img,
     name: 'Gemma #123jj',
     price: 2000,
     leftDays: 5,
