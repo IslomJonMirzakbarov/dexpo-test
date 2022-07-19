@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
-import { Controller, useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import FormInputText from "../../../components/FormInputText";
 import ModalCard from "../../../components/ModalCard";
 import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import MiddleCircleType from "../../../assets/icons/middle-circle-type.svg?component";
+import CreateCollectionForm from "../../../assets/icons/create-collection-form.svg?component";
 
 import styles from "./style.module.scss";
 import { Box } from "@mui/system";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
+import { FormGroup, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CollectionCreate = () => {
-  const { newCollection, collectionList } = useSelector(
-    (store) => store.collection
-  );
-  // console.log(newCollection, collectionList);
-  const { create, collections } = useCollectionAPI({ isDetail: true });
+  const navigate = useNavigate();
+  const { create } = useCollectionAPI({ isDetail: true });
   const [showModal, setShowModal] = useState(false);
-  const [type, setType] = useState("S");
+  const [type, setType] = useState(collectionType.SINGLE);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
+
+  const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
 
   const {
     handleSubmit,
@@ -64,137 +65,141 @@ const CollectionCreate = () => {
     }
   };
 
-  return (
-    <div className={styles.Container}>
-      <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.Title}>Choose Type</div>
+  const modalClick = () => {
+    setShowModal(false);
+    navigate("/my-page");
+  };
 
-        <div className={styles.ModeContainer}>
-          <div className={classNames(styles.SingleMode)}>
+  return (
+    <Box className={styles.Container}>
+      <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
+        <Box className={styles.Title}>Choose Type</Box>
+
+        <Box className={styles.ModeContainer}>
+          <Box className={classNames(styles.SingleMode)}>
             {/* <SingleMode /> */}
-            <div
-              className={classNames(styles.SingleIContainer)}
+            <Box
+              className={classNames(styles.SingleIContainer, {
+                [styles.ClickShadow]: type === collectionType.SINGLE,
+              })}
               onClick={() => {
-                setType("S");
+                setType(collectionType.SINGLE);
               }}
             >
-              <div className={styles.TopIContainer}></div>
+              <Box className={styles.TopIContainer}></Box>
               <MiddleCircleType className={styles.MiddleCircle} />
-              <div className={styles.BottomIContainer}></div>
-            </div>
-            <div
+              <Box className={styles.BottomIContainer}></Box>
+            </Box>
+            <Box
               className={classNames(styles.HorizontalLine, {
-                [styles.Higlighted]: type === "S",
+                [styles.Higlighted]: type === collectionType.SINGLE,
               })}
-            ></div>
-            <div
+            ></Box>
+            <Box
               className={classNames(styles.TypePhrase, {
-                [styles.HiglightedCol]: type === "S",
+                [styles.HiglightedCol]: type === collectionType.SINGLE,
               })}
             >
               Single <span>ERC-721</span>
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div className={classNames(styles.MultipleMode)}>
+          <Box className={classNames(styles.MultipleMode)}>
             {/* <MultipleMode /> */}
-            <div
+            <Box
               className={classNames(styles.MultipleModeContainer)}
               onClick={() => {
-                setType("M");
+                setType(collectionType.MULTIIPLE);
               }}
             >
-              <div
+              <Box
                 className={classNames(
                   styles.SingleIContainer,
-                  styles.FirstItem
+                  styles.FirstItem,
+                  {
+                    [styles.ClickShadow]: type === collectionType.MULTIIPLE,
+                  }
                 )}
               >
-                <div className={styles.TopIContainer}></div>
+                <Box className={styles.TopIContainer}></Box>
                 <MiddleCircleType className={styles.MiddleCircle} />
-                <div className={styles.BottomIContainer}></div>
-              </div>
-              <div
+                <Box className={styles.BottomIContainer}></Box>
+              </Box>
+              <Box
                 className={classNames(
                   styles.SingleIContainer,
-                  styles.SecondItem
+                  styles.SecondItem,
+                  {
+                    [styles.ClickShadow]: type === collectionType.MULTIIPLE,
+                  }
                 )}
               >
-                <div className={styles.TopIContainer}></div>
+                <Box className={styles.TopIContainer}></Box>
                 <MiddleCircleType className={styles.MiddleCircle} />
-                <div className={styles.BottomIContainer}></div>
-              </div>
-              <div
+                <Box className={styles.BottomIContainer}></Box>
+              </Box>
+              <Box
                 className={classNames(
                   styles.SingleIContainer,
-                  styles.ThirdItem
+                  styles.ThirdItem,
+                  {
+                    [styles.ClickShadow]: type === collectionType.MULTIIPLE,
+                  }
                 )}
               >
-                <div className={styles.TopIContainer}></div>
+                <Box className={styles.TopIContainer}></Box>
                 <MiddleCircleType className={styles.MiddleCircle} />
-                <div className={styles.BottomIContainer}></div>
-              </div>
-            </div>
-            <div
+                <Box className={styles.BottomIContainer}></Box>
+              </Box>
+            </Box>
+            <Box
               className={classNames(styles.HorizontalLine, {
-                [styles.Higlighted]: type === "M",
+                [styles.Higlighted]: type === collectionType.MULTIIPLE,
               })}
-            ></div>
-            <div
+            ></Box>
+            <Box
               className={classNames(styles.TypePhrase, {
-                [styles.HiglightedCol]: type === "M",
+                [styles.HiglightedCol]: type === collectionType.MULTIIPLE,
               })}
             >
               Multiple <span>ERC-1151</span>
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
 
-        <div className={styles.UploadLogo}>
-          {Object.keys(uploadedImg).length === 0 ? (
-            <FileUploadWithDrag
-              onUpload={setUploadedImg}
-              page="create-collection"
-              src={uploadedImg?.preview}
-            />
-          ) : (
-            <div>
-              <img src={uploadedImg?.preview} alt="" />
-              <div
-                className={styles.ClearLogo}
-                onClick={() => setUploadedImg({})}
-              >
-                X
-              </div>
-            </div>
-          )}
-        </div>
-        <div className={classNames(styles.CollectionName, styles.InputHolder)}>
-          <label htmlFor="collection-name" className={styles.Label}>
+        <Box className={styles.UploadLogo}>
+          <FileUploadWithDrag
+            onUpload={setUploadedImg}
+            page="create-collection"
+            src={uploadedImg?.preview}
+          />
+        </Box>
+        <Box className={classNames(styles.CollectionName, styles.InputHolder)}>
+          <Typography variant="label" className={styles.Label}>
             Collection Name<span className={styles.LabelSpan}>*</span>
-          </label>
+          </Typography>
           <FormInputText
             artistInput
             name="name"
             control={control}
             label="Enter a collection name"
           />
-          <div className={styles.LagInfo}>ex: BoredApeYachtClub</div>
-        </div>
-        <div
+          <Box className={styles.LagInfo}>ex: BoredApeYachtClub</Box>
+        </Box>
+        <Box
           className={classNames(styles.CollectionSymbol, styles.InputHolder)}
         >
-          <label htmlFor="collection-symbol" className={styles.Label}>
+          <Typography variant="label" className={styles.Label}>
             Collection Symbol<span className={styles.LabelSpan}>*</span>
-          </label>
+          </Typography>
           <FormInputText
             artistInput
             name="symbol"
             control={control}
             label="Enter a collection symbol"
           />
-          <div className={styles.LagInfo}>ex: (BAYC)</div>
-        </div>
+          <Box className={styles.LagInfo}>ex: (BAYC)</Box>
+        </Box>
         {/* <button>Submit</button> */}
         <Box className={styles.BtnErrorContainer}>
           <PrimaryButton className={styles.Btn}>Submit</PrimaryButton>
@@ -211,20 +216,24 @@ const CollectionCreate = () => {
         </Box>
       </form>
       {showModal && (
-        <ModalCard
-          page="create-collection"
-          onClose={() => setShowModal(false)}
-          onSaveButtonClick={() => setShowModal(false)}
-        >
-          <div className={styles.IconContainer}>icon</div>
-          <p>
-            Your collection is submitted successfully and sent to admin to
-            review. You can also check your status on My Page -{">"}
-            Myapplicationtab.
-          </p>
+        <ModalCard page="artist-form" onSaveButtonClick={modalClick}>
+          <Box className={styles.IconContainer}>
+            <CreateCollectionForm />
+          </Box>
+          <Typography className={styles.ProcessTitle}>Submitted!</Typography>
+          <Typography className={styles.ProcessDesc}>
+            <>
+              Your collection is submitted successfully and sent to <br />
+              admin to review. You can also check your status on
+              <br />
+              <span className={styles.MainDesc}>
+                My Page {">"} My application tab.
+              </span>
+            </>
+          </Typography>
         </ModalCard>
       )}
-    </div>
+    </Box>
   );
 };
 

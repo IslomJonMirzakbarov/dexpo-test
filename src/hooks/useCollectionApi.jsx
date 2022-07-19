@@ -20,23 +20,26 @@ const useCollectionAPI = ({ isDetail, onSuccess }) => {
     securedAPI(token)
       .post("/api/collection/create", formData, config)
       .then((res) => {
-        dispatch(assignNewCollection(res.data));
+        dispatch(assignNewCollection(res.data.data));
       });
 
   // get-collections func
   const collectionListParams = {
     page: 1,
     order_by: "desc",
-    size: 10,
+    size: 20,
   };
   const getCollectionList = (token) =>
     securedAPI(token)
       .get("/api/collection/list", { params: collectionListParams })
       .then((res) => {
-        dispatch(assignCollectionList(res.data.data));
-        // console.log(res.data);
-        return res.data;
+        dispatch(assignCollectionList(res.data.data.items));
+        return res.data.data.items;
       });
+
+  const mutation = useMutation((data) => createCollection(data, token), {
+    onSuccess,
+  });
 
   const { data, isLoading, error } = useQuery(
     "get-collection-list",
@@ -45,10 +48,6 @@ const useCollectionAPI = ({ isDetail, onSuccess }) => {
       enabled: isDetail || false,
     }
   );
-
-  const mutation = useMutation((data) => createCollection(data, token), {
-    onSuccess,
-  });
 
   return {
     create: mutation,

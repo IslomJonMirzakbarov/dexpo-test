@@ -63,3 +63,39 @@
   font-size: 14px;
   line-height: 18px;
 }
+
+@mixin fontProcessDesc {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+@mixin fontProcessTitle {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+}
+
+@mixin fontLagInfo {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+@mixin fontLabel {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+@mixin fontTypePhrase {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+@mixin fontTitle {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 60px;
+}

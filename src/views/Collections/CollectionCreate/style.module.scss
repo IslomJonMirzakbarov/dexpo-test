@@ -20,11 +20,9 @@
     .Title {
       height: 60px;
       font-style: normal;
-      font-weight: 700;
-      font-size: 40px;
-      line-height: 60px;
+      @include fontTitle;
       text-align: center;
-      color: #1f1f1f;
+      color: colors.$textColor1;
       margin-bottom: 68px;
     }
 
@@ -74,7 +72,6 @@
           .SecondItem {
             z-index: 199;
             position: absolute;
-            // top: 0;
             left: 6px;
             bottom: 6px;
 
@@ -129,6 +126,14 @@
           position: absolute;
           bottom: 0;
         }
+
+        &:hover {
+          box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .ClickShadow {
+        box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.2);
       }
 
       .HorizontalLine {
@@ -142,17 +147,13 @@
 
       .TypePhrase {
         font-style: normal;
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 22px;
-        /* identical to box height */
+        @include fontTypePhrase;
         text-align: center;
-        /* tetx sub */
-        color: #d1d1d1;
+        color: colors.$icon;
       }
 
       .HiglightedCol {
-        color: #1f1f1f;
+        color: colors.$textColor1;
       }
 
       .Higlighted {
@@ -186,7 +187,7 @@
           right: 15%;
           top: 15%;
           z-index: 10;
-          color: #ff006b;
+          color: colors.$primary;
           border-radius: 50%;
           width: 30px;
           height: 30px;
@@ -206,11 +207,9 @@
 
       .Label {
         font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 22px;
+        @include fontLabel;
         margin-left: 10px;
-        color: #1f1f1f;
+        color: colors.$textColor1;
         margin-bottom: 5px;
         display: inline;
 
@@ -221,10 +220,7 @@
 
       .LagInfo {
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 18px;
-        /* identical to box height */
+        @include fontLagInfo;
         color: #7d8890;
         margin-left: 15px;
         margin-top: 9px;
@@ -251,14 +247,14 @@
         background: #dedede;
         border-radius: 7px;
         border: none;
-  
+
         &:hover {
           background: colors.$gradient_pink2blue;
           box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
           border-radius: 7px;
         }
       }
-  
+
       .ErrorPhrase {
         font-style: normal;
         @include fontError;
@@ -270,15 +266,34 @@
   }
 }
 .IconContainer {
-  display: none;
-  width: 15rem;
-  height: 15rem;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  width: 100%;
+  margin-top: 67px;
+  margin-bottom: 58px;
+}
+
+.ProcessTitle {
+  font-style: normal;
+  @include fontProcessTitle;
+  text-align: center;
+  color: colors.$textColor1;
+  height: 33px;
+  margin-top: 46px;
+}
+
+.ProcessDesc {
+  width: 396px;
+  height: 69px;
+  font-style: normal;
+  @include fontProcessDesc;
+  text-align: center;
+  color: colors.$textColor1;
   margin: auto;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 10px;
+
+  .MainDesc {
+    color: colors.$primary;
+  }
 }
