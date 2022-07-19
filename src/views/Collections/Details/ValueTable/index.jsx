@@ -1,8 +1,6 @@
-import { Box, IconButton, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import CopyIcon from '../../../../assets/icons/copy.svg?component'
 import React from 'react'
-import { truncateAddress } from '../../../../utils'
 import CopyButton from '../../../../components/CopyButton'
 
 const useStyles = makeStyles(theme => ({

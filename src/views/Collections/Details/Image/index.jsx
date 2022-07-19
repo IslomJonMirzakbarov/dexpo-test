@@ -3,10 +3,11 @@ import React from 'react'
 import styles from '../style.module.scss'
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import nft1Img from '../../../../assets/images/nft1.png'
 
 const CollectionDetailImage = ({
     price = 1000,
-    img = "/src/assets/images/nft1.png",
+    img = nft1Img,
     alt = "nft picture",
     isPurchased = false,
     ...props

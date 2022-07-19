@@ -1,13 +1,18 @@
 import { Box, Container, Grid, Paper, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
+import detail1Img from '../../../assets/images/detail1.png'
+import detail2Img from '../../../assets/images/detail2.png'
+import detail3Img from '../../../assets/images/detail3.png'
+import detail4Img from '../../../assets/images/detail4.png'
+import detailBg from '../../../assets/images/detail-bg.png'
 
 const data = [
   {
     title: 'What is DEXPO NFT Marketplace ?',
     description: `DEXPO NFT Marketplace brings together artists, creators, and crypto enthusiasts on a single platform to create and trade top NFTs.
     Marketplace: Mint, purchase, and bid on NFTs from creators around the world`,
-    icon: 'src/assets/images/detail1.png'
+    icon: detail1Img
   },
   {
     title: 'How do I create an NFT ?',
@@ -20,7 +25,7 @@ const data = [
     create a revised/new NFT, you
     will have to start the process
     again.`,
-    icon: 'src/assets/images/detail2.png'
+    icon: detail2Img
   },
   {
     title: 'How do I sell an NFT ?',
@@ -35,7 +40,7 @@ const data = [
     Marketplace as either an
     auction or fixed price sale,
     according to your preference.`,
-    icon: 'src/assets/images/detail3.png'
+    icon: detail3Img
   },
   {
     title: 'How do I buy an NFT ?',
@@ -50,13 +55,13 @@ const data = [
     a higher bid than you, your funds will be
     unlocked. To join the auction again, you’ll
     have to place a new bid.`,
-    icon: 'src/assets/images/detail4.png'
+    icon: detail4Img
   },
 ]
 
 const useStyles = makeStyles(theme => ({
   container:{
-    backgroundImage: 'url(src/assets/images/detail-bg.png)',
+    backgroundImage: `url(${detailBg})`,
     backgroundPosition: "center center",
     backgroundSize: 'cover',
     borderRadius: 0,

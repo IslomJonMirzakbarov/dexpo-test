@@ -12,6 +12,7 @@ import classNames from 'classnames'
 import ProfileMenu from './ProfileMenu'
 import { toggleProfilePopup } from '../../store/popup/popup.slice'
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick'
+import logo from '../../assets/images/logo.svg'
 
 const BUTTON_LABEL = "Connect Wallet";
 
@@ -36,7 +37,7 @@ const MergedLayout = ({ children }) => {
     
     return <>
         <Header 
-            img="src/assets/images/logo.svg"
+            img={logo}
             sticky={true}
             extra={
                 <Box 

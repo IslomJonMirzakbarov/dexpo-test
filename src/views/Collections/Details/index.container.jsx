@@ -7,6 +7,7 @@ import styles from './style.module.scss'
 import Countdown from '../../../components/Countdown';
 import { makeStyles, useTheme } from '@mui/styles';
 import ValueTable from './ValueTable';
+import nft1Img from '../../../assets/images/nft1.png'
 
 const useStyles = makeStyles({
     priceBox: {
@@ -35,7 +36,7 @@ const CollectionDetailsContainer = ({
                     <Grid item lg={5}>
                         <CollectionDetailImage 
                             price={1000}
-                            img="/src/assets/images/nft1.png"
+                            img={nft1Img}
                             alt="nft picture"
                             isPurchased={false}
                         />

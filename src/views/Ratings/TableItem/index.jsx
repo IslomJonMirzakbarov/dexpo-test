@@ -4,9 +4,11 @@ import React from 'react'
 import NumberFormat from 'react-number-format';
 import { CTableCell, CTableRow } from '../../../components/CTable'
 import styles from './style.module.scss'
+import collectionItemImg from '../../../assets/images/collection-item.png'
+import conTokenImg from '../../../assets/images/con-token.svg'
 
 const TableItem = ({
-    img = 'src/assets/images/collection-item.png',
+    img = collectionItemImg,
     name = 'RR/BAYC',
     index,
     volume =  2792.57,
@@ -31,7 +33,7 @@ const TableItem = ({
             <CTableCell>
                 <Box display='flex' alignItems="center">
                     <img 
-                        src="src/assets/images/con-token.svg" 
+                        src={conTokenImg}
                         alt='token'
                         width={25} 
                         height={25}
@@ -57,7 +59,7 @@ const TableItem = ({
             <CTableCell>
                 <Box display='flex' alignItems="center">
                     <img 
-                        src="src/assets/images/con-token.svg" 
+                        src={conTokenImg}
                         alt='token'
                         width={25} 
                         height={25}
