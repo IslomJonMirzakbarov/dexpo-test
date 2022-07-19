@@ -39,7 +39,8 @@ const INFO = {
   light: '#74CAFF',
   main: '#1890FF',
   dark: '#0C53B7',
-  darker: '#04297A'
+  darker: '#04297A',
+  main1: '#1E4CED'
 };
 const SUCCESS = {
   lighter: '#E9FCD4',
