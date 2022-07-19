@@ -9,23 +9,27 @@
   overflow: hidden;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
+
   .header {
     position: relative;
     width: 100%;
     height: 67%;
     cursor: pointer;
     overflow: hidden;
+
     &:hover {
       img {
         transform: scale(1.1);
       }
     }
+
     img {
       transition: 0.4s ease-in-out all;
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
     .price_type {
       position: absolute;
       top: 10px;
@@ -36,6 +40,7 @@
       border-radius: 3px;
       @include fontBodyXSS;
     }
+
     .leftDays {
       position: absolute;
       bottom: 0;
@@ -48,6 +53,7 @@
       align-items: center;
       padding: 9px;
       @include fontBodyXSS;
+
       .icon {
         font-size: 15px;
         margin-right: 5px;
@@ -55,68 +61,92 @@
       }
     }
   }
+
   .body {
     display: flex;
     padding: 10px 13px;
     background-color: #fff;
+
     .artist,
     .actions {
       display: flex;
       flex-direction: column;
       height: 100%;
     }
+
     .artist {
       width: 70%;
+
       .name {
         @include fontBodyXS;
         font-weight: 500;
         color: colors.$text;
       }
     }
+
     .actions {
       width: 30%;
       justify-content: space-between;
+
       .count {
         display: flex;
         align-items: center;
         justify-content: flex-end;
         cursor: pointer;
+
         span {
           margin-right: 5px;
           @include fontBodyXS;
           font-weight: 600;
           color: colors.$text;
         }
+
         svg {
           font-size: 16px;
           font-weight: 600;
           color: colors.$text;
         }
+
+        &:hover {
+          span {
+            color: colors.$primary;
+          }
+
+          svg {
+            color: colors.$primary;
+          }
+        }
       }
+
       .count.liked {
         span {
           color: colors.$primary;
         }
+
         svg {
           color: colors.$primary;
         }
       }
+
       .price {
         display: flex;
         justify-content: flex-end;
+        align-items: center;
+        margin-top: 40px;
+
+        @include fontBodyXXL;
+        font-weight: 600;
+
         img {
-          width: 20px;
-          height: 20px;
-          padding: 2px 2px 2px 3px;
-          border: 1px solid #e8e8e8;
-          border-radius: 10px;
+          width: 16px;
+          height: 16px;
+          border-radius: 8px;
           margin-right: 5px;
         }
-        @include fontBodyXL;
-        font-weight: 600;
       }
     }
   }
+
   .footer {
     button {
       border-top-left-radius: 0;
