@@ -12,6 +12,7 @@ import HistoryTable from './HistoryTable';
 import { fakeNFTs } from '../../../constants/faker';
 import NFTCard from '../../../components/NFTCard';
 import { useNavigate } from 'react-router-dom';
+import tokenImg from '../../../assets/images/con-token.svg'
 
 const useStyles = makeStyles({
     priceBox: {
@@ -75,7 +76,7 @@ const CollectionDetailsContainer = ({
                             >
                                 <Countdown />
                                 <Box display='flex' alignItems="center" className={classes.priceBox}>
-                                    <img src="/src/assets/images/con-token.svg" alt="token" width={28} height={28}/>
+                                    <img src={tokenImg} alt="token" width={28} height={28}/>
                                     <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
                                         <NumberFormat value={price} displayType={'text'} thousandSeparator={true} />
                                     </Typography>
