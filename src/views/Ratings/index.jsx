@@ -1,6 +1,6 @@
 import { Box, Container, Paper, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
-import { CTable, CTableBody, CTableCell, CTableHead, CTableHeadRow, CTableRow } from '../../components/CTable'
+import { CTable, CTableBody, CTableCell, CTableHead, CTableHeadRow } from '../../components/CTable'
 import DSelect from '../../components/DSelect'
 import DTabs from '../../components/DTabs'
 import { rankingSorts, rankingTabs, tableData, tableRows } from './mocks'

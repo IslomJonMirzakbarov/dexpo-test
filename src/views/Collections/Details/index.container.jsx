@@ -8,6 +8,11 @@ import Countdown from '../../../components/Countdown';
 import { makeStyles, useTheme } from '@mui/styles';
 import ValueTable from './ValueTable';
 import nft1Img from '../../../assets/images/nft1.png'
+import HistoryTable from './HistoryTable';
+import { fakeNFTs } from '../../../constants/faker';
+import NFTCard from '../../../components/NFTCard';
+import { useNavigate } from 'react-router-dom';
+import tokenImg from '../../../assets/images/con-token.svg'
 
 const useStyles = makeStyles({
     priceBox: {
@@ -26,6 +31,7 @@ const CollectionDetailsContainer = ({
     price = 1500,
     parsedPrice = 54.48
 }) => {
+    const navigate = useNavigate()
     const classes = useStyles()
     const theme = useTheme()
 
@@ -70,7 +76,7 @@ const CollectionDetailsContainer = ({
                             >
                                 <Countdown />
                                 <Box display='flex' alignItems="center" className={classes.priceBox}>
-                                    <img src="/src/assets/images/con-token.svg" alt="token" width={28} height={28}/>
+                                    <img src={tokenImg} alt="token" width={28} height={28}/>
                                     <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
                                         <NumberFormat value={price} displayType={'text'} thousandSeparator={true} />
                                     </Typography>
@@ -88,6 +94,30 @@ const CollectionDetailsContainer = ({
                             </Box>
                         </Box>
                     </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid item lg={12}>
+                        <HistoryTable />
+                    </Grid>
+                </Grid>
+                <Grid container mt={10} spacing={2}>
+                    <Grid item lg={12}>
+                        <Typography 
+                            variant="h2"
+                            fontSize='40px !important'
+                            lineHeight='60px'
+                            textAlign="center"
+                        >
+                            More Artworks From This Collection
+                        </Typography>
+                    </Grid>
+                        {
+                            fakeNFTs.slice(0,4).map((item,i) =>
+                                <Grid item lg={3} key={i}>
+                                    <NFTCard {...item} onClick={() => navigate('/marketplace/123')}/>
+                                </Grid>
+                            )
+                        }
                 </Grid>
             </Container>
         </Paper>

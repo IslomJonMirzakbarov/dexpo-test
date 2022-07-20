@@ -13,6 +13,7 @@ import nft3Img from '../../assets/images/nft3.png';
 import nft4Img from '../../assets/images/nft4.png';
 import nft5Img from '../../assets/images/nft5.png';
 import nft6Img from '../../assets/images/nft6.png';
+import { useNavigate } from 'react-router-dom'
 
 const images = {
     nft1: nft1Img,
@@ -24,6 +25,8 @@ const images = {
 }
 
 const Collections = () => {
+    const navigate = useNavigate()
+
     const [filter, setFilter] = useState(rankingSorts[0])
     const [page,setPage] = useState(1)
     
@@ -59,7 +62,7 @@ const Collections = () => {
                         {
                             Array(20).fill(fakeNFTs[0]).map((item,i) => 
                                 <Grid item key={i} lg={12/5}>
-                                    <NFTCard {...item} img={images[`nft${Math.round(Math.random() * 5)+1}`]}/>
+                                    <NFTCard {...item} onClick={() => navigate('/marketplace/123')} img={images[`nft${Math.round(Math.random() * 5)+1}`]}/>
                                 </Grid>
                             )
                         }

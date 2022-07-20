@@ -1,5 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './style.module.scss'
 import Slider from 'react-slick'
 import NFTCard from '../../../components/NFTCard'
@@ -46,6 +47,8 @@ const settings = {
 };
 
 const NFTCollections = () => {
+    const navigate = useNavigate()
+
     return (
         <Box className={classNames(styles.container,'collections')}>
             <Container>
@@ -73,7 +76,7 @@ const NFTCollections = () => {
                                         {
                                             item.collections.map((card, c) => 
                                                 <Grid item key={c}>
-                                                    <NFTCard {...card}/>
+                                                    <NFTCard {...card} onClick={() => navigate('/marketplace/123')}/>
                                                 </Grid>
                                             )
                                         }
@@ -83,7 +86,7 @@ const NFTCollections = () => {
                                         {
                                             item.collections.map((card, c) => 
                                                 <div className={styles.card} key={c}>
-                                                    <NFTCard {...card}/>
+                                                    <NFTCard {...card} onClick={() => navigate('/marketplace/123')}/>
                                                 </div>    
                                             )
                                         }
