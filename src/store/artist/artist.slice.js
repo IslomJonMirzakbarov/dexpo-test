@@ -9,7 +9,7 @@ export const { actions: artistActions, reducer: artistReducer } = createSlice({
   reducers: {
     assignArtist(state, { payload }) {
       state.artistName = payload.artist_name;
-      state.artistWalletAddress = payload.artist_wallet_address;
+      state.artistWalletAddress = payload.wallet_address;
     },
   },
 });

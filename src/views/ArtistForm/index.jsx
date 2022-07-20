@@ -6,8 +6,6 @@ import FormInputText from "../../components/FormInputText";
 import ModalCard from "../../components/ModalCard";
 import { Box, Container } from "@mui/system";
 import useArtistAPI from "../../hooks/useArtistAPI";
-import { useDispatch } from "react-redux";
-import { assignArtist } from "../../store/artist/artist.slice";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
@@ -17,11 +15,9 @@ import { useNavigate } from "react-router-dom";
 
 const ArtistForm = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { account } = useSelector((store) => store.wallet);
-  // account = walletAddress (just for reference)
   const [showModal, setShowModal] = useState(false);
-  const [rejectCasePopup, setRejectCasePopup] = useState(true);
+  const [rejectCasePopup, setRejectCasePopup] = useState(false);
   const { create, artist } = useArtistAPI({ isDetail: true });
 
   const {
@@ -50,9 +46,6 @@ const ArtistForm = () => {
     create.mutate(payload);
 
     if (artist.data !== null) {
-      const { artist_name, artist_wallet_address } = artist.data;
-      dispatch(assignArtist({ artist_name, artist_wallet_address }));
-
       if (
         artist.code.toString()[0] === "4" ||
         artist.code.toString()[0] === "5"
@@ -70,7 +63,7 @@ const ArtistForm = () => {
     if (!rejectCasePopup) {
       navigate("/my-page");
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
 
