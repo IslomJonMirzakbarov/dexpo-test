@@ -8,6 +8,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import Web3 from "web3";
 import FormInputText from "../../../components/FormInputText";
 import ModalCard from "../../../components/ModalCard";
 import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
@@ -16,15 +17,25 @@ import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { assignLike, assignNftItem } from "../../../store/nft/nft.slice";
+import SingleABI from "../../../utils/abi/SingleABI";
+import useCollectionAPI from "../../../hooks/useCollectionApi";
+import { useSelector } from "react-redux";
 
 const NftCreate = () => {
+  const { collections } = useCollectionAPI({
+    isDetail: true,
+    page: 1,
+    orderBy: "desc",
+    size: 10,
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { account } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
   const [currentCollection, setCurrentCollection] = useState("select");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
-  console.log(uploadedImg);
+  // console.log(uploadedImg);
   const [errBool, setErrBool] = useState(false);
 
   const imgBool =
@@ -51,17 +62,50 @@ const NftCreate = () => {
   });
   const errorChecker = Object.keys(errors).length;
 
-  const onSubmit = handleSubmit((data) => {
-    if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-      data["src"] = uploadedImg.src;
+  const onSubmit = handleSubmit(async (data) => {
+    console.log('.....');
+    const collection = collections[0]?.contract_address;
+    const web3 = new Web3(Web3.givenProvider);
+    const contractERC721 = new web3.eth.Contract(SingleABI, collection);
 
-      dispatch(assignLike());
-      dispatch(assignNftItem(data));
-      // ... logic when connected to the api
-      reset();
-      setChecked(false);
-      setShowModal(true);
-    }
+    const estimatedGas = await contractERC721.methods
+      .mint(
+        account,
+        "https://sopia19910.mypinata.cloud/ipfs/QmNayREAmZv9s7EX3vwFc7iosmRiQjESAZqyKjHbdJ4NEm"
+      )
+      .estimateGas({
+        gasPrice: await web3.eth.getGasPrice(),
+        from: account,
+      });
+    console.log(estimatedGas);
+
+    contractERC721.methods
+      .mint(
+        account,
+        "https://sopia19910.mypinata.cloud/ipfs/QmNayREAmZv9s7EX3vwFc7iosmRiQjESAZqyKjHbdJ4NEm"
+      )
+      .send(
+        {
+          gasPrice: await web3.eth.getGasPrice(),
+          from: account,
+          gas: estimatedGas,
+        },
+        function (err, res) {
+          // transactionHash = res;
+          console.log(res);
+        }
+      );
+
+    // if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
+    //   data["src"] = uploadedImg.src;
+
+    //   dispatch(assignLike());
+    //   dispatch(assignNftItem(data));
+    //   // ... logic when connected to the api
+    //   reset();
+    //   setChecked(false);
+    //   setShowModal(true);
+    // }
   });
 
   const handleChange = (event) => {
@@ -69,14 +113,14 @@ const NftCreate = () => {
   };
 
   const mintClick = () => {
-    if (checked) {
+    // if (checked) {
       onSubmit();
-      if (Object.keys(uploadedImg).length === 0) {
-        setErrBool(true);
-      } else {
-        setErrBool(false);
-      }
-    }
+      // if (Object.keys(uploadedImg).length === 0) {
+      //   setErrBool(true);
+      // } else {
+      //   setErrBool(false);
+      // }
+    // }
   };
 
   return (
