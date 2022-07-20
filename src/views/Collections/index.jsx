@@ -7,6 +7,21 @@ import SearchField from '../../components/Autocomplete'
 import NFTCard from '../../components/NFTCard'
 import { fakeNFTs } from '../../constants/faker'
 import CPagination from '../../components/CPagination'
+import nft1Img from '../../assets/images/nft1.png';
+import nft2Img from '../../assets/images/nft2.png';
+import nft3Img from '../../assets/images/nft3.png';
+import nft4Img from '../../assets/images/nft4.png';
+import nft5Img from '../../assets/images/nft5.png';
+import nft6Img from '../../assets/images/nft6.png';
+
+const images = {
+    nft1: nft1Img,
+    nft2: nft2Img,
+    nft3: nft3Img,
+    nft4: nft4Img,
+    nft5: nft5Img,
+    nft6: nft6Img,
+}
 
 const Collections = () => {
     const [filter, setFilter] = useState(rankingSorts[0])
@@ -44,7 +59,7 @@ const Collections = () => {
                         {
                             Array(20).fill(fakeNFTs[0]).map((item,i) => 
                                 <Grid item key={i} lg={12/5}>
-                                    <NFTCard {...item} img={`src/assets/images/nft${Math.round(Math.random() * 5)+1}.png`}/>
+                                    <NFTCard {...item} img={images[`nft${Math.round(Math.random() * 5)+1}`]}/>
                                 </Grid>
                             )
                         }

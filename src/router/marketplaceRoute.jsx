@@ -1,5 +1,6 @@
 import React from 'react';
 import Collections from '../views/Collections';
+import CollectionDetails from '../views/Collections/Details';
 import CollectionItem from '../views/Collections/Item';
 
 export const marketplaceRoutes = {
@@ -11,7 +12,7 @@ export const marketplaceRoutes = {
     },
     {
       path: ':id',
-      element: <CollectionItem />
+      element: <CollectionDetails />
     },
   ]
 }

@@ -4,6 +4,7 @@ import YoutubeIcon from "../../assets/icons/youtube.svg?component";
 import FacebookIcon from "../../assets/icons/facebook.svg?component";
 import DiscordIcon from "../../assets/icons/discord.svg?component";
 import TelegramIcon from "../../assets/icons/telegram.svg?component";
+import logoImg from "../../assets/images/logo.svg";
 import { NavLink } from "react-router-dom";
 import styles from "./style.module.scss";
 
@@ -103,7 +104,7 @@ const Footer = () => {
         <Grid container py={4} mt={4}>
           <Grid item lg={3}>
             <Box display="flex" flexDirection="column">
-              <img src="src/assets/images/logo.svg" width={132} alt="logo" />
+              <img src={logoImg} width={132} alt="logo" />
               <Typography variant="p" mt={2}>
                 DEXPO NFT Marketplace brings together artists, creators, and
                 crypto enthusiasts on a single platform to create and trade top
