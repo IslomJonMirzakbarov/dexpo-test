@@ -96,16 +96,16 @@ const NftCreate = () => {
         }
       );
 
-    // if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-    //   data["src"] = uploadedImg.src;
+    if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
+      data["src"] = uploadedImg.src;
 
-    //   dispatch(assignLike());
-    //   dispatch(assignNftItem(data));
-    //   // ... logic when connected to the api
-    //   reset();
-    //   setChecked(false);
-    //   setShowModal(true);
-    // }
+      dispatch(assignLike());
+      dispatch(assignNftItem(data));
+      // ... logic when connected to the api
+      reset();
+      setChecked(false);
+      setShowModal(true);
+    }
   });
 
   const handleChange = (event) => {
@@ -113,14 +113,14 @@ const NftCreate = () => {
   };
 
   const mintClick = () => {
-    // if (checked) {
+    if (checked) {
       onSubmit();
-      // if (Object.keys(uploadedImg).length === 0) {
-      //   setErrBool(true);
-      // } else {
-      //   setErrBool(false);
-      // }
-    // }
+      if (Object.keys(uploadedImg).length === 0) {
+        setErrBool(true);
+      } else {
+        setErrBool(false);
+      }
+    }
   };
 
   return (
