@@ -20,7 +20,7 @@
     "@mui/material": "^5.2.4",
     "@mui/styles": "^5.2.3",
     "@reduxjs/toolkit": "^1.7.1",
-    "@rumess/react-flip-countdown": "^1.2.3",
+    "@rumess/react-flip-countdown": "^1.2.4",
     "axios": "^0.26.1",
     "browserify-zlib": "^0.2.0",
     "classnames": "^2.3.1",

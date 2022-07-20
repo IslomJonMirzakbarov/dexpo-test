@@ -9,7 +9,6 @@ const createArtist = (data, token) =>
 
 const useArtistAPI = ({ isDetail, onSuccess }) => {
   const { token } = useSelector((store) => store.auth);
-  console.log(token);
   const dispatch = useDispatch();
 
   const getArtist = (token) =>
