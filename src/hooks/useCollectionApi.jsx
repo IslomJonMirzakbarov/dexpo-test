@@ -7,12 +7,10 @@ import {
   assignNewCollection,
 } from "../store/collection/collection.slice";
 
-const useCollectionAPI = ({ isDetail, onSuccess }) => {
+const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
-  // console.log(token);
 
-  // create-collection func
   const config = {
     headers: { "content-type": "multipart/form-data" },
   };
@@ -23,15 +21,15 @@ const useCollectionAPI = ({ isDetail, onSuccess }) => {
         dispatch(assignNewCollection(res.data.data));
       });
 
-  // get-collections func
-  const collectionListParams = {
-    page: 1,
-    order_by: "desc",
-    size: 20,
-  };
-  const getCollectionList = (token) =>
+  const getCollectionList = (token, page, orderBy, size) =>
     securedAPI(token)
-      .get("/api/collection/list", { params: collectionListParams })
+      .get("/api/collection/list", {
+        params: {
+          page,
+          order_by: orderBy,
+          size,
+        },
+      })
       .then((res) => {
         dispatch(assignCollectionList(res.data.data.items));
         return res.data.data.items;
@@ -43,7 +41,7 @@ const useCollectionAPI = ({ isDetail, onSuccess }) => {
 
   const { data, isLoading, error } = useQuery(
     "get-collection-list",
-    () => getCollectionList(token),
+    () => getCollectionList(token, page, orderBy, size),
     {
       enabled: isDetail || false,
     }

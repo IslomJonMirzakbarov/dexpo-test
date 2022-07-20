@@ -11,12 +11,17 @@ import CreateCollectionForm from "../../../assets/icons/create-collection-form.s
 import styles from "./style.module.scss";
 import { Box } from "@mui/system";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
-import { FormGroup, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const CollectionCreate = () => {
   const navigate = useNavigate();
-  const { create } = useCollectionAPI({ isDetail: true });
+  const { create } = useCollectionAPI({
+    isDetail: true,
+    page: 1,
+    orderBy: "desc",
+    size: 10,
+  });
   const [showModal, setShowModal] = useState(false);
   const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
   const [type, setType] = useState(collectionType.SINGLE);
