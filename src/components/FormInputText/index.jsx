@@ -1,11 +1,16 @@
-import React from "react";
-import { TextField } from "@mui/material";
-import { Controller } from "react-hook-form";
+import React from 'react';
+import { Controller } from 'react-hook-form';
 
-import styles from "./style.module.scss";
-import classNames from "classnames";
+import styles from './style.module.scss';
+import classNames from 'classnames';
 
-const FormInputText = ({ name, control, label, artistInput }) => {
+const FormInputText = ({
+  name,
+  control,
+  label,
+  artistInput,
+  type = 'string'
+}) => {
   return (
     <div
       className={classNames(styles.Test, { [styles.ArtistInput]: artistInput })}
@@ -13,24 +18,26 @@ const FormInputText = ({ name, control, label, artistInput }) => {
       <Controller
         name={name}
         control={control}
-        rules={{ required: name !== "youtubeURL" }}
+        rules={{ required: name !== 'youtubeURL' }}
         render={({ field }) =>
-          name === "description" ? (
+          name === 'description' ? (
             <textarea
               placeholder="Describe your fields of artwork"
               className={classNames(
                 styles.ArtistInputText,
                 styles.DescriptionInput
               )}
+              type={type}
               {...field}
             />
           ) : (
             <input
-              disabled={name === "walletAddress"}
+              disabled={name === 'walletAddress'}
               className={classNames(styles.InputText, {
-                [styles.ArtistInputText]: artistInput,
+                [styles.ArtistInputText]: artistInput
               })}
               placeholder={label}
+              type={type}
               {...field}
             />
           )

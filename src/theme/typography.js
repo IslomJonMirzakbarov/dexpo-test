@@ -72,7 +72,7 @@ const typography = {
   },
   body1: {
     lineHeight: 1.5,
-    fontSize: pxToRem(16)
+    fontSize: pxToRem(15)
   },
   body2: {
     fontWeight: 500,
@@ -100,6 +100,11 @@ const typography = {
     fontWeight: 300,
     lineHeight: 24 / 16.5,
     fontSize: pxToRem(19)
+  },
+  modalTitle: {
+    fontWeight: 700,
+    lineHeight: '33px',
+    fontSize: '22px'
   }
 };
 
