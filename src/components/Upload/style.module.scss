@@ -1,3 +1,6 @@
+@use "/src/scss/colors";
+@import "../../styles/fonts";
+
 .FileUploadWithDrag {
   box-sizing: border-box;
   position: relative;
@@ -7,7 +10,7 @@
     width: 100%;
     cursor: pointer;
     position: static;
-    height: 164px;
+    height: 140px;
     left: 0px;
     top: 0px;
     border: 1px dashed #d5dadd;
@@ -17,6 +20,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &:hover {
+      border: 1px dashed #7d8890;
+    }
 
     &.error {
       border: 1px dashed rgba(247, 102, 89, 1);
@@ -33,15 +40,10 @@
       align-items: center;
       justify-content: center;
       gap: 6.29px;
-
       font-style: normal;
-      font-weight: 600;
-      font-size: 15px;
-      line-height: 22px;
-      /* identical to box height */
+      @include fontLabel;
       text-align: center;
-      /* sub */
-      color: #7d8890;
+      color: colors.$text;
     }
 
     .dropzoneIitle {
@@ -54,15 +56,16 @@
 
     .button {
       .btn-title {
-        font-family: "Poppins", sans-serif;
-        font-size: 14px;
         font-style: normal;
-        font-weight: 400;
+        @include fontBodyXL;
         line-height: 24px;
         letter-spacing: -0.006em;
         text-align: center;
       }
     }
+  }
+
+  .DropZoneHeight {
   }
 }
 
@@ -115,7 +118,7 @@
     }
 
     .dropzone-title {
-      font-size: 16px;
+      @include fontBodyXXL;
       line-height: 24px;
       text-align: center;
       margin: 8px 0;
@@ -124,10 +127,8 @@
 
     .button {
       .btn-title {
-        font-family: "Poppins", sans-serif;
-        font-size: 14px;
         font-style: normal;
-        font-weight: 400;
+        @include fontBodyXL;
         line-height: 24px;
         letter-spacing: -0.006em;
         text-align: center;
@@ -188,12 +189,8 @@
     background: rgba(31, 31, 31, 0.45);
     font-style: normal;
     font-weight: 600;
-    font-size: 15px;
-    line-height: 22px;
-    /* identical to box height */
+    @include fontProcessDesc;
     text-align: center;
-    /* sub */
     color: #ffffff;
-
   }
 }

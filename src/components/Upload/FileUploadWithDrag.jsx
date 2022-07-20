@@ -1,8 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from "react";
-import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
+import { useCallback, useRef, useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useDropzone } from "react-dropzone";
-import { CircularProgress } from "@mui/material";
 import RingLoader from "../Loaders/RingLoader";
 
 import UploadImg from "../../assets/icons/upload-img-icon.svg?component";
@@ -17,7 +15,6 @@ const FileUploadWithDrag = ({ onUpload, loader, page, src = "" }) => {
   const onDrop = useCallback((files) => {
     const file = files[0];
 
-    // if (page === "create-nft") {
     const reader = new FileReader();
     Object.assign(file, {
       preview: URL.createObjectURL(file),
@@ -27,13 +24,6 @@ const FileUploadWithDrag = ({ onUpload, loader, page, src = "" }) => {
       onUpload(file);
     };
     reader.readAsDataURL(file);
-    // }
-
-    // const data = new FormData();
-
-    // data.append("file", file);
-
-    // onUpload(data);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -57,14 +47,6 @@ const FileUploadWithDrag = ({ onUpload, loader, page, src = "" }) => {
         {...getRootProps()}
         className={styles.dropzone}
         ref={inputRef}
-        style={{
-          height:
-            page === "create-collection" || page === "edit-collection"
-              ? 140
-              : 164,
-          border:
-            page === "create-collection" && hovered && "1px dashed #7D8890",
-        }}
       >
         <input {...getInputProps()} />
         {!loader ? (
