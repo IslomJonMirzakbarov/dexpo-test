@@ -2,10 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { securedAPI } from "../services/api";
 import { useMutation, useQuery } from "react-query";
-import {
-  assignCollectionList,
-  assignNewCollection,
-} from "../store/collection/collection.slice";
+import { assignNewCollection } from "../store/collection/collection.slice";
 
 const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
   const dispatch = useDispatch();
@@ -31,7 +28,6 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
         },
       })
       .then((res) => {
-        dispatch(assignCollectionList(res.data.data.items));
         return res.data.data.items;
       });
 
@@ -44,6 +40,9 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
     () => getCollectionList(token, page, orderBy, size),
     {
       enabled: isDetail || false,
+      refetchOnMount: "always",
+      refetchOnWindowFocus: true, // constantly updating when newCollection created
+      refetchOnReconnect: true,
     }
   );
 

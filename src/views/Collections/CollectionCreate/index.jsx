@@ -214,7 +214,7 @@ const CollectionCreate = () => {
           )}
           {errBool && (
             <Box className={styles.ErrorPhrase}>
-              Please select type and upload logo.
+              Please upload logo.
             </Box>
           )}
         </Box>

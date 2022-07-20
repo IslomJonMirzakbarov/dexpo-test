@@ -17,7 +17,7 @@ const ArtistForm = () => {
   const navigate = useNavigate();
   const { account } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
-  const [rejectCasePopup, setRejectCasePopup] = useState(true);
+  const [rejectCasePopup, setRejectCasePopup] = useState(false);
   const { create, artist } = useArtistAPI({ isDetail: true });
 
   const {
