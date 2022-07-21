@@ -38,7 +38,9 @@ const NftCreate = () => {
   const [errBool, setErrBool] = useState(false);
 
   const imgBool =
-    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg";
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
+      ? true
+      : false;
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {
@@ -62,7 +64,7 @@ const NftCreate = () => {
   const errorChecker = Object.keys(errors).length;
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log('.....');
+    console.log(".....");
     const collection = collections[0]?.contract_address;
     const web3 = new Web3(Web3.givenProvider);
     const contractERC721 = new web3.eth.Contract(SingleABI, collection);
@@ -124,102 +126,106 @@ const NftCreate = () => {
 
   return (
     <div className={styles.Container}>
-      <div className={styles.TopSide}>
-        <div className={styles.LeftSide}>
-          <div className={styles.LeftTitle}>Create New Item</div>
+      <div className={styles.Title}>Create New Item</div>
 
-          <div>
-            <div className={styles.TopExp}>
-              Content types supported: JPG, PNG
-            </div>
-            <div className={styles.DropZone}>
-              {Object.keys(uploadedImg).length > 0 ? (
-                <div className={styles.PrevImg}>
-                  {!imgBool ? (
-                    <div className={styles.InvalidType}>
-                      Invalid file type <br /> Please choose JPG or PNG types
+      <div className={styles.TopSideContainer}>
+        <div className={styles.TypeLagInfo}>
+          Content types supported: JPG, PNG *
+        </div>
+        <div className={styles.TopSide}>
+          <div className={styles.LeftSide}>
+            <div>
+              <div className={styles.DropZone}>
+                {/* {Object.keys(uploadedImg).length > 0 ? (
+                  <div className={styles.PrevImg}>
+                    {!imgBool ? (
+                      <div className={styles.InvalidType}>
+                        Invalid file type <br /> Please choose JPG or PNG types
+                      </div>
+                    ) : (
+                      <img
+                        className={styles.PrevImg}
+                        src={uploadedImg?.preview}
+                        alt="fd"
+                      />
+                    )}
+
+                    <div
+                      className={styles.RemoveBtn}
+                      onClick={() => setUploadedImg({})}
+                    >
+                      X
                     </div>
-                  ) : (
-                    <img
-                      className={styles.PrevImg}
-                      src={uploadedImg?.preview}
-                      alt="fd"
-                    />
-                  )}
-
-                  <div
-                    className={styles.RemoveBtn}
-                    onClick={() => setUploadedImg({})}
-                  >
-                    X
                   </div>
-                </div>
-              ) : (
+                ) : ( */}
                 <FileUploadWithDrag
+                  imgBool={imgBool}
+                  src={uploadedImg?.preview}
                   onUpload={setUploadedImg}
                   page="create-nft"
                 />
-              )}
+                {/* )} */}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.RightSide}>
-          <div className={styles.RightTitle}>Collection</div>
-          <FormControl fullWidth>
-            <Controller
-              name="collection"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => {
-                return (
-                  <>
-                    <InputLabel>Select Collection</InputLabel>
-                    <Select {...field}>
-                      <MenuItem
-                        onClick={() => setCurrentCollection("gemma")}
-                        value={"gemma"}
-                      >
-                        Gemma (Gemma ERC-721)
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => setCurrentCollection("keytauri")}
-                        value={"keytauri"}
-                      >
-                        Keytauri (KYT ERC-1155)
-                      </MenuItem>
-                    </Select>
-                  </>
-                );
-              }}
-            />
-            {currentCollection === "keytauri" && (
-              <div className={styles.TokenQuantity}>
-                <label>Token Quantity</label>
+          <div className={styles.RightSide}>
+            <div className={styles.RightTitle}>Collection</div>
+            <FormControl fullWidth>
+              <Controller
+                name="collection"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => {
+                  return (
+                    <>
+                      <InputLabel>Select Collection</InputLabel>
+                      <Select {...field}>
+                        <MenuItem
+                          onClick={() => setCurrentCollection("gemma")}
+                          value={"gemma"}
+                        >
+                          Gemma (Gemma ERC-721)
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => setCurrentCollection("keytauri")}
+                          value={"keytauri"}
+                        >
+                          Keytauri (KYT ERC-1155)
+                        </MenuItem>
+                      </Select>
+                    </>
+                  );
+                }}
+              />
+              {currentCollection === "keytauri" && (
+                <div className={styles.TokenQuantity}>
+                  <label>Token Quantity</label>
+                  <FormInputText
+                    control={control}
+                    name="tokenQuantity"
+                    label="Enter a token amount "
+                  />
+                </div>
+              )}
+              <div className={styles.ArtworkName}>
+                <label>Artwork Name</label>
                 <FormInputText
                   control={control}
-                  name="tokenQuantity"
-                  label="Enter a token amount "
+                  name="artworkName"
+                  label="Enter an artwork name"
                 />
               </div>
-            )}
-            <div className={styles.ArtworkName}>
-              <label>Artwork Name</label>
-              <FormInputText
-                control={control}
-                name="artworkName"
-                label="Enter an artwork name"
-              />
-            </div>
-            <div className={styles.ArtworkDescription}>
-              <label>Artwork Description</label>
-              <FormInputText
-                control={control}
-                name="artworkDescription"
-                label="Enter an artwork description"
-              />
-            </div>
-          </FormControl>
+              <div className={styles.ArtworkDescription}>
+                <label>Artwork Description</label>
+                <FormInputText
+                  control={control}
+                  name="artworkDescription"
+                  label="Enter an artwork description"
+                />
+              </div>
+            </FormControl>
+          </div>
         </div>
       </div>
 

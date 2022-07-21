@@ -28,6 +28,11 @@ const CollectionCreate = () => {
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
 
+  const imgBool =
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
+      ? true
+      : false;
+
   const {
     handleSubmit,
     control,
@@ -173,6 +178,7 @@ const CollectionCreate = () => {
 
         <Box className={styles.UploadLogo}>
           <FileUploadWithDrag
+            imgBool={imgBool}
             onUpload={setUploadedImg}
             page="create-collection"
             src={uploadedImg?.preview}
@@ -213,9 +219,7 @@ const CollectionCreate = () => {
             </Box>
           )}
           {errBool && (
-            <Box className={styles.ErrorPhrase}>
-              Please upload logo.
-            </Box>
+            <Box className={styles.ErrorPhrase}>Please upload logo.</Box>
           )}
         </Box>
       </form>

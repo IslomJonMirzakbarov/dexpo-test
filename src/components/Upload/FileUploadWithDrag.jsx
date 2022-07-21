@@ -4,11 +4,18 @@ import { useDropzone } from "react-dropzone";
 import RingLoader from "../Loaders/RingLoader";
 
 import UploadImg from "../../assets/icons/upload-img-icon.svg?component";
+import InvalidLogo from "../../assets/icons/invalid-logo.svg?component";
 
 import styles from "./style.module.scss";
 import classNames from "classnames";
 
-const FileUploadWithDrag = ({ onUpload, loader, page, src = "" }) => {
+const FileUploadWithDrag = ({
+  onUpload,
+  loader,
+  page,
+  src = "",
+  imgBool = false,
+}) => {
   const inputRef = useRef(null);
   const [hovered, setHovered] = useState(false);
 
@@ -40,24 +47,34 @@ const FileUploadWithDrag = ({ onUpload, loader, page, src = "" }) => {
           [styles.FileUploadCreateCollection]:
             page === "create-collection" || page === "edit-collection",
         },
+        {
+          [styles.FileUploadCreateNft]: page === "create-nft",
+        },
         { [styles.BackImg]: page === "edit-collection" }
       )}
+      style={{
+        border: imgBool
+          ? "none"
+          : src.length === 0
+          ? "2px dashed #d9d9d9;"
+          : "2px dashed red",
+      }} // using inline, with classNames it is not affecting deep enough
     >
       <div
         {...getRootProps()}
-        className={styles.dropzone}
+        className={classNames(styles.dropzone)}
         ref={inputRef}
+        style={{ border: imgBool && "none" }}
       >
         <input {...getInputProps()} />
         {!loader ? (
           <>
-            {page === "create-nft" && (
-              <AddCircleIcon className={styles.dropzoneIcon} />
-            )}
             {page !== "edit-collection" && src.length === 0 && (
-              <div className={styles.LogoContainer}>
-                {page === "create-collection" && (
+              <div className={classNames(styles.LogoContainer)}>
+                {(page === "create-collection" || page === "create-nft") && (
                   <UploadImg
+                    width={page === "create-nft" ? 93 : 42}
+                    height={page === "create-nft" ? 68 : 31}
                     fill={hovered ? "#FF006B" : "#7D8890"}
                     className={styles.UploadImg}
                   />
@@ -66,26 +83,41 @@ const FileUploadWithDrag = ({ onUpload, loader, page, src = "" }) => {
                   className={styles.dropzoneTitle}
                   style={{ color: hovered && "#1f1f1f" }}
                 >
-                  Upload {page === "create-collection" ? "logo" : "file"}{" "}
-                  {page === "create-nft" && "(image)"}
+                  Upload {page === "create-collection" && "logo"}{" "}
+                  {page === "create-nft" && "image"}
                 </p>
               </div>
             )}
             {page !== "edit-collection" && src.length > 0 && (
               <div className={styles.UploadLogo}>
-                <div>
-                  <img src={src} alt="" />
+                <div style={{ border: imgBool && "none" }}>
+                  {!imgBool ? (
+                    <div className={styles.InvalidBoxContainer}>
+                      <InvalidLogo
+                        width={page === "create-collection" ? 40 : 79}
+                        height={page === "create-collection" ? 40 : 79}
+                      />
+                      <div className={styles.InvalidPhrase}>
+                        Invalid file type
+                      </div>
+                    </div>
+                  ) : (
+                    <img src={src} alt="" />
+                  )}
                   {hovered && (
                     <div className={styles.HoverLogoContainer}>
-                      {page === "create-collection" && (
+                      {(page === "create-collection" ||
+                        page === "create-nft") && (
                         <UploadImg
+                          width={page === "create-nft" ? 93 : 42}
+                          height={page === "create-nft" ? 68 : 31}
                           fill={"#ffffff"}
                           className={styles.UploadImg}
                         />
                       )}
                       <p className={styles.dropzoneTitle}>
-                        Upload {page === "create-collection" ? "logo" : "file"}{" "}
-                        {page === "create-nft" && "(image)"}
+                        Upload {page === "create-collection" ? "logo" : ""}{" "}
+                        {page === "create-nft" && "image"}
                       </p>
                     </div>
                   )}
