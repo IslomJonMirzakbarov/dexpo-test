@@ -1,0 +1,43 @@
+@use '/src/scss/colors';
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  background-color: colors.$modalBg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+
+  .modal {
+    background-color: #fff;
+    border-radius: 7px;
+    overflow: hidden;
+    min-width: 480px;
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .img {
+        width: 113px;
+        padding: 62px 0 46px;
+      }
+    }
+
+    .body {
+    }
+
+    .footer {
+      .btn {
+        border-radius: 0;
+        padding: 16px 0;
+      }
+    }
+  }
+}
