@@ -136,35 +136,24 @@ const NftCreate = () => {
           <div className={styles.LeftSide}>
             <div>
               <div className={styles.DropZone}>
-                {/* {Object.keys(uploadedImg).length > 0 ? (
-                  <div className={styles.PrevImg}>
-                    {!imgBool ? (
-                      <div className={styles.InvalidType}>
-                        Invalid file type <br /> Please choose JPG or PNG types
-                      </div>
-                    ) : (
-                      <img
-                        className={styles.PrevImg}
-                        src={uploadedImg?.preview}
-                        alt="fd"
-                      />
-                    )}
-
-                    <div
-                      className={styles.RemoveBtn}
-                      onClick={() => setUploadedImg({})}
-                    >
-                      X
-                    </div>
-                  </div>
-                ) : ( */}
                 <FileUploadWithDrag
                   imgBool={imgBool}
                   src={uploadedImg?.preview}
                   onUpload={setUploadedImg}
                   page="create-nft"
                 />
-                {/* )} */}
+                <div className={styles.TermsAgreement}>
+                  <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    className={styles.CheckBox}
+                  />
+                  <div className={styles.AgreementTxt}>
+                    I declare that this is an original artwork. I understand
+                    that no plagiarism is allowed, and that the artwork can be
+                    removed anytime if detected.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -230,14 +219,14 @@ const NftCreate = () => {
       </div>
 
       <div className={styles.BottomSide}>
-        <div className={styles.TermsAgreement}>
+        {/* <div className={styles.TermsAgreement}>
           <Checkbox checked={checked} onChange={handleChange} />
           <div className={styles.AgreementTxt}>
             I declare that this is an original artwork. I understand that no
             plagiarism is allowed, and that the artwork can be removed anytime
             if detected.
           </div>
-        </div>
+        </div> */}
         <Button
           className={checked ? styles.CheckedBtn : null}
           onClick={mintClick}
