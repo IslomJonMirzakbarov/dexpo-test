@@ -2,6 +2,13 @@ import React from "react";
 import useCollectionAPI from "../../hooks/useCollectionApi";
 
 const MyPage = () => {
+  const { collections } = useCollectionAPI({
+    isDetail: true,
+    page: 1,
+    orderBy: "desc",
+    size: 10,
+  });
+  console.log(collections?.data?.items);
   return (
     <div
       style={{

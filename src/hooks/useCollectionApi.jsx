@@ -27,9 +27,7 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
           size,
         },
       })
-      .then((res) => {
-        return res.data.data.items;
-      });
+      .then((res) => res.data);
 
   const mutation = useMutation((data) => createCollection(data, token), {
     onSuccess,
