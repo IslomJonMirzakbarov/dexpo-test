@@ -68,11 +68,6 @@ const MergedLayout = ({ children }) => {
               </NavLink>
             </ListItem>
           ))}
-          <ListItem className={classNames(styles.navItem)}>
-            <NavLink to="#">
-              <Typography variant="body2">Test</Typography>
-            </NavLink>
-          </ListItem>
         </List>
       </Header>
       {children}
