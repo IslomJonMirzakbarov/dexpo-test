@@ -56,7 +56,7 @@ const FileUploadWithDrag = ({
         border: imgBool
           ? "none"
           : src.length === 0
-          ? "2px dashed #d9d9d9;"
+          ? "2px dashed #d9d9d9"
           : "2px dashed red",
       }} // using inline, with classNames it is not affecting deep enough
     >

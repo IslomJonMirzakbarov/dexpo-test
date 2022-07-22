@@ -37,6 +37,7 @@
     align-items: center;
     width: 1173px;
     height: 100%;
+    margin-bottom: 70px;
 
     .TopSide {
       display: flex;
@@ -81,9 +82,26 @@
     }
 
     .RightSide {
+      width: 650px;
       .RightTitle {
-        font-weight: bold;
-        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 22px;
+        color: #1f1f1f;
+      }
+
+      .TitleDesc {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: #7d8890;
+        margin-bottom: 18px;
+
+        span {
+          color: #1E4CED;
+        }
       }
     }
   }

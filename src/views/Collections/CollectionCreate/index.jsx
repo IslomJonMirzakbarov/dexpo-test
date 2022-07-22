@@ -67,7 +67,7 @@ const CollectionCreate = () => {
       formData.append("symbol", data.symbol);
       formData.append("artist_id", data.artist_id);
       formData.append("logo", data.logo);
-
+      
       create.mutate(formData);
       reset();
       setShowModal(true);

@@ -15,11 +15,10 @@ import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { assignLike, assignNftItem } from "../../../store/nft/nft.slice";
 import SingleABI from "../../../utils/abi/SingleABI";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useSelector } from "react-redux";
+import useNftAPI from "../../../hooks/useNftApi";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -28,11 +27,20 @@ const NftCreate = () => {
     orderBy: "desc",
     size: 10,
   });
-  const dispatch = useDispatch();
+  const { create, metadata } = useNftAPI({});
+  let collectionList;
+  let approvedCollectionList;
+  if (collections) {
+    collectionList = collections?.data?.items;
+    approvedCollectionList = collectionList.filter(
+      (collectionItem) =>
+        collectionItem.status === "COMPLETE" && collectionItem.type === "S"
+    );
+  }
   const navigate = useNavigate();
   const { account } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
-  const [currentCollection, setCurrentCollection] = useState("select");
+  const [contractAddress, setContractAddress] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
@@ -63,55 +71,23 @@ const NftCreate = () => {
   });
   const errorChecker = Object.keys(errors).length;
 
-  const onSubmit = handleSubmit(async (data) => {
-    console.log(".....");
-    const collection = collections[0]?.contract_address;
-    const web3 = new Web3(Web3.givenProvider);
-    const contractERC721 = new web3.eth.Contract(SingleABI, collection);
-
-    const estimatedGas = await contractERC721.methods
-      .mint(
-        account,
-        "https://sopia19910.mypinata.cloud/ipfs/QmNayREAmZv9s7EX3vwFc7iosmRiQjESAZqyKjHbdJ4NEm"
-      )
-      .estimateGas({
-        gasPrice: await web3.eth.getGasPrice(),
-        from: account,
-      });
-    console.log(estimatedGas);
-
-    contractERC721.methods
-      .mint(
-        account,
-        "https://sopia19910.mypinata.cloud/ipfs/QmNayREAmZv9s7EX3vwFc7iosmRiQjESAZqyKjHbdJ4NEm"
-      )
-      .send(
-        {
-          gasPrice: await web3.eth.getGasPrice(),
-          from: account,
-          gas: estimatedGas,
-        },
-        function (err, res) {
-          // transactionHash = res;
-          console.log(res);
-        }
-      );
-
-    if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-      data["src"] = uploadedImg.src;
-
-      dispatch(assignLike());
-      dispatch(assignNftItem(data));
-      // ... logic when connected to the api
-      reset();
-      setChecked(false);
-      setShowModal(true);
-    }
-  });
+  const { isLoading, isSuccess, mutateAsync } = create;
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
+
+  const onSubmit = handleSubmit(async (data) => {
+    setContractAddress(data.collection);
+    data["imageFile"] = uploadedImg;
+
+    let formData = new FormData();
+    formData.append("name", data.artworkName);
+    formData.append("description", data.artworkDescription);
+    formData.append("image", data.imageFile);
+
+    await mutateAsync(formData);
+  });
 
   const mintClick = () => {
     if (checked) {
@@ -123,6 +99,52 @@ const NftCreate = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const nftMint = async () => {
+      if (isSuccess) {
+        console.log(metadata.data.metadata);
+        console.log("yep....");
+
+        const web3 = new Web3(Web3.givenProvider);
+        const contractERC721 = new web3.eth.Contract(
+          SingleABI,
+          contractAddress
+        );
+        const estimatedGas = await contractERC721.methods
+          .mint(account, metadata.data.metadata)
+          .estimateGas({
+            gasPrice: await web3.eth.getGasPrice(),
+            from: account,
+          });
+        console.log(estimatedGas);
+
+        contractERC721.methods.mint(account, metadata.data.metadata).send(
+          {
+            gasPrice: await web3.eth.getGasPrice(),
+            from: account,
+            gas: estimatedGas,
+          },
+          function (err, res) {
+            console.log(err);
+            // transactionHash = res;
+            if (res) {
+              if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
+                // data["src"] = uploadedImg.src;
+                reset();
+                setChecked(false);
+                setShowModal(true);
+              }
+            }
+          }
+        );
+      }
+    };
+
+    nftMint();
+
+    return () => {};
+  }, [account, contractAddress, isSuccess, metadata]);
 
   return (
     <div className={styles.Container}>
@@ -160,6 +182,11 @@ const NftCreate = () => {
 
           <div className={styles.RightSide}>
             <div className={styles.RightTitle}>Collection</div>
+            <div className={styles.TitleDesc}>
+              If you have no collection yet, then{" "}
+              <span>create a collection</span> first, and your item will appear
+              in this collection.
+            </div>
             <FormControl fullWidth>
               <Controller
                 name="collection"
@@ -170,24 +197,27 @@ const NftCreate = () => {
                     <>
                       <InputLabel>Select Collection</InputLabel>
                       <Select {...field}>
-                        <MenuItem
-                          onClick={() => setCurrentCollection("gemma")}
-                          value={"gemma"}
-                        >
-                          Gemma (Gemma ERC-721)
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => setCurrentCollection("keytauri")}
-                          value={"keytauri"}
-                        >
-                          Keytauri (KYT ERC-1155)
-                        </MenuItem>
+                        {approvedCollectionList &&
+                          approvedCollectionList.map((collectionItem) => {
+                            return (
+                              <MenuItem
+                                key={collectionItem.collection_id}
+                                value={collectionItem.contract_address}
+                              >
+                                {collectionItem.name}
+                              </MenuItem>
+                            );
+                          })}
                       </Select>
                     </>
                   );
                 }}
               />
-              {currentCollection === "keytauri" && (
+
+              {/* below code will be available later when we allow choose multiple type.
+                  For now leaving the code here for later usage.   
+              */}
+              {/* {currentCollection === "keytauri" && (
                 <div className={styles.TokenQuantity}>
                   <label>Token Quantity</label>
                   <FormInputText
@@ -196,7 +226,8 @@ const NftCreate = () => {
                     label="Enter a token amount "
                   />
                 </div>
-              )}
+              )} */}
+
               <div className={styles.ArtworkName}>
                 <label>Artwork Name</label>
                 <FormInputText
@@ -219,14 +250,6 @@ const NftCreate = () => {
       </div>
 
       <div className={styles.BottomSide}>
-        {/* <div className={styles.TermsAgreement}>
-          <Checkbox checked={checked} onChange={handleChange} />
-          <div className={styles.AgreementTxt}>
-            I declare that this is an original artwork. I understand that no
-            plagiarism is allowed, and that the artwork can be removed anytime
-            if detected.
-          </div>
-        </div> */}
         <Button
           className={checked ? styles.CheckedBtn : null}
           onClick={mintClick}
@@ -243,6 +266,8 @@ const NftCreate = () => {
           the content is incorrect, the upload may berejected.
         </div>
       </div>
+
+      {isLoading && "kfldsfjlsdkfj"}
 
       {showModal && (
         <ModalCard
