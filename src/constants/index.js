@@ -10,6 +10,10 @@ export const pages = [
   {
     name: 'Contact',
     to: '/contact'
+  },
+  {
+    name: 'Rankings',
+    to: '/rankings'
   }
 ];
 
