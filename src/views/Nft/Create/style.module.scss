@@ -204,23 +204,19 @@
 
 .Congrats {
   font-style: normal;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 33px;
+  @include fontProcessTitle;
   text-align: center;
-  color: #1f1f1f;
+  color: colors.$greyBg;
   margin-bottom: 10px;
 }
 
 .Created {
   font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 22px;
+  @include fontTypePhrase;
   text-align: center;
-  color: #1f1f1f;
+  color: colors.$greyBg;
 }
 
 .TokCol {
-  color: #FF006B;
+  color: colors.$primary;
 }
