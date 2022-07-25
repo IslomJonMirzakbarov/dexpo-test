@@ -4,6 +4,7 @@ import { useDropzone } from "react-dropzone";
 import RingLoader from "../Loaders/RingLoader";
 
 import UploadImg from "../../assets/icons/upload-img-icon.svg?component";
+import UploadImgHovered from "../../assets/icons/upload-img-hovered-icon.svg?component";
 import InvalidLogo from "../../assets/icons/invalid-logo.svg?component";
 
 import styles from "./style.module.scss";
@@ -71,14 +72,22 @@ const FileUploadWithDrag = ({
           <>
             {page !== "edit-collection" && src.length === 0 && (
               <div className={classNames(styles.LogoContainer)}>
-                {(page === "create-collection" || page === "create-nft") && (
+                {(page === "create-collection" || page === "create-nft") &&
+                hovered ? (
+                  <UploadImgHovered
+                    width={page === "create-nft" ? 93 : 42}
+                    height={page === "create-nft" ? 68 : 31}
+                    className={styles.UploadImg}
+                  />
+                ) : (
                   <UploadImg
                     width={page === "create-nft" ? 93 : 42}
                     height={page === "create-nft" ? 68 : 31}
-                    fill={hovered ? "#FF006B" : "#7D8890"}
+                    fill="#7D8890"
                     className={styles.UploadImg}
                   />
                 )}
+
                 <p
                   className={styles.dropzoneTitle}
                   style={{ color: hovered && "#1f1f1f" }}
