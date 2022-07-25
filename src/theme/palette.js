@@ -39,7 +39,8 @@ const INFO = {
   light: '#74CAFF',
   main: '#1890FF',
   dark: '#0C53B7',
-  darker: '#04297A'
+  darker: '#04297A',
+  main1: '#1E4CED'
 };
 const SUCCESS = {
   lighter: '#E9FCD4',
@@ -88,7 +89,9 @@ const GREY = {
   1300: '#F0F0F0',
   1400: '#1F1F1F',
   1500: '#DEDEDE',
-  1600: '#F4F4F4'
+  1600: '#F4F4F4',
+  1700: '#F2F2F2',
+  1800: '#D1D1D1'
 };
 
 const BUTTON_GRADIENTS = {

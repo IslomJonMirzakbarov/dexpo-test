@@ -1,20 +1,32 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { securedAPI } from '../../services/api'
-import Hero from './Hero'
-import Instructions from './Instructions'
-import NFTCollections from './NFTCollections'
-import styles from './style.module.scss'
-import TopCollections from './TopCollections'
-
+import React, { useEffect } from 'react';
+import useCollecionsByCategory, {
+  categoryTypes
+} from '../../hooks/useCollectionsByCategoryAPI';
+import useTopCollections from '../../hooks/useTopCollectionsAPI';
+import Hero from './Hero';
+import Instructions from './Instructions';
+import NFTCollections from './NFTCollections';
+import styles from './style.module.scss';
+import TopCollections from './TopCollections';
 
 const Home = () => {
-    return <div className={styles.container}>
-        <Hero />
-        <NFTCollections />
-        <TopCollections />
-        <Instructions />
+  const { collections, isLoading: loadingTC } = useTopCollections();
+  const { collections: notableCollections, isLoading: loadingNotable } =
+    useCollecionsByCategory(categoryTypes.NOTABLE);
+  const { collections: hottestCollections, isLoading: loadingHottest } =
+    useCollecionsByCategory(categoryTypes.NOTABLE);
+
+  return (
+    <div className={styles.container}>
+      <Hero />
+      <NFTCollections
+        collections={notableCollections}
+        hottestCollections={hottestCollections}
+      />
+      <TopCollections collections={collections?.items} />
+      <Instructions />
     </div>
+  );
 };
 
 export default Home;

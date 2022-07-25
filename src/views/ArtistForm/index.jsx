@@ -1,42 +1,39 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import styles from "./style.module.scss";
-import FormInputText from "../../components/FormInputText";
-import ModalCard from "../../components/ModalCard";
-import { Box, Container } from "@mui/system";
-import useArtistAPI from "../../hooks/useArtistAPI";
-import { useDispatch } from "react-redux";
-import { assignArtist } from "../../store/artist/artist.slice";
-import PrimaryButton from "../../components/Buttons/PrimaryButton";
-import { useSelector } from "react-redux";
-import { Typography } from "@mui/material";
-import ArtistFormSuccess from "../../assets/icons/artist-form-success.svg?component";
-import ArtistFormReject from "../../assets/icons/artist-form-reject.svg?component";
-import { useNavigate } from "react-router-dom";
+import styles from './style.module.scss';
+import FormInputText from '../../components/FormInputText';
+import { Box, Container } from '@mui/system';
+import useArtistAPI from '../../hooks/useArtistAPI';
+import PrimaryButton from '../../components/Buttons/PrimaryButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { togglePopupByKey } from '../../store/popup/popup.slice';
+import SubmittedModal from '../../components/Modals/SubmittedModal';
 
 const ArtistForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { account } = useSelector((store) => store.wallet);
-  // account = walletAddress (just for reference)
-  const [showModal, setShowModal] = useState(false);
-  const [rejectCasePopup, setRejectCasePopup] = useState(true);
+
+  const [rejectCasePopup, setRejectCasePopup] = useState(false);
   const { create, artist } = useArtistAPI({ isDetail: true });
 
   const {
     handleSubmit,
     formState: { errors },
     control,
-    reset,
+    reset
   } = useForm({
     defaultValues: {
-      artistName: "",
-      email: "",
+      artistName: '',
+      email: '',
       walletAddress: account,
-      youtubeURL: "",
-      description: "",
-    },
+      youtubeURL: '',
+      description: ''
+    }
   });
 
   const onSubmit = (data) => {
@@ -44,31 +41,25 @@ const ArtistForm = () => {
       artist_name: data.artistName,
       artist_email: data.email,
       artist_youtube_url: data.youtubeURL,
-      description: data.description,
+      description: data.description
     };
 
-    create.mutate(payload);
-
     if (artist.data !== null) {
-      const { artist_name, artist_wallet_address } = artist.data;
-      dispatch(assignArtist({ artist_name, artist_wallet_address }));
-
       if (
-        artist.code.toString()[0] === "4" ||
-        artist.code.toString()[0] === "5"
+        artist.code.toString()[0] === '4' ||
+        artist.code.toString()[0] === '5'
       ) {
         setRejectCasePopup(true);
       }
     }
 
     reset();
-    setShowModal(true);
+    dispatch(togglePopupByKey('submittedPopup'));
   };
 
   const modalClick = () => {
-    setShowModal(false);
     if (!rejectCasePopup) {
-      navigate("/my-page");
+      navigate('/my-page');
     } else {
       navigate('/');
     }
@@ -149,34 +140,7 @@ const ArtistForm = () => {
           </Box>
         </form>
       </Box>
-      {showModal && (
-        <ModalCard page="artist-form" onSaveButtonClick={modalClick}>
-          <Box className={styles.IconContainer}>
-            {rejectCasePopup ? <ArtistFormReject /> : <ArtistFormSuccess />}
-          </Box>
-          <Typography className={styles.ProcessTitle}>
-            {rejectCasePopup ? "Rejected!" : "Sent!"}
-          </Typography>
-          <Typography className={styles.ProcessDesc}>
-            {rejectCasePopup ? (
-              <>
-                Artist registration has been rejected.Please contact
-                [support@dexpo.world] <br />
-                for resubmission.{" "}
-              </>
-            ) : (
-              <>
-                Your request is submitted successfully <br /> and sent to admin
-                to review. <br />
-                You can also check your status on <br />{" "}
-                <span className={styles.MainDesc}>
-                  My Page {">"} My application tab.
-                </span>
-              </>
-            )}
-          </Typography>
-        </ModalCard>
-      )}
+      <SubmittedModal onClick={modalClick} />
     </Container>
   );
 };
