@@ -24,6 +24,7 @@ import SelectIcon from "../../../assets/icons/select-icon.svg?component";
 import BlackDot from "../../../assets/icons/black-dot.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
+import SubmittedModal from "../../../components/Modals/SubmittedModal";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -46,6 +47,7 @@ const NftCreate = () => {
   const { account } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
   const [contractAddress, setContractAddress] = useState("");
+  const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
@@ -85,6 +87,7 @@ const NftCreate = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     setContractAddress(data.collection);
+    setArtName(data.artworkName);
     data["imageFile"] = uploadedImg;
 
     let formData = new FormData();
@@ -299,21 +302,19 @@ const NftCreate = () => {
 
       {showModal && (
         <ModalCard
-          page="sell-request"
-          onClose={() => {
-            setShowModal(false);
-            setUploadedImg({});
-          }}
+          page="nft-create"
           onSaveButtonClick={() => {
             setShowModal(false);
             setUploadedImg({});
-            navigate("/nft/sell-request");
+            navigate("/nft/sell-request-artwork");
           }}
         >
           <Box className={styles.IconContainer}>
             <img src={uploadedImg.preview} alt={uploadedImg.name} />
           </Box>
-          <p>Congrats you created GEMMA #3583!</p>
+          <div className={styles.Congrats}>Congrats!</div>
+          <div className={styles.Created}>You created</div>
+          <div className={styles.TokCol}>{artName}</div>
         </ModalCard>
       )}
     </Box>

@@ -224,7 +224,7 @@ const CollectionCreate = () => {
         </Box>
       </form>
       {showModal && (
-        <ModalCard page="artist-form" onSaveButtonClick={modalClick}>
+        <ModalCard page="create-collection" onSaveButtonClick={modalClick}>
           <Box className={styles.IconContainer}>
             <CreateCollectionForm />
           </Box>
