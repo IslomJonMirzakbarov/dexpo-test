@@ -278,11 +278,14 @@ const NftCreate = () => {
       </Box>
 
       <Box className={styles.BottomSide}>
-        <PrimaryButton onClick={mintClick} className={styles.Btn}>
+        <PrimaryButton
+          onClick={mintClick}
+          className={classNames(styles.Btn, { [styles.CheckedBtn]: checked })}
+        >
           Mint
         </PrimaryButton>
         {(errorChecker > 0 || errBool) && (
-          <Box className={styles.Error}>Please enter all requiredvalues.</Box>
+          <Box className={styles.Error}>Please enter all required values.</Box>
         )}
         <Box className={styles.MintTxt}>
           Mint an NFT charges 1 CON, so don't upload sensitive content. In
