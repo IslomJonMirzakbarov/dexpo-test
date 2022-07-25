@@ -44,8 +44,8 @@ const typography = {
   },
   h4: {
     fontWeight: 600,
-    lineHeight: 1.5,
-    fontSize: pxToRem(20),
+    lineHeight: 1.55,
+    fontSize: 20,
     ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 })
   },
   h5: {
@@ -72,7 +72,7 @@ const typography = {
   },
   body1: {
     lineHeight: 1.5,
-    fontSize: pxToRem(16)
+    fontSize: pxToRem(15)
   },
   body2: {
     fontWeight: 500,
@@ -100,6 +100,11 @@ const typography = {
     fontWeight: 300,
     lineHeight: 24 / 16.5,
     fontSize: pxToRem(19)
+  },
+  modalTitle: {
+    fontWeight: 700,
+    lineHeight: '33px',
+    fontSize: '22px'
   }
 };
 

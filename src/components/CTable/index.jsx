@@ -1,15 +1,16 @@
 import { Paper } from "@mui/material"
+import classNames from "classnames"
 import { forwardRef } from "react"
 import CPagination from "../CPagination"
 import EmptyDataComponent from "../EmptyDataComponent"
 import TableLoader from "../TableLoader"
 import "./style.scss"
 
-export const CTable = ({ children, count, page, setCurrentPage, removableHeight = 186, disablePagination, }) => {
+export const CTable = ({ children, count, page, setCurrentPage, removableHeight = 186, disablePagination, ...props }) => {
   return (
     <Paper className="CTableContainer">
       <div className="table" style={{ height: removableHeight ? `calc(100vh - ${removableHeight}px)` : 'auto' }} >
-        <table>{children}</table>
+        <table {...props}>{children}</table>
       </div>
 
       {!disablePagination && <CPagination count={count} page={page} setCurrentPage={setCurrentPage} />}
@@ -17,12 +18,30 @@ export const CTable = ({ children, count, page, setCurrentPage, removableHeight 
   )
 }
 
-export const CTableHead = ({ children }) => {
-  return <thead className="CTableHead">{children}</thead>
+export const CTableHead = ({ children, ...props }) => {
+  return (
+    <thead 
+      {...props}
+      className={
+        classNames("CTableHead",props.className)
+      }
+    >
+      {children}
+    </thead>
+  )
 }
 
-export const CTableHeadRow = ({ children }) => {
-  return <tr className="CTableHeadRow">{children}</tr>
+export const CTableHeadRow = ({ children, ...props }) => {
+  return (
+    <tr 
+      {...props}
+      className={
+        classNames("CTableHeadRow",props.className)
+      }
+    >
+      {children}
+    </tr>
+  )
 }
 
 export const CTableBody = forwardRef(({ children, columnsCount, loader, dataLength, ...props }, ref) => {

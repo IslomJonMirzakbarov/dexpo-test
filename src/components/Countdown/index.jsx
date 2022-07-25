@@ -10,7 +10,7 @@ const Countdown = () => {
             endAtZero
             theme='light'
             size='extra-small' // Options (Default: medium): large, medium, small, extra-small.
-            endAt={'2022-07-20 01:26:58'} // Date/Time
+            endAt={'2022-07-30 01:26:58'} // Date/Time
         />
     )
 }
