@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-  Button,
+  Box,
   Checkbox,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  Typography,
 } from "@mui/material";
 import Web3 from "web3";
 import FormInputText from "../../../components/FormInputText";
@@ -19,6 +20,10 @@ import SingleABI from "../../../utils/abi/SingleABI";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useSelector } from "react-redux";
 import useNftAPI from "../../../hooks/useNftApi";
+import SelectIcon from "../../../assets/icons/select-icon.svg?component";
+import BlackDot from "../../../assets/icons/black-dot.svg?component";
+import classNames from "classnames";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -32,7 +37,7 @@ const NftCreate = () => {
   let approvedCollectionList;
   if (collections) {
     collectionList = collections?.data?.items;
-    approvedCollectionList = collectionList.filter(
+    approvedCollectionList = collectionList?.filter(
       (collectionItem) =>
         collectionItem.status === "COMPLETE" && collectionItem.type === "S"
     );
@@ -44,6 +49,7 @@ const NftCreate = () => {
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
+  const [chosen, setChosen] = useState(false);
 
   const imgBool =
     uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
@@ -103,9 +109,6 @@ const NftCreate = () => {
   useEffect(() => {
     const nftMint = async () => {
       if (isSuccess) {
-        console.log(metadata.data.metadata);
-        console.log("yep....");
-
         const web3 = new Web3(Web3.givenProvider);
         const contractERC721 = new web3.eth.Contract(
           SingleABI,
@@ -140,133 +143,155 @@ const NftCreate = () => {
         );
       }
     };
-
     nftMint();
-
     return () => {};
   }, [account, contractAddress, isSuccess, metadata]);
 
   return (
-    <div className={styles.Container}>
-      <div className={styles.Title}>Create New Item</div>
+    <Box className={styles.Container}>
+      <Box className={styles.Title}>Create New Item</Box>
 
-      <div className={styles.TopSideContainer}>
-        <div className={styles.TypeLagInfo}>
+      <Box className={styles.TopSideContainer}>
+        <Box className={styles.TypeLagInfo}>
           Content types supported: JPG, PNG *
-        </div>
-        <div className={styles.TopSide}>
-          <div className={styles.LeftSide}>
-            <div>
-              <div className={styles.DropZone}>
+        </Box>
+        <Box className={styles.TopSide}>
+          <Box className={styles.LeftSide}>
+            <Box>
+              <Box className={styles.DropZone}>
                 <FileUploadWithDrag
                   imgBool={imgBool}
                   src={uploadedImg?.preview}
                   onUpload={setUploadedImg}
                   page="create-nft"
                 />
-                <div className={styles.TermsAgreement}>
+                <Box className={styles.TermsAgreement}>
                   <Checkbox
                     checked={checked}
                     onChange={handleChange}
                     className={styles.CheckBox}
                   />
-                  <div className={styles.AgreementTxt}>
+                  <Box className={styles.AgreementTxt}>
                     I declare that this is an original artwork. I understand
                     that no plagiarism is allowed, and that the artwork can be
                     removed anytime if detected.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
 
-          <div className={styles.RightSide}>
-            <div className={styles.RightTitle}>Collection</div>
-            <div className={styles.TitleDesc}>
+          <Box className={styles.RightSide}>
+            <Box className={styles.RightTitle}>Collection</Box>
+            <Box className={styles.TitleDesc}>
               If you have no collection yet, then{" "}
               <span>create a collection</span> first, and your item will appear
               in this collection.
-            </div>
-            <FormControl fullWidth>
+            </Box>
+            <FormControl fullWidth className={styles.CollectionForm}>
               <Controller
                 name="collection"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => {
                   return (
-                    <>
-                      <InputLabel>Select Collection</InputLabel>
-                      <Select {...field}>
+                    <Box className={styles.CollectionFormSelect}>
+                      <InputLabel className={styles.SelectCollection}>
+                        Select Collection
+                      </InputLabel>
+                      <Select
+                        fullWidth
+                        {...field}
+                        className={styles.SelectType}
+                        variant="filled"
+                        disableUnderline
+                        IconComponent={SelectIcon}
+                      >
                         {approvedCollectionList &&
                           approvedCollectionList.map((collectionItem) => {
                             return (
                               <MenuItem
+                                style={{
+                                  width: 650,
+                                  backgroundColor: "#FF006B",
+                                  fontWeight: "500",
+                                  fontSize: 15,
+                                  lineHeight: 22,
+                                  color: "#ffffff",
+                                  height: 45,
+                                  borderRadius: 7,
+                                }}
+                                onClick={() => setChosen(true)}
                                 key={collectionItem.collection_id}
                                 value={collectionItem.contract_address}
                               >
-                                {collectionItem.name}
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 12,
+                                  }}
+                                >
+                                  {!chosen && <BlackDot />}
+                                  {collectionItem.name}
+                                </Box>
                               </MenuItem>
                             );
                           })}
                       </Select>
-                    </>
+                    </Box>
                   );
                 }}
               />
 
-              {/* below code will be available later when we allow choose multiple type.
-                  For now leaving the code here for later usage.   
-              */}
-              {/* {currentCollection === "keytauri" && (
-                <div className={styles.TokenQuantity}>
-                  <label>Token Quantity</label>
-                  <FormInputText
-                    control={control}
-                    name="tokenQuantity"
-                    label="Enter a token amount "
-                  />
-                </div>
-              )} */}
-
-              <div className={styles.ArtworkName}>
-                <label>Artwork Name</label>
+              <Box
+                className={classNames(styles.ArtworkName, styles.InputWrapper)}
+              >
+                <Typography variant="label" className={styles.Label}>
+                  Artwork Name
+                </Typography>
                 <FormInputText
+                  artistInput
                   control={control}
                   name="artworkName"
                   label="Enter an artwork name"
                 />
-              </div>
-              <div className={styles.ArtworkDescription}>
-                <label>Artwork Description</label>
+              </Box>
+              <Box
+                className={classNames(
+                  styles.ArtworkDescription,
+                  styles.InputWrapper
+                )}
+              >
+                <Typography variant="label" className={styles.Label}>
+                  Artwork Description
+                </Typography>
                 <FormInputText
+                  artistInput
                   control={control}
                   name="artworkDescription"
-                  label="Enter an artwork description"
                 />
-              </div>
+              </Box>
             </FormControl>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
-      <div className={styles.BottomSide}>
-        <Button
-          className={checked ? styles.CheckedBtn : null}
-          onClick={mintClick}
-          variant="contained"
-        >
+      <Box className={styles.BottomSide}>
+        <PrimaryButton onClick={mintClick} className={styles.Btn}>
           Mint
-        </Button>
+        </PrimaryButton>
         {(errorChecker > 0 || errBool) && (
-          <div className={styles.Error}>Please enter all requiredvalues.</div>
+          <Box className={styles.Error}>Please enter all requiredvalues.</Box>
         )}
-        <div className={styles.MintTxt}>
+        <Box className={styles.MintTxt}>
           Mint an NFT charges 1 CON, so don't upload sensitive content. In
           addition, the content will be uploaded <br /> after censoring it. If
           the content is incorrect, the upload may berejected.
-        </div>
-      </div>
+        </Box>
+      </Box>
 
+      {/* when figma design for loading case are ready, the below code will be replaced */}
       {isLoading && "kfldsfjlsdkfj"}
 
       {showModal && (
@@ -282,13 +307,13 @@ const NftCreate = () => {
             navigate("/nft/sell-request");
           }}
         >
-          <div className={styles.IconContainer}>
+          <Box className={styles.IconContainer}>
             <img src={uploadedImg.preview} alt={uploadedImg.name} />
-          </div>
+          </Box>
           <p>Congrats you created GEMMA #3583!</p>
         </ModalCard>
       )}
-    </div>
+    </Box>
   );
 };
 

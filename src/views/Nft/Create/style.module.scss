@@ -1,3 +1,6 @@
+@use "/src/scss/colors";
+@import "/src/styles/fonts";
+
 .Container {
   width: 100%;
   height: 100%;
@@ -10,11 +13,9 @@
 
   .Title {
     font-style: normal;
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 60px;
+    @include fontTitle;
     text-align: center;
-    color: #1f1f1f;
+    color: colors.$textColor1;
     height: 60px;
     margin-bottom: 35px;
   }
@@ -23,10 +24,8 @@
     margin-right: auto;
     margin-bottom: 15px;
     font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 22px;
-    color: #ff006b;
+    @include fontLabel;
+    color: colors.$primary;
     width: 278px;
     height: 23px;
   }
@@ -71,10 +70,9 @@
 
             .AgreementTxt {
               font-style: normal;
+              @include fontLagInfo;
               font-weight: 400;
-              font-size: 12px;
-              line-height: 18px;
-              color: #1f1f1f;
+              color: colors.$textColor1;
             }
           }
         }
@@ -85,22 +83,54 @@
       width: 650px;
       .RightTitle {
         font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 22px;
-        color: #1f1f1f;
+        @include fontLabel;
+        color: colors.$textColor1;
       }
 
       .TitleDesc {
         font-style: normal;
+        @include fontLagInfo;
         font-weight: 400;
-        font-size: 12px;
-        line-height: 18px;
-        color: #7d8890;
+        color: colors.$text;
         margin-bottom: 18px;
 
         span {
-          color: #1E4CED;
+          color: #1e4ced;
+        }
+      }
+
+      .CollectionForm {
+        gap: 30px;
+        .CollectionFormSelect {
+          width: 100%;
+          background: #ffffff;
+          box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.05);
+          border-radius: 7px;
+          padding-right: 13px;
+          padding-left: 15px;
+          .SelectCollection {
+            font-style: normal;
+            @include fontLabel;
+            color: colors.$textColor1;
+          }
+
+          .SelectType {
+            background: colors.$whiteBg;
+          }
+        }
+
+        .InputWrapper {
+          display: flex;
+          flex-direction: column;
+
+          .Label {
+            font-style: normal;
+            @include fontLabel;
+            margin-left: 10px;
+            color: colors.$greyBg;
+            margin-bottom: 5px;
+            display: inline;
+          }
         }
       }
     }
@@ -109,34 +139,42 @@
   .BottomSide {
     display: flex;
     flex-direction: column;
-    margin-top: 16px;
-    gap: 40px;
     width: 100%;
     align-items: center;
     justify-content: center;
 
-    button {
-      border-radius: 10px;
-      background-color: #ffffff;
-      border: 1px solid #cccccc;
-      cursor: pointer;
-      width: 15%;
-      color: grey;
-      padding: 5px;
-    }
+    .Btn {
+      margin: auto;
+      width: 180px;
+      height: 55px;
+      background: #dedede;
+      border-radius: 7px;
+      border: none;
+      margin-bottom: 13px;
 
-    .CheckedBtn {
-      background-color: rgb(74, 74, 255);
-      color: white;
+      &:hover {
+        background: colors.$gradient_pink2blue;
+        box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
+      }
     }
 
     .Error {
-      color: rgb(255, 0, 0);
+      font-style: normal;
+      @include fontError;
+      text-align: center;
+      color: colors.$errorColor;
     }
 
     .MintTxt {
       width: 70%;
+      font-style: normal;
+      @include fontLagInfo;
+      font-weight: 400;
+      line-height: 18px;
       text-align: center;
+      color: colors.$text;
+      margin-top: 15px;
     }
   }
 }

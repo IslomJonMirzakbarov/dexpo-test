@@ -15,9 +15,13 @@ const FormInputText = ({ name, control, label, artistInput }) => {
         control={control}
         rules={{ required: name !== "youtubeURL" }}
         render={({ field }) =>
-          name === "description" ? (
+          name === "description" || name === "artworkDescription" ? (
             <textarea
-              placeholder="Describe your fields of artwork"
+              placeholder={
+                name === "description"
+                  ? "Describe your fields of artwork"
+                  : "Enter an artwork description"
+              }
               className={classNames(
                 styles.ArtistInputText,
                 styles.DescriptionInput
