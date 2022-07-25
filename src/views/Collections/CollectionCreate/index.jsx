@@ -113,8 +113,8 @@ const CollectionCreate = () => {
             </Box>
           </Box>
 
-          {/* below code will be available when we add erc-1155 type
-          Please DON'T REMOVE IT */}
+          {/* below code will be available when we add erc-1155 type */}
+          {/*PLEASE DON'T REMOVE IT!!! */}
           {/* <Box className={classNames(styles.MultipleMode)}>
             <Box
               className={classNames(styles.MultipleModeContainer)}
