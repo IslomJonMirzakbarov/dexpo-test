@@ -1,53 +1,47 @@
 import collectionItemImg from '../../assets/images/collection-item.png';
 
+export const topTypes = {
+  ARTISTS: 'artists',
+  COLLECTIONS: 'collections'
+};
+
 export const rankingSorts = [
   {
     label: 'last 24 hours',
-    value: 24
+    value: '24h'
   },
   {
     label: 'last 7 days',
-    value: 7
+    value: '7d'
   },
   {
     label: 'last 30 days',
-    value: 30
+    value: '30d'
   }
 ];
 
 export const rankingTabs = [
   {
     label: 'Top Collections',
-    value: 'collections'
+    value: topTypes.COLLECTIONS
   },
   {
     label: 'Top Artists',
-    value: 'artists'
-  },
-  {
-    label: 'Created At',
-    value: 'created',
-    children: [
-      {
-        label: 'Created At',
-        value: 'created'
-      },
-      {
-        label: 'Updated At',
-        value: 'updated'
-      }
-    ]
+    value: topTypes.ARTISTS
   }
 ];
 
-export const tableRows = [
-  'Collection',
-  'Volume (CYCON)',
-  '24h %',
-  'Floor Price (CYCON)',
-  'Owners',
-  'Items'
-];
+export const tableRows = {
+  [topTypes.COLLECTIONS]: (percent) => [
+    'Collection',
+    'Volume (CYCON)',
+    `${percent} %`,
+    'Floor Price (CYCON)',
+    'Owners',
+    'Items'
+  ],
+  [topTypes.ARTISTS]: () => ['Artist', 'Volume (CYCON)', 'Owners', 'Items']
+};
 
 export const tableData = [
   {

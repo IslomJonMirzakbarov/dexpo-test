@@ -35,7 +35,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
             <Typography variant="h2">Hottest Artworks</Typography>
           </Box>
           <Box className={styles.collection}>
-            {hottestCollections?.length < 4 ? (
+            {hottestCollections?.length < 5 ? (
               <Grid
                 container
                 display="flex"
@@ -44,7 +44,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                 mb={10}
               >
                 {hottestCollections?.map(({ nft, artist }, c) => (
-                  <Grid item key={c}>
+                  <Grid item key={c} lg={3}>
                     <NFTCard
                       img={nft.token_image}
                       name={nft.token_name}
@@ -92,7 +92,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
             <Typography variant="h2">Notable Artworks</Typography>
           </Box>
           <Box className={styles.collection}>
-            {collections?.length < 4 ? (
+            {collections?.length < 5 ? (
               <Grid
                 container
                 display="flex"
@@ -101,7 +101,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                 mb={10}
               >
                 {collections?.map(({ nft, artist }, c) => (
-                  <Grid item key={c}>
+                  <Grid item key={c} lg={3}>
                     <NFTCard
                       img={nft.token_image}
                       name={nft.token_name}

@@ -10,11 +10,21 @@ import styles from './style.module.scss';
 import TopCollections from './TopCollections';
 
 const Home = () => {
-  const { collections, isLoading: loadingTC } = useTopCollections();
+  const {
+    collections,
+    isLoading: loadingTC,
+    connectCollections
+  } = useTopCollections();
   const { collections: notableCollections, isLoading: loadingNotable } =
     useCollecionsByCategory(categoryTypes.NOTABLE);
   const { collections: hottestCollections, isLoading: loadingHottest } =
     useCollecionsByCategory(categoryTypes.NOTABLE);
+
+  const isLoading = loadingTC || loadingNotable || loadingHottest;
+
+  useEffect(() => {
+    connectCollections();
+  }, []);
 
   return (
     <div className={styles.container}>

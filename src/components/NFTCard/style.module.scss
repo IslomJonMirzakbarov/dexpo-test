@@ -67,6 +67,10 @@
     padding: 10px 13px;
     background-color: #fff;
 
+    &.last {
+      border-radius: 0 0 7px 7px;
+    }
+
     .artist,
     .actions {
       display: flex;
