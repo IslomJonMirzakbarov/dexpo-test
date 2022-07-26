@@ -23,6 +23,7 @@ import useNftAPI from "../../../hooks/useNftApi";
 import SelectIcon from "../../../assets/icons/select-icon.svg?component";
 import BlackDot from "../../../assets/icons/black-dot.svg?component";
 import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
+import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 
@@ -52,6 +53,7 @@ const NftCreate = () => {
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
   const [chosen, setChosen] = useState(false);
+  const [rejected, setRejected] = useState(false);
 
   const imgBool =
     uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
@@ -132,7 +134,9 @@ const NftCreate = () => {
             gas: estimatedGas,
           },
           function (err, res) {
-            console.log(err);
+            if (err) {
+              setRejected(true);
+            }
             // transactionHash = res;
             if (res) {
               if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
@@ -305,9 +309,6 @@ const NftCreate = () => {
         </Box>
       </Box>
 
-      {/* when figma design for loading case are ready, the below code will be replaced */}
-      {isLoading && "kfldsfjlsdkfj"}
-
       {showModal && (
         <ModalCard
           page="nft-create"
@@ -323,6 +324,23 @@ const NftCreate = () => {
           <div className={styles.Congrats}>Congrats!</div>
           <div className={styles.Created}>You created</div>
           <div className={styles.TokCol}>{artName}</div>
+        </ModalCard>
+      )}
+      {rejected && (
+        <ModalCard
+          page="nft-create"
+          onSaveButtonClick={() => {
+            setShowModal(false);
+            setUploadedImg({});
+            setRejected(false);
+            navigate("/");
+          }}
+        >
+          <Box className={styles.IconContainer}>
+            <RejectIcon />
+          </Box>
+          <div className={styles.Congrats}>Rejected!</div>
+          <div className={styles.Created}>You've rejected creating NFT</div>
         </ModalCard>
       )}
     </Box>
