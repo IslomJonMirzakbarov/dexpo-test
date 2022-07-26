@@ -22,9 +22,9 @@ import { useSelector } from "react-redux";
 import useNftAPI from "../../../hooks/useNftApi";
 import SelectIcon from "../../../assets/icons/select-icon.svg?component";
 import BlackDot from "../../../assets/icons/black-dot.svg?component";
+import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
-import SubmittedModal from "../../../components/Modals/SubmittedModal";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -282,10 +282,18 @@ const NftCreate = () => {
 
       <Box className={styles.BottomSide}>
         <PrimaryButton
-          onClick={mintClick}
+          onClick={() => {
+            if (!isLoading) {
+              mintClick();
+            }
+          }}
           className={classNames(styles.Btn, { [styles.CheckedBtn]: checked })}
         >
-          Mint
+          {isLoading ? (
+            <SpinningIcon className={styles.SpinningIcon} />
+          ) : (
+            "Mint"
+          )}
         </PrimaryButton>
         {(errorChecker > 0 || errBool) && (
           <Box className={styles.Error}>Please enter all required values.</Box>
