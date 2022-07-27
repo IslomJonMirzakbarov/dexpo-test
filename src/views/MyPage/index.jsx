@@ -17,7 +17,6 @@ const MyPage = () => {
         display: "flex",
         justifyContent: "center", // just for demo, later will be replaced with actual code
         alignItems: "center",
-        fontSize: "40px",
       }}
     >
       MyPage
