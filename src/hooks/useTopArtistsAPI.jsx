@@ -6,20 +6,20 @@ const size = 10;
 
 const getList = (page) =>
   securedAPI()
-    .get(`/api/home/topCollections?size=${size}&token_id=${page}`)
+    .get(`/api/home/topArtists?size=${size}&token_id=${page}`)
     .then((res) => res.data?.data);
 
-const useTopCollections = () => {
+const useTopArtists = () => {
   const [page, setPage] = useState(1);
   const [isInvoked, setIsInvoked] = useState(false);
 
   const { data, isLoading, refetch } = useQuery(
-    'GET-TOP-COLLECTIONS',
+    'GET-TOP-ARTISTS',
     () => getList(page),
     { enabled: !!isInvoked }
   );
 
-  const connectCollections = useCallback(() => {
+  const connectArtists = useCallback(() => {
     // if (isInvoked) refetch();
 
     setIsInvoked(true);
@@ -27,11 +27,11 @@ const useTopCollections = () => {
 
   return {
     page,
-    collections: data,
+    artists: data,
     isLoading,
     setPage,
-    connectCollections
+    connectArtists
   };
 };
 
-export default useTopCollections;
+export default useTopArtists;

@@ -16,8 +16,14 @@ export const { actions: walletActions, reducer: walletReducer } = createSlice({
     },
     setSignature: (state, { payload }) => {
       state.signature = payload;
+    },
+    clearWallet: (state) => {
+      state.account = null;
+      state.signature = null;
+      state.nonce = null;
     }
   }
 });
 
-export const { setAccount, setNonce, setSignature } = walletActions;
+export const { setAccount, setNonce, setSignature, clearWallet } =
+  walletActions;

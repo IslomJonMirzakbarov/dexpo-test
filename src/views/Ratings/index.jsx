@@ -1,5 +1,5 @@
 import { Box, Container, Paper, Typography } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   CTable,
   CTableBody,
@@ -9,28 +9,64 @@ import {
 } from '../../components/CTable';
 import DSelect from '../../components/DSelect';
 import DTabs from '../../components/DTabs';
+import useTopArtists from '../../hooks/useTopArtistsAPI';
 import useTopCollections from '../../hooks/useTopCollectionsAPI';
-import { rankingSorts, rankingTabs, tableData, tableRows } from './mocks';
+import { rankingSorts, rankingTabs, tableRows, topTypes } from './mocks';
+import ArtistSkeleton from './Skeletons/Artist';
 import styles from './style.module.scss';
 import TableItem from './TableItem';
 
 const Ratings = () => {
   const ref = useRef();
-  const { collections } = useTopCollections();
 
   const [filter, setFilter] = useState(rankingSorts[0]);
   const [tabs, setTabs] = useState(rankingTabs);
   const [tab, setTab] = useState(tabs[0]);
 
-  const handleSelect = (item) => setFilter(item);
+  const {
+    collections,
+    connectCollections,
+    isLoading: loadingCollections
+  } = useTopCollections();
 
+  const {
+    artists,
+    connectArtists,
+    isLoading: loadingArtists
+  } = useTopArtists();
+
+  const isLoading = loadingArtists || loadingCollections;
+
+  const storeCollections = useMemo(
+    () => ({
+      [topTypes.ARTISTS]: {
+        title: 'Top Artists',
+        data: artists
+      },
+      [topTypes.COLLECTIONS]: {
+        title: 'Top NFTs',
+        data: collections
+      }
+    }),
+    [collections, tab, artists]
+  );
+
+  const filteredCollections = storeCollections[tab.value];
+  const isArtists = tab.value === topTypes.ARTISTS;
+
+  const handleSelect = (item) => setFilter(item);
   const handleSelectTab = (item) => setTab(item);
+
+  useEffect(() => {
+    if (tab.value.includes('artists')) connectArtists();
+    if (tab.value.includes('collections')) connectCollections();
+  }, [tab]);
 
   return (
     <Paper className={styles.container}>
       <Container>
         <Box display="flex" justifyContent="center">
-          <Typography variant="h2">Top NFTs</Typography>
+          <Typography variant="h2">{filteredCollections.title}</Typography>
         </Box>
         <Box
           display="flex"
@@ -55,11 +91,15 @@ const Ratings = () => {
           <CTable disablePagination={true} removableHeight={false} count={10}>
             <CTableHead>
               <CTableHeadRow>
-                {tableRows.map((item, i) => (
+                {tableRows[tab.value](filter.value).map((item, i) => (
                   <CTableCell key={i}>{item}</CTableCell>
                 ))}
               </CTableHeadRow>
             </CTableHead>
+            {isLoading &&
+              Array(3)
+                .fill(2)
+                .map((_) => <ArtistSkeleton isArtists={isArtists} />)}
             {
               <CTableBody
                 ref={ref}
@@ -67,21 +107,30 @@ const Ratings = () => {
                 columnsCount={6}
                 dataLength={3}
               >
-                {collections?.items?.map(
-                  ({ collection: item, tradeVolume, items, owners }, i) => (
-                    <TableItem
-                      key={i}
-                      index={i + 1}
-                      img={item.logo_url}
-                      name={item.name}
-                      volume={tradeVolume}
-                      type="up" // 'down' | 'up'
-                      percent={item.volume_percentage || 25085.14}
-                      floorPrice={item.floor_price || 2000}
-                      itemsCount={items}
-                      ownersCount={owners}
-                    />
-                  )
+                {filteredCollections?.data?.items?.map(
+                  (
+                    { collection: item, tradeVolume, items, owners, artist },
+                    i
+                  ) => {
+                    const img = isArtists ? artist.image_url : item.logo_url;
+                    const name = isArtists ? artist.artist_name : item.name;
+
+                    return (
+                      <TableItem
+                        key={i}
+                        index={i + 1}
+                        img={img}
+                        name={name}
+                        volume={tradeVolume}
+                        type="up" // 'down' | 'up'
+                        percent={item.volume_percentage || 25085.14}
+                        floorPrice={item.floor_price || 2000}
+                        itemsCount={items}
+                        ownersCount={owners}
+                        isArtists={isArtists}
+                      />
+                    );
+                  }
                 )}
               </CTableBody>
             }
