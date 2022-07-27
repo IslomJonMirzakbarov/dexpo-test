@@ -21,10 +21,6 @@
     justify-content: center;
     align-items: center;
 
-    &:hover {
-      border: 1px dashed #7d8890;
-    }
-
     &.error {
       border: 1px dashed rgba(247, 102, 89, 1);
     }
@@ -95,6 +91,10 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
+    &:hover {
+      border: 1px dashed #7d8890;
+    }
 
     .DownCover {
       position: absolute;
@@ -193,4 +193,168 @@
     text-align: center;
     color: #ffffff;
   }
+}
+
+.FileUploadCreateNft {
+  box-sizing: border-box;
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 7px;
+  border: 2px dashed #d9d9d9;
+
+  .dropzone {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: static;
+    left: 0px;
+    top: 0px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .dropzoneIcon {
+      color: rgb(29, 29, 138);
+      font-size: 50px;
+    }
+
+    .LogoContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6.29px;
+      font-style: normal;
+      @include fontLabel;
+      text-align: center;
+      color: colors.$text;
+      border: none;
+    }
+
+    .dropzoneTitle {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 22px;
+      text-align: center;
+      color: #7d8890;
+    }
+
+    .button {
+      .btn-title {
+        font-style: normal;
+        @include fontBodyXL;
+        line-height: 24px;
+        letter-spacing: -0.006em;
+        text-align: center;
+      }
+    }
+
+    .UploadLogo {
+      width: 100%;
+      height: 100%;
+      border-radius: 7px;
+      position: relative;
+
+      & > div {
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border: none;
+
+        img {
+          border-radius: 7px;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          border: none;
+        }
+
+        .ClearLogo {
+          position: absolute;
+          right: 15%;
+          top: 15%;
+          z-index: 10;
+          color: #ff006b;
+          border-radius: 7px;
+          border: none;
+
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-weight: bold;
+          font-size: 25px;
+        }
+      }
+
+      .HoverLogoContainer {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6.29px;
+        width: 100%;
+        height: 100%;
+        background: #1f1f1f;
+        opacity: 0.6;
+        border-radius: 7px;
+        font-style: normal;
+        font-weight: 600;
+        @include fontProcessDesc;
+        text-align: center;
+        color: #ffffff;
+        border: none;
+      }
+    }
+  }
+
+  .DropZoneHeight {
+  }
+
+  &:hover {
+    background: #f3f3f3;
+    border: 2px dashed #7d8890;
+  }
+}
+
+.InvalidBoxContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13.2px;
+
+  .InvalidPhrase {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: center;
+    color: #db0027;
+  }
+}
+
+.GreyBorder {
+  border: 2px dashed #d9d9d9;
+}
+
+.RedBorder {
+  border: 2px dashed red;
+}
+
+.BorderNone {
+  border: none;
 }

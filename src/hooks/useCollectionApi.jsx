@@ -7,6 +7,7 @@ import { assignNewCollection } from "../store/collection/collection.slice";
 const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
+  // console.log(token);
 
   const config = {
     headers: { "content-type": "multipart/form-data" },
@@ -27,9 +28,7 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
           size,
         },
       })
-      .then((res) => {
-        return res.data.data.items;
-      });
+      .then((res) => res.data);
 
   const mutation = useMutation((data) => createCollection(data, token), {
     onSuccess,

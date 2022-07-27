@@ -1,16 +1,17 @@
-import React from 'react';
-import { Controller } from 'react-hook-form';
+import React from "react";
+import { Controller } from "react-hook-form";
 
-import styles from './style.module.scss';
-import classNames from 'classnames';
+import styles from "./style.module.scss";
+import classNames from "classnames";
 
 const FormInputText = ({
   name,
   control,
   label,
   artistInput,
-  type = 'string'
+  type = "string",
 }) => {
+  const isDescSection = name === "description" || name === "artworkDescription";
   return (
     <div
       className={classNames(styles.Test, { [styles.ArtistInput]: artistInput })}
@@ -18,11 +19,15 @@ const FormInputText = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: name !== 'youtubeURL' }}
+        rules={{ required: name !== "youtubeURL" }}
         render={({ field }) =>
-          name === 'description' ? (
+          isDescSection ? (
             <textarea
-              placeholder="Describe your fields of artwork"
+              placeholder={
+                name === "description"
+                  ? "Describe your fields of artwork"
+                  : "Enter an artwork description"
+              }
               className={classNames(
                 styles.ArtistInputText,
                 styles.DescriptionInput
@@ -32,9 +37,9 @@ const FormInputText = ({
             />
           ) : (
             <input
-              disabled={name === 'walletAddress'}
+              disabled={name === "walletAddress"}
               className={classNames(styles.InputText, {
-                [styles.ArtistInputText]: artistInput
+                [styles.ArtistInputText]: artistInput,
               })}
               placeholder={label}
               type={type}

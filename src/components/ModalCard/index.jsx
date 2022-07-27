@@ -13,17 +13,26 @@ const ModalCard = ({
   onClose,
   onSaveButtonClick,
 }) => {
+  const pages = {
+    ARTIST_FORM: "artist-form",
+    CREATE_COLLECTION: "create-collection",
+    NFT_CREATE: "nft-create",
+    NFT_IMG_POPUP: "nft-img-popup",
+  };
+  const { ARTIST_FORM, CREATE_COLLECTION, NFT_CREATE, NFT_IMG_POPUP } = pages;
+  const SelectedPages = !(
+    page === ARTIST_FORM ||
+    page === CREATE_COLLECTION ||
+    page === NFT_CREATE
+  );
+
   return (
     <div>
       <Modal open className={styles.modal} onClose={onClose}>
-        <Card
-          className={classNames(styles.card, {
-            [styles.SellRequestCard]: page === "sell-request",
-          })}
-        >
+        <Card className={classNames(styles.card)}>
           <div className={styles.header}>
             <div></div>
-            {!(page === "artist-form" || page === "create-collection") && (
+            {!SelectedPages && (
               <>
                 <div className={styles.cardTitle}>{title}</div>
                 <IconButton className={styles.closeButton} onClick={onClose}>
@@ -33,21 +42,17 @@ const ModalCard = ({
             )}
           </div>
 
-          <div
-            className={page === "sell-request" ? styles.srbody : styles.body}
-          >
+          <div className={page === NFT_CREATE ? styles.srbody : styles.body}>
             {children}
           </div>
 
-          {page !== "nft-img-popup" && (
+          {page !== NFT_IMG_POPUP && (
             <dir
               className={classNames(styles.footer, {
-                [styles.srfooter]: page === "sell-request",
+                [styles.srfooter]: page === NFT_CREATE,
               })}
             >
-              {page === "artist-form" ||
-              page === "create-collection" ||
-              page === "sell-request" ? null : (
+              {SelectedPages ? null : (
                 <SecondaryButton className={styles.button} onClick={onClose}>
                   Cancel
                 </SecondaryButton>
@@ -56,11 +61,7 @@ const ModalCard = ({
                 className={styles.button}
                 onClick={onSaveButtonClick}
               >
-                {page === "artist-form" ||
-                page === "create-collection" ||
-                page === "sell-request"
-                  ? "Confirm"
-                  : "Save"}
+                {SelectedPages ? "Confirm" : "Save"}
               </PrimaryButton>
             </dir>
           )}

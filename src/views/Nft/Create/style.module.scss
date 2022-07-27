@@ -1,68 +1,87 @@
+@use "/src/scss/colors";
+@import "/src/styles/fonts";
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
 .Container {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0;
+  margin-top: 90px;
+  margin-bottom: 182px;
 
-  .TopSide {
+  .Title {
+    font-style: normal;
+    @include fontTitle;
+    text-align: center;
+    color: colors.$textColor1;
+    height: 60px;
+    margin-bottom: 35px;
+  }
+
+  .TypeLagInfo {
+    margin-right: auto;
+    margin-bottom: 15px;
+    font-style: normal;
+    @include fontLabel;
+    color: colors.$primary;
+    width: 278px;
+    height: 23px;
+  }
+
+  .TopSideContainer {
     display: flex;
-    gap: 40px;
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 1173px;
+    height: 100%;
+    margin-bottom: 70px;
+
+    .TopSide {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+    }
 
     .LeftSide {
       display: flex;
       flex-direction: column;
       gap: 10px;
 
-      .LeftTitle {
-        font-weight: bold;
-        font-size: 1.5rem;
-      }
-
       div {
         .DropZone {
-          width: 100%;
+          width: 500px;
 
-          .PrevImg {
-            width: 220px;
-            height: 164px;
+          .TermsAgreement {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            position: relative;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            margin-top: 20px;
+            gap: 10px;
 
-            .InvalidType {
-              text-align: center;
-              color: red;
-              font-size: 12px;
+            .CheckBox {
+              margin-left: -5px;
+              margin-top: -8px;
+              transform: scale(1.2);
             }
 
-            img {
-              width: 100%;
-              height: 100%;
-            }
-
-            .RemoveBtn {
-              position: absolute;
-              top: 5px;
-              z-index: 10;
-              color: white;
-              background-color: rgb(73, 73, 73);
-              border-radius: 50%;
-              width: 2rem;
-              height: 2rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              right: 15px;
-              font-size: 1.5rem;
-              cursor: pointer;
-              box-shadow: white;
+            .AgreementTxt {
+              font-style: normal;
+              @include fontLagInfo;
+              font-weight: 400;
+              color: colors.$textColor1;
             }
           }
         }
@@ -70,9 +89,58 @@
     }
 
     .RightSide {
+      width: 650px;
       .RightTitle {
-        font-weight: bold;
-        font-size: 1.5rem;
+        font-style: normal;
+        @include fontLabel;
+        color: colors.$textColor1;
+      }
+
+      .TitleDesc {
+        font-style: normal;
+        @include fontLagInfo;
+        font-weight: 400;
+        color: colors.$text;
+        margin-bottom: 18px;
+
+        span {
+          color: #1e4ced;
+        }
+      }
+
+      .CollectionForm {
+        gap: 30px;
+        .CollectionFormSelect {
+          width: 100%;
+          background: #ffffff;
+          box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.05);
+          border-radius: 7px;
+          padding-right: 13px;
+          padding-left: 15px;
+          .SelectCollection {
+            font-style: normal;
+            @include fontLabel;
+            color: colors.$textColor1;
+          }
+
+          .SelectType {
+            background: colors.$whiteBg;
+          }
+        }
+
+        .InputWrapper {
+          display: flex;
+          flex-direction: column;
+
+          .Label {
+            font-style: normal;
+            @include fontLabel;
+            margin-left: 10px;
+            color: colors.$greyBg;
+            margin-bottom: 5px;
+            display: inline;
+          }
+        }
       }
     }
   }
@@ -80,65 +148,89 @@
   .BottomSide {
     display: flex;
     flex-direction: column;
-    margin-top: 16px;
-    gap: 40px;
     width: 100%;
     align-items: center;
     justify-content: center;
 
-    .TermsAgreement {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .Btn {
+      margin: auto;
+      width: 180px;
+      height: 55px;
+      background: #dedede;
+      border-radius: 7px;
+      border: none;
+      margin-bottom: 13px;
 
-      .CheckBox {
-        width: 30px;
-        height: 30px;
-        background-color: rgb(241, 241, 241);
-        border: 1px solid black;
-        cursor: pointer;
+      &:hover {
+        background: colors.$gradient_pink2blue;
+        box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
       }
     }
 
-    button {
-      border-radius: 10px;
-      background-color: #ffffff;
-      border: 1px solid #cccccc;
-      cursor: pointer;
-      width: 15%;
-      color: grey;
-      padding: 5px;
+    .CheckedBtn {
+      background: colors.$gradient_pink2blue;
+      box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 7px;
     }
 
-    .CheckedBtn {
-      background-color: rgb(74, 74, 255);
-      color: white;
+    .SpinningIcon {
+      margin-top: 3px;
+      animation: spin 1.1s linear infinite;
     }
 
     .Error {
-      color: rgb(255, 0, 0);
+      font-style: normal;
+      @include fontError;
+      text-align: center;
+      color: colors.$errorColor;
     }
 
     .MintTxt {
       width: 70%;
+      font-style: normal;
+      @include fontLagInfo;
+      font-weight: 400;
+      line-height: 18px;
       text-align: center;
+      color: colors.$text;
+      margin-top: 15px;
     }
   }
-
 }
 
 .IconContainer {
-  width: 15rem;
-  height: 15rem;
+  width: 193px;
+  height: 193px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: auto;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 25px 0;
+  border-radius: 7px;
 
   img {
-    width: 70%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
   }
+}
+
+.Congrats {
+  font-style: normal;
+  @include fontProcessTitle;
+  text-align: center;
+  color: colors.$greyBg;
+  margin-bottom: 10px;
+}
+
+.Created {
+  font-style: normal;
+  @include fontTypePhrase;
+  text-align: center;
+  color: colors.$greyBg;
+}
+
+.TokCol {
+  color: colors.$primary;
 }

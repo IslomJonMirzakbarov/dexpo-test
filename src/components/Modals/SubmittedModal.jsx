@@ -35,7 +35,7 @@ const SubmittedModal = ({ onClick }) => {
           fontWeight={500}
           mb={4}
         >
-          My Page > My application tab.
+          My Page {'>'} My application tab.
         </Typography>
       </Box>
     </DModal>

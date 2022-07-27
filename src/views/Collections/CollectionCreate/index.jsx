@@ -28,6 +28,11 @@ const CollectionCreate = () => {
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
 
+  const imgBool =
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
+      ? true
+      : false;
+
   const {
     handleSubmit,
     control,
@@ -108,8 +113,9 @@ const CollectionCreate = () => {
             </Box>
           </Box>
 
-          <Box className={classNames(styles.MultipleMode)}>
-            {/* <MultipleMode /> */}
+          {/* below code will be available when we add erc-1155 type */}
+          {/*PLEASE DON'T REMOVE IT!!! */}
+          {/* <Box className={classNames(styles.MultipleMode)}>
             <Box
               className={classNames(styles.MultipleModeContainer)}
               onClick={() => {
@@ -168,11 +174,12 @@ const CollectionCreate = () => {
             >
               Multiple <span>ERC-1151</span>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
 
         <Box className={styles.UploadLogo}>
           <FileUploadWithDrag
+            imgBool={imgBool}
             onUpload={setUploadedImg}
             page="create-collection"
             src={uploadedImg?.preview}
@@ -213,14 +220,12 @@ const CollectionCreate = () => {
             </Box>
           )}
           {errBool && (
-            <Box className={styles.ErrorPhrase}>
-              Please upload logo.
-            </Box>
+            <Box className={styles.ErrorPhrase}>Please upload logo.</Box>
           )}
         </Box>
       </form>
       {showModal && (
-        <ModalCard page="artist-form" onSaveButtonClick={modalClick}>
+        <ModalCard page="create-collection" onSaveButtonClick={modalClick}>
           <Box className={styles.IconContainer}>
             <CreateCollectionForm />
           </Box>
