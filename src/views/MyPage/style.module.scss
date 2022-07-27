@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   margin-top: 90px;
   margin-bottom: 180px;
 
@@ -21,6 +22,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 70px;
 
     .UserName {
       font-style: normal;
@@ -79,6 +81,16 @@
       font-size: 15px;
       line-height: 22px;
       color: #1f1f1f;
+    }
+  }
+
+  .BottomSideContainer {
+    width: 1240px;
+    display: flex;
+    flex-direction: column;
+
+    .BottomContainer {
+      margin-top: 30px;
     }
   }
 }

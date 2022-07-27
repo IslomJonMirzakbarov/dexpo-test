@@ -5,6 +5,8 @@ import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 
 import styles from "./style.module.scss";
+import { myPageTabs } from "../Ratings/mocks";
+import DTabs from "../../components/DTabs";
 
 const MyPage = () => {
   const { collections } = useCollectionAPI({
@@ -14,6 +16,9 @@ const MyPage = () => {
     size: 10,
   });
   const [hovered, setHovered] = useState(false);
+  const [tabs, setTabs] = useState(myPageTabs);
+  const [tab, setTab] = useState(tabs[0]);
+
   console.log(collections?.data?.items);
   return (
     <div className={styles.Container}>
@@ -35,6 +40,18 @@ const MyPage = () => {
           89e8CdfC00114e3e6D682E 0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E
           0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E
           0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E 0xA66FD7138A258D4bb6
+        </div>
+      </div>
+
+      <div className={styles.BottomSideContainer}>
+        <DTabs
+          values={tabs}
+          active={tab?.value}
+          onSelect={(item) => setTab(item)}
+          setValues={setTabs}
+        />
+        <div className={styles.BottomContainer}>
+          fdsafd
         </div>
       </div>
     </div>
