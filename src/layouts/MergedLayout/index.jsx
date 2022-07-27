@@ -1,5 +1,5 @@
 import { Box, Button, List, ListItem, Typography } from '@mui/material';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
@@ -13,16 +13,19 @@ import ProfileMenu from './ProfileMenu';
 import { toggleProfilePopup } from '../../store/popup/popup.slice';
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
 import logo from '../../assets/images/logo.svg';
+import useWallet from '../../hooks/useWallet';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
 const MergedLayout = ({ children }) => {
+  const ref = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const ref = useRef(null);
+  const { pathname } = useLocation();
+  const { connectWallet } = useWallet();
+
   const { account } = useSelector((store) => store.wallet);
   const { isProfileOpen } = useSelector((store) => store.popup);
-  const { pathname } = useLocation();
 
   const label = account ? truncateAddress(account) : BUTTON_LABEL;
 
@@ -34,6 +37,17 @@ const MergedLayout = ({ children }) => {
   const handleToggleMenu = () => dispatch(toggleProfilePopup());
 
   useOnClickOutside(ref, isProfileOpen ? handleToggleMenu : () => {});
+
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+      });
+      window.ethereum.on('accountsChanged', () => {
+        connectWallet('metamask');
+      });
+    }
+  }, []);
 
   return (
     <>

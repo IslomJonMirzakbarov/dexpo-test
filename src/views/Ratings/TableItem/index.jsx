@@ -16,7 +16,8 @@ const TableItem = ({
   percent = 25085.14,
   floorPrice = 2000,
   itemsCount = '6.4K',
-  ownersCount = '2.5K'
+  ownersCount = '2.5K',
+  isArtists = false
 }) => {
   return (
     <CTableRow>
@@ -51,33 +52,37 @@ const TableItem = ({
           </Typography>
         </Box>
       </CTableCell>
-      <CTableCell>
-        <Typography
-          variant="placeholder"
-          fontWeight={600}
-          className={classNames(styles.percent, styles[type])}
-        >
-          <NumberFormat
-            value={percent}
-            displayType={'text'}
-            decimalScale={3}
-            thousandSeparator={true}
-          />
-        </Typography>
-      </CTableCell>
-      <CTableCell>
-        <Box display="flex" alignItems="center">
-          <img src={conTokenImg} alt="token" width={25} height={25} />
-          <Typography variant="placeholder" fontWeight={600} ml={1}>
+      {!isArtists && (
+        <CTableCell>
+          <Typography
+            variant="placeholder"
+            fontWeight={600}
+            className={classNames(styles.percent, styles[type])}
+          >
             <NumberFormat
-              value={floorPrice}
+              value={percent}
               displayType={'text'}
               decimalScale={3}
               thousandSeparator={true}
             />
           </Typography>
-        </Box>
-      </CTableCell>
+        </CTableCell>
+      )}
+      {!isArtists && (
+        <CTableCell>
+          <Box display="flex" alignItems="center">
+            <img src={conTokenImg} alt="token" width={25} height={25} />
+            <Typography variant="placeholder" fontWeight={600} ml={1}>
+              <NumberFormat
+                value={floorPrice}
+                displayType={'text'}
+                decimalScale={3}
+                thousandSeparator={true}
+              />
+            </Typography>
+          </Box>
+        </CTableCell>
+      )}
       <CTableCell>
         <Typography variant="placeholder" fontWeight={600}>
           {ownersCount}
