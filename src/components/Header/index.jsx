@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom"
-import SearchField from "../Autocomplete"
-import BackButton from "../BackButton"
-import IconGenerator from "../IconPicker/IconGenerator"
-import styles from "./style.module.scss"
+import { useNavigate } from 'react-router-dom';
+import SearchField from '../Autocomplete';
+import AutocompleteList from '../AutocompleteList';
+import BackButton from '../BackButton';
+import IconGenerator from '../IconPicker/IconGenerator';
+import styles from './style.module.scss';
 
 const Header = ({
-  title = "",
+  title = '',
   subtitle,
   extra,
   children,
@@ -16,17 +17,21 @@ const Header = ({
   sticky,
   ...props
 }) => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <div className={`${styles.header} ${sticky ? styles.sticky : ''}`}  {...props}>
-      <div className={styles.leftSide}> 
+    <div
+      className={`${styles.header} ${sticky ? styles.sticky : ''}`}
+      {...props}
+    >
+      <div className={styles.leftSide}>
         {backButtonLink && <BackButton link={backButtonLink} />}
 
         {icon && <IconGenerator className={styles.icon} icon={icon} />}
 
-        {img && <img src={img} alt="logo" width={132} onClick={() => navigate('/')}/>}
+        {img && (
+          <img src={img} alt="logo" width={132} onClick={() => navigate('/')} />
+        )}
 
         <div className={styles.titleBlock}>
           {title && <div className={styles.title}>{title}</div>}
@@ -35,18 +40,18 @@ const Header = ({
 
         <div className={styles.search}>
           <SearchField />
+          <div className={styles.result}>
+            <AutocompleteList />
+          </div>
         </div>
       </div>
 
       <div className={styles.rightSide}>
-
-        <div className={styles.links}>
-          {children}
-        </div>
+        <div className={styles.links}>{children}</div>
         {extra}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

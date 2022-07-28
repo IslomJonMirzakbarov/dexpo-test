@@ -1,0 +1,27 @@
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
+
+.container {
+  background-color: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+
+  .menu {
+    .item {
+      padding: 11px 14px;
+      border-bottom: 1px solid colors.$placeholder;
+    }
+
+    .child {
+      @include fontBodyXSS;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+}
+
+.loading {
+}
