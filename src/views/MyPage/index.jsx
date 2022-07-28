@@ -7,6 +7,22 @@ import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 import styles from "./style.module.scss";
 import { myPageTabs } from "../Ratings/mocks";
 import DTabs from "../../components/DTabs";
+import DSelect from "../../components/DSelect";
+
+const mockList = [
+  {
+    label: "last 24 hours",
+    value: 24,
+  },
+  {
+    label: "last 7 days",
+    value: 7,
+  },
+  {
+    label: "last 30 days",
+    value: 30,
+  },
+];
 
 const MyPage = () => {
   const { collections } = useCollectionAPI({
@@ -18,8 +34,10 @@ const MyPage = () => {
   const [hovered, setHovered] = useState(false);
   const [tabs, setTabs] = useState(myPageTabs);
   const [tab, setTab] = useState(tabs[0]);
+  const [filter, setFilter] = useState(mockList[0]);
+  const handleSelect = (item) => setFilter(item);
 
-  console.log(collections?.data?.items);
+  // console.log(collections?.data?.items);
   return (
     <div className={styles.Container}>
       <div className={styles.SettingsIconContainer}>
@@ -50,9 +68,14 @@ const MyPage = () => {
           onSelect={(item) => setTab(item)}
           setValues={setTabs}
         />
-        <div className={styles.BottomContainer}>
-          fdsafd
-        </div>
+        {/* <DSelect
+          label="Created"
+          isDark={true}
+          value={filter}
+          items={mockList}
+          onSelect={(item) => handleSelect(item)}
+        /> */}
+        <div className={styles.BottomContainer}>fdsafd</div>
       </div>
     </div>
   );

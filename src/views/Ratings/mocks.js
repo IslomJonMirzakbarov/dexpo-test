@@ -11,6 +11,8 @@ export const myPageTypes = {
   FAVORITES: "favorites",
   LISTED_ARTWORKS: "listedArtworks",
   MY_APPLICATION: "myApplication",
+  ITEMS: "Items",
+  COLLECTIONS: "Collections",
 };
 
 export const rankingSorts = [
@@ -47,6 +49,16 @@ export const myPageTabs = [
   {
     label: "Created",
     value: myPageTypes.CREATED,
+    children: [
+      {
+        label: "Items",
+        value: myPageTypes.ITEMS,
+      },
+      {
+        label: "Collections",
+        value: myPageTypes.COLLECTIONS,
+      },
+    ],
   },
   {
     label: "Favorites",
