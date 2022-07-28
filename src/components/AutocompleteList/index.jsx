@@ -1,30 +1,10 @@
 import { Box, Paper, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import styles from './style.module.scss';
-import defaultImg from '../../assets/images/collection-item.png';
 import classNames from 'classnames';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
-
-const list = [
-  {
-    label: 'Collections',
-    action: () => {},
-    children: [
-      {
-        label: 'Collection 1',
-        img: defaultImg,
-        action: () => {}
-      },
-      {
-        label: 'Collection 2',
-        img: defaultImg,
-        action: () => {}
-      }
-    ]
-  }
-];
 
 const Loading = () => {
   return (
