@@ -8,6 +8,8 @@ import styles from "./style.module.scss";
 import { myPageTabs } from "../Ratings/mocks";
 import DTabs from "../../components/DTabs";
 import DSelect from "../../components/DSelect";
+import { Grid, Paper } from "@mui/material";
+import { styled } from "@mui/styles";
 
 const mockList = [
   {
@@ -23,6 +25,14 @@ const mockList = [
     value: 30,
   },
 ];
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "green",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 const MyPage = () => {
   const { collections } = useCollectionAPI({
@@ -68,14 +78,19 @@ const MyPage = () => {
           onSelect={(item) => setTab(item)}
           setValues={setTabs}
         />
-        {/* <DSelect
-          label="Created"
-          isDark={true}
-          value={filter}
-          items={mockList}
-          onSelect={(item) => handleSelect(item)}
-        /> */}
-        <div className={styles.BottomContainer}>fdsafd</div>
+        <div className={styles.BottomContainer}>
+          <Grid
+            container
+            spacing={2}
+            columns={16}
+          >
+            {Array.from(Array(6)).map((_, index) => (
+              <Grid item xs={2} sm={4} md={4} key={index}>
+                <Item>xs=2</Item>
+              </Grid>
+            ))}
+          </Grid>
+        </div>
       </div>
     </div>
   );
