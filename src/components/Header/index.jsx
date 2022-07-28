@@ -1,9 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import SearchField from '../Autocomplete';
 import AutocompleteList from '../AutocompleteList';
 import BackButton from '../BackButton';
 import IconGenerator from '../IconPicker/IconGenerator';
 import styles from './style.module.scss';
+import { debounce } from 'lodash';
+import useSearchAPI from '../../hooks/useSearchAPI';
 
 const Header = ({
   title = '',
@@ -18,6 +21,40 @@ const Header = ({
   ...props
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [search, setSearch] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { data, isLoading } = useSearchAPI(debouncedValue);
+
+  const debounced = useCallback(
+    debounce((qry) => setDebouncedValue(qry), 300),
+    []
+  );
+
+  const clear = () => {
+    setSearch('');
+    setIsOpen(false);
+  };
+
+  const handleChange = (e) => setSearch(e?.target?.value);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    clear();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setIsOpen(!!search);
+    if (!search) return;
+
+    debounced(search);
+  }, [search]);
 
   return (
     <div
@@ -39,9 +76,14 @@ const Header = ({
         </div>
 
         <div className={styles.search}>
-          <SearchField />
+          <SearchField value={search} onChange={handleChange} />
           <div className={styles.result}>
-            <AutocompleteList />
+            <AutocompleteList
+              isLoading={isLoading}
+              isOpen={isOpen}
+              data={data}
+              handleClose={handleClose}
+            />
           </div>
         </div>
       </div>

@@ -29,35 +29,45 @@ const list = [
 const Loading = () => {
   return (
     <Paper className={styles.container}>
-      <Box display="flex" justifyContent="center">
-        <CircularProgress
-          variant="determinate"
-          //   sx={{
-          //     color: (theme) => theme.palette.grey[1900]
-          //   }}
-          size={30}
-          thickness={4}
-          value={100}
-        />
+      <Box display="flex" justifyContent="center" my="25px">
+        <CircularProgress size={20} thickness={5} />
       </Box>
-      <Box></Box>
+      <Box ml={2} mb={1}>
+        <Typography fontWeight={500} color="grey.1000">
+          Press Enter to search all items
+        </Typography>
+      </Box>
+    </Paper>
+  );
+};
+
+const NoItems = () => {
+  return (
+    <Paper className={styles.container}>
+      <Box m="11px">
+        <Typography fontWeight={500} color="grey.1000">
+          No items found
+        </Typography>
+      </Box>
     </Paper>
   );
 };
 
 const AutocompleteList = ({
-  isOpen = true,
-  data = list,
+  isOpen = false,
+  data = [],
   handleClose,
-  isLoading = true
+  isLoading = false
 }) => {
   const ref = useRef(null);
 
-  useOnClickOutside(ref, handleClose);
+  useOnClickOutside(ref, () => handleClose());
 
   if (!isOpen) return;
 
   if (isLoading) return <Loading />;
+
+  if (!data?.length || data?.length === 0) return <NoItems />;
 
   return (
     <Paper className={styles.container} ref={ref}>
@@ -69,21 +79,32 @@ const AutocompleteList = ({
                 {item.label}
               </Typography>
             </Box>
-            {item.children.map((child, c) => (
-              <Box
-                key={c}
-                onClick={() => child.action()}
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-                className={classNames(styles.item, styles.child)}
-              >
-                <img src={child.img} alt={child.label} width={24} height={24} />
-                <Typography ml="7px" fontWeight={500} className={styles.child}>
-                  {child.label}
-                </Typography>
-              </Box>
-            ))}
+            {item.children.map((child, c) => {
+              return (
+                <Box
+                  key={c}
+                  onClick={child.action}
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  className={classNames(styles.item, styles.child)}
+                >
+                  <img
+                    src={child.img}
+                    alt={child.label}
+                    width={24}
+                    height={24}
+                  />
+                  <Typography
+                    ml="7px"
+                    fontWeight={500}
+                    className={styles.title}
+                  >
+                    {child.label}
+                  </Typography>
+                </Box>
+              );
+            })}
           </>
         ))}
       </Box>

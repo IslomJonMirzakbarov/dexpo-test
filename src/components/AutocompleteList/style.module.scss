@@ -6,18 +6,25 @@
   border-radius: 7px;
   overflow: hidden;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  max-height: 400px;
+  overflow-y: scroll;
 
   .menu {
     .item {
       padding: 11px 14px;
       border-bottom: 1px solid colors.$placeholder;
+      img {
+        border-radius: 50%;
+      }
     }
 
     .child {
-      @include fontBodyXSS;
+      .title {
+        @include fontBodyXSS;
+      }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
       }
     }
   }
