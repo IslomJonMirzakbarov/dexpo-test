@@ -1,0 +1,39 @@
+.card {
+  overflow: hidden;
+  border-radius: 7px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
+
+  .img {
+    object-fit: cover;
+    height: 292px;
+  }
+
+  .body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .logo {
+      position: absolute;
+      top: calc(0% - 27.5px);
+      width: 49px;
+      height: 49px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      left: calc(calc(100% - 49px) / 2);
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px;
+    border-top: 1px solid #dedede;
+  }
+}
