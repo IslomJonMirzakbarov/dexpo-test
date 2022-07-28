@@ -1,10 +1,11 @@
 .container {
+  margin-top: 90px;
   svg {
     width: 2.5rem;
   }
-  img {
-    border-radius: 4px;
-    margin-top: 10px;
+  .artistImg {
+    border-radius: 50%;
+    object-fit: cover;
   }
   .hash {
     font-size: 20px;
@@ -36,29 +37,37 @@
     align-items: center;
     justify-content: center;
     font-size: 16px;
+
     svg {
       width: 15px;
       height: 15px;
     }
-    .price {
-      height: 40px;
+
+    .union {
       display: flex;
+      box-shadow: 5px 5px 52px rgba(80, 80, 80, 0.17);
+    }
+
+    .price {
+      height: 85px;
+      width: 130px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: space-around;
       border: 1px solid #dcdcdc;
       padding: 0 10px;
       border-right: none;
-      span:first-child {
-        color: #9f9f9f;
-        margin-right: 10px;
-      }
+
       &:first-child {
         border-right: none;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
       }
+
       &:last-child {
         border-right: 1px solid #dcdcdc;
-        border-top-right-radius: 4px;
+        border-top-right-radius: 7px;
         border-bottom-right-radius: 4px;
       }
     }
