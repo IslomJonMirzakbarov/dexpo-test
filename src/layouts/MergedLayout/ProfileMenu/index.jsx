@@ -10,12 +10,14 @@ import LogoutIcon from '../../../assets/icons/logout.svg?component';
 import { Box, Paper, Typography } from '@mui/material';
 import { logout } from '../../../store/auth/auth.slice';
 import { clearWallet } from '../../../store/wallet/wallet.slice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
 
 const ProfileMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const handleLogout = () => {
     dispatch(clearWallet());
@@ -64,7 +66,13 @@ const ProfileMenu = () => {
             const handleClick = item.to ? navigateIt : item.onClick;
 
             return (
-              <li key={i} className={styles.item} onClick={handleClick}>
+              <li
+                key={i}
+                className={classNames(styles.item, {
+                  [styles.active]: pathname === item.to
+                })}
+                onClick={handleClick}
+              >
                 {item.icon}
                 <Typography>{item.name}</Typography>
               </li>

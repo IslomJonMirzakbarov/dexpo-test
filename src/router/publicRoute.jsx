@@ -1,24 +1,21 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import Login from "../views/Auth/Login";
-import Home from "../views/Home";
-import { commonRoutes } from "./commonRoutes";
-import { marketplaceRoutes } from "./marketplaceRoute";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import Login from '../views/Auth/Login';
+import { commonRoutes } from './commonRoutes';
 
 export const publicRoutes = [
   {
-    path: "/",
+    path: '/',
     children: [
       {
-        path: "login",
-        element: <Login />,
+        path: 'login',
+        element: <Login />
       },
-      ...commonRoutes,
-      { ...marketplaceRoutes },
-    ],
+      ...commonRoutes
+    ]
   },
   {
-    path: "*",
-    element: <Navigate to="/" replace />,
-  },
+    path: '*',
+    element: <Navigate to="/" replace />
+  }
 ];
