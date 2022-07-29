@@ -14,6 +14,7 @@ import useNftAPI from "../../hooks/useNftAPI";
 import nftItems from "./nftListData";
 import NFTCard from "../../components/NFTCard";
 import CollectedBottom from "./CollectedBottom";
+import MyApplicationBottom from "./MyApplicationBottom";
 
 const mockList = [
   {
@@ -84,6 +85,7 @@ const MyPage = () => {
           setValues={setTabs}
         />
         {tab?.value === "collected" && <CollectedBottom items={nftItems}/>}
+        {tab?.value === 'myApplication' && <MyApplicationBottom />}
       </div>
     </div>
   );
