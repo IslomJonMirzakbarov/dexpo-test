@@ -6,7 +6,19 @@
   .artistImg {
     border-radius: 50%;
     object-fit: cover;
+    border: 8px solid #fff;
+    box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
   }
+
+  .skeletonImg {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: #dedede;
+    border: 8px solid #fff;
+    box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+  }
+
   .hash {
     font-size: 20px;
   }
