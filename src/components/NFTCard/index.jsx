@@ -5,7 +5,7 @@ import styles from './style.module.scss';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import conTokenImg from '../../assets/images/con-token.svg';
+import conTokenImg from '../../assets/images/con-token.png';
 import classNames from 'classnames';
 
 const NFTCard = ({
