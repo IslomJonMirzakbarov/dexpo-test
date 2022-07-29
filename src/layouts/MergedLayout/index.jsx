@@ -84,7 +84,7 @@ const MergedLayout = ({ children }) => {
               })}
               onClick={handleToggleMenu}
             />
-            {isProfileOpen && <ProfileMenu />}
+            {!!token && isProfileOpen && <ProfileMenu />}
           </Box>
         }
       >
