@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, { useState, useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
   Box,
   Checkbox,
@@ -7,48 +7,49 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Typography
-} from '@mui/material';
-import Web3 from 'web3';
-import FormInputText from '../../../components/FormInputText';
-import ModalCard from '../../../components/ModalCard';
-import FileUploadWithDrag from '../../../components/Upload/FileUploadWithDrag';
+  Typography,
+} from "@mui/material";
+import Web3 from "web3";
+import FormInputText from "../../../components/FormInputText";
+import ModalCard from "../../../components/ModalCard";
+import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 
-import styles from './style.module.scss';
-import { useNavigate } from 'react-router-dom';
-import SingleABI from '../../../utils/abi/SingleABI';
-import useCollectionAPI from '../../../hooks/useCollectionApi';
-import { useSelector } from 'react-redux';
-import useNftAPI from '../../../hooks/useNftApi';
-import SelectIcon from '../../../assets/icons/select-icon.svg?component';
-import BlackDot from '../../../assets/icons/black-dot.svg?component';
-import SpinningIcon from '../../../assets/icons/spinning-icon.svg?component';
-import RejectIcon from '../../../assets/icons/artist-form-reject.svg?component';
-import classNames from 'classnames';
-import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+import styles from "./style.module.scss";
+import { useNavigate } from "react-router-dom";
+import SingleABI from "../../../utils/abi/SingleABI";
+import useCollectionAPI from "../../../hooks/useCollectionApi";
+import { useSelector } from "react-redux";
+import useNftAPI from "../../../hooks/useNftApi";
+import SelectIcon from "../../../assets/icons/select-icon.svg?component";
+import BlackDot from "../../../assets/icons/black-dot.svg?component";
+import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
+import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
+import classNames from "classnames";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton";
+import useNFTCreateApi from "../../../hooks/useNFTCreateApi";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
     isDetail: true,
     page: 1,
-    orderBy: 'desc',
-    size: 10
+    orderBy: "desc",
+    size: 10,
   });
-  const { create, metadata } = useNftAPI({});
+  const { create, metadata } = useNFTCreateApi({});
   let collectionList;
   let approvedCollectionList;
   if (collections) {
     collectionList = collections?.data?.items;
     approvedCollectionList = collectionList?.filter(
       (collectionItem) =>
-        collectionItem.status === 'COMPLETE' && collectionItem.type === 'S'
+        collectionItem.status === "COMPLETE" && collectionItem.type === "S"
     );
   }
   const navigate = useNavigate();
   const { account } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
-  const [contractAddress, setContractAddress] = useState('');
-  const [artName, setArtName] = useState('');
+  const [contractAddress, setContractAddress] = useState("");
+  const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
@@ -56,7 +57,7 @@ const NftCreate = () => {
   const [rejected, setRejected] = useState(false);
 
   const imgBool =
-    uploadedImg?.type === 'image/png' || uploadedImg.type === 'image/jpg'
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
       ? true
       : false;
 
@@ -70,14 +71,14 @@ const NftCreate = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      collection: '',
-      tokenQuantity: '',
-      artworkName: '',
-      artworkDescription: ''
-    }
+      collection: "",
+      tokenQuantity: "",
+      artworkName: "",
+      artworkDescription: "",
+    },
   });
   const errorChecker = Object.keys(errors).length;
 
@@ -88,12 +89,12 @@ const NftCreate = () => {
   const onSubmit = handleSubmit(async (data) => {
     setContractAddress(data.collection);
     setArtName(data.artworkName);
-    data['imageFile'] = uploadedImg;
+    data["imageFile"] = uploadedImg;
 
     let formData = new FormData();
-    formData.append('name', data.artworkName);
-    formData.append('description', data.artworkDescription);
-    formData.append('image', data.imageFile);
+    formData.append("name", data.artworkName);
+    formData.append("description", data.artworkDescription);
+    formData.append("image", data.imageFile);
 
     await create?.mutateAsync(formData);
   });
@@ -112,6 +113,7 @@ const NftCreate = () => {
   useEffect(() => {
     const nftMint = async () => {
       if (create?.isSuccess) {
+        console.log("lfdkslafdkf..kfdlsjf");
         const web3 = new Web3(Web3.givenProvider);
         const contractERC721 = new web3.eth.Contract(
           SingleABI,
@@ -121,14 +123,14 @@ const NftCreate = () => {
           .mint(account, metadata.data.metadata)
           .estimateGas({
             gasPrice: await web3.eth.getGasPrice(),
-            from: account
+            from: account,
           });
 
         contractERC721.methods.mint(account, metadata.data.metadata).send(
           {
             gasPrice: await web3.eth.getGasPrice(),
             from: account,
-            gas: estimatedGas
+            gas: estimatedGas,
           },
           function (err, res) {
             if (err) {
@@ -188,7 +190,7 @@ const NftCreate = () => {
           <Box className={styles.RightSide}>
             <Box className={styles.RightTitle}>Collection</Box>
             <Box className={styles.TitleDesc}>
-              If you have no collection yet, then{' '}
+              If you have no collection yet, then{" "}
               <span>create a collection</span> first, and your item will appear
               in this collection.
             </Box>
@@ -217,13 +219,13 @@ const NftCreate = () => {
                               <MenuItem
                                 style={{
                                   width: 650,
-                                  backgroundColor: '#FF006B',
-                                  fontWeight: '500',
+                                  backgroundColor: "#FF006B",
+                                  fontWeight: "500",
                                   fontSize: 15,
                                   lineHeight: 22,
-                                  color: '#ffffff',
+                                  color: "#ffffff",
                                   height: 45,
-                                  borderRadius: 7
+                                  borderRadius: 7,
                                 }}
                                 onClick={() => setChosen(true)}
                                 key={collectionItem.collection_id}
@@ -231,9 +233,9 @@ const NftCreate = () => {
                               >
                                 <Box
                                   style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 12
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 12,
                                   }}
                                 >
                                   {!chosen && <BlackDot />}
@@ -293,7 +295,7 @@ const NftCreate = () => {
           {create?.isLoading ? (
             <SpinningIcon className={styles.SpinningIcon} />
           ) : (
-            'Mint'
+            "Mint"
           )}
         </PrimaryButton>
         {(errorChecker > 0 || errBool) && (
@@ -312,7 +314,7 @@ const NftCreate = () => {
           onSaveButtonClick={() => {
             setShowModal(false);
             setUploadedImg({});
-            navigate('/nft/sell-request-artwork');
+            navigate("/nft/sell-request-artwork");
           }}
         >
           <Box className={styles.IconContainer}>
@@ -330,7 +332,7 @@ const NftCreate = () => {
             setShowModal(false);
             setUploadedImg({});
             setRejected(false);
-            navigate('/');
+            navigate("/");
           }}
         >
           <Box className={styles.IconContainer}>
