@@ -27,3 +27,8 @@ export const priceType = {
     value: 'Auction price'
   }
 };
+
+export const priceTypeChar = {
+  F: 'Fixed price',
+  A: 'Auction price'
+};
