@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import CreateCollectionForm from "../../../../assets/icons/create-collection-form.svg?component";
-
-import styles from "./style.module.scss";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import useCollectionAPI from "../../../../hooks/useCollectionApi";
+import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useForm } from "react-hook-form";
-import FileUploadWithDrag from "../../../../components/Upload/FileUploadWithDrag";
+import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 import classNames from "classnames";
-import FormInputText from "../../../../components/FormInputText";
-import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
-import ModalCard from "../../../../components/ModalCard";
+import FormInputText from "../../../components/FormInputText";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton";
+import ModalCard from "../../../components/ModalCard";
+import CreateCollectionForm from "../../../assets/icons/create-collection-form.svg?component";
+
+import styles from "./style.module.scss";
 
 const CollectionEdit = () => {
   const navigate = useNavigate();
