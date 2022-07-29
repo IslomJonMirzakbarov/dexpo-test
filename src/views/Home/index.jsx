@@ -18,7 +18,7 @@ const Home = () => {
   const { collections: notableCollections, isLoading: loadingNotable } =
     useCollecionsByCategory(categoryTypes.NOTABLE);
   const { collections: hottestCollections, isLoading: loadingHottest } =
-    useCollecionsByCategory(categoryTypes.NOTABLE);
+    useCollecionsByCategory(categoryTypes.HOTTEST);
 
   const isLoading = loadingTC || loadingNotable || loadingHottest;
 
