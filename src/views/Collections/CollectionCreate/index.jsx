@@ -29,10 +29,12 @@ const CollectionCreate = () => {
   const [errBool, setErrBool] = useState(false);
 
   const imgBool =
-    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
       ? true
       : false;
 
+  console.log(imgBool);
+  console.log(uploadedImg?.type);
   const {
     handleSubmit,
     control,
@@ -76,7 +78,7 @@ const CollectionCreate = () => {
 
   const modalClick = () => {
     setShowModal(false);
-    navigate("/my-page");
+    navigate("/user/collections");
   };
 
   return (
