@@ -1,32 +1,17 @@
-import React from 'react';
-import CollectionCreate from '../views/Collections/CollectionCreate';
-import CollectionEdit from '../views/Collections/CollectionCreate/CollectionEdit';
-import MyCollections from '../views/MyPage/Collections';
+import React from "react";
+import MyCollections from "../views/MyPage/Collections";
 
 export const userRoutes = {
-  path: 'user',
+  path: "user",
   children: [
     {
-      path: 'collections',
+      path: "collections",
       children: [
         {
           index: true,
-          element: <MyCollections />
+          element: <MyCollections />,
         },
-        {
-          path: 'create',
-          element: <CollectionCreate />
-        },
-        {
-          path: 'edit',
-          children: [
-            {
-              path: ':id',
-              element: <CollectionEdit />
-            }
-          ]
-        }
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 };
