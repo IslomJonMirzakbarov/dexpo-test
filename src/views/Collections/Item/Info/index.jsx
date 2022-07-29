@@ -42,7 +42,7 @@ const CollectionInfo = ({
           height={140}
           className={styles.artistImg}
         />
-        <Box display="flex" flexDirection="column" alignItems="center">
+        <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
           <Typography variant="placeholder" color="grey.1000" fontWeight={500}>
             {artistName}
           </Typography>

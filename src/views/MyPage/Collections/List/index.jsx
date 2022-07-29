@@ -24,7 +24,6 @@ const MyCollectionsList = ({ collections, isLoading = false }) => {
               <CollectionSkeletonCard isEditable={true} />
             </Grid>
           ))}
-
         {!isLoading &&
           collections.map(
             ({ contract_address, logo_url, name, items_count }, c) => (

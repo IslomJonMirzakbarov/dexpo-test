@@ -23,6 +23,12 @@
       }
     }
 
+    .imgSkeleton {
+      background-color: #eeeeee;
+      width: 100%;
+      height: 292px;
+    }
+
     img {
       transition: 0.4s ease-in-out all;
       width: 100%;
@@ -149,6 +155,14 @@
         }
       }
     }
+  }
+
+  .footerSkeleton {
+    height: 55px;
+    width: 100%;
+    background-color: #eeeeee;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
   }
 
   .footer {
