@@ -11,10 +11,18 @@ const FormInputText = ({
   artistInput,
   type = "string",
 }) => {
+  const isCollectionEdit =
+    name === "collectionEditName" || name === "collectionEditSymbol";
   const isDescSection = name === "description" || name === "artworkDescription";
   return (
     <div
-      className={classNames(styles.Test, { [styles.ArtistInput]: artistInput })}
+      className={classNames(
+        styles.Test,
+        { [styles.ArtistInput]: artistInput },
+        {
+          [styles.CollectionEdit]: isCollectionEdit,
+        }
+      )}
     >
       <Controller
         name={name}
@@ -30,14 +38,15 @@ const FormInputText = ({
               }
               className={classNames(
                 styles.ArtistInputText,
-                styles.DescriptionInput
+                styles.DescriptionInput,
+                { [styles.CollectionEdit]: name === "collectionEdit" }
               )}
               type={type}
               {...field}
             />
           ) : (
             <input
-              disabled={name === "walletAddress"}
+              disabled={name === "walletAddress" || isCollectionEdit}
               className={classNames(styles.InputText, {
                 [styles.ArtistInputText]: artistInput,
               })}

@@ -1,5 +1,5 @@
-@use '/src/scss/colors';
-@import '../../styles/scrollbar.scss';
+@use "/src/scss/colors";
+@import "../../styles/scrollbar.scss";
 
 .Test {
   .InputText {
@@ -30,6 +30,40 @@
     line-height: 22px;
     /* identical to box height */
     color: #1f1f1f;
+
+    &:focus {
+      outline: none;
+      border: 1.5px solid colors.$text;
+    }
+  }
+  .DescriptionInput {
+    height: 185px;
+    resize: none;
+    @include scrollbar;
+  }
+}
+
+.CollectionEdit {
+  input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari/Edge */
+    /*styles here*/
+    color: colors.$text;
+  }
+  .ArtistInputText {
+    background: #7D8890;
+    border: none;
+    border-radius: 7px;
+    width: 650px;
+    height: 45px;
+    padding: 11px 2px 11px 15px;
+
+    // input text
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #FFFFFF;
 
     &:focus {
       outline: none;
