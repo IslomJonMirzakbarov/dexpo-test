@@ -6,7 +6,7 @@ import CollectionSkeletonCard from '../../../../components/CollectionCard/index.
 import NoItemsFound from '../../../../components/NoItems';
 
 const MyCollectionsList = ({ collections, isLoading = false }) => {
-  const { artist_name } = useSelector((store) => store.artist.full);
+  const full = useSelector((store) => store.artist.full);
 
   const loadItems = Array(4).fill(12);
 
@@ -34,7 +34,7 @@ const MyCollectionsList = ({ collections, isLoading = false }) => {
                   id={contract_address}
                   img={logo_url}
                   name={name}
-                  artistName={artist_name}
+                  artistName={full?.artist_name || 'You'}
                   collectionName={name}
                   count={items_count}
                 />
