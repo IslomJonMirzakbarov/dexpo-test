@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { securedAPI } from "../services/api";
 import { useMutation } from "react-query";
 
-const useNftAPI = ({ onSuccess }) => {
+const useNftAPIS = ({ onSuccess }) => {
   const [metaData, setMetaData] = useState('');
   const { token } = useSelector((store) => store.auth);
   // console.log(token);
@@ -29,4 +29,4 @@ const useNftAPI = ({ onSuccess }) => {
   };
 };
 
-export default useNftAPI;
+export default useNftAPIS;

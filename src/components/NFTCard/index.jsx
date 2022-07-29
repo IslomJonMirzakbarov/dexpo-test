@@ -1,14 +1,15 @@
-import { Box, Button, Typography } from '@mui/material';
-import React from 'react';
-import NumberFormat from 'react-number-format';
-import styles from './style.module.scss';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import conTokenImg from '../../assets/images/con-token.svg';
-import classNames from 'classnames';
+import { Box, Button, Typography } from "@mui/material";
+import React from "react";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import conTokenImg from "../../assets/images/con-token.svg";
+import classNames from "classnames";
 
 const NFTCard = ({
+  page,
   img,
   name,
   price,
@@ -21,10 +22,14 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = 'containedInherit'
+  buttonVariant = "containedInherit",
 }) => {
   return (
-    <Box className={styles.card}>
+    <Box
+      className={classNames(styles.card, {
+        [styles.CollectedCard]: page === "collectedBottom",
+      })}
+    >
       <Box className={styles.header} onClick={onClick}>
         <img src={img} alt={name} />
         {priceType && <span className={styles.price_type}>{priceType}</span>}
@@ -46,7 +51,7 @@ const NFTCard = ({
           <span className={classNames(styles.count, { [styles.liked]: liked })}>
             <NumberFormat
               value={purchaseCount}
-              displayType={'text'}
+              displayType={"text"}
               decimalScale={3}
               thousandSeparator={true}
             />
@@ -58,7 +63,7 @@ const NFTCard = ({
                 <img src={conTokenImg} alt="token" />
                 <NumberFormat
                   value={price}
-                  displayType={'text'}
+                  displayType={"text"}
                   thousandSeparator={true}
                 />
               </>

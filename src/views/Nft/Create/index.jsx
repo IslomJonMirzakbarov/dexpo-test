@@ -19,13 +19,13 @@ import { useNavigate } from "react-router-dom";
 import SingleABI from "../../../utils/abi/SingleABI";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useSelector } from "react-redux";
-import useNftAPI from "../../../hooks/useNftApi";
 import SelectIcon from "../../../assets/icons/select-icon.svg?component";
 import BlackDot from "../../../assets/icons/black-dot.svg?component";
 import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
 import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
+import useNftAPIS from "../../../hooks/useNftApis";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -34,7 +34,7 @@ const NftCreate = () => {
     orderBy: "desc",
     size: 10,
   });
-  const { create, metadata } = useNftAPI({});
+  const { create, metadata } = useNftAPIS({});
   let collectionList;
   let approvedCollectionList;
   if (collections) {

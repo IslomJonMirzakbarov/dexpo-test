@@ -10,6 +10,10 @@ import DTabs from "../../components/DTabs";
 import DSelect from "../../components/DSelect";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/styles";
+import useNftAPI from "../../hooks/useNftAPI";
+import nftItems from "./nftListData";
+import NFTCard from "../../components/NFTCard";
+import CollectedBottom from "./CollectedBottom";
 
 const mockList = [
   {
@@ -41,6 +45,7 @@ const MyPage = () => {
     orderBy: "desc",
     size: 10,
   });
+  // console.log(nftItems);
   const [hovered, setHovered] = useState(false);
   const [tabs, setTabs] = useState(myPageTabs);
   const [tab, setTab] = useState(tabs[0]);
@@ -78,19 +83,7 @@ const MyPage = () => {
           onSelect={(item) => setTab(item)}
           setValues={setTabs}
         />
-        <div className={styles.BottomContainer}>
-          <Grid
-            container
-            spacing={2}
-            columns={16}
-          >
-            {Array.from(Array(6)).map((_, index) => (
-              <Grid item xs={2} sm={4} md={4} key={index}>
-                <Item>xs=2</Item>
-              </Grid>
-            ))}
-          </Grid>
-        </div>
+        {tab?.value === "collected" && <CollectedBottom items={nftItems}/>}
       </div>
     </div>
   );

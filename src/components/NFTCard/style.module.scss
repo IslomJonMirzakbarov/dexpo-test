@@ -1,5 +1,5 @@
-@use '../../scss/colors';
-@import '../../styles/fonts';
+@use "../../scss/colors";
+@import "../../styles/fonts";
 
 .card {
   display: flex;
@@ -159,4 +159,10 @@
       font-weight: 600;
     }
   }
+}
+
+.CollectedCard {
+  background: #ffffff;
+  box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
 }
