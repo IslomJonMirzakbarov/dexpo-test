@@ -29,14 +29,25 @@ const CollectionItems = ({
       <Box className={styles.body} mt={2}>
         <Grid container>
           {isLoading
-            ? fakeNFTs.map((card, c) => (
+            ? fakeNFTs.map((_, c) => (
                 <Grid item lg={3} key={c} p={1}>
                   <NFTCardSkeleton />
                 </Grid>
               ))
-            : data.map((card, c) => (
+            : data.map(({ artist, nft }, c) => (
                 <Grid item lg={3} key={c} p={1}>
-                  <NFTCard onClick={() => navigate('/marketplace/123')} />
+                  <NFTCard
+                    img={nft?.token_image}
+                    name={nft?.token_name}
+                    price={nft?.token_price}
+                    leftDays={null}
+                    artistName={artist?.artist_name}
+                    description={nft?.token_description}
+                    priceType={nft?.token_price}
+                    hasAction={!!nft?.token_price}
+                    purchaseCount={nft?.like_count}
+                    onClick={() => navigate(`/marketplace/${nft?.token_id}`)}
+                  />
                 </Grid>
               ))}
         </Grid>
