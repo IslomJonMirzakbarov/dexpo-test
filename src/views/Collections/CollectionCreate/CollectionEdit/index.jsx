@@ -1,51 +1,151 @@
-import classNames from "classnames";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import FormInputText from "../../../../components/FormInputText";
-import FileUploadWithDrag from "../../../../components/Upload/FileUploadWithDrag";
+import React, { useState, useEffect } from "react";
+import CreateCollectionForm from "../../../../assets/icons/create-collection-form.svg?component";
 
 import styles from "./style.module.scss";
+import { Box } from "@mui/system";
+import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import useCollectionAPI from "../../../../hooks/useCollectionApi";
+import { useForm } from "react-hook-form";
+import FileUploadWithDrag from "../../../../components/Upload/FileUploadWithDrag";
+import classNames from "classnames";
+import FormInputText from "../../../../components/FormInputText";
+import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
+import ModalCard from "../../../../components/ModalCard";
 
 const CollectionEdit = () => {
-  const { handleSubmit, control, reset } = useForm({
+  const navigate = useNavigate();
+  const { create } = useCollectionAPI({
+    isDetail: true,
+    page: 1,
+    orderBy: "desc",
+    size: 10,
+  });
+  const [showModal, setShowModal] = useState(false);
+  const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
+  const [type, setType] = useState(collectionType.SINGLE);
+  const [uploadedImg, setUploadedImg] = useState({});
+  const [errBool, setErrBool] = useState(false);
+
+  const imgBool =
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
+      ? true
+      : false;
+
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      collectionName: "",
-      collectionSymbol: "",
-      mode: "",
+      collectionEditName: "Name",
+      collectionEditSymbol: "Symbol",
     },
   });
-  const onSubmit = (data) => {
-    console.log(data);
-    // ... logic when connected to the api
-    reset();
-  };
-  return (
-    <div className={styles.Container}>
-      <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.Title}>Edit a collection</div>
 
-        <div className={styles.UploadLogo}>
-          <FileUploadWithDrag page="edit-collection" />
-        </div>
-        <div className={styles.CollectionName}>
-          <label htmlFor="collection-name">Collection Name</label>
-          <FormInputText
-            name="collectionName"
-            control={control}
-            label="Gemma"
+  useEffect(() => {
+    if (Object.keys(uploadedImg).length > 0) {
+      setErrBool(false);
+    }
+  }, [uploadedImg, type, errBool]);
+
+  const errorChecker = Object.keys(errors).length;
+
+  const onSubmit = (data) => {
+    if (Object.keys(uploadedImg).length === 0) {
+      setErrBool(true);
+    } else {
+      setErrBool(false);
+      data["type"] = type;
+      data["logo"] = uploadedImg;
+
+      let formData = new FormData();
+      formData.append("type", data.type);
+      formData.append("name", data.name);
+      formData.append("symbol", data.symbol);
+      formData.append("artist_id", data.artist_id);
+      formData.append("logo", data.logo);
+
+      create.mutate(formData);
+      reset();
+      setShowModal(true);
+    }
+  };
+
+  const modalClick = () => {
+    setShowModal(false);
+    navigate("/user/collections");
+  };
+
+  return (
+    <Box className={styles.Container}>
+      <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
+        <Box className={styles.Title}>Edit a collection</Box>
+
+        <Box className={styles.UploadLogo}>
+          <FileUploadWithDrag
+            editCollection={true}
+            imgBool={imgBool}
+            onUpload={setUploadedImg}
+            page="edit-collection"
+            src={uploadedImg?.preview}
           />
-        </div>
-        <div className={styles.CollectionSymbol}>
-          <label htmlFor="collection-symbol">Collection Symbol</label>
+        </Box>
+        <Box className={classNames(styles.CollectionName, styles.InputHolder)}>
+          <Typography variant="label" className={styles.Label}>
+            Collection Name
+          </Typography>
           <FormInputText
-            name="collectionSymbol"
+            artistInput
+            name="collectionEditName"
             control={control}
-            label="Gemma"
           />
-        </div>
-        <button>Change</button>
+        </Box>
+        <Box
+          className={classNames(styles.CollectionSymbol, styles.InputHolder)}
+        >
+          <Typography variant="label" className={styles.Label}>
+            Collection Symbol
+          </Typography>
+          <FormInputText
+            artistInput
+            name="collectionEditSymbol"
+            control={control}
+          />
+        </Box>
+        {/* <button>Submit</button> */}
+        <Box className={styles.BtnErrorContainer}>
+          <PrimaryButton className={styles.Btn}>Change</PrimaryButton>
+          {errorChecker > 0 && (
+            <Box className={styles.ErrorPhrase}>
+              Please enter all input values.
+            </Box>
+          )}
+          {errBool && (
+            <Box className={styles.ErrorPhrase}>Please upload logo.</Box>
+          )}
+        </Box>
       </form>
-    </div>
+      {showModal && (
+        <ModalCard page="create-collection" onSaveButtonClick={modalClick}>
+          <Box className={styles.IconContainer}>
+            <CreateCollectionForm />
+          </Box>
+          <Typography className={styles.ProcessTitle}>Submitted!</Typography>
+          <Typography className={styles.ProcessDesc}>
+            <>
+              Your collection is submitted successfully and sent to <br />
+              admin to review. You can also check your status on
+              <br />
+              <span className={styles.MainDesc}>
+                My Page {">"} My application tab.
+              </span>
+            </>
+          </Typography>
+        </ModalCard>
+      )}
+    </Box>
   );
 };
 

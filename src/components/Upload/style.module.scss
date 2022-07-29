@@ -40,6 +40,18 @@
       @include fontLabel;
       text-align: center;
       color: colors.$text;
+
+      .HoveredContainer {
+        background: 
+        #0e0e0e;
+        width: 140px;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none !important;
+      }
     }
 
     .dropzoneIitle {
@@ -316,12 +328,13 @@
         color: #ffffff;
         border: none;
       }
+
     }
   }
-
+  
   .DropZoneHeight {
   }
-
+  
   &:hover {
     background: #f3f3f3;
     border: 2px dashed #7d8890;
@@ -336,7 +349,7 @@
   align-items: center;
   justify-content: center;
   gap: 13.2px;
-
+  
   .InvalidPhrase {
     font-style: normal;
     font-weight: 600;
