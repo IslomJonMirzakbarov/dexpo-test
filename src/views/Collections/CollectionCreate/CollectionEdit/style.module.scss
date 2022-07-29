@@ -117,7 +117,7 @@
         }
 
         .BottomIContainer {
-          background: #ffffff;
+          background: colors.$whiteBg;
           box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
           border-radius: 7px 7px 0px 0px;
           transform: rotate(-180deg);
@@ -139,7 +139,7 @@
       .HorizontalLine {
         margin-top: 32px;
         margin-bottom: 15px;
-        background: #d1d1d1;
+        background: colors.$icon;
         width: 174px;
         margin-right: auto;
         height: 3px;
@@ -157,7 +157,7 @@
       }
 
       .Higlighted {
-        background: #ff006b;
+        background: colors.$primary;
       }
     }
 
@@ -173,7 +173,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px dashed #d5dadd;
+        border: 1px dashed colors.$dropzoneMain;
         position: relative;
 
         img {
@@ -214,7 +214,7 @@
         display: inline;
 
         .LabelSpan {
-          color: red;
+          color: colors.$errorColor;
         }
       }
 
@@ -244,15 +244,13 @@
         margin-top: 70px;
         width: 180px;
         height: 55px;
-        background: #ff006b;
+        background: colors.$primary;
         border-radius: 7px;
         border: none;
-
-        font-weight: 600;
-        font-size: 15px;
+        @include fontLabel;
         line-height: 0px;
         text-align: center;
-        color: #ffffff;
+        color: colors.$whiteBg;
 
         &:hover {
           box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
@@ -263,7 +261,7 @@
         font-style: normal;
         @include fontError;
         text-align: center;
-        color: #db0027;
+        color: colors.$errorColor;
         margin-top: 13px;
       }
     }

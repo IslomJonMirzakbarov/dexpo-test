@@ -13,7 +13,7 @@
     height: 140px;
     left: 0px;
     top: 0px;
-    border: 1px dashed #d5dadd;
+    border: 1px dashed colors.$dropzoneMain;
     box-sizing: border-box;
     border-radius: 6px;
     display: flex;
@@ -22,11 +22,11 @@
     align-items: center;
 
     &.error {
-      border: 1px dashed rgba(247, 102, 89, 1);
+      border: 1px dashed colors.$dropzoneBorder;
     }
 
     .dropzoneIcon {
-      color: rgb(29, 29, 138);
+      color: colors.$dropzoneIconColor;
       font-size: 50px;
     }
 
@@ -42,15 +42,18 @@
       color: colors.$text;
 
       .HoveredContainer {
-        background: 
-        #0e0e0e;
+        background: #0e0e0e;
         width: 140px;
         height: 140px;
         display: flex;
         align-items: center;
         justify-content: center;
-
+        position: relative;
         border: none !important;
+
+        .EditVector {
+          position: absolute;
+        }
       }
     }
 
@@ -59,7 +62,7 @@
       line-height: 24px;
       text-align: center;
       margin: 8px 0;
-      color: #6b6966;
+      color: colors.$dropzoneIconColor;
     }
 
     .button {
@@ -96,7 +99,7 @@
     border-radius: 50%;
     left: 0px;
     top: 0px;
-    border: 1px dashed #d5dadd;
+    border: 1px dashed colors.$dropzoneMain;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -105,7 +108,7 @@
     overflow: hidden;
 
     &:hover {
-      border: 1px dashed #7d8890;
+      border: 1px dashed colors.$text;
     }
 
     .DownCover {
@@ -121,11 +124,11 @@
     }
 
     &.error {
-      border: 1px dashed rgba(247, 102, 89, 1);
+      border: 1px dashed colors.$dropzoneBorder;
     }
 
     .dropzone-icon {
-      color: #6b6966;
+      color: colors.$dropzoneIconColor;
       font-size: 50px;
     }
 
@@ -134,7 +137,7 @@
       line-height: 24px;
       text-align: center;
       margin: 8px 0;
-      color: #6b6966;
+      color: colors.$dropzoneIconColor;
     }
 
     .button {
@@ -162,7 +165,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px dashed #d5dadd;
+    border: 1px dashed colors.$dropzoneMain;
     position: relative;
 
     img {
@@ -176,7 +179,7 @@
       right: 15%;
       top: 15%;
       z-index: 10;
-      color: #ff006b;
+      color: colors.$primary;
       border-radius: 50%;
       width: 30px;
       height: 30px;
@@ -203,7 +206,7 @@
     font-weight: 600;
     @include fontProcessDesc;
     text-align: center;
-    color: #ffffff;
+    color: colors.$whiteBg;
   }
 }
 
@@ -212,7 +215,7 @@
   position: relative;
   width: 500px;
   height: 500px;
-  background: #ffffff;
+  background: colors.$whiteBg;
   border-radius: 7px;
   border: 2px dashed #d9d9d9;
 
@@ -231,7 +234,7 @@
     align-items: center;
 
     .dropzoneIcon {
-      color: rgb(29, 29, 138);
+      color: colors.$dropzoneIconColor;
       font-size: 50px;
     }
 
@@ -254,7 +257,7 @@
       font-size: 15px;
       line-height: 22px;
       text-align: center;
-      color: #7d8890;
+      color: colors.$text;
     }
 
     .button {
@@ -294,7 +297,7 @@
           right: 15%;
           top: 15%;
           z-index: 10;
-          color: #ff006b;
+          color: colors.$primary;
           border-radius: 7px;
           border: none;
 
@@ -325,16 +328,28 @@
         font-weight: 600;
         @include fontProcessDesc;
         text-align: center;
-        color: #ffffff;
+        color: colors.$whiteBg;
         border: none;
       }
-
     }
   }
-  
+}
+.EditIconsContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .EditCollectionHover {
+    position: absolute;
+  }
+
+  .EditVector {
+    position: absolute;
+  }
+
   .DropZoneHeight {
   }
-  
+
   &:hover {
     background: #f3f3f3;
     border: 2px dashed #7d8890;
@@ -349,14 +364,14 @@
   align-items: center;
   justify-content: center;
   gap: 13.2px;
-  
+
   .InvalidPhrase {
     font-style: normal;
     font-weight: 600;
     font-size: 15px;
     line-height: 22px;
     text-align: center;
-    color: #db0027;
+    color: colors.$errorColor;
   }
 }
 
@@ -365,7 +380,7 @@
 }
 
 .RedBorder {
-  border: 2px dashed red;
+  border: 2px dashed colors.$errorColor;
 }
 
 .BorderNone {
