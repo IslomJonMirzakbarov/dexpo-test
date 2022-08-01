@@ -11,6 +11,7 @@ const MyPage = () => {
   });
   const { artist } = useArtistAPI({ isDetail: true });
   if (artist) {
+    console.log(artist);
     // ... for later usage
   }
   return (
