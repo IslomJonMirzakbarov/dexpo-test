@@ -87,11 +87,9 @@ const NftCreate = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    if (data) {
-      setContractAddress(data.collection);
-      setArtName(data.artworkName);
-      data["imageFile"] = uploadedImg;
-    }
+    setContractAddress(data.collection);
+    setArtName(data.artworkName);
+    data["imageFile"] = uploadedImg;
 
     let formData = new FormData();
     formData.append("name", data.artworkName);
@@ -115,7 +113,7 @@ const NftCreate = () => {
   useEffect(() => {
     const nftMint = async () => {
       if (create?.isSuccess) {
-        // console.log("lfdkslafdkf..kfdlsjf");
+        console.log("lfdkslafdkf..kfdlsjf");
         const web3 = new Web3(Web3.givenProvider);
         const contractERC721 = new web3.eth.Contract(
           SingleABI,
@@ -149,8 +147,6 @@ const NftCreate = () => {
             }
           }
         );
-      } else {
-        return;
       }
     };
     nftMint();

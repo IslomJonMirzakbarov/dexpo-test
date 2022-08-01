@@ -6,14 +6,15 @@ import svgr from "@honkhonk/vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svgr(), react()],
-  publicDir: 'public',
+  publicDir: "public",
   build: {
-    outDir: 'build'
+    outDir: "build",
   },
   resolve: {
     alias: [
       {
-        find: "web3",
+        web3: "web3/dist/web3.min.js",
+        find: "@",
         replacement: resolve(__dirname, "src"),
         process: "process/browser",
         stream: "stream-browserify",
