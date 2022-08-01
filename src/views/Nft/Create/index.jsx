@@ -347,3 +347,13 @@ const NftCreate = () => {
 };
 
 export default NftCreate;
+
+// {
+//         web3: "web3/dist/web3.min.js",
+//         find: "@",
+//         replacement: resolve(__dirname, "src"),
+//         process: "process/browser",
+//         stream: "stream-browserify",
+//         zlib: "browserify-zlib",
+//         util: "util",
+//       },

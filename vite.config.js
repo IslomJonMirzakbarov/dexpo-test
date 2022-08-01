@@ -13,14 +13,13 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        web3: "web3/dist/web3.min.js",
-        find: "@",
-        replacement: resolve(__dirname, "src"),
+        find: "web3",
+        replacement: "web3/dist/web3.min.js",
         process: "process/browser",
         stream: "stream-browserify",
         zlib: "browserify-zlib",
         util: "util",
       },
     ],
-  },
+  }
 });
