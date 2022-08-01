@@ -113,7 +113,7 @@ const NftCreate = () => {
   useEffect(() => {
     const nftMint = async () => {
       if (create?.isSuccess) {
-        console.log("lfdkslafdkf..kfdlsjf");
+        // console.log("lfdkslafdkf..kfdlsjf");
         const web3 = new Web3(Web3.givenProvider);
         const contractERC721 = new web3.eth.Contract(
           SingleABI,
@@ -148,6 +148,7 @@ const NftCreate = () => {
           }
         );
       }
+      return;
     };
     nftMint();
     return () => {};
