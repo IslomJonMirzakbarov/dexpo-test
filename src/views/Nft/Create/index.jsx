@@ -19,7 +19,6 @@ import { useNavigate } from "react-router-dom";
 import SingleABI from "../../../utils/abi/SingleABI";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useSelector } from "react-redux";
-import useNftAPI from "../../../hooks/useNftApi";
 import SelectIcon from "../../../assets/icons/select-icon.svg?component";
 import BlackDot from "../../../assets/icons/black-dot.svg?component";
 import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
@@ -52,12 +51,13 @@ const NftCreate = () => {
   const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
+  console.log(uploadedImg.type);
   const [errBool, setErrBool] = useState(false);
   const [chosen, setChosen] = useState(false);
   const [rejected, setRejected] = useState(false);
 
   const imgBool =
-    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
       ? true
       : false;
 
