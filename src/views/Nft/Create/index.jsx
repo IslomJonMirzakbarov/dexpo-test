@@ -87,9 +87,11 @@ const NftCreate = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    setContractAddress(data.collection);
-    setArtName(data.artworkName);
-    data["imageFile"] = uploadedImg;
+    if (data) {
+      setContractAddress(data.collection);
+      setArtName(data.artworkName);
+      data["imageFile"] = uploadedImg;
+    }
 
     let formData = new FormData();
     formData.append("name", data.artworkName);
