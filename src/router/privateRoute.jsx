@@ -36,24 +36,25 @@ export const privateRoutes = [
 
 export const privateRoutesWithoutArtistForm = [
   {
-    path: '/',
+    path: "/",
     children: [
       {
-        path: '',
-        element: <Home />
+        path: "",
+        element: <Home />,
       },
       { ...nftRoutes },
       {
-        path: 'artist',
-        children: [{}]
+        path: "artist",
+        children: [{}],
       },
       { ...marketplaceRoutes },
       { ...collectionRoutes },
-      { ...myPageRoutes }
-    ]
+      { ...myPageRoutes },
+      { ...userRoutes },
+    ],
   },
   {
-    path: '*',
-    element: <Navigate to="/" />
-  }
+    path: "*",
+    element: <Navigate to="/" />,
+  },
 ];

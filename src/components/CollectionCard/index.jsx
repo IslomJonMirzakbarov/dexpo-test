@@ -16,6 +16,9 @@ const CollectionCard = ({
   count = 100,
   isEditable = false
 }) => {
+  // if(id) {
+  //   console.log(id);
+  // }
   return (
     <NavLink to={id ? `/collections/${id}` : '#'}>
       <Paper className={styles.card}>
@@ -23,7 +26,7 @@ const CollectionCard = ({
         {isEditable && (
           <Box className={styles.edit}>
             <Tooltip title="Edit" placement="top">
-              <NavLink to={`/user/collections/edit/${id}`}>
+              <NavLink to={`/collections/collection/edit/${id}`}>
                 <IconButton className={styles.button}>
                   <EditRoundedIcon />
                 </IconButton>

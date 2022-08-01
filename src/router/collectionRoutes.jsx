@@ -15,7 +15,7 @@ export const collectionRoutes = {
       element: <CollectionCreate />,
     },
     {
-      path: "edit",
+      path: "collection/edit/:id",
       element: <CollectionEdit />,
     },
   ],
