@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useForm } from "react-hook-form";
 import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
@@ -15,11 +15,10 @@ import styles from "./style.module.scss";
 
 const CollectionEdit = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const { create } = useCollectionAPI({
     isDetail: true,
-    page: 1,
-    orderBy: "desc",
-    size: 10,
+    id,
   });
   const [showModal, setShowModal] = useState(false);
   const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
