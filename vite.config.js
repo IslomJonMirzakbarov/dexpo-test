@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: "@",
+        find: "web3",
         replacement: resolve(__dirname, "src"),
         process: "process/browser",
         stream: "stream-browserify",
