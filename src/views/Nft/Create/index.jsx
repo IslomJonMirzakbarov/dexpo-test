@@ -149,8 +149,9 @@ const NftCreate = () => {
             }
           }
         );
+      } else {
+        return;
       }
-      return;
     };
     nftMint();
     return () => {};
