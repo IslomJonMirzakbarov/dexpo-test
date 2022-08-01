@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
-import styles from './style.module.scss';
-import FormInputText from '../../components/FormInputText';
-import { Box, Container } from '@mui/system';
-import useArtistAPI from '../../hooks/useArtistAPI';
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { togglePopupByKey } from '../../store/popup/popup.slice';
-import SubmittedModal from '../../components/Modals/SubmittedModal';
+import styles from "./style.module.scss";
+import FormInputText from "../../components/FormInputText";
+import { Box, Container } from "@mui/system";
+import useArtistAPI from "../../hooks/useArtistAPI";
+import PrimaryButton from "../../components/Buttons/PrimaryButton";
+import { useDispatch, useSelector } from "react-redux";
+import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { togglePopupByKey } from "../../store/popup/popup.slice";
+import SubmittedModal from "../../components/Modals/SubmittedModal";
 
 const ArtistForm = () => {
   const navigate = useNavigate();
@@ -25,15 +25,15 @@ const ArtistForm = () => {
     handleSubmit,
     formState: { errors },
     control,
-    reset
+    reset,
   } = useForm({
     defaultValues: {
-      artistName: '',
-      email: '',
+      artistName: "",
+      email: "",
       walletAddress: account,
-      youtubeURL: '',
-      description: ''
-    }
+      youtubeURL: "",
+      description: "",
+    },
   });
 
   const onSubmit = (data) => {
@@ -41,27 +41,28 @@ const ArtistForm = () => {
       artist_name: data.artistName,
       artist_email: data.email,
       artist_youtube_url: data.youtubeURL,
-      description: data.description
+      description: data.description,
     };
+    create.mutate(payload);
 
     if (artist.data !== null) {
       if (
-        artist.code.toString()[0] === '4' ||
-        artist.code.toString()[0] === '5'
+        artist.code.toString()[0] === "4" ||
+        artist.code.toString()[0] === "5"
       ) {
         setRejectCasePopup(true);
       }
     }
 
     reset();
-    dispatch(togglePopupByKey('submittedPopup'));
+    dispatch(togglePopupByKey("submittedPopup"));
   };
 
   const modalClick = () => {
     if (!rejectCasePopup) {
-      navigate('/my-page');
+      navigate("/my-page");
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
 

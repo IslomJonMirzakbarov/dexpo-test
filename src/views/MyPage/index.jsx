@@ -1,4 +1,5 @@
 import React from "react";
+import useArtistAPI from "../../hooks/useArtistAPI";
 import useCollectionAPI from "../../hooks/useCollectionApi";
 
 const MyPage = () => {
@@ -8,7 +9,10 @@ const MyPage = () => {
     orderBy: "desc",
     size: 10,
   });
-  console.log(collections?.data?.items);
+  const { artist } = useArtistAPI({ isDetail: true });
+  if (artist) {
+    // ... for later usage
+  }
   return (
     <div
       style={{

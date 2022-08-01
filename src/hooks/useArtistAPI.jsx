@@ -7,6 +7,12 @@ import { assignArtist } from "../store/artist/artist.slice";
 const createArtist = (data, token) =>
   securedAPI(token).post("/api/artist/create", data);
 
+const configQuery = {
+  refetchOnMount: "always",
+  refetchOnWindowFocus: true, // constantly updating when newCollection created
+  refetchOnReconnect: true,
+};
+
 const useArtistAPI = ({ isDetail, onSuccess }) => {
   const { token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
@@ -26,6 +32,7 @@ const useArtistAPI = ({ isDetail, onSuccess }) => {
     () => getArtist(token),
     {
       enabled: isDetail || false,
+      ...configQuery,
     }
   );
 
