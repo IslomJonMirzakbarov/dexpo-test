@@ -123,8 +123,8 @@ const Ratings = () => {
                         name={name}
                         volume={tradeVolume}
                         type="up" // 'down' | 'up'
-                        percent={item.volume_percentage || 25085.14}
-                        floorPrice={item.floor_price || 2000}
+                        percent={item?.volume_percentage || 25085.14}
+                        floorPrice={item?.floor_price || 2000}
                         itemsCount={items}
                         ownersCount={owners}
                         isArtists={isArtists}

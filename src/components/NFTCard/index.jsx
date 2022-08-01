@@ -7,6 +7,7 @@ import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import conTokenImg from "../../assets/images/con-token.svg";
 import classNames from "classnames";
+import { calculateDeadline } from "../../utils/deadline";
 
 const NFTCard = ({
   page,
@@ -15,8 +16,9 @@ const NFTCard = ({
   price,
   liked = false,
   onClick,
-  leftDays,
+  endDate,
   onAction,
+  startDate,
   hasAction = true,
   priceType,
   artistName,
@@ -24,6 +26,9 @@ const NFTCard = ({
   purchaseCount,
   buttonVariant = "containedInherit",
 }) => {
+  const leftDays =
+    endDate && startDate && calculateDeadline(startDate, endDate);
+
   return (
     <Box
       className={classNames(styles.card, {
@@ -36,7 +41,7 @@ const NFTCard = ({
         {leftDays && (
           <Box className={styles.leftDays}>
             <TimelapseRoundedIcon className={styles.icon} />
-            <span>{leftDays} days left</span>
+            <span>{leftDays} left</span>
           </Box>
         )}
       </Box>

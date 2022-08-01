@@ -12,7 +12,7 @@ import HistoryTable from './HistoryTable';
 import { fakeNFTs } from '../../../constants/faker';
 import NFTCard from '../../../components/NFTCard';
 import { useNavigate } from 'react-router-dom';
-import tokenImg from '../../../assets/images/con-token.svg';
+import tokenImg from '../../../assets/images/con-token.png';
 import CheckoutModal from '../../../components/Modals/CheckoutModal';
 import { useDispatch } from 'react-redux';
 import { togglePopupByKey } from '../../../store/popup/popup.slice';

@@ -13,8 +13,9 @@ const getList = (type) =>
     .then((res) => res.data?.data);
 
 const useCollecionsByCategory = (type) => {
-  const { data, isLoading } = useQuery('GET-COLLECTIONS-BY-CATEGORY', () =>
-    getList(type)
+  const { data, isLoading } = useQuery(
+    `GET-COLLECTIONS-BY-CATEGORY-${type}`,
+    () => getList(type)
   );
 
   return {

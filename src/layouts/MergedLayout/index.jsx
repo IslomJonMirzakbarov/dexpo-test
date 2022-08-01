@@ -14,6 +14,8 @@ import { toggleProfilePopup } from '../../store/popup/popup.slice';
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
 import logo from '../../assets/images/logo.svg';
 import useWallet from '../../hooks/useWallet';
+import { securedAPI } from '../../services/api';
+import { setArtist } from '../../store/artist/artist.slice';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
@@ -25,6 +27,7 @@ const MergedLayout = ({ children }) => {
   const { connectWallet } = useWallet();
 
   const { account } = useSelector((store) => store.wallet);
+  const { token } = useSelector((store) => store.auth);
   const { isProfileOpen } = useSelector((store) => store.popup);
 
   const label = account ? truncateAddress(account) : BUTTON_LABEL;
@@ -36,9 +39,7 @@ const MergedLayout = ({ children }) => {
 
   const handleToggleMenu = () => dispatch(toggleProfilePopup());
 
-  useOnClickOutside(ref, isProfileOpen ? handleToggleMenu : () => {});
-
-  useEffect(() => {
+  const handleNetwork = () => {
     if (window.ethereum) {
       window.ethereum.on('chainChanged', () => {
         window.location.reload();
@@ -47,6 +48,24 @@ const MergedLayout = ({ children }) => {
         connectWallet('metamask');
       });
     }
+  };
+
+  const handleGetArtist = async () => {
+    try {
+      const { data } = await securedAPI(token).get('/api/artist/detail');
+      if (data?.code === 200) {
+        dispatch(setArtist(data?.data));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useOnClickOutside(ref, isProfileOpen ? handleToggleMenu : () => {});
+
+  useEffect(() => {
+    handleNetwork();
+    handleGetArtist();
   }, []);
 
   return (
@@ -65,7 +84,7 @@ const MergedLayout = ({ children }) => {
               })}
               onClick={handleToggleMenu}
             />
-            {isProfileOpen && <ProfileMenu />}
+            {!!token && isProfileOpen && <ProfileMenu />}
           </Box>
         }
       >

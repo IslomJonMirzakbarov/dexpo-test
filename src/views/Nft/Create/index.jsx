@@ -25,7 +25,7 @@ import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
 import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
-import useNftAPIS from "../../../hooks/useNftApis";
+import useNFTCreateApi from "../../../hooks/useNFTCreateApi";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -34,7 +34,7 @@ const NftCreate = () => {
     orderBy: "desc",
     size: 10,
   });
-  const { create, metadata } = useNftAPIS({});
+  const { create, metadata } = useNFTCreateApi({});
   let collectionList;
   let approvedCollectionList;
   if (collections) {
@@ -81,8 +81,6 @@ const NftCreate = () => {
   });
   const errorChecker = Object.keys(errors).length;
 
-  const { isLoading, isSuccess, mutateAsync } = create;
-
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -97,7 +95,7 @@ const NftCreate = () => {
     formData.append("description", data.artworkDescription);
     formData.append("image", data.imageFile);
 
-    await mutateAsync(formData);
+    await create?.mutateAsync(formData);
   });
 
   const mintClick = () => {
@@ -113,7 +111,8 @@ const NftCreate = () => {
 
   useEffect(() => {
     const nftMint = async () => {
-      if (isSuccess) {
+      if (create?.isSuccess) {
+        console.log("lfdkslafdkf..kfdlsjf");
         const web3 = new Web3(Web3.givenProvider);
         const contractERC721 = new web3.eth.Contract(
           SingleABI,
@@ -125,7 +124,6 @@ const NftCreate = () => {
             gasPrice: await web3.eth.getGasPrice(),
             from: account,
           });
-        console.log(estimatedGas);
 
         contractERC721.methods.mint(account, metadata.data.metadata).send(
           {
@@ -152,7 +150,7 @@ const NftCreate = () => {
     };
     nftMint();
     return () => {};
-  }, [account, contractAddress, isSuccess, metadata]);
+  }, [account, contractAddress, create?.isSuccess, metadata]);
 
   return (
     <Box className={styles.Container}>
@@ -287,13 +285,13 @@ const NftCreate = () => {
       <Box className={styles.BottomSide}>
         <PrimaryButton
           onClick={() => {
-            if (!isLoading) {
+            if (!create?.isLoading) {
               mintClick();
             }
           }}
           className={classNames(styles.Btn, { [styles.CheckedBtn]: checked })}
         >
-          {isLoading ? (
+          {create?.isLoading ? (
             <SpinningIcon className={styles.SpinningIcon} />
           ) : (
             "Mint"

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import NumberFormat from 'react-number-format';
 import styles from './style.module.scss';
-import conTokenImg from '../../../../assets/images/con-token.svg';
+import conTokenImg from '../../../../assets/images/con-token.png';
 import collectionItemImg from '../../../../assets/images/collection-item.png';
 
 const CollectionCard = ({

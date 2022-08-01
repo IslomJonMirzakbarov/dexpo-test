@@ -20,7 +20,7 @@ const ModalCard = ({
     NFT_IMG_POPUP: "nft-img-popup",
   };
   const { ARTIST_FORM, CREATE_COLLECTION, NFT_CREATE, NFT_IMG_POPUP } = pages;
-  const SelectedPages = !(
+  const SelectedPages = (
     page === ARTIST_FORM ||
     page === CREATE_COLLECTION ||
     page === NFT_CREATE

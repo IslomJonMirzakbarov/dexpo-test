@@ -1,14 +1,22 @@
-import React from "react";
-import Home from "../views/Home";
-import Ratings from "../views/Ratings";
+import React from 'react';
+import Home from '../views/Home';
+import Ratings from '../views/Ratings';
+import { collectionRoutes } from './collectionRoutes';
+import { marketplaceRoutes } from './marketplaceRoute';
 
 export const commonRoutes = [
   {
-    path: "",
-    element: <Home />,
+    path: '',
+    element: <Home />
   },
   {
-    path: "rankings",
-    element: <Ratings />,
+    path: 'rankings',
+    element: <Ratings />
   },
+  {
+    ...marketplaceRoutes
+  },
+  {
+    ...collectionRoutes
+  }
 ];

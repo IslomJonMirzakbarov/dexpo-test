@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format';
 import { CTableCell, CTableRow } from '../../../components/CTable';
 import styles from './style.module.scss';
 import collectionItemImg from '../../../assets/images/collection-item.png';
-import conTokenImg from '../../../assets/images/con-token.svg';
+import conTokenImg from '../../../assets/images/con-token.png';
 
 const TableItem = ({
   img = collectionItemImg,

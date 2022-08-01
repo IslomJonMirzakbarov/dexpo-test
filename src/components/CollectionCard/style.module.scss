@@ -1,0 +1,137 @@
+@use '/src/scss/colors';
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
+
+  .edit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 12;
+
+    .button {
+      color: #fff;
+      background-color: #454545;
+      border-radius: 7px;
+    }
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  .img {
+    object-fit: cover;
+    height: 292px;
+    background-color: colors.$skeleton;
+  }
+
+  .body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .logo {
+      position: absolute;
+      top: calc(0% - 27.5px);
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      left: calc(calc(100% - 55px) / 2);
+      background-color: black;
+      overflow: hidden;
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px;
+    border-top: 1px solid #dedede;
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
+
+  .edit {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    z-index: 12;
+    width: 45px;
+    height: 45px;
+    background: #d7dadd;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+  }
+
+  .img {
+    object-fit: cover;
+    height: 292px !important;
+    background-color: colors.$skeleton;
+    border-radius: 0;
+  }
+
+  .body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .logo {
+      position: absolute;
+      top: calc(0% - 27.5px);
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      left: calc(calc(100% - 55px) / 2);
+      background-color: #d7dadd;
+      overflow: hidden;
+    }
+
+    .title {
+      width: 81px;
+      height: 15px;
+      border-radius: 3px;
+      background-color: #d7dadd;
+      margin-top: 38px;
+    }
+
+    .name {
+      width: 152px;
+      height: 15px;
+      border-radius: 3px;
+      background-color: #d7dadd;
+      margin-top: 11px;
+      margin-bottom: 62px;
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px;
+    border-top: 1px solid #dedede;
+  }
+}

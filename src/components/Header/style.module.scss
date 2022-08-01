@@ -23,6 +23,13 @@
 
     .search {
       margin-left: 50px;
+      position: relative;
+
+      .result {
+        position: absolute;
+        top: 120%;
+        width: 100%;
+      }
     }
 
     .icon {
