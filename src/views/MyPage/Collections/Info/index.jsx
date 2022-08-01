@@ -17,7 +17,7 @@ const MyCollectionsInfo = () => {
       >
         Create, curate, and manage collections of unique NFTs to share and sell.
       </Typography>
-      <NavLink to="/user/collections/create">
+      <NavLink to="/collections/create">
         <Button
           variant="contained"
           sx={{
