@@ -51,7 +51,6 @@ const NftCreate = () => {
   const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
-  console.log(uploadedImg.type);
   const [errBool, setErrBool] = useState(false);
   const [chosen, setChosen] = useState(false);
   const [rejected, setRejected] = useState(false);

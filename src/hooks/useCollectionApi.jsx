@@ -24,6 +24,11 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
         dispatch(assignNewCollection(res.data.data));
       });
 
+  const updateCollection = (formData) =>
+    securedAPI(token)
+      .post("/api/collection/update", formData, config)
+      .then((res) => res.data);
+
   const getCollectionList = () =>
     securedAPI(token)
       .get("/api/collection/list", {
@@ -41,6 +46,10 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
       .then((res) => res.data);
 
   const mutation = useMutation((data) => createCollection(data), {
+    onSuccess,
+  });
+
+  const update = useMutation((data) => updateCollection(data), {
     onSuccess,
   });
 
@@ -63,6 +72,7 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
   });
 
   return {
+    update,
     create: mutation,
     collections: data,
     collection,
