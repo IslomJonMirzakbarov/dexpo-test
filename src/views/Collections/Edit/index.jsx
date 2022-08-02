@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useForm } from "react-hook-form";
 import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
@@ -10,16 +10,15 @@ import FormInputText from "../../../components/FormInputText";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import ModalCard from "../../../components/ModalCard";
 import CreateCollectionForm from "../../../assets/icons/create-collection-form.svg?component";
+import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
 
 import styles from "./style.module.scss";
 
 const CollectionEdit = () => {
   const navigate = useNavigate();
-  const { create } = useCollectionAPI({
+  const { id, name, symbol } = useParams();
+  const { update } = useCollectionAPI({
     isDetail: true,
-    page: 1,
-    orderBy: "desc",
-    size: 10,
   });
   const [showModal, setShowModal] = useState(false);
   const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
@@ -39,8 +38,8 @@ const CollectionEdit = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      collectionEditName: "Name",
-      collectionEditSymbol: "Symbol",
+      collectionEditName: name || "",
+      collectionEditSymbol: symbol || "",
     },
   });
 
@@ -57,21 +56,22 @@ const CollectionEdit = () => {
       setErrBool(true);
     } else {
       setErrBool(false);
-      data["type"] = type;
       data["logo"] = uploadedImg;
 
       let formData = new FormData();
-      formData.append("type", data.type);
-      formData.append("name", data.name);
-      formData.append("symbol", data.symbol);
-      formData.append("artist_id", data.artist_id);
+      formData.append("contract_address", id);
       formData.append("logo", data.logo);
 
-      create.mutate(formData);
+      update.mutate(formData);
+    }
+  };
+
+  useEffect(() => {
+    if (update?.data) {
       reset();
       setShowModal(true);
     }
-  };
+  }, [reset, update.data, update?.isLoading]);
 
   const modalClick = () => {
     setShowModal(false);
@@ -116,7 +116,13 @@ const CollectionEdit = () => {
         </Box>
         {/* <button>Submit</button> */}
         <Box className={styles.BtnErrorContainer}>
-          <PrimaryButton className={styles.Btn}>Change</PrimaryButton>
+          <PrimaryButton className={styles.Btn}>
+            {update?.isLoading ? (
+              <SpinningIcon className={styles.SpinningIcon} />
+            ) : (
+              "Change"
+            )}
+          </PrimaryButton>
           {errorChecker > 0 && (
             <Box className={styles.ErrorPhrase}>
               Please enter all input values.
@@ -132,16 +138,9 @@ const CollectionEdit = () => {
           <Box className={styles.IconContainer}>
             <CreateCollectionForm />
           </Box>
-          <Typography className={styles.ProcessTitle}>Submitted!</Typography>
+          <Typography className={styles.ProcessTitle}>Updated!</Typography>
           <Typography className={styles.ProcessDesc}>
-            <>
-              Your collection is submitted successfully and sent to <br />
-              admin to review. You can also check your status on
-              <br />
-              <span className={styles.MainDesc}>
-                My Page {">"} My application tab.
-              </span>
-            </>
+            <>Your collection updated successfully</>
           </Typography>
         </ModalCard>
       )}
