@@ -56,7 +56,7 @@ const NftCreate = () => {
   const [rejected, setRejected] = useState(false);
 
   const imgBool =
-    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpg"
+    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
       ? true
       : false;
 

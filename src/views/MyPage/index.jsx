@@ -10,7 +10,6 @@ import DTabs from "../../components/DTabs";
 import DSelect from "../../components/DSelect";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/styles";
-import useNftAPI from "../../hooks/useNftAPI";
 import nftItems from "./nftListData";
 import NFTCard from "../../components/NFTCard";
 import CollectedBottom from "./CollectedBottom";

@@ -1,9 +1,9 @@
-import { Container, Grid } from '@mui/material';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import CollectionCard from '../../../../components/CollectionCard';
-import CollectionSkeletonCard from '../../../../components/CollectionCard/index.skeleton';
-import NoItemsFound from '../../../../components/NoItems';
+import { Container, Grid } from "@mui/material";
+import React from "react";
+import { useSelector } from "react-redux";
+import CollectionCard from "../../../../components/CollectionCard";
+import CollectionSkeletonCard from "../../../../components/CollectionCard/index.skeleton";
+import NoItemsFound from "../../../../components/NoItems";
 
 const MyCollectionsList = ({ collections, isLoading = false }) => {
   const full = useSelector((store) => store.artist.full);
@@ -26,14 +26,15 @@ const MyCollectionsList = ({ collections, isLoading = false }) => {
           ))}
         {!isLoading &&
           collections.map(
-            ({ contract_address, logo_url, name, items_count }, c) => (
+            ({ contract_address, symbol, logo_url, name, items_count }, c) => (
               <Grid item lg={6} key={c}>
                 <CollectionCard
-                  isEditable={true}
+                  symbol={symbol}
+                  isEditable={contract_address ? true : false}
                   id={contract_address}
                   img={logo_url}
                   name={name}
-                  artistName={full?.artist_name || 'You'}
+                  artistName={full?.artist_name || "You"}
                   collectionName={name}
                   count={items_count}
                 />

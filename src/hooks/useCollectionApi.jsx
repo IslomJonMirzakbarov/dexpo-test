@@ -10,7 +10,7 @@ const configQuery = {
   refetchOnReconnect: true,
 };
 
-const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
+const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
 
@@ -24,6 +24,11 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
         dispatch(assignNewCollection(res.data.data));
       });
 
+  const updateCollection = (formData) =>
+    securedAPI(token)
+      .post("/api/collection/update", formData, config)
+      .then((res) => res.data);
+
   const getCollectionList = () =>
     securedAPI(token)
       .get("/api/collection/list", {
@@ -35,18 +40,16 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
       })
       .then((res) => res.data);
 
-  // const getCollectionList = () =>
-  //   securedAPI(token)
-  //     .get("/api/collection/list", {
-  //       params: {
-  //         page,
-  //         order_by: orderBy,
-  //         size,
-  //       },
-  //     })
-  //     .then((res) => res.data);
+  const getCollection = (id) =>
+    securedAPI(token)
+      .get(`/api/collection/detail?contract_address=${id}`)
+      .then((res) => res.data);
 
   const mutation = useMutation((data) => createCollection(data), {
+    onSuccess,
+  });
+
+  const update = useMutation((data) => updateCollection(data), {
     onSuccess,
   });
 
@@ -59,11 +62,24 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size }) => {
     }
   );
 
+  const {
+    data: collection,
+    isLoading: collectionLoading,
+    error: collectionError,
+  } = useQuery("get-collection-detail", () => getCollection(id, token), {
+    enabled: isDetail || false,
+    ...configQuery,
+  });
+
   return {
+    update,
     create: mutation,
     collections: data,
+    collection,
+    collectionLoading,
     isLoading,
     error,
+    collectionError,
   };
 };
 
