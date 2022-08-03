@@ -16,7 +16,7 @@ const getHistory = (token, { contract_address, token_id }) =>
 const useNFTHistoryAPI = ({ contractAddress, tokenId }) => {
   const { token } = useSelector((store) => store.auth);
 
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, refetch } = useQuery(
     `GET-NFT-HISTORY-${contractAddress}-${tokenId}`,
     () =>
       getHistory(token, {
@@ -28,7 +28,7 @@ const useNFTHistoryAPI = ({ contractAddress, tokenId }) => {
     }
   );
 
-  return { data, isLoading };
+  return { data, isLoading, refetch };
 };
 
 export default useNFTHistoryAPI;

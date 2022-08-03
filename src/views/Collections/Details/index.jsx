@@ -11,15 +11,21 @@ const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const { id, contract_address } = useParams();
-  const { detail, loadingDetail } = useNftAPI({
+  const { detail, loadingDetail, refetchDetail } = useNftAPI({
     id,
     contractAddress: contract_address
   });
 
-  const { data: history, isLoading: loadingHistory } = useNFTHistoryAPI({
+  const {
+    data: history,
+    isLoading: loadingHistory,
+    refetch: refetchHistory
+  } = useNFTHistoryAPI({
     tokenId: id,
     contractAddress: contract_address
   });
+
+  const isSoldOut = !detail?.data?.market?.price;
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
@@ -30,8 +36,7 @@ const CollectionDetails = () => {
       const approve = await makeApprove();
 
       if (!!approve) {
-        setStatus(checkoutStatuses.PROCESSING);
-        purchase();
+        handlePurchase();
       }
     } catch (err) {
       console.log(err);
@@ -40,10 +45,13 @@ const CollectionDetails = () => {
   };
 
   const handlePurchase = async () => {
+    setStatus(checkoutStatuses.PROCESSING);
     try {
       const res = await purchase(contract_address, id);
       if (!!res) {
         setStatus(checkoutStatuses.COMPLETE);
+        refetchDetail();
+        refetchHistory();
       }
     } catch (err) {
       console.log(err);
@@ -68,8 +76,6 @@ const CollectionDetails = () => {
     }
   };
 
-  const handleClick = makeContract;
-
   if (loadingDetail || loadingHistory) return <h1>Loading...</h1>;
 
   return (
@@ -78,7 +84,8 @@ const CollectionDetails = () => {
       history={history}
       moreNFTs={moreNFTs}
       status={status}
-      onConfirm={handleClick}
+      onConfirm={makeContract}
+      isSoldOut={isSoldOut}
     />
   );
 };

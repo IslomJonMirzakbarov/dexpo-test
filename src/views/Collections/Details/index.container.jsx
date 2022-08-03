@@ -37,7 +37,8 @@ const CollectionDetailsContainer = ({
   moreNFTs,
   parsedPrice = 58.4,
   status,
-  onConfirm
+  onConfirm,
+  isSoldOut
 }) => {
   const { nft, artist, market, collection } = data;
 
@@ -62,6 +63,7 @@ const CollectionDetailsContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               alt="nft picture"
+              isSoldOut={isSoldOut}
               isPurchased={false}
             />
           </Grid>
@@ -98,45 +100,55 @@ const CollectionDetailsContainer = ({
                   alignItems="end"
                   sx={{ width: '100%' }}
                 >
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    className={classes.priceBox}
-                  >
-                    <img src={tokenImg} alt="token" width={28} height={28} />
-                    <Typography
-                      ml={1}
-                      fontSize={30}
-                      fontWeight={600}
-                      lineHeight="45px"
-                    >
-                      <NumberFormat
-                        value={market?.price}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                      />
-                    </Typography>
-                  </Box>
-                  <Typography
-                    variant="placeholder"
-                    fontWeight={500}
-                    color={theme.palette.grey[1000]}
-                  >
-                    ( ${' '}
-                    <NumberFormat
-                      value={parsedPrice}
-                      displayType={'text'}
-                      thousandSeparator={true}
-                    />
-                    )
-                  </Typography>
+                  {market?.price && (
+                    <>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        className={classes.priceBox}
+                      >
+                        <img
+                          src={tokenImg}
+                          alt="token"
+                          width={28}
+                          height={28}
+                        />
+                        <Typography
+                          ml={1}
+                          fontSize={30}
+                          fontWeight={600}
+                          lineHeight="45px"
+                        >
+                          <NumberFormat
+                            value={market?.price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                          />
+                        </Typography>
+                      </Box>
+                      <Typography
+                        variant="placeholder"
+                        fontWeight={500}
+                        color={theme.palette.grey[1000]}
+                      >
+                        ( ${' '}
+                        <NumberFormat
+                          value={parsedPrice}
+                          displayType={'text'}
+                          thousandSeparator={true}
+                        />
+                        )
+                      </Typography>
+                    </>
+                  )}
                   <Button
                     className={classes.button}
                     variant="containedSecondary"
                     fullWidth
                     onClick={handleClick}
+                    disabled={isSoldOut}
                   >
-                    Purchase Artwork
+                    {isSoldOut ? 'Sold out' : 'Purchase Artwork'}
                   </Button>
                 </Box>
               </Box>
