@@ -34,7 +34,7 @@ const CollectionItems = ({
                   <NFTCardSkeleton />
                 </Grid>
               ))
-            : data.map(({ artist, nft }, c) => (
+            : data.map(({ artist, nft, collection }, c) => (
                 <Grid item lg={3} key={c} p={1}>
                   <NFTCard
                     img={nft?.token_image}
@@ -46,7 +46,11 @@ const CollectionItems = ({
                     priceType={nft?.token_price}
                     hasAction={!!nft?.token_price}
                     purchaseCount={nft?.like_count}
-                    onClick={() => navigate(`/marketplace/${nft?.token_id}`)}
+                    onClick={() =>
+                      navigate(
+                        `/marketplace/${nft?.token_id}/${collection?.contract_address}`
+                      )
+                    }
                   />
                 </Grid>
               ))}

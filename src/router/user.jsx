@@ -1,17 +1,27 @@
-import React from "react";
-import MyCollections from "../views/MyPage/Collections";
+import React from 'react';
+import MyCollections from '../views/MyPage/Collections';
+import NFTSellRequest from '../views/Nft/SellRequest';
 
 export const userRoutes = {
-  path: "user",
+  path: 'user',
   children: [
     {
-      path: "collections",
+      path: 'collections',
       children: [
         {
           index: true,
-          element: <MyCollections />,
-        },
-      ],
+          element: <MyCollections />
+        }
+      ]
     },
-  ],
+    {
+      path: 'nft',
+      children: [
+        {
+          path: ':id',
+          element: <NFTSellRequest />
+        }
+      ]
+    }
+  ]
 };

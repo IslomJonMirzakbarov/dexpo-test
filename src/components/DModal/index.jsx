@@ -15,10 +15,10 @@ const DModal = ({
 }) => {
   const ref = useRef();
   const handleClick = () => {
-    onClose();
-    onConfirm();
+    if (!onConfirm) onClose();
+    else onConfirm();
   };
-  useOnClickOutside(ref, () => onClose());
+  useOnClickOutside(ref, onClose);
 
   if (!open) return;
 
