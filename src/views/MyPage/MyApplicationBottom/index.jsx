@@ -1,5 +1,8 @@
 import classNames from "classnames";
 import React, { useState } from "react";
+import ArtistStatusTable from "./ArtistStatusTable";
+import CollectionStatusTable from "./CollectionStatusTable";
+import SellRequestTable from "./SellRequestTable";
 
 import styles from "./style.module.scss";
 
@@ -21,6 +24,7 @@ const MyApplicationBottom = () => {
             {Object.keys(Btns).map((key) => {
                return (
                   <div
+                     key={key}
                      className={classNames(styles.Button, {
                         [styles.Active]: active === key,
                      })}
@@ -32,28 +36,9 @@ const MyApplicationBottom = () => {
             })}
          </div>
 
-         <table className={styles.Table}>
-            <thead className={styles.TableHead}>
-               <tr className={styles.TableHeadRow}>
-                  <th>Item</th>
-                  <th>Artist name & Artwork name</th>
-                  <th>Status</th>
-                  <th>Date</th>
-               </tr>
-            </thead>
-
-            <tbody className={styles.TableBody}>
-               {/* will be map func */}
-               <tr className={styles.TableBodyRow}>
-                  <td>
-                     <img src={src} alt="" />
-                  </td>
-                  <td>Tristian Eaton (Gemma #1233)</td>
-                  <td>Under Review</td>
-                  <td>2022.04.13 17:48:29</td>
-               </tr>
-            </tbody>
-         </table>
+         {active === "SELL_REQUEST" && <SellRequestTable />}
+         {active === "COLLECTION_STATUS" && <CollectionStatusTable />}
+         {active === "ARTIST_STATUS" && <ArtistStatusTable />}
       </div>
    );
 };
