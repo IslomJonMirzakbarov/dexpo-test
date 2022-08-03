@@ -7,7 +7,6 @@ import styles from "./style.module.scss";
 
 const CollectedBottom = ({ items }) => {
   const nftItems = items.slice(0, 4);
-  console.log(nftItems);
   return (
     <div className={styles.Container}>
       <Grid container spacing={3} columns={16}>

@@ -13,6 +13,7 @@ const configQuery = {
 const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
+  console.log(token);
 
   const config = {
     headers: { "content-type": "multipart/form-data" },
