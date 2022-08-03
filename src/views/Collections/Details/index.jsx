@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 import useNftAPI from '../../../hooks/useNftAPI';
 import CollectionDetailsContainer from './index.container';
 import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
 import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import { checkoutStatuses } from '../../../constants/checkoutStatuses';
-import { useDispatch } from 'react-redux';
-import { togglePopupByKey } from '../../../store/popup/popup.slice';
+import useWeb3 from '../../../hooks/useWeb3';
 
 const CollectionDetails = () => {
-  const dispatch = useDispatch();
+  const { checkAllowance, makeApprove, purchase } = useWeb3();
+
   const { id, contract_address } = useParams();
   const { detail, loadingDetail } = useNftAPI({
     id,
@@ -21,18 +21,54 @@ const CollectionDetails = () => {
     contractAddress: contract_address
   });
 
-  const { data: moreNFTs, isLoading: loadingNFT } =
-    useMoreByCollectionAPI(contract_address);
+  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
 
-  const handleClick = () => {
-    setStatus(checkoutStatuses.PENDING);
-    setTimeout(() => setStatus(checkoutStatuses.PROCESSING), 4000);
-    setTimeout(() => setStatus(checkoutStatuses.COMPLETE), 8000);
-    setTimeout(() => dispatch(togglePopupByKey('checkoutPopup')), 12000);
-    setTimeout(() => setStatus(checkoutStatuses.INITIAL), 12100);
+  const handleContract = async () => {
+    try {
+      const approve = await makeApprove();
+
+      if (!!approve) {
+        setStatus(checkoutStatuses.PROCESSING);
+        purchase();
+      }
+    } catch (err) {
+      console.log(err);
+      setStatus(checkoutStatuses.INITIAL);
+    }
   };
+
+  const handlePurchase = async () => {
+    try {
+      const res = await purchase(contract_address, id);
+      if (!!res) {
+        setStatus(checkoutStatuses.COMPLETE);
+      }
+    } catch (err) {
+      console.log(err);
+      setStatus(checkoutStatuses.INITIAL);
+    }
+  };
+
+  const makeContract = async () => {
+    setStatus(checkoutStatuses.PENDING);
+    try {
+      const allowance = await checkAllowance();
+      const numericAllowance = Number(allowance);
+
+      if (numericAllowance > 0) {
+        handlePurchase();
+      } else {
+        handleContract();
+      }
+    } catch (err) {
+      console.log(err);
+      setStatus(checkoutStatuses.INITIAL);
+    }
+  };
+
+  const handleClick = makeContract;
 
   if (loadingDetail || loadingHistory) return <h1>Loading...</h1>;
 
