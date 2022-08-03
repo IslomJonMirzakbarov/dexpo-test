@@ -1,50 +1,48 @@
-import React, { useState, useEffect } from "react";
-import classNames from "classnames";
-import { useForm } from "react-hook-form";
-import FormInputText from "../../../components/FormInputText";
-import ModalCard from "../../../components/ModalCard";
-import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
-import useCollectionAPI from "../../../hooks/useCollectionApi";
-import MiddleCircleType from "../../../assets/icons/middle-circle-type.svg?component";
-import CreateCollectionForm from "../../../assets/icons/create-collection-form.svg?component";
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
+import { useForm } from 'react-hook-form';
+import FormInputText from '../../../components/FormInputText';
+import ModalCard from '../../../components/ModalCard';
+import FileUploadWithDrag from '../../../components/Upload/FileUploadWithDrag';
+import useCollectionAPI from '../../../hooks/useCollectionApi';
+import MiddleCircleType from '../../../assets/icons/middle-circle-type.svg?component';
+import CreateCollectionForm from '../../../assets/icons/create-collection-form.svg?component';
 
-import styles from "./style.module.scss";
-import { Box } from "@mui/system";
-import PrimaryButton from "../../../components/Buttons/PrimaryButton";
-import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import styles from './style.module.scss';
+import { Box } from '@mui/system';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const CollectionCreate = () => {
   const navigate = useNavigate();
   const { create } = useCollectionAPI({
     isDetail: true,
     page: 1,
-    orderBy: "desc",
-    size: 10,
+    orderBy: 'desc',
+    size: 10
   });
   const [showModal, setShowModal] = useState(false);
-  const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
+  const collectionType = { SINGLE: 'S', MULTIIPLE: 'M' };
   const [type, setType] = useState(collectionType.SINGLE);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
 
   const imgBool =
-    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
+    uploadedImg?.type === 'image/png' || uploadedImg.type === 'image/jpeg'
       ? true
       : false;
 
-  console.log(imgBool);
-  console.log(uploadedImg?.type);
   const {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: {
-      name: "",
-      symbol: "",
-    },
+      name: '',
+      symbol: ''
+    }
   });
 
   useEffect(() => {
@@ -60,15 +58,15 @@ const CollectionCreate = () => {
       setErrBool(true);
     } else {
       setErrBool(false);
-      data["type"] = type;
-      data["logo"] = uploadedImg;
+      data['type'] = type;
+      data['logo'] = uploadedImg;
 
       let formData = new FormData();
-      formData.append("type", data.type);
-      formData.append("name", data.name);
-      formData.append("symbol", data.symbol);
-      formData.append("artist_id", data.artist_id);
-      formData.append("logo", data.logo);
+      formData.append('type', data.type);
+      formData.append('name', data.name);
+      formData.append('symbol', data.symbol);
+      formData.append('artist_id', data.artist_id);
+      formData.append('logo', data.logo);
 
       create.mutate(formData);
       reset();
@@ -78,7 +76,7 @@ const CollectionCreate = () => {
 
   const modalClick = () => {
     setShowModal(false);
-    navigate("/user/collections");
+    navigate('/user/collections');
   };
 
   return (
@@ -91,7 +89,7 @@ const CollectionCreate = () => {
             {/* <SingleMode /> */}
             <Box
               className={classNames(styles.SingleIContainer, {
-                [styles.ClickShadow]: type === collectionType.SINGLE,
+                [styles.ClickShadow]: type === collectionType.SINGLE
               })}
               onClick={() => {
                 setType(collectionType.SINGLE);
@@ -103,12 +101,12 @@ const CollectionCreate = () => {
             </Box>
             <Box
               className={classNames(styles.HorizontalLine, {
-                [styles.Higlighted]: type === collectionType.SINGLE,
+                [styles.Higlighted]: type === collectionType.SINGLE
               })}
             ></Box>
             <Box
               className={classNames(styles.TypePhrase, {
-                [styles.HiglightedCol]: type === collectionType.SINGLE,
+                [styles.HiglightedCol]: type === collectionType.SINGLE
               })}
             >
               Single <span>ERC-721</span>
@@ -238,7 +236,7 @@ const CollectionCreate = () => {
               admin to review. You can also check your status on
               <br />
               <span className={styles.MainDesc}>
-                My Page {">"} My application tab.
+                My Page {'>'} My application tab.
               </span>
             </>
           </Typography>
