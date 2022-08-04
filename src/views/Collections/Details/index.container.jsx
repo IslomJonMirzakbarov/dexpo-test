@@ -38,7 +38,8 @@ const CollectionDetailsContainer = ({
   parsedPrice = 58.4,
   status,
   onConfirm,
-  isSoldOut
+  isSoldOut,
+  txHash
 }) => {
   const { nft, artist, market, collection } = data;
 
@@ -175,6 +176,7 @@ const CollectionDetailsContainer = ({
         collectionName={collection?.name}
         status={status}
         onClick={onConfirm}
+        txHash={txHash}
       />
     </Paper>
   );

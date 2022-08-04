@@ -6,6 +6,7 @@ import CollectionDetailsContainer from './index.container';
 import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
 import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
 import useWeb3 from '../../../hooks/useWeb3';
+import Loader from '../../../components/Loader';
 
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
@@ -30,6 +31,7 @@ const CollectionDetails = () => {
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
+  const [txHash, setTxHash] = useState('');
 
   const handleContract = async () => {
     try {
@@ -48,7 +50,9 @@ const CollectionDetails = () => {
     setStatus(checkoutStatuses.PROCESSING);
     try {
       const res = await purchase(contract_address, id);
+
       if (!!res) {
+        setTxHash(res.transactionHash);
         setStatus(checkoutStatuses.COMPLETE);
         refetchDetail();
         refetchHistory();
@@ -76,7 +80,7 @@ const CollectionDetails = () => {
     }
   };
 
-  if (loadingDetail || loadingHistory) return <h1>Loading...</h1>;
+  if (loadingDetail || loadingHistory) return <Loader />;
 
   return (
     <CollectionDetailsContainer
@@ -86,6 +90,7 @@ const CollectionDetails = () => {
       status={status}
       onConfirm={makeContract}
       isSoldOut={isSoldOut}
+      txHash={txHash}
     />
   );
 };

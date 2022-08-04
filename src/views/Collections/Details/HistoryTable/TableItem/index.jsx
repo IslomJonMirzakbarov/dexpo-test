@@ -9,6 +9,7 @@ import ListedIcon from '../../../../../assets/icons/listed.svg?component';
 import MintedIcon from '../../../../../assets/icons/minted.svg?component';
 import { makeStyles } from '@mui/styles';
 import { truncateAddress } from '../../../../../utils';
+import { redirectAccount, redirectTx } from '../../../../../utils/redirect';
 
 const eventTypes = {
   SOLD: {
@@ -103,30 +104,48 @@ const HistoryTableItem = ({
         <Typography
           variant="placeholder"
           fontWeight={500}
-          className={classes.link}
           onClick={() => handleCopy(from)}
         >
-          {truncateAddress(from)}
+          <a
+            className={classes.link}
+            href={redirectAccount(from)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {truncateAddress(from)}
+          </a>
         </Typography>
       </CTableCell>
       <CTableCell>
         <Typography
           variant="placeholder"
           fontWeight={500}
-          className={classes.link}
           onClick={() => handleCopy(to)}
         >
-          {truncateAddress(to)}
+          <a
+            className={classes.link}
+            href={redirectAccount(to)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {truncateAddress(to)}
+          </a>
         </Typography>
       </CTableCell>
       <CTableCell>
         <Typography
           variant="placeholder"
           fontWeight={500}
-          className={classes.link}
           onClick={() => handleCopy(txHash)}
         >
-          {truncateAddress(txHash)}
+          <a
+            className={classes.link}
+            href={redirectTx(txHash)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {truncateAddress(txHash)}
+          </a>
         </Typography>
       </CTableCell>
       <CTableCell>

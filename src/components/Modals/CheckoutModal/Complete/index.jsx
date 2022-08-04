@@ -2,6 +2,7 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { truncateAddress } from '../../../../utils';
+import { redirectTx } from '../../../../utils/redirect';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -65,7 +66,9 @@ const CompleteCheckout = ({ name, txHash, img }) => {
           className={classes.hash}
           onClick={handleCopy}
         >
-          {truncateAddress(txHash)}
+          <a href={redirectTx(txHash)} target="_blank" rel="noreferrer">
+            {truncateAddress(txHash)}
+          </a>
         </Typography>
       </Box>
     </Box>

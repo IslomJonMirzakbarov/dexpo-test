@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 
 const ProcessingCheckout = ({ name, txHash }) => {
   const classes = useStyles();
-  const handleCopy = () => navigator.clipboard.writeText(txHash);
+
   return (
     <Box className={classes.wrapper}>
       <Typography fontSize={22} fontWeight={700} lineHeight="33px">
@@ -53,19 +53,6 @@ const ProcessingCheckout = ({ name, txHash }) => {
         </Typography>{' '}
         processing. It should be confirmed on the blockchain shortly.
       </Typography>
-      <Box className={classes.transaction}>
-        <Typography variant="placeholder" fontWeight={500}>
-          TRANSACTION HASH
-        </Typography>
-        <Typography
-          variant="placeholder"
-          fontWeight={500}
-          className={classes.hash}
-          onClick={handleCopy}
-        >
-          {truncateAddress(txHash)}
-        </Typography>
-      </Box>
     </Box>
   );
 };
