@@ -41,8 +41,6 @@ const CollectionDetailsContainer = ({
   isSoldOut,
   txHash
 }) => {
-  const { nft, artist, market, collection } = data;
-
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -50,10 +48,10 @@ const CollectionDetailsContainer = ({
 
   const handleClick = () => dispatch(togglePopupByKey('checkoutPopup'));
   const endDate = useMemo(() => {
-    const newDate = new Date(market?.end_date * 1000);
+    const newDate = new Date(data?.market?.end_date * 1000);
 
     return moment(newDate).format(DATE_FORMAT);
-  }, [market?.end_date]);
+  }, [data?.market?.end_date]);
 
   return (
     <Paper className={styles.container}>
@@ -61,8 +59,8 @@ const CollectionDetailsContainer = ({
         <Grid container spacing={3}>
           <Grid item lg={5}>
             <CollectionDetailImage
-              price={nft?.like_count}
-              img={nft?.token_image}
+              price={data?.nft?.like_count}
+              img={data?.nft?.token_image}
               alt="nft picture"
               isSoldOut={isSoldOut}
               isPurchased={false}
@@ -70,21 +68,21 @@ const CollectionDetailsContainer = ({
           </Grid>
           <Grid item lg={7}>
             <CollectionDetailsInfo
-              artistName={artist?.artist_name}
-              youtubeURL={artist?.youtube_url}
-              nftName={nft?.token_name}
-              description={nft?.token_description}
-              type={priceTypeChar?.[market?.type]}
+              artistName={data?.artist?.artist_name}
+              youtubeURL={data?.artist?.youtube_url}
+              nftName={data?.nft?.token_name}
+              description={data?.nft?.token_description}
+              type={priceTypeChar?.[data?.market?.type]}
             />
             <Box display="flex" justifyContent="space-between" my={3}>
               <Box className={classes.box} mr={3}>
                 <ValueTable
-                  smartContract={collection?.contract_address}
-                  tokenID={nft?.token_id}
-                  tokenStandard={nft?.standard}
+                  smartContract={data?.collection?.contract_address}
+                  tokenID={data?.nft?.token_id}
+                  tokenStandard={data?.nft?.standard}
                   blockchain="Klaytn"
-                  addrressCreator={nft?.creator_address}
-                  addrressOwner={nft?.owner_address}
+                  addrressCreator={data?.nft?.creator_address}
+                  addrressOwner={data?.nft?.owner_address}
                 />
               </Box>
               <Box
@@ -94,14 +92,18 @@ const CollectionDetailsContainer = ({
                 alignItems="end"
                 className={classes.box}
               >
-                {market?.end_date ? <Countdown date={endDate} /> : <Box />}
+                {data?.market?.end_date ? (
+                  <Countdown date={endDate} />
+                ) : (
+                  <Box />
+                )}
                 <Box
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
                   sx={{ width: '100%' }}
                 >
-                  {market?.price && (
+                  {data?.market?.price && (
                     <>
                       <Box
                         display="flex"
@@ -121,7 +123,7 @@ const CollectionDetailsContainer = ({
                           lineHeight="45px"
                         >
                           <NumberFormat
-                            value={market?.price}
+                            value={data?.market?.price}
                             displayType={'text'}
                             thousandSeparator={true}
                           />
@@ -167,13 +169,13 @@ const CollectionDetailsContainer = ({
         title="More Artworks From This Collection"
       />
       <CheckoutModal
-        artistName={artist?.artist_name}
-        name={nft?.token_name}
-        type={priceTypeChar?.[market?.type]}
-        price={market?.price}
+        artistName={data?.artist?.artist_name}
+        name={data?.nft?.token_name}
+        type={priceTypeChar?.[data?.market?.type]}
+        price={data?.market?.price}
         exchangedPrice={12321200}
-        img={nft?.token_image}
-        collectionName={collection?.name}
+        img={data?.nft?.token_image}
+        collectionName={data?.collection?.name}
         status={status}
         onClick={onConfirm}
         txHash={txHash}

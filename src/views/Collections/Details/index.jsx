@@ -11,10 +11,10 @@ import Loader from '../../../components/Loader';
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
-  const { id, contract_address } = useParams();
+  const params = useParams();
   const { detail, loadingDetail, refetchDetail, errorDetail } = useNftAPI({
-    id,
-    contractAddress: contract_address
+    id: params?.id,
+    contractAddress: params?.contract_address
   });
 
   const {
@@ -22,8 +22,8 @@ const CollectionDetails = () => {
     isLoading: loadingHistory,
     refetch: refetchHistory
   } = useNFTHistoryAPI({
-    tokenId: id,
-    contractAddress: contract_address
+    tokenId: params?.id,
+    contractAddress: params?.contract_address
   });
 
   const isSoldOut = !detail?.data?.market?.price;
@@ -31,7 +31,7 @@ const CollectionDetails = () => {
   console.log(detail);
   console.log(errorDetail);
 
-  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
+  const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
@@ -52,7 +52,7 @@ const CollectionDetails = () => {
   const handlePurchase = async () => {
     setStatus(checkoutStatuses.PROCESSING);
     try {
-      const res = await purchase(contract_address, id);
+      const res = await purchase(params?.contract_address, params?.id);
 
       if (!!res) {
         setTxHash(res.transactionHash);
