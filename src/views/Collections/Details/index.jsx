@@ -12,7 +12,7 @@ const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const { id, contract_address } = useParams();
-  const { detail, loadingDetail, refetchDetail } = useNftAPI({
+  const { detail, loadingDetail, refetchDetail, errorDetail } = useNftAPI({
     id,
     contractAddress: contract_address
   });
@@ -27,6 +27,9 @@ const CollectionDetails = () => {
   });
 
   const isSoldOut = !detail?.data?.market?.price;
+
+  console.log(detail);
+  console.log(errorDetail);
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 

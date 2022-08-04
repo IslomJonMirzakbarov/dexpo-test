@@ -41,7 +41,7 @@ const CollectionDetailsContainer = ({
   isSoldOut,
   txHash
 }) => {
-  const { nft, artist, market, collection } = data || {};
+  const { nft, artist, market, collection } = data;
 
   const dispatch = useDispatch();
 
