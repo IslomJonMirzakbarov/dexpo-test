@@ -5,7 +5,7 @@ import { priceType } from "../../../constants";
 
 import styles from "./style.module.scss";
 
-const CollectedBottom = ({ items }) => {
+const FavoritesBottom = ({ items }) => {
    const nftItems = items.slice(0, 4);
    return (
       <div className={styles.Container}>
@@ -13,6 +13,7 @@ const CollectedBottom = ({ items }) => {
             {nftItems?.map((nftItem, index) => (
                <Grid item xs={4} sm={4} md={4} key={index}>
                   <NFTCard
+                     liked
                      img={nftItem?.nft?.token_image}
                      name={nftItem?.nft?.token_description}
                      price={1500}
@@ -30,4 +31,4 @@ const CollectedBottom = ({ items }) => {
    );
 };
 
-export default CollectedBottom;
+export default FavoritesBottom;

@@ -7,14 +7,11 @@ import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 import styles from "./style.module.scss";
 import { myPageTabs } from "../Ratings/mocks";
 import DTabs from "../../components/DTabs";
-import DSelect from "../../components/DSelect";
-import { Grid, Paper } from "@mui/material";
-import { styled } from "@mui/styles";
 import nftItems from "./nftListData";
-import NFTCard from "../../components/NFTCard";
 import CollectedBottom from "./CollectedBottom";
 import MyApplicationBottom from "./MyApplicationBottom";
 import ListedArtworkBottom from "./ListedArtworkName";
+import FavoritesBottom from "./FavoritesBottom";
 
 const mockList = [
    {
@@ -30,14 +27,6 @@ const mockList = [
       value: 30,
    },
 ];
-
-const Item = styled(Paper)(({ theme }) => ({
-   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "green",
-   ...theme.typography.body2,
-   padding: theme.spacing(2),
-   textAlign: "center",
-   color: theme.palette.text.secondary,
-}));
 
 const MyPage = () => {
    const { collections } = useCollectionAPI({
@@ -87,6 +76,7 @@ const MyPage = () => {
             {tab?.value === "collected" && <CollectedBottom items={nftItems} />}
             {tab?.value === "myApplication" && <MyApplicationBottom />}
             {tab?.value === "listedArtworks" && <ListedArtworkBottom />}
+            {tab?.value === "favorites" && <FavoritesBottom items={nftItems} />}
          </div>
       </div>
    );
