@@ -25,7 +25,7 @@ const fetchLike = (data, token) =>
 const fetchUnlike = (data, token) =>
   securedAPI(token).post(`/api/nft/dislike`, data);
 
-const useNftAPI = ({
+const useNFTAPI = ({
   isGetList = false,
   type = 'COLLECTED',
   page = 1,
@@ -75,4 +75,4 @@ const useNftAPI = ({
   };
 };
 
-export default useNftAPI;
+export default useNFTAPI;

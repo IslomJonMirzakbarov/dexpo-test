@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { checkoutStatuses } from '../../../constants/checkoutStatuses';
-import useNftAPI from '../../../hooks/useNftAPI';
+
 import CollectionDetailsContainer from './index.container';
 import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
 import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
 import useWeb3 from '../../../hooks/useWeb3';
 import Loader from '../../../components/Loader';
+import useNFTAPI from '../../../hooks/useNFT';
 
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const params = useParams();
-  const { detail, loadingDetail, refetchDetail, errorDetail } = useNftAPI({
+  const { detail, loadingDetail, refetchDetail, errorDetail } = useNFTAPI({
     id: params?.id,
     contractAddress: params?.contract_address
   });
