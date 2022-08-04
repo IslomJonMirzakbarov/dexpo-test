@@ -1,17 +1,17 @@
-import React from "react";
-import Create from "../views/Nft/Create";
-import SellRequest from "../views/Nft/SellRequestAndArtwork";
+import React from 'react';
+import Create from '../views/Nft/Create';
+import NFTSellRequest from '../views/Nft/SellRequest';
 
 export const nftRoutes = {
-  path: "nft",
+  path: 'nft',
   children: [
     {
-      path: "create",
-      element: <Create />,
+      path: 'create',
+      element: <Create />
     },
     {
-      path: "sell-request-artwork",
-      element: <SellRequest />,
-    },
-  ],
+      path: 'sell-request-artwork',
+      element: <NFTSellRequest />
+    }
+  ]
 };

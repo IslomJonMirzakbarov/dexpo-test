@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Loader from '../../components/Loader';
 import useCollecionsByCategory, {
   categoryTypes
 } from '../../hooks/useCollectionsByCategoryAPI';
@@ -25,6 +26,8 @@ const Home = () => {
   useEffect(() => {
     connectCollections();
   }, []);
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.container}>

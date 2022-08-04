@@ -47,36 +47,36 @@ const TopCollections = ({ collections = [] }) => {
         </Box>
         <Grid container spacing={2} mt={2}>
           <Grid item lg={4}>
-            {collections1?.map(({ collection, tradeVolume }, i) => (
+            {collections1?.map(({ collection }, i) => (
               <Box key={i} mt={2} pr={2}>
                 <CollectionCard
                   index={i + 1}
                   name={collection.name}
-                  price={tradeVolume}
+                  price={collection.floor_price}
                   src={collection.logo_url}
                 />
               </Box>
             ))}
           </Grid>
           <Grid item lg={4}>
-            {collections2?.map(({ collection, tradeVolume }, i) => (
+            {collections2?.map(({ collection }, i) => (
               <Box key={i} mt={2}>
                 <CollectionCard
                   index={i + 3}
                   name={collection.name}
-                  price={tradeVolume}
+                  price={collection.floor_price}
                   src={collection.logo_url}
                 />
               </Box>
             ))}
           </Grid>
           <Grid item lg={4}>
-            {collections3?.map(({ collection, tradeVolume }, i) => (
+            {collections3?.map(({ collection }, i) => (
               <Box key={i} mt={2} pl={2}>
                 <CollectionCard
                   index={i + 6}
                   name={collection.name}
-                  price={tradeVolume}
+                  price={collection.floor_price}
                   src={collection.logo_url}
                 />
               </Box>

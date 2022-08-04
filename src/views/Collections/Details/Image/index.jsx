@@ -1,37 +1,34 @@
-import { Box, Typography } from '@mui/material'
-import React from 'react'
-import styles from '../style.module.scss'
+import { Box, Typography } from '@mui/material';
+import React from 'react';
+import styles from '../style.module.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import nft1Img from '../../../../assets/images/nft1.png'
+import nft1Img from '../../../../assets/images/nft1.png';
+import classNames from 'classnames';
 
 const CollectionDetailImage = ({
-    price = 1000,
-    img = nft1Img,
-    alt = "nft picture",
-    isPurchased = false,
-    ...props
+  price = 1000,
+  img = nft1Img,
+  alt = 'nft picture',
+  isPurchased = false,
+  isSoldOut,
+  ...props
 }) => {
-    return (
-        <Box className={styles.img}>
-            <Typography 
-                variant='placeholder'
-                display='flex'
-                alignItems="center"
-                p={1}
-            >
-                {price} 
-                {isPurchased ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
-            </Typography>
-            <img 
-                src={img}
-                alt={alt}
-                height={554}
-                width="100%"
-                {...props}
-            />
-        </Box>
-    )
-}
+  return (
+    <Box className={classNames(styles.img)}>
+      {isSoldOut && <Box className={styles.soldImg}></Box>}
+      <Typography
+        variant="placeholder"
+        display="flex"
+        alignItems="center"
+        p={1}
+      >
+        {price}
+        {isPurchased ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
+      </Typography>
+      <img src={img} alt={alt} height={554} width="100%" {...props} />
+    </Box>
+  );
+};
 
-export default CollectionDetailImage
+export default CollectionDetailImage;

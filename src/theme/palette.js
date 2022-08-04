@@ -92,7 +92,8 @@ const GREY = {
   1600: '#F4F4F4',
   1700: '#F2F2F2',
   1800: '#D1D1D1',
-  1900: '#D9D9D9'
+  1900: '#D9D9D9',
+  2000: '#454545'
 };
 
 const BUTTON_GRADIENTS = {
