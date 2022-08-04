@@ -5,82 +5,83 @@ import { useMutation, useQuery } from "react-query";
 import { assignNewCollection } from "../store/collection/collection.slice";
 
 const configQuery = {
-  refetchOnMount: "always",
-  refetchOnWindowFocus: true, // constantly updating when newCollection created
-  refetchOnReconnect: true,
+   refetchOnMount: "always",
+   refetchOnWindowFocus: true, // constantly updating when newCollection created
+   refetchOnReconnect: true,
 };
 
 const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
-  const dispatch = useDispatch();
-  const { token } = useSelector((store) => store.auth);
+   const dispatch = useDispatch();
+   const { token } = useSelector((store) => store.auth);
+   console.log(token);
 
-  const config = {
-    headers: { "content-type": "multipart/form-data" },
-  };
-  const createCollection = (formData) =>
-    securedAPI(token)
-      .post("/api/collection/create", formData, config)
-      .then((res) => {
-        dispatch(assignNewCollection(res.data.data));
-      });
+   const config = {
+      headers: { "content-type": "multipart/form-data" },
+   };
+   const createCollection = (formData) =>
+      securedAPI(token)
+         .post("/api/collection/create", formData, config)
+         .then((res) => {
+            dispatch(assignNewCollection(res.data.data));
+         });
 
-  const updateCollection = (formData) =>
-    securedAPI(token)
-      .post("/api/collection/update", formData, config)
-      .then((res) => res.data);
+   const updateCollection = (formData) =>
+      securedAPI(token)
+         .post("/api/collection/update", formData, config)
+         .then((res) => res.data);
 
-  const getCollectionList = () =>
-    securedAPI(token)
-      .get("/api/collection/list", {
-        params: {
-          page,
-          order_by: orderBy,
-          size,
-        },
-      })
-      .then((res) => res.data);
+   const getCollectionList = () =>
+      securedAPI(token)
+         .get("/api/collection/list", {
+            params: {
+               page,
+               order_by: orderBy,
+               size,
+            },
+         })
+         .then((res) => res.data);
 
-  const getCollection = (id) =>
-    securedAPI(token)
-      .get(`/api/collection/detail?contract_address=${id}`)
-      .then((res) => res.data);
+   const getCollection = (id) =>
+      securedAPI(token)
+         .get(`/api/collection/detail?contract_address=${id}`)
+         .then((res) => res.data);
 
-  const mutation = useMutation((data) => createCollection(data), {
-    onSuccess,
-  });
+   const mutation = useMutation((data) => createCollection(data), {
+      onSuccess,
+   });
 
-  const update = useMutation((data) => updateCollection(data), {
-    onSuccess,
-  });
+   const update = useMutation((data) => updateCollection(data), {
+      onSuccess,
+   });
 
-  const { data, isLoading, error } = useQuery(
-    "get-collection-list",
-    () => getCollectionList(token, page, orderBy, size),
-    {
+   const { data, isLoading, error } = useQuery(
+      "get-collection-list",
+      () => getCollectionList(token, page, orderBy, size),
+      {
+         enabled: isDetail || false,
+         ...configQuery,
+      }
+   );
+
+   const {
+      data: collection,
+      isLoading: collectionLoading,
+      error: collectionError,
+   } = useQuery("get-collection-detail", () => getCollection(id, token), {
       enabled: isDetail || false,
       ...configQuery,
-    }
-  );
+   });
 
-  const {
-    data: collection,
-    isLoading: collectionLoading,
-    error: collectionError,
-  } = useQuery("get-collection-detail", () => getCollection(id, token), {
-    enabled: isDetail || false,
-    ...configQuery,
-  });
-
-  return {
-    update,
-    create: mutation,
-    collections: data,
-    collection,
-    collectionLoading,
-    isLoading,
-    error,
-    collectionError,
-  };
+   return {
+      update,
+      create: mutation,
+      collections: data,
+      collection,
+      collectionLoading,
+      isLoading,
+      error,
+      collectionError,
+   };
 };
 
 export default useCollectionAPI;

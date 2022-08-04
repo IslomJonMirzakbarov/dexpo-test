@@ -33,14 +33,6 @@ const mockList = [
 
 const MyPage = () => {
    const { createdTab } = useSelector((store) => store.myPage);
-   // console.log(createdTab);
-   const { collections } = useCollectionAPI({
-      isDetail: true,
-      page: 1,
-      orderBy: "desc",
-      size: 10,
-   });
-   // console.log(nftItems);
    const [hovered, setHovered] = useState(false);
    const [tabs, setTabs] = useState(myPageTabs);
    const [tab, setTab] = useState(tabs[0]);
@@ -90,9 +82,17 @@ const MyPage = () => {
             {tab?.value === "myApplication" && <MyApplicationBottom />}
             {tab?.value === "listedArtworks" && <ListedArtworkBottom />}
             {tab?.value === "favorites" && <FavoritesBottom items={nftItems} />}
-            {tab?.value === "created" && createdTab !== 'Items' && <CreatedItems items={nftItems} />}
-            {createdTab === "Items" && notShowItems && <CreatedItems items={nftItems} />}
-            {createdTab === "Collections" && notShowItems && <CreatedCollections />}
+            {tab?.value === "created" &&
+               createdTab !== "Items" &&
+               createdTab !== "Collections" && (
+                  <CreatedItems items={nftItems} />
+               )}
+            {createdTab === "Items" && notShowItems && (
+               <CreatedItems items={nftItems} />
+            )}
+            {createdTab === "Collections" && notShowItems && (
+               <CreatedCollections />
+            )}
          </div>
       </div>
    );

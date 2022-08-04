@@ -10,7 +10,6 @@ const DTabs = ({ values, active = "collections", onSelect, setValues }) => {
    const dispatch = useDispatch();
    const handleSelect = (item, index) => {
       const newValues = [...values];
-      // console.log(item.value);
       dispatch(setSelectedTab(item?.value));
       setValues(
          newValues.map((val, v) => (v === index ? { ...val, ...item } : val))
