@@ -12,6 +12,9 @@ import CollectedBottom from "./CollectedBottom";
 import MyApplicationBottom from "./MyApplicationBottom";
 import ListedArtworkBottom from "./ListedArtworkName";
 import FavoritesBottom from "./FavoritesBottom";
+import { useSelector } from "react-redux";
+import CreatedItems from "./CreatedBottom/CreatedItems";
+import CreatedCollections from "./CreatedBottom/CreatedCollections";
 
 const mockList = [
    {
@@ -29,6 +32,8 @@ const mockList = [
 ];
 
 const MyPage = () => {
+   const { createdTab } = useSelector((store) => store.myPage);
+   // console.log(createdTab);
    const { collections } = useCollectionAPI({
       isDetail: true,
       page: 1,
@@ -40,7 +45,15 @@ const MyPage = () => {
    const [tabs, setTabs] = useState(myPageTabs);
    const [tab, setTab] = useState(tabs[0]);
    const [filter, setFilter] = useState(mockList[0]);
-   const handleSelect = (item) => setFilter(item);
+   const handleSelect = (item) => {
+      setFilter(item);
+   };
+
+   const notShowItems =
+      tab?.value !== "collected" &&
+      tab?.value !== "myApplication" &&
+      tab?.value !== "favorites" &&
+      tab?.value !== "listedArtworks";
 
    // console.log(collections?.data?.items);
    return (
@@ -77,6 +90,9 @@ const MyPage = () => {
             {tab?.value === "myApplication" && <MyApplicationBottom />}
             {tab?.value === "listedArtworks" && <ListedArtworkBottom />}
             {tab?.value === "favorites" && <FavoritesBottom items={nftItems} />}
+            {tab?.value === "created" && createdTab !== 'Items' && <CreatedItems items={nftItems} />}
+            {createdTab === "Items" && notShowItems && <CreatedItems items={nftItems} />}
+            {createdTab === "Collections" && notShowItems && <CreatedCollections />}
          </div>
       </div>
    );

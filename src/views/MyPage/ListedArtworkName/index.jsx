@@ -33,7 +33,9 @@ const ListedArtworkBottom = () => {
                   </td>
                   <td>2022.04.13 17:48:29</td>
                   <td>
-                     <PrimaryButton className={styles.BtnCancel}>Cancel</PrimaryButton>
+                     <PrimaryButton className={styles.BtnCancel}>
+                        Cancel
+                     </PrimaryButton>
                   </td>
                </tr>
             </tbody>
