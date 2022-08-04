@@ -29,9 +29,6 @@ const CollectionDetails = () => {
 
   const isSoldOut = !detail?.data?.market?.price;
 
-  console.log(detail);
-  console.log(errorDetail);
-
   const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
