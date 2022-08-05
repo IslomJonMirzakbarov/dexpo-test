@@ -1,6 +1,9 @@
 @use "/src/scss/colors";
 
 .Table {
+   display: block;
+   overflow: auto;
+   max-height: 470px;
    width: 100%;
    border-spacing: 0;
 
@@ -17,6 +20,11 @@
          th {
             border-top: colors.$border;
             border-bottom: colors.$border;
+
+            background: #f4f4f4;
+            position: sticky;
+            top: 0;
+            z-index: 10;
          }
 
          & :nth-child(1) {
@@ -72,7 +80,17 @@
             font-weight: 500;
             font-size: 15px;
             line-height: 22px;
+         }
+         .UnderReview {
             color: #fd9330;
+         }
+
+         .Approved {
+            color: #1e4ced;
+         }
+
+         .Rejected {
+            color: #ff006b;
          }
          & :nth-child(3) {
             text-align: right;

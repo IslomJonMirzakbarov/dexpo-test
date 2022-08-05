@@ -16,6 +16,7 @@ import CreatedItems from "./CreatedBottom/CreatedItems";
 import CreatedCollections from "./CreatedBottom/CreatedCollections";
 import useArtistAPI from "../../hooks/useArtistAPI";
 import { truncateAddress } from "../../utils";
+import useCollectionAPI from "../../hooks/useCollectionApi";
 
 const mockList = [
    {
@@ -41,6 +42,15 @@ const MyPage = () => {
    const handleSelect = (item) => {
       setFilter(item);
    };
+
+   const { collections } = useCollectionAPI({
+      // it is needed for filling data into scrollable
+      isDetail: true,
+      page: 1,
+      orderBy: "desc",
+      size: 10,
+   });
+
    const { artist } = useArtistAPI({ isDetail: true });
 
    const walletAddress = truncateAddress(
@@ -84,7 +94,7 @@ const MyPage = () => {
             />
             {tab?.value === "collected" && <CollectedBottom items={nftItems} />}
             {tab?.value === "myApplication" && (
-               <MyApplicationBottom artist={artist} />
+               <MyApplicationBottom artist={artist} fCollection={collections} />
             )}
             {tab?.value === "listedArtworks" && <ListedArtworkBottom />}
             {tab?.value === "favorites" && <FavoritesBottom items={nftItems} />}

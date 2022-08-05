@@ -1,14 +1,47 @@
-import React from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import CollectionStatusSvg from "../../../../assets/icons/collection-status-svg.svg?component";
+import useCollectionAPI from "../../../../hooks/useCollectionApi";
 
 import styles from "./style.module.scss";
 
-const src =
-   "https://images.unsplash.com/photo-1653393139347-91df2b722c33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80";
-
 const CollectionStatusTable = () => {
+   // here, there is one bug (applying pagination logic into scroll: useQuery fetching not triggering or lacking...), later will be fixed
+   const [page, setPage] = useState(1);
+   const [data, setData] = useState([]);
+
+   const { collections } = useCollectionAPI({
+      isDetail: true,
+      page,
+      orderBy: "desc",
+      size: 10,
+   });
+
+   useEffect(() => {
+      async function fetchData() {
+         if (collections?.data?.items) {
+            setData([...data, ...(await collections?.data?.items)]);
+         }
+      }
+      fetchData();
+   }, []);
+
+   const handleScroll = (e) => {
+      const bottom =
+         e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+      if (bottom) {
+         console.log("bottom ...");
+         setPage(page + 1);
+      }
+   };
+
    return (
-      <table className={styles.Table}>
+      <table
+         className={styles.Table}
+         onScroll={(e) => {
+            handleScroll(e);
+         }}
+      >
          <thead className={styles.TableHead}>
             <tr className={styles.TableHeadRow}>
                <th>Collection logo & Name</th>
@@ -18,15 +51,30 @@ const CollectionStatusTable = () => {
          </thead>
 
          <tbody className={styles.TableBody}>
-            {/* will be map func */}
-            <tr className={styles.TableBodyRow}>
-               <td>
-                  <CollectionStatusSvg className={styles.Svg} />
-                  alpha keytauri (AK)
-               </td>
-               <td>Under Review</td>
-               <td>2022.04.13 17:48:29</td>
-            </tr>
+            {data.length > 0 &&
+               data.map((item) => (
+                  <tr className={styles.TableBodyRow}>
+                     <td>
+                        <CollectionStatusSvg className={styles.Svg} />
+                        {item.name}
+                     </td>
+                     <td
+                        className={
+                           item?.status === "COMPLETE"
+                              ? styles.Approved
+                              : item?.status === "IDLE" ||
+                                item?.status === "PENDING"
+                              ? styles.UnderReview
+                              : styles.Rejected
+                        }
+                     >
+                        {item.status}
+                     </td>
+                     <td>
+                        {moment(item.created_at).format("YYYY.MM.DD hh:mm:ss")}
+                     </td>
+                  </tr>
+               ))}
          </tbody>
       </table>
    );
