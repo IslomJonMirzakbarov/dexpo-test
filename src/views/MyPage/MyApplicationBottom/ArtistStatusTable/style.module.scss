@@ -67,8 +67,20 @@
             font-weight: 500;
             font-size: 15px;
             line-height: 22px;
+         }
+
+         .UnderReview {
             color: #fd9330;
          }
+
+         .Approved {
+            color: #1e4ced;
+         }
+
+         .Rejected {
+            color: #ff006b;
+         }
+
          & :nth-child(3) {
             text-align: right;
             padding-right: 13px;

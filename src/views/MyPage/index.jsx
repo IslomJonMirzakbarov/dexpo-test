@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useCollectionAPI from "../../hooks/useCollectionApi";
 
 import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
@@ -15,6 +14,8 @@ import FavoritesBottom from "./FavoritesBottom";
 import { useSelector } from "react-redux";
 import CreatedItems from "./CreatedBottom/CreatedItems";
 import CreatedCollections from "./CreatedBottom/CreatedCollections";
+import useArtistAPI from "../../hooks/useArtistAPI";
+import { truncateAddress } from "../../utils";
 
 const mockList = [
    {
@@ -40,6 +41,12 @@ const MyPage = () => {
    const handleSelect = (item) => {
       setFilter(item);
    };
+   const { artist } = useArtistAPI({ isDetail: true });
+
+   const walletAddress = truncateAddress(
+      artist?.data?.wallet_address,
+      "my-page"
+   );
 
    const notShowItems =
       tab?.value !== "collected" &&
@@ -57,20 +64,17 @@ const MyPage = () => {
                fill={hovered ? "#7D8890" : "#D1D1D1"}
             />
          </div>
-
          <div className={styles.ProfileSection}>
             <ProfileImageIcon />
-            <div className={styles.UserName}>UserName</div>
-            <div className={styles.WalletAddress}>0x123s…0D7a</div>
+            <div className={styles.UserName}>
+               {artist ? artist?.data?.artist_name : "UserName"}
+            </div>
+            <div className={styles.WalletAddress}>{walletAddress || ""}</div>
             <div className={styles.Bio}>Bio</div>
             <div className={styles.BioDescription}>
-               0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E 0xA66FD7138A258D4bb6
-               89e8CdfC00114e3e6D682E 0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E
-               0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E
-               0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E 0xA66FD7138A258D4bb6
+               {artist?.data?.description}
             </div>
          </div>
-
          <div className={styles.BottomSideContainer}>
             <DTabs
                values={tabs}
@@ -79,7 +83,9 @@ const MyPage = () => {
                setValues={setTabs}
             />
             {tab?.value === "collected" && <CollectedBottom items={nftItems} />}
-            {tab?.value === "myApplication" && <MyApplicationBottom />}
+            {tab?.value === "myApplication" && (
+               <MyApplicationBottom artist={artist} />
+            )}
             {tab?.value === "listedArtworks" && <ListedArtworkBottom />}
             {tab?.value === "favorites" && <FavoritesBottom items={nftItems} />}
             {tab?.value === "created" &&

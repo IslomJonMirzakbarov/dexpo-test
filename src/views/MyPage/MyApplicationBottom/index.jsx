@@ -15,7 +15,7 @@ const Btns = {
 const src =
    "https://images.unsplash.com/photo-1653393139347-91df2b722c33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80";
 
-const MyApplicationBottom = () => {
+const MyApplicationBottom = ({ artist }) => {
    const [active, setActive] = useState("ARTIST_STATUS");
 
    return (
@@ -38,7 +38,7 @@ const MyApplicationBottom = () => {
 
          {active === "SELL_REQUEST" && <SellRequestTable />}
          {active === "COLLECTION_STATUS" && <CollectionStatusTable />}
-         {active === "ARTIST_STATUS" && <ArtistStatusTable />}
+         {active === "ARTIST_STATUS" && <ArtistStatusTable artist={artist} />}
       </div>
    );
 };

@@ -1,13 +1,15 @@
+import moment from "moment";
 import React from "react";
-import { Link } from "react-router-dom";
-import CollectionStatusSvg from "../../../../assets/icons/collection-status-svg.svg?component";
 
 import styles from "./style.module.scss";
 
 const src =
    "https://images.unsplash.com/photo-1653393139347-91df2b722c33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80";
 
-const ArtistStatusTable = () => {
+const ArtistStatusTable = ({ artist }) => {
+   // console.log(artist);
+   const fdate = moment(artist?.data?.created_at).format("YYYY.MM.DD hh:mm:ss");
+   const artistStatus = artist?.data?.status;
    return (
       <table className={styles.Table}>
          <thead className={styles.TableHead}>
@@ -19,11 +21,20 @@ const ArtistStatusTable = () => {
          </thead>
 
          <tbody className={styles.TableBody}>
-            {/* will be map func */}
             <tr className={styles.TableBodyRow}>
-               <td>tristianeaton@gmail.com</td>
-               <td>Under Review</td>
-               <td>2022.04.13 17:48:29</td>
+               <td>{artist?.data?.artist_email}</td>
+               <td
+                  className={
+                     artistStatus === "COMPLETE"
+                        ? styles.Approved
+                        : artistStatus === "IDLE" || artistStatus === "PENDING"
+                        ? styles.UnderReview
+                        : styles.Rejected
+                  }
+               >
+                  {artistStatus}
+               </td>
+               <td>{fdate}</td>
             </tr>
          </tbody>
       </table>
