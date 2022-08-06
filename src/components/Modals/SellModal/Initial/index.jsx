@@ -1,0 +1,24 @@
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+
+const InitialSell = () => {
+  return (
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <Typography variant="modalTitle">Submitted!</Typography>
+      <Typography
+        variant="placeholder"
+        fontWeight={500}
+        width={290}
+        textAlign="center"
+      >
+        Your request is submitted successfully and sent to admin to review. You
+        can also check your status on
+      </Typography>
+      <Typography variant="placeholder" color="primary" fontWeight={500} mb={4}>
+        My Page {'>'} My application tab.
+      </Typography>
+    </Box>
+  );
+};
+
+export default InitialSell;

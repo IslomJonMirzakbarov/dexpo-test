@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const BidInput = ({ control }) => {
+const BidInput = ({ control, name = 'bidPrice', ...props }) => {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,8 @@ const BidInput = ({ control }) => {
         label="Please enter the bid price."
         control={control}
         type="number"
-        name="bidPrice"
+        name={name}
+        {...props}
       />
       <Box display="flex" alignItems="center">
         <ConToken className={classes.token} />

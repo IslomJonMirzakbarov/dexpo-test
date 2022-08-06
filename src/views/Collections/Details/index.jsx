@@ -13,7 +13,7 @@ const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const params = useParams();
-  const { detail, loadingDetail, refetchDetail, errorDetail } = useNFTAPI({
+  const { detail, loadingDetail, refetchDetail } = useNFTAPI({
     id: params?.id,
     contractAddress: params?.contract_address
   });
@@ -33,6 +33,7 @@ const CollectionDetails = () => {
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
+  const [openModal, setOpenModal] = useState(false);
 
   const handleContract = async () => {
     try {
@@ -81,6 +82,10 @@ const CollectionDetails = () => {
     }
   };
 
+  const toggle = () => {
+    setOpenModal((prev) => !prev);
+  };
+
   if (loadingDetail || loadingHistory) return <Loader />;
 
   return (
@@ -92,6 +97,8 @@ const CollectionDetails = () => {
       onConfirm={makeContract}
       isSoldOut={isSoldOut}
       txHash={txHash}
+      openModal={openModal}
+      toggle={toggle}
     />
   );
 };

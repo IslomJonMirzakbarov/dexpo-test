@@ -18,7 +18,7 @@ export const userRoutes = {
       path: 'nft',
       children: [
         {
-          path: ':id',
+          path: ':id/:contract_address',
           element: <NFTSellRequest />
         }
       ]

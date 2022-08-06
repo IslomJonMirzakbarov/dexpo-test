@@ -10,7 +10,7 @@ export const nftRoutes = {
       element: <Create />
     },
     {
-      path: 'sell-request-artwork',
+      path: ':id/:contract_address',
       element: <NFTSellRequest />
     }
   ]

@@ -39,16 +39,16 @@ const CollectionDetailsContainer = ({
   status,
   onConfirm,
   isSoldOut,
-  txHash
+  txHash,
+  openModal,
+  toggle
 }) => {
   const { nft, artist, market, collection } = data || {};
-
-  const dispatch = useDispatch();
 
   const classes = useStyles();
   const theme = useTheme();
 
-  const handleClick = () => dispatch(togglePopupByKey('checkoutPopup'));
+  const handleClick = () => toggle();
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
 
@@ -177,6 +177,8 @@ const CollectionDetailsContainer = ({
         status={status}
         onClick={onConfirm}
         txHash={txHash}
+        openModal={openModal}
+        toggle={toggle}
       />
     </Paper>
   );
