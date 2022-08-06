@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { togglePopupByKey } from '../../../store/popup/popup.slice';
+import React from 'react';
 import DModal from '../../DModal';
 import InitialCheckout from './Initial';
 import PendingCheckout from './Pending';
@@ -35,20 +33,18 @@ const CheckoutModal = ({
   leftDays,
   collectionName,
   txHash = '0x1e12331231231232121',
-  status = checkoutStatuses.COMPLETE
+  status = checkoutStatuses.COMPLETE,
+  openModal,
+  toggle
 }) => {
-  const dispatch = useDispatch();
-
-  const { checkoutPopup } = useSelector((store) => store.popup);
-
-  const onClose = () => dispatch(togglePopupByKey('checkoutPopup'));
+  const onClose = () => toggle();
 
   const RenderComponent = Render[status];
   const FooterComponent = Footer[status];
 
   return (
     <DModal
-      open={checkoutPopup}
+      open={openModal}
       onClose={onClose}
       onConfirm={onClick}
       footer={FooterComponent}

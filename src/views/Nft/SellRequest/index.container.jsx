@@ -1,21 +1,23 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React from 'react';
-import NumberFormat from 'react-number-format';
+import React, { useMemo } from 'react';
 import styles from './style.module.scss';
-import Countdown from '../../../components/Countdown';
-import { makeStyles, useTheme } from '@mui/styles';
-import nft1Img from '../../../assets/images/nft1.png';
-import { fakeNFTs } from '../../../constants/faker';
-import NFTCard from '../../../components/NFTCard';
-import { useNavigate } from 'react-router-dom';
-import tokenImg from '../../../assets/images/con-token.png';
-import CheckoutModal from '../../../components/Modals/CheckoutModal';
-import { useDispatch } from 'react-redux';
-import { togglePopupByKey } from '../../../store/popup/popup.slice';
+import { makeStyles } from '@mui/styles';
 import ValueTable from '../../Collections/Details/ValueTable';
 import HistoryTable from '../../Collections/Details/HistoryTable';
 import CollectionDetailsInfo from '../../Collections/Details/Info';
 import CollectionDetailImage from '../../Collections/Details/Image';
+import Countdown from '../../../components/Countdown';
+import NumberFormat from 'react-number-format';
+import tokenImg from '../../../assets/images/con-token.png';
+import { priceType, priceTypeChar } from '../../../constants';
+import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
+import PriceInput from '../../../components/PriceInput';
+import DRangePicker from '../../../components/DRangePicker';
+import SellModal from '../../../components/Modals/SellModal';
+import { useTheme } from '@emotion/react';
+import moment from 'moment';
+
+const DATE_FORMAT = 'DD-MM-yyyy hh:mm:ss';
 
 const useStyles = makeStyles({
   priceBox: {
@@ -30,13 +32,82 @@ const useStyles = makeStyles({
   }
 });
 
-const NFTSellRequestContainer = ({ price = 1500, parsedPrice = 54.48 }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const classes = useStyles();
+const NFTSellRequestContainer = ({
+  history,
+  types,
+  type,
+  handleChangeType,
+  control,
+  openModal,
+  toggle,
+  status,
+  handleClick,
+  handleConfirm,
+  parsedPrice = 58.4,
+  isApprove,
+  isListing,
+  isCanceling,
+  error,
+  nft,
+  artist,
+  collection,
+  market,
+  sellPrice,
+  isCancel
+}) => {
   const theme = useTheme();
 
-  const handleClick = () => dispatch(togglePopupByKey('checkoutPopup'));
+  const classes = useStyles();
+
+  const isAuction = priceType.AUCTION.key.includes(type?.value);
+
+  const endDate = useMemo(() => {
+    const newDate = new Date(market?.end_date * 1000);
+
+    return moment(newDate).format(DATE_FORMAT);
+  }, [market?.end_date]);
+
+  const Inputs = () => (
+    <Box display="flex" flexDirection="column" sx={{ width: '100%' }}>
+      {!!type && <PriceInput control={control} name="price" />}
+      {isAuction && (
+        <Box mt="15px" display="flex" sx={{ width: '100%' }}>
+          <DRangePicker
+            closeOnSelect={true}
+            placeholderText="Please select an auction period"
+          />
+        </Box>
+      )}
+    </Box>
+  );
+
+  const SetPrice = () => (
+    <>
+      <Box display="flex" alignItems="center" className={classes.priceBox}>
+        <img src={tokenImg} alt="token" width={28} height={28} />
+        <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
+          <NumberFormat
+            value={market?.price}
+            displayType={'text'}
+            thousandSeparator={true}
+          />
+        </Typography>
+      </Box>
+      <Typography
+        variant="placeholder"
+        fontWeight={500}
+        color={theme.palette.grey[1000]}
+      >
+        ( ${' '}
+        <NumberFormat
+          value={parsedPrice}
+          displayType={'text'}
+          thousandSeparator={true}
+        />
+        )
+      </Typography>
+    </>
+  );
 
   return (
     <Paper className={styles.container}>
@@ -44,26 +115,33 @@ const NFTSellRequestContainer = ({ price = 1500, parsedPrice = 54.48 }) => {
         <Grid container spacing={3}>
           <Grid item lg={5}>
             <CollectionDetailImage
-              price={1000}
-              img={nft1Img}
+              price={nft?.like_count}
+              img={nft?.token_image}
               alt="nft picture"
               isPurchased={false}
             />
           </Grid>
           <Grid item lg={7}>
             <CollectionDetailsInfo
-              artistName="TRISTAN EATON"
-              youtubeURL="https://www.youtube.com/watch?v=3kcj7p8DUwE"
+              artistName={artist?.artist_name}
+              youtubeURL={artist?.youtube_url}
+              nftName={nft?.token_name}
+              description={nft?.token_description}
+              type={priceTypeChar?.[market?.type]}
+              isArtwork={!isCancel}
+              sellType={type}
+              types={types}
+              handleChangeType={handleChangeType}
             />
             <Box display="flex" justifyContent="space-between" my={3}>
               <Box className={classes.box} mr={3}>
                 <ValueTable
-                  smartContract="0x4c0c499b1af2611035dbc95240e3827caeb1cf1e"
-                  tokenID={459123}
-                  tokenStandard="ERC-721"
+                  smartContract={collection?.contract_address}
+                  tokenID={nft?.token_id}
+                  tokenStandard={nft?.standard}
                   blockchain="Klaytn"
-                  addrressCreator="0x4c0c499b1af2611035dbc95240e3827caeb1cf1e"
-                  addrressOwner="0x4c0c499b1af2611035dbc95240e3827caeb1cf1e"
+                  addrressCreator={nft?.creator_address}
+                  addrressOwner={nft?.owner_address}
                 />
               </Box>
               <Box
@@ -73,75 +151,53 @@ const NFTSellRequestContainer = ({ price = 1500, parsedPrice = 54.48 }) => {
                 alignItems="end"
                 className={classes.box}
               >
-                <Countdown />
+                {market?.end_date && <Countdown date={endDate} />}
+                {!isCancel && <Inputs />}
+                {!market?.end_date && isCancel && <Box />}
                 <Box
                   display="flex"
-                  alignItems="center"
-                  className={classes.priceBox}
+                  flexDirection="column"
+                  alignItems="end"
+                  sx={{ width: '100%' }}
                 >
-                  <img src={tokenImg} alt="token" width={28} height={28} />
-                  <Typography
-                    ml={1}
-                    fontSize={30}
-                    fontWeight={600}
-                    lineHeight="45px"
+                  {isCancel && market?.price && <SetPrice />}
+                  <Button
+                    className={classes.button}
+                    variant={isCancel ? 'outlined' : 'containedSecondary'}
+                    fullWidth
+                    onClick={isCancel ? toggle : handleClick}
                   >
-                    <NumberFormat
-                      value={price}
-                      displayType={'text'}
-                      thousandSeparator={true}
-                    />
-                  </Typography>
+                    {isCancel ? 'Cancel' : 'Sell Artwork'}
+                  </Button>
                 </Box>
-                <Typography
-                  variant="placeholder"
-                  fontWeight={500}
-                  color={theme.palette.grey[1000]}
-                >
-                  ( ${' '}
-                  <NumberFormat
-                    value={parsedPrice}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                  />
-                  )
-                </Typography>
-                <Button
-                  className={classes.button}
-                  variant="containedSecondary"
-                  fullWidth
-                  onClick={handleClick}
-                >
-                  Purchase Artwork
-                </Button>
               </Box>
             </Box>
           </Grid>
         </Grid>
         <Grid container>
           <Grid item lg={12}>
-            <HistoryTable />
+            <HistoryTable data={history} />
           </Grid>
-        </Grid>
-        <Grid container mt={10} spacing={2}>
-          <Grid item lg={12}>
-            <Typography
-              variant="h2"
-              fontSize="40px !important"
-              lineHeight="60px"
-              textAlign="center"
-            >
-              More Artworks From This Collection
-            </Typography>
-          </Grid>
-          {fakeNFTs.slice(0, 4).map((item, i) => (
-            <Grid item lg={3} key={i}>
-              <NFTCard {...item} onClick={() => navigate('/marketplace/123')} />
-            </Grid>
-          ))}
         </Grid>
       </Container>
-      <CheckoutModal />
+      <SellModal
+        open={openModal}
+        onClose={toggle}
+        status={status}
+        artistName={artist?.artist_name}
+        name={nft?.token_name}
+        type={priceTypeChar?.[market?.type]}
+        price={market?.price}
+        exchangedPrice={12321200}
+        img={nft?.token_image}
+        collectionName={collection?.name}
+        onClick={handleConfirm}
+        isApprove={isApprove}
+        isListing={isListing}
+        error={error}
+        sellPrice={sellPrice}
+        isCanceling={isCanceling}
+      />
     </Paper>
   );
 };

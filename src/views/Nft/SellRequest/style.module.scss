@@ -5,6 +5,8 @@
   padding: 162px 0;
 
   .img {
+    overflow: hidden;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -13,6 +15,16 @@
     border: 1px solid colors.$icon;
     border-radius: 7px;
     overflow: hidden;
+
+    .soldImg {
+      position: absolute;
+      bottom: 0;
+      opacity: 0.6;
+      background: #1f1f1f;
+      z-index: 12;
+      width: 100%;
+      height: 554px;
+    }
 
     img {
       object-fit: cover;

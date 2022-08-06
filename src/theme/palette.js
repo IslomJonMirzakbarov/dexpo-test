@@ -23,7 +23,7 @@ const MAIN = {
 const SECONDARY = {
   lighter: '#FFAB91',
   light: '#F4511E',
-  main: '#fff',
+  main: '#D9D9D9',
   dark: '#D84315',
   darker: '#BF360C'
 };

@@ -1,0 +1,36 @@
+@use '/src/scss/colors';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .box {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 7px;
+    border: 1px solid colors.$placeholder;
+    padding: 12px 15px;
+    transition: 0.4s ease-in-out all;
+
+    &:focus,
+    &:hover {
+      box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+    }
+
+    & div:first-child {
+      width: 80%;
+
+      input {
+        width: 100%;
+        border: none;
+        outline: none;
+      }
+    }
+
+    svg.token {
+      width: 22px;
+      height: 22px;
+    }
+  }
+}

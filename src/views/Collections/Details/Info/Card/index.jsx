@@ -31,14 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CollectionDetailCard = ({
-  name = 'GEMMA #1422',
-  type = 'Auction',
-  description = `GEMMA (The Generative Electronic Museum of Metaverse Art) is a comprehensive
-    generative art collection by Tristan Eaton. Combining Eaton’s stunning portraiture and
-    layered collage, each piece carries its own unique personality and identity.
-    `
-}) => {
+const CollectionDetailCard = ({ name, type, description }) => {
   const classes = useStyles();
 
   return (
@@ -47,7 +40,7 @@ const CollectionDetailCard = ({
         <Typography variant="h4" textTransform="uppercase" fontWeight={700}>
           {name}
         </Typography>
-        <span className={classes.type}>{type}</span>
+        {type && <span className={classes.type}>{type}</span>}
       </Box>
       <Box className={classes.body} p={2}>
         <Typography variant="placeholder" fontWeight={400}>
