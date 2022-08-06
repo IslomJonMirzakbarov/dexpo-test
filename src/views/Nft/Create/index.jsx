@@ -32,7 +32,7 @@ const NftCreate = () => {
     isDetail: true,
     page: 1,
     orderBy: "desc",
-    size: 10,
+    size: 200,
   });
   const { create, metadata } = useNFTCreateApi({});
   let collectionList;
