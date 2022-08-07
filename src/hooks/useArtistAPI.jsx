@@ -11,6 +11,7 @@ const configQuery = {
   refetchOnMount: "always",
   refetchOnWindowFocus: true, // constantly updating when newCollection created
   refetchOnReconnect: true,
+  staleTime: 0
 };
 
 const useArtistAPI = ({ isDetail, onSuccess }) => {

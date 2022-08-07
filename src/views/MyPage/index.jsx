@@ -15,12 +15,23 @@ import { truncateAddress } from "../../utils";
 
 import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
+import { useParams } from "react-router-dom";
 
 const MyPage = () => {
+   const { id } = useParams();
+   console.log(id);
    const { createdTab } = useSelector((store) => store.myPage);
    const [hovered, setHovered] = useState(false);
    const [tabs, setTabs] = useState(myPageTabs);
-   const [tab, setTab] = useState(tabs[0]);
+   let num;
+   switch (id) {
+      case "artist-status":
+         num = 4;
+         break;
+      default:
+         num = 0;
+   }
+   const [tab, setTab] = useState(tabs[num]);
 
    const { artist } = useArtistAPI({ isDetail: true });
 
