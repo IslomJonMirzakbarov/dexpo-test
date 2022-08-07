@@ -21,15 +21,6 @@ const ArtistForm = () => {
 
    const [rejectCasePopup, setRejectCasePopup] = useState(false);
    const { create, artist } = useArtistAPI({ isDetail: true });
-   const artistStatus = artist?.data?.status;
-   if (artistStatus) {
-      if (artistStatus === "IDLE" || artistStatus === "PENDING") {
-         dispatch(togglePopupByKey("submittedPopup"));
-      }
-      if (artistStatus === "REJECT") {
-         dispatch(togglePopupByKey("rejectedPopup"));
-      }
-   }
 
    const {
       handleSubmit,
@@ -76,86 +67,99 @@ const ArtistForm = () => {
       }
    };
 
-   return (
-      <Container className={styles.Container}>
-         <Box display="flex" justifyContent="center">
-            <form
-               className={styles.FormContainer}
-               onSubmit={handleSubmit(onSubmit)}
-            >
-               <Box className={styles.Title}>Artist application form</Box>
+   if (artist?.message === "NOT_EXIST") {
+      return (
+         <Container className={styles.Container}>
+            <Box display="flex" justifyContent="center">
+               <form
+                  className={styles.FormContainer}
+                  onSubmit={handleSubmit(onSubmit)}
+               >
+                  <Box className={styles.Title}>Artist application form</Box>
 
-               <Box className={styles.NameContainer}>
-                  <Typography variant="label" className={styles.Label}>
-                     Artist Name<span className={styles.LabelSpan}>*</span>
-                  </Typography>
-                  <FormInputText
-                     artistInput
-                     name="artistName"
-                     control={control}
-                     label="Enter an artist name"
-                  />
-               </Box>
-
-               <Box className={styles.EmailContainer}>
-                  <Box className={styles.Label}>
-                     E-mail<span className={styles.LabelSpan}>*</span>
+                  <Box className={styles.NameContainer}>
+                     <Typography variant="label" className={styles.Label}>
+                        Artist Name<span className={styles.LabelSpan}>*</span>
+                     </Typography>
+                     <FormInputText
+                        artistInput
+                        name="artistName"
+                        control={control}
+                        label="Enter an artist name"
+                     />
                   </Box>
-                  <FormInputText
-                     artistInput
-                     name="email"
-                     control={control}
-                     label="Enter your email address"
-                  />
-               </Box>
 
-               <Box className={styles.WalletAddressContainer}>
-                  <Box className={styles.Label}>Wallet address</Box>
-                  <FormInputText
-                     artistInput
-                     name="walletAddress"
-                     control={control}
-                     label="0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E"
-                  />
-               </Box>
-
-               <Box className={styles.YouTubeContainer}>
-                  <Box className={styles.Label}>YouTube URL (optional)</Box>
-                  <FormInputText
-                     artistInput
-                     name="youtubeURL"
-                     control={control}
-                     label="Enter your YouTube url"
-                  />
-               </Box>
-
-               <Box className={styles.DescriptionContainer}>
-                  <Box className={styles.Label}>
-                     Description of content
-                     <span className={styles.LabelSpan}>*</span>
-                  </Box>
-                  <FormInputText
-                     artistInput
-                     name="description"
-                     control={control}
-                     label="Describe your fields of artwork"
-                  />
-               </Box>
-
-               <Box>
-                  <PrimaryButton className={styles.Btn}>Submit</PrimaryButton>
-                  {Object.keys(errors).length > 0 && (
-                     <Box className={styles.ErrorPhrase}>
-                        Please enter all required values.
+                  <Box className={styles.EmailContainer}>
+                     <Box className={styles.Label}>
+                        E-mail<span className={styles.LabelSpan}>*</span>
                      </Box>
-                  )}
-               </Box>
-            </form>
-         </Box>
-         <SubmittedModal onClick={modalClick} />
-         <RejectedModal onClick={modalClick} />
-      </Container>
-   );
+                     <FormInputText
+                        artistInput
+                        name="email"
+                        control={control}
+                        label="Enter your email address"
+                     />
+                  </Box>
+
+                  <Box className={styles.WalletAddressContainer}>
+                     <Box className={styles.Label}>Wallet address</Box>
+                     <FormInputText
+                        artistInput
+                        name="walletAddress"
+                        control={control}
+                        label="0xA66FD7138A258D4bb689e8CdfC00114e3e6D682E"
+                     />
+                  </Box>
+
+                  <Box className={styles.YouTubeContainer}>
+                     <Box className={styles.Label}>YouTube URL (optional)</Box>
+                     <FormInputText
+                        artistInput
+                        name="youtubeURL"
+                        control={control}
+                        label="Enter your YouTube url"
+                     />
+                  </Box>
+
+                  <Box className={styles.DescriptionContainer}>
+                     <Box className={styles.Label}>
+                        Description of content
+                        <span className={styles.LabelSpan}>*</span>
+                     </Box>
+                     <FormInputText
+                        artistInput
+                        name="description"
+                        control={control}
+                        label="Describe your fields of artwork"
+                     />
+                  </Box>
+
+                  <Box>
+                     <PrimaryButton className={styles.Btn}>
+                        Submit
+                     </PrimaryButton>
+                     {Object.keys(errors).length > 0 && (
+                        <Box className={styles.ErrorPhrase}>
+                           Please enter all required values.
+                        </Box>
+                     )}
+                  </Box>
+               </form>
+            </Box>
+            <SubmittedModal onClick={modalClick} />
+            <RejectedModal onClick={modalClick} />
+         </Container>
+      );
+   } else if (
+      artist?.data?.status === "IDLE" ||
+      artist?.data?.status === "PENDING"
+   ) {
+      return <SubmittedModal onClick={modalClick} submitted />;
+   } else if (artist?.data?.status === "REJECT") {
+      return <RejectedModal onClick={modalClick} rejected />;
+   } else {
+      return "loading...";
+   }
 };
 
 export default ArtistForm;
