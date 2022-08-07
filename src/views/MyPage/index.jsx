@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-
-import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
-import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
-
 import styles from "./style.module.scss";
 import { myPageTabs } from "../Ratings/mocks";
 import DTabs from "../../components/DTabs";
@@ -16,42 +12,15 @@ import CreatedItems from "./CreatedBottom/CreatedItems";
 import CreatedCollections from "./CreatedBottom/CreatedCollections";
 import useArtistAPI from "../../hooks/useArtistAPI";
 import { truncateAddress } from "../../utils";
-import useCollectionAPI from "../../hooks/useCollectionApi";
-import useNftAPI from "../../hooks/useNftApi";
 
-const mockList = [
-   {
-      label: "last 24 hours",
-      value: 24,
-   },
-   {
-      label: "last 7 days",
-      value: 7,
-   },
-   {
-      label: "last 30 days",
-      value: 30,
-   },
-];
+import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
+import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 
 const MyPage = () => {
    const { createdTab } = useSelector((store) => store.myPage);
    const [hovered, setHovered] = useState(false);
    const [tabs, setTabs] = useState(myPageTabs);
    const [tab, setTab] = useState(tabs[0]);
-
-   const { list } = useNftAPI({
-      isGetList: true,
-      type: "CREATED_BY_NFTS",
-      size: 20000,
-   });
-
-   const { collections } = useCollectionAPI({
-      isDetail: true,
-      page: 1,
-      orderBy: "desc",
-      size: 200,
-   });
 
    const { artist } = useArtistAPI({ isDetail: true });
 
@@ -93,20 +62,16 @@ const MyPage = () => {
                onSelect={(item) => setTab(item)}
                setValues={setTabs}
             />
-            {tab?.value === "collected" && <CollectedBottom items={nftItems} />}
+            {tab?.value === "collected" && <CollectedBottom />}
             {tab?.value === "myApplication" && (
-               <MyApplicationBottom artist={artist} fCollection={collections} />
+               <MyApplicationBottom artist={artist} />
             )}
             {tab?.value === "listedArtworks" && <ListedArtworkBottom />}
             {tab?.value === "favorites" && <FavoritesBottom items={nftItems} />}
             {tab?.value === "created" &&
                createdTab !== "Items" &&
-               createdTab !== "Collections" && (
-                  <CreatedItems items={list?.data?.items} />
-               )}
-            {createdTab === "Items" && notShowItems && (
-               <CreatedItems items={list?.data?.items} />
-            )}
+               createdTab !== "Collections" && <CreatedItems />}
+            {createdTab === "Items" && notShowItems && <CreatedItems />}
             {createdTab === "Collections" && notShowItems && (
                <CreatedCollections />
             )}

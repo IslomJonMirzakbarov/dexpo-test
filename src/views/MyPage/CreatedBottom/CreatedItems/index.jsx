@@ -2,16 +2,22 @@ import { Grid } from "@mui/material";
 import React from "react";
 import NFTCard from "../../../../components/NFTCard";
 import { priceType } from "../../../../constants";
+import useNftAPI from "../../../../hooks/useNftApi";
 
 import styles from "./style.module.scss";
 
-const CreatedItems = ({ items }) => {
+const CreatedItems = () => {
+   const { list } = useNftAPI({
+      isGetList: true,
+      type: "CREATED_BY_NFTS",
+      size: 20000,
+   });
    return (
       <div className={styles.Container}>
          <div className={styles.Title}>Items</div>
 
          <Grid container spacing={3} columns={16}>
-            {items?.map((nftItem, index) => (
+            {list?.data?.items.map((nftItem, index) => (
                <Grid item xs={4} sm={4} md={4} key={index}>
                   <NFTCard
                      img={nftItem?.nft?.token_image}

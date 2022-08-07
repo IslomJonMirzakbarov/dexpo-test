@@ -2,15 +2,23 @@ import { Grid } from "@mui/material";
 import React from "react";
 import NFTCard from "../../../components/NFTCard";
 import { priceType } from "../../../constants";
+import useNftAPI from "../../../hooks/useNftApi";
 
 import styles from "./style.module.scss";
 
-const FavoritesBottom = ({ items }) => {
-   const nftItems = items.slice(0, 4);
+const FavoritesBottom = () => {
+   const { list } = useNftAPI({
+      isGetList: true,
+      type: "COLLECTED",
+      size: 20000,
+   });
+   let favoriteNfts = list?.data?.items.filter(
+      (item) => item.nft.like_count > 0
+   );
    return (
       <div className={styles.Container}>
          <Grid container spacing={3} columns={16}>
-            {nftItems?.map((nftItem, index) => (
+            {favoriteNfts?.map((nftItem, index) => (
                <Grid item xs={4} sm={4} md={4} key={index}>
                   <NFTCard
                      liked

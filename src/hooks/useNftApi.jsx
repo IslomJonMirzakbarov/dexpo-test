@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { securedAPI } from "../services/api";
 import { useMutation, useQuery } from "react-query";
@@ -9,7 +9,7 @@ const getList = ({ type, page, orderBy = "desc", size }, token) =>
          `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
       )
       .then((res) => {
-         console.log(res.data);
+         // console.log(res.data);
          return res.data;
       });
 
@@ -25,6 +25,13 @@ const fetchLike = (data, token) =>
 
 const fetchUnlike = (data, token) =>
    securedAPI(token).post(`/api/nft/dislike`, data);
+
+const configQuery = {
+   refetchOnMount: true,
+   refetchOnWindowFocus: true, // constantly updating
+   refetchOnReconnect: true,
+   staleTime: 0,
+};
 
 const useNftAPI = ({
    isGetList = false,
@@ -47,6 +54,7 @@ const useNftAPI = ({
       () => getList({ type, page, orderBy, size }, token),
       {
          enabled: !!isGetList,
+         ...configQuery,
       }
    );
 

@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React, { useState } from "react";
+import useCollectionAPI from "../../../hooks/useCollectionApi";
 import ArtistStatusTable from "./ArtistStatusTable";
 import CollectionStatusTable from "./CollectionStatusTable";
 import SellRequestTable from "./SellRequestTable";
@@ -15,7 +16,13 @@ const Btns = {
 const src =
    "https://images.unsplash.com/photo-1653393139347-91df2b722c33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80";
 
-const MyApplicationBottom = ({ artist, fCollection }) => {
+const MyApplicationBottom = ({ artist }) => {
+   const { collections } = useCollectionAPI({
+      isDetail: true,
+      page: 1,
+      orderBy: "desc",
+      size: 200,
+   });
    const [active, setActive] = useState("ARTIST_STATUS");
 
    return (
@@ -37,7 +44,9 @@ const MyApplicationBottom = ({ artist, fCollection }) => {
          </div>
 
          {active === "SELL_REQUEST" && <SellRequestTable />}
-         {active === "COLLECTION_STATUS" && <CollectionStatusTable fCollection={fCollection}/>}
+         {active === "COLLECTION_STATUS" && (
+            <CollectionStatusTable fCollection={collections} />
+         )}
          {active === "ARTIST_STATUS" && <ArtistStatusTable artist={artist} />}
       </div>
    );
