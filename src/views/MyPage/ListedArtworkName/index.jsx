@@ -1,12 +1,9 @@
+import React from "react";
 import moment from "moment";
-import React, { useEffect } from "react";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import useNftAPI from "../../../hooks/useNftApi";
 
 import styles from "./style.module.scss";
-
-const src =
-   "https://images.unsplash.com/photo-1653393139347-91df2b722c33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80";
 
 const ListedArtworkBottom = () => {
    const { list } = useNftAPI({
@@ -20,10 +17,10 @@ const ListedArtworkBottom = () => {
       return fdate;
    };
 
-   // if (!list?.data?.items[0]?.market) {
-   //    console.log("lfkdl");
-   //    return "loading...";
-   // } else {
+   const loadChecker =
+      list?.data?.items[0] &&
+      !Object.keys(list?.data?.items[0]).includes("market");
+
    return (
       <div className={styles.Container}>
          <table className={styles.Table}>
@@ -38,7 +35,7 @@ const ListedArtworkBottom = () => {
             </thead>
 
             <tbody className={styles.TableBody}>
-               {!list?.data?.items[0]?.market
+               {loadChecker
                   ? "loading..."
                   : list?.data?.items.map((item) => (
                        <tr className={styles.TableBodyRow}>
@@ -64,7 +61,6 @@ const ListedArtworkBottom = () => {
          </table>
       </div>
    );
-   // }
 };
 
 export default ListedArtworkBottom;
