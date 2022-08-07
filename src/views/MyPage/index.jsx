@@ -17,6 +17,7 @@ import CreatedCollections from "./CreatedBottom/CreatedCollections";
 import useArtistAPI from "../../hooks/useArtistAPI";
 import { truncateAddress } from "../../utils";
 import useCollectionAPI from "../../hooks/useCollectionApi";
+import useNftAPI from "../../hooks/useNftApi";
 
 const mockList = [
    {
@@ -38,17 +39,18 @@ const MyPage = () => {
    const [hovered, setHovered] = useState(false);
    const [tabs, setTabs] = useState(myPageTabs);
    const [tab, setTab] = useState(tabs[0]);
-   const [filter, setFilter] = useState(mockList[0]);
-   const handleSelect = (item) => {
-      setFilter(item);
-   };
+
+   const { list } = useNftAPI({
+      isGetList: true,
+      type: "CREATED_BY_NFTS",
+      size: 20000,
+   });
 
    const { collections } = useCollectionAPI({
-      // it is needed for filling data into scrollable
       isDetail: true,
       page: 1,
       orderBy: "desc",
-      size: 10,
+      size: 200,
    });
 
    const { artist } = useArtistAPI({ isDetail: true });
@@ -64,7 +66,6 @@ const MyPage = () => {
       tab?.value !== "favorites" &&
       tab?.value !== "listedArtworks";
 
-   // console.log(collections?.data?.items);
    return (
       <div className={styles.Container}>
          <div className={styles.SettingsIconContainer}>
@@ -101,10 +102,10 @@ const MyPage = () => {
             {tab?.value === "created" &&
                createdTab !== "Items" &&
                createdTab !== "Collections" && (
-                  <CreatedItems items={nftItems} />
+                  <CreatedItems items={list?.data?.items} />
                )}
             {createdTab === "Items" && notShowItems && (
-               <CreatedItems items={nftItems} />
+               <CreatedItems items={list?.data?.items} />
             )}
             {createdTab === "Collections" && notShowItems && (
                <CreatedCollections />

@@ -14,7 +14,7 @@ const CreatedCollections = () => {
          <div className={styles.Title}>Collections</div>
 
          <MyCollectionsList
-            page='my-page'
+            page="my-page"
             className={styles.CollectionList}
             isLoading={isLoading}
             collections={collections?.data?.items}
