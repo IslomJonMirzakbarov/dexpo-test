@@ -7,10 +7,11 @@ import { useParams } from 'react-router-dom';
 import { securedAPI } from '../../../services/api';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
-import useNftAPI from '../../../hooks/useNftApi';
+
 import CollectionInfoSkeleton from './Info/index.skeleton';
 import NoItemsFound from '../../../components/NoItems';
 import CPagination from '../../../components/CPagination';
+import useNFTAPI from '../../../hooks/useNFT';
 
 const getCollectionDetail = (token, id) =>
   securedAPI(token)
@@ -31,7 +32,7 @@ const CollectionItem = () => {
     getCollectionDetail(token, id)
   );
 
-  const { listByCollection, loadingByCollection } = useNftAPI({
+  const { listByCollection, loadingByCollection } = useNFTAPI({
     collectionContract: id,
     page
   });

@@ -1,8 +1,8 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { securedAPI } from "../services/api";
-import { useMutation, useQuery } from "react-query";
-import { assignNewCollection } from "../store/collection/collection.slice";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { securedAPI } from '../services/api';
+import { useMutation, useQuery } from 'react-query';
+import { assignNewCollection } from '../store/collection/collection.slice';
 
 const configQuery = {
    refetchOnMount: "always",

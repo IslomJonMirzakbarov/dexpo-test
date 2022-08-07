@@ -1,0 +1,78 @@
+import { Box, CircularProgress, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import React from 'react';
+import { truncateAddress } from '../../../../utils';
+import { redirectTx } from '../../../../utils/redirect';
+
+const useStyles = makeStyles({
+  wrapper: {
+    width: 650,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '17px 17px 55px 17px'
+  },
+  box: {
+    marginTop: 19,
+    display: 'flex',
+    justifyContent: 'center',
+    '& img': {
+      borderRadius: 7,
+      objectFit: 'cover'
+    }
+  },
+  text: {
+    marginTop: 22,
+    width: '70%',
+    textAlign: 'center',
+    fontWeight: 500
+  },
+  transaction: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 20,
+    alignItems: 'center'
+  },
+  hash: {
+    color: 'rgba(30, 76, 237, 1)',
+    cursor: 'pointer'
+  }
+});
+
+const CompleteCheckout = ({ name, txHash, img }) => {
+  const classes = useStyles();
+  const handleCopy = () => navigator.clipboard.writeText(txHash);
+  return (
+    <Box className={classes.wrapper}>
+      <Typography fontSize={22} fontWeight={700} lineHeight="33px">
+        Your purchase is complete
+      </Typography>
+      <Box className={classes.box}>
+        <img src={img} alt={name} width={193} height={193} />
+      </Box>
+      <Typography variant="placeholder" className={classes.text}>
+        Congrats you just purchased&nbsp;
+        <Typography variant="placeholder" color="primary" fontWeight={700}>
+          {name}!
+        </Typography>
+      </Typography>
+      <Box className={classes.transaction}>
+        <Typography variant="placeholder" fontWeight={500}>
+          TRANSACTION HASH
+        </Typography>
+        <Typography
+          variant="placeholder"
+          fontWeight={500}
+          className={classes.hash}
+          onClick={handleCopy}
+        >
+          <a href={redirectTx(txHash)} target="_blank" rel="noreferrer">
+            {truncateAddress(txHash)}
+          </a>
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
+export default CompleteCheckout;

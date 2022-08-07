@@ -1,5 +1,6 @@
 @use '/src/scss/colors';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import '/src/styles/fonts';
 
 html {
   font-size: 0.8rem;
@@ -64,4 +65,41 @@ body {
 
 .hero .slick-next {
   right: 0;
+}
+
+#__range-picker-container {
+  .calendar {
+    z-index: 13;
+  }
+}
+
+.date-picker-app-wrapper {
+  width: 100%;
+  z-index: 13;
+
+  .default-placeholder {
+    padding: 14px 15px;
+    border-radius: 7px;
+    border-color: colors.$placeholder;
+
+    &:focus,
+    &:hover {
+      box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+    }
+
+    .text {
+      @include fontBodyXS;
+      font-weight: 400;
+      color: #1f1f1f;
+    }
+
+    .icon {
+      border-color: gray;
+
+      .dot {
+        background-color: gray;
+        border-color: gray;
+      }
+    }
+  }
 }

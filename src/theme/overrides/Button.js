@@ -11,6 +11,10 @@ export default function Button(theme) {
           fontWeight: 600,
           '&:hover': {
             boxShadow: 'none'
+          },
+          '&.Mui-disabled': {
+            background: '#BABABA!important',
+            color: theme.palette.common.white
           }
         },
         sizeLarge: {

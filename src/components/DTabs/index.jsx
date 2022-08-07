@@ -47,12 +47,4 @@ const DTabs = ({ values, active = "collections", onSelect, setValues }) => {
    );
 };
 
-const Dropdown = ({ value }) => {
-   return (
-      <Box className={styles.item}>
-         <Typography variant="placeholder">{value.label}</Typography>
-      </Box>
-   );
-};
-
 export default DTabs;

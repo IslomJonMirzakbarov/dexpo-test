@@ -9,14 +9,14 @@ import conTokenImg from '../../../assets/images/con-token.png';
 
 const TableItem = ({
   img = collectionItemImg,
-  name = 'RR/BAYC',
+  name,
   index,
-  volume = 2792.57,
+  volume,
   type, // 'down' | 'up'
-  percent = 25085.14,
-  floorPrice = 2000,
-  itemsCount = '6.4K',
-  ownersCount = '2.5K',
+  percent,
+  floorPrice,
+  itemsCount,
+  ownersCount,
   isArtists = false
 }) => {
   return (
