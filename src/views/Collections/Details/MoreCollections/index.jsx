@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../../Home/NFTCollections/style.module.scss';
 import Slider from 'react-slick';
@@ -25,6 +25,9 @@ const settings = {
 
 const MoreCollections = ({ data, title }) => {
   const navigate = useNavigate();
+
+  if (data.length === 0) return;
+
   return (
     <Container>
       <Box className={styles.block} mt="125px">

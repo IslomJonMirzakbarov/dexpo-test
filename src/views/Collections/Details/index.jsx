@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 
@@ -8,6 +8,7 @@ import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
 import useWeb3 from '../../../hooks/useWeb3';
 import Loader from '../../../components/Loader';
 import useNFTAPI from '../../../hooks/useNFT';
+import { id } from 'date-fns/locale';
 
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
@@ -30,6 +31,16 @@ const CollectionDetails = () => {
   const isSoldOut = !detail?.data?.market?.price;
 
   const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
+
+  const filteredData = useMemo(
+    () =>
+      moreNFTs?.filter(
+        ({ nft, collection }) =>
+          nft?.token_id !== params?.id &&
+          !collection?.contract_address.includes(params?.contract_address)
+      ),
+    [moreNFTs]
+  );
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
@@ -97,7 +108,7 @@ const CollectionDetails = () => {
     <CollectionDetailsContainer
       data={detail?.data}
       history={history}
-      moreNFTs={moreNFTs}
+      moreNFTs={filteredData}
       status={status}
       onConfirm={makeContract}
       isSoldOut={isSoldOut}
