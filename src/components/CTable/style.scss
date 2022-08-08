@@ -25,6 +25,7 @@
       }
       &:last-child {
         border-top-right-radius: 10px;
+        text-align: right;
       }
     }
   }
@@ -42,6 +43,10 @@
   transition-duration: 0.2s;
   td {
     border-bottom: 1px solid #dedede !important;
+
+    &:last-child {
+      text-align: right;
+    }
   }
 
   &:hover {

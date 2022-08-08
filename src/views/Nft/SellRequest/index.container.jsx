@@ -121,7 +121,13 @@ const NFTSellRequestContainer = ({
               isPurchased={false}
             />
           </Grid>
-          <Grid item lg={7}>
+          <Grid
+            item
+            lg={7}
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+          >
             <CollectionDetailsInfo
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
@@ -133,7 +139,7 @@ const NFTSellRequestContainer = ({
               types={types}
               handleChangeType={handleChangeType}
             />
-            <Box display="flex" justifyContent="space-between" my={3}>
+            <Box display="flex" justifyContent="space-between">
               <Box className={classes.box} mr={3}>
                 <ValueTable
                   smartContract={collection?.contract_address}

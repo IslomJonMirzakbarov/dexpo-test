@@ -66,7 +66,14 @@ const Ratings = () => {
     <Paper className={styles.container}>
       <Container>
         <Box display="flex" justifyContent="center">
-          <Typography variant="h2">{filteredCollections.title}</Typography>
+          <Typography
+            variant="h2"
+            fontWeight={700}
+            fontSize="40px!important"
+            lineHeight="60px"
+          >
+            {filteredCollections.title}
+          </Typography>
         </Box>
         <Box
           display="flex"

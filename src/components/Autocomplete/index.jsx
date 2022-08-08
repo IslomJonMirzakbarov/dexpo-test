@@ -4,7 +4,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import classnames from 'classnames';
 import { useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -12,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: 500,
+    height: 45,
     border: `1.5px solid ${theme.palette.grey[1100]}`,
     borderRadius: 7,
     transition: '0.4s ease-in-out',

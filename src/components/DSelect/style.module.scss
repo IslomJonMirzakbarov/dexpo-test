@@ -22,7 +22,8 @@
 
   .control {
     position: relative;
-    min-width: 180px;
+    width: 180px;
+    height: 45px;
     z-index: 2;
     display: flex;
     justify-content: space-between;

@@ -144,6 +144,7 @@ const NFTSellRequest = () => {
 
   useEffect(() => {
     if (!openModal) clear();
+    setError('');
   }, [openModal]);
 
   useEffect(() => {

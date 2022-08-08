@@ -37,39 +37,33 @@ const NFTCollections = ({ collections, hottestCollections }) => {
           </Box>
           <Box className={styles.collection}>
             {hottestCollections?.length < 5 ? (
-              <Grid
-                container
-                display="flex"
-                justifyContent="center"
-                spacing={3}
-                mb={10}
-              >
-                {hottestCollections?.map(
-                  ({ nft, artist, market, collection }, c) => (
-                    <Grid item key={c} lg={3}>
-                      <NFTCard
-                        img={nft.token_image}
-                        name={nft.token_name}
-                        price={market?.price}
-                        startDate={market?.start_date}
-                        endDate={market?.end_date}
-                        leftDays={null}
-                        artistName={artist.artist_name}
-                        description={nft.token_description}
-                        priceType={priceTypeChar?.[market?.type]}
-                        hasAction={!!market?.price}
-                        purchaseCount={nft.like_count}
-                        buttonVariant="containedSecondary"
-                        onClick={() =>
-                          navigate(
-                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                          )
-                        }
-                      />
-                    </Grid>
-                  )
-                )}
-              </Grid>
+              hottestCollections?.map(
+                ({ nft, artist, market, collection }, c) => (
+                  <Box key={c} className={styles.card}>
+                    <NFTCard
+                      img={nft.token_image}
+                      name={nft.token_name}
+                      price={market?.price}
+                      startDate={market?.start_date}
+                      endDate={market?.end_date}
+                      leftDays={null}
+                      artistName={artist.artist_name}
+                      description={nft.token_description}
+                      priceType={priceTypeChar?.[market?.type]}
+                      hasAction={!!market?.price}
+                      purchaseCount={nft.like_count}
+                      buttonVariant="containedSecondary"
+                      key={c}
+                      isDefault
+                      onClick={() =>
+                        navigate(
+                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        )
+                      }
+                    />
+                  </Box>
+                )
+              )
             ) : (
               <Slider {...settings}>
                 {collections?.map(({ nft, artist, market, collection }, c) => (
@@ -86,6 +80,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      isDefault
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`

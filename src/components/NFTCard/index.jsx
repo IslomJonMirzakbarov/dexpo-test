@@ -1,13 +1,13 @@
-import { Box, Button, Typography } from "@mui/material";
-import React from "react";
-import NumberFormat from "react-number-format";
-import styles from "./style.module.scss";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import conTokenImg from "../../assets/images/con-token.svg";
-import classNames from "classnames";
-import { calculateDeadline } from "../../utils/deadline";
+import { Box, Button, Typography } from '@mui/material';
+import React from 'react';
+import NumberFormat from 'react-number-format';
+import styles from './style.module.scss';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import conTokenImg from '../../assets/images/con-token.svg';
+import classNames from 'classnames';
+import { calculateDeadline } from '../../utils/deadline';
 
 const NFTCard = ({
   page,
@@ -24,7 +24,8 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = "containedInherit",
+  buttonVariant = 'containedInherit',
+  isDefault = false
 }) => {
   const leftDays =
     endDate && startDate && calculateDeadline(startDate, endDate);
@@ -32,7 +33,9 @@ const NFTCard = ({
   return (
     <Box
       className={classNames(styles.card, {
-        [styles.CollectedCard]: page === "collectedBottom",
+        [styles.CollectedCard]: page === 'collectedBottom',
+        [styles.minified]: !price,
+        [styles.default]: isDefault
       })}
     >
       <Box className={styles.header} onClick={onClick}>
@@ -45,44 +48,48 @@ const NFTCard = ({
           </Box>
         )}
       </Box>
-      <Box className={classNames(styles.body, { [styles.last]: !price })}>
-        <div className={styles.artist}>
-          <span className={styles.name}>{artistName}</span>
-          <Typography variant="placeholder" fontWeight={500}>
-            {description}
-          </Typography>
-        </div>
-        <div className={styles.actions}>
-          <span className={classNames(styles.count, { [styles.liked]: liked })}>
-            <NumberFormat
-              value={purchaseCount}
-              displayType={"text"}
-              decimalScale={3}
-              thousandSeparator={true}
-            />
-            {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
-          </span>
-          <div className={styles.price}>
-            {price && (
-              <>
-                <img src={conTokenImg} alt="token" />
-                <NumberFormat
-                  value={price}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                />
-              </>
-            )}
+      <Box className={styles.wrapper}>
+        <Box className={classNames(styles.body, { [styles.last]: !price })}>
+          <div className={styles.artist}>
+            <span className={styles.name}>{artistName}</span>
+            <Typography variant="placeholder" fontWeight={500}>
+              {description}
+            </Typography>
           </div>
-        </div>
-      </Box>
-      {hasAction && (
-        <Box className={styles.footer}>
-          <Button fullWidth variant={buttonVariant} onClick={onAction}>
-            Buy now
-          </Button>
+          <div className={styles.actions}>
+            <span
+              className={classNames(styles.count, { [styles.liked]: liked })}
+            >
+              <NumberFormat
+                value={purchaseCount}
+                displayType={'text'}
+                decimalScale={3}
+                thousandSeparator={true}
+              />
+              {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+            </span>
+            <div className={styles.price}>
+              {price && (
+                <>
+                  <img src={conTokenImg} alt="token" />
+                  <NumberFormat
+                    value={price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                  />
+                </>
+              )}
+            </div>
+          </div>
         </Box>
-      )}
+        {hasAction && (
+          <Box className={styles.footer}>
+            <Button fullWidth variant={buttonVariant} onClick={onAction}>
+              Buy now
+            </Button>
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

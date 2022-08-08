@@ -19,7 +19,7 @@ const data = [
     icon: detail1Img
   },
   {
-    title: 'How do I create an NFT ?',
+    title: 'How do I buy an NFT ?',
     description: `For NFTs with a fixed price, click the [Purchase Artwork]
     button on the Marketplace Details page and complete
     the transaction. For NFTs on auction, If another user exceeds
@@ -37,7 +37,7 @@ const data = [
     icon: detail3Img
   },
   {
-    title: 'How do I buy an NFT ?',
+    title: 'How do I create an NFT ?',
     description: `Once you are approved as an artist, click
     [Create NFT] and choose your file to upload
     We currently support JPG and PNG. Please note that your

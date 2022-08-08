@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 
@@ -34,6 +34,7 @@ const CollectionDetails = () => {
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const [error, setError] = useState('');
 
   const handleContract = async () => {
     try {
@@ -43,8 +44,8 @@ const CollectionDetails = () => {
         handlePurchase();
       }
     } catch (err) {
-      console.log(err);
       setStatus(checkoutStatuses.INITIAL);
+      setError(err.message);
     }
   };
 
@@ -60,7 +61,7 @@ const CollectionDetails = () => {
         refetchHistory();
       }
     } catch (err) {
-      console.log(err);
+      setError(err.message);
       setStatus(checkoutStatuses.INITIAL);
     }
   };
@@ -77,7 +78,7 @@ const CollectionDetails = () => {
         handleContract();
       }
     } catch (err) {
-      console.log(err);
+      setError(err.message);
       setStatus(checkoutStatuses.INITIAL);
     }
   };
@@ -85,6 +86,10 @@ const CollectionDetails = () => {
   const toggle = () => {
     setOpenModal((prev) => !prev);
   };
+
+  useEffect(() => {
+    setError('');
+  }, [openModal]);
 
   if (loadingDetail || loadingHistory) return <Loader />;
 
@@ -99,6 +104,7 @@ const CollectionDetails = () => {
       txHash={txHash}
       openModal={openModal}
       toggle={toggle}
+      error={error}
     />
   );
 };
