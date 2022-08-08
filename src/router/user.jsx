@@ -1,4 +1,6 @@
 import React from 'react';
+import CollectionCreate from '../views/Collections/Create';
+import CollectionEdit from '../views/Collections/Edit';
 import MyPage from '../views/MyPage';
 import MyCollections from '../views/MyPage/Collections';
 import NFTSellRequest from '../views/Nft/SellRequest';
@@ -12,6 +14,14 @@ export const userRoutes = {
             {
                index: true,
                element: <MyCollections />,
+            },
+            {
+               path: "create",
+               element: <CollectionCreate />,
+            },
+            {
+               path: "collection/edit/:id/:name/:symbol",
+               element: <CollectionEdit />,
             },
          ],
       },

@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import classNames from "classnames";
 
 import styles from "./style.module.scss";
 
@@ -20,13 +21,11 @@ const ArtistStatusTable = ({ artist }) => {
             <tr className={styles.TableBodyRow}>
                <td>{artist?.data?.artist_email}</td>
                <td
-                  className={
-                     artistStatus === "COMPLETE"
-                        ? styles.Approved
-                        : artistStatus === "IDLE" || artistStatus === "PENDING"
-                        ? styles.UnderReview
-                        : styles.Rejected
-                  }
+                  className={classNames(
+                     styles.UnderReview,
+                     { [styles.Approved]: artistStatus === "COMPLETE" },
+                     { [styles.Rejected]: artistStatus === "REJECT" }
+                  )}
                >
                   {artistStatus}
                </td>
