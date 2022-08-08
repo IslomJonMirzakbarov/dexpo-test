@@ -61,7 +61,7 @@ const ArtistForm = () => {
 
    const modalClick = () => {
       if (!rejectCasePopup) {
-         navigate("/my-page/artist-status");
+         navigate("/user/my-page/artist-status");
       } else {
          navigate("/");
       }

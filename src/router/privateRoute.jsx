@@ -4,7 +4,6 @@ import Home from "../views/Home";
 import { marketplaceRoutes } from "./marketplaceRoute";
 import { collectionRoutes } from "./collectionRoutes";
 import { nftRoutes } from "./nftRoutes";
-import { myPageRoutes } from "./myPageRoutes";
 import ArtistForm from "../views/ArtistForm";
 import { commonRoutes } from "./commonRoutes";
 import { userRoutes } from "./user";
@@ -24,7 +23,6 @@ export const privateRoutes = [
                },
             ],
          },
-         { ...myPageRoutes },
          { ...userRoutes },
       ],
    },
@@ -50,7 +48,6 @@ export const privateRoutesWithoutArtistForm = [
          },
          { ...marketplaceRoutes },
          { ...collectionRoutes },
-         { ...myPageRoutes },
          { ...userRoutes },
       ],
    },
