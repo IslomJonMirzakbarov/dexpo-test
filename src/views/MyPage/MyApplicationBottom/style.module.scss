@@ -1,4 +1,5 @@
 @use "/src/scss/colors";
+@import "/src/styles/fonts";
 
 .Container {
    margin-top: 35px;
@@ -15,23 +16,21 @@
       .Button {
          width: 165px;
          height: 55px;
-         background: #f4f4f4;
+         background: colors.$headBg;
          border-radius: 7px;
          display: flex;
          align-items: center;
          justify-content: center;
          font-style: normal;
-         font-weight: 600;
-         font-size: 15px;
-         line-height: 22px;
+         @include fontLabel;
          text-align: right;
-         color: #1f1f1f;
+         color: colors.$greyBg;
          cursor: pointer;
       }
 
       .Active {
-         background: #ffffff;
-         color: #ff006b;
+         background: colors.$whiteBg;
+         color: colors.$primary;
          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       }
    }

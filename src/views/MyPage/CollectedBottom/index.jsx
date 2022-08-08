@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React from "react";
 import NFTCard from "../../../components/NFTCard";
 import { priceType } from "../../../constants";
@@ -12,9 +12,8 @@ const CollectedBottom = () => {
       type: "COLLECTED",
       size: 20000,
    });
-   // console.log(list?.data?.items);
    return (
-      <div className={styles.Container}>
+      <Box className={styles.Container}>
          <Grid container spacing={3} columns={16}>
             {list?.data?.items[0]?.market
                ? "loading..."
@@ -34,7 +33,7 @@ const CollectedBottom = () => {
                     </Grid>
                  ))}
          </Grid>
-      </div>
+      </Box>
    );
 };
 

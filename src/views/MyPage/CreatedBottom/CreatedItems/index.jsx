@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React from "react";
 import NFTCard from "../../../../components/NFTCard";
 import { priceType } from "../../../../constants";
@@ -13,8 +13,8 @@ const CreatedItems = () => {
       size: 20000,
    });
    return (
-      <div className={styles.Container}>
-         <div className={styles.Title}>Items</div>
+      <Box className={styles.Container}>
+         <Box className={styles.Title}>Items</Box>
 
          <Grid container spacing={3} columns={16}>
             {list?.data?.items.map((nftItem, index) => (
@@ -33,7 +33,7 @@ const CreatedItems = () => {
                </Grid>
             ))}
          </Grid>
-      </div>
+      </Box>
    );
 };
 

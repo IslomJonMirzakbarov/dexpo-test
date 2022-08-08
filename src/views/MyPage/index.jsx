@@ -16,6 +16,7 @@ import { truncateAddress } from "../../utils";
 import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 import { useParams } from "react-router-dom";
+import { Box } from "@mui/material";
 
 const MyPage = () => {
    const { id } = useParams();
@@ -47,26 +48,26 @@ const MyPage = () => {
       tab?.value !== "listedArtworks";
 
    return (
-      <div className={styles.Container}>
-         <div className={styles.SettingsIconContainer}>
+      <Box className={styles.Container}>
+         <Box className={styles.SettingsIconContainer}>
             <PageSettingsIcon
                onMouseEnter={() => setHovered(true)}
                onMouseLeave={() => setHovered(false)}
                fill={hovered ? "#7D8890" : "#D1D1D1"}
             />
-         </div>
-         <div className={styles.ProfileSection}>
+         </Box>
+         <Box className={styles.ProfileSection}>
             <ProfileImageIcon />
-            <div className={styles.UserName}>
+            <Box className={styles.UserName}>
                {artist ? artist?.data?.artist_name : "UserName"}
-            </div>
-            <div className={styles.WalletAddress}>{walletAddress || ""}</div>
-            <div className={styles.Bio}>Bio</div>
-            <div className={styles.BioDescription}>
+            </Box>
+            <Box className={styles.WalletAddress}>{walletAddress || ""}</Box>
+            <Box className={styles.Bio}>Bio</Box>
+            <Box className={styles.BioDescription}>
                {artist?.data?.description}
-            </div>
-         </div>
-         <div className={styles.BottomSideContainer}>
+            </Box>
+         </Box>
+         <Box className={styles.BottomSideContainer}>
             <DTabs
                values={tabs}
                active={tab?.value}
@@ -86,8 +87,8 @@ const MyPage = () => {
             {createdTab === "Collections" && notShowItems && (
                <CreatedCollections />
             )}
-         </div>
-      </div>
+         </Box>
+      </Box>
    );
 };
 

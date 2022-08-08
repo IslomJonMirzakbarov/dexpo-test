@@ -1,4 +1,5 @@
 @use "/src/scss/colors";
+@import "/src/styles/fonts";
 
 .Table {
    display: block;
@@ -10,7 +11,7 @@
    .TableHead {
       border-radius: 7px 7px 0px 0px;
       border: colors.$border;
-      background: #f4f4f4;
+      background: colors.$headBg;
       height: 50px;
 
       .TableHeadRow {
@@ -21,7 +22,7 @@
             border-top: colors.$border;
             border-bottom: colors.$border;
 
-            background: #f4f4f4;
+            background: colors.$headBg;
             position: sticky;
             top: 0;
             z-index: 10;
@@ -53,7 +54,7 @@
    .TableBody {
       .TableBodyRow {
          td {
-            border-bottom: 1px solid #dedede;
+            border-bottom: 1px solid colors.$placeholder;
             height: 84px;
          }
 
@@ -67,7 +68,7 @@
             font-weight: 700;
             font-size: 15px;
             line-height: 22px;
-            color: #1f1f1f;
+            color: colors.$greyBg;
 
             svg {
                padding-left: 0;
@@ -96,10 +97,8 @@
             text-align: right;
             padding-right: 13px;
             font-style: normal;
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 22px;
-            color: #1f1f1f;
+            @include fontProcessDesc;
+            color: colors.$greyBg;
          }
       }
    }

@@ -1,96 +1,88 @@
-@import '/src/styles/scrollbar.scss';
+@use "/src/scss/colors";
+@import "/src/styles/fonts";
+@import "/src/styles/scrollbar.scss";
 
 .Container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin-top: 90px;
-  margin-bottom: 180px;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   margin-top: 90px;
+   margin-bottom: 180px;
 
-  .SettingsIconContainer {
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    top: 102px;
-    right: 53px;
-  }
-
-  .ProfileSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 70px;
-
-    .UserName {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 30px;
-      text-align: center;
-      color: #1f1f1f;
-      margin-bottom: 10px;
-    }
-
-    .WalletAddress {
-      width: 129px;
+   .SettingsIconContainer {
+      width: 45px;
       height: 45px;
-      background: #ffffff;
-      box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
-      border-radius: 7px;
+      position: absolute;
+      top: 102px;
+      right: 53px;
+   }
+
+   .ProfileSection {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 30px;
+      margin-bottom: 70px;
 
-      font-style: normal;
-      font-weight: 500;
-      font-size: 15px;
-      line-height: 22px;
-      text-align: center;
-      color: #7d8890;
-    }
+      .UserName {
+         font-style: normal;
+         @include userText;
+         text-align: center;
+         color: colors.$greyBg;
+         margin-bottom: 10px;
+      }
 
-    .Bio {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 15px;
-      line-height: 22px;
-      text-align: center;
-      color: #1f1f1f;
-      margin-bottom: 8px;
-    }
+      .WalletAddress {
+         width: 129px;
+         height: 45px;
+         background: colors.$whiteBg;
+         box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+         border-radius: 7px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin-bottom: 30px;
+         font-style: normal;
+         @include fontProcessDesc;
+         text-align: center;
+         color: colors.$text;
+      }
 
-    .BioDescription {
-      box-sizing: border-box;
-      width: 650px;
-      height: 120px;
-      background: #f3f3f3;
-      border: 1.5px solid #e8e8e8;
-      border-radius: 7px;
-      padding-top: 11px;
-      padding-bottom: 11px;
-      padding-left: 15px;
-      @include scrollbar;
-      overflow: auto;
+      .Bio {
+         font-style: normal;
+         @include fontLabel;
+         text-align: center;
+         color: colors.$textColor1;
+         margin-bottom: 8px;
+      }
 
-      font-style: normal;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 22px;
-      color: #1f1f1f;
-    }
-  }
+      .BioDescription {
+         box-sizing: border-box;
+         width: 650px;
+         height: 120px;
+         background: #f3f3f3;
+         border: 1.5px solid #e8e8e8;
+         border-radius: 7px;
+         padding-top: 11px;
+         padding-bottom: 11px;
+         padding-left: 15px;
+         @include scrollbar;
+         overflow: auto;
+         font-style: normal;
+         @include fontTypePhrase;
+         color: colors.$textColor1;
+      }
+   }
 
-  .BottomSideContainer {
-    width: 1240px;
-    display: flex;
-    flex-direction: column;
+   .BottomSideContainer {
+      width: 1240px;
+      display: flex;
+      flex-direction: column;
 
-    .BottomContainer {
-      margin-top: 30px;
-    }
-  }
+      .BottomContainer {
+         margin-top: 30px;
+      }
+   }
 }

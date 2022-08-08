@@ -4,6 +4,7 @@ import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import useNftAPI from "../../../hooks/useNftApi";
 
 import styles from "./style.module.scss";
+import { Box } from "@mui/material";
 
 const ListedArtworkBottom = () => {
    const { list } = useNftAPI({
@@ -22,7 +23,7 @@ const ListedArtworkBottom = () => {
       !Object.keys(list?.data?.items[0]).includes("market");
 
    return (
-      <div className={styles.Container}>
+      <Box className={styles.Container}>
          <table className={styles.Table}>
             <thead className={styles.TableHead}>
                <tr className={styles.TableHeadRow}>
@@ -44,10 +45,10 @@ const ListedArtworkBottom = () => {
                           </td>
                           <td>{item?.nft?.token_name}</td>
                           <td className={styles.ThirdOne}>
-                             <div className={styles.CycPrice}>
+                             <Box className={styles.CycPrice}>
                                 CYC {item?.market?.price}
-                             </div>
-                             <div className={styles.UsdPrice}>$ 0</div>
+                             </Box>
+                             <Box className={styles.UsdPrice}>$ 0</Box>
                           </td>
                           <td>{dateConverter(item?.market?.created_at)}</td>
                           <td>
@@ -59,7 +60,7 @@ const ListedArtworkBottom = () => {
                     ))}
             </tbody>
          </table>
-      </div>
+      </Box>
    );
 };
 

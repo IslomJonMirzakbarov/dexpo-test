@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React from "react";
 import NFTCard from "../../../components/NFTCard";
 import { priceType } from "../../../constants";
@@ -16,7 +16,7 @@ const FavoritesBottom = () => {
       (item) => item.nft.like_count > 0
    );
    return (
-      <div className={styles.Container}>
+      <Box className={styles.Container}>
          <Grid container spacing={3} columns={16}>
             {favoriteNfts?.map((nftItem, index) => (
                <Grid item xs={4} sm={4} md={4} key={index}>
@@ -35,7 +35,7 @@ const FavoritesBottom = () => {
                </Grid>
             ))}
          </Grid>
-      </div>
+      </Box>
    );
 };
 

@@ -1,101 +1,107 @@
 @mixin fontTitleXXL {
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 46px;
+   font-weight: 600;
+   font-size: 32px;
+   line-height: 46px;
 }
 
 @mixin fontTitleXL {
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 34px;
+   font-weight: 500;
+   font-size: 24px;
+   line-height: 34px;
 }
 
 @mixin fontTitleXS {
-  font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 28px;
+   font-weight: 600;
+   font-size: 1.6rem;
+   line-height: 28px;
 }
 
 @mixin fontTitleS {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 27px;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 27px;
 }
 
 @mixin fontBodyXXL {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150.4%;
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 150.4%;
 }
 
 @mixin fontBodyXL {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 150%;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 150%;
 }
 
 @mixin fontBodyXL2 {
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 160%;
+   font-weight: 500;
+   font-size: 13px;
+   line-height: 160%;
 }
 
 @mixin fontBodyXS {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 150%;
+   font-weight: 500;
+   font-size: 12px;
+   line-height: 150%;
 }
 
 @mixin fontSubXS {
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 16px;
+   font-weight: 500;
+   font-size: 11px;
+   line-height: 16px;
 }
 
 @mixin fontBodyXSS {
-  font-weight: 700;
-  font-size: 10px;
-  line-height: 150%;
+   font-weight: 700;
+   font-size: 10px;
+   line-height: 150%;
 }
 
 @mixin fontError {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
+   font-weight: 500;
+   font-size: 14px;
+   line-height: 18px;
 }
 
 @mixin fontProcessDesc {
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 22px;
+   font-weight: 500;
+   font-size: 15px;
+   line-height: 22px;
 }
 
 @mixin fontProcessTitle {
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 33px;
+   font-weight: 700;
+   font-size: 22px;
+   line-height: 33px;
 }
 
 @mixin fontLagInfo {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+   font-weight: 500;
+   font-size: 12px;
+   line-height: 18px;
 }
 
 @mixin fontLabel {
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 22px;
+   font-weight: 600;
+   font-size: 15px;
+   line-height: 22px;
 }
 
 @mixin fontTypePhrase {
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 22px;
+   font-weight: 400;
+   font-size: 15px;
+   line-height: 22px;
 }
 
 @mixin fontTitle {
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 60px;
+   font-weight: 700;
+   font-size: 40px;
+   line-height: 60px;
+}
+
+@mixin userText {
+   font-weight: 600;
+   font-size: 20px;
+   line-height: 30px;
 }

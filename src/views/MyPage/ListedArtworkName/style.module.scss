@@ -1,4 +1,5 @@
 @use "/src/scss/colors";
+@import "/src/styles/fonts";
 
 .Container {
    margin-top: 30px;
@@ -56,7 +57,7 @@
       .TableBody {
          .TableBodyRow {
             td {
-               border-bottom: 1px solid #dedede;
+               border-bottom: 1px solid colors.$placeholder;
                height: 84px;
             }
 
@@ -75,16 +76,13 @@
                padding-left: 48px;
                text-align: left;
                font-style: normal;
+               @include fontLabel;
                font-weight: 700;
-               font-size: 15px;
-               line-height: 22px;
                color: #1f1f1f;
             }
             & :nth-child(3) {
                font-style: normal;
-               font-weight: 500;
-               font-size: 15px;
-               line-height: 22px;
+               @include fontProcessDesc;
                color: #fd9330;
             }
 
@@ -99,17 +97,13 @@
 
                .CycPrice {
                   font-style: normal;
-                  font-weight: 500;
-                  font-size: 15px;
-                  line-height: 22px;
-                  color: #1f1f1f;
+                  @include fontProcessDesc;
+                  color: colors.$greyBg;
                }
 
                .UsdPrice {
                   font-style: normal;
-                  font-weight: 500;
-                  font-size: 12px;
-                  line-height: 18px;
+                  @include fontLagInfo;
                   text-align: right;
                   color: #2bbeac;
                }
@@ -118,10 +112,8 @@
                text-align: right;
                width: 320px;
                font-style: normal;
-               font-weight: 500;
-               font-size: 15px;
-               line-height: 22px;
-               color: #1f1f1f;
+               @include fontProcessDesc;
+               color: colors.$greyBg;
             }
             & :nth-child(5) {
                text-align: left;
@@ -132,22 +124,20 @@
                   height: 45px;
                   margin-left: 75px;
                   margin-right: 30px;
-                  border: 1px solid #ff006b;
+                  border: 1px solid colors.$primary;
                   border-radius: 7px;
                   background-color: transparent;
                   font-style: normal;
-                  font-weight: 600;
-                  font-size: 15px;
-                  line-height: 22px;
+                  @include fontLabel;
                   text-align: center;
-                  color: #ff006b;
+                  color: colors.$primary;
 
                   &:hover {
-                     background: #ff006b;
-                     border: 1px solid #d1d1d1;
+                     background: colors.$primary;
+                     border: 1px solid colors.$icon;
                      box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
                      border-radius: 7px;
-                     color: #ffffff;
+                     color: colors.$whiteBg;
                   }
                }
             }
