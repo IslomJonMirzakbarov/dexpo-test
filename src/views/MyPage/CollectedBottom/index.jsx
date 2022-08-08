@@ -1,5 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import NFTCard from "../../../components/NFTCard";
 import { priceType } from "../../../constants";
 import useNftAPI from "../../../hooks/useNftApi";
@@ -7,6 +8,7 @@ import useNftAPI from "../../../hooks/useNftApi";
 import styles from "./style.module.scss";
 
 const CollectedBottom = () => {
+   const navigate = useNavigate();
    const { list } = useNftAPI({
       isGetList: true,
       type: "COLLECTED",
@@ -29,6 +31,11 @@ const CollectedBottom = () => {
                           priceType={priceType.AUCTION.value.value}
                           purchaseCount={1000}
                           page="collectedBottom"
+                          onClick={() =>
+                             navigate(
+                                `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.nft?.contract_address}`
+                             )
+                          }
                        />
                     </Grid>
                  ))}
