@@ -1,0 +1,14 @@
+@use "/src/scss/colors";
+@import "/src/styles/fonts";
+
+.Container {
+   margin-top: 25px;
+
+   .Title {
+      font-style: normal;
+      @include userText;
+      color: colors.$greyBg;
+      font-weight: 700;
+      margin-bottom: 20px;
+   }
+}

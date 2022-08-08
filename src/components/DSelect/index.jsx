@@ -1,24 +1,24 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import styles from './style.module.scss';
-import classNames from 'classnames';
+import { Box, Typography } from "@mui/material";
+import React from "react";
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import styles from "./style.module.scss";
+import classNames from "classnames";
 
 const DSelect = ({
-  label = 'Title',
+  label = "Title",
   isDark = false,
   hasGradient = true,
   value,
   items,
-  onSelect
+  onSelect,
 }) => {
   return (
     <Box className={styles.select}>
       <Box
         className={classNames(styles.control, {
           [styles.dark]: isDark,
-          [styles.simple]: !hasGradient
+          [styles.simple]: !hasGradient,
         })}
       >
         <Typography variant="placeholder">

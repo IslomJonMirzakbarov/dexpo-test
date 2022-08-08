@@ -5,7 +5,7 @@ import submittedImg from '../../assets/icons/submitted.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePopupByKey } from '../../store/popup/popup.slice';
 
-const SubmittedModal = ({ onClick }) => {
+const SubmittedModal = ({ onClick, submitted }) => {
   const dispatch = useDispatch();
   const { submittedPopup } = useSelector((store) => store.popup);
 
@@ -13,7 +13,7 @@ const SubmittedModal = ({ onClick }) => {
 
   return (
     <DModal
-      open={submittedPopup}
+      open={submitted || submittedPopup}
       img={submittedImg}
       onClose={onClose}
       onConfirm={onClick}
