@@ -13,7 +13,7 @@ const RejectedModal = ({ onClick, rejected }) => {
 
    return (
       <DModal
-         open={rejected ? true : rejectedPopup}
+         open={rejected || rejectedPopup}
          img={rejectedImg}
          onClose={onClose}
          onConfirm={onClick}

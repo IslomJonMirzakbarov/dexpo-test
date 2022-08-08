@@ -1,6 +1,6 @@
+import React from "react";
 import classNames from "classnames";
 import moment from "moment";
-import React from "react";
 import CollectionStatusSvg from "../../../../assets/icons/collection-status-svg.svg?component";
 import useCollectionAPI from "../../../../hooks/useCollectionApi";
 

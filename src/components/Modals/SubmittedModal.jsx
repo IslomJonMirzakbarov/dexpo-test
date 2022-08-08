@@ -13,7 +13,7 @@ const SubmittedModal = ({ onClick, submitted }) => {
 
   return (
     <DModal
-      open={submitted ? true : submittedPopup}
+      open={submitted || submittedPopup}
       img={submittedImg}
       onClose={onClose}
       onConfirm={onClick}
