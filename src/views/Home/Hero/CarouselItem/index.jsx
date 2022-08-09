@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, ButtonGroup, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import classNames from 'classnames';
-import AbstractItem from '../AbstractItem';
-import { NavLink } from 'react-router-dom';
-import useArtistAPI from '../../../../hooks/useArtistAPI';
+import React, { useEffect, useState } from "react";
+import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import classNames from "classnames";
+import AbstractItem from "../AbstractItem";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import useArtistAPI from "../../../../hooks/useArtistAPI";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,9 +62,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CarouselItem = ({ item }) => {
-  const classes = useStyles();
-  const [active, setActive] = useState(['h4']);
-  const { artist } = useArtistAPI({ isDetail: true });
+   const { token } = useSelector((store) => store.auth);
+   const classes = useStyles();
+   const [active, setActive] = useState(["h4"]);
+   const { artist } = useArtistAPI({ isDetail: true });
 
   useEffect(() => {
     if (active.length === 3) return;
@@ -79,62 +81,69 @@ const CarouselItem = ({ item }) => {
     };
   }, [active]);
 
-  return (
-    <Box
-      className={classes.root}
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-    >
+   const notAuthencticated =
+      token === null || artist?.message === "EXPIRED_TOKEN";
+
+   const artistNaigation = notAuthencticated
+      ? "/login"
+      : artist?.data?.status === "COMPLETE"
+      ? "/nft/create"
+      : "/artist/form";
+
+   return (
       <Box
-        className={classNames(classes.box, classes.firstBox)}
-        flexDirection="column"
-        alignItems="flex-start"
+         className={classes.root}
+         display="flex"
+         alignItems="center"
+         justifyContent="space-between"
       >
-        <Typography
-          variant="h4"
-          className={classNames(classes.pretitle, {
-            [classes.active_grey]: active.includes('h4')
-          })}
-        >
-          {item.pretitle}
-        </Typography>
-        <Typography
-          variant="h2"
-          className={classNames(classes.title, {
-            [classes.active]: active.includes('h2')
-          })}
-        >
-          {item.name}
-        </Typography>
-        <Typography
-          variant="placeholder"
-          className={classNames(classes.description, {
-            [classes.active_grey]: active.includes('p')
-          })}
-        >
-          {item.description}
-        </Typography>
-        <Box display="flex" className={classes.buttonGroup} onClick={() => {}}>
-          <NavLink
-            to={
-              artist?.data?.status === 'COMPLETE'
-                ? '/nft/create'
-                : '/artist/form'
-            }
-          >
-            <Button variant="containedPrimary">Create</Button>
-          </NavLink>
-          <Button variant="outlinedDark" className={classes.buttonRight}>
-            Explore
-          </Button>
-        </Box>
+         <Box
+            className={classNames(classes.box, classes.firstBox)}
+            flexDirection="column"
+            alignItems="flex-start"
+         >
+            <Typography
+               variant="h4"
+               className={classNames(classes.pretitle, {
+                  [classes.active_grey]: active.includes("h4"),
+               })}
+            >
+               {item.pretitle}
+            </Typography>
+            <Typography
+               variant="h2"
+               className={classNames(classes.title, {
+                  [classes.active]: active.includes("h2"),
+               })}
+            >
+               {item.name}
+            </Typography>
+            <Typography
+               variant="placeholder"
+               className={classNames(classes.description, {
+                  [classes.active_grey]: active.includes("p"),
+               })}
+            >
+               {item.description}
+            </Typography>
+            <Box
+               display="flex"
+               className={classes.buttonGroup}
+               onClick={() => {}}
+            >
+               <NavLink to={artistNaigation}>
+                  <Button variant="containedPrimary">Create</Button>
+               </NavLink>
+               <Button variant="outlinedDark" className={classes.buttonRight}>
+                  Explore
+               </Button>
+            </Box>
+         </Box>
+         <Box className={classes.box} alignItems="center">
+            <AbstractItem />
+         </Box>
       </Box>
-      <Box className={classes.box} alignItems="center">
-        <AbstractItem />
-      </Box>
-    </Box>
-  );
+   );
 };
 
 export default CarouselItem;

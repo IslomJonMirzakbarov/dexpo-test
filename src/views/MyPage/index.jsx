@@ -20,7 +20,6 @@ import { Box } from "@mui/material";
 
 const MyPage = () => {
    const { id } = useParams();
-   console.log(id);
    const { createdTab } = useSelector((store) => store.myPage);
    const [hovered, setHovered] = useState(false);
    const [tabs, setTabs] = useState(myPageTabs);

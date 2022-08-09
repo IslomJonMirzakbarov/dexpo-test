@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { togglePopupByKey } from "../../store/popup/popup.slice";
 import SubmittedModal from "../../components/Modals/SubmittedModal";
 import RejectedModal from "../../components/Modals/RejectedModal";
+import Loader from "../../components/Loader";
 
 const ArtistForm = () => {
    const navigate = useNavigate();
@@ -158,7 +159,7 @@ const ArtistForm = () => {
    } else if (artist?.data?.status === "REJECT") {
       return <RejectedModal onClick={modalClick} rejected />;
    } else {
-      return "loading...";
+      return <Loader />;
    }
 };
 

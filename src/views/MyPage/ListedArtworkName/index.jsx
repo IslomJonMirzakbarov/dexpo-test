@@ -18,9 +18,7 @@ const ListedArtworkBottom = () => {
       return fdate;
    };
 
-   const loadChecker =
-      list?.data?.items[0] &&
-      !Object.keys(list?.data?.items[0]).includes("market");
+   const loadChecker = list?.data?.items[0]?.request_type !== "LISTED";
 
    return (
       <Box className={styles.Container}>
