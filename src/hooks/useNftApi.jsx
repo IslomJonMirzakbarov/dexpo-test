@@ -26,6 +26,16 @@ const fetchLike = (data, token) =>
 const fetchUnlike = (data, token) =>
    securedAPI(token).post(`/api/nft/dislike`, data);
 
+const nftListByCollection = (
+   { page, orderBy = "desc", size, contractAddress },
+   token
+) =>
+   securedAPI(token)
+      .get(
+         `/api/nft/listByCollection?contract_address=${contractAddress}&page=${page}&size=${size}&orderBy=${orderBy}`
+      )
+      .then((res) => res.data);
+
 const configQuery = {
    refetchOnMount: true,
    refetchOnWindowFocus: true, // constantly updating
@@ -34,7 +44,9 @@ const configQuery = {
 };
 
 const useNftAPI = ({
+   contractAddress,
    isGetList = false,
+   isGetListByCollection = false,
    isGetDetail = false,
    type = "COLLECTED",
    page = 1,
@@ -42,7 +54,21 @@ const useNftAPI = ({
    size = 10,
 }) => {
    const { token } = useSelector((store) => store.auth);
-   //    console.log(token);
+
+   const {
+      data: nftListCollection,
+      refetch: refetchListByCollection,
+      isLoading: loadingListByCollection,
+      error: errorByCollection,
+   } = useQuery(
+      `get-nft-list-by-collection-${contractAddress}`,
+      () =>
+         nftListByCollection({ contractAddress, page, orderBy, size }, token),
+      {
+         enabled: !!isGetListByCollection,
+         ...configQuery,
+      }
+   );
 
    const {
       data: list,
@@ -79,6 +105,8 @@ const useNftAPI = ({
       loadingDetail,
       errorDetail,
       list,
+      nftListCollection,
+      loadingListByCollection,
       refetchList,
       loadingList,
       error,
