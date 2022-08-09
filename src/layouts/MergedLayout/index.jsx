@@ -46,7 +46,10 @@ const MergedLayout = ({ children }) => {
     navigate('/login');
   };
 
-  const handleToggleMenu = () => dispatch(toggleProfilePopup());
+  const handleToggleMenu = () => {
+    if (token) dispatch(toggleProfilePopup());
+    else navigate('/login');
+  };
 
   const handleNetwork = () => {
     if (window.ethereum) {
@@ -115,7 +118,7 @@ const MergedLayout = ({ children }) => {
               })}
               key={page.name}
             >
-              <NavLink to={page.to}>
+              <NavLink to={page.isAuthenticated && !token ? '/login' : page.to}>
                 <Typography variant="body2">{page.name}</Typography>
               </NavLink>
             </ListItem>
