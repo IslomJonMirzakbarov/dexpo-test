@@ -64,6 +64,8 @@ const MergedLayout = ({ children }) => {
       const { data } = await securedAPI(token).get('/api/artist/detail');
       if (data?.code === 200) {
         dispatch(setArtist(data?.data));
+      } else {
+        dispatch(setArtist(null));
       }
     } catch (err) {
       console.log(err);
