@@ -1,12 +1,11 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../../Home/NFTCollections/style.module.scss';
 import Slider from 'react-slick';
 
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import classNames from 'classnames';
 
 import NFTCard from '../../../../components/NFTCard';
 import { priceTypeChar } from '../../../../constants';
@@ -26,7 +25,7 @@ const settings = {
 const MoreCollections = ({ data, title }) => {
   const navigate = useNavigate();
 
-  if (data.length === 0) return;
+  if (data?.length === 0) return;
 
   return (
     <Container>
