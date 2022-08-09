@@ -32,12 +32,6 @@ const CollectionItem = () => {
       getCollectionDetail(token, id)
    );
 
-   // const { listByCollection, loadingByCollection } = useNFTAPI({
-   //    collectionContract: id,
-   //    page,
-   // });
-   // console.log(listByCollection, loadingByCollection);
-
    const { nftListCollection, loadingListByCollection } = useNftAPI({
       isGetListByCollection: true,
       contractAddress: id,
