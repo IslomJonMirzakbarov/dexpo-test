@@ -9,6 +9,7 @@ export default function Button(theme) {
           borderRadius: theme.shape.borderRadius,
           ...theme.typography.body2,
           fontWeight: 600,
+          height: 55,
           '&:hover': {
             boxShadow: 'none'
           },

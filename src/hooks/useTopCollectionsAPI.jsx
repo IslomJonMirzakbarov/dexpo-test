@@ -6,7 +6,7 @@ const size = 10;
 
 const getList = (page) =>
   securedAPI()
-    .get(`/api/home/topCollections?size=${size}&token_id=${page}`)
+    .get(`/api/home/topCollections?size=${size}&page=${page}`)
     .then((res) => res.data?.data);
 
 const useTopCollections = () => {

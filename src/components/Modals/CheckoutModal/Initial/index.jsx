@@ -49,14 +49,15 @@ const useStyles = makeStyles((theme) => ({
 
 const InitialCheckout = ({
   onClick,
-  img = nftImg,
-  name = 'GEMMA #1422',
-  artistName = 'Tristan Eaton',
-  price = 652124.1225,
-  exchangedPrice = 154123661,
-  type = priceType.AUCTION.key,
-  currentAmount = 154123660,
-  leftDays = 7
+  img,
+  name,
+  artistName,
+  price,
+  exchangedPrice = 233424300,
+  type,
+  currentAmount,
+  leftDays = 7,
+  error
 }) => {
   const classes = useStyles();
 
@@ -66,7 +67,6 @@ const InitialCheckout = ({
     }
   });
 
-  const isNotEnough = currentAmount < exchangedPrice;
   const isAuction = type === priceTypeChar.A;
 
   const copyPrice = useCallback(() => setValue('bidPrice', price), [price]);
@@ -156,10 +156,10 @@ const InitialCheckout = ({
         </Box>
       </Box>
 
-      {isNotEnough && (
-        <Typography color="error" fontWeight={500}>
-          Not enough CON Amounts
-        </Typography>
+      {error && (
+        <Box maxWidth={550}>
+          <Typography color="error">{error}</Typography>
+        </Box>
       )}
     </Box>
   );

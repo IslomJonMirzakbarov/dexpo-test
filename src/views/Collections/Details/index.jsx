@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 
@@ -8,6 +8,7 @@ import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
 import useWeb3 from '../../../hooks/useWeb3';
 import Loader from '../../../components/Loader';
 import useNFTAPI from '../../../hooks/useNFT';
+import { id } from 'date-fns/locale';
 
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
@@ -31,9 +32,20 @@ const CollectionDetails = () => {
 
   const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
 
+  const filteredData = useMemo(
+    () =>
+      moreNFTs?.filter(
+        ({ nft, collection }) =>
+          nft?.token_id !== params?.id &&
+          !collection?.contract_address.includes(params?.contract_address)
+      ),
+    [moreNFTs]
+  );
+
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const [error, setError] = useState('');
 
   const handleContract = async () => {
     try {
@@ -43,8 +55,8 @@ const CollectionDetails = () => {
         handlePurchase();
       }
     } catch (err) {
-      console.log(err);
       setStatus(checkoutStatuses.INITIAL);
+      setError(err.message);
     }
   };
 
@@ -60,7 +72,7 @@ const CollectionDetails = () => {
         refetchHistory();
       }
     } catch (err) {
-      console.log(err);
+      setError(err.message);
       setStatus(checkoutStatuses.INITIAL);
     }
   };
@@ -77,7 +89,7 @@ const CollectionDetails = () => {
         handleContract();
       }
     } catch (err) {
-      console.log(err);
+      setError(err.message);
       setStatus(checkoutStatuses.INITIAL);
     }
   };
@@ -86,19 +98,24 @@ const CollectionDetails = () => {
     setOpenModal((prev) => !prev);
   };
 
+  useEffect(() => {
+    setError('');
+  }, [openModal]);
+
   if (loadingDetail || loadingHistory) return <Loader />;
 
   return (
     <CollectionDetailsContainer
       data={detail?.data}
       history={history}
-      moreNFTs={moreNFTs}
+      moreNFTs={filteredData}
       status={status}
       onConfirm={makeContract}
       isSoldOut={isSoldOut}
       txHash={txHash}
       openModal={openModal}
       toggle={toggle}
+      error={error}
     />
   );
 };

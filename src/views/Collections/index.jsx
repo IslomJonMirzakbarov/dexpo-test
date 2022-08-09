@@ -27,9 +27,16 @@ const Collections = () => {
 
   return (
     <Paper className={styles.container}>
-      <Container>
+      <Container maxWidth>
         <Box display="flex" justifyContent="center">
-          <Typography variant="h2">Marketplace</Typography>
+          <Typography
+            variant="h2"
+            fontWeight={700}
+            fontSize="40px!important"
+            lineHeight="60px"
+          >
+            Marketplace
+          </Typography>
         </Box>
         <Box
           display="flex"
@@ -50,7 +57,7 @@ const Collections = () => {
           />
         </Box>
         <Box display="flex" my={4}>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             {isLoading
               ? mockData.map((_, i) => (
                   <Grid item key={i} lg={12 / 5}>

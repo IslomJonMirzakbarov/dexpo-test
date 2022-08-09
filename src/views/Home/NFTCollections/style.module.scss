@@ -12,8 +12,10 @@
     margin-top: 40px;
     .collection {
       margin: 20px 0;
+      display: flex;
+      justify-content: center;
       .card {
-        padding: 0 10px;
+        margin: 0 12px;
       }
     }
   }

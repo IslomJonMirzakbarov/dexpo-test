@@ -21,8 +21,9 @@ const MyCollectionsInfo = () => {
         <Button
           variant="contained"
           sx={{
-            width: 280,
-            marginTop: '20px'
+            width: 180,
+            marginTop: '20px',
+            padding: 0
           }}
         >
           Create a collection
