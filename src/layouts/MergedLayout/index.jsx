@@ -99,7 +99,15 @@ const MergedLayout = ({ children }) => {
                   position="relative"
                   ref={ref}
                >
-                  <Button variant="outlinedDark" onClick={handleClick}>
+                  <Button
+                     variant="outlinedDark"
+                     onClick={handleClick}
+                     sx={{
+                        width: "170px!important",
+                        height: "45px!important",
+                        padding: 0,
+                     }}
+                  >
                      {label}
                   </Button>
                   <PersonIcon
@@ -113,62 +121,27 @@ const MergedLayout = ({ children }) => {
             }
          >
             <List className={styles.navList}>
-               {pages.map((page) => {
-                  if (page.name === "Create NFT") {
-                     if (artist?.data?.status === "COMPLETE") {
-                        return (
-                           <ListItem
-                              className={classNames(styles.navItem, {
-                                 [styles.active]: pathname.includes(page.to),
-                              })}
-                              key={page.name}
-                           >
-                              <NavLink to={page.to}>
-                                 <Typography variant="body2">
-                                    {page.name}
-                                 </Typography>
-                              </NavLink>
-                           </ListItem>
-                        );
-                     } else {
-                        return (
-                           <ListItem
-                              className={classNames(styles.navItem, {
-                                 [styles.active]: pathname.includes(page.to),
-                              })}
-                              key={page.name}
-                           >
-                              <NavLink
-                                 to={
-                                    notAuthencticated
-                                       ? "/login"
-                                       : "/artist/form"
-                                 }
-                              >
-                                 <Typography variant="body2">
-                                    {page.name}
-                                 </Typography>
-                              </NavLink>
-                           </ListItem>
-                        );
-                     }
-                  } else {
-                     return (
-                        <ListItem
-                           className={classNames(styles.navItem, {
-                              [styles.active]: pathname.includes(page.to),
-                           })}
-                           key={page.name}
-                        >
-                           <NavLink to={page.to}>
-                              <Typography variant="body2">
-                                 {page.name}
-                              </Typography>
-                           </NavLink>
-                        </ListItem>
-                     );
-                  }
-               })}
+               {pages.map((page) => (
+                  <ListItem
+                     className={classNames(styles.navItem, {
+                        [styles.active]: pathname.includes(page.to),
+                     })}
+                     key={page.name}
+                  >
+                     <NavLink
+                        to={
+                           notAuthencticated
+                              ? "/login"
+                              : page.name.includes("Create NFT") &&
+                                artist?.data?.status !== "COMPLETE"
+                              ? "/artist/form"
+                              : page.to
+                        }
+                     >
+                        <Typography variant="body2">{page.name}</Typography>
+                     </NavLink>
+                  </ListItem>
+               ))}
             </List>
          </Header>
          {children}

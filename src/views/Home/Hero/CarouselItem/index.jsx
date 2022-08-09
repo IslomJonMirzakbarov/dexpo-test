@@ -8,53 +8,57 @@ import { NavLink } from "react-router-dom";
 import useArtistAPI from "../../../../hooks/useArtistAPI";
 
 const useStyles = makeStyles((theme) => ({
-   root: {
-      height: "calc(100vh - 100px)",
-   },
-   box: {
-      width: "50%",
-      height: "100%",
-      color: theme.palette.common.white,
-      display: "flex",
-      justifyContent: "center",
-      "& img": {
-         objectFit: "cover",
-      },
-   },
-   firstBox: {
-      padding: "0 70px",
-   },
-   pretitle: {
-      fontWeight: theme.typography.fontWeighBold,
-      textTransform: "uppercase",
-      color: theme.palette.grey[500_8],
-      transition: "0.4s ease-in-out all",
-      marginLeft: 5,
-   },
-   title: {
-      fontSize: 75,
-      lineHeight: "90px",
-      width: "70%",
-      color: theme.palette.grey[500_8],
-      transition: "0.4s ease-in-out all",
-   },
-   description: {
-      width: "70%",
-      color: theme.palette.grey[500_8],
-      transition: "0.4s ease-in-out all",
-   },
-   buttonGroup: {
-      marginTop: 80,
-   },
-   buttonRight: {
-      margin: "0 10px",
-   },
-   active: {
-      color: theme.palette.common.white,
-   },
-   active_grey: {
-      color: theme.palette.grey[1200],
-   },
+  root: {
+    height: '700px'
+  },
+  box: {
+    width: '50%',
+    height: '100%',
+    color: theme.palette.common.white,
+    display: 'flex',
+    justifyContent: 'center',
+    '& img': {
+      objectFit: 'cover'
+    }
+  },
+  firstBox: {
+    padding: '0 70px'
+  },
+  pretitle: {
+    fontWeight: theme.typography.fontWeighBold,
+    textTransform: 'uppercase',
+    color: theme.palette.grey[500_8],
+    transition: '0.4s ease-in-out all',
+    marginLeft: 5
+  },
+  title: {
+    fontSize: 75,
+    lineHeight: '90px',
+    width: '70%',
+    color: theme.palette.grey[500_8],
+    transition: '0.4s ease-in-out all'
+  },
+  description: {
+    width: '70%',
+    color: theme.palette.grey[500_8],
+    transition: '0.4s ease-in-out all'
+  },
+  buttonGroup: {
+    marginTop: 80,
+    '& button': {
+      width: 180,
+      height: 55
+    }
+  },
+  buttonRight: {
+    margin: '0 10px'
+  },
+  active: {
+    color: theme.palette.common.white
+  },
+  active_grey: {
+    color: theme.palette.grey[1200]
+  }
 }));
 
 const CarouselItem = ({ item }) => {
@@ -63,19 +67,19 @@ const CarouselItem = ({ item }) => {
    const [active, setActive] = useState(["h4"]);
    const { artist } = useArtistAPI({ isDetail: true });
 
-   useEffect(() => {
-      if (active.length === 3) return;
+  useEffect(() => {
+    if (active.length === 3) return;
 
-      const interval = setInterval(() => {
-         if (active.includes("h4")) setActive(["h2"]);
-         if (active.includes("h2")) setActive(["p"]);
-         if (active.includes("p")) setActive(["h2", "h4", "p"]);
-      }, 1000);
+    const interval = setInterval(() => {
+      if (active.includes('h4')) setActive(['h2']);
+      if (active.includes('h2')) setActive(['p']);
+      if (active.includes('p')) setActive(['h2', 'h4', 'p']);
+    }, 1000);
 
-      return () => {
-         clearInterval(interval);
-      };
-   }, [active]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [active]);
 
    const notAuthencticated =
       token === null || artist?.message === "EXPIRED_TOKEN";

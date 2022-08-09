@@ -87,6 +87,7 @@ const TopCollections = ({ collections = [] }) => {
           <Button
             variant="containedPrimary"
             onClick={() => navigate('/rankings')}
+            sx={{ width: 180, height: 55, padding: 0 }}
           >
             Go To Rankings
           </Button>

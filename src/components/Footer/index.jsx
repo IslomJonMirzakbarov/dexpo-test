@@ -121,7 +121,9 @@ const Footer = () => {
               <Grid item lg={2}></Grid>
               {list.map((item, i) => (
                 <Grid item key={i} lg={2}>
-                  <Typography variant="h4">{item.title}</Typography>
+                  <Typography variant="placeholder" fontWeight={700}>
+                    {item.title}
+                  </Typography>
                   {!item.icons ? (
                     <ul className={styles.links}>
                       {item.children.map((link) => (

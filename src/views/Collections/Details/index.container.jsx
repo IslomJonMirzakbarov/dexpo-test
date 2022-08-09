@@ -9,10 +9,8 @@ import { makeStyles, useTheme } from '@mui/styles';
 import ValueTable from './ValueTable';
 import moment from 'moment';
 import HistoryTable from './HistoryTable';
-import tokenImg from '../../../assets/images/con-token.png';
+import TokenImg from '../../../assets/images/con-token.svg?component';
 import CheckoutModal from '../../../components/Modals/CheckoutModal';
-import { useDispatch } from 'react-redux';
-import { togglePopupByKey } from '../../../store/popup/popup.slice';
 import { priceTypeChar } from '../../../constants';
 import MoreCollections from './MoreCollections';
 
@@ -28,6 +26,11 @@ const useStyles = makeStyles({
   button: {
     padding: '16px 0',
     marginTop: 17
+  },
+  grid: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   }
 });
 
@@ -41,7 +44,8 @@ const CollectionDetailsContainer = ({
   isSoldOut,
   txHash,
   openModal,
-  toggle
+  toggle,
+  error
 }) => {
   const { nft, artist, market, collection } = data || {};
 
@@ -68,7 +72,7 @@ const CollectionDetailsContainer = ({
               isPurchased={false}
             />
           </Grid>
-          <Grid item lg={7}>
+          <Grid item lg={7} className={classes.grid}>
             <CollectionDetailsInfo
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
@@ -76,7 +80,7 @@ const CollectionDetailsContainer = ({
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
             />
-            <Box display="flex" justifyContent="space-between" my={3}>
+            <Box display="flex" justifyContent="space-between">
               <Box className={classes.box} mr={3}>
                 <ValueTable
                   smartContract={collection?.contract_address}
@@ -108,12 +112,7 @@ const CollectionDetailsContainer = ({
                         alignItems="center"
                         className={classes.priceBox}
                       >
-                        <img
-                          src={tokenImg}
-                          alt="token"
-                          width={28}
-                          height={28}
-                        />
+                        <TokenImg style={{ width: 28, height: 28 }} />
                         <Typography
                           ml={1}
                           fontSize={30}
@@ -148,6 +147,7 @@ const CollectionDetailsContainer = ({
                     fullWidth
                     onClick={handleClick}
                     disabled={isSoldOut}
+                    sx={{ height: 55 }}
                   >
                     {isSoldOut ? 'Sold out' : 'Purchase Artwork'}
                   </Button>
@@ -179,6 +179,7 @@ const CollectionDetailsContainer = ({
         txHash={txHash}
         openModal={openModal}
         toggle={toggle}
+        error={error}
       />
     </Paper>
   );

@@ -35,7 +35,8 @@ const CheckoutModal = ({
   txHash = '0x1e12331231231232121',
   status = checkoutStatuses.COMPLETE,
   openModal,
-  toggle
+  toggle,
+  error
 }) => {
   const onClose = () => toggle();
 
@@ -62,6 +63,7 @@ const CheckoutModal = ({
         collectionName={collectionName}
         quantity={1}
         txHash={txHash}
+        error={error}
       />
     </DModal>
   );
