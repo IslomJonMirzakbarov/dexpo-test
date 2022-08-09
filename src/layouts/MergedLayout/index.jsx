@@ -17,6 +17,7 @@ import useWallet from "../../hooks/useWallet";
 import { securedAPI } from "../../services/api";
 import { setArtist } from "../../store/artist/artist.slice";
 import useArtistAPI from "../../hooks/useArtistAPI";
+import { logout } from "../../store/auth/auth.slice";
 
 const BUTTON_LABEL = "Connect Wallet";
 
@@ -33,10 +34,22 @@ const MergedLayout = ({ children }) => {
 
    const { artist } = useArtistAPI({ isDetail: true });
 
-   const label = account ? truncateAddress(account) : BUTTON_LABEL;
+   useEffect(() => {
+      if (artist?.message === "EXPIRED_TOKEN") {
+         dispatch(logout());
+      }
+   }, [artist?.message, dispatch]);
+
+   const label =
+      token === null || artist?.message === "EXPIRED_TOKEN"
+         ? BUTTON_LABEL
+         : account
+         ? truncateAddress(account)
+         : BUTTON_LABEL;
 
    const handleClick = () => {
-      if (!account) navigate("/login");
+      if (token === null || artist?.message === "EXPIRED_TOKEN" || !account)
+         navigate("/login");
       return;
    };
 
@@ -70,6 +83,9 @@ const MergedLayout = ({ children }) => {
       handleNetwork();
       handleGetArtist();
    }, []);
+
+   const notAuthencticated =
+      token === null || artist?.message === "EXPIRED_TOKEN";
 
    return (
       <>
@@ -122,7 +138,13 @@ const MergedLayout = ({ children }) => {
                               })}
                               key={page.name}
                            >
-                              <NavLink to="/artist/form">
+                              <NavLink
+                                 to={
+                                    notAuthencticated
+                                       ? "/login"
+                                       : "/artist/form"
+                                 }
+                              >
                                  <Typography variant="body2">
                                     {page.name}
                                  </Typography>

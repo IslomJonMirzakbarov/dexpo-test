@@ -3,6 +3,7 @@ import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import classNames from "classnames";
 import AbstractItem from "../AbstractItem";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import useArtistAPI from "../../../../hooks/useArtistAPI";
 
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CarouselItem = ({ item }) => {
+   const { token } = useSelector((store) => store.auth);
    const classes = useStyles();
    const [active, setActive] = useState(["h4"]);
    const { artist } = useArtistAPI({ isDetail: true });
@@ -74,6 +76,15 @@ const CarouselItem = ({ item }) => {
          clearInterval(interval);
       };
    }, [active]);
+
+   const notAuthencticated =
+      token === null || artist?.message === "EXPIRED_TOKEN";
+
+   const artistNaigation = notAuthencticated
+      ? "/login"
+      : artist?.data?.status === "COMPLETE"
+      ? "/nft/create"
+      : "/artist/form";
 
    return (
       <Box
@@ -111,14 +122,12 @@ const CarouselItem = ({ item }) => {
             >
                {item.description}
             </Typography>
-            <Box display="flex" className={classes.buttonGroup} onClick={() => {}}>
-               <NavLink
-                  to={
-                     artist?.data?.status === "COMPLETE"
-                        ? "/nft/create"
-                        : "/artist/form"
-                  }
-               >
+            <Box
+               display="flex"
+               className={classes.buttonGroup}
+               onClick={() => {}}
+            >
+               <NavLink to={artistNaigation}>
                   <Button variant="containedPrimary">Create</Button>
                </NavLink>
                <Button variant="outlinedDark" className={classes.buttonRight}>
