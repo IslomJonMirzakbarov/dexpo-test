@@ -85,8 +85,8 @@ const NFTSellRequest = () => {
 
   const handleSell = async () => {
     setIsListing(awaitStatus.PENDING);
+
     try {
-      // TO DO floor price <= sell price
       const res = await sell(contract_address, id, getValues('price'));
 
       if (!!res) {
@@ -120,7 +120,6 @@ const NFTSellRequest = () => {
   const handleCancel = async () => {
     setIsCanceling(awaitStatus.PENDING);
     try {
-      // TO DO floor price <= sell price
       const res = await cancel(contract_address, id);
 
       if (!!res) {
@@ -134,7 +133,13 @@ const NFTSellRequest = () => {
 
   const handeConfirm = () => {
     setError('');
+    const price = getValues('price');
+    const floorPrice = detail?.data?.collection?.floor_price;
+
     if (!getValues('price') && !isCancel) return alert('Fill the price form');
+    if (floorPrice > price)
+      return alert(`Price should be greater or equal to ${floorPrice} CYCON`);
+
     if (isCancel) handleCancel();
     else {
       handleToggle();

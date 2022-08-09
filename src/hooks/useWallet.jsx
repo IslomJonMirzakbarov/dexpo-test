@@ -21,6 +21,7 @@ const useWallet = () => {
   const [accountWallet, setAccountWallet] = useState('');
   const [message, setMessage] = useState('');
   const [sign, setSignatureState] = useState('');
+  const [isTriggered, setIsTriggered] = useState(false);
 
   const { data } = useUserNonce(accountWallet);
   const web3 = new Web3(Web3.givenProvider);
