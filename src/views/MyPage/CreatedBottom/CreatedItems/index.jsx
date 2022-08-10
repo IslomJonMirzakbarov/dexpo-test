@@ -29,7 +29,7 @@ const CreatedItems = () => {
                           price={1500}
                           artistName={nftItem?.artist?.artist_name}
                           hasAction={false}
-                          description={nftItem?.nft?.token_description}
+                          description={nftItem?.nft?.token_name}
                           priceType={priceType.AUCTION.value.value}
                           purchaseCount={1000}
                           page="collectedBottom"
