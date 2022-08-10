@@ -37,11 +37,6 @@ const CollectedBottom = () => {
                         `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.nft?.contract_address}`
                       )
                     }
-                    onAction={() =>
-                      navigate(
-                        `/marketplace/${nftItem?.nft.token_id}/${nftItem?.collection?.contract_address}`
-                      )
-                    }
                   />
                 </Grid>
               );
