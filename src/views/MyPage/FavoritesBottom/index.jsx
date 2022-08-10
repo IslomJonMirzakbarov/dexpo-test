@@ -1,5 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
+import Loader from "../../../components/Loader";
 import NFTCard from "../../../components/NFTCard";
 import { priceType } from "../../../constants";
 import useNftAPI from "../../../hooks/useNftApi";
@@ -18,21 +19,27 @@ const FavoritesBottom = () => {
    return (
       <Box className={styles.Container}>
          <Grid container spacing={3} columns={16}>
-            {favoriteNfts?.map((nftItem, index) => (
-               <Grid item xs={4} sm={4} md={4} key={index}>
-                  <NFTCard
-                     liked
-                     img={nftItem?.nft?.token_image}
-                     name={nftItem?.nft?.token_description}
-                     artistName={nftItem?.artist?.artist_name}
-                     hasAction={false}
-                     description={nftItem?.nft?.token_name}
-                     purchaseCount={nftItem?.nft?.like_count}
-                     priceType={priceType.AUCTION.value.value}
-                     price={nftItem?.market?.price}
-                  />
-               </Grid>
-            ))}
+            {list?.data?.items[0]?.request_type !== "COLLECTED" ? (
+               <Loader page="my-page" />
+            ) : (
+               favoriteNfts?.map((nftItem, index) => {
+                  return (
+                     <Grid item xs={4} sm={4} md={4} key={index}>
+                        <NFTCard
+                           liked
+                           img={nftItem?.nft?.token_image}
+                           name={nftItem?.nft?.token_description}
+                           artistName={nftItem?.artist?.artist_name}
+                           hasAction={false}
+                           description={nftItem?.nft?.token_name}
+                           purchaseCount={nftItem?.nft?.like_count}
+                           priceType={priceType.AUCTION.value.value}
+                           price={nftItem?.market?.price}
+                        />
+                     </Grid>
+                  );
+               })
+            )}
          </Grid>
       </Box>
    );
