@@ -59,6 +59,7 @@ const useWallet = () => {
         {
           onSuccess: (e) => {
             dispatch(setToken(e?.data?.data?.token));
+
             dispatch(setAccount(account));
             handleNetwork();
           }

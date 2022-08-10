@@ -19,6 +19,7 @@ import { setArtist } from '../../store/artist/artist.slice';
 
 import { logout } from '../../store/auth/auth.slice';
 import { setAccount } from '../../store/wallet/wallet.slice';
+import useDidMount from '../../hooks/useDidMount';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
@@ -53,6 +54,7 @@ const MergedLayout = ({ children }) => {
         if (account.includes(accounts[0])) return;
 
         dispatch(setAccount(accounts[0]));
+        connectWallet('metamask');
       });
     }
   };
@@ -80,10 +82,6 @@ const MergedLayout = ({ children }) => {
   useEffect(() => {
     handleNetwork();
   }, []);
-
-  useEffect(() => {
-    connectWallet('metamask');
-  }, [account]);
 
   useEffect(() => {
     handleGetArtist();
