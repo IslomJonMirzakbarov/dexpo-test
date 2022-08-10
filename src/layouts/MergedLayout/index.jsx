@@ -16,8 +16,9 @@ import logo from '../../assets/images/logo.svg';
 import useWallet from '../../hooks/useWallet';
 import { securedAPI } from '../../services/api';
 import { setArtist } from '../../store/artist/artist.slice';
-import useArtistAPI from '../../hooks/useArtistAPI';
+
 import { logout } from '../../store/auth/auth.slice';
+import { setAccount } from '../../store/wallet/wallet.slice';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
@@ -32,29 +33,26 @@ const MergedLayout = ({ children }) => {
   const { token } = useSelector((store) => store.auth);
   const { isProfileOpen } = useSelector((store) => store.popup);
 
-  const { artist } = useArtistAPI({ isDetail: true });
-
-  useEffect(() => {
-    if (artist?.message === 'EXPIRED_TOKEN') {
-      dispatch(logout());
-    }
-  }, [artist?.message, dispatch]);
-
   const label = account ? truncateAddress(account) : BUTTON_LABEL;
 
   const handleClick = () => {
     navigate('/login');
   };
 
-  const handleToggleMenu = () => dispatch(toggleProfilePopup());
+  const handleToggleMenu = () => {
+    if (token) dispatch(toggleProfilePopup());
+    else navigate('/login');
+  };
 
   const handleNetwork = () => {
     if (window.ethereum) {
       window.ethereum.on('chainChanged', () => {
         window.location.reload();
       });
-      window.ethereum.on('accountsChanged', () => {
-        connectWallet('metamask');
+      window.ethereum.on('accountsChanged', (accounts) => {
+        if (account.includes(accounts[0])) return;
+
+        dispatch(setAccount(accounts[0]));
       });
     }
   };
@@ -62,10 +60,15 @@ const MergedLayout = ({ children }) => {
   const handleGetArtist = async () => {
     try {
       const { data } = await securedAPI(token).get('/api/artist/detail');
+
       if (data?.code === 200) {
         dispatch(setArtist(data?.data));
       } else {
         dispatch(setArtist(null));
+      }
+
+      if (data?.message?.includes('EXPIRED_TOKEN')) {
+        dispatch(logout());
       }
     } catch (err) {
       console.log(err);
@@ -76,8 +79,15 @@ const MergedLayout = ({ children }) => {
 
   useEffect(() => {
     handleNetwork();
-    handleGetArtist();
   }, []);
+
+  useEffect(() => {
+    connectWallet('metamask');
+  }, [account]);
+
+  useEffect(() => {
+    handleGetArtist();
+  }, [token]);
 
   return (
     <>
@@ -115,7 +125,7 @@ const MergedLayout = ({ children }) => {
               })}
               key={page.name}
             >
-              <NavLink to={page.to}>
+              <NavLink to={page.isAuthenticated && !token ? '/login' : page.to}>
                 <Typography variant="body2">{page.name}</Typography>
               </NavLink>
             </ListItem>
