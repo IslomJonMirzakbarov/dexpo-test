@@ -14,6 +14,7 @@ const CollectedBottom = () => {
     type: 'COLLECTED',
     size: 20000
   });
+  console.log(list?.data?.items);
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
@@ -27,11 +28,10 @@ const CollectedBottom = () => {
                     name={nftItem?.nft?.token_name}
                     artistName={nftItem?.artist?.artist_name}
                     hasAction={false}
-                    price={nftItem?.market?.price}
                     description={nftItem?.nft?.token_name}
+                    purchaseCount={nftItem?.nft?.like_count}
                     priceType={priceType.AUCTION.value.value}
-                    purchaseCount={1000}
-                    page="collectedBottom"
+                    price={nftItem?.market?.price}
                     onClick={() =>
                       navigate(
                         `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.nft?.contract_address}`

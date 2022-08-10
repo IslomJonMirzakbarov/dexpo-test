@@ -24,13 +24,12 @@ const FavoritesBottom = () => {
               liked
               img={nftItem?.nft?.token_image}
               name={nftItem?.nft?.token_description}
-              price={1500}
               artistName={nftItem?.artist?.artist_name}
               hasAction={false}
               description={nftItem?.nft?.token_name}
+              purchaseCount={nftItem?.nft?.like_count}
               priceType={priceType.AUCTION.value.value}
-              purchaseCount={1000}
-              page="collectedBottom"
+              price={nftItem?.market?.price}
             />
           </Grid>
         ))}
