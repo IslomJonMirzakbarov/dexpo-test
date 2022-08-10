@@ -51,6 +51,11 @@ const CollectionItems = ({
                         `/marketplace/${nft?.token_id}/${collection?.contract_address}`
                       )
                     }
+                    onAction={() =>
+                      navigate(
+                        `/marketplace/${nft?.token_id}/${collection?.contract_address}`
+                      )
+                    }
                   />
                 </Grid>
               ))}
