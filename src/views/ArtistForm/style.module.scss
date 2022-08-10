@@ -1,119 +1,125 @@
-@use '/src/scss/colors';
-@import '/src/styles/fonts';
+@use "/src/scss/colors";
+@import "/src/styles/fonts";
 
 .Container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 90px;
-  margin-bottom: 200px;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 90px;
+   margin-bottom: 200px;
 
-  .FormContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 61px;
-    width: 650px;
-
-    .Title {
-      height: 60px;
-      font-family: 'Poppins';
-      font-style: normal;
-      font-weight: 700;
-      font-size: 40px;
-      line-height: 60px;
-      text-align: center;
-      color: colors.$greyBg;
-    }
-
-    div {
+   .FormContainer {
       display: flex;
       flex-direction: column;
+      gap: 61px;
+      width: 650px;
 
-      .Label {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 22px;
-        margin-left: 10px;
-        color: colors.$greyBg;
-        margin-bottom: 5px;
-        display: inline;
-
-        .LabelSpan {
-          color: red;
-        }
+      .Title {
+         height: 60px;
+         font-family: "Poppins";
+         font-style: normal;
+         font-weight: 700;
+         font-size: 40px;
+         line-height: 60px;
+         text-align: center;
+         color: colors.$greyBg;
       }
-    }
 
-    .DescriptionContainer {
-      display: flex;
-      flex-direction: column;
-    }
+      div {
+         display: flex;
+         flex-direction: column;
 
-    .Btn {
-      margin: auto;
-      width: 180px;
-      height: 55px;
-      background: #dedede;
-      border-radius: 7px;
-      border: none;
+         .Label {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 22px;
+            margin-left: 10px;
+            color: colors.$greyBg;
+            margin-bottom: 5px;
+            display: inline;
 
-      &:hover {
-        background: colors.$gradient_pink2blue;
-        box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 7px;
+            .LabelSpan {
+               color: red;
+            }
+         }
       }
-    }
 
-    .ErrorPhrase {
-      font-style: normal;
-      @include fontError;
-      text-align: center;
-      color: #db0027;
-      margin-top: 13px;
-    }
-  }
+      .DescriptionContainer {
+         display: flex;
+         flex-direction: column;
+      }
+
+      .Btn {
+         margin: auto;
+         width: 180px;
+         height: 55px;
+         background: #dedede;
+         border-radius: 7px;
+         border: none;
+
+         &:hover {
+            background: colors.$gradient_pink2blue;
+            box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 7px;
+         }
+      }
+
+      .BtnErrorFree {
+         background: colors.$gradient_pink2blue;
+         box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+         border-radius: 7px;
+      }
+
+      .ErrorPhrase {
+         font-style: normal;
+         @include fontError;
+         text-align: center;
+         color: #db0027;
+         margin-top: 13px;
+      }
+   }
 }
 
 .IconContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 62px;
-  margin-bottom: 2rem;
-  margin-left: 9px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   margin-top: 62px;
+   margin-bottom: 2rem;
+   margin-left: 9px;
 }
 
 .ProcessTitle {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 33px;
-  /* identical to box height */
-  text-align: center;
-  /* text */
-  color: colors.$greyBg;
-  height: 33px;
-  margin-top: 46px;
+   font-style: normal;
+   font-weight: 700;
+   font-size: 22px;
+   line-height: 33px;
+   /* identical to box height */
+   text-align: center;
+   /* text */
+   color: colors.$greyBg;
+   height: 33px;
+   margin-top: 46px;
 }
 
 .ProcessDesc {
-  width: 290px;
-  height: 115px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 22px;
-  text-align: center;
-  /* text */
-  color: colors.$greyBg;
-  margin: auto;
-  margin-top: 10px;
+   width: 290px;
+   height: 115px;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 15px;
+   line-height: 22px;
+   text-align: center;
+   /* text */
+   color: colors.$greyBg;
+   margin: auto;
+   margin-top: 10px;
 
-  .MainDesc {
-    color: #ff006b;
-  }
+   .MainDesc {
+      color: #ff006b;
+   }
 }
