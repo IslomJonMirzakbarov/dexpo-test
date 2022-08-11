@@ -36,7 +36,6 @@ const NFTCard = ({
 }) => {
   const { likedNfts } = useSelector((store) => store.nft);
   const dispatch = useDispatch();
-
   const [likeCount, setLikeCount] = useState(purchaseCount);
   const { postLike, postDislike } = useNFTAPI({});
 
@@ -110,7 +109,7 @@ const NFTCard = ({
                 className={classNames(styles.count, { [styles.liked]: liked })}
               >
                 <NumberFormat
-                  value={likedNfts}
+                  value={likeCount}
                   displayType={'text'}
                   decimalScale={3}
                   thousandSeparator={true}
