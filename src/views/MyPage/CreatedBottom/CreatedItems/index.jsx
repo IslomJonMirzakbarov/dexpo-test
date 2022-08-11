@@ -20,7 +20,8 @@ const CreatedItems = () => {
       <Box className={styles.Title}>Items</Box>
 
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items[0]?.request_type !== 'CREATED_BY_NFTS' ? (
+        {list?.data?.items.length === 0 ? null : list?.data?.items[0]
+            ?.request_type !== 'CREATED_BY_NFTS' ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items.map((nftItem, index) => (

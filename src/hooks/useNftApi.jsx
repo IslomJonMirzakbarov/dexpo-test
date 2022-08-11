@@ -54,6 +54,7 @@ const useNftAPI = ({
    size = 10,
 }) => {
    const { token } = useSelector((store) => store.auth);
+   // console.log(token);
 
    const {
       data: nftListCollection,

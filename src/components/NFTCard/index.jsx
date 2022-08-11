@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import NumberFormat from 'react-number-format';
 import styles from './style.module.scss';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -8,7 +8,11 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import TokenImg from '../../assets/images/con-token.svg?component';
 import classNames from 'classnames';
 import { calculateDeadline } from '../../utils/deadline';
-import { style } from '@mui/system';
+
+import useNFTAPI from '../../hooks/useNFT';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setDislikedNfts, setLikedNfts } from '../../store/nft/nft.slice';
 
 const NFTCard = ({
   page,
@@ -26,8 +30,51 @@ const NFTCard = ({
   description,
   purchaseCount,
   buttonVariant = 'containedInherit',
-  isDefault = false
+  isDefault = false,
+  tokenId,
+  contractAddress
 }) => {
+  const { likedNfts } = useSelector((store) => store.nft);
+  const dispatch = useDispatch();
+
+  const [likeCount, setLikeCount] = useState(purchaseCount);
+  const { postLike, postDislike } = useNFTAPI({});
+
+  useEffect(() => {
+    if (postLike.isSuccess) {
+      setLikeCount(postLike?.data?.data?.like_count);
+      dispatch(setLikedNfts(tokenId));
+    }
+  }, [dispatch, postLike?.data?.data?.like_count, postLike.isSuccess, tokenId]);
+
+  useEffect(() => {
+    if (postDislike.isSuccess) {
+      setLikeCount(postDislike?.data?.data?.data?.like_count);
+      dispatch(setDislikedNfts(tokenId));
+    }
+  }, [
+    dispatch,
+    postDislike?.data?.data?.data?.like_count,
+    postDislike.isSuccess,
+    tokenId
+  ]);
+
+  // please do not merge above useEffects, they work separately
+
+  const likeClick = () => {
+    if (likedNfts.includes(tokenId)) {
+      postDislike.mutate({
+        contract_address: contractAddress,
+        token_id: tokenId
+      });
+    } else {
+      postLike.mutate({
+        contract_address: contractAddress,
+        token_id: tokenId
+      });
+    }
+  };
+
   const leftDays =
     endDate && startDate && calculateDeadline(startDate, endDate);
 
@@ -63,12 +110,14 @@ const NFTCard = ({
                 className={classNames(styles.count, { [styles.liked]: liked })}
               >
                 <NumberFormat
-                  value={purchaseCount}
+                  value={likedNfts}
                   displayType={'text'}
                   decimalScale={3}
                   thousandSeparator={true}
                 />
-                {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+                <div className={styles.LikeSvg} onClick={() => likeClick()}>
+                  {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+                </div>
               </span>
             </div>
           </Box>

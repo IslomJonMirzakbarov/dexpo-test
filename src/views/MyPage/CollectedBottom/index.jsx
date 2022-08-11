@@ -19,7 +19,8 @@ const CollectedBottom = () => {
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items[0]?.request_type !== 'COLLECTED' ? (
+        {list?.data?.items.length === 0 ? null : list?.data?.items[0]
+            ?.request_type !== 'COLLECTED' ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items?.map((nftItem, index) => {
@@ -31,14 +32,11 @@ const CollectedBottom = () => {
                   artistName={nftItem?.artist?.artist_name}
                   hasAction={false}
                   description={nftItem?.nft?.token_name}
-<<<<<<< HEAD
-=======
                   price={nftItem?.market?.price}
                   priceType={priceType.AUCTION.value.value}
->>>>>>> b0e4853... updated
                   purchaseCount={nftItem?.nft?.like_count}
-                  priceType={priceType.AUCTION.value.value}
-                  price={nftItem?.market?.price}
+                  tokenId={nftItem?.nft?.token_id}
+                  contractAddress={nftItem?.nft?.contract_address}
                   onClick={() =>
                     navigate(
                       `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.nft?.contract_address}`

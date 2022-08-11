@@ -3,20 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 export const { actions: nftActions, reducer: nftReducer } = createSlice({
   name: "nft",
   initialState: {
-    newNftItem: {},
-    likeCount: 0,
+    likedNfts: [],
   },
   reducers: {
-    assignNftItem(state, { payload }) {
-      state.newNftItem = payload;
+    setLikedNfts(state, { payload }) {
+      state.likedNfts.push(payload);
     },
-    addLike(state) {
-      state.likeCount += 1;
-    },
-    assignLike(state) {
-      state.likeCount = 0;
+    setDislikedNfts(state, { payload }) {
+      state.likedNfts = state.likedNfts.filter((item) => item !== payload);
     },
   },
 });
 
-export const { assignNftItem, addLike, assignLike } = nftActions;
+export const { setLikedNfts, setDislikedNfts } = nftActions;
