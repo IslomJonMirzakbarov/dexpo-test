@@ -22,23 +22,21 @@ const FavoritesBottom = () => {
         {list?.data?.items[0]?.request_type !== 'COLLECTED' ? (
           <Loader page="my-page" />
         ) : (
-          favoriteNfts?.map((nftItem, index) => {
-            return (
-              <Grid item xs={4} sm={4} md={4} key={index}>
-                <NFTCard
-                  liked
-                  img={nftItem?.nft?.token_image}
-                  name={nftItem?.nft?.token_description}
-                  artistName={nftItem?.artist?.artist_name}
-                  hasAction={false}
-                  description={nftItem?.nft?.token_name}
-                  purchaseCount={nftItem?.nft?.like_count}
-                  priceType={priceType.AUCTION.value.value}
-                  price={nftItem?.market?.price}
-                />
-              </Grid>
-            );
-          })
+          favoriteNfts?.map((nftItem, index) => (
+            <Grid item xs={4} sm={4} md={4} key={index}>
+              <NFTCard
+                liked
+                img={nftItem?.nft?.token_image}
+                name={nftItem?.nft?.token_description}
+                price={nftItem?.market?.price}
+                artistName={nftItem?.artist?.artist_name}
+                hasAction={false}
+                description={nftItem?.nft?.token_name}
+                priceType={priceType.AUCTION.value.value}
+                purchaseCount={nftItem?.nft?.like_count}
+              />
+            </Grid>
+          ))
         )}
       </Grid>
     </Box>

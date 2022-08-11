@@ -31,6 +31,11 @@ const CollectedBottom = () => {
                   artistName={nftItem?.artist?.artist_name}
                   hasAction={false}
                   description={nftItem?.nft?.token_name}
+<<<<<<< HEAD
+=======
+                  price={nftItem?.market?.price}
+                  priceType={priceType.AUCTION.value.value}
+>>>>>>> b0e4853... updated
                   purchaseCount={nftItem?.nft?.like_count}
                   priceType={priceType.AUCTION.value.value}
                   price={nftItem?.market?.price}
