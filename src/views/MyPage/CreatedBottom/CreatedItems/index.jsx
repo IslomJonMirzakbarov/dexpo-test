@@ -31,7 +31,7 @@ const CreatedItems = () => {
                 price={nftItem?.market?.price}
                 artistName={nftItem?.artist?.artist_name}
                 hasAction={false}
-                description={nftItem?.nft?.token_description}
+                description={nftItem?.nft?.token_name}
                 priceType={priceType.AUCTION.value.value}
                 purchaseCount={nftItem?.nft?.like_count}
                 onClick={() =>

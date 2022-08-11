@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 import NFTCardSkeleton from "../../../../../components/NFTCard/index.skeleton";
 
 const CollectionItems = ({
-  sort = '',
-  searchInput = '',
+  sort = "",
+  searchInput = "",
   handleChangeSort,
   handleChangeSearch,
   isLoading,
-  data
+  data,
 }) => {
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ const CollectionItems = ({
                     price={nft?.token_price}
                     leftDays={null}
                     artistName={artist?.artist_name}
-                    description={nft?.token_description}
+                    description={nft?.token_name}
                     priceType={nft?.token_price}
                     hasAction={!!nft?.token_price}
                     purchaseCount={nft?.like_count}
