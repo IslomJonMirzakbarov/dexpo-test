@@ -13,6 +13,8 @@ import TokenImg from '../../../assets/images/con-token.svg?component';
 import CheckoutModal from '../../../components/Modals/CheckoutModal';
 import { priceTypeChar } from '../../../constants';
 import MoreCollections from './MoreCollections';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const DATE_FORMAT = 'DD-MM-yyyy hh:mm:ss';
 
@@ -48,11 +50,16 @@ const CollectionDetailsContainer = ({
   error
 }) => {
   const { nft, artist, market, collection } = data || {};
+  const { token } = useSelector((store) => store.auth);
 
-  const classes = useStyles();
   const theme = useTheme();
+  const classes = useStyles();
+  const navigate = useNavigate();
 
-  const handleClick = () => toggle();
+  const handleClick = () => {
+    if (token) toggle();
+    else navigate('/login');
+  };
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
 

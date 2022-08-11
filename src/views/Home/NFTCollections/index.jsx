@@ -48,7 +48,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       endDate={market?.end_date}
                       leftDays={null}
                       artistName={artist.artist_name}
-                      description={nft.token_description}
+                      description={nft.token_name}
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
@@ -56,6 +56,11 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       key={c}
                       isDefault
                       onClick={() =>
+                        navigate(
+                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        )
+                      }
+                      onAction={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`
                         )
@@ -76,12 +81,17 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       endDate={market?.end_date}
                       leftDays={null}
                       artistName={artist.artist_name}
-                      description={nft.token_description}
+                      description={nft.token_name}
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
                       isDefault
                       onClick={() =>
+                        navigate(
+                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        )
+                      }
+                      onAction={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`
                         )
@@ -120,11 +130,16 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       startDate={market?.start_date}
                       endDate={market?.end_date}
                       artistName={artist.artist_name}
-                      description={nft.token_description}
+                      description={nft.token_name}
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
                       onClick={() =>
+                        navigate(
+                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        )
+                      }
+                      onAction={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`
                         )
@@ -144,11 +159,16 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       startDate={market?.start_date}
                       endDate={market?.end_date}
                       artistName={artist.artist_name}
-                      description={nft.token_description}
+                      description={nft.token_name}
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
                       onClick={() =>
+                        navigate(
+                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        )
+                      }
+                      onAction={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`
                         )

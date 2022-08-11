@@ -7,6 +7,7 @@ import TelegramIcon from '../../assets/icons/telegram.svg?component';
 import logoImg from '../../assets/images/logo.svg';
 import { NavLink } from 'react-router-dom';
 import styles from './style.module.scss';
+import { useSelector } from 'react-redux';
 
 const list = [
   {
@@ -23,23 +24,28 @@ const list = [
     children: [
       {
         title: 'Profile',
-        link: '/profile'
+        link: '/user/my-page',
+        isAuthenticated: true
       },
       {
         title: 'My Collections',
-        link: '/my-collections'
+        link: '/user/collections',
+        isAuthenticated: true
       },
       {
         title: 'My Application',
-        link: '/my-application'
+        link: '/user/applications',
+        isAuthenticated: true
       },
       {
         title: 'Favourites',
-        link: '/favourites'
+        link: '/user/favourites',
+        isAuthenticated: true
       },
       {
         title: 'Settings',
-        link: '/settings'
+        link: '/user/settings',
+        isAuthenticated: true
       }
     ]
   },
@@ -102,6 +108,8 @@ const list = [
 ];
 
 const Footer = () => {
+  const { token } = useSelector((store) => store.auth);
+
   return (
     <footer className={styles.container}>
       <Container>
@@ -128,7 +136,15 @@ const Footer = () => {
                     <ul className={styles.links}>
                       {item.children.map((link) => (
                         <li key={link.link}>
-                          <NavLink to={link.link}>{link.title}</NavLink>
+                          <NavLink
+                            to={
+                              !token && link.isAuthenticated
+                                ? '/login'
+                                : link.link
+                            }
+                          >
+                            {link.title}
+                          </NavLink>
                         </li>
                       ))}
                     </ul>

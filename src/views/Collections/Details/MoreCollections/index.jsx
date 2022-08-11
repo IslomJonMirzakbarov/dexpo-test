@@ -59,11 +59,16 @@ const MoreCollections = ({ data, title }) => {
                     startDate={market?.start_date}
                     endDate={market?.end_date}
                     artistName={artist.artist_name}
-                    description={nft.token_description}
+                    description={nft.token_name}
                     priceType={priceTypeChar?.[market?.type]}
                     hasAction={!!market?.price}
                     purchaseCount={nft.like_count}
                     onClick={() =>
+                      navigate(
+                        `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                      )
+                    }
+                    onAction={() =>
                       navigate(
                         `/marketplace/${nft.token_id}/${collection?.contract_address}`
                       )
@@ -83,11 +88,16 @@ const MoreCollections = ({ data, title }) => {
                     startDate={market?.start_date}
                     endDate={market?.end_date}
                     artistName={artist.artist_name}
-                    description={nft.token_description}
+                    description={nft.token_name}
                     priceType={priceTypeChar?.[market?.type]}
                     hasAction={!!market?.price}
                     purchaseCount={nft.like_count}
                     onClick={() =>
+                      navigate(
+                        `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                      )
+                    }
+                    onAction={() =>
                       navigate(
                         `/marketplace/${nft.token_id}/${collection?.contract_address}`
                       )

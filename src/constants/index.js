@@ -1,7 +1,8 @@
 export const pages = [
   {
     name: 'Create NFT',
-    to: '/nft/create'
+    to: '/nft/create',
+    isAuthenticated: true
   },
   {
     name: 'Marketplace',
