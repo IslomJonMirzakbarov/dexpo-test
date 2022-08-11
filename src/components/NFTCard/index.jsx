@@ -35,7 +35,6 @@ const NFTCard = ({
 }) => {
   const { likedNfts } = useSelector((store) => store.nft);
   const dispatch = useDispatch();
-  console.log(likedNfts);
   const [likeCount, setLikeCount] = useState(purchaseCount);
   const { postLike, postDislike } = useNFTAPI({});
 
