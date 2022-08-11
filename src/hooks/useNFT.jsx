@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { securedAPI } from '../services/api';
-import { useMutation, useQuery } from 'react-query';
+import React from "react";
+import { useSelector } from "react-redux";
+import { securedAPI } from "../services/api";
+import { useMutation, useQuery } from "react-query";
 
 const size = 10;
 
-const getList = ({ type, page, orderBy = 'desc' }, token) =>
+const getList = ({ type, page, orderBy = "desc" }, token) =>
   securedAPI(token)
     .post(
       `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
@@ -20,18 +20,30 @@ const getDetail = ({ contractAddress, tokenId }, token) =>
     .then((res) => res.data);
 
 const fetchLike = (data, token) =>
-  securedAPI(token).post(`/api/nft/like`, data);
+  securedAPI(token)
+    .post(`/api/nft/like`, data)
+    .then((res) => {
+      // console.log(res.data?.data?.like_count);
+      return res.data;
+    });
 
 const fetchUnlike = (data, token) =>
   securedAPI(token).post(`/api/nft/dislike`, data);
 
+const configQuery = {
+  refetchOnMount: true,
+  refetchOnWindowFocus: true, // constantly updating
+  refetchOnReconnect: true,
+  staleTime: 0,
+};
+
 const useNFTAPI = ({
   isGetList = false,
-  type = 'COLLECTED',
+  type = "COLLECTED",
   page = 1,
-  orderBy = 'desc',
+  orderBy = "desc",
   contractAddress,
-  id
+  id,
 }) => {
   const { token } = useSelector((store) => store.auth);
 
@@ -39,27 +51,31 @@ const useNFTAPI = ({
     data: list,
     refetch: refetchList,
     isLoading: loadingList,
-    error
-  } = useQuery('get-nft-list', () => getList({ type, page, orderBy }, token), {
-    enabled: !!isGetList
+    error,
+  } = useQuery("get-nft-list", () => getList({ type, page, orderBy }, token), {
+    enabled: !!isGetList,
   });
 
   const {
     data: detail,
     refetch: refetchDetail,
     isLoading: loadingDetail,
-    error: errorDetail
+    error: errorDetail,
   } = useQuery(
     `get-nft-detail-${contractAddress}-${id}`,
     () => getDetail({ contractAddress, tokenId: id }, token),
     {
-      enabled: !!contractAddress && !!id
+      enabled: !!contractAddress && !!id,
     }
   );
 
-  const mutationLike = useMutation((data) => fetchLike(data, token), {});
+  const mutationLike = useMutation((data) => fetchLike(data, token), {
+    ...configQuery,
+  });
 
-  const mutationDislike = useMutation((data) => fetchUnlike(data, token), {});
+  const mutationDislike = useMutation((data) => fetchUnlike(data, token), {
+    ...configQuery,
+  });
 
   return {
     postLike: mutationLike,
@@ -71,7 +87,7 @@ const useNFTAPI = ({
     list,
     refetchList,
     loadingList,
-    error
+    error,
   };
 };
 

@@ -1,5 +1,5 @@
-@use '../../scss/colors';
-@import '../../styles/fonts';
+@use "../../scss/colors";
+@import "../../styles/fonts";
 
 .card {
   display: flex;
@@ -121,6 +121,9 @@
             @include fontBodyXS;
             font-weight: 600;
             color: colors.$text;
+          }
+          .LikeSvg {
+            display: flex;
           }
 
           svg {
