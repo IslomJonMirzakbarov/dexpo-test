@@ -14,7 +14,8 @@ const CollectionItems = ({
   handleChangeSort,
   handleChangeSearch,
   isLoading,
-  data
+  data,
+  contract_address
 }) => {
   const navigate = useNavigate();
 
@@ -48,7 +49,16 @@ const CollectionItems = ({
                     purchaseCount={nft?.like_count}
                     onClick={() =>
                       navigate(
-                        `/marketplace/${nft?.token_id}/${collection?.contract_address}`
+                        `/user/nft/${nft?.token_id}/${
+                          collection?.contract_address || contract_address
+                        }`
+                      )
+                    }
+                    onAction={() =>
+                      navigate(
+                        `/user/nft/${nft?.token_id}/${
+                          collection?.contract_address || contract_address
+                        }`
                       )
                     }
                   />

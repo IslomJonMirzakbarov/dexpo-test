@@ -59,6 +59,7 @@ const NFTCard = ({
   ]);
 
   // please do not merge above useEffects, they work separately
+  // okay)
 
   const likeClick = () => {
     if (likedNfts.includes(tokenId)) {
