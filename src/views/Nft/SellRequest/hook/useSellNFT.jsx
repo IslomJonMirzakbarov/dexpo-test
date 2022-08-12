@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { awaitStatus } from '../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
 import { marketStatuses } from '../../../../constants/marketStatuses';
 import { sellReqStatuses } from '../../../../constants/sellRequestStatuses';
+import useToast from '../../../../hooks/useToast';
 import useWeb3 from '../../../../hooks/useWeb3';
 import { securedAPI } from '../../../../services/api';
 
@@ -33,6 +34,7 @@ const useSellNFT = ({
   const { account } = useSelector((store) => store.wallet);
 
   const { checkAllowance721, makeApprove721, sell, cancel } = useWeb3();
+  const { toast } = useToast();
 
   const [isApprove, setIsApprove] = useState(awaitStatus.PENDING);
   const [isListing, setIsListing] = useState(awaitStatus.INITIAL);
@@ -129,14 +131,16 @@ const useSellNFT = ({
     const isEmptyPriceField = !getValues('price') && !isCancel;
 
     if (isIDLEMarketStatus) return handleRequest();
-    if (isEmptyPriceField) return alert('Fill the price form');
+    if (isEmptyPriceField) return toast.error('Fill the price form');
 
     setError('');
     const price = getValues('price');
     const floorPrice = collection?.floor_price;
 
     if (floorPrice > price)
-      return alert(`Price should be greater or equal to ${floorPrice} CYCON`);
+      return toast.error(
+        `Price should be greater or equal to ${floorPrice} CYCON`
+      );
 
     if (isCancel) handleCancel();
     else {

@@ -6,6 +6,7 @@ import Web3 from 'web3';
 import useVerifySign from './useVerifySign';
 import { customAPI } from '../services/api';
 import { setToken } from '../store/auth/auth.slice';
+import useToast from './useToast';
 
 const chainId = import.meta.env.VITE_CHAIN_ID;
 const chainName = import.meta.env.VITE_CHAIN_NAME;
@@ -16,6 +17,7 @@ const web3 = new Web3(Web3.givenProvider);
 
 const useWallet = () => {
   const dispatch = useDispatch();
+  const { toast } = useToast();
 
   const { mutation } = useVerifySign();
 
@@ -23,7 +25,7 @@ const useWallet = () => {
     if (typeof window.ethereum !== 'undefined') {
       getAccount();
     } else {
-      alert('Please install MetaMask');
+      toast.error('Please install MetaMask');
     }
   };
 
