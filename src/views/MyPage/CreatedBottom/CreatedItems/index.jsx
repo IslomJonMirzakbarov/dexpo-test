@@ -1,27 +1,28 @@
-import { Box, Grid } from '@mui/material';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Loader from '../../../../components/Loader';
-import NFTCard from '../../../../components/NFTCard';
-import { priceType } from '../../../../constants';
-import useNftAPI from '../../../../hooks/useNftApi';
 
-import styles from './style.module.scss';
+import { Box, Grid } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../../../components/Loader";
+import NFTCard from "../../../../components/NFTCard";
+import { priceType } from "../../../../constants";
+import useNftAPI from "../../../../hooks/useNftApi";
+
+
+import styles from "./style.module.scss";
 
 const CreatedItems = () => {
   const navigate = useNavigate();
   const { list } = useNftAPI({
     isGetList: true,
-    type: 'CREATED_BY_NFTS',
-    size: 20000
+    type: "CREATED_BY_NFTS",
+    size: 20000,
   });
   return (
     <Box className={styles.Container}>
       <Box className={styles.Title}>Items</Box>
 
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items.length === 0 ? null : list?.data?.items[0]
-            ?.request_type !== 'CREATED_BY_NFTS' ? (
+        {list?.data?.items.length === 0 ? null : list?.data?.items[0]?.request_type !== "CREATED_BY_NFTS" ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items.map((nftItem, index) => (
@@ -29,15 +30,20 @@ const CreatedItems = () => {
               <NFTCard
                 img={nftItem?.nft?.token_image}
                 name={nftItem?.nft?.token_name}
+                price={nftItem?.market?.price}
                 artistName={nftItem?.artist?.artist_name}
                 hasAction={false}
                 description={nftItem?.nft?.token_name}
                 priceType={priceType.AUCTION.value.value}
                 purchaseCount={nftItem?.nft?.like_count}
-                price={nftItem?.market?.price}
                 onClick={() =>
                   navigate(
                     `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.nft?.contract_address}`
+                  )
+                }
+                onAction={() =>
+                  navigate(
+                    `/marketplace/${nftItem?.nft.token_id}/${nftItem?.collection?.contract_address}`
                   )
                 }
               />

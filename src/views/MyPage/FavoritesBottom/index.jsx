@@ -6,20 +6,19 @@ import NFTCard from '../../../components/NFTCard';
 import { priceType } from '../../../constants';
 import useNftAPI from '../../../hooks/useNftApi';
 
-import styles from './style.module.scss';
+import styles from "./style.module.scss";
 
 const FavoritesBottom = () => {
   const { list } = useNftAPI({
     isGetList: true,
-    type: 'INTEREST',
-    size: 20000
+    type: "INTEREST",
+    size: 20000,
   });
   const navigate = useNavigate();
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items.length === 0 ? null : list?.data?.items[0]
-            ?.request_type !== 'INTEREST' ? (
+        {list?.data?.items.length === 0 ? null : list?.data?.items[0]?.request_type !== "INTEREST" ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items.map((nftItem, index) => (

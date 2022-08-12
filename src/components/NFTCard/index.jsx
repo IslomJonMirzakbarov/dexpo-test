@@ -1,13 +1,18 @@
-import { Box, Button, Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import NumberFormat from 'react-number-format';
-import styles from './style.module.scss';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import { Box, Button, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import TokenImg from '../../assets/images/con-token.svg?component';
-import classNames from 'classnames';
-import { calculateDeadline } from '../../utils/deadline';
+import classNames from "classnames";
+import { calculateDeadline } from "../../utils/deadline";
+import useNFTAPI from "../../hooks/useNFT";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setDislikedNfts, setLikedNfts } from "../../store/nft/nft.slice";
+
 
 import useNFTAPI from '../../hooks/useNFT';
 import { useSelector } from 'react-redux';
@@ -29,10 +34,10 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = 'containedInherit',
+  buttonVariant = "containedInherit",
   isDefault = false,
   tokenId,
-  contractAddress
+  contractAddress,
 }) => {
   const { likedNfts } = useSelector((store) => store.nft);
   const dispatch = useDispatch();
@@ -65,12 +70,12 @@ const NFTCard = ({
     if (likedNfts.includes(tokenId)) {
       postDislike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId
+        token_id: tokenId,
       });
     } else {
       postLike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId
+        token_id: tokenId,
       });
     }
   };
@@ -81,9 +86,9 @@ const NFTCard = ({
   return (
     <Box
       className={classNames(styles.card, {
-        [styles.CollectedCard]: page === 'collectedBottom',
+        [styles.CollectedCard]: page === "collectedBottom",
         [styles.minified]: !price,
-        [styles.default]: isDefault
+        [styles.default]: isDefault,
       })}
     >
       <Box className={styles.header} onClick={onClick}>

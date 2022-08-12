@@ -23,23 +23,24 @@ const ArtistForm = () => {
 
   const [rejectCasePopup, setRejectCasePopup] = useState(false);
   const { create, artist, isLoading } = useArtistAPI({ isDetail: true });
-  const isRejected = artist?.data?.status === 'REJECT';
+
+  const isRejected = artist?.data?.status === "REJECT";
   const isPending =
-    artist?.data?.status === 'IDLE' || artist?.data?.status === 'PENDING';
+    artist?.data?.status === "IDLE" || artist?.data?.status === "PENDING";
 
   const {
     handleSubmit,
     formState: { errors },
     control,
-    reset
+    reset,
   } = useForm({
     defaultValues: {
-      artistName: artist?.data?.artist_name || '',
-      email: artist?.data?.artist_email || '',
+      artistName: artist?.data?.artist_name || "",
+      email: artist?.data?.artist_email || "",
       walletAddress: account,
-      youtubeURL: artist?.data?.youtube_url || '',
-      description: artist?.data?.description || ''
-    }
+      youtubeURL: artist?.data?.youtube_url || "",
+      description: artist?.data?.description || "",
+    },
   });
 
   const onSubmit = (data) => {
@@ -47,28 +48,28 @@ const ArtistForm = () => {
       artist_name: data.artistName,
       artist_email: data.email,
       artist_youtube_url: data.youtubeURL,
-      description: data.description
+      description: data.description,
     };
     create.mutate(payload);
 
     if (artist.data !== null) {
       if (
-        artist.code.toString()[0] === '4' ||
-        artist.code.toString()[0] === '5'
+        artist.code.toString()[0] === "4" ||
+        artist.code.toString()[0] === "5"
       ) {
         setRejectCasePopup(true);
       }
     }
 
     reset();
-    dispatch(togglePopupByKey('submittedPopup'));
+    dispatch(togglePopupByKey("submittedPopup"));
   };
 
   const modalClick = () => {
     if (!rejectCasePopup) {
-      navigate('/user/my-page/artist-status');
+      navigate("/user/my-page/artist-status");
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
 
