@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import CollectionDetailImage from './Image';
 import CollectionDetailsInfo from './Info';
 import NumberFormat from 'react-number-format';
@@ -15,6 +15,7 @@ import { priceTypeChar } from '../../../constants';
 import MoreCollections from './MoreCollections';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import DModal from '../../../components/DModal';
 
 const DATE_FORMAT = 'DD-MM-yyyy hh:mm:ss';
 
@@ -47,10 +48,12 @@ const CollectionDetailsContainer = ({
   txHash,
   openModal,
   toggle,
-  error
+  error,
+  isDisabled
 }) => {
   const { nft, artist, market, collection } = data || {};
   const { token } = useSelector((store) => store.auth);
+  const [openImg, setOpenImg] = useState(false);
 
   const theme = useTheme();
   const classes = useStyles();
@@ -77,6 +80,7 @@ const CollectionDetailsContainer = ({
               alt="nft picture"
               isSoldOut={isSoldOut}
               isPurchased={false}
+              onClick={() => setOpenImg(true)}
             />
           </Grid>
           <Grid item lg={7} className={classes.grid}>
@@ -153,7 +157,7 @@ const CollectionDetailsContainer = ({
                     variant="containedSecondary"
                     fullWidth
                     onClick={handleClick}
-                    disabled={isSoldOut}
+                    disabled={isSoldOut || isDisabled}
                     sx={{ height: 55 }}
                   >
                     {isSoldOut ? 'Sold out' : 'Purchase Artwork'}
@@ -187,6 +191,12 @@ const CollectionDetailsContainer = ({
         openModal={openModal}
         toggle={toggle}
         error={error}
+      />
+      <DModal
+        isExpandedImg
+        img={nft?.token_image}
+        open={openImg}
+        onClose={() => setOpenImg(false)}
       />
     </Paper>
   );

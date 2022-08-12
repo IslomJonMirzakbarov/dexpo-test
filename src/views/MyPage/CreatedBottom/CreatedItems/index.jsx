@@ -1,3 +1,4 @@
+
 import { Box, Grid } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -5,6 +6,7 @@ import Loader from "../../../../components/Loader";
 import NFTCard from "../../../../components/NFTCard";
 import { priceType } from "../../../../constants";
 import useNftAPI from "../../../../hooks/useNftApi";
+
 
 import styles from "./style.module.scss";
 
@@ -20,8 +22,7 @@ const CreatedItems = () => {
       <Box className={styles.Title}>Items</Box>
 
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items.length === 0 ? null : list?.data?.items[0]
-            ?.request_type !== "CREATED_BY_NFTS" ? (
+        {list?.data?.items.length === 0 ? null : list?.data?.items[0]?.request_type !== "CREATED_BY_NFTS" ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items.map((nftItem, index) => (

@@ -5,13 +5,19 @@ import styles from "./style.module.scss";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import conTokenImg from "../../assets/images/con-token.svg";
+import TokenImg from '../../assets/images/con-token.svg?component';
 import classNames from "classnames";
 import { calculateDeadline } from "../../utils/deadline";
 import useNFTAPI from "../../hooks/useNFT";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setDislikedNfts, setLikedNfts } from "../../store/nft/nft.slice";
+
+
+import useNFTAPI from '../../hooks/useNFT';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setDislikedNfts, setLikedNfts } from '../../store/nft/nft.slice';
 
 const NFTCard = ({
   page,
@@ -50,9 +56,15 @@ const NFTCard = ({
       setLikeCount(postDislike?.data?.data?.data?.like_count);
       dispatch(setDislikedNfts(tokenId));
     }
-  }, [dispatch, postDislike?.data?.data?.data?.like_count, postDislike.isSuccess, tokenId]);
+  }, [
+    dispatch,
+    postDislike?.data?.data?.data?.like_count,
+    postDislike.isSuccess,
+    tokenId
+  ]);
 
   // please do not merge above useEffects, they work separately
+  // okay)
 
   const likeClick = () => {
     if (likedNfts.includes(tokenId)) {
@@ -90,39 +102,47 @@ const NFTCard = ({
         )}
       </Box>
       <Box className={styles.wrapper}>
-        <Box className={classNames(styles.body, { [styles.last]: !price })}>
-          <div className={styles.artist}>
-            <span className={styles.name}>{artistName}</span>
-            <Typography variant="placeholder" fontWeight={500}>
-              {description}
-            </Typography>
-          </div>
-          <div className={styles.actions}>
-            <span
-              className={classNames(styles.count, { [styles.liked]: liked })}
-            >
-              <NumberFormat
-                value={likeCount}
-                displayType={"text"}
-                decimalScale={3}
-                thousandSeparator={true}
-              />
-              <div className={styles.LikeSvg} onClick={() => likeClick()}>
-                {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
-              </div>
-            </span>
-            <div className={styles.price}>
-              {price && (
-                <>
-                  <img src={conTokenImg} alt="token" />
-                  <NumberFormat
-                    value={price}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                  />
-                </>
-              )}
+        <Box display="flex" flexDirection="column">
+          <Box className={classNames(styles.body, { [styles.last]: !price })}>
+            <div className={styles.artist}>
+              <span className={styles.name}>{artistName}</span>
+              <Typography variant="placeholder" fontWeight={500}>
+                {description}
+              </Typography>
             </div>
+            <div className={styles.actions}>
+              <span
+                className={classNames(styles.count, { [styles.liked]: liked })}
+              >
+                <NumberFormat
+                  value={likeCount}
+                  displayType={'text'}
+                  decimalScale={3}
+                  thousandSeparator={true}
+                />
+                <div className={styles.LikeSvg} onClick={() => likeClick()}>
+                  {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+                </div>
+              </span>
+            </div>
+          </Box>
+          <div className={styles.price}>
+            {price && (
+              <>
+                <TokenImg
+                  className={styles.coin}
+                  style={{
+                    width: 16,
+                    height: 16
+                  }}
+                />
+                <NumberFormat
+                  value={price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                />
+              </>
+            )}
           </div>
         </Box>
         {hasAction && (

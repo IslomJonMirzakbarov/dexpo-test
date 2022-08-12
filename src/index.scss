@@ -103,3 +103,28 @@ body {
     }
   }
 }
+
+.toast_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.toast_message {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.toast_dismiss-btn {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.toast_dismiss-btn {
+  width: 30px;
+  height: 30px;
+  color: #fff;
+}
+div[role='status'] {
+  margin-right: 0;
+}

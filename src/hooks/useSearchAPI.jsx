@@ -35,7 +35,7 @@ const useSearchAPI = (query) => {
           ...artist,
           label: artist.artist_name,
           img: artist.image_url || defaultImg,
-          action: () => navigate(`/artists/${artist.id}`)
+          action: () => navigate(`/user/my-page`)
         }))
       });
 
@@ -46,7 +46,7 @@ const useSearchAPI = (query) => {
           ...collection,
           label: collection.name,
           img: collection.logo_url || defaultImg,
-          action: () => navigate(`/collection/${collection.id}`)
+          action: () => navigate(`/collections/${collection.contract_address}`)
         }))
       });
 
@@ -57,7 +57,8 @@ const useSearchAPI = (query) => {
           ...nft,
           label: nft.token_name,
           img: nft.token_image || defaultImg,
-          action: () => navigate(`/marketplace/${nft.id}`)
+          action: () =>
+            navigate(`/marketplace/${nft.id}/${nft.contract_address}`)
         }))
       });
 
