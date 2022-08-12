@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import styles from './style.module.scss';
 import { makeStyles } from '@mui/styles';
 import ValueTable from '../../Collections/Details/ValueTable';
@@ -16,6 +16,7 @@ import DRangePicker from '../../../components/DRangePicker';
 import SellModal from '../../../components/Modals/SellModal';
 import { useTheme } from '@emotion/react';
 import moment from 'moment';
+import DModal from '../../../components/DModal';
 
 const DATE_FORMAT = 'DD-MM-yyyy hh:mm:ss';
 
@@ -53,11 +54,15 @@ const NFTSellRequestContainer = ({
   collection,
   market,
   sellPrice,
-  isCancel
+  isCancel,
+  isDisabled,
+  submitLabel
 }) => {
   const theme = useTheme();
 
   const classes = useStyles();
+
+  const [openImg, setOpenImg] = useState(false);
 
   const isAuction = priceType.AUCTION.key.includes(type?.value);
 
@@ -119,6 +124,7 @@ const NFTSellRequestContainer = ({
               img={nft?.token_image}
               alt="nft picture"
               isPurchased={false}
+              onClick={() => setOpenImg(true)}
             />
           </Grid>
           <Grid
@@ -172,8 +178,9 @@ const NFTSellRequestContainer = ({
                     variant={isCancel ? 'outlined' : 'containedSecondary'}
                     fullWidth
                     onClick={isCancel ? toggle : handleClick}
+                    disabled={isDisabled}
                   >
-                    {isCancel ? 'Cancel' : 'Sell Artwork'}
+                    {submitLabel}
                   </Button>
                 </Box>
               </Box>
@@ -203,6 +210,12 @@ const NFTSellRequestContainer = ({
         error={error}
         sellPrice={sellPrice}
         isCanceling={isCanceling}
+      />
+      <DModal
+        isExpandedImg
+        img={nft?.token_image}
+        open={openImg}
+        onClose={() => setOpenImg(false)}
       />
     </Paper>
   );

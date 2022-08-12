@@ -50,7 +50,7 @@ const ValueTable = ({
       <Box className={classes.box}>
         <Typography variant="subtitle1">Token Standard</Typography>
         <Typography variant="subtitle1" fontWeight={500} mr={2.5}>
-          {tokenStandard}
+          {'ERC-721' || tokenStandard}
         </Typography>
       </Box>
       <Box className={classes.box}>

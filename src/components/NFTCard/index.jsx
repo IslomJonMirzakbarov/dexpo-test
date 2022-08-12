@@ -5,9 +5,10 @@ import styles from './style.module.scss';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import conTokenImg from '../../assets/images/con-token.svg';
+import TokenImg from '../../assets/images/con-token.svg?component';
 import classNames from 'classnames';
 import { calculateDeadline } from '../../utils/deadline';
+import { style } from '@mui/system';
 
 const NFTCard = ({
   page,
@@ -49,37 +50,45 @@ const NFTCard = ({
         )}
       </Box>
       <Box className={styles.wrapper}>
-        <Box className={classNames(styles.body, { [styles.last]: !price })}>
-          <div className={styles.artist}>
-            <span className={styles.name}>{artistName}</span>
-            <Typography variant="placeholder" fontWeight={500}>
-              {description}
-            </Typography>
-          </div>
-          <div className={styles.actions}>
-            <span
-              className={classNames(styles.count, { [styles.liked]: liked })}
-            >
-              <NumberFormat
-                value={purchaseCount}
-                displayType={'text'}
-                decimalScale={3}
-                thousandSeparator={true}
-              />
-              {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
-            </span>
-            <div className={styles.price}>
-              {price && (
-                <>
-                  <img src={conTokenImg} alt="token" />
-                  <NumberFormat
-                    value={price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                  />
-                </>
-              )}
+        <Box display="flex" flexDirection="column">
+          <Box className={classNames(styles.body, { [styles.last]: !price })}>
+            <div className={styles.artist}>
+              <span className={styles.name}>{artistName}</span>
+              <Typography variant="placeholder" fontWeight={500}>
+                {description}
+              </Typography>
             </div>
+            <div className={styles.actions}>
+              <span
+                className={classNames(styles.count, { [styles.liked]: liked })}
+              >
+                <NumberFormat
+                  value={purchaseCount}
+                  displayType={'text'}
+                  decimalScale={3}
+                  thousandSeparator={true}
+                />
+                {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+              </span>
+            </div>
+          </Box>
+          <div className={styles.price}>
+            {price && (
+              <>
+                <TokenImg
+                  className={styles.coin}
+                  style={{
+                    width: 16,
+                    height: 16
+                  }}
+                />
+                <NumberFormat
+                  value={price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                />
+              </>
+            )}
           </div>
         </Box>
         {hasAction && (

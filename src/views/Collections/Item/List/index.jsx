@@ -4,7 +4,7 @@ import styles from '../style.module.scss';
 import classNames from 'classnames';
 import CollectionItems from './Items';
 
-const CollectionList = ({ isLoading, data }) => {
+const CollectionList = ({ isLoading, data, contract_address }) => {
   const [sort, setSort] = useState(null);
   const [searchInput, setSearchInput] = useState('');
 
@@ -24,6 +24,7 @@ const CollectionList = ({ isLoading, data }) => {
               handleChangeSearch={handleChangeSearch}
               isLoading={isLoading}
               data={data}
+              contract_address={contract_address}
             />
           </Box>
         </Box>
