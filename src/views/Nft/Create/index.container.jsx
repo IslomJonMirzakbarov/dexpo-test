@@ -78,7 +78,6 @@ const NftCreate = () => {
   };
 
   const nftMint = async (contractAdd) => {
-    console.log(contractAdd);
     const web3 = new Web3(Web3.givenProvider);
     const contractERC721 = new web3.eth.Contract(SingleABI, contractAdd);
     const estimatedGas = await contractERC721.methods
