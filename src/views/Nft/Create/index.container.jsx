@@ -1,14 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography
-} from '@mui/material';
+import { Box, Checkbox, FormControl, Typography } from '@mui/material';
+
 import Web3 from 'web3';
 import FormInputText from '../../../components/FormInputText';
 import ModalCard from '../../../components/ModalCard';
@@ -19,13 +12,14 @@ import { useNavigate } from 'react-router-dom';
 import SingleABI from '../../../utils/abi/SingleABI';
 import useCollectionAPI from '../../../hooks/useCollectionApi';
 import { useSelector } from 'react-redux';
-import SelectIcon from '../../../assets/icons/select-icon.svg?component';
-import BlackDot from '../../../assets/icons/black-dot.svg?component';
+
 import SpinningIcon from '../../../assets/icons/spinning-icon.svg?component';
 import RejectIcon from '../../../assets/icons/artist-form-reject.svg?component';
 import classNames from 'classnames';
 import PrimaryButton from '../../../components/Buttons/PrimaryButton';
 import useNFTCreateApi from '../../../hooks/useNFTCreateApi';
+import SelectAsync from '../../../components/SelectAsync';
+import CollectionOption from './Option';
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -35,30 +29,28 @@ const NftCreate = () => {
     size: 200
   });
   const { create, metadata } = useNFTCreateApi({});
-  let collectionList;
-  let approvedCollectionList;
-  if (collections) {
-    collectionList = collections?.data?.items;
-    approvedCollectionList = collectionList?.filter(
-      (collectionItem) =>
-        collectionItem.status === 'COMPLETE' && collectionItem.type === 'S'
-    );
-  }
+
+  let approvedCollectionList = useMemo(() => {
+    let collectionList = collections?.data?.items;
+    if (collections)
+      return collectionList?.filter(
+        (collectionItem) =>
+          collectionItem.status === 'COMPLETE' && collectionItem.type === 'S'
+      );
+    return [];
+  }, [collections]);
+
   const navigate = useNavigate();
   const { account } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
-  const [contractAddress, setContractAddress] = useState('');
   const [artName, setArtName] = useState('');
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
-  const [chosen, setChosen] = useState(false);
+
   const [rejected, setRejected] = useState(false);
 
-  const imgBool =
-    uploadedImg?.type === 'image/png' || uploadedImg.type === 'image/jpeg'
-      ? true
-      : false;
+  const imgBool = ['image/png', 'image/jpeg'].includes(uploadedImg.type);
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {
@@ -85,8 +77,39 @@ const NftCreate = () => {
     setChecked(event.target.checked);
   };
 
+  const nftMint = async (contractAdd) => {
+    console.log(contractAdd);
+    const web3 = new Web3(Web3.givenProvider);
+    const contractERC721 = new web3.eth.Contract(SingleABI, contractAdd);
+    const estimatedGas = await contractERC721.methods
+      .mint(account, metadata.data.metadata)
+      .estimateGas({
+        gasPrice: await web3.eth.getGasPrice(),
+        from: account
+      });
+
+    contractERC721.methods.mint(account, metadata.data.metadata).send(
+      {
+        gasPrice: await web3.eth.getGasPrice(),
+        from: account,
+        gas: estimatedGas
+      },
+      function (err, res) {
+        if (err) setRejected(true);
+        // transactionHash = res;
+        if (res) {
+          if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
+            // data["src"] = uploadedImg.src;
+            reset();
+            setChecked(false);
+            setShowModal(true);
+          }
+        }
+      }
+    );
+  };
+
   const onSubmit = handleSubmit(async (data) => {
-    setContractAddress(data.collection);
     setArtName(data.artworkName);
     data['imageFile'] = uploadedImg;
 
@@ -95,7 +118,13 @@ const NftCreate = () => {
     formData.append('description', data.artworkDescription);
     formData.append('image', data.imageFile);
 
-    await create?.mutateAsync(formData);
+    try {
+      const res = await create?.mutateAsync(formData);
+
+      if (!!res?.data) nftMint(data?.collection?.contract_address);
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   const mintClick = () => {
@@ -108,48 +137,6 @@ const NftCreate = () => {
       }
     }
   };
-
-  useEffect(() => {
-    const nftMint = async () => {
-      if (create?.isSuccess) {
-        const web3 = new Web3(Web3.givenProvider);
-        const contractERC721 = new web3.eth.Contract(
-          SingleABI,
-          contractAddress
-        );
-        const estimatedGas = await contractERC721.methods
-          .mint(account, metadata.data.metadata)
-          .estimateGas({
-            gasPrice: await web3.eth.getGasPrice(),
-            from: account
-          });
-
-        contractERC721.methods.mint(account, metadata.data.metadata).send(
-          {
-            gasPrice: await web3.eth.getGasPrice(),
-            from: account,
-            gas: estimatedGas
-          },
-          function (err, res) {
-            if (err) {
-              setRejected(true);
-            }
-            // transactionHash = res;
-            if (res) {
-              if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-                // data["src"] = uploadedImg.src;
-                reset();
-                setChecked(false);
-                setShowModal(true);
-              }
-            }
-          }
-        );
-      }
-    };
-    nftMint();
-    return () => {};
-  }, [account, contractAddress, create?.isSuccess, metadata]);
 
   return (
     <Box className={styles.Container}>
@@ -194,6 +181,7 @@ const NftCreate = () => {
               </span>{' '}
               first, and your item will appear in this collection.
             </Box>
+
             <FormControl fullWidth className={styles.CollectionForm}>
               <Controller
                 name="collection"
@@ -201,51 +189,17 @@ const NftCreate = () => {
                 rules={{ required: true }}
                 render={({ field }) => {
                   return (
-                    <Box className={styles.CollectionFormSelect}>
-                      <InputLabel className={styles.SelectCollection}>
-                        Select Collection
-                      </InputLabel>
-                      <Select
-                        fullWidth
-                        {...field}
-                        className={styles.SelectType}
-                        variant="filled"
-                        disableUnderline
-                        IconComponent={SelectIcon}
-                      >
-                        {approvedCollectionList &&
-                          approvedCollectionList.map((collectionItem) => {
-                            return (
-                              <MenuItem
-                                style={{
-                                  width: 650,
-                                  backgroundColor: '#FF006B',
-                                  fontWeight: '500',
-                                  fontSize: 15,
-                                  lineHeight: 22,
-                                  color: '#ffffff',
-                                  height: 45,
-                                  borderRadius: 7
-                                }}
-                                onClick={() => setChosen(true)}
-                                key={collectionItem.collection_id}
-                                value={collectionItem.contract_address}
-                              >
-                                <Box
-                                  style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 12
-                                  }}
-                                >
-                                  {!chosen && <BlackDot />}
-                                  {collectionItem.name}
-                                </Box>
-                              </MenuItem>
-                            );
-                          })}
-                      </Select>
-                    </Box>
+                    <SelectAsync
+                      options={approvedCollectionList}
+                      getOptionLabel={(item) => item.name}
+                      getOptionValue={(item) => item.collection_id}
+                      shouldControlInputValue={false}
+                      placeholder="Select Collection"
+                      {...field}
+                      components={{
+                        Option: CollectionOption
+                      }}
+                    />
                   );
                 }}
               />
