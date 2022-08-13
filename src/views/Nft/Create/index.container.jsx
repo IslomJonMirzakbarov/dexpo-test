@@ -26,6 +26,7 @@ import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import useNFTCreateApi from "../../../hooks/useNFTCreateApi";
+import useNftAPI from "../../../hooks/useNftApi";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -34,6 +35,7 @@ const NftCreate = () => {
     orderBy: "desc",
     size: 200,
   });
+
   const { create, metadata } = useNFTCreateApi({});
   let collectionList;
   let approvedCollectionList;
@@ -51,9 +53,39 @@ const NftCreate = () => {
   const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
+  console.log(uploadedImg?.preview);
+
   const [errBool, setErrBool] = useState(false);
   const [chosen, setChosen] = useState(false);
   const [rejected, setRejected] = useState(false);
+  const [resChecker, setResChecker] = useState(null);
+  const [stopChecker, setStopChecker] = useState(null);
+  const [responseChecker, setResponseChecker] = useState(false);
+  const [newItemConAd, setNewItemConAd] = useState("");
+  const [previewImgSrc, setPreviewImgSrc] = useState("");
+
+  let myFunc;
+  if (resChecker) {
+    myFunc = setInterval(async () => {
+      const web3 = new Web3(Web3.givenProvider);
+      const response = await web3.eth.getTransactionReceipt(resChecker);
+      if (response) {
+        setStopChecker(response);
+        setNewItemConAd(response?.to);
+        setResponseChecker(true);
+      }
+    }, 1500);
+  }
+
+  if (stopChecker) {
+    clearInterval(myFunc);
+  }
+  const { list } = useNftAPI({
+    isGetList: true,
+    type: "COLLECTED",
+    size: 20000,
+  });
+  const newId = list?.data?.items[0]?.nft?.token_id + 1;
 
   const imgBool =
     uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
@@ -62,6 +94,7 @@ const NftCreate = () => {
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {
+      setPreviewImgSrc(uploadedImg.preview.slice(27));
       setErrBool(false);
     }
   }, [uploadedImg]);
@@ -136,8 +169,8 @@ const NftCreate = () => {
             }
             // transactionHash = res;
             if (res) {
+              setResChecker(res);
               if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-                // data["src"] = uploadedImg.src;
                 reset();
                 setChecked(false);
                 setShowModal(true);
@@ -312,11 +345,16 @@ const NftCreate = () => {
 
       {showModal && (
         <ModalCard
+          responseChecker={responseChecker}
           page="nft-create"
           onSaveButtonClick={() => {
-            setShowModal(false);
-            setUploadedImg({});
-            navigate("/nft/sell-request-artwork");
+            if (responseChecker && previewImgSrc) {
+              setShowModal(false);
+              // setUploadedImg({});
+              navigate(`/user/nft/${newId}/${newItemConAd}/${previewImgSrc}`);
+            } else {
+              return;
+            }
           }}
         >
           <Box className={styles.IconContainer}>
@@ -332,7 +370,7 @@ const NftCreate = () => {
           page="nft-create"
           onSaveButtonClick={() => {
             setShowModal(false);
-            setUploadedImg({});
+            // setUploadedImg({});
             setRejected(false);
             navigate("/");
           }}

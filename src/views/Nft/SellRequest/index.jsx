@@ -1,45 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
-import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import Loader from '../../../components/Loader';
-import useNFTAPI from '../../../hooks/useNFT';
-import NFTSellRequestContainer from './index.container';
+import useNFTHistoryAPI from "../../../hooks/useNFTHistoryAPI";
+import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
+import Loader from "../../../components/Loader";
+import useNFTAPI from "../../../hooks/useNFT";
+import NFTSellRequestContainer from "./index.container";
 
-import { priceType } from '../../../constants';
-import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
-import { useForm } from 'react-hook-form';
-import useWeb3 from '../../../hooks/useWeb3';
-import { useSelector } from 'react-redux';
-import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
+import { priceType } from "../../../constants";
+import { sellReqStatuses } from "../../../constants/sellRequestStatuses";
+import { useForm } from "react-hook-form";
+import useWeb3 from "../../../hooks/useWeb3";
+import { useSelector } from "react-redux";
+import { awaitStatus } from "../../../components/Modals/SellModal/Pending/ConditionAwaitLabel";
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
-  { value: priceType.AUCTION.key, label: priceType.AUCTION.value }
+  { value: priceType.AUCTION.key, label: priceType.AUCTION.value },
 ];
 
 const NFTSellRequest = () => {
-  const { id, contract_address } = useParams();
+  const { id, contract_address, previewImgSrc } = useParams();
+
+  const prevImgSrc = `blob:http://localhost:3000/${previewImgSrc}`;
 
   const { account } = useSelector((store) => store.wallet);
 
   const { detail, loadingDetail, refetchDetail } = useNFTAPI({
     id: id,
-    contractAddress: contract_address
+    contractAddress: contract_address,
   });
 
   const {
     data: history,
     isLoading: loadingHistory,
-    refetch
+    refetch,
   } = useNFTHistoryAPI({
     tokenId: id,
-    contractAddress: contract_address
+    contractAddress: contract_address,
   });
 
   const { control, getValues } = useForm({
-    price: ''
+    price: "",
   });
 
   const { checkAllowance721, makeApprove721, sell, cancel } = useWeb3();
@@ -59,7 +61,7 @@ const NFTSellRequest = () => {
   const isCancel = status?.includes(sellReqStatuses.CANCEL);
 
   const clear = () => {
-    setError('');
+    setError("");
     setIsListing(awaitStatus.INITIAL);
     setIsApprove(awaitStatus.INITIAL);
     setIsCanceling(awaitStatus.INITIAL);
@@ -87,7 +89,7 @@ const NFTSellRequest = () => {
     setIsListing(awaitStatus.PENDING);
 
     try {
-      const res = await sell(contract_address, id, getValues('price'));
+      const res = await sell(contract_address, id, getValues("price"));
 
       if (!!res) {
         setIsListing(awaitStatus.COMPLETE);
@@ -132,11 +134,11 @@ const NFTSellRequest = () => {
   };
 
   const handeConfirm = () => {
-    setError('');
-    const price = getValues('price');
+    setError("");
+    const price = getValues("price");
     const floorPrice = detail?.data?.collection?.floor_price;
 
-    if (!getValues('price') && !isCancel) return alert('Fill the price form');
+    if (!getValues("price") && !isCancel) return alert("Fill the price form");
     if (floorPrice > price)
       return alert(`Price should be greater or equal to ${floorPrice} CYCON`);
 
@@ -149,7 +151,7 @@ const NFTSellRequest = () => {
 
   useEffect(() => {
     if (!openModal) clear();
-    setError('');
+    setError("");
   }, [openModal]);
 
   useEffect(() => {
@@ -169,6 +171,7 @@ const NFTSellRequest = () => {
 
   return (
     <NFTSellRequestContainer
+      previewImgSrc={prevImgSrc}
       nft={detail?.data?.nft}
       market={detail?.data?.market}
       collection={detail?.data?.collection}
@@ -188,7 +191,7 @@ const NFTSellRequest = () => {
       isListing={isListing}
       isCanceling={isCanceling}
       error={error}
-      sellPrice={getValues('price')}
+      sellPrice={getValues("price")}
       isCancel={isCancel}
     />
   );

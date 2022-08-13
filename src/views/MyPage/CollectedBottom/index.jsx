@@ -15,6 +15,7 @@ const CollectedBottom = () => {
     type: "COLLECTED",
     size: 20000,
   });
+  console.log(list?.data?.items.length, list?.data?.items[0].nft.token_id);
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>

@@ -7,6 +7,7 @@ import nft1Img from '../../../../assets/images/nft1.png';
 import classNames from 'classnames';
 
 const CollectionDetailImage = ({
+  previewImgSrc,
   price = 1000,
   img = nft1Img,
   alt = 'nft picture',
@@ -26,7 +27,7 @@ const CollectionDetailImage = ({
         {price}
         {isPurchased ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
       </Typography>
-      <img src={img} alt={alt} height={554} width="100%" {...props} />
+      <img src={previewImgSrc ? previewImgSrc: img} alt={alt} height={554} width="100%" {...props} />
     </Box>
   );
 };
