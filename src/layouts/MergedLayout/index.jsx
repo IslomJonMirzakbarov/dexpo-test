@@ -50,7 +50,7 @@ const MergedLayout = ({ children }) => {
         window.location.reload();
       });
       window.ethereum.on('accountsChanged', (accounts) => {
-        if (account.includes(accounts[0])) return;
+        if (account?.includes(accounts[0])) return;
 
         dispatch(setAccount(accounts[0]));
         connectWallet('metamask');
