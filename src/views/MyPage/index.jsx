@@ -17,6 +17,8 @@ import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
+import ClickableTooltip from "../../components/ClickableTooltip";
+import classNames from "classnames";
 
 const MyPage = () => {
   const { id } = useParams();
@@ -49,6 +51,14 @@ const MyPage = () => {
     tab?.value !== "favorites" &&
     tab?.value !== "listedArtworks";
 
+  const [showCopied, setShowCopied] = useState(false);
+
+  const copyToClipboard = (copyText) => {
+    navigator.clipboard.writeText(copyText);
+    setShowCopied(true);
+    setTimeout(() => setShowCopied(false), 1000);
+  };
+
   return (
     <Box className={styles.Container}>
       <Box className={styles.SettingsIconContainer}>
@@ -63,7 +73,17 @@ const MyPage = () => {
         <Box className={styles.UserName}>
           {artist ? artist?.data?.artist_name : "UserName"}
         </Box>
-        <Box className={styles.WalletAddress}>{walletAddress || ""}</Box>
+        <Box
+          className={styles.WalletAddress}
+          onClick={() => {
+            copyToClipboard(artist?.data?.wallet_address);
+          }}
+        >
+          {showCopied && (
+            <div className={classNames(styles.CopiedText)}>Copied</div>
+          )}
+          {walletAddress || ""}
+        </Box>
         <Box className={styles.Bio}>Bio</Box>
         <Box className={styles.BioDescription}>{artist?.data?.description}</Box>
       </Box>

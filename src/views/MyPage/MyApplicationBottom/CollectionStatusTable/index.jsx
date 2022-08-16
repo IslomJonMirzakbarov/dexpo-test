@@ -13,6 +13,7 @@ const CollectionStatusTable = () => {
     orderBy: "desc",
     size: 200,
   });
+  //   console.log(collections?.data?.items[0]?.logo_url);
   return (
     <table className={styles.Table}>
       <thead className={styles.TableHead}>
@@ -35,11 +36,15 @@ const CollectionStatusTable = () => {
             return (
               <tr className={styles.TableBodyRow}>
                 <td>
-                  <img
-                    src={item?.logo_url}
-                    alt="collection logo"
-                    className={styles.Svg}
-                  />
+                  {item?.logo_url ? (
+                    <img
+                      src={item?.logo_url}
+                      alt="collection logo"
+                      className={styles.Svg}
+                    />
+                  ) : (
+                    <CollectionStatusSvg className={styles.Svg} />
+                  )}
                   {item.name}
                 </td>
                 <td

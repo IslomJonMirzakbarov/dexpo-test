@@ -70,6 +70,10 @@
         line-height: 22px;
         color: colors.$greyBg;
 
+        svg {
+         padding-left: 0;
+        }
+
         .Svg {
           padding-left: 0;
           border-radius: 50%;
