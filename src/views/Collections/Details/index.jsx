@@ -8,9 +8,10 @@ import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
 import useWeb3 from '../../../hooks/useWeb3';
 import Loader from '../../../components/Loader';
 import useNFTAPI from '../../../hooks/useNFT';
-import { id } from 'date-fns/locale';
+
 import NoItemsFound from '../../../components/NoItems';
 import { useSelector } from 'react-redux';
+import { Box } from '@mui/material';
 
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
@@ -110,7 +111,17 @@ const CollectionDetails = () => {
 
   if (loadingDetail || loadingHistory) return <Loader />;
 
-  if (isNotExist) return <NoItemsFound />;
+  if (isNotExist)
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        height="80vh"
+      >
+        <NoItemsFound />
+      </Box>
+    );
 
   return (
     <CollectionDetailsContainer

@@ -21,7 +21,12 @@ const CancelFooter = ({ onBack, onContinue, loading, type }) => {
 
   return (
     <Box display="flex">
-      <Button fullWidth className={classes.pendingButton} onClick={onBack}>
+      <Button
+        fullWidth
+        className={classes.pendingButton}
+        onClick={onBack}
+        sx={{ cursor: 'pointer!important' }}
+      >
         <Typography variant="placeholder" fontWeight={600}>
           Go back
         </Typography>

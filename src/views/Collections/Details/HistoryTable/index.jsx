@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     backgroundColor: theme.palette.grey[1600],
-    padding: '10px 30px',
+    padding: '11px 26px',
     border: `1px solid ${theme.palette.grey[1500]}`,
     borderRadius: '7px 7px 0px 0px'
   },
@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent',
     '& tr': {
       borderRadius: '0!important'
+    },
+    '& td': {
+      padding: '18px 26px'
     }
   }
 }));

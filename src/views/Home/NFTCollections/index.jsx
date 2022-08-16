@@ -33,7 +33,9 @@ const NFTCollections = ({ collections, hottestCollections }) => {
             alignItems="center"
             mb={5}
           >
-            <Typography variant="h2">Hottest Artworks</Typography>
+            <Typography variant="h2" fontWeight={700}>
+              Hottest Artworks
+            </Typography>
           </Box>
           <Box className={styles.collection}>
             {hottestCollections?.length < 5 ? (
@@ -110,7 +112,9 @@ const NFTCollections = ({ collections, hottestCollections }) => {
             alignItems="center"
             mb={5}
           >
-            <Typography variant="h2">Notable Artworks</Typography>
+            <Typography variant="h2" fontWeight={700}>
+              Notable Artworks
+            </Typography>
           </Box>
           <Box className={styles.collection}>
             {collections?.length < 5 ? (

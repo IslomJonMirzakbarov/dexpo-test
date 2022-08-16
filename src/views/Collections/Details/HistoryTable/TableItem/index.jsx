@@ -40,6 +40,7 @@ const eventTypes = {
 
 const useStyles = makeStyles((theme) => ({
   cell: {
+    padding: '18px 26px',
     '& svg': {
       width: 32
     }
@@ -72,7 +73,7 @@ const HistoryTableItem = ({
           </Typography>
         </Box>
       </CTableCell>
-      <CTableCell>
+      <CTableCell className={classes.cell}>
         {amount && (
           <>
             <Typography variant="placeholder" fontWeight={700}>
@@ -88,7 +89,7 @@ const HistoryTableItem = ({
           </>
         )}
       </CTableCell>
-      <CTableCell>
+      <CTableCell className={classes.cell}>
         {price && (
           <Typography variant="placeholder" fontWeight={500}>
             <NumberFormat
@@ -100,7 +101,7 @@ const HistoryTableItem = ({
           </Typography>
         )}
       </CTableCell>
-      <CTableCell>
+      <CTableCell className={classes.cell}>
         <Typography
           variant="placeholder"
           fontWeight={500}
@@ -116,7 +117,7 @@ const HistoryTableItem = ({
           </a>
         </Typography>
       </CTableCell>
-      <CTableCell>
+      <CTableCell className={classes.cell}>
         <Typography
           variant="placeholder"
           fontWeight={500}
@@ -132,7 +133,7 @@ const HistoryTableItem = ({
           </a>
         </Typography>
       </CTableCell>
-      <CTableCell>
+      <CTableCell className={classes.cell}>
         <Typography
           variant="placeholder"
           fontWeight={500}
@@ -148,7 +149,7 @@ const HistoryTableItem = ({
           </a>
         </Typography>
       </CTableCell>
-      <CTableCell>
+      <CTableCell className={classes.cell}>
         <Typography variant="placeholder" fontWeight={500}>
           {date}
         </Typography>

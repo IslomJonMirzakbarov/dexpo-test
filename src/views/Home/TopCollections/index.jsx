@@ -34,7 +34,9 @@ const TopCollections = ({ collections = [] }) => {
     <Paper variant="div" className={styles.container}>
       <Container maxWidth>
         <Box display="flex" justifyContent="center">
-          <Typography variant="h2">Top Collections</Typography>
+          <Typography variant="h2" fontWeight={700}>
+            Top Collections
+          </Typography>
         </Box>
         <Box display="flex" justifyContent="end" mt={2}>
           <DSelect

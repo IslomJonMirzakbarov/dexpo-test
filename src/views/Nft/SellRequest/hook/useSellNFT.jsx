@@ -42,13 +42,17 @@ const useSellNFT = ({
 
   const handleToggle = () => setOpenModal((prev) => !prev);
 
+  const handleRefetch = () => {
+    refetch();
+    refetchDetail();
+  };
+
   const clear = () => {
     setError('');
     setIsListing(awaitStatus.INITIAL);
     setIsApprove(awaitStatus.INITIAL);
     setIsCanceling(awaitStatus.INITIAL);
-    refetch();
-    refetchDetail();
+    handleRefetch();
   };
 
   const handleRequest = async () => {
@@ -65,14 +69,17 @@ const useSellNFT = ({
   };
 
   const handleContract = async () => {
+    setIsApprove(awaitStatus.PENDING);
     try {
       const approve = await makeApprove721(contract_address);
 
       if (!!approve) {
         handleSell();
+        setIsApprove(awaitStatus.COMPLETE);
       }
     } catch (err) {
       setError(err.message);
+      setIsApprove(awaitStatus.ERROR);
     }
   };
 
@@ -98,9 +105,9 @@ const useSellNFT = ({
     try {
       const allowance = await checkAllowance721(contract_address);
 
-      setIsApprove(allowance ? awaitStatus.COMPLETE : awaitStatus.INITIAL);
       if (allowance) {
         handleSell();
+        setIsApprove(awaitStatus.COMPLETE);
       } else {
         handleContract();
       }
@@ -134,6 +141,7 @@ const useSellNFT = ({
     if (isEmptyPriceField) return toast.error('Fill the price form');
 
     setError('');
+
     const price = getValues('price');
     const floorPrice = collection?.floor_price;
 

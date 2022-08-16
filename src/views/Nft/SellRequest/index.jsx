@@ -21,10 +21,14 @@ const types = [
 const NFTSellRequest = () => {
   const { id, contract_address, previewImgSrc } = useParams();
   console.log(previewImgSrc);
-
-  // const prevImgSrc = `blob:http://localhost:3000/${previewImgSrc}`;
-
-  const { detail, loadingDetail, refetchDetail } = useNFTAPI({
+  
+  const {
+    detail,
+    loadingDetail,
+    refetchDetail,
+    isFetchingDetail,
+    isFetchingHistory
+  } = useNFTAPI({
     id: id,
     contractAddress: contract_address,
   });
@@ -44,9 +48,11 @@ const NFTSellRequest = () => {
 
   const { market, nft, collection, artist } = detail?.data || {};
 
-  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
+  const loading = loadingDetail || loadingHistory;
 
-  const btnLabel = nftSellBtnLabels;
+  const fetching = isFetchingDetail || isFetchingHistory;
+
+  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
   const [status, setStatus] = useState();
   const [openModal, setOpenModal] = useState(false);
@@ -79,7 +85,7 @@ const NFTSellRequest = () => {
     market
   });
 
-  if (loadingDetail || loadingHistory) return <Loader />;
+  if (loading || fetching) return <Loader />;
 
   return (
     <NFTSellRequestContainer
@@ -106,7 +112,7 @@ const NFTSellRequest = () => {
       sellPrice={getValues("price")}
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
-      submitLabel={isCancel ? "Cancel" : btnLabel[marketStatus]}
+      submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
     />
   );
 };
