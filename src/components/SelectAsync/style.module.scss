@@ -1,0 +1,29 @@
+.Control {
+  background: #f3f3f3;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 7px;
+  padding: 11px 15px;
+
+  color: #7d8890;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 0.4s ease-in-out all;
+
+  span {
+    color: #000;
+    font-weight: 600;
+    transition: 0.4s ease-in-out all;
+  }
+
+  .Indicator {
+    color: #ff006b;
+  }
+
+  &.active,
+  &:hover {
+    background: #ffffff;
+    box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+  }
+}

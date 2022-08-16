@@ -119,18 +119,18 @@ const AbstractItem = () => {
       <motion.img
         src={heroCard2Img}
         className={classnames(classes.card1, classes.card2)}
-        animate="animate"
-        initial="hidden"
-        variants={card2Variant}
-        transition={card2Transition}
+        // animate="animate"
+        // initial="hidden"
+        // variants={card2Variant}
+        // transition={card2Transition}
       />
       <motion.img
         src={heroCard3Img}
         className={classnames(classes.card1, classes.card3)}
-        animate="animate"
-        initial="hidden"
-        variants={card3Variant}
-        transition={card3Transition}
+        // animate="animate"
+        // initial="hidden"
+        // variants={card3Variant}
+        // transition={card3Transition}
       />
       <motion.img
         className={classes.abstractBall}

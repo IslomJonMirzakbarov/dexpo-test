@@ -13,11 +13,31 @@
   justify-content: center;
   border-radius: 0;
 
+  .closeIcon {
+    position: fixed;
+    top: 35px;
+    right: 35px;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    cursor: pointer;
+  }
+
   .modal {
     background-color: #fff;
     border-radius: 7px;
     overflow: hidden;
     min-width: 480px;
+
+    &.expanded {
+      background-color: transparent;
+      width: 794px;
+      height: 80vh;
+
+      img {
+        object-fit: contain;
+      }
+    }
 
     .header {
       display: flex;

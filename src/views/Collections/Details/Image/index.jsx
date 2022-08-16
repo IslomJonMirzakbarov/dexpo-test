@@ -13,6 +13,7 @@ const CollectionDetailImage = ({
   alt = 'nft picture',
   isPurchased = false,
   isSoldOut,
+  onClick,
   ...props
 }) => {
   return (
@@ -27,7 +28,13 @@ const CollectionDetailImage = ({
         {price}
         {isPurchased ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
       </Typography>
-      <img src={previewImgSrc ? previewImgSrc: img} alt={alt} height={554} width="100%" {...props} />
+      <img
+        src={previewImgSrc ? previewImgSrc : img}
+        alt={alt}
+        height={554}
+        width="100%"
+        {...props}
+      />
     </Box>
   );
 };

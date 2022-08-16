@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
+import { Box, Checkbox, FormControl, Typography } from "@mui/material";
 import Web3 from "web3";
 import FormInputText from "../../../components/FormInputText";
 import ModalCard from "../../../components/ModalCard";
@@ -19,14 +11,14 @@ import { useNavigate } from "react-router-dom";
 import SingleABI from "../../../utils/abi/SingleABI";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import { useSelector } from "react-redux";
-import SelectIcon from "../../../assets/icons/select-icon.svg?component";
-import BlackDot from "../../../assets/icons/black-dot.svg?component";
 import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
 import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import useNFTCreateApi from "../../../hooks/useNFTCreateApi";
 import useNftAPI from "../../../hooks/useNftApi";
+import SelectAsync from "../../../components/SelectAsync";
+import CollectionOption from "./Option";
 
 const NftCreate = () => {
   const { collections } = useCollectionAPI({
@@ -56,7 +48,6 @@ const NftCreate = () => {
   console.log(uploadedImg?.preview);
 
   const [errBool, setErrBool] = useState(false);
-  const [chosen, setChosen] = useState(false);
   const [rejected, setRejected] = useState(false);
   const [resChecker, setResChecker] = useState(null);
   const [stopChecker, setStopChecker] = useState(null);
@@ -74,7 +65,7 @@ const NftCreate = () => {
         setNewItemConAd(response?.to);
         setResponseChecker(true);
       }
-    }, 1500);
+    }, 1000);
   }
 
   if (stopChecker) {
@@ -119,7 +110,7 @@ const NftCreate = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    setContractAddress(data.collection);
+    // setContractAddress(data.collection);
     setArtName(data.artworkName);
     data["imageFile"] = uploadedImg;
 
@@ -167,7 +158,6 @@ const NftCreate = () => {
             if (err) {
               setRejected(true);
             }
-            // transactionHash = res;
             if (res) {
               setResChecker(res);
               if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
@@ -182,7 +172,15 @@ const NftCreate = () => {
     };
     nftMint();
     return () => {};
-  }, [account, contractAddress, create?.isSuccess, metadata]);
+  }, [
+    account,
+    contractAddress,
+    create?.isSuccess,
+    errorChecker,
+    metadata,
+    reset,
+    uploadedImg,
+  ]);
 
   return (
     <Box className={styles.Container}>
@@ -234,51 +232,20 @@ const NftCreate = () => {
                 rules={{ required: true }}
                 render={({ field }) => {
                   return (
-                    <Box className={styles.CollectionFormSelect}>
-                      <InputLabel className={styles.SelectCollection}>
-                        Select Collection
-                      </InputLabel>
-                      <Select
-                        fullWidth
-                        {...field}
-                        className={styles.SelectType}
-                        variant="filled"
-                        disableUnderline
-                        IconComponent={SelectIcon}
-                      >
-                        {approvedCollectionList &&
-                          approvedCollectionList.map((collectionItem) => {
-                            return (
-                              <MenuItem
-                                style={{
-                                  width: 650,
-                                  backgroundColor: "#FF006B",
-                                  fontWeight: "500",
-                                  fontSize: 15,
-                                  lineHeight: 22,
-                                  color: "#ffffff",
-                                  height: 45,
-                                  borderRadius: 7,
-                                }}
-                                onClick={() => setChosen(true)}
-                                key={collectionItem.collection_id}
-                                value={collectionItem.contract_address}
-                              >
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 12,
-                                  }}
-                                >
-                                  {!chosen && <BlackDot />}
-                                  {collectionItem.name}
-                                </Box>
-                              </MenuItem>
-                            );
-                          })}
-                      </Select>
-                    </Box>
+                    <SelectAsync
+                      {...field}
+                      options={approvedCollectionList}
+                      getOptionLabel={(item) => {
+                        setContractAddress(item.contract_address);
+                        return item.name;
+                      }}
+                      getOptionValue={(item) => item.contract_id}
+                      shouldControlInputValue={false}
+                      placeholder="Select Collection"
+                      components={{
+                        Option: CollectionOption,
+                      }}
+                    />
                   );
                 }}
               />

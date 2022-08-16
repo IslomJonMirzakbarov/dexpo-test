@@ -1,12 +1,12 @@
-import React from "react";
-import CollectionItem from "../views/Collections/Item";
+import React from 'react';
+import CollectionItem from '../views/Collections/Item';
 
 export const collectionRoutes = {
-  path: "collections",
+  path: 'collections',
   children: [
     {
-      path: ":id",
-      element: <CollectionItem />,
-    },
-  ],
+      path: ':id',
+      element: <CollectionItem />
+    }
+  ]
 };

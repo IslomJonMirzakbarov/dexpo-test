@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import NumberFormat from "react-number-format";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-
 import styles from "./style.module.scss";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import TokenImg from "../../assets/images/con-token.svg?component";
 import conTokenImg from "../../assets/images/con-token.svg";
 import classNames from "classnames";
 import { calculateDeadline } from "../../utils/deadline";
@@ -31,10 +31,10 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = "containedInherit",
+  buttonVariant = 'containedInherit',
   isDefault = false,
   tokenId,
-  contractAddress,
+  contractAddress
 }) => {
   const { likedNfts } = useSelector((store) => store.nft);
   const dispatch = useDispatch();
@@ -53,25 +53,21 @@ const NFTCard = ({
       setLikeCount(postDislike?.data?.data?.data?.like_count);
       dispatch(setDislikedNfts(tokenId));
     }
-  }, [
-    dispatch,
-    postDislike?.data?.data?.data?.like_count,
-    postDislike.isSuccess,
-    tokenId,
-  ]);
+  }, [dispatch, postDislike?.data?.data?.data?.like_count, postDislike.isSuccess, tokenId]);
 
   // please do not merge above useEffects, they work separately
+  // okay)
 
   const likeClick = () => {
     if (likedNfts.includes(tokenId)) {
       postDislike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId,
+        token_id: tokenId
       });
     } else {
       postLike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId,
+        token_id: tokenId
       });
     }
   };
@@ -82,9 +78,9 @@ const NFTCard = ({
   return (
     <Box
       className={classNames(styles.card, {
-        [styles.CollectedCard]: page === "collectedBottom",
+        [styles.CollectedCard]: page === 'collectedBottom',
         [styles.minified]: !price,
-        [styles.default]: isDefault,
+        [styles.default]: isDefault
       })}
     >
       <Box className={styles.header} onClick={onClick}>
@@ -98,39 +94,47 @@ const NFTCard = ({
         )}
       </Box>
       <Box className={styles.wrapper}>
-        <Box className={classNames(styles.body, { [styles.last]: !price })}>
-          <div className={styles.artist}>
-            <span className={styles.name}>{artistName}</span>
-            <Typography variant="placeholder" fontWeight={500}>
-              {description}
-            </Typography>
-          </div>
-          <div className={styles.actions}>
-            <span
-              className={classNames(styles.count, { [styles.liked]: liked })}
-            >
-              <NumberFormat
-                value={likeCount}
-                displayType={"text"}
-                decimalScale={3}
-                thousandSeparator={true}
-              />
-              <div className={styles.LikeSvg} onClick={() => likeClick()}>
-                {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
-              </div>
-            </span>
-            <div className={styles.price}>
-              {price && (
-                <>
-                  <img src={conTokenImg} alt="token" />
-                  <NumberFormat
-                    value={price}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                  />
-                </>
-              )}
+        <Box display="flex" flexDirection="column">
+          <Box className={classNames(styles.body, { [styles.last]: !price })}>
+            <div className={styles.artist}>
+              <span className={styles.name}>{artistName}</span>
+              <Typography variant="placeholder" fontWeight={500}>
+                {description}
+              </Typography>
             </div>
+            <div className={styles.actions}>
+              <span
+                className={classNames(styles.count, { [styles.liked]: liked })}
+              >
+                <NumberFormat
+                  value={likeCount}
+                  displayType={'text'}
+                  decimalScale={3}
+                  thousandSeparator={true}
+                />
+                <div className={styles.LikeSvg} onClick={() => likeClick()}>
+                  {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+                </div>
+              </span>
+            </div>
+          </Box>
+          <div className={styles.price}>
+            {price && (
+              <>
+                <TokenImg
+                  className={styles.coin}
+                  style={{
+                    width: 16,
+                    height: 16
+                  }}
+                />
+                <NumberFormat
+                  value={price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                />
+              </>
+            )}
           </div>
         </Box>
         {hasAction && (

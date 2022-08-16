@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import styles from "./style.module.scss";
-import FormInputText from "../../components/FormInputText";
-import { Box, Container } from "@mui/system";
-import useArtistAPI from "../../hooks/useArtistAPI";
-import PrimaryButton from "../../components/Buttons/PrimaryButton";
-import { useDispatch, useSelector } from "react-redux";
-import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { togglePopupByKey } from "../../store/popup/popup.slice";
-import SubmittedModal from "../../components/Modals/SubmittedModal";
-import RejectedModal from "../../components/Modals/RejectedModal";
-import Loader from "../../components/Loader";
-import classNames from "classnames";
+import styles from './style.module.scss';
+import FormInputText from '../../components/FormInputText';
+import { Box, Container } from '@mui/system';
+import useArtistAPI from '../../hooks/useArtistAPI';
+import PrimaryButton from '../../components/Buttons/PrimaryButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { togglePopupByKey } from '../../store/popup/popup.slice';
+import SubmittedModal from '../../components/Modals/SubmittedModal';
+import RejectedModal from '../../components/Modals/RejectedModal';
+import Loader from '../../components/Loader';
+import classNames from 'classnames';
 
 const ArtistForm = () => {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const ArtistForm = () => {
 
   const [rejectCasePopup, setRejectCasePopup] = useState(false);
   const { create, artist, isLoading } = useArtistAPI({ isDetail: true });
+
   const isRejected = artist?.data?.status === "REJECT";
   const isPending =
     artist?.data?.status === "IDLE" || artist?.data?.status === "PENDING";
@@ -143,8 +144,9 @@ const ArtistForm = () => {
           <Box>
             <PrimaryButton
               className={classNames(styles.Btn, {
-                [styles.BtnErrorFree]: Object.keys(errors).length === 0,
+                [styles.BtnErrorFree]: Object.keys(errors).length === 0
               })}
+              disabled={isPending || isRejected}
             >
               Submit
             </PrimaryButton>

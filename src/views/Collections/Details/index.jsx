@@ -9,11 +9,14 @@ import useWeb3 from '../../../hooks/useWeb3';
 import Loader from '../../../components/Loader';
 import useNFTAPI from '../../../hooks/useNFT';
 import { id } from 'date-fns/locale';
+import NoItemsFound from '../../../components/NoItems';
+import { useSelector } from 'react-redux';
 
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const params = useParams();
+  const { account } = useSelector((store) => store.wallet);
   const { detail, loadingDetail, refetchDetail } = useNFTAPI({
     id: params?.id,
     contractAddress: params?.contract_address
@@ -29,6 +32,9 @@ const CollectionDetails = () => {
   });
 
   const isSoldOut = !detail?.data?.market?.price;
+  const isNotExist = detail?.message?.includes('NOT_EXIST');
+  const isPurchaseBtnDisabled =
+    detail?.data?.market?.seller_address?.includes(account);
 
   const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
 
@@ -104,6 +110,8 @@ const CollectionDetails = () => {
 
   if (loadingDetail || loadingHistory) return <Loader />;
 
+  if (isNotExist) return <NoItemsFound />;
+
   return (
     <CollectionDetailsContainer
       data={detail?.data}
@@ -116,6 +124,7 @@ const CollectionDetails = () => {
       openModal={openModal}
       toggle={toggle}
       error={error}
+      isDisabled={isPurchaseBtnDisabled}
     />
   );
 };

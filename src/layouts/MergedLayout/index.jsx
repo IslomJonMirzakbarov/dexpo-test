@@ -19,7 +19,6 @@ import { setArtist } from '../../store/artist/artist.slice';
 
 import { logout } from '../../store/auth/auth.slice';
 import { setAccount } from '../../store/wallet/wallet.slice';
-import useDidMount from '../../hooks/useDidMount';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
@@ -51,7 +50,7 @@ const MergedLayout = ({ children }) => {
         window.location.reload();
       });
       window.ethereum.on('accountsChanged', (accounts) => {
-        if (account.includes(accounts[0])) return;
+        if (account?.includes(accounts[0])) return;
 
         dispatch(setAccount(accounts[0]));
         connectWallet('metamask');
@@ -60,6 +59,7 @@ const MergedLayout = ({ children }) => {
   };
 
   const handleGetArtist = async () => {
+    if (!token) return;
     try {
       const { data } = await securedAPI(token).get('/api/artist/detail');
 
@@ -71,6 +71,8 @@ const MergedLayout = ({ children }) => {
 
       if (data?.message?.includes('EXPIRED_TOKEN')) {
         dispatch(logout());
+        dispatch(setAccount(null));
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);
