@@ -43,8 +43,8 @@ const CollectionDetails = () => {
     () =>
       moreNFTs?.filter(
         ({ nft, collection }) =>
-          nft?.token_id !== params?.id &&
-          !collection?.contract_address.includes(params?.contract_address)
+          nft?.token_id !== Number(params?.id) &&
+          collection?.contract_address?.includes(params?.contract_address)
       ),
     [moreNFTs]
   );
@@ -69,9 +69,9 @@ const CollectionDetails = () => {
 
   const handlePurchase = async () => {
     setStatus(checkoutStatuses.PROCESSING);
+
     try {
       const res = await purchase(params?.contract_address, params?.id);
-
       if (!!res) {
         setTxHash(res.transactionHash);
         setStatus(checkoutStatuses.COMPLETE);

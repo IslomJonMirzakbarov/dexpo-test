@@ -33,6 +33,7 @@ const CollectionDetailImage = ({
         alt={alt}
         height={554}
         width="100%"
+        onClick={onClick}
         {...props}
       />
     </Box>
