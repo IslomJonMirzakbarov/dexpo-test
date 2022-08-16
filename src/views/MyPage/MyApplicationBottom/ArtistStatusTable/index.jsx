@@ -23,21 +23,23 @@ const ArtistStatusTable = ({ artist }) => {
         </tr>
       </thead>
 
-      <tbody className={styles.TableBody}>
-        <tr className={styles.TableBodyRow}>
-          <td>{artist?.data?.artist_email}</td>
-          <td
-            className={classNames(
-              styles.UnderReview,
-              { [styles.Approved]: artistStatus === "COMPLETE" },
-              { [styles.Rejected]: artistStatus === "REJECT" }
-            )}
-          >
-            {aSt}
-          </td>
-          <td>{fdate}</td>
-        </tr>
-      </tbody>
+      {artist?.data?.artist_email && (
+        <tbody className={styles.TableBody}>
+          <tr className={styles.TableBodyRow}>
+            <td>{artist?.data?.artist_email}</td>
+            <td
+              className={classNames(
+                styles.UnderReview,
+                { [styles.Approved]: artistStatus === "COMPLETE" },
+                { [styles.Rejected]: artistStatus === "REJECT" }
+              )}
+            >
+              {aSt}
+            </td>
+            <td>{fdate}</td>
+          </tr>
+        </tbody>
+      )}
     </table>
   );
 };
