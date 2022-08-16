@@ -64,22 +64,8 @@ const useStyles = makeStyles((theme) => ({
 const CarouselItem = ({ item }) => {
   const { token } = useSelector((store) => store.auth);
   const classes = useStyles();
-  const [active, setActive] = useState(['h4']);
+  const [active] = useState(['h2', 'h4', 'p']);
   const { artist } = useArtistAPI({ isDetail: true });
-
-  useEffect(() => {
-    if (active.length === 3) return;
-
-    const interval = setInterval(() => {
-      if (active.includes('h4')) setActive(['h2']);
-      if (active.includes('h2')) setActive(['p']);
-      if (active.includes('p')) setActive(['h2', 'h4', 'p']);
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [active]);
 
   const notAuthencticated =
     token === null || artist?.message === 'EXPIRED_TOKEN';

@@ -1,22 +1,23 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
-import React, { useMemo, useState } from "react";
-import styles from "./style.module.scss";
-import { makeStyles } from "@mui/styles";
-import ValueTable from "../../Collections/Details/ValueTable";
-import HistoryTable from "../../Collections/Details/HistoryTable";
-import CollectionDetailsInfo from "../../Collections/Details/Info";
-import CollectionDetailImage from "../../Collections/Details/Image";
-import Countdown from "../../../components/Countdown";
-import NumberFormat from "react-number-format";
-import tokenImg from "../../../assets/images/con-token.png";
-import { priceType, priceTypeChar } from "../../../constants";
-import { sellReqStatuses } from "../../../constants/sellRequestStatuses";
-import PriceInput from "../../../components/PriceInput";
-import DRangePicker from "../../../components/DRangePicker";
-import SellModal from "../../../components/Modals/SellModal";
-import { useTheme } from "@emotion/react";
-import moment from "moment";
-import DModal from "../../../components/DModal";
+import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import styles from './style.module.scss';
+import { makeStyles } from '@mui/styles';
+import ValueTable from '../../Collections/Details/ValueTable';
+import HistoryTable from '../../Collections/Details/HistoryTable';
+import CollectionDetailsInfo from '../../Collections/Details/Info';
+import CollectionDetailImage from '../../Collections/Details/Image';
+import Countdown from '../../../components/Countdown';
+import NumberFormat from 'react-number-format';
+import tokenImg from '../../../assets/images/con-token.png';
+import { priceType, priceTypeChar } from '../../../constants';
+
+import PriceInput from '../../../components/PriceInput';
+import DRangePicker from '../../../components/DRangePicker';
+import SellModal from '../../../components/Modals/SellModal';
+import { useTheme } from '@emotion/react';
+import moment from 'moment';
+import DModal from '../../../components/DModal';
+
 
 const DATE_FORMAT = "DD-MM-yyyy hh:mm:ss";
 
@@ -146,6 +147,7 @@ const NFTSellRequestContainer = ({
               sellType={type}
               types={types}
               handleChangeType={handleChangeType}
+              hideSelect={isDisabled}
             />
             <Box display="flex" justifyContent="space-between">
               <Box className={classes.box} mr={3}>

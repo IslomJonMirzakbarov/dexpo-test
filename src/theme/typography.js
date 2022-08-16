@@ -76,8 +76,8 @@ const typography = {
   },
   body2: {
     fontWeight: 500,
-    lineHeight: 24 / 16.5,
-    fontSize: pxToRem(19)
+    lineHeight: '22px',
+    fontSize: '15px'
   },
   caption: {
     lineHeight: 1.5,
@@ -98,8 +98,8 @@ const typography = {
   },
   placeholder: {
     fontWeight: 300,
-    lineHeight: 24 / 16.5,
-    fontSize: pxToRem(19)
+    lineHeight: '22px',
+    fontSize: '15px'
   },
   modalTitle: {
     fontWeight: 700,
