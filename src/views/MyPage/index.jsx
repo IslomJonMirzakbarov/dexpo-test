@@ -17,7 +17,6 @@ import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
-import ClickableTooltip from "../../components/ClickableTooltip";
 import classNames from "classnames";
 
 const MyPage = () => {

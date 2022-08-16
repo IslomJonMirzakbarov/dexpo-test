@@ -23,7 +23,6 @@ const FavoritesBottom = () => {
           <Loader page="my-page" />
         ) : (
           list?.data?.items.map((nftItem, index) => {
-            console.log(nftItem);
             return (
               <Grid item xs={4} sm={4} md={4} key={index}>
                 <NFTCard

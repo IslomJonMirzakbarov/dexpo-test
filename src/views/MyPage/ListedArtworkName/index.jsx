@@ -53,7 +53,10 @@ const ListedArtworkBottom = () => {
                       `/user/nft/${item?.nft?.token_id}/${item?.collection?.contract_address}`
                     );
                   return (
-                    <tr className={styles.TableBodyRow}>
+                    <tr
+                      className={styles.TableBodyRow}
+                      key={item?.nft?.token_id}
+                    >
                       <td onClick={navigateClick}>
                         <img src={item?.nft?.token_image} alt="img" />
                       </td>

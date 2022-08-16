@@ -13,7 +13,7 @@ const CollectionStatusTable = () => {
     orderBy: "desc",
     size: 200,
   });
-  //   console.log(collections?.data?.items[0]?.logo_url);
+  const collectionItems = collections?.data?.items;
   return (
     <table className={styles.Table}>
       <thead className={styles.TableHead}>
@@ -25,8 +25,8 @@ const CollectionStatusTable = () => {
       </thead>
 
       <tbody className={styles.TableBody}>
-        {collections?.data?.items.length > 0 &&
-          collections?.data?.items.map((item) => {
+        {collectionItems.length > 0 &&
+          collectionItems.map((item) => {
             const itemStatus =
               item.status === "IDLE" || item.status === "PENDING"
                 ? "Under Review"

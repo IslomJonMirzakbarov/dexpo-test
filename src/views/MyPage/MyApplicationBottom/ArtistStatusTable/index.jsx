@@ -7,7 +7,7 @@ import styles from "./style.module.scss";
 const ArtistStatusTable = ({ artist }) => {
   const fdate = moment(artist?.data?.created_at).format("YYYY.MM.DD hh:mm:ss");
   const artistStatus = artist?.data?.status;
-  const aSt =
+  const ArtistStatus =
     artistStatus === "IDLE" || artistStatus === "PENDING"
       ? "Under Review"
       : artistStatus === "REJECT"
@@ -34,7 +34,7 @@ const ArtistStatusTable = ({ artist }) => {
                 { [styles.Rejected]: artistStatus === "REJECT" }
               )}
             >
-              {aSt}
+              {ArtistStatus}
             </td>
             <td>{fdate}</td>
           </tr>

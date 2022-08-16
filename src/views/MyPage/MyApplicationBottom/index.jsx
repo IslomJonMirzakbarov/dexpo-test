@@ -14,6 +14,12 @@ const Btns = {
   SELL_REQUEST: "Sell Request",
 };
 
+const statuses = {
+  artist_status: "ARTIST_STATUS",
+  collection_status: "COLLECTION_STATUS",
+  sell_request: "SELL_REQUEST",
+};
+
 const MyApplicationBottom = ({ artist, id }) => {
   const { collections } = useCollectionAPI({
     isDetail: true,
@@ -25,16 +31,16 @@ const MyApplicationBottom = ({ artist, id }) => {
   let statusWord;
   switch (id) {
     case "artist-status":
-      statusWord = "ARTIST_STATUS";
+      statusWord = statuses.artist_status;
       break;
     case "collection-status":
-      statusWord = "COLLECTION_STATUS";
+      statusWord = statuses.collection_status;
       break;
     case "sell-request":
-      statusWord = "SELL_REQUEST";
+      statusWord = statuses.sell_request;
       break;
     default:
-      statusWord = "ARTIST_STATUS";
+      statusWord = statuses.artist_status;
   }
 
   const [active, setActive] = useState(statusWord);
