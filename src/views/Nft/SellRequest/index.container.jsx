@@ -16,24 +16,25 @@ import DRangePicker from '../../../components/DRangePicker';
 import SellModal from '../../../components/Modals/SellModal';
 import { useTheme } from '@emotion/react';
 import moment from 'moment';
-import DModal from '../../../components/DModal';
+import DModal from "../../../components/DModal";
 
-const DATE_FORMAT = 'DD-MM-yyyy hh:mm:ss';
+const DATE_FORMAT = "DD-MM-yyyy hh:mm:ss";
 
 const useStyles = makeStyles({
   priceBox: {
-    marginTop: 61
+    marginTop: 61,
   },
   box: {
-    width: '50%'
+    width: "50%",
   },
   button: {
-    padding: '16px 0',
-    marginTop: 17
-  }
+    padding: "16px 0",
+    marginTop: 17,
+  },
 });
 
 const NFTSellRequestContainer = ({
+  previewImgSrc,
   history,
   types,
   type,
@@ -56,7 +57,7 @@ const NFTSellRequestContainer = ({
   sellPrice,
   isCancel,
   isDisabled,
-  submitLabel
+  submitLabel,
 }) => {
   const theme = useTheme();
 
@@ -73,10 +74,10 @@ const NFTSellRequestContainer = ({
   }, [market?.end_date]);
 
   const Inputs = () => (
-    <Box display="flex" flexDirection="column" sx={{ width: '100%' }}>
+    <Box display="flex" flexDirection="column" sx={{ width: "100%" }}>
       {!!type && <PriceInput control={control} name="price" />}
       {isAuction && (
-        <Box mt="15px" display="flex" sx={{ width: '100%' }}>
+        <Box mt="15px" display="flex" sx={{ width: "100%" }}>
           <DRangePicker
             closeOnSelect={true}
             placeholderText="Please select an auction period"
@@ -93,7 +94,7 @@ const NFTSellRequestContainer = ({
         <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
           <NumberFormat
             value={market?.price}
-            displayType={'text'}
+            displayType={"text"}
             thousandSeparator={true}
           />
         </Typography>
@@ -103,10 +104,10 @@ const NFTSellRequestContainer = ({
         fontWeight={500}
         color={theme.palette.grey[1000]}
       >
-        ( ${' '}
+        ( ${" "}
         <NumberFormat
           value={parsedPrice}
-          displayType={'text'}
+          displayType={"text"}
           thousandSeparator={true}
         />
         )
@@ -120,6 +121,7 @@ const NFTSellRequestContainer = ({
         <Grid container spacing={3}>
           <Grid item lg={5}>
             <CollectionDetailImage
+              previewImgSrc={previewImgSrc}
               price={nft?.like_count}
               img={nft?.token_image}
               alt="nft picture"
@@ -170,16 +172,17 @@ const NFTSellRequestContainer = ({
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: '100%' }}
+                  sx={{ width: "100%" }}
                 >
                   {isCancel && market?.price && <SetPrice />}
                   <Button
                     className={classes.button}
-                    variant={isCancel ? 'outlined' : 'containedSecondary'}
+                    variant={isCancel ? "outlined" : "containedSecondary"}
                     fullWidth
                     onClick={isCancel ? toggle : handleClick}
                     disabled={isDisabled}
                   >
+                    {isCancel ? "Cancel" : "Sell Artwork"}
                     {submitLabel}
                   </Button>
                 </Box>

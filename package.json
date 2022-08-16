@@ -41,6 +41,7 @@
     "react-hook-form": "^7.33.0",
     "react-hot-toast": "^2.3.0",
     "react-i18next": "^11.16.7",
+    "react-lazy-load-image-component": "^1.5.5",
     "react-material-ui-carousel": "^3.4.2",
     "react-number-format": "^4.9.3",
     "react-query": "^3.39.1",

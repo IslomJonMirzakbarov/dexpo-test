@@ -15,11 +15,11 @@ const CollectedBottom = () => {
     type: "COLLECTED",
     size: 20000,
   });
-
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items.length === 0 ? null : list?.data?.items[0]?.request_type !== "COLLECTED" ? (
+        {list?.data?.items.length === 0 ? null : list?.data?.items[0]
+            ?.request_type !== "COLLECTED" ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items?.map((nftItem, index) => {

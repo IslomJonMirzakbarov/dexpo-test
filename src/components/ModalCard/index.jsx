@@ -3,9 +3,12 @@ import { Card, IconButton, Modal } from "@mui/material";
 import classNames from "classnames";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
+import SpinningIcon from "../../assets/icons/spinning-icon.svg?component";
+
 import styles from "./style.module.scss";
 
 const ModalCard = ({
+  responseChecker,
   page,
   nftImg,
   title,
@@ -20,11 +23,8 @@ const ModalCard = ({
     NFT_IMG_POPUP: "nft-img-popup",
   };
   const { ARTIST_FORM, CREATE_COLLECTION, NFT_CREATE, NFT_IMG_POPUP } = pages;
-  const SelectedPages = (
-    page === ARTIST_FORM ||
-    page === CREATE_COLLECTION ||
-    page === NFT_CREATE
-  );
+  const SelectedPages =
+    page === ARTIST_FORM || page === CREATE_COLLECTION || page === NFT_CREATE;
 
   return (
     <div>
@@ -61,7 +61,11 @@ const ModalCard = ({
                 className={styles.button}
                 onClick={onSaveButtonClick}
               >
-                {SelectedPages ? "Confirm" : "Save"}
+                {!responseChecker ? (
+                  <SpinningIcon className={styles.SpinningIcon} />
+                ) : (
+                  "Confirm"
+                )}
               </PrimaryButton>
             </dir>
           )}
