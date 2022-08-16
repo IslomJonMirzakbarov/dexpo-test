@@ -45,7 +45,7 @@ const NftCreate = () => {
   const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
-  console.log(uploadedImg?.preview);
+  // console.log(uploadedImg?.src);
 
   const [errBool, setErrBool] = useState(false);
   const [rejected, setRejected] = useState(false);
@@ -110,7 +110,6 @@ const NftCreate = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    // setContractAddress(data.collection);
     setArtName(data.artworkName);
     data["imageFile"] = uploadedImg;
 

@@ -20,8 +20,9 @@ const types = [
 
 const NFTSellRequest = () => {
   const { id, contract_address, previewImgSrc } = useParams();
+  console.log(previewImgSrc);
 
-  const prevImgSrc = `blob:http://localhost:3000/${previewImgSrc}`;
+  // const prevImgSrc = `blob:http://localhost:3000/${previewImgSrc}`;
 
   const { detail, loadingDetail, refetchDetail } = useNFTAPI({
     id: id,
@@ -82,7 +83,7 @@ const NFTSellRequest = () => {
 
   return (
     <NFTSellRequestContainer
-      previewImgSrc={prevImgSrc}
+      previewImgSrc={previewImgSrc}
       nft={nft}
       market={market}
       collection={collection}

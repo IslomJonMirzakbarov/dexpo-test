@@ -36,6 +36,10 @@ export const userRoutes = {
               path: ":previewImgSrc",
               element: <NFTSellRequest />,
             },
+            {
+              path: "*",
+              element: <NFTSellRequest />,
+            },
           ],
         },
       ],
