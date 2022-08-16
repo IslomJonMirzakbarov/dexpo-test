@@ -33,8 +33,8 @@ const NFTCard = ({
   tokenId,
   contractAddress
 }) => {
-  const { likedNfts } = useSelector((store) => store.nft);
   const dispatch = useDispatch();
+  const { likedNfts } = useSelector((store) => store.nft);
   const [likeCount, setLikeCount] = useState(purchaseCount);
   const { postLike, postDislike } = useNFTAPI({});
 

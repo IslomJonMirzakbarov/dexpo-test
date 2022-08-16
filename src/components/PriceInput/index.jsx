@@ -10,7 +10,7 @@ const PriceInput = ({ control, exchangedPrice = 1231232100, ...props }) => {
     <Paper className={styles.wrapper}>
       <Box className={styles.box}>
         <FormInputText
-          label="Please enter the bid price."
+          label="Please enter the selling price."
           control={control}
           type="number"
           className={styles.input}

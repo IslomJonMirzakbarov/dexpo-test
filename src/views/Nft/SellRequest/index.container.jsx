@@ -10,7 +10,7 @@ import Countdown from '../../../components/Countdown';
 import NumberFormat from 'react-number-format';
 import tokenImg from '../../../assets/images/con-token.png';
 import { priceType, priceTypeChar } from '../../../constants';
-import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
+
 import PriceInput from '../../../components/PriceInput';
 import DRangePicker from '../../../components/DRangePicker';
 import SellModal from '../../../components/Modals/SellModal';
@@ -144,6 +144,7 @@ const NFTSellRequestContainer = ({
               sellType={type}
               types={types}
               handleChangeType={handleChangeType}
+              hideSelect={isDisabled}
             />
             <Box display="flex" justifyContent="space-between">
               <Box className={classes.box} mr={3}>
