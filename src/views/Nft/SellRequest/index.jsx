@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
-import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import Loader from '../../../components/Loader';
-import useNFTAPI from '../../../hooks/useNFT';
-import NFTSellRequestContainer from './index.container';
+import useNFTHistoryAPI from "../../../hooks/useNFTHistoryAPI";
+import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
+import Loader from "../../../components/Loader";
+import useNFTAPI from "../../../hooks/useNFT";
+import NFTSellRequestContainer from "./index.container";
 
 import { priceType } from '../../../constants';
 import { useForm } from 'react-hook-form';
@@ -15,12 +15,13 @@ import useSellNFT from './hook/useSellNFT';
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
-  { value: priceType.AUCTION.key, label: priceType.AUCTION.value }
+  { value: priceType.AUCTION.key, label: priceType.AUCTION.value },
 ];
 
 const NFTSellRequest = () => {
-  const { id, contract_address } = useParams();
-
+  const { id, contract_address, previewImgSrc } = useParams();
+  console.log(previewImgSrc);
+  
   const {
     detail,
     loadingDetail,
@@ -29,20 +30,20 @@ const NFTSellRequest = () => {
     isFetchingHistory
   } = useNFTAPI({
     id: id,
-    contractAddress: contract_address
+    contractAddress: contract_address,
   });
 
   const {
     data: history,
     isLoading: loadingHistory,
-    refetch
+    refetch,
   } = useNFTHistoryAPI({
     tokenId: id,
-    contractAddress: contract_address
+    contractAddress: contract_address,
   });
 
   const { control, getValues } = useForm({
-    price: ''
+    price: "",
   });
 
   const { market, nft, collection, artist } = detail?.data || {};
@@ -88,6 +89,7 @@ const NFTSellRequest = () => {
 
   return (
     <NFTSellRequestContainer
+      previewImgSrc={previewImgSrc}
       nft={nft}
       market={market}
       collection={collection}
@@ -107,7 +109,7 @@ const NFTSellRequest = () => {
       isListing={isListing}
       isCanceling={isCanceling}
       error={error}
-      sellPrice={getValues('price')}
+      sellPrice={getValues("price")}
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
       submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}

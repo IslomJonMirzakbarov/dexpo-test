@@ -1,18 +1,19 @@
-import { Box, Typography } from '@mui/material';
-import classNames from 'classnames';
-import React from 'react';
-import Select from 'react-select';
-import styles from './style.module.scss';
-import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded';
+import { Box, Typography } from "@mui/material";
+import classNames from "classnames";
+import React from "react";
+import Select from "react-select";
+import styles from "./style.module.scss";
+import ExpandCircleDownRoundedIcon from "@mui/icons-material/ExpandCircleDownRounded";
 
 const ValueContainer = (item) => {
   const { selectProps } = item || {};
-  const { placeholder, value, getOptionLabel } = selectProps || {};
+  const { placeholder, value, getOptionLabel, getOptionValue } =
+    selectProps || {};
 
   const label = getOptionLabel(value);
 
   return (
-    <Typography variant="placeholder" fontWeight={400}>
+    <Typography variant="placeholder" fontWeight={400} onClick={getOptionValue}>
       {label || placeholder}
     </Typography>
   );
@@ -42,9 +43,9 @@ const MenuList = ({ children }) => {
     <Box
       p={0}
       sx={{
-        borderRadius: '7px',
-        overflow: 'hidden',
-        'box-shadow': '-1px 1px 16px 7px rgba(0, 0, 0, 0.06)'
+        borderRadius: "7px",
+        overflow: "hidden",
+        "box-shadow": "-1px 1px 16px 7px rgba(0, 0, 0, 0.06)",
       }}
     >
       {children}
@@ -62,7 +63,7 @@ const SelectAsync = (props) => {
         IndicatorSeparator: null,
         IndicatorsContainer,
         MenuList,
-        ...props.components
+        ...props.components,
       }}
     />
   );
