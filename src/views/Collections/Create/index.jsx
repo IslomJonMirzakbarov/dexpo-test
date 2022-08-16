@@ -76,7 +76,7 @@ const CollectionCreate = () => {
 
   const modalClick = () => {
     setShowModal(false);
-    navigate("/user/collections");
+    navigate("/user/my-page/collection-status");
   };
 
   return (
@@ -211,7 +211,6 @@ const CollectionCreate = () => {
           />
           <Box className={styles.LagInfo}>ex: (BAYC)</Box>
         </Box>
-        {/* <button>Submit</button> */}
         <Box className={styles.BtnErrorContainer}>
           <PrimaryButton
             className={classNames(styles.Btn, {
@@ -231,7 +230,11 @@ const CollectionCreate = () => {
         </Box>
       </form>
       {showModal && (
-        <ModalCard page="create-collection" onSaveButtonClick={modalClick}>
+        <ModalCard
+          responseChecker={true}
+          page="create-collection"
+          onSaveButtonClick={modalClick}
+        >
           <Box className={styles.IconContainer}>
             <CreateCollectionForm />
           </Box>
