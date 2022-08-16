@@ -43,8 +43,8 @@ const CollectionDetails = () => {
     () =>
       moreNFTs?.filter(
         ({ nft, collection }) =>
-          nft?.token_id !== params?.id &&
-          !collection?.contract_address.includes(params?.contract_address)
+          nft?.token_id !== Number(params?.id) &&
+          collection?.contract_address?.includes(params?.contract_address)
       ),
     [moreNFTs]
   );

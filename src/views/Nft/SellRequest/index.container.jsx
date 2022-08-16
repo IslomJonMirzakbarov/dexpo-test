@@ -77,8 +77,6 @@ const NFTSellRequestContainer = ({
     return moment(newDate).format(DATE_FORMAT);
   }, [market?.end_date]);
 
-  console.log(openImg);
-
   const Inputs = () => (
     <Box display="flex" flexDirection="column" sx={{ width: '100%' }}>
       {!!type && <PriceInput control={control} name="price" />}
