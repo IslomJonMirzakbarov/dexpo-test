@@ -10,7 +10,6 @@ import Countdown from "../../../components/Countdown";
 import NumberFormat from "react-number-format";
 import tokenImg from "../../../assets/images/con-token.png";
 import { priceType, priceTypeChar } from "../../../constants";
-import { sellReqStatuses } from "../../../constants/sellRequestStatuses";
 import PriceInput from "../../../components/PriceInput";
 import DRangePicker from "../../../components/DRangePicker";
 import SellModal from "../../../components/Modals/SellModal";
