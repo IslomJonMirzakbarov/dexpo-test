@@ -69,9 +69,9 @@ const CollectionDetails = () => {
 
   const handlePurchase = async () => {
     setStatus(checkoutStatuses.PROCESSING);
+
     try {
       const res = await purchase(params?.contract_address, params?.id);
-
       if (!!res) {
         setTxHash(res.transactionHash);
         setStatus(checkoutStatuses.COMPLETE);

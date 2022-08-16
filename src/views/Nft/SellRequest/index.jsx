@@ -113,6 +113,7 @@ const NFTSellRequest = () => {
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
       submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
+      marketStatus={marketStatus}
     />
   );
 };
