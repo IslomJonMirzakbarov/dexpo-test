@@ -17,6 +17,9 @@
       .card {
         margin: 0 12px;
       }
+      .card_item {
+        width: calc(100% - 24px) !important;
+      }
     }
   }
 }

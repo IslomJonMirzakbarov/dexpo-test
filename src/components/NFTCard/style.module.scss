@@ -1,5 +1,5 @@
-@use "../../scss/colors";
-@import "../../styles/fonts";
+@use '../../scss/colors';
+@import '../../styles/fonts';
 
 .card {
   display: flex;
@@ -85,6 +85,7 @@
     box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
+    background-color: #fff;
 
     .body {
       display: flex;
