@@ -64,6 +64,7 @@ const FileUploadWithDrag = ({
         { [styles.GreyBorder]: src.length === 0 },
         { [styles.RedBorder]: src.length > 0 }
       )}
+      style={{ border: imgBool && "none" }}
     >
       <div
         {...getRootProps()}
