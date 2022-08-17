@@ -36,6 +36,7 @@ const MyPage = () => {
       num = 0;
   }
   const [tab, setTab] = useState(tabs[num]);
+  console.log(tab);
 
   const { artist } = useArtistAPI({ isDetail: true });
 
