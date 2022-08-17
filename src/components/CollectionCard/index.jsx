@@ -26,7 +26,7 @@ const CollectionCard = ({
                <Box className={styles.edit}>
                   <Tooltip title="Edit" placement="top">
                      <NavLink
-                        to={`/collections/collection/edit/${id}/${name}/${symbol}`}
+                        to={`/user/collections/collection/edit/${id}/${name}/${symbol}`}
                      >
                         <IconButton className={styles.button}>
                            <EditRoundedIcon />
