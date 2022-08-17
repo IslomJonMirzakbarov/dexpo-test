@@ -17,7 +17,7 @@ const useCollectionAPI = ({
   orderBy,
   size,
   id,
-  filter_type = 'COMPLETE'
+  filter_type = 'ALL'
 }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);

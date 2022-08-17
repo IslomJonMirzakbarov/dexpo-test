@@ -9,7 +9,8 @@ import styles from './style.module.scss';
 const MyCollections = () => {
   const { collections, isLoading } = useCollectionAPI({
     isDetail: true,
-    page: 1
+    page: 1,
+    filter_type: 'COMPLETE'
   });
 
   return (
