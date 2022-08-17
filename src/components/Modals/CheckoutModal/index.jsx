@@ -6,19 +6,13 @@ import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 import PendingFooter from './Footer/Pending';
 import ProcessingCheckout from './Processing';
 import CompleteCheckout from './Complete';
+import CompleteFooter from './Footer/Complete';
 
 const Render = {
   [checkoutStatuses.INITIAL]: InitialCheckout,
   [checkoutStatuses.PENDING]: PendingCheckout,
   [checkoutStatuses.PROCESSING]: ProcessingCheckout,
   [checkoutStatuses.COMPLETE]: CompleteCheckout
-};
-
-const Footer = {
-  [checkoutStatuses.INITIAL]: null,
-  [checkoutStatuses.PENDING]: <PendingFooter />,
-  [checkoutStatuses.PROCESSING]: <div />,
-  [checkoutStatuses.COMPLETE]: <div />
 };
 
 const CheckoutModal = ({
@@ -36,9 +30,20 @@ const CheckoutModal = ({
   status = checkoutStatuses.COMPLETE,
   openModal,
   toggle,
-  error
+  error,
+  tokenId,
+  contractAddress
 }) => {
   const onClose = () => toggle();
+
+  const Footer = {
+    [checkoutStatuses.INITIAL]: null,
+    [checkoutStatuses.PENDING]: <PendingFooter />,
+    [checkoutStatuses.PROCESSING]: <div />,
+    [checkoutStatuses.COMPLETE]: (
+      <CompleteFooter tokenId={tokenId} contractAddress={contractAddress} />
+    )
+  };
 
   const RenderComponent = Render[status];
   const FooterComponent = Footer[status];

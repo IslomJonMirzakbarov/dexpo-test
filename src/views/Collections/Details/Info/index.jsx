@@ -14,7 +14,7 @@ const CollectionDetailsInfo = ({
   sellType,
   types,
   handleChangeType,
-  isDisabled
+  hideSelect
 }) => {
   return (
     <Box display="flex" flexDirection="column">
@@ -41,7 +41,7 @@ const CollectionDetailsInfo = ({
             {youtubeURL}
           </a>
         </Box>
-        {isArtwork && !isDisabled && (
+        {isArtwork && !hideSelect && (
           <DSelect
             value={sellType}
             onSelect={handleChangeType}
