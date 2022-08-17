@@ -15,6 +15,7 @@ const CollectedBottom = () => {
     type: "COLLECTED",
     size: 20000,
   });
+
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
@@ -28,10 +29,10 @@ const CollectedBottom = () => {
                 <NFTCard
                   img={nftItem?.nft?.token_image}
                   name={nftItem?.nft?.token_name}
+                  price={nftItem?.market?.price}
                   artistName={nftItem?.artist?.artist_name}
                   hasAction={false}
                   description={nftItem?.nft?.token_name}
-                  price={nftItem?.market?.price}
                   priceType={priceType.AUCTION.value.value}
                   purchaseCount={nftItem?.nft?.like_count}
                   tokenId={nftItem?.nft?.token_id}

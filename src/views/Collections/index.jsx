@@ -78,6 +78,8 @@ const Collections = () => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      tokenId={nft?.token_id}
+                      contractAddress={collection?.contract_address}
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`

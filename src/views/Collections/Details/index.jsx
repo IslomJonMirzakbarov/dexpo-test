@@ -49,6 +49,7 @@ const CollectionDetails = () => {
     [moreNFTs]
   );
 
+
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
   const [openModal, setOpenModal] = useState(false);

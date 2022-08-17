@@ -32,11 +32,13 @@ const MyPage = () => {
     case "collection-status":
       num = 4;
       break;
+    case "sell-request":
+      num = 4;
+      break;
     default:
       num = 0;
   }
   const [tab, setTab] = useState(tabs[num]);
-  console.log(tab);
 
   const { artist } = useArtistAPI({ isDetail: true });
 

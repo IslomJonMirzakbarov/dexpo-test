@@ -31,43 +31,65 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = 'containedInherit',
+  buttonVariant = "containedInherit",
   isDefault = false,
   tokenId,
-  contractAddress
+  contractAddress,
 }) => {
   const dispatch = useDispatch();
   const { likedNfts } = useSelector((store) => store.nft);
+  const [likedNFT, setLikedNFT] = useState(liked);
   const [likeCount, setLikeCount] = useState(purchaseCount);
   const { postLike, postDislike } = useNFTAPI({});
+  // console.log(tokenId, contractAddress);
 
   useEffect(() => {
     if (postLike.isSuccess) {
       setLikeCount(postLike?.data?.data?.like_count);
-      dispatch(setLikedNfts(tokenId));
+      dispatch(setLikedNfts(JSON.stringify({ tokenId, contractAddress })));
     }
-  }, [dispatch, postLike?.data?.data?.like_count, postLike.isSuccess, tokenId]);
+  }, [
+    contractAddress,
+    dispatch,
+    postLike?.data?.data?.like_count,
+    postLike.isSuccess,
+    tokenId,
+  ]);
 
   useEffect(() => {
     if (postDislike.isSuccess) {
       setLikeCount(postDislike?.data?.data?.data?.like_count);
-      dispatch(setDislikedNfts(tokenId));
+      dispatch(setDislikedNfts(JSON.stringify({ tokenId, contractAddress })));
     }
-  }, [dispatch, postDislike?.data?.data?.data?.like_count, postDislike.isSuccess, tokenId]);
+  }, [
+    contractAddress,
+    dispatch,
+    postDislike?.data?.data?.data?.like_count,
+    postDislike.isSuccess,
+    tokenId,
+  ]);
 
   // please do not merge above useEffects, they work separately
   // okay)
 
+  useEffect(() => {
+    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
+      setLikedNFT(true);
+    } else {
+      setLikedNFT(false);
+    }
+  }, [contractAddress, likedNfts, tokenId]);
+
   const likeClick = () => {
-    if (likedNfts.includes(tokenId)) {
+    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
       postDislike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId
+        token_id: tokenId,
       });
     } else {
       postLike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId
+        token_id: tokenId,
       });
     }
   };
@@ -78,9 +100,9 @@ const NFTCard = ({
   return (
     <Box
       className={classNames(styles.card, {
-        [styles.CollectedCard]: page === 'collectedBottom',
+        [styles.CollectedCard]: page === "collectedBottom",
         [styles.minified]: !price,
-        [styles.default]: isDefault
+        [styles.default]: isDefault,
       })}
     >
       <Box className={styles.header} onClick={onClick}>
@@ -104,16 +126,22 @@ const NFTCard = ({
             </div>
             <div className={styles.actions}>
               <span
-                className={classNames(styles.count, { [styles.liked]: liked })}
+                className={classNames(styles.count, {
+                  [styles.liked]: page === "favoritesBottom" || likedNFT,
+                })}
               >
                 <NumberFormat
                   value={likeCount}
-                  displayType={'text'}
+                  displayType={"text"}
                   decimalScale={3}
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg} onClick={() => likeClick()}>
-                  {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+                  {page === "favoritesBottom" || likedNFT ? (
+                    <FavoriteRoundedIcon />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
                 </div>
               </span>
             </div>
@@ -125,12 +153,12 @@ const NFTCard = ({
                   className={styles.coin}
                   style={{
                     width: 16,
-                    height: 16
+                    height: 16,
                   }}
                 />
                 <NumberFormat
                   value={price}
-                  displayType={'text'}
+                  displayType={"text"}
                   thousandSeparator={true}
                 />
               </>

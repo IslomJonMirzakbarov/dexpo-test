@@ -1,40 +1,40 @@
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useMemo, useState } from 'react';
-import CollectionDetailImage from './Image';
-import CollectionDetailsInfo from './Info';
-import NumberFormat from 'react-number-format';
-import styles from './style.module.scss';
-import Countdown from '../../../components/Countdown';
-import { makeStyles, useTheme } from '@mui/styles';
-import ValueTable from './ValueTable';
-import moment from 'moment';
-import HistoryTable from './HistoryTable';
-import TokenImg from '../../../assets/images/con-token.svg?component';
-import CheckoutModal from '../../../components/Modals/CheckoutModal';
-import { priceTypeChar } from '../../../constants';
-import MoreCollections from './MoreCollections';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import DModal from '../../../components/DModal';
+import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import React, { useMemo, useState } from "react";
+import CollectionDetailImage from "./Image";
+import CollectionDetailsInfo from "./Info";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import Countdown from "../../../components/Countdown";
+import { makeStyles, useTheme } from "@mui/styles";
+import ValueTable from "./ValueTable";
+import moment from "moment";
+import HistoryTable from "./HistoryTable";
+import TokenImg from "../../../assets/images/con-token.svg?component";
+import CheckoutModal from "../../../components/Modals/CheckoutModal";
+import { priceTypeChar } from "../../../constants";
+import MoreCollections from "./MoreCollections";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import DModal from "../../../components/DModal";
 
-const DATE_FORMAT = 'DD-MM-yyyy hh:mm:ss';
+const DATE_FORMAT = "DD-MM-yyyy hh:mm:ss";
 
 const useStyles = makeStyles({
   priceBox: {
-    marginTop: 61
+    marginTop: 61,
   },
   box: {
-    width: '50%'
+    width: "50%",
   },
   button: {
-    padding: '16px 0',
-    marginTop: 17
+    padding: "16px 0",
+    marginTop: 17,
   },
   grid: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  }
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
 });
 
 const CollectionDetailsContainer = ({
@@ -49,7 +49,7 @@ const CollectionDetailsContainer = ({
   openModal,
   toggle,
   error,
-  isDisabled
+  isDisabled,
 }) => {
   const { nft, artist, market, collection } = data || {};
   const { token } = useSelector((store) => store.auth);
@@ -61,7 +61,7 @@ const CollectionDetailsContainer = ({
 
   const handleClick = () => {
     if (token) toggle();
-    else navigate('/login');
+    else navigate("/login");
   };
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
@@ -80,6 +80,8 @@ const CollectionDetailsContainer = ({
               alt="nft picture"
               isSoldOut={isSoldOut}
               isPurchased={false}
+              tokenId={nft?.token_id}
+              contractAddress={collection?.contract_address}
               onClick={() => setOpenImg(true)}
             />
           </Grid>
@@ -114,7 +116,7 @@ const CollectionDetailsContainer = ({
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: '100%' }}
+                  sx={{ width: "100%" }}
                 >
                   {market?.price && (
                     <>
@@ -132,7 +134,7 @@ const CollectionDetailsContainer = ({
                         >
                           <NumberFormat
                             value={market?.price}
-                            displayType={'text'}
+                            displayType={"text"}
                             thousandSeparator={true}
                           />
                         </Typography>
@@ -142,10 +144,10 @@ const CollectionDetailsContainer = ({
                         fontWeight={500}
                         color={theme.palette.grey[1000]}
                       >
-                        ( ${' '}
+                        ( ${" "}
                         <NumberFormat
                           value={parsedPrice}
-                          displayType={'text'}
+                          displayType={"text"}
                           thousandSeparator={true}
                         />
                         )
@@ -160,7 +162,7 @@ const CollectionDetailsContainer = ({
                     disabled={isSoldOut || isDisabled}
                     sx={{ height: 55 }}
                   >
-                    {isSoldOut ? 'Sold out' : 'Purchase Artwork'}
+                    {isSoldOut ? "Sold out" : "Purchase Artwork"}
                   </Button>
                 </Box>
               </Box>
@@ -191,8 +193,6 @@ const CollectionDetailsContainer = ({
         openModal={openModal}
         toggle={toggle}
         error={error}
-        tokenId={nft?.token_id}
-        contractAddress={collection?.contract_address}
       />
       <DModal
         isExpandedImg

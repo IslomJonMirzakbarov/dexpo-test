@@ -1,13 +1,13 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from './style.module.scss';
-import Slider from 'react-slick';
-import NFTCard from '../../../components/NFTCard';
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import classNames from 'classnames';
-import { priceTypeChar } from '../../../constants';
+import { Box, Container, Grid, Typography } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./style.module.scss";
+import Slider from "react-slick";
+import NFTCard from "../../../components/NFTCard";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import classNames from "classnames";
+import { priceTypeChar } from "../../../constants";
 
 const slidesToShow = 4;
 
@@ -18,13 +18,13 @@ const settings = {
   slidesToShow,
   slidesToScroll: 1,
   prevArrow: <ArrowBackIosNewRoundedIcon />,
-  nextArrow: <ArrowForwardIosRoundedIcon />
+  nextArrow: <ArrowForwardIosRoundedIcon />,
 };
 
 const NFTCollections = ({ collections, hottestCollections }) => {
   const navigate = useNavigate();
   return (
-    <Box className={classNames(styles.container, 'collections')}>
+    <Box className={classNames(styles.container, "collections")}>
       <Container>
         <Box className={styles.block}>
           <Box
@@ -40,36 +40,40 @@ const NFTCollections = ({ collections, hottestCollections }) => {
           <Box className={styles.collection}>
             {hottestCollections?.length < 5 ? (
               hottestCollections?.map(
-                ({ nft, artist, market, collection }, c) => (
-                  <Box key={c} className={styles.card}>
-                    <NFTCard
-                      img={nft.token_image}
-                      name={nft.token_name}
-                      price={market?.price}
-                      startDate={market?.start_date}
-                      endDate={market?.end_date}
-                      leftDays={null}
-                      artistName={artist.artist_name}
-                      description={nft.token_name}
-                      priceType={priceTypeChar?.[market?.type]}
-                      hasAction={!!market?.price}
-                      purchaseCount={nft.like_count}
-                      buttonVariant="containedSecondary"
-                      key={c}
-                      isDefault
-                      onClick={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                      onAction={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                    />
-                  </Box>
-                )
+                ({nft, artist, market, collection}, c) => {
+                  return (
+                    <Box key={c} className={styles.card}>
+                      <NFTCard
+                        img={nft.token_image}
+                        name={nft.token_name}
+                        price={market?.price}
+                        startDate={market?.start_date}
+                        endDate={market?.end_date}
+                        leftDays={null}
+                        artistName={artist.artist_name}
+                        description={nft.token_name}
+                        priceType={priceTypeChar?.[market?.type]}
+                        hasAction={!!market?.price}
+                        purchaseCount={nft.like_count}
+                        buttonVariant="containedSecondary"
+                        key={c}
+                        isDefault
+                        tokenId={nft?.token_id}
+                        contractAddress={collection?.contract_address}
+                        onClick={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                        onAction={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                      />
+                    </Box>
+                  );
+                }
               )
             ) : (
               <Slider {...settings}>
