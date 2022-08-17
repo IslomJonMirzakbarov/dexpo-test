@@ -5,51 +5,53 @@ import { useMutation, useQuery } from "react-query";
 import { assignArtist } from "../store/artist/artist.slice";
 
 const createArtist = (data, token) =>
-   securedAPI(token).post("/api/artist/create", data);
+  securedAPI(token)
+    .post("/api/artist/create", data);
 
 const configQuery = {
-   refetchOnMount: "always",
-   refetchOnWindowFocus: true, // constantly updating when newCollection created
-   refetchOnReconnect: true,
-   staleTime: 0,
-   cacheTime: 0,
+  refetchOnMount: "always",
+  refetchOnWindowFocus: true, // constantly updating when newCollection created
+  refetchOnReconnect: true,
+  staleTime: 0,
+  cacheTime: 0,
 };
 
 const useArtistAPI = ({ isDetail, onSuccess }) => {
-   const { token } = useSelector((store) => store.auth);
-   // console.log(token);
-   const dispatch = useDispatch();
+  const { token } = useSelector((store) => store.auth);
+  // console.log(token);
+  const dispatch = useDispatch();
 
-   const getArtist = (token) =>
-      securedAPI(token)
-         .get("/api/artist/detail")
-         .then((res) => {
-            if (res?.data?.data) {
-               const { artist_name, wallet_address } = res?.data?.data;
-               dispatch(assignArtist({ artist_name, wallet_address }));
-            }
-            return res.data;
-         });
-   const { data, isLoading, error, refetch } = useQuery(
-      "get-artist",
-      () => getArtist(token),
-      {
-         enabled: isDetail || false,
-         ...configQuery,
-      }
-   );
+  const getArtist = (token) =>
+    securedAPI(token)
+      .get("/api/artist/detail")
+      .then((res) => {
+        if (res?.data?.data) {
+          const { artist_name, wallet_address } = res?.data?.data;
+          dispatch(assignArtist({ artist_name, wallet_address }));
+        }
+        return res.data;
+      });
 
-   const mutation = useMutation((data) => createArtist(data, token), {
-      onSuccess,
-   });
+  const { data, isLoading, error, refetch } = useQuery(
+    "get-artist",
+    () => getArtist(token),
+    {
+      enabled: isDetail || false,
+      ...configQuery,
+    }
+  );
 
-   return {
-      create: mutation,
-      artist: data,
-      refetch,
-      isLoading,
-      error,
-   };
+  const mutation = useMutation((data) => createArtist(data, token), {
+    onSuccess,
+  });
+
+  return {
+    create: mutation,
+    artist: data,
+    refetch,
+    isLoading,
+    error,
+  };
 };
 
 export default useArtistAPI;

@@ -191,6 +191,8 @@ const CollectionDetailsContainer = ({
         openModal={openModal}
         toggle={toggle}
         error={error}
+        tokenId={nft?.token_id}
+        contractAddress={collection?.contract_address}
       />
       <DModal
         isExpandedImg

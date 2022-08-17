@@ -70,6 +70,7 @@
                   height: 40px;
                   border-radius: 7px;
                }
+               cursor: pointer;
             }
             & :nth-child(2) {
                width: 324px;
@@ -79,6 +80,7 @@
                @include fontLabel;
                font-weight: 700;
                color: #1f1f1f;
+               cursor: pointer;
             }
             & :nth-child(3) {
                font-style: normal;

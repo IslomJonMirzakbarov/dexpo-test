@@ -3,86 +3,113 @@
 @import "/src/styles/scrollbar.scss";
 
 .Container {
-   width: 100%;
-   height: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: column;
-   margin-top: 90px;
-   margin-bottom: 180px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 90px;
+  margin-bottom: 180px;
 
-   .SettingsIconContainer {
-      width: 45px;
+  .SettingsIconContainer {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 102px;
+    right: 53px;
+  }
+
+  .ProfileSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 70px;
+
+    .UserName {
+      font-style: normal;
+      @include userText;
+      text-align: center;
+      color: colors.$greyBg;
+      margin-bottom: 10px;
+    }
+
+    .WalletAddress {
+      width: 129px;
       height: 45px;
-      position: absolute;
-      top: 102px;
-      right: 53px;
-   }
-
-   .ProfileSection {
+      background: colors.$whiteBg;
+      box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+      border-radius: 7px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      margin-bottom: 70px;
+      justify-content: center;
+      margin-bottom: 30px;
+      font-style: normal;
+      @include fontProcessDesc;
+      text-align: center;
+      color: colors.$text;
+      position: relative;
 
-      .UserName {
-         font-style: normal;
-         @include userText;
-         text-align: center;
-         color: colors.$greyBg;
-         margin-bottom: 10px;
+      &:hover {
+        cursor: pointer;
       }
 
-      .WalletAddress {
-         width: 129px;
-         height: 45px;
-         background: colors.$whiteBg;
-         box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
-         border-radius: 7px;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         margin-bottom: 30px;
-         font-style: normal;
-         @include fontProcessDesc;
-         text-align: center;
-         color: colors.$text;
+      .CopiedText {
+        top: -30px;
+        font-size: 12px;
+        position: absolute;
+        background-color: #333;
+        color: #ffffff;
+        padding: 4px 6px;
+        border-radius: 5px;
+        z-index: 15;
       }
 
-      .Bio {
-         font-style: normal;
-         @include fontLabel;
-         text-align: center;
-         color: colors.$textColor1;
-         margin-bottom: 8px;
+      .CopiedText::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
       }
+    }
 
-      .BioDescription {
-         box-sizing: border-box;
-         width: 650px;
-         height: 120px;
-         background: #f3f3f3;
-         border: 1.5px solid #e8e8e8;
-         border-radius: 7px;
-         padding-top: 11px;
-         padding-bottom: 11px;
-         padding-left: 15px;
-         @include scrollbar;
-         overflow: auto;
-         font-style: normal;
-         @include fontTypePhrase;
-         color: colors.$textColor1;
-      }
-   }
+    .Bio {
+      font-style: normal;
+      @include fontLabel;
+      text-align: center;
+      color: colors.$textColor1;
+      margin-bottom: 8px;
+    }
 
-   .BottomSideContainer {
-      width: 1240px;
-      display: flex;
-      flex-direction: column;
+    .BioDescription {
+      box-sizing: border-box;
+      width: 650px;
+      height: 120px;
+      background: #f3f3f3;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 7px;
+      padding-top: 11px;
+      padding-bottom: 11px;
+      padding-left: 15px;
+      @include scrollbar;
+      overflow: auto;
+      font-style: normal;
+      @include fontTypePhrase;
+      color: colors.$textColor1;
+    }
+  }
 
-      .BottomContainer {
-         margin-top: 30px;
-      }
-   }
+  .BottomSideContainer {
+    width: 1240px;
+    display: flex;
+    flex-direction: column;
+
+    .BottomContainer {
+      margin-top: 30px;
+    }
+  }
 }

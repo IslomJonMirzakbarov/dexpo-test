@@ -2,104 +2,111 @@
 @import "/src/styles/fonts";
 
 .Table {
-   display: block;
-   overflow: auto;
-   max-height: 470px;
-   width: 100%;
-   border-spacing: 0;
+  display: block;
+  overflow: auto;
+  max-height: 470px;
+  width: 100%;
+  border-spacing: 0;
 
-   .TableHead {
+  .TableHead {
+    border-radius: 7px 7px 0px 0px;
+    border: colors.$border;
+    background: colors.$headBg;
+    height: 50px;
+
+    .TableHeadRow {
       border-radius: 7px 7px 0px 0px;
       border: colors.$border;
-      background: colors.$headBg;
-      height: 50px;
 
-      .TableHeadRow {
-         border-radius: 7px 7px 0px 0px;
-         border: colors.$border;
+      th {
+        border-top: colors.$border;
+        border-bottom: colors.$border;
 
-         th {
-            border-top: colors.$border;
-            border-bottom: colors.$border;
-
-            background: colors.$headBg;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-         }
-
-         & :nth-child(1) {
-            border-radius: 7px 0 0 0;
-            border-left: colors.$border;
-            width: 364px;
-            padding-left: 30px;
-            text-align: left;
-         }
-
-         & :nth-child(2) {
-            width: 677px;
-            text-align: left;
-         }
-
-         & :nth-child(3) {
-            text-align: right;
-            width: 152px;
-            padding-right: 13px;
-            border-radius: 0 7px 0 0;
-            border-right: colors.$border;
-         }
+        background: colors.$headBg;
+        position: sticky;
+        top: 0;
+        z-index: 10;
       }
-   }
 
-   .TableBody {
-      .TableBodyRow {
-         td {
-            border-bottom: 1px solid colors.$placeholder;
-            height: 84px;
-         }
-
-         & :nth-child(1) {
-            text-align: left;
-            padding-left: 30px;
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            font-style: normal;
-            font-weight: 700;
-            font-size: 15px;
-            line-height: 22px;
-            color: colors.$greyBg;
-
-            svg {
-               padding-left: 0;
-            }
-         }
-
-         & :nth-child(2) {
-            text-align: left;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 22px;
-         }
-         .UnderReview {
-            color: #fd9330;
-         }
-
-         .Approved {
-            color: #1e4ced;
-         }
-
-         .Rejected {
-            color: #ff006b;
-         }
-         & :nth-child(3) {
-            text-align: right;
-            padding-right: 13px;
-            font-style: normal;
-            @include fontProcessDesc;
-            color: colors.$greyBg;
-         }
+      & :nth-child(1) {
+        border-radius: 7px 0 0 0;
+        border-left: colors.$border;
+        width: 364px;
+        padding-left: 30px;
+        text-align: left;
       }
-   }
+
+      & :nth-child(2) {
+        width: 677px;
+        text-align: left;
+      }
+
+      & :nth-child(3) {
+        text-align: right;
+        width: 152px;
+        padding-right: 13px;
+        border-radius: 0 7px 0 0;
+        border-right: colors.$border;
+      }
+    }
+  }
+
+  .TableBody {
+    .TableBodyRow {
+      td {
+        border-bottom: 1px solid colors.$placeholder;
+        height: 84px;
+      }
+
+      & :nth-child(1) {
+        text-align: left;
+        padding-left: 30px;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 22px;
+        color: colors.$greyBg;
+
+        svg {
+         padding-left: 0;
+        }
+
+        .Svg {
+          padding-left: 0;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      & :nth-child(2) {
+        text-align: left;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+      }
+      .UnderReview {
+        color: #fd9330;
+      }
+
+      .Approved {
+        color: #1e4ced;
+      }
+
+      .Rejected {
+        color: #ff006b;
+      }
+      & :nth-child(3) {
+        text-align: right;
+        padding-right: 13px;
+        font-style: normal;
+        @include fontProcessDesc;
+        color: colors.$greyBg;
+      }
+    }
+  }
 }
