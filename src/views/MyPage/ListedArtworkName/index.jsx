@@ -7,8 +7,10 @@ import styles from "./style.module.scss";
 import { Box } from "@mui/material";
 import Loader from "../../../components/Loader";
 import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
 
 const ListedArtworkBottom = () => {
+  const navigate = useNavigate();
   const { list } = useNftAPI({
     isGetList: true,
     type: "LISTED",
@@ -45,28 +47,37 @@ const ListedArtworkBottom = () => {
           >
             {list?.data?.items.length === 0
               ? null
-              : list?.data?.items.map((item) => (
-                  <tr className={styles.TableBodyRow}>
-                    <td>
-                      <img src={item?.nft?.token_image} alt="img" />
-                    </td>
-                    <td>{item?.nft?.token_name}</td>
+              : list?.data?.items.map((item) => {
+                  const navigateClick = () =>
+                    navigate(
+                      `/user/nft/${item?.nft?.token_id}/${item?.collection?.contract_address}`
+                    );
+                  return (
+                    <tr
+                      className={styles.TableBodyRow}
+                      key={item?.nft?.token_id}
+                    >
+                      <td onClick={navigateClick}>
+                        <img src={item?.nft?.token_image} alt="img" />
+                      </td>
+                      <td onClick={navigateClick}>{item?.nft?.token_name}</td>
 
-                    <td className={styles.ThirdOne}>
-                      <Box className={styles.CycPrice}>
-                        CYC {item?.market?.price}
-                      </Box>
-                      <Box className={styles.UsdPrice}>$ 0</Box>
-                    </td>
+                      <td className={styles.ThirdOne}>
+                        <Box className={styles.CycPrice}>
+                          CYC {item?.market?.price}
+                        </Box>
+                        <Box className={styles.UsdPrice}>$ 0</Box>
+                      </td>
 
-                    <td>{dateConverter(item?.market?.created_at)}</td>
-                    <td>
-                      <PrimaryButton className={styles.BtnCancel}>
-                        Cancel
-                      </PrimaryButton>
-                    </td>
-                  </tr>
-                ))}
+                      <td>{dateConverter(item?.market?.created_at)}</td>
+                      <td>
+                        <PrimaryButton className={styles.BtnCancel}>
+                          Cancel
+                        </PrimaryButton>
+                      </td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </table>
       )}

@@ -10,7 +10,6 @@ import styles from "./style.module.scss";
 const ModalCard = ({
   responseChecker,
   page,
-  nftImg,
   title,
   children,
   onClose,
