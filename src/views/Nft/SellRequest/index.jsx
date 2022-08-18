@@ -12,6 +12,7 @@ import { priceType } from '../../../constants';
 import { useForm } from 'react-hook-form';
 import { nftSellBtnLabels } from '../../../constants/marketStatuses';
 import useSellNFT from './hook/useSellNFT';
+import { useSelector } from 'react-redux';
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
@@ -21,15 +22,20 @@ const types = [
 const NFTSellRequest = () => {
   const { id, contract_address, previewImgSrc } = useParams();
 
+  const { account } = useSelector((store) => store.wallet);
+
   const {
     detail,
     loadingDetail,
     refetchDetail,
     isFetchingDetail,
-    isFetchingHistory
+    isFetchingHistory,
+    postDislike,
+    postLike
   } = useNFTAPI({
     id: id,
-    contractAddress: contract_address
+    contractAddress: contract_address,
+    wallet: account
   });
 
   const {
@@ -59,6 +65,16 @@ const NFTSellRequest = () => {
   const [error, setError] = useState();
 
   const handleChangeType = (e) => setType(e);
+
+  const handleLike = (liked) => {
+    const payload = {
+      token_id: id,
+      contract_address: contract_address
+    };
+    if (liked)
+      postDislike.mutate(payload, { onSuccess: () => refetchDetail() });
+    else postLike.mutate(payload, { onSuccess: () => refetchDetail() });
+  };
 
   const {
     isCancel,
@@ -113,6 +129,7 @@ const NFTSellRequest = () => {
       isDisabled={isDisabledSellBtn}
       submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
       marketStatus={marketStatus}
+      onLike={handleLike}
     />
   );
 };

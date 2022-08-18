@@ -14,6 +14,7 @@ const CollectionDetailImage = ({
   isPurchased = false,
   isSoldOut,
   onClick,
+  onLike,
   ...props
 }) => {
   return (
@@ -24,6 +25,7 @@ const CollectionDetailImage = ({
         display="flex"
         alignItems="center"
         p={1}
+        onClick={onLike}
       >
         {price}
         {isPurchased ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}

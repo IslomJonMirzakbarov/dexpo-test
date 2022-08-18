@@ -59,7 +59,8 @@ const NFTSellRequestContainer = ({
   isCancel,
   isDisabled,
   submitLabel,
-  marketStatus
+  marketStatus,
+  onLike
 }) => {
   const theme = useTheme();
 
@@ -129,8 +130,9 @@ const NFTSellRequestContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               alt="nft picture"
-              isPurchased={false}
+              isPurchased={nft?.is_liked}
               onClick={() => setOpenImg(true)}
+              onLike={() => onLike(nft?.is_liked)}
             />
           </Grid>
           <Grid

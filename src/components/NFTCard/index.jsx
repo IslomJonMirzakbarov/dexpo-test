@@ -8,7 +8,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import TokenImg from '../../assets/images/con-token.svg?component';
-import conTokenImg from '../../assets/images/con-token.svg';
+
 import classNames from 'classnames';
 import { calculateDeadline } from '../../utils/deadline';
 import useNFTAPI from '../../hooks/useNFT';

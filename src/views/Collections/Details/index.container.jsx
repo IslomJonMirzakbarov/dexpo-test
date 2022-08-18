@@ -49,7 +49,8 @@ const CollectionDetailsContainer = ({
   openModal,
   toggle,
   error,
-  isDisabled
+  isDisabled,
+  onLike
 }) => {
   const { nft, artist, market, collection } = data || {};
   const { token } = useSelector((store) => store.auth);
@@ -81,8 +82,9 @@ const CollectionDetailsContainer = ({
               img={nft?.token_image}
               alt="nft picture"
               isSoldOut={isSoldOut}
-              isPurchased={false}
+              isPurchased={nft?.is_liked}
               onClick={() => setOpenImg(true)}
+              onLike={() => onLike(nft?.is_liked)}
             />
           </Grid>
           <Grid item lg={7} className={classes.grid}>
