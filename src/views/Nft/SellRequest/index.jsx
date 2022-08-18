@@ -29,9 +29,7 @@ const NFTSellRequest = () => {
     loadingDetail,
     refetchDetail,
     isFetchingDetail,
-    isFetchingHistory,
-    postDislike,
-    postLike
+    isFetchingHistory
   } = useNFTAPI({
     id: id,
     contractAddress: contract_address,
@@ -66,15 +64,7 @@ const NFTSellRequest = () => {
 
   const handleChangeType = (e) => setType(e);
 
-  const handleLike = (liked) => {
-    const payload = {
-      token_id: id,
-      contract_address: contract_address
-    };
-    if (liked)
-      postDislike.mutate(payload, { onSuccess: () => refetchDetail() });
-    else postLike.mutate(payload, { onSuccess: () => refetchDetail() });
-  };
+  const handleLike = (liked) => {};
 
   const {
     isCancel,
