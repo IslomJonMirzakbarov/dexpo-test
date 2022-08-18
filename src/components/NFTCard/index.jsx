@@ -1,20 +1,20 @@
-import { Box, Button, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import NumberFormat from "react-number-format";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import styles from "./style.module.scss";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import TokenImg from "../../assets/images/con-token.svg?component";
-import conTokenImg from "../../assets/images/con-token.svg";
-import classNames from "classnames";
-import { calculateDeadline } from "../../utils/deadline";
-import useNFTAPI from "../../hooks/useNFT";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setDislikedNfts, setLikedNfts } from "../../store/nft/nft.slice";
+import { Box, Button, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import NumberFormat from 'react-number-format';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import styles from './style.module.scss';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import TokenImg from '../../assets/images/con-token.svg?component';
+import conTokenImg from '../../assets/images/con-token.svg';
+import classNames from 'classnames';
+import { calculateDeadline } from '../../utils/deadline';
+import useNFTAPI from '../../hooks/useNFT';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setDislikedNfts, setLikedNfts } from '../../store/nft/nft.slice';
 
 const NFTCard = ({
   page,
@@ -34,7 +34,8 @@ const NFTCard = ({
   buttonVariant = 'containedInherit',
   isDefault = false,
   tokenId,
-  contractAddress
+  contractAddress,
+  className
 }) => {
   const dispatch = useDispatch();
   const { likedNfts } = useSelector((store) => store.nft);
@@ -53,7 +54,12 @@ const NFTCard = ({
       setLikeCount(postDislike?.data?.data?.data?.like_count);
       dispatch(setDislikedNfts(tokenId));
     }
-  }, [dispatch, postDislike?.data?.data?.data?.like_count, postDislike.isSuccess, tokenId]);
+  }, [
+    dispatch,
+    postDislike?.data?.data?.data?.like_count,
+    postDislike.isSuccess,
+    tokenId
+  ]);
 
   // please do not merge above useEffects, they work separately
   // okay)
@@ -77,7 +83,7 @@ const NFTCard = ({
 
   return (
     <Box
-      className={classNames(styles.card, {
+      className={classNames(styles.card, className, {
         [styles.CollectedCard]: page === 'collectedBottom',
         [styles.minified]: !price,
         [styles.default]: isDefault
@@ -118,8 +124,8 @@ const NFTCard = ({
               </span>
             </div>
           </Box>
-          <div className={styles.price}>
-            {price && (
+          {price && (
+            <div className={styles.price}>
               <>
                 <TokenImg
                   className={styles.coin}
@@ -134,8 +140,8 @@ const NFTCard = ({
                   thousandSeparator={true}
                 />
               </>
-            )}
-          </div>
+            </div>
+          )}
         </Box>
         {hasAction && (
           <Box className={styles.footer}>

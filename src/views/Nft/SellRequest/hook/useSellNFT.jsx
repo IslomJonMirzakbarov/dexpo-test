@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { awaitStatus } from '../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
 import { marketStatuses } from '../../../../constants/marketStatuses';
 import { sellReqStatuses } from '../../../../constants/sellRequestStatuses';
@@ -22,6 +23,7 @@ const useSellNFT = ({
   refetchDetail,
   market
 }) => {
+  const navigate = useNavigate();
   const marketStatus = collection?.market_status;
   const sellerAddress = market?.seller_address?.toLowerCase();
   const isCancel = status?.includes(sellReqStatuses.CANCEL);
@@ -56,12 +58,14 @@ const useSellNFT = ({
   };
 
   const handleRequest = async () => {
+    if (openModal) return navigate('/user/my-page/sell-request');
+
     const data = { contract_address: collection?.contract_address };
 
     await securedAPI(token)
       .post('/api/collection/sellRequest', data)
-      .then((res) => {
-        if (!res?.data) setOpenModal(true);
+      .then((_) => {
+        setOpenModal(true);
       })
       .catch((err) => {
         console.log(err);

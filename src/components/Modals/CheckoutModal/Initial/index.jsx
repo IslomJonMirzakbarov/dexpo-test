@@ -5,17 +5,16 @@ import NumberFormat from 'react-number-format';
 import AuctionBox from '../AuctionBox';
 import BidInput from '../BidInput';
 
-import nftImg from '../../../../assets/images/nft1.png';
 import ConToken from '../../../../assets/images/con-token.svg?component';
 
-import { priceType } from '../../../../constants';
 import { useForm } from 'react-hook-form';
 import { priceTypeChar } from '../../../../constants';
 
 const useStyles = makeStyles((theme) => ({
   img: {
     borderRadius: 7,
-    marginRight: 14
+    marginRight: 14,
+    objectFit: 'cover'
   },
   box: {
     width: 432,

@@ -28,7 +28,7 @@ const TopCollections = ({ collections = [] }) => {
 
   const collections1 = collections?.slice(0, 3);
   const collections2 = collections?.slice(3, 6);
-  const collections3 = collections?.slice(6);
+  const collections3 = collections?.slice(6, 9);
 
   return (
     <Paper variant="div" className={styles.container}>
@@ -64,7 +64,7 @@ const TopCollections = ({ collections = [] }) => {
             {collections2?.map(({ collection }, i) => (
               <Box key={i} mt={2}>
                 <CollectionCard
-                  index={i + 3}
+                  index={i + 4}
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
@@ -76,7 +76,7 @@ const TopCollections = ({ collections = [] }) => {
             {collections3?.map(({ collection }, i) => (
               <Box key={i} mt={2} pl={2}>
                 <CollectionCard
-                  index={i + 6}
+                  index={i + 7}
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
