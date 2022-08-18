@@ -87,6 +87,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      hasShadow={false}
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`
@@ -167,6 +168,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      hasShadow={false}
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`

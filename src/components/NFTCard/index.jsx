@@ -35,7 +35,8 @@ const NFTCard = ({
   isDefault = false,
   tokenId,
   contractAddress,
-  className
+  className,
+  hasShadow = true
 }) => {
   const dispatch = useDispatch();
   const { likedNfts } = useSelector((store) => store.nft);
@@ -99,7 +100,11 @@ const NFTCard = ({
           </Box>
         )}
       </Box>
-      <Box className={styles.wrapper}>
+      <Box
+        className={classNames(styles.wrapper, {
+          [styles.noShadow]: !hasShadow
+        })}
+      >
         <Box display="flex" flexDirection="column">
           <Box className={classNames(styles.body, { [styles.last]: !price })}>
             <div className={styles.artist}>
