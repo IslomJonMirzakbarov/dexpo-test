@@ -17,11 +17,14 @@ const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const params = useParams();
+
   const { account } = useSelector((store) => store.wallet);
-  const { detail, loadingDetail, refetchDetail } = useNFTAPI({
-    id: params?.id,
-    contractAddress: params?.contract_address
-  });
+  const { detail, loadingDetail, refetchDetail, postDislike, postLike } =
+    useNFTAPI({
+      id: params?.id,
+      contractAddress: params?.contract_address,
+      wallet: account
+    });
 
   const {
     data: history,
@@ -39,20 +42,20 @@ const CollectionDetails = () => {
 
   const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
 
-  const filteredData = useMemo(
-    () =>
-      moreNFTs?.filter(
-        ({ nft, collection }) =>
-          nft?.token_id !== Number(params?.id) &&
-          collection?.contract_address?.includes(params?.contract_address)
-      ),
-    [moreNFTs]
-  );
-
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState('');
+
+  const handleLike = (liked) => {
+    const payload = {
+      token_id: params?.id,
+      contract_address: params?.contract_address
+    };
+    if (liked)
+      postDislike.mutate(payload, { onSuccess: () => refetchDetail() });
+    else postLike.mutate(payload, { onSuccess: () => refetchDetail() });
+  };
 
   const handleContract = async () => {
     try {
@@ -127,7 +130,7 @@ const CollectionDetails = () => {
     <CollectionDetailsContainer
       data={detail?.data}
       history={history}
-      moreNFTs={filteredData}
+      moreNFTs={moreNFTs}
       status={status}
       onConfirm={makeContract}
       isSoldOut={isSoldOut}
@@ -136,6 +139,7 @@ const CollectionDetails = () => {
       toggle={toggle}
       error={error}
       isDisabled={isPurchaseBtnDisabled}
+      onLike={handleLike}
     />
   );
 };
