@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CollectionInfo from './Info';
 import CollectionList from './List';
 import styles from './style.module.scss';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { securedAPI } from '../../../services/api';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
@@ -24,6 +24,7 @@ const getCollectionDetail = (token, id) =>
 
 const CollectionItem = () => {
   const { id } = useParams();
+  const { search } = useLocation();
   const { token } = useSelector((store) => store.auth);
 
   const [page, setPage] = useState(1);
@@ -42,6 +43,7 @@ const CollectionItem = () => {
   const innerList = nftListCollection?.data?.items;
   const totalPages = nftListCollection?.data?.totalPages;
   const noItems = !innerList?.length || innerList?.length === 0;
+  const isGuest = search?.includes('user=false');
 
   return (
     <div className={styles.container}>
@@ -68,6 +70,7 @@ const CollectionItem = () => {
             isLoading={loadingListByCollection}
             data={innerList}
             contract_address={id}
+            isGuest={isGuest}
           />
         )}
       </Box>

@@ -35,8 +35,6 @@ const useMoreByCollectionAPI = (address, id) => {
     [data]
   );
 
-  console.log(filteredData);
-
   return { data: filteredData, isLoading, error };
 };
 

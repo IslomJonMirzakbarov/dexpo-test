@@ -17,6 +17,7 @@ const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const params = useParams();
+
   const { account } = useSelector((store) => store.wallet);
   const { detail, loadingDetail, refetchDetail } = useNFTAPI({
     id: params?.id,

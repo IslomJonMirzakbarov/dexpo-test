@@ -55,6 +55,8 @@ const CollectionDetailsContainer = ({
   const { token } = useSelector((store) => store.auth);
   const [openImg, setOpenImg] = useState(false);
 
+  console.log(nft);
+
   const theme = useTheme();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -176,6 +178,7 @@ const CollectionDetailsContainer = ({
       <MoreCollections
         data={moreNFTs}
         title="More Artworks From This Collection"
+        contractAddress={collection?.contract_address}
       />
       <CheckoutModal
         artistName={artist?.artist_name}
