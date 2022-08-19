@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { securedAPI } from "../services/api";
-import { useMutation, useQuery } from "react-query";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { securedAPI } from '../services/api';
+import { useMutation, useQuery } from 'react-query';
+
 
 const getList = ({ type, page, orderBy = "desc", size }, token) =>
   securedAPI(token)
@@ -9,7 +10,6 @@ const getList = ({ type, page, orderBy = "desc", size }, token) =>
       `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
     )
     .then((res) => {
-      // console.log(res.data);
       return res.data;
     });
 
@@ -52,7 +52,6 @@ const useNftAPI = ({
   refetchInterval,
 }) => {
   const { token } = useSelector((store) => store.auth);
-  // console.log(token);
 
   const {
     data: nftListCollection,

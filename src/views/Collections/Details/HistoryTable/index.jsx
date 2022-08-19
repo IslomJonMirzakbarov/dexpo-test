@@ -37,14 +37,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const HistoryTable = ({ data }) => {
+const HistoryTable = ({ data, title = 'NFT History' }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root} mt={5}>
       <Box className={classes.header}>
         <Typography variant="h4" fontSize="20px!important" lineHeight={'30px'}>
-          NFT History
+          {title}
         </Typography>
       </Box>
       <Box className={classes.body}>

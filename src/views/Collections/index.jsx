@@ -1,20 +1,22 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
-import React, { useState } from "react";
-import DSelect from "../../components/DSelect";
-import styles from "./style.module.scss";
-import SearchField from "../../components/Autocomplete";
-import NFTCard from "../../components/NFTCard";
-import CPagination from "../../components/CPagination";
-import { useNavigate } from "react-router-dom";
-import useMarketAPI from "../../hooks/useMarketAPI";
-import { priceTypeChar } from "../../constants";
-import NFTCardSkeleton from "../../components/NFTCard/index.skeleton";
-import NoItemsFound from "../../components/NoItems";
-import { marketFilterList } from "../../constants/marketFilter";
+import { Box, Container, Grid, Paper, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import DSelect from '../../components/DSelect';
+import styles from './style.module.scss';
+import SearchField from '../../components/Autocomplete';
+import NFTCard from '../../components/NFTCard';
+import CPagination from '../../components/CPagination';
+import { useNavigate } from 'react-router-dom';
+import useMarketAPI from '../../hooks/useMarketAPI';
+import { priceTypeChar } from '../../constants';
+import NFTCardSkeleton from '../../components/NFTCard/index.skeleton';
+import NoItemsFound from '../../components/NoItems';
+import { marketFilterList } from '../../constants/marketFilter';
+import { useSelector } from 'react-redux';
 
 const Collections = () => {
   const navigate = useNavigate();
 
+  const { account } = useSelector((store) => store.wallet);
   const [filter, setFilter] = useState(null);
   const [page, setPage] = useState(1);
   const [refetchInterval, setRefetchInterval] = useState(false);
@@ -29,6 +31,12 @@ const Collections = () => {
   const mockData = Array(8).fill(12);
 
   const handleSelect = (item) => setFilter(item);
+
+  const handleNavigate = (tokenId, address, wallet) => {
+    if (!wallet?.includes(account))
+      return navigate(`/marketplace/${tokenId}/${address}`);
+    return navigate(`/user/nft/${tokenId}/${address}`);
+  };
 
   return (
     <Paper className={styles.container}>
@@ -87,13 +95,17 @@ const Collections = () => {
                       contractAddress={collection?.contract_address}
                       setRefetchInterval={setRefetchInterval}
                       onClick={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        handleNavigate(
+                          nft.token_id,
+                          collection?.contract_address,
+                          artist.wallet_address
                         )
                       }
                       onAction={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        handleNavigate(
+                          nft.token_id,
+                          collection?.contract_address,
+                          artist.wallet_address
                         )
                       }
                     />

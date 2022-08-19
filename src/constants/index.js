@@ -33,3 +33,5 @@ export const priceTypeChar = {
   F: 'Fixed price',
   A: 'Auction price'
 };
+
+export const DATE_FORMAT = 'yyyy-MM-DD HH:mm:ss';

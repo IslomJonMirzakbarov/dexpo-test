@@ -24,14 +24,7 @@ const useMoreByCollectionAPI = (address, id) => {
   );
 
   const filteredData = useMemo(
-    () =>
-      data
-        ?.filter(
-          ({ nft, collection }) =>
-            nft?.token_id !== Number(id) &&
-            collection?.contract_address?.includes(address)
-        )
-        .splice(0, 4),
+    () => data?.filter(({ nft }) => nft?.token_id !== Number(id)).splice(0, 4),
     [data]
   );
 

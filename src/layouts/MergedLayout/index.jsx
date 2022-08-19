@@ -44,7 +44,7 @@ const MergedLayout = ({ children }) => {
     else navigate('/login');
   };
 
-  const handleNetwork = () => {
+  const handleNetwork = async () => {
     if (window.ethereum) {
       window.ethereum.on('chainChanged', () => {
         window.location.reload();
@@ -54,6 +54,7 @@ const MergedLayout = ({ children }) => {
 
         dispatch(setAccount(accounts[0]));
         connectWallet('metamask');
+        window.location.reload();
       });
     }
   };

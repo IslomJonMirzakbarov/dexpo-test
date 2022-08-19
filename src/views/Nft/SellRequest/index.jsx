@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { nftSellBtnLabels } from '../../../constants/marketStatuses';
 import useSellNFT from './hook/useSellNFT';
 import { useSelector } from 'react-redux';
+import { parseDate } from '../../../utils/parseDate';
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
@@ -62,6 +63,20 @@ const NFTSellRequest = () => {
   const [type, setType] = useState();
   const [error, setError] = useState();
 
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const [sendStartDate, setSendStartDate] = useState(null);
+  const [sendEndDate, setSendEndDate] = useState(null);
+
+  const handleChangeDate = ({ from, to }) => {
+    setSendStartDate(from);
+    setSendEndDate(to);
+
+    if (from) setStartDate(parseDate(from));
+    if (to) setEndDate(parseDate(to));
+  };
+
   const handleChangeType = (e) => setType(e);
 
   const handleLike = (liked) => {};
@@ -87,7 +102,10 @@ const NFTSellRequest = () => {
     getValues,
     refetch,
     refetchDetail,
-    market
+    market,
+    type,
+    startDate,
+    endDate
   });
 
   if (loading || fetching) return <Loader />;
@@ -120,6 +138,9 @@ const NFTSellRequest = () => {
       submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
       marketStatus={marketStatus}
       onLike={handleLike}
+      sdValue={sendStartDate}
+      edValue={sendEndDate}
+      handleChangeDate={handleChangeDate}
     />
   );
 };

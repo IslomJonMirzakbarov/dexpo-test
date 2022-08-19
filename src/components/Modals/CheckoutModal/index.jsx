@@ -7,6 +7,8 @@ import PendingFooter from './Footer/Pending';
 import ProcessingCheckout from './Processing';
 import CompleteCheckout from './Complete';
 import CompleteFooter from './Footer/Complete';
+import { calculateDeadline } from '../../../utils/deadline';
+import { parseNormalizedDate } from '../../../utils/parseDate';
 
 const Render = {
   [checkoutStatuses.INITIAL]: InitialCheckout,
@@ -26,14 +28,20 @@ const CheckoutModal = ({
   currentAmount,
   leftDays,
   collectionName,
-  txHash = '0x1e12331231231232121',
-  status = checkoutStatuses.COMPLETE,
+  txHash,
+  status,
   openModal,
   toggle,
   error,
   tokenId,
-  contractAddress
+  contractAddress,
+  bidPrice,
+  setBidPrice,
+  bidPriceControl,
+  endDate
 }) => {
+  const leftDeadline = calculateDeadline(null, parseNormalizedDate(endDate));
+
   const onClose = () => toggle();
 
   const Footer = {
@@ -64,11 +72,14 @@ const CheckoutModal = ({
         exchangedPrice={exchangedPrice}
         type={type}
         currentAmount={currentAmount}
-        leftDays={leftDays}
+        leftDays={leftDeadline}
         collectionName={collectionName}
         quantity={1}
         txHash={txHash}
         error={error}
+        bidPrice={bidPrice}
+        setBidPrice={setBidPrice}
+        bidPriceControl={bidPriceControl}
       />
     </DModal>
   );

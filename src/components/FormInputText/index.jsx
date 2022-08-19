@@ -1,61 +1,61 @@
-import React from "react";
-import { Controller } from "react-hook-form";
+import React from 'react';
+import { Controller } from 'react-hook-form';
 
-import styles from "./style.module.scss";
-import classNames from "classnames";
+import styles from './style.module.scss';
+import classNames from 'classnames';
 
 const FormInputText = ({
   name,
   control,
   label,
   artistInput,
-  type = "string",
+  type = 'string'
 }) => {
   const isCollectionEdit =
-    name === "collectionEditName" || name === "collectionEditSymbol";
-  const isDescSection = name === "description" || name === "artworkDescription";
+    name === 'collectionEditName' || name === 'collectionEditSymbol';
+  const isDescSection = name === 'description' || name === 'artworkDescription';
   return (
     <div
       className={classNames(
         styles.Test,
         { [styles.ArtistInput]: artistInput },
         {
-          [styles.CollectionEdit]: isCollectionEdit,
+          [styles.CollectionEdit]: isCollectionEdit
         }
       )}
     >
       <Controller
         name={name}
         control={control}
-        rules={{ required: name !== "youtubeURL" }}
-        render={({ field }) =>
-          isDescSection ? (
+        rules={{ required: name !== 'youtubeURL' }}
+        render={({ field }) => {
+          return isDescSection ? (
             <textarea
               placeholder={
-                name === "description"
-                  ? "Describe your fields of artwork"
-                  : "Enter an artwork description"
+                name === 'description'
+                  ? 'Describe your fields of artwork'
+                  : 'Enter an artwork description'
               }
               className={classNames(
                 styles.ArtistInputText,
                 styles.DescriptionInput,
-                { [styles.CollectionEdit]: name === "collectionEdit" }
+                { [styles.CollectionEdit]: name === 'collectionEdit' }
               )}
               type={type}
               {...field}
             />
           ) : (
             <input
-              disabled={name === "walletAddress" || isCollectionEdit}
+              disabled={name === 'walletAddress' || isCollectionEdit}
               className={classNames(styles.InputText, {
-                [styles.ArtistInputText]: artistInput,
+                [styles.ArtistInputText]: artistInput
               })}
               placeholder={label}
               type={type}
               {...field}
             />
-          )
-        }
+          );
+        }}
       />
     </div>
   );

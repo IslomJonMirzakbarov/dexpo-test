@@ -7,7 +7,7 @@ const AuctionBox = ({ leftDays }) => (
     <Typography>Auction Price</Typography>
     <Box display="flex" alignItems="center">
       <TimerIcon />
-      <Typography ml={1}>{leftDays} days left</Typography>
+      <Typography ml={1}>{leftDays}</Typography>
     </Box>
   </Box>
 );

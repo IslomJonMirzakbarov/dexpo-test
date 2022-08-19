@@ -33,7 +33,6 @@ const DModal = ({
           className={classNames(styles.modal, {
             [styles.expanded]: isExpandedImg
           })}
-          // ref={ref}
         >
           <img src={img} alt="expanded image" width="100%" height="100%" />
         </Box>

@@ -1,8 +1,7 @@
 import React from 'react';
 import FlipCountdown from '@rumess/react-flip-countdown';
-import './style.scss';
 
-const Countdown = ({ date = '2022-07-30 01:26:58' }) => {
+const Countdown = ({ date = '2022-08-30 01:26:58' }) => {
   return (
     <FlipCountdown
       hideYear
@@ -10,7 +9,7 @@ const Countdown = ({ date = '2022-07-30 01:26:58' }) => {
       endAtZero
       theme="light"
       size="extra-small" // Options (Default: medium): large, medium, small, extra-small.
-      endAt={date} // Date/Time
+      endAt={String(date)} // Date/Time
     />
   );
 };

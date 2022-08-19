@@ -11,15 +11,17 @@ import NumberFormat from "react-number-format";
 import tokenImg from "../../../assets/images/con-token.png";
 import { priceType, priceTypeChar } from "../../../constants";
 
-import PriceInput from "../../../components/PriceInput";
-import DRangePicker from "../../../components/DRangePicker";
-import SellModal from "../../../components/Modals/SellModal";
-import { useTheme } from "@emotion/react";
-import moment from "moment";
-import DModal from "../../../components/DModal";
-import { marketStatuses } from "../../../constants/marketStatuses";
+import { utils } from 'react-modern-calendar-datepicker';
+import PriceInput from '../../../components/PriceInput';
+import DRangePicker from '../../../components/DRangePicker';
+import SellModal from '../../../components/Modals/SellModal';
+import { useTheme } from '@emotion/react';
+import moment from 'moment';
+import DModal from '../../../components/DModal';
+import { marketStatuses } from '../../../constants/marketStatuses';
 
-const DATE_FORMAT = "DD-MM-yyyy hh:mm:ss";
+const DATE_FORMAT = 'yyyy-MM-DD hh:mm:ss';
+
 
 const useStyles = makeStyles({
   priceBox: {
@@ -60,6 +62,10 @@ const NFTSellRequestContainer = ({
   isDisabled,
   submitLabel,
   marketStatus,
+  onLike,
+  handleChangeDate,
+  sdValue,
+  edValue
 }) => {
   const theme = useTheme();
 
@@ -83,8 +89,13 @@ const NFTSellRequestContainer = ({
       {isAuction && (
         <Box mt="15px" display="flex" sx={{ width: "100%" }}>
           <DRangePicker
-            closeOnSelect={true}
+            minimumDate={utils().getToday()}
             placeholderText="Please select an auction period"
+            onChange={handleChangeDate}
+            value={{
+              from: sdValue,
+              to: edValue
+            }}
           />
         </Box>
       )}
