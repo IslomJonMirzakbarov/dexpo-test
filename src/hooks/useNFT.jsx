@@ -12,11 +12,15 @@ const getList = ({ type, page, orderBy = "desc" }, token) =>
     )
     .then((res) => res.data);
 
-const getDetail = ({ contractAddress, tokenId }, token) =>
+const getDetail = ({ contractAddress, tokenId, wallet }, token) =>
   securedAPI(token)
-    .get(
-      `/api/nft/detail?contract_address=${contractAddress}&token_id=${tokenId}`
-    )
+    .get('/api/nft/detail', {
+      params: {
+        contract_address: contractAddress,
+        token_id: tokenId,
+        wallet_address: wallet
+      }
+    })
     .then((res) => res.data);
 
 const fetchLike = (data, token) =>
@@ -43,7 +47,8 @@ const useNFTAPI = ({
   orderBy = "desc",
   contractAddress,
   id,
-  refetchInterval,
+  wallet,
+  refetchInterval
 }) => {
   const { token } = useSelector((store) => store.auth);
 
@@ -65,7 +70,7 @@ const useNFTAPI = ({
     isFetching: isFetchingHistory,
   } = useQuery(
     `get-nft-detail-${contractAddress}-${id}`,
-    () => getDetail({ contractAddress, tokenId: id }, token),
+    () => getDetail({ contractAddress, tokenId: id, wallet }, token),
     {
       enabled: !!contractAddress && !!id,
       ...configQuery,

@@ -10,10 +10,17 @@ const configQuery = {
   refetchOnReconnect: true,
 };
 
-const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
+const useCollectionAPI = ({
+  isDetail,
+  onSuccess,
+  page,
+  orderBy,
+  size,
+  id,
+  filter_type = "ALL",
+}) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
-  console.log(token);
 
   const config = {
     headers: { "content-type": "multipart/form-data" },
@@ -30,19 +37,17 @@ const useCollectionAPI = ({ isDetail, onSuccess, page, orderBy, size, id }) => {
       .post("/api/collection/update", formData, config)
       .then((res) => res.data);
 
-  const getCollectionList = () =>
-    securedAPI(token)
-      .get("/api/collection/list", {
-        params: {
-          page,
-          order_by: orderBy,
-          size,
-        },
-      })
-      .then((res) => {
-        console.log(res?.data);
-        return res.data;
-      });
+ const getCollectionList = () =>
+   securedAPI(token)
+     .get("/api/collection/list", {
+       params: {
+         page,
+         order_by: orderBy,
+         size,
+         filter_type,
+       },
+     })
+     .then((res) => res.data);
 
   const getCollection = (id) =>
     securedAPI(token)

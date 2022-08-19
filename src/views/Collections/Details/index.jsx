@@ -17,12 +17,13 @@ const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
 
   const params = useParams();
+
   const { account } = useSelector((store) => store.wallet);
   const [refetchInterval, setRefetchInterval] = useState(false);
   const { detail, loadingDetail, refetchDetail } = useNFTAPI({
     id: params?.id,
     contractAddress: params?.contract_address,
-    refetchInterval
+    refetchInterval,
   });
 
   const {
@@ -41,20 +42,10 @@ const CollectionDetails = () => {
 
   const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
 
-  const filteredData = useMemo(
-    () =>
-      moreNFTs?.filter(
-        ({ nft, collection }) =>
-          nft?.token_id !== Number(params?.id) &&
-          collection?.contract_address?.includes(params?.contract_address)
-      ),
-    [moreNFTs]
-  );
-
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const handleContract = async () => {
     try {
@@ -129,7 +120,7 @@ const CollectionDetails = () => {
     <CollectionDetailsContainer
       data={detail?.data}
       history={history}
-      moreNFTs={filteredData}
+      moreNFTs={moreNFTs}
       status={status}
       onConfirm={makeContract}
       isSoldOut={isSoldOut}

@@ -13,7 +13,7 @@ const slidesToShow = 4;
 
 const settings = {
   dots: true,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow,
   slidesToScroll: 1,
@@ -85,17 +85,18 @@ const NFTCollections = ({
                 {collections?.map(({ nft, artist, market, collection }, c) => (
                   <div className={styles.card} key={c}>
                     <NFTCard
+                      className={styles.card_item}
                       img={nft.token_image}
                       name={nft.token_name}
-                      price={nft.token_name}
+                      price={market?.price}
                       startDate={market?.start_date}
                       endDate={market?.end_date}
-                      leftDays={null}
                       artistName={artist.artist_name}
                       description={nft.token_name}
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      hasShadow={false}
                       isDefault
                       setRefetchInterval={setRefetchInterval}
                       onClick={() =>
@@ -168,9 +169,10 @@ const NFTCollections = ({
                 {collections?.map(({ nft, artist, market, collection }, c) => (
                   <div className={styles.card} key={c}>
                     <NFTCard
+                      className={styles.card_item}
                       img={nft.token_image}
                       name={nft.token_name}
-                      price={nft.token_name}
+                      price={market?.price}
                       startDate={market?.start_date}
                       endDate={market?.end_date}
                       artistName={artist.artist_name}
@@ -178,6 +180,7 @@ const NFTCollections = ({
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      hasShadow={false}
                       setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         navigate(

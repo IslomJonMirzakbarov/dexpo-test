@@ -8,6 +8,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import TokenImg from "../../assets/images/con-token.svg?component";
+import conTokenImg from "../../assets/images/con-token.svg";
 import classNames from "classnames";
 import { calculateDeadline } from "../../utils/deadline";
 import useNFTAPI from "../../hooks/useNFT";
@@ -35,6 +36,8 @@ const NFTCard = ({
   tokenId,
   contractAddress,
   setRefetchInterval,
+  className,
+  hasShadow = true,
 }) => {
   const dispatch = useDispatch();
   const { likedNfts } = useSelector((store) => store.nft);
@@ -128,7 +131,11 @@ const NFTCard = ({
           </Box>
         )}
       </Box>
-      <Box className={styles.wrapper}>
+      <Box
+        className={classNames(styles.wrapper, {
+          [styles.noShadow]: !hasShadow,
+        })}
+      >
         <Box display="flex" flexDirection="column">
           <Box className={classNames(styles.body, { [styles.last]: !price })}>
             <div className={styles.artist}>

@@ -50,6 +50,7 @@ const CollectionDetailsContainer = ({
   toggle,
   error,
   isDisabled,
+  onLike,
   setRefetchInterval,
 }) => {
   const { nft, artist, market, collection } = data || {};
@@ -81,10 +82,11 @@ const CollectionDetailsContainer = ({
               img={nft?.token_image}
               alt="nft picture"
               isSoldOut={isSoldOut}
-              isPurchased={false}
+              isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
               onClick={() => setOpenImg(true)}
+              onLike={() => onLike(nft?.is_liked)}
             />
           </Grid>
           <Grid item lg={7} className={classes.grid}>
@@ -180,6 +182,7 @@ const CollectionDetailsContainer = ({
       <MoreCollections
         data={moreNFTs}
         title="More Artworks From This Collection"
+        contractAddress={collection?.contract_address}
       />
       <CheckoutModal
         artistName={artist?.artist_name}
@@ -195,6 +198,8 @@ const CollectionDetailsContainer = ({
         openModal={openModal}
         toggle={toggle}
         error={error}
+        tokenId={nft?.token_id}
+        contractAddress={collection?.contract_address}
       />
       <DModal
         isExpandedImg

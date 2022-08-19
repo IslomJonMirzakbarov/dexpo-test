@@ -1,23 +1,35 @@
-import { Grid, Paper } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
-import styles from "./style.module.scss";
-import CollectionHeader from "./Header";
-import { fakeNFTs } from "../../../../../constants/faker";
-import NFTCard from "../../../../../components/NFTCard";
-import { useNavigate } from "react-router-dom";
-import NFTCardSkeleton from "../../../../../components/NFTCard/index.skeleton";
+import { Grid, Paper } from '@mui/material';
+import { Box } from '@mui/system';
+import React from 'react';
+import styles from './style.module.scss';
+import CollectionHeader from './Header';
+import { fakeNFTs } from '../../../../../constants/faker';
+import NFTCard from '../../../../../components/NFTCard';
+import { useNavigate } from 'react-router-dom';
+import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton';
 
 const CollectionItems = ({
-  sort = "",
-  searchInput = "",
+  sort = '',
+  searchInput = '',
   handleChangeSort,
   handleChangeSearch,
   isLoading,
   data,
-  contract_address
+  contract_address,
+  isGuest
 }) => {
   const navigate = useNavigate();
+
+  const getNavigate = (tokenId, contractAddress) => {
+    if (!isGuest)
+      return navigate(
+        `/user/nft/${tokenId}/${contractAddress || contract_address}`
+      );
+
+    return navigate(
+      `/marketplace/${tokenId}/${contractAddress || contract_address}`
+    );
+  };
 
   return (
     <Paper variant="div" className={styles.container}>
@@ -35,12 +47,12 @@ const CollectionItems = ({
                   <NFTCardSkeleton />
                 </Grid>
               ))
-            : data.map(({ artist, nft, collection }, c) => (
+            : data.map(({ artist, nft, collection, market }, c) => (
                 <Grid item lg={3} key={c} p={1}>
                   <NFTCard
                     img={nft?.token_image}
                     name={nft?.token_name}
-                    price={nft?.token_price}
+                    price={market.price}
                     leftDays={null}
                     artistName={artist?.artist_name}
                     description={nft?.token_name}
@@ -48,18 +60,10 @@ const CollectionItems = ({
                     hasAction={!!nft?.token_price}
                     purchaseCount={nft?.like_count}
                     onClick={() =>
-                      navigate(
-                        `/user/nft/${nft?.token_id}/${
-                          collection?.contract_address || contract_address
-                        }`
-                      )
+                      getNavigate(nft?.token_id, collection?.contract_address)
                     }
                     onAction={() =>
-                      navigate(
-                        `/user/nft/${nft?.token_id}/${
-                          collection?.contract_address || contract_address
-                        }`
-                      )
+                      getNavigate(nft?.token_id, collection?.contract_address)
                     }
                   />
                 </Grid>

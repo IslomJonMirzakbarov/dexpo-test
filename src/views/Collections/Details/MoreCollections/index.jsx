@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../../Home/NFTCollections/style.module.scss';
@@ -22,8 +22,11 @@ const settings = {
   nextArrow: <ArrowForwardIosRoundedIcon />
 };
 
-const MoreCollections = ({ data, title }) => {
+const MoreCollections = ({ data, title, contractAddress }) => {
   const navigate = useNavigate();
+
+  const handleNavigate = () =>
+    navigate(`/collections/${contractAddress}?user=false`);
 
   if (data?.length === 0) return;
 
@@ -107,6 +110,11 @@ const MoreCollections = ({ data, title }) => {
               ))}
             </Slider>
           )}
+        </Box>
+        <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
+          <Button variant="containedSecondary1" onClick={handleNavigate}>
+            View collection
+          </Button>
         </Box>
       </Box>
     </Container>

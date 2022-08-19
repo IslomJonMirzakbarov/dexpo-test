@@ -129,7 +129,7 @@ const NFTSellRequestContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               alt="nft picture"
-              isPurchased={false}
+              isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
               onClick={() => setOpenImg(true)}

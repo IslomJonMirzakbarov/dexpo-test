@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     borderRadius: 7,
-    marginRight: 14
+    marginRight: 14,
+    objectFit: 'cover'
   },
   box: {
     width: 432,
