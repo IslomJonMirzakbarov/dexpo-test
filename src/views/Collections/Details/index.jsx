@@ -17,10 +17,7 @@ import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI';
 import { useForm } from 'react-hook-form';
 import useToast from '../../../hooks/useToast';
 import { parseDate } from '../../../utils/parseDate';
-import {
-  getRPCErrorMessage,
-  metamaskError
-} from '../../../constants/metamaskErrors';
+import { getRPCErrorMessage } from '../../../constants/metamaskErrors';
 
 const CollectionDetails = () => {
   const { account } = useSelector((store) => store.wallet);
@@ -35,14 +32,21 @@ const CollectionDetails = () => {
     }
   });
 
-  const [refetchInterval, setRefetchInterval] = useState(false);
   const { detail, loadingDetail, refetchDetail, postDislike, postLike } =
     useNFTAPI({
       id: params?.id,
       contractAddress: params?.contract_address,
-      refetchInterval,
       wallet: account
     });
+
+  const {
+    data: history,
+    isLoading: loadingHistory,
+    refetch: refetchHistory
+  } = useNFTHistoryAPI({
+    tokenId: params?.id,
+    contractAddress: params?.contract_address
+  });
 
   const {
     data: bidHistory,
@@ -75,6 +79,16 @@ const CollectionDetails = () => {
   const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState('');
   const [bidPrice, setBidPrice] = useState();
+
+  const handleLike = (liked) => {
+    const payload = {
+      token_id: params?.id,
+      contract_address: params?.contract_address
+    };
+    if (liked)
+      postDislike.mutate(payload, { onSuccess: () => refetchDetail() });
+    else postLike.mutate(payload, { onSuccess: () => refetchDetail() });
+  };
 
   const handleContract = async () => {
     try {
@@ -177,7 +191,6 @@ const CollectionDetails = () => {
       bidHistory={bidHistory}
       bidPriceControl={control}
       isAuctionEnded={isAuctionEnded}
-      setRefetchInterval={setRefetchInterval}
     />
   );
 };
