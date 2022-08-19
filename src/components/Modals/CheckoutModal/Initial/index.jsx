@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import NumberFormat from 'react-number-format';
@@ -43,32 +43,27 @@ const useStyles = makeStyles((theme) => ({
   },
   exchangedPrice: {
     color: theme.palette.grey[1000]
+  },
+  token: {
+    width: 22,
+    height: 22
   }
 }));
 
 const InitialCheckout = ({
-  onClick,
   img,
   name,
   artistName,
   price,
   exchangedPrice = 233424300,
   type,
-  currentAmount,
-  leftDays = 7,
-  error
+  leftDays,
+  error,
+  bidPriceControl
 }) => {
   const classes = useStyles();
 
-  const { control, setValue } = useForm({
-    defaultValues: {
-      bidPrice: ''
-    }
-  });
-
   const isAuction = type === priceTypeChar.A;
-
-  const copyPrice = useCallback(() => setValue('bidPrice', price), [price]);
 
   return (
     <Box
@@ -120,7 +115,6 @@ const InitialCheckout = ({
               justifyContent="space-between"
               className={classes.price}
               mt={1}
-              onClick={copyPrice}
             >
               <Typography variant="placeholder" fontWeight={600}>
                 <NumberFormat
@@ -150,7 +144,7 @@ const InitialCheckout = ({
                 prefix="$"
               />
             </Typography>
-            {isAuction && <BidInput control={control} />}
+            {isAuction && <BidInput control={bidPriceControl} />}
           </Box>
         </Box>
       </Box>

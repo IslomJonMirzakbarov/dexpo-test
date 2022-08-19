@@ -21,7 +21,10 @@ const useSellNFT = ({
   getValues,
   refetch,
   refetchDetail,
-  market
+  market,
+  type,
+  startDate,
+  endDate
 }) => {
   const navigate = useNavigate();
   const marketStatus = collection?.market_status;
@@ -35,12 +38,22 @@ const useSellNFT = ({
   const { token } = useSelector((store) => store.auth);
   const { account } = useSelector((store) => store.wallet);
 
-  const { checkAllowance721, makeApprove721, sell, cancel } = useWeb3();
+  const {
+    checkAllowance721,
+    makeApprove721,
+    sell,
+    cancel,
+    createAuction,
+    cancelAuction
+  } = useWeb3();
+
   const { toast } = useToast();
 
   const [isApprove, setIsApprove] = useState(awaitStatus.PENDING);
   const [isListing, setIsListing] = useState(awaitStatus.INITIAL);
   const [isCanceling, setIsCanceling] = useState(awaitStatus.INITIAL);
+
+  const isFixedContract = type?.value === 'fixed';
 
   const handleToggle = () => setOpenModal((prev) => !prev);
 
@@ -75,7 +88,7 @@ const useSellNFT = ({
   const handleContract = async () => {
     setIsApprove(awaitStatus.PENDING);
     try {
-      const approve = await makeApprove721(contract_address);
+      const approve = await makeApprove721(contract_address, isFixedContract);
 
       if (!!approve) {
         handleSell();
@@ -87,9 +100,27 @@ const useSellNFT = ({
     }
   };
 
-  const handleSell = async () => {
-    setIsListing(awaitStatus.PENDING);
+  const handleAuction = async () => {
+    try {
+      const res = await createAuction(
+        contract_address,
+        id,
+        getValues('price'),
+        startDate,
+        endDate
+      );
 
+      if (!!res) {
+        setIsListing(awaitStatus.COMPLETE);
+        setTimeout(() => setStatus(sellReqStatuses.COMPLETE), 1200);
+      }
+    } catch (err) {
+      setError(err.message);
+      setIsListing(awaitStatus.ERROR);
+    }
+  };
+
+  const handleFixed = async () => {
     try {
       const res = await sell(contract_address, id, getValues('price'));
 
@@ -103,11 +134,21 @@ const useSellNFT = ({
     }
   };
 
+  const handleSell = async () => {
+    setIsListing(awaitStatus.PENDING);
+
+    if (isFixedContract) handleFixed();
+    else handleAuction();
+  };
+
   const makeContract = async () => {
     setStatus(sellReqStatuses.PENDING);
     setIsApprove(awaitStatus.PENDING);
     try {
-      const allowance = await checkAllowance721(contract_address);
+      const allowance = await checkAllowance721(
+        contract_address,
+        isFixedContract
+      );
 
       if (allowance) {
         handleSell();
@@ -124,7 +165,10 @@ const useSellNFT = ({
   const handleCancel = async () => {
     setIsCanceling(awaitStatus.PENDING);
     try {
-      const res = await cancel(contract_address, id);
+      let res;
+
+      if (isFixedContract) res = await cancel(contract_address, id);
+      else res = await cancelAuction(contract_address, id);
 
       if (!!res) {
         setIsCanceling(awaitStatus.COMPLETE);

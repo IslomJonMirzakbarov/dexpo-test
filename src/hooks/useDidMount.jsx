@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 const useDidMount = (f, conditions) => {
   const didMountRef = useRef(false);
-  console.log(didMountRef);
+
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;

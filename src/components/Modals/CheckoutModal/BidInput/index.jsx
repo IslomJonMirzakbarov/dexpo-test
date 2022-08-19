@@ -17,10 +17,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 7,
     overflow: 'hidden',
     padding: '7px 16px 7px 7px',
+
     '& input': {
       border: 'none',
       outline: 'none',
-      width: '230%'
+      width: '230%',
+      fontSize: 15,
+      fontWeight: 600
     }
   }
 }));

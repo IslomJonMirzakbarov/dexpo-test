@@ -11,13 +11,12 @@ import moment from 'moment';
 import HistoryTable from './HistoryTable';
 import TokenImg from '../../../assets/images/con-token.svg?component';
 import CheckoutModal from '../../../components/Modals/CheckoutModal';
-import { priceTypeChar } from '../../../constants';
+import { DATE_FORMAT, priceTypeChar } from '../../../constants';
 import MoreCollections from './MoreCollections';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DModal from '../../../components/DModal';
-
-const DATE_FORMAT = 'DD-MM-yyyy hh:mm:ss';
+import { getPurchaseLabel } from './util';
 
 const useStyles = makeStyles({
   priceBox: {
@@ -50,17 +49,22 @@ const CollectionDetailsContainer = ({
   toggle,
   error,
   isDisabled,
-  onLike
+  onLike,
+  isAuction,
+  bidPrice,
+  setBidPrice,
+  bidHistory,
+  bidPriceControl,
+  isAuctionEnded
 }) => {
+  const navigate = useNavigate();
+
   const { nft, artist, market, collection } = data || {};
   const { token } = useSelector((store) => store.auth);
   const [openImg, setOpenImg] = useState(false);
 
-  console.log(nft);
-
   const theme = useTheme();
   const classes = useStyles();
-  const navigate = useNavigate();
 
   const handleClick = () => {
     if (token) toggle();
@@ -71,6 +75,10 @@ const CollectionDetailsContainer = ({
 
     return moment(newDate).format(DATE_FORMAT);
   }, [market?.end_date]);
+
+  const isBidHistory = isAuction && bidHistory?.length > 0;
+
+  const btnLabel = getPurchaseLabel({ isSoldOut, isAuction, isAuctionEnded });
 
   return (
     <Paper className={styles.container}>
@@ -113,7 +121,7 @@ const CollectionDetailsContainer = ({
                 alignItems="end"
                 className={classes.box}
               >
-                {market?.end_date ? <Countdown date={endDate} /> : <Box />}
+                {isAuction && endDate ? <Countdown date={endDate} /> : <Box />}
                 <Box
                   display="flex"
                   flexDirection="column"
@@ -164,13 +172,20 @@ const CollectionDetailsContainer = ({
                     disabled={isSoldOut || isDisabled}
                     sx={{ height: 55 }}
                   >
-                    {isSoldOut ? 'Sold out' : 'Purchase Artwork'}
+                    {btnLabel}
                   </Button>
                 </Box>
               </Box>
             </Box>
           </Grid>
         </Grid>
+        {isBidHistory && (
+          <Grid container>
+            <Grid item lg={12}>
+              <HistoryTable data={bidHistory} title="BID History" />
+            </Grid>
+          </Grid>
+        )}
         <Grid container>
           <Grid item lg={12}>
             <HistoryTable data={history} />
@@ -198,6 +213,10 @@ const CollectionDetailsContainer = ({
         error={error}
         tokenId={nft?.token_id}
         contractAddress={collection?.contract_address}
+        bidPrice={bidPrice}
+        setBidPrice={setBidPrice}
+        bidPriceControl={bidPriceControl}
+        endDate={endDate}
       />
       <DModal
         isExpandedImg

@@ -36,7 +36,6 @@ const CollectionCard = ({
           <Typography variant="placeholder" className={styles.price}>
             <NumberFormat
               fixedDecimalScale={true}
-              decimalScale={3}
               value={price}
               displayType={'text'}
               thousandSeparator={true}

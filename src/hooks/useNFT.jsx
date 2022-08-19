@@ -27,7 +27,6 @@ const fetchLike = (data, token) =>
   securedAPI(token)
     .post(`/api/nft/like`, data)
     .then((res) => {
-      // console.log(res.data?.data?.like_count);
       return res.data;
     });
 

@@ -11,10 +11,12 @@ import { priceTypeChar } from '../../constants';
 import NFTCardSkeleton from '../../components/NFTCard/index.skeleton';
 import NoItemsFound from '../../components/NoItems';
 import { marketFilterList } from '../../constants/marketFilter';
+import { useSelector } from 'react-redux';
 
 const Collections = () => {
   const navigate = useNavigate();
 
+  const { account } = useSelector((store) => store.wallet);
   const [filter, setFilter] = useState(null);
   const [page, setPage] = useState(1);
 
@@ -24,6 +26,12 @@ const Collections = () => {
   const mockData = Array(8).fill(12);
 
   const handleSelect = (item) => setFilter(item);
+
+  const handleNavigate = (tokenId, address, wallet) => {
+    if (!wallet?.includes(account))
+      return navigate(`/marketplace/${tokenId}/${address}`);
+    return navigate(`/user/nft/${tokenId}/${address}`);
+  };
 
   return (
     <Paper className={styles.container}>
@@ -79,13 +87,17 @@ const Collections = () => {
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
                       onClick={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        handleNavigate(
+                          nft.token_id,
+                          collection?.contract_address,
+                          artist.wallet_address
                         )
                       }
                       onAction={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                        handleNavigate(
+                          nft.token_id,
+                          collection?.contract_address,
+                          artist.wallet_address
                         )
                       }
                     />
