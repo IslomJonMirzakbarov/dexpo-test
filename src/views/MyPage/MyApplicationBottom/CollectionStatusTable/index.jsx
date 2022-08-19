@@ -25,7 +25,7 @@ const CollectionStatusTable = () => {
       </thead>
 
       <tbody className={styles.TableBody}>
-        {collectionItems.length > 0 &&
+        {collectionItems?.length > 0 &&
           collectionItems.map((item) => {
             const itemStatus =
               item.status === "IDLE" || item.status === "PENDING"

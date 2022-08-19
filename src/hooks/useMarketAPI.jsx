@@ -21,13 +21,17 @@ const getList = ({ filterType, page, orderBy }, token) =>
 const useMarketAPI = ({
   type = marketFilters.RECENTLY_LISTED,
   page = 1,
-  orderBy = 'desc'
+  orderBy = 'desc', 
+  refetchInterval
 }) => {
   const { token } = useSelector((store) => store.auth);
 
   const { data, refetch, isLoading, error } = useQuery(
     `GET-NFT-MARKET-LIST-${type}`,
-    () => getList({ filterType: type, page, orderBy }, token)
+    () => getList({ filterType: type, page, orderBy }, token),
+    {
+      refetchInterval
+    }
   );
 
   return {

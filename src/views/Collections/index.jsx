@@ -19,8 +19,13 @@ const Collections = () => {
   const { account } = useSelector((store) => store.wallet);
   const [filter, setFilter] = useState(null);
   const [page, setPage] = useState(1);
+  const [refetchInterval, setRefetchInterval] = useState(false);
 
-  const { data, isLoading } = useMarketAPI({ page, type: filter?.value });
+  const { data, isLoading } = useMarketAPI({
+    page,
+    type: filter?.value,
+    refetchInterval,
+  });
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
   const mockData = Array(8).fill(12);
@@ -86,6 +91,9 @@ const Collections = () => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      tokenId={nft?.token_id}
+                      contractAddress={collection?.contract_address}
+                      setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         handleNavigate(
                           nft.token_id,

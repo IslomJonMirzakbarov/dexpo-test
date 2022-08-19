@@ -26,6 +26,7 @@ const FavoritesBottom = () => {
             return (
               <Grid item xs={4} sm={4} md={4} key={index}>
                 <NFTCard
+                  page="favoritesBottom"
                   liked
                   img={nftItem?.nft?.token_image}
                   name={nftItem?.nft?.token_description}

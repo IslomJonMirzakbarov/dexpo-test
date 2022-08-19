@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { securedAPI } from '../services/api';
 import { useMutation, useQuery } from 'react-query';
 
-const getList = ({ type, page, orderBy = 'desc', size }, token) =>
+
+const getList = ({ type, page, orderBy = "desc", size }, token) =>
   securedAPI(token)
     .get(
       `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
@@ -24,7 +25,7 @@ const fetchUnlike = (data, token) =>
   securedAPI(token).post(`/api/nft/dislike`, data);
 
 const nftListByCollection = (
-  { page, orderBy = 'desc', size, contractAddress },
+  { page, orderBy = "desc", size, contractAddress },
   token
 ) =>
   securedAPI(token)
@@ -37,7 +38,6 @@ const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: true, // constantly updating
   refetchOnReconnect: true,
-  staleTime: 0
 };
 
 const useNftAPI = ({
@@ -45,10 +45,11 @@ const useNftAPI = ({
   isGetList = false,
   isGetListByCollection = false,
   isGetDetail = false,
-  type = 'COLLECTED',
+  type = "COLLECTED",
   page = 1,
-  orderBy = 'desc',
-  size = 10
+  orderBy = "desc",
+  size = 10,
+  refetchInterval,
 }) => {
   const { token } = useSelector((store) => store.auth);
 
@@ -56,13 +57,13 @@ const useNftAPI = ({
     data: nftListCollection,
     refetch: refetchListByCollection,
     isLoading: loadingListByCollection,
-    error: errorByCollection
+    error: errorByCollection,
   } = useQuery(
     `get-nft-list-by-collection-${contractAddress}`,
     () => nftListByCollection({ contractAddress, page, orderBy, size }, token),
     {
       enabled: !!isGetListByCollection,
-      ...configQuery
+      ...configQuery,
     }
   );
 
@@ -70,13 +71,14 @@ const useNftAPI = ({
     data: list,
     refetch: refetchList,
     isLoading: loadingList,
-    error
+    error,
   } = useQuery(
-    'get-nft-list',
+    "get-nft-list",
     () => getList({ type, page, orderBy, size }, token),
     {
       enabled: !!isGetList,
-      ...configQuery
+      ...configQuery,
+      refetchInterval,
     }
   );
 
@@ -84,9 +86,9 @@ const useNftAPI = ({
     data: detail,
     refetch: refetchDetail,
     isLoading: loadingDetail,
-    error: errorDetail
+    error: errorDetail,
   } = useQuery(`get-nft-detail`, (payload) => getDetail(payload, token), {
-    enabled: !!isGetDetail
+    enabled: !!isGetDetail,
   });
 
   const mutationLike = useMutation((data) => fetchLike(data, token), {});
@@ -105,7 +107,7 @@ const useNftAPI = ({
     loadingListByCollection,
     refetchList,
     loadingList,
-    error
+    error,
   };
 };
 

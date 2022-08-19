@@ -1,20 +1,20 @@
-import { Box, Button, Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import NumberFormat from 'react-number-format';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import styles from './style.module.scss';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import TokenImg from '../../assets/images/con-token.svg?component';
-
-import classNames from 'classnames';
-import { calculateDeadline } from '../../utils/deadline';
-import useNFTAPI from '../../hooks/useNFT';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { setDislikedNfts, setLikedNfts } from '../../store/nft/nft.slice';
+import { Box, Button, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import NumberFormat from "react-number-format";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import styles from "./style.module.scss";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import TokenImg from "../../assets/images/con-token.svg?component";
+import conTokenImg from "../../assets/images/con-token.svg";
+import classNames from "classnames";
+import { calculateDeadline } from "../../utils/deadline";
+import useNFTAPI from "../../hooks/useNFT";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setDislikedNfts, setLikedNfts } from "../../store/nft/nft.slice";
 
 const NFTCard = ({
   page,
@@ -31,50 +31,81 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = 'containedInherit',
+  buttonVariant = "containedInherit",
   isDefault = false,
   tokenId,
   contractAddress,
+  setRefetchInterval,
   className,
-  hasShadow = true
+  hasShadow = true,
 }) => {
   const dispatch = useDispatch();
   const { likedNfts } = useSelector((store) => store.nft);
+  const [likedNFT, setLikedNFT] = useState(liked);
   const [likeCount, setLikeCount] = useState(purchaseCount);
   const { postLike, postDislike } = useNFTAPI({});
 
   useEffect(() => {
     if (postLike.isSuccess) {
+      dispatch(setLikedNfts(JSON.stringify({ tokenId, contractAddress })));
       setLikeCount(postLike?.data?.data?.like_count);
-      dispatch(setLikedNfts(tokenId));
+      if (setRefetchInterval) {
+        setRefetchInterval(200);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 300);
+      }
     }
-  }, [dispatch, postLike?.data?.data?.like_count, postLike.isSuccess, tokenId]);
+  }, [
+    contractAddress,
+    dispatch,
+    postLike?.data?.data?.like_count,
+    postLike.isSuccess,
+    setRefetchInterval,
+    tokenId,
+  ]);
 
   useEffect(() => {
     if (postDislike.isSuccess) {
+      dispatch(setDislikedNfts(JSON.stringify({ tokenId, contractAddress })));
       setLikeCount(postDislike?.data?.data?.data?.like_count);
-      dispatch(setDislikedNfts(tokenId));
+      if (setRefetchInterval) {
+        setRefetchInterval(200);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 300);
+      }
     }
   }, [
+    contractAddress,
     dispatch,
     postDislike?.data?.data?.data?.like_count,
     postDislike.isSuccess,
-    tokenId
+    setRefetchInterval,
+    tokenId,
   ]);
 
   // please do not merge above useEffects, they work separately
   // okay)
 
+  useEffect(() => {
+    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
+      setLikedNFT(true);
+    } else {
+      setLikedNFT(false);
+    }
+  }, [contractAddress, likedNfts, tokenId]);
+
   const likeClick = () => {
-    if (likedNfts.includes(tokenId)) {
+    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
       postDislike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId
+        token_id: tokenId,
       });
     } else {
       postLike.mutate({
         contract_address: contractAddress,
-        token_id: tokenId
+        token_id: tokenId,
       });
     }
   };
@@ -84,10 +115,10 @@ const NFTCard = ({
 
   return (
     <Box
-      className={classNames(styles.card, className, {
-        [styles.CollectedCard]: page === 'collectedBottom',
+      className={classNames(styles.card, {
+        [styles.CollectedCard]: page === "collectedBottom",
         [styles.minified]: !price,
-        [styles.default]: isDefault
+        [styles.default]: isDefault,
       })}
     >
       <Box className={styles.header} onClick={onClick}>
@@ -102,7 +133,7 @@ const NFTCard = ({
       </Box>
       <Box
         className={classNames(styles.wrapper, {
-          [styles.noShadow]: !hasShadow
+          [styles.noShadow]: !hasShadow,
         })}
       >
         <Box display="flex" flexDirection="column">
@@ -115,38 +146,44 @@ const NFTCard = ({
             </div>
             <div className={styles.actions}>
               <span
-                className={classNames(styles.count, { [styles.liked]: liked })}
+                className={classNames(styles.count, {
+                  [styles.liked]: page === "favoritesBottom" || likedNFT,
+                })}
               >
                 <NumberFormat
                   value={likeCount}
-                  displayType={'text'}
+                  displayType={"text"}
                   decimalScale={3}
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg} onClick={() => likeClick()}>
-                  {liked ? <FavoriteRoundedIcon /> : <FavoriteBorderIcon />}
+                  {page === "favoritesBottom" || likedNFT ? (
+                    <FavoriteRoundedIcon />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
                 </div>
               </span>
             </div>
           </Box>
-          {price && (
-            <div className={styles.price}>
+          <div className={styles.price}>
+            {price && (
               <>
                 <TokenImg
                   className={styles.coin}
                   style={{
                     width: 16,
-                    height: 16
+                    height: 16,
                   }}
                 />
                 <NumberFormat
                   value={price}
-                  displayType={'text'}
+                  displayType={"text"}
                   thousandSeparator={true}
                 />
               </>
-            </div>
-          )}
+            )}
+          </div>
         </Box>
         {hasAction && (
           <Box className={styles.footer}>
