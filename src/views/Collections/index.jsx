@@ -1,24 +1,29 @@
-import { Box, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import DSelect from '../../components/DSelect';
-import styles from './style.module.scss';
-import SearchField from '../../components/Autocomplete';
-import NFTCard from '../../components/NFTCard';
-import CPagination from '../../components/CPagination';
-import { useNavigate } from 'react-router-dom';
-import useMarketAPI from '../../hooks/useMarketAPI';
-import { priceTypeChar } from '../../constants';
-import NFTCardSkeleton from '../../components/NFTCard/index.skeleton';
-import NoItemsFound from '../../components/NoItems';
-import { marketFilterList } from '../../constants/marketFilter';
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import React, { useState } from "react";
+import DSelect from "../../components/DSelect";
+import styles from "./style.module.scss";
+import SearchField from "../../components/Autocomplete";
+import NFTCard from "../../components/NFTCard";
+import CPagination from "../../components/CPagination";
+import { useNavigate } from "react-router-dom";
+import useMarketAPI from "../../hooks/useMarketAPI";
+import { priceTypeChar } from "../../constants";
+import NFTCardSkeleton from "../../components/NFTCard/index.skeleton";
+import NoItemsFound from "../../components/NoItems";
+import { marketFilterList } from "../../constants/marketFilter";
 
 const Collections = () => {
   const navigate = useNavigate();
 
   const [filter, setFilter] = useState(null);
   const [page, setPage] = useState(1);
+  const [refetchInterval, setRefetchInterval] = useState(false);
 
-  const { data, isLoading } = useMarketAPI({ page, type: filter?.value });
+  const { data, isLoading } = useMarketAPI({
+    page,
+    type: filter?.value,
+    refetchInterval,
+  });
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
   const mockData = Array(8).fill(12);
@@ -78,6 +83,9 @@ const Collections = () => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      tokenId={nft?.token_id}
+                      contractAddress={collection?.contract_address}
+                      setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`

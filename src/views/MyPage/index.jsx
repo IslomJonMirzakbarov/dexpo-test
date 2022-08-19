@@ -32,6 +32,9 @@ const MyPage = () => {
     case "collection-status":
       num = 4;
       break;
+    case "sell-request":
+      num = 4;
+      break;
     default:
       num = 0;
   }
@@ -93,7 +96,9 @@ const MyPage = () => {
           onSelect={(item) => setTab(item)}
           setValues={setTabs}
         />
-        {tab?.value === "collected" && <CollectedBottom />}
+        {tab?.value === "collected" && (
+          <CollectedBottom tabValue={tab?.value}/>
+        )}
         {tab?.value === "myApplication" && (
           <MyApplicationBottom artist={artist} id={id} />
         )}

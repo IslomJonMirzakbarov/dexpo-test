@@ -1,13 +1,13 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { securedAPI } from '../services/api';
-import { useMutation, useQuery } from 'react-query';
-import { assignNewCollection } from '../store/collection/collection.slice';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { securedAPI } from "../services/api";
+import { useMutation, useQuery } from "react-query";
+import { assignNewCollection } from "../store/collection/collection.slice";
 
 const configQuery = {
-  refetchOnMount: 'always',
+  refetchOnMount: "always",
   refetchOnWindowFocus: true, // constantly updating when newCollection created
-  refetchOnReconnect: true
+  refetchOnReconnect: true,
 };
 
 const useCollectionAPI = ({
@@ -17,37 +17,37 @@ const useCollectionAPI = ({
   orderBy,
   size,
   id,
-  filter_type = 'ALL'
+  filter_type = "ALL",
 }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
 
   const config = {
-    headers: { 'content-type': 'multipart/form-data' }
+    headers: { "content-type": "multipart/form-data" },
   };
   const createCollection = (formData) =>
     securedAPI(token)
-      .post('/api/collection/create', formData, config)
+      .post("/api/collection/create", formData, config)
       .then((res) => {
         dispatch(assignNewCollection(res.data.data));
       });
 
   const updateCollection = (formData) =>
     securedAPI(token)
-      .post('/api/collection/update', formData, config)
+      .post("/api/collection/update", formData, config)
       .then((res) => res.data);
 
-  const getCollectionList = () =>
-    securedAPI(token)
-      .get('/api/collection/list', {
-        params: {
-          page,
-          order_by: orderBy,
-          size,
-          filter_type
-        }
-      })
-      .then((res) => res.data);
+ const getCollectionList = () =>
+   securedAPI(token)
+     .get("/api/collection/list", {
+       params: {
+         page,
+         order_by: orderBy,
+         size,
+         filter_type,
+       },
+     })
+     .then((res) => res.data);
 
   const getCollection = (id) =>
     securedAPI(token)
@@ -55,30 +55,30 @@ const useCollectionAPI = ({
       .then((res) => res.data);
 
   const mutation = useMutation((data) => createCollection(data), {
-    onSuccess
+    onSuccess,
   });
 
   const update = useMutation((data) => updateCollection(data), {
-    onSuccess
+    onSuccess,
   });
 
   const { data, isLoading, error } = useQuery(
-    'get-collection-list',
+    "get-collection-list",
     () => getCollectionList(token, page, orderBy, size),
     {
       enabled: isDetail || false,
       ...configQuery,
-      refetch: page
+      refetch: page,
     }
   );
 
   const {
     data: collection,
     isLoading: collectionLoading,
-    error: collectionError
-  } = useQuery('get-collection-detail', () => getCollection(id, token), {
+    error: collectionError,
+  } = useQuery("get-collection-detail", () => getCollection(id, token), {
     enabled: isDetail || false,
-    ...configQuery
+    ...configQuery,
   });
 
   return {
@@ -89,7 +89,7 @@ const useCollectionAPI = ({
     collectionLoading,
     isLoading,
     error,
-    collectionError
+    collectionError,
   };
 };
 

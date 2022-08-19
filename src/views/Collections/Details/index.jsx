@@ -1,17 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { checkoutStatuses } from '../../../constants/checkoutStatuses';
+import React, { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { checkoutStatuses } from "../../../constants/checkoutStatuses";
 
-import CollectionDetailsContainer from './index.container';
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
-import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import useWeb3 from '../../../hooks/useWeb3';
-import Loader from '../../../components/Loader';
-import useNFTAPI from '../../../hooks/useNFT';
+import CollectionDetailsContainer from "./index.container";
+import useNFTHistoryAPI from "../../../hooks/useNFTHistoryAPI";
+import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
+import useWeb3 from "../../../hooks/useWeb3";
+import Loader from "../../../components/Loader";
+import useNFTAPI from "../../../hooks/useNFT";
 
-import NoItemsFound from '../../../components/NoItems';
-import { useSelector } from 'react-redux';
-import { Box } from '@mui/material';
+import NoItemsFound from "../../../components/NoItems";
+import { useSelector } from "react-redux";
+import { Box } from "@mui/material";
 
 const CollectionDetails = () => {
   const { checkAllowance, makeApprove, purchase } = useWeb3();
@@ -19,43 +19,33 @@ const CollectionDetails = () => {
   const params = useParams();
 
   const { account } = useSelector((store) => store.wallet);
-  const { detail, loadingDetail, refetchDetail, postDislike, postLike } =
-    useNFTAPI({
-      id: params?.id,
-      contractAddress: params?.contract_address,
-      wallet: account
-    });
+  const [refetchInterval, setRefetchInterval] = useState(false);
+  const { detail, loadingDetail, refetchDetail } = useNFTAPI({
+    id: params?.id,
+    contractAddress: params?.contract_address,
+    refetchInterval,
+  });
 
   const {
     data: history,
     isLoading: loadingHistory,
-    refetch: refetchHistory
+    refetch: refetchHistory,
   } = useNFTHistoryAPI({
     tokenId: params?.id,
-    contractAddress: params?.contract_address
+    contractAddress: params?.contract_address,
   });
 
   const isSoldOut = !detail?.data?.market?.price;
-  const isNotExist = detail?.message?.includes('NOT_EXIST');
+  const isNotExist = detail?.message?.includes("NOT_EXIST");
   const isPurchaseBtnDisabled =
     detail?.data?.market?.seller_address?.includes(account);
 
   const { data: moreNFTs } = useMoreByCollectionAPI(params?.contract_address);
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
-  const [txHash, setTxHash] = useState('');
+  const [txHash, setTxHash] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState('');
-
-  const handleLike = (liked) => {
-    const payload = {
-      token_id: params?.id,
-      contract_address: params?.contract_address
-    };
-    if (liked)
-      postDislike.mutate(payload, { onSuccess: () => refetchDetail() });
-    else postLike.mutate(payload, { onSuccess: () => refetchDetail() });
-  };
 
   const handleContract = async () => {
     try {
@@ -109,7 +99,7 @@ const CollectionDetails = () => {
   };
 
   useEffect(() => {
-    setError('');
+    setError("");
   }, [openModal]);
 
   if (loadingDetail || loadingHistory) return <Loader />;
@@ -139,7 +129,7 @@ const CollectionDetails = () => {
       toggle={toggle}
       error={error}
       isDisabled={isPurchaseBtnDisabled}
-      onLike={handleLike}
+      setRefetchInterval={setRefetchInterval}
     />
   );
 };

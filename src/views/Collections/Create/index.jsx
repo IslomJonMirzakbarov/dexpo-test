@@ -82,7 +82,7 @@ const CollectionCreate = () => {
   return (
     <Box className={styles.Container}>
       <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
-        <Box className={styles.Title}>Choose Type</Box>
+        <Box className={styles.Title}>Create a Collection</Box>
 
         <Box className={styles.ModeContainer}>
           <Box className={classNames(styles.SingleMode)}>
