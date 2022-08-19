@@ -135,7 +135,7 @@ div[role='status'] {
 
 .flip-countdown {
   display: flex;
-  margin: 0;
+  margin: 0 !important;
 
   .flip-countdown-piece {
     display: flex !important;
@@ -152,7 +152,7 @@ div[role='status'] {
       margin: 0 3px;
 
       .flip-countdown-card-sec {
-        box-shadow: none;
+        box-shadow: none !important;
 
         .card__bottom,
         .card__top,
@@ -181,7 +181,7 @@ div[role='status'] {
     .flip-countdown-title {
       text-align: left;
       @include fontBodyXSS; /* identical to box height */
-      font-weight: 500;
+      font-weight: 500 !important;
       margin: 2px 3px;
 
       color: colors.$text;
