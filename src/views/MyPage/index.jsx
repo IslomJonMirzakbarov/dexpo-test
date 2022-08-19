@@ -96,7 +96,9 @@ const MyPage = () => {
           onSelect={(item) => setTab(item)}
           setValues={setTabs}
         />
-        {tab?.value === "collected" && <CollectedBottom />}
+        {tab?.value === "collected" && (
+          <CollectedBottom tabValue={tab?.value}/>
+        )}
         {tab?.value === "myApplication" && (
           <MyApplicationBottom artist={artist} id={id} />
         )}

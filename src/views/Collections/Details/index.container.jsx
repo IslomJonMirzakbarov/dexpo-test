@@ -50,6 +50,7 @@ const CollectionDetailsContainer = ({
   toggle,
   error,
   isDisabled,
+  setRefetchInterval,
 }) => {
   const { nft, artist, market, collection } = data || {};
   const { token } = useSelector((store) => store.auth);
@@ -75,6 +76,7 @@ const CollectionDetailsContainer = ({
         <Grid container spacing={3}>
           <Grid item lg={5}>
             <CollectionDetailImage
+              setRefetchInterval={setRefetchInterval}
               price={nft?.like_count}
               img={nft?.token_image}
               alt="nft picture"

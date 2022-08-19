@@ -8,7 +8,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import TokenImg from "../../assets/images/con-token.svg?component";
-import conTokenImg from "../../assets/images/con-token.svg";
 import classNames from "classnames";
 import { calculateDeadline } from "../../utils/deadline";
 import useNFTAPI from "../../hooks/useNFT";
@@ -35,37 +34,51 @@ const NFTCard = ({
   isDefault = false,
   tokenId,
   contractAddress,
+  setRefetchInterval,
 }) => {
   const dispatch = useDispatch();
   const { likedNfts } = useSelector((store) => store.nft);
   const [likedNFT, setLikedNFT] = useState(liked);
   const [likeCount, setLikeCount] = useState(purchaseCount);
   const { postLike, postDislike } = useNFTAPI({});
-  // console.log(tokenId, contractAddress);
 
   useEffect(() => {
     if (postLike.isSuccess) {
-      setLikeCount(postLike?.data?.data?.like_count);
       dispatch(setLikedNfts(JSON.stringify({ tokenId, contractAddress })));
+      setLikeCount(postLike?.data?.data?.like_count);
+      if (setRefetchInterval) {
+        setRefetchInterval(200);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 300);
+      }
     }
   }, [
     contractAddress,
     dispatch,
     postLike?.data?.data?.like_count,
     postLike.isSuccess,
+    setRefetchInterval,
     tokenId,
   ]);
 
   useEffect(() => {
     if (postDislike.isSuccess) {
-      setLikeCount(postDislike?.data?.data?.data?.like_count);
       dispatch(setDislikedNfts(JSON.stringify({ tokenId, contractAddress })));
+      setLikeCount(postDislike?.data?.data?.data?.like_count);
+      if (setRefetchInterval) {
+        setRefetchInterval(200);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 300);
+      }
     }
   }, [
     contractAddress,
     dispatch,
     postDislike?.data?.data?.data?.like_count,
     postDislike.isSuccess,
+    setRefetchInterval,
     tokenId,
   ]);
 

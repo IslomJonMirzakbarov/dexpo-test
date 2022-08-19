@@ -21,7 +21,11 @@ const settings = {
   nextArrow: <ArrowForwardIosRoundedIcon />,
 };
 
-const NFTCollections = ({ collections, hottestCollections }) => {
+const NFTCollections = ({
+  collections,
+  hottestCollections,
+  setRefetchInterval,
+}) => {
   const navigate = useNavigate();
   return (
     <Box className={classNames(styles.container, "collections")}>
@@ -40,7 +44,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
           <Box className={styles.collection}>
             {hottestCollections?.length < 5 ? (
               hottestCollections?.map(
-                ({nft, artist, market, collection}, c) => {
+                ({ nft, artist, market, collection }, c) => {
                   return (
                     <Box key={c} className={styles.card}>
                       <NFTCard
@@ -60,16 +64,17 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                         isDefault
                         tokenId={nft?.token_id}
                         contractAddress={collection?.contract_address}
-                        onClick={() =>
+                        setRefetchInterval={setRefetchInterval}
+                        onClick={() => {
                           navigate(
                             `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                          )
-                        }
-                        onAction={() =>
+                          );
+                        }}
+                        onAction={() => {
                           navigate(
                             `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                          )
-                        }
+                          );
+                        }}
                       />
                     </Box>
                   );
@@ -92,6 +97,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
                       isDefault
+                      setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`
@@ -142,6 +148,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`
@@ -171,6 +178,7 @@ const NFTCollections = ({ collections, hottestCollections }) => {
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
+                      setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         navigate(
                           `/marketplace/${nft.token_id}/${collection?.contract_address}`

@@ -43,6 +43,7 @@ const useNFTAPI = ({
   orderBy = "desc",
   contractAddress,
   id,
+  refetchInterval,
 }) => {
   const { token } = useSelector((store) => store.auth);
 
@@ -67,6 +68,8 @@ const useNFTAPI = ({
     () => getDetail({ contractAddress, tokenId: id }, token),
     {
       enabled: !!contractAddress && !!id,
+      ...configQuery,
+      refetchInterval,
     }
   );
 

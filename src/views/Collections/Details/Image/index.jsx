@@ -21,6 +21,7 @@ const CollectionDetailImage = ({
   onClick,
   tokenId,
   contractAddress,
+  setRefetchInterval,
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -33,12 +34,19 @@ const CollectionDetailImage = ({
     if (postLike.isSuccess) {
       setLikeCount(postLike?.data?.data?.like_count);
       dispatch(setLikedNfts(JSON.stringify({ tokenId, contractAddress })));
+      if (setRefetchInterval) {
+        setRefetchInterval(200);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 300);
+      }
     }
   }, [
     contractAddress,
     dispatch,
     postLike?.data?.data?.like_count,
     postLike.isSuccess,
+    setRefetchInterval,
     tokenId,
   ]);
 
@@ -46,12 +54,19 @@ const CollectionDetailImage = ({
     if (postDislike.isSuccess) {
       setLikeCount(postDislike?.data?.data?.data?.like_count);
       dispatch(setDislikedNfts(JSON.stringify({ tokenId, contractAddress })));
+      if (setRefetchInterval) {
+        setRefetchInterval(200);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 300);
+      }
     }
   }, [
     contractAddress,
     dispatch,
     postDislike?.data?.data?.data?.like_count,
     postDislike.isSuccess,
+    setRefetchInterval,
     tokenId,
   ]);
 
