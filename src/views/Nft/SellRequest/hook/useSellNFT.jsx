@@ -64,7 +64,6 @@ const useSellNFT = ({
   };
 
   const clear = () => {
-    console.log('heeey');
     setOpenModal(false);
     setError('');
     setIsListing(awaitStatus.INITIAL);
