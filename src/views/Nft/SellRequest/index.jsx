@@ -88,6 +88,7 @@ const NFTSellRequest = () => {
     isApprove,
     isCanceling,
     marketStatus,
+    onBack,
     handeConfirm,
     handleToggle
   } = useSellNFT({
@@ -140,6 +141,7 @@ const NFTSellRequest = () => {
       onLike={handleLike}
       sdValue={sendStartDate}
       edValue={sendEndDate}
+      onBack={onBack}
       handleChangeDate={handleChangeDate}
     />
   );

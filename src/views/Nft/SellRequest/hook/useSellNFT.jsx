@@ -30,6 +30,7 @@ const useSellNFT = ({
   const marketStatus = collection?.market_status;
   const sellerAddress = market?.seller_address?.toLowerCase();
   const isCancel = status?.includes(sellReqStatuses.CANCEL);
+  const isCompleted = status?.includes(sellReqStatuses.COMPLETE);
   const isDisabledSellBtn = [
     marketStatuses.PENDING,
     marketStatuses.REJECT
@@ -53,7 +54,7 @@ const useSellNFT = ({
   const [isListing, setIsListing] = useState(awaitStatus.INITIAL);
   const [isCanceling, setIsCanceling] = useState(awaitStatus.INITIAL);
 
-  const isFixedContract = type?.value === 'fixed';
+  const isFixedContract = type?.value === 'fixed' || market?.type === 'F';
 
   const handleToggle = () => setOpenModal((prev) => !prev);
 
@@ -63,6 +64,8 @@ const useSellNFT = ({
   };
 
   const clear = () => {
+    console.log('heeey');
+    setOpenModal(false);
     setError('');
     setIsListing(awaitStatus.INITIAL);
     setIsApprove(awaitStatus.INITIAL);
@@ -188,6 +191,8 @@ const useSellNFT = ({
     if (isIDLEMarketStatus) return handleRequest();
     if (isEmptyPriceField) return toast.error('Fill the price form');
 
+    if (isCompleted) return clear();
+
     setError('');
 
     const price = getValues('price');
@@ -205,6 +210,8 @@ const useSellNFT = ({
     }
   };
 
+  const handleBack = () => clear();
+
   const handleStatus = () => {
     if (marketStatus?.includes(marketStatuses.COMPLETE))
       setStatus(sellReqStatuses.PENDING);
@@ -212,7 +219,6 @@ const useSellNFT = ({
   };
 
   useEffect(() => {
-    if (!openModal) clear();
     setError('');
   }, [openModal]);
 
@@ -237,6 +243,7 @@ const useSellNFT = ({
     isApprove,
     isCanceling,
     marketStatus,
+    onBack: handleBack,
     handeConfirm,
     handleToggle
   };
