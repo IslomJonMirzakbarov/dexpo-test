@@ -5,7 +5,6 @@ const Countdown = ({ date = '2022-08-30 01:26:58' }) => {
   return (
     <FlipCountdown
       hideYear
-      hideMonth
       endAtZero
       theme="light"
       size="extra-small" // Options (Default: medium): large, medium, small, extra-small.

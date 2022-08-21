@@ -64,15 +64,19 @@ const CollectionDetails = () => {
 
   const market = detail?.data?.market;
   const currentDate = utils().getToday();
+  const currentTime = Math.round(new Date().getTime() / 1000);
 
   const isAuction = market?.type === 'A';
   const isAuctionEnded =
     isAuction && market?.end_date < Number(parseDate(currentDate));
+  const isAuctionNotStarted =
+    isAuction && market?.start_date > Number(currentTime);
 
   const isSoldOut = !market?.price;
   const isNotExist = detail?.message?.includes('NOT_EXIST');
   const isCurrentUserNFT = market?.seller_address?.includes(account);
-  const isPurchaseBtnDisabled = isCurrentUserNFT || isAuctionEnded;
+  const isPurchaseBtnDisabled =
+    isCurrentUserNFT || isAuctionEnded || isAuctionNotStarted;
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
@@ -191,6 +195,7 @@ const CollectionDetails = () => {
       bidHistory={bidHistory}
       bidPriceControl={control}
       isAuctionEnded={isAuctionEnded}
+      isAuctionNotStarted={isAuctionNotStarted}
     />
   );
 };
