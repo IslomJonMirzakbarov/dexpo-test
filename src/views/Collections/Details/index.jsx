@@ -130,7 +130,7 @@ const CollectionDetails = () => {
   const makeContract = async () => {
     const bidPrice = getValues('bidPrice');
     const price = market?.price;
-    if (bidPrice < price)
+    if (isAuction && bidPrice < price)
       return setError(`Bid price should be greater than ${price} CYC`);
 
     setStatus(checkoutStatuses.PENDING);

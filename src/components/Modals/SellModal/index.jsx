@@ -46,7 +46,8 @@ const SellModal = ({
   isListing,
   isCanceling,
   error,
-  sellPrice
+  sellPrice,
+  onBack
 }) => {
   const Footer = {
     [sellReqStatuses.INITIAL]: null,
@@ -56,7 +57,7 @@ const SellModal = ({
     [sellReqStatuses.COMPLETE]: null,
     [sellReqStatuses.CANCEL]: (
       <CancelFooter
-        onBack={onClose}
+        onBack={onBack || onClose}
         onContinue={onClick}
         loading={isCanceling.includes(awaitStatus.PENDING)}
         type={isCanceling}
