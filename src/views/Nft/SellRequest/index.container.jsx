@@ -19,6 +19,7 @@ import { useTheme } from '@emotion/react';
 import moment from 'moment';
 import DModal from '../../../components/DModal';
 import { marketStatuses } from '../../../constants/marketStatuses';
+import TimeInput from './TimeInput';
 
 const DATE_FORMAT = 'yyyy-MM-DD hh:mm:ss';
 
@@ -32,6 +33,9 @@ const useStyles = makeStyles({
   button: {
     padding: '16px 0',
     marginTop: 17
+  },
+  timeInput: {
+    width: '48%'
   }
 });
 
@@ -65,7 +69,11 @@ const NFTSellRequestContainer = ({
   onBack,
   handleChangeDate,
   sdValue,
-  edValue
+  edValue,
+  startTime,
+  endTime,
+  handleChangeFromTime,
+  handleChangeToTime
 }) => {
   const theme = useTheme();
 
@@ -82,25 +90,6 @@ const NFTSellRequestContainer = ({
 
     return moment(newDate).format(DATE_FORMAT);
   }, [market?.end_date]);
-
-  const Inputs = () => (
-    <Box display="flex" flexDirection="column" sx={{ width: '100%' }}>
-      {!!type && <PriceInput control={control} name="price" />}
-      {isAuction && (
-        <Box mt="15px" display="flex" sx={{ width: '100%' }}>
-          <DRangePicker
-            minimumDate={utils().getToday()}
-            placeholderText="Please select an auction period"
-            onChange={handleChangeDate}
-            value={{
-              from: sdValue,
-              to: edValue
-            }}
-          />
-        </Box>
-      )}
-    </Box>
-  );
 
   const SetPrice = () => (
     <>
@@ -184,7 +173,56 @@ const NFTSellRequestContainer = ({
                 className={classes.box}
               >
                 {market?.end_date && <Countdown date={endDate} />}
-                {!isCancel && <Inputs />}
+                {!isCancel && (
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    sx={{ width: '100%' }}
+                  >
+                    {!!type && <PriceInput control={control} name="price" />}
+                    {isAuction && (
+                      <>
+                        <Box mt="15px" display="flex" sx={{ width: '100%' }}>
+                          <DRangePicker
+                            minimumDate={utils().getToday()}
+                            placeholderText="Please select an auction period"
+                            onChange={handleChangeDate}
+                            value={{
+                              from: sdValue,
+                              to: edValue
+                            }}
+                          />
+                        </Box>
+                        <Box
+                          mt="15px"
+                          display="flex"
+                          justifyContent="space-between"
+                          style={{ width: '100%' }}
+                        >
+                          {sdValue && (
+                            <TimeInput
+                              label="From time"
+                              value={startTime}
+                              className={classes.timeInput}
+                              onChange={(val) => {
+                                handleChangeFromTime(val);
+                              }}
+                            />
+                          )}
+                          {edValue && (
+                            <TimeInput
+                              label="To time"
+                              value={endTime}
+                              className={classes.timeInput}
+                              onChange={handleChangeToTime}
+                            />
+                          )}
+                        </Box>
+                      </>
+                    )}
+                  </Box>
+                )}
+
                 {!market?.end_date && isCancel && <Box />}
                 <Box
                   display="flex"

@@ -1,4 +1,3 @@
-
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import CollectionDetailImage from './Image';
@@ -19,23 +18,22 @@ import { useNavigate } from 'react-router-dom';
 import DModal from '../../../components/DModal';
 import { getPurchaseLabel } from './util';
 
-
 const useStyles = makeStyles({
   priceBox: {
-    marginTop: 61,
+    marginTop: 61
   },
   box: {
-    width: "50%",
+    width: '50%'
   },
   button: {
-    padding: "16px 0",
-    marginTop: 17,
+    padding: '16px 0',
+    marginTop: 17
   },
   grid: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  }
 });
 
 const CollectionDetailsContainer = ({
@@ -59,6 +57,7 @@ const CollectionDetailsContainer = ({
   bidPriceControl,
   isAuctionEnded,
   setRefetchInterval,
+  isAuctionNotStarted
 }) => {
   const navigate = useNavigate();
 
@@ -71,7 +70,7 @@ const CollectionDetailsContainer = ({
 
   const handleClick = () => {
     if (token) toggle();
-    else navigate("/login");
+    else navigate('/login');
   };
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
@@ -81,7 +80,18 @@ const CollectionDetailsContainer = ({
 
   const isBidHistory = isAuction && bidHistory?.length > 0;
 
-  const btnLabel = getPurchaseLabel({ isSoldOut, isAuction, isAuctionEnded });
+  const btnLabel = getPurchaseLabel({
+    isSoldOut,
+    isAuction,
+    isAuctionEnded,
+    isAuctionNotStarted
+  });
+
+  const auctionStartDate = moment(market?.start_date * 1000).format(
+    'DD.MM.yyyy'
+  );
+
+  const auctionStartTime = moment(market?.start_date * 1000).format('HH:mm');
 
   return (
     <Paper className={styles.container}>
@@ -127,12 +137,37 @@ const CollectionDetailsContainer = ({
                 alignItems="end"
                 className={classes.box}
               >
-                {isAuction && endDate ? <Countdown date={endDate} /> : <Box />}
+                {isAuction && endDate ? (
+                  isAuctionNotStarted ? (
+                    <Typography variant="placeholder" fontWeight={500}>
+                      Auction will start on{' '}
+                      <Typography
+                        variant="placeholder"
+                        color="primary"
+                        fontWeight={500}
+                      >
+                        {auctionStartDate}
+                      </Typography>{' '}
+                      at{' '}
+                      <Typography
+                        variant="placeholder"
+                        color="primary"
+                        fontWeight={500}
+                      >
+                        {auctionStartTime}
+                      </Typography>
+                    </Typography>
+                  ) : (
+                    <Countdown date={endDate} />
+                  )
+                ) : (
+                  <Box />
+                )}
                 <Box
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: "100%" }}
+                  sx={{ width: '100%' }}
                 >
                   {market?.price && (
                     <>
@@ -150,7 +185,7 @@ const CollectionDetailsContainer = ({
                         >
                           <NumberFormat
                             value={market?.price}
-                            displayType={"text"}
+                            displayType={'text'}
                             thousandSeparator={true}
                           />
                         </Typography>
@@ -160,10 +195,10 @@ const CollectionDetailsContainer = ({
                         fontWeight={500}
                         color={theme.palette.grey[1000]}
                       >
-                        ( ${" "}
+                        ( ${' '}
                         <NumberFormat
                           value={parsedPrice}
-                          displayType={"text"}
+                          displayType={'text'}
                           thousandSeparator={true}
                         />
                         )

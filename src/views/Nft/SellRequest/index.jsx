@@ -14,6 +14,7 @@ import { nftSellBtnLabels } from '../../../constants/marketStatuses';
 import useSellNFT from './hook/useSellNFT';
 import { useSelector } from 'react-redux';
 import { parseDate } from '../../../utils/parseDate';
+import moment from 'moment';
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
@@ -66,6 +67,9 @@ const NFTSellRequest = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
+
   const [sendStartDate, setSendStartDate] = useState(null);
   const [sendEndDate, setSendEndDate] = useState(null);
 
@@ -75,6 +79,20 @@ const NFTSellRequest = () => {
 
     if (from) setStartDate(parseDate(from));
     if (to) setEndDate(parseDate(to));
+  };
+
+  const handleChangeFromTime = (e) => {
+    const time = moment(e).format('HH:mm:ss');
+
+    setStartTime(e);
+    if (time) setStartDate(parseDate(sendStartDate, time));
+  };
+
+  const handleChangeToTime = (e) => {
+    const time = moment(e).format('HH:mm:ss');
+
+    setEndTime(e);
+    if (time) setEndDate(parseDate(sendEndDate, time));
   };
 
   const handleChangeType = (e) => setType(e);
@@ -143,6 +161,10 @@ const NFTSellRequest = () => {
       edValue={sendEndDate}
       onBack={onBack}
       handleChangeDate={handleChangeDate}
+      startTime={startTime}
+      endTime={endTime}
+      handleChangeFromTime={handleChangeFromTime}
+      handleChangeToTime={handleChangeToTime}
     />
   );
 };
