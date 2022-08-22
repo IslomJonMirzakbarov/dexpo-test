@@ -9,7 +9,7 @@ import CollectionDetailImage from '../../Collections/Details/Image';
 import Countdown from '../../../components/Countdown';
 import NumberFormat from 'react-number-format';
 import tokenImg from '../../../assets/images/con-token.png';
-import { priceType, priceTypeChar } from '../../../constants';
+import { DATE_FORMAT, priceType, priceTypeChar } from '../../../constants';
 
 import { utils } from 'react-modern-calendar-datepicker';
 import PriceInput from '../../../components/PriceInput';
@@ -20,8 +20,6 @@ import moment from 'moment';
 import DModal from '../../../components/DModal';
 import { marketStatuses } from '../../../constants/marketStatuses';
 import TimeInput from './TimeInput';
-
-const DATE_FORMAT = 'yyyy-MM-DD hh:mm:ss';
 
 const useStyles = makeStyles({
   priceBox: {
@@ -90,8 +88,6 @@ const NFTSellRequestContainer = ({
 
     return moment(newDate).format(DATE_FORMAT);
   }, [market?.end_date]);
-
-  console.log(endDate);
 
   const SetPrice = () => (
     <>

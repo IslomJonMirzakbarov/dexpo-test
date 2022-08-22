@@ -258,6 +258,7 @@ const CollectionDetailsContainer = ({
         setBidPrice={setBidPrice}
         bidPriceControl={bidPriceControl}
         endDate={endDate}
+        isAuction={isAuction}
       />
       <DModal
         isExpandedImg
