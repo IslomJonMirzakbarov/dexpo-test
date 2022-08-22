@@ -1,42 +1,43 @@
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useMemo, useState } from 'react';
-import styles from './style.module.scss';
-import { makeStyles } from '@mui/styles';
-import ValueTable from '../../Collections/Details/ValueTable';
-import HistoryTable from '../../Collections/Details/HistoryTable';
-import CollectionDetailsInfo from '../../Collections/Details/Info';
-import CollectionDetailImage from '../../Collections/Details/Image';
-import Countdown from '../../../components/Countdown';
-import NumberFormat from 'react-number-format';
-import tokenImg from '../../../assets/images/con-token.png';
-import { priceType, priceTypeChar } from '../../../constants';
+import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import React, { useMemo, useState } from "react";
+import styles from "./style.module.scss";
+import { makeStyles } from "@mui/styles";
+import ValueTable from "../../Collections/Details/ValueTable";
+import HistoryTable from "../../Collections/Details/HistoryTable";
+import CollectionDetailsInfo from "../../Collections/Details/Info";
+import CollectionDetailImage from "../../Collections/Details/Image";
+import Countdown from "../../../components/Countdown";
+import NumberFormat from "react-number-format";
+import tokenImg from "../../../assets/images/con-token.png";
+import { priceType, priceTypeChar } from "../../../constants";
 
-import { utils } from 'react-modern-calendar-datepicker';
-import PriceInput from '../../../components/PriceInput';
-import DRangePicker from '../../../components/DRangePicker';
-import SellModal from '../../../components/Modals/SellModal';
-import { useTheme } from '@emotion/react';
-import moment from 'moment';
-import DModal from '../../../components/DModal';
-import { marketStatuses } from '../../../constants/marketStatuses';
-import TimeInput from './TimeInput';
+import { utils } from "react-modern-calendar-datepicker";
+import PriceInput from "../../../components/PriceInput";
+import DRangePicker from "../../../components/DRangePicker";
+import SellModal from "../../../components/Modals/SellModal";
+import { useTheme } from "@emotion/react";
+import moment from "moment";
+import DModal from "../../../components/DModal";
+import { marketStatuses } from "../../../constants/marketStatuses";
+import TimeInput from "./TimeInput";
+import { useSelector } from "react-redux";
 
-const DATE_FORMAT = 'yyyy-MM-DD hh:mm:ss';
+const DATE_FORMAT = "yyyy-MM-DD hh:mm:ss";
 
 const useStyles = makeStyles({
   priceBox: {
-    marginTop: 61
+    marginTop: 61,
   },
   box: {
-    width: '50%'
+    width: "50%",
   },
   button: {
-    padding: '16px 0',
-    marginTop: 17
+    padding: "16px 0",
+    marginTop: 17,
   },
   timeInput: {
-    width: '48%'
-  }
+    width: "48%",
+  },
 });
 
 const NFTSellRequestContainer = ({
@@ -72,11 +73,13 @@ const NFTSellRequestContainer = ({
   startTime,
   endTime,
   handleChangeFromTime,
-  handleChangeToTime
+  handleChangeToTime,
 }) => {
   const theme = useTheme();
 
   const classes = useStyles();
+
+  const { newNftSrc } = useSelector((store) => store.nft);
 
   const [openImg, setOpenImg] = useState(false);
 
@@ -97,7 +100,7 @@ const NFTSellRequestContainer = ({
         <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
           <NumberFormat
             value={market?.price}
-            displayType={'text'}
+            displayType={"text"}
             thousandSeparator={true}
           />
         </Typography>
@@ -107,10 +110,10 @@ const NFTSellRequestContainer = ({
         fontWeight={500}
         color={theme.palette.grey[1000]}
       >
-        ( ${' '}
+        ( ${" "}
         <NumberFormat
           value={parsedPrice}
-          displayType={'text'}
+          displayType={"text"}
           thousandSeparator={true}
         />
         )
@@ -175,19 +178,19 @@ const NFTSellRequestContainer = ({
                   <Box
                     display="flex"
                     flexDirection="column"
-                    sx={{ width: '100%' }}
+                    sx={{ width: "100%" }}
                   >
                     {!!type && <PriceInput control={control} name="price" />}
                     {isAuction && (
                       <>
-                        <Box mt="15px" display="flex" sx={{ width: '100%' }}>
+                        <Box mt="15px" display="flex" sx={{ width: "100%" }}>
                           <DRangePicker
                             minimumDate={utils().getToday()}
                             placeholderText="Please select an auction period"
                             onChange={handleChangeDate}
                             value={{
                               from: sdValue,
-                              to: edValue
+                              to: edValue,
                             }}
                           />
                         </Box>
@@ -195,7 +198,7 @@ const NFTSellRequestContainer = ({
                           mt="15px"
                           display="flex"
                           justifyContent="space-between"
-                          style={{ width: '100%' }}
+                          style={{ width: "100%" }}
                         >
                           {sdValue && (
                             <TimeInput
@@ -226,12 +229,12 @@ const NFTSellRequestContainer = ({
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: '100%' }}
+                  sx={{ width: "100%" }}
                 >
                   {isCancel && market?.price && <SetPrice />}
                   <Button
                     className={classes.button}
-                    variant={isCancel ? 'outlined' : 'containedSecondary'}
+                    variant={isCancel ? "outlined" : "containedSecondary"}
                     fullWidth
                     onClick={isCancel ? toggle : handleClick}
                     disabled={isDisabled}
@@ -270,7 +273,7 @@ const NFTSellRequestContainer = ({
       />
       <DModal
         isExpandedImg
-        img={nft?.token_image}
+        img={newNftSrc || nft?.token_image}
         open={openImg}
         onClose={() => setOpenImg(false)}
       />
