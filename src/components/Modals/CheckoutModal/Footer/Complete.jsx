@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((_) => ({
   button: {
@@ -10,18 +9,15 @@ const useStyles = makeStyles((_) => ({
     padding: '15px'
   }
 }));
-const CompleteFooter = ({ tokenId, contractAddress }) => {
-  const navigate = useNavigate();
+const CompleteFooter = ({ onConfirm }) => {
   const classes = useStyles();
-
-  const handleClick = () => navigate(`/user/nft/${tokenId}/${contractAddress}`);
 
   return (
     <Button
       fullWidth
       className={classes.button}
       variant="containedSecondary1"
-      onClick={handleClick}
+      onClick={onConfirm}
     >
       <Typography variant="placeholder" fontWeight={600}>
         View Item

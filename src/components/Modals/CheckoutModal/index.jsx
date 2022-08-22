@@ -9,6 +9,7 @@ import CompleteCheckout from './Complete';
 import CompleteFooter from './Footer/Complete';
 import { calculateDeadline } from '../../../utils/deadline';
 import { parseNormalizedDate } from '../../../utils/parseDate';
+import { useNavigate } from 'react-router-dom';
 
 const Render = {
   [checkoutStatuses.INITIAL]: InitialCheckout,
@@ -38,19 +39,25 @@ const CheckoutModal = ({
   bidPrice,
   setBidPrice,
   bidPriceControl,
-  endDate
+  endDate,
+  isAuction
 }) => {
+  const navigate = useNavigate();
+
   const leftDeadline = calculateDeadline(null, parseNormalizedDate(endDate));
 
   const onClose = () => toggle();
+
+  const onConfirm = () => {
+    if (isAuction) return onClose();
+    return navigate(`/user/nft/${tokenId}/${contractAddress}`);
+  };
 
   const Footer = {
     [checkoutStatuses.INITIAL]: null,
     [checkoutStatuses.PENDING]: <PendingFooter />,
     [checkoutStatuses.PROCESSING]: <div />,
-    [checkoutStatuses.COMPLETE]: (
-      <CompleteFooter tokenId={tokenId} contractAddress={contractAddress} />
-    )
+    [checkoutStatuses.COMPLETE]: <CompleteFooter onConfirm={onConfirm} />
   };
 
   const RenderComponent = Render[status];

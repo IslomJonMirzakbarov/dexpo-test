@@ -7,6 +7,7 @@ import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
 import Loader from '../../../components/Loader';
 import useNFTAPI from '../../../hooks/useNFT';
 import NFTSellRequestContainer from './index.container';
+import { useNavigate } from 'react-router-dom';
 
 import { priceType } from '../../../constants';
 import { useForm } from 'react-hook-form';
@@ -22,6 +23,8 @@ const types = [
 ];
 
 const NFTSellRequest = () => {
+  const navigate = useNavigate();
+
   const { id, contract_address, previewImgSrc } = useParams();
 
   const { account } = useSelector((store) => store.wallet);
@@ -56,6 +59,8 @@ const NFTSellRequest = () => {
   const loading = loadingDetail || loadingHistory;
 
   const fetching = isFetchingDetail || isFetchingHistory;
+
+  const isUserOwner = market?.seller_address?.includes(account);
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
@@ -126,6 +131,8 @@ const NFTSellRequest = () => {
     startDate,
     endDate
   });
+
+  if (!isUserOwner) return navigate(`/marketplace/${id}/${contract_address}`);
 
   if (loading || fetching) return <Loader />;
 
