@@ -61,16 +61,24 @@ const useWallet = () => {
         {
           onSuccess: (e) => {
             dispatch(setToken(e?.data?.data?.token));
-
             dispatch(setAccount(account));
             handleNetwork();
+
+            setTimeout(() => window.location.reload(), 300);
           }
         }
       );
     } catch (err) {
       console.log(err);
+      hanldeLogout();
     }
   }
+
+  const hanldeLogout = () => {
+    dispatch(setToken(null));
+    dispatch(setAccount(null));
+    setTimeout(() => window.location.reload(), 300);
+  };
 
   const addNetwork = async () => {
     await window.ethereum.request({

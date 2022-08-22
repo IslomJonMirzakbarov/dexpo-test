@@ -52,9 +52,7 @@ const MergedLayout = ({ children }) => {
       window.ethereum.on('accountsChanged', (accounts) => {
         if (account?.includes(accounts[0])) return;
 
-        dispatch(setAccount(accounts[0]));
         connectWallet('metamask');
-        window.location.reload();
       });
     }
   };

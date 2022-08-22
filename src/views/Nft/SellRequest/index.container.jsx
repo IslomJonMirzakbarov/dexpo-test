@@ -91,6 +91,8 @@ const NFTSellRequestContainer = ({
     return moment(newDate).format(DATE_FORMAT);
   }, [market?.end_date]);
 
+  console.log(endDate);
+
   const SetPrice = () => (
     <>
       <Box display="flex" alignItems="center" className={classes.priceBox}>

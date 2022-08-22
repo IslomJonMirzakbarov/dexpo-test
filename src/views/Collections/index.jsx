@@ -24,7 +24,7 @@ const Collections = () => {
   const { data, isLoading } = useMarketAPI({
     page,
     type: filter?.value,
-    refetchInterval,
+    refetchInterval
   });
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
@@ -98,14 +98,14 @@ const Collections = () => {
                         handleNavigate(
                           nft.token_id,
                           collection?.contract_address,
-                          artist.wallet_address
+                          market?.seller_address
                         )
                       }
                       onAction={() =>
                         handleNavigate(
                           nft.token_id,
                           collection?.contract_address,
-                          artist.wallet_address
+                          market?.seller_address
                         )
                       }
                     />
