@@ -49,10 +49,8 @@ const NFTSellRequest = () => {
     setTimeout(() => {
       if (newNftSrc) {
         setRefetchInterval(300);
-        console.log("fetched...");
         setTimeout(() => {
           setRefetchInterval(false);
-          console.log("stopped...");
         }, 500);
       }
     }, 7000);
