@@ -40,7 +40,6 @@ const useStyles = makeStyles({
 });
 
 const NFTSellRequestContainer = ({
-  previewImgSrc,
   history,
   types,
   type,
@@ -125,7 +124,6 @@ const NFTSellRequestContainer = ({
         <Grid container spacing={3}>
           <Grid item lg={5}>
             <CollectionDetailImage
-              previewImgSrc={previewImgSrc}
               price={nft?.like_count}
               img={nft?.token_image}
               alt="nft picture"

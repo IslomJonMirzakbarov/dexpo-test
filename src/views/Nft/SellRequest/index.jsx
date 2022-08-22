@@ -1,54 +1,72 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
-import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import Loader from '../../../components/Loader';
-import useNFTAPI from '../../../hooks/useNFT';
-import NFTSellRequestContainer from './index.container';
+import useNFTHistoryAPI from "../../../hooks/useNFTHistoryAPI";
+import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
+import Loader from "../../../components/Loader";
+import useNFTAPI from "../../../hooks/useNFT";
+import NFTSellRequestContainer from "./index.container";
 
-import { priceType } from '../../../constants';
-import { useForm } from 'react-hook-form';
-import { nftSellBtnLabels } from '../../../constants/marketStatuses';
-import useSellNFT from './hook/useSellNFT';
-import { useSelector } from 'react-redux';
-import { parseDate } from '../../../utils/parseDate';
-import moment from 'moment';
+import { priceType } from "../../../constants";
+import { useForm } from "react-hook-form";
+import { nftSellBtnLabels } from "../../../constants/marketStatuses";
+import useSellNFT from "./hook/useSellNFT";
+import { useSelector } from "react-redux";
+import { parseDate } from "../../../utils/parseDate";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { setNewNftSrc } from "../../../store/nft/nft.slice";
+import { useEffect } from "react";
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
-  { value: priceType.AUCTION.key, label: priceType.AUCTION.value }
+  { value: priceType.AUCTION.key, label: priceType.AUCTION.value },
 ];
 
 const NFTSellRequest = () => {
-  const { id, contract_address, previewImgSrc } = useParams();
+  const dispatch = useDispatch();
+  const { id, contract_address } = useParams();
 
   const { account } = useSelector((store) => store.wallet);
-
+  const [refetchInterval, setRefetchInterval] = useState(false);
   const {
     detail,
     loadingDetail,
     refetchDetail,
     isFetchingDetail,
-    isFetchingHistory
+    isFetchingHistory,
   } = useNFTAPI({
     id: id,
     contractAddress: contract_address,
-    wallet: account
+    wallet: account,
+    refetchInterval,
   });
+
+  const { newNftSrc } = useSelector((store) => store.nft);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (newNftSrc) {
+        setRefetchInterval(300);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 500);
+      }
+    }, 7200);
+  }, [newNftSrc]);
 
   const {
     data: history,
     isLoading: loadingHistory,
-    refetch
+    refetch,
   } = useNFTHistoryAPI({
     tokenId: id,
-    contractAddress: contract_address
+    contractAddress: contract_address,
   });
 
   const { control, getValues } = useForm({
-    price: ''
+    price: "",
   });
 
   const { market, nft, collection, artist } = detail?.data || {};
@@ -82,14 +100,14 @@ const NFTSellRequest = () => {
   };
 
   const handleChangeFromTime = (e) => {
-    const time = moment(e).format('HH:mm:ss');
+    const time = moment(e).format("HH:mm:ss");
 
     setStartTime(e);
     if (time) setStartDate(parseDate(sendStartDate, time));
   };
 
   const handleChangeToTime = (e) => {
-    const time = moment(e).format('HH:mm:ss');
+    const time = moment(e).format("HH:mm:ss");
 
     setEndTime(e);
     if (time) setEndDate(parseDate(sendEndDate, time));
@@ -108,7 +126,7 @@ const NFTSellRequest = () => {
     marketStatus,
     onBack,
     handeConfirm,
-    handleToggle
+    handleToggle,
   } = useSellNFT({
     collection,
     status,
@@ -124,14 +142,13 @@ const NFTSellRequest = () => {
     market,
     type,
     startDate,
-    endDate
+    endDate,
   });
 
   if (loading || fetching) return <Loader />;
 
   return (
     <NFTSellRequestContainer
-      previewImgSrc={previewImgSrc}
       nft={nft}
       market={market}
       collection={collection}
@@ -151,10 +168,10 @@ const NFTSellRequest = () => {
       isListing={isListing}
       isCanceling={isCanceling}
       error={error}
-      sellPrice={getValues('price')}
+      sellPrice={getValues("price")}
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
-      submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
+      submitLabel={isCancel ? "Cancel" : nftSellBtnLabels[marketStatus]}
       marketStatus={marketStatus}
       onLike={handleLike}
       sdValue={sendStartDate}

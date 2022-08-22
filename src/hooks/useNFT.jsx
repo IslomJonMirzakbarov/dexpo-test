@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { securedAPI } from '../services/api';
-import { useMutation, useQuery } from 'react-query';
+import React from "react";
+import { useSelector } from "react-redux";
+import { securedAPI } from "../services/api";
+import { useMutation, useQuery } from "react-query";
 
 const size = 10;
 
-const getList = ({ type, page, orderBy = 'desc' }, token) =>
+const getList = ({ type, page, orderBy = "desc" }, token) =>
   securedAPI(token)
     .post(
       `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
@@ -14,12 +14,12 @@ const getList = ({ type, page, orderBy = 'desc' }, token) =>
 
 const getDetail = ({ contractAddress, tokenId, wallet }, token) =>
   securedAPI(token)
-    .get('/api/nft/detail', {
+    .get("/api/nft/detail", {
       params: {
         contract_address: contractAddress,
         token_id: tokenId,
-        wallet_address: wallet
-      }
+        wallet_address: wallet,
+      },
     })
     .then((res) => res.data);
 
@@ -37,18 +37,18 @@ const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: false, // constantly updating
   refetchOnReconnect: true,
-  staleTime: 0
+  staleTime: 0,
 };
 
 const useNFTAPI = ({
   isGetList = false,
-  type = 'COLLECTED',
+  type = "COLLECTED",
   page = 1,
-  orderBy = 'desc',
+  orderBy = "desc",
   contractAddress,
   id,
   wallet,
-  refetchInterval
+  refetchInterval,
 }) => {
   const { token } = useSelector((store) => store.auth);
 
@@ -57,9 +57,9 @@ const useNFTAPI = ({
     refetch: refetchList,
     isLoading: loadingList,
     isFetching: isFetchingDetail,
-    error
-  } = useQuery('get-nft-list', () => getList({ type, page, orderBy }, token), {
-    enabled: !!isGetList
+    error,
+  } = useQuery("get-nft-list", () => getList({ type, page, orderBy }, token), {
+    enabled: !!isGetList,
   });
 
   const {
@@ -67,22 +67,23 @@ const useNFTAPI = ({
     refetch: refetchDetail,
     isLoading: loadingDetail,
     error: errorDetail,
-    isFetching: isFetchingHistory
+    isFetching: isFetchingHistory,
   } = useQuery(
     `get-nft-detail-${contractAddress}-${id}`,
     () => getDetail({ contractAddress, tokenId: id, wallet }, token),
     {
       enabled: !!contractAddress && !!id,
-      ...configQuery
+      ...configQuery,
+      refetchInterval,
     }
   );
 
   const mutationLike = useMutation((data) => fetchLike(data, token), {
-    ...configQuery
+    ...configQuery,
   });
 
   const mutationDislike = useMutation((data) => fetchUnlike(data, token), {
-    ...configQuery
+    ...configQuery,
   });
 
   return {
@@ -97,7 +98,7 @@ const useNFTAPI = ({
     loadingList,
     error,
     isFetchingDetail,
-    isFetchingHistory
+    isFetchingHistory,
   };
 };
 

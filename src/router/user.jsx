@@ -30,17 +30,7 @@ export const userRoutes = {
       children: [
         {
           path: ":id/:contract_address",
-          children: [
-            { path: "", element: <NFTSellRequest /> },
-            {
-              path: ":previewImgSrc",
-              element: <NFTSellRequest />,
-            },
-            {
-              path: "*",
-              element: <NFTSellRequest />,
-            },
-          ],
+          element: <NFTSellRequest />,
         },
       ],
     },
