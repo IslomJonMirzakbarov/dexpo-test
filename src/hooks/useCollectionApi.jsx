@@ -37,17 +37,28 @@ const useCollectionAPI = ({
       .post("/api/collection/update", formData, config)
       .then((res) => res.data);
 
- const getCollectionList = () =>
-   securedAPI(token)
-     .get("/api/collection/list", {
-       params: {
-         page,
-         order_by: orderBy,
-         size,
-         filter_type,
-       },
-     })
-     .then((res) => res.data);
+  const getCollectionList = () =>
+    securedAPI(token)
+      .get("/api/collection/list", {
+        params: {
+          page,
+          order_by: orderBy,
+          size,
+          filter_type,
+        },
+      })
+      .then((res) => res.data);
+
+  const getSellRequestList = () =>
+    securedAPI(token)
+      .get("/api/collection/sellRequestList", {
+        params: {
+          size,
+          page,
+          order_by: orderBy,
+        },
+      })
+      .then((res) => res.data);
 
   const getCollection = (id) =>
     securedAPI(token)
@@ -73,6 +84,20 @@ const useCollectionAPI = ({
   );
 
   const {
+    data: sellRequestList,
+    isLoading: sellRequestListLoading,
+    error: sellRequestListError,
+  } = useQuery(
+    "get-sell-request-list",
+    () => getSellRequestList(token, size, page, orderBy),
+    {
+      enabled: isDetail || false,
+      ...configQuery,
+      refetch: page,
+    }
+  );
+
+  const {
     data: collection,
     isLoading: collectionLoading,
     error: collectionError,
@@ -85,6 +110,9 @@ const useCollectionAPI = ({
     update,
     create: mutation,
     collections: data,
+    sellRequestList,
+    sellRequestListLoading,
+    sellRequestListError,
     collection,
     collectionLoading,
     isLoading,
