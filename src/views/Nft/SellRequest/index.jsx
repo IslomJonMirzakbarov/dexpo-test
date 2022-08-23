@@ -132,10 +132,9 @@ const NFTSellRequest = () => {
     endDate
   });
 
-  if (!isUserOwner) return navigate(`/marketplace/${id}/${contract_address}`);
-
   if (loading || fetching) return <Loader />;
 
+  // if (!isUserOwner) return navigate(`/marketplace/${id}/${contract_address}`);
   return (
     <NFTSellRequestContainer
       previewImgSrc={previewImgSrc}
