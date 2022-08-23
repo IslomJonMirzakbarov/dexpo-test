@@ -1,15 +1,15 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
-import React, { useMemo, useState } from "react";
-import styles from "./style.module.scss";
-import { makeStyles } from "@mui/styles";
-import ValueTable from "../../Collections/Details/ValueTable";
-import HistoryTable from "../../Collections/Details/HistoryTable";
-import CollectionDetailsInfo from "../../Collections/Details/Info";
-import CollectionDetailImage from "../../Collections/Details/Image";
-import Countdown from "../../../components/Countdown";
-import NumberFormat from "react-number-format";
-import tokenImg from "../../../assets/images/con-token.png";
-import { priceType, priceTypeChar } from "../../../constants";
+import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import styles from './style.module.scss';
+import { makeStyles } from '@mui/styles';
+import ValueTable from '../../Collections/Details/ValueTable';
+import HistoryTable from '../../Collections/Details/HistoryTable';
+import CollectionDetailsInfo from '../../Collections/Details/Info';
+import CollectionDetailImage from '../../Collections/Details/Image';
+import Countdown from '../../../components/Countdown';
+import NumberFormat from 'react-number-format';
+import tokenImg from '../../../assets/images/con-token.png';
+import { DATE_FORMAT, priceType, priceTypeChar } from "../../../constants";
 
 import { utils } from "react-modern-calendar-datepicker";
 import PriceInput from "../../../components/PriceInput";
@@ -21,8 +21,6 @@ import DModal from "../../../components/DModal";
 import { marketStatuses } from "../../../constants/marketStatuses";
 import TimeInput from "./TimeInput";
 import { useSelector } from "react-redux";
-
-const DATE_FORMAT = "yyyy-MM-DD hh:mm:ss";
 
 const useStyles = makeStyles({
   priceBox: {

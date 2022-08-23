@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import useNFTHistoryAPI from "../../../hooks/useNFTHistoryAPI";
-import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
-import Loader from "../../../components/Loader";
-import useNFTAPI from "../../../hooks/useNFT";
-import NFTSellRequestContainer from "./index.container";
+import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
+import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
+import Loader from '../../../components/Loader';
+import useNFTAPI from '../../../hooks/useNFT';
+import NFTSellRequestContainer from './index.container';
 
 import { priceType } from "../../../constants";
 import { useForm } from "react-hook-form";
@@ -15,8 +15,6 @@ import useSellNFT from "./hook/useSellNFT";
 import { useSelector } from "react-redux";
 import { parseDate } from "../../../utils/parseDate";
 import moment from "moment";
-import { useDispatch } from "react-redux";
-import { setNewNftSrc } from "../../../store/nft/nft.slice";
 import { useEffect } from "react";
 
 const types = [
@@ -25,7 +23,6 @@ const types = [
 ];
 
 const NFTSellRequest = () => {
-  const dispatch = useDispatch();
   const { id, contract_address } = useParams();
 
   const { account } = useSelector((store) => store.wallet);
@@ -74,6 +71,8 @@ const NFTSellRequest = () => {
   const loading = loadingDetail || loadingHistory;
 
   const fetching = isFetchingDetail || isFetchingHistory;
+
+  const isUserOwner = market?.seller_address?.includes(account);
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
@@ -147,6 +146,7 @@ const NFTSellRequest = () => {
 
   if (loading || fetching) return <Loader />;
 
+  // if (!isUserOwner) return navigate(`/marketplace/${id}/${contract_address}`);
   return (
     <NFTSellRequestContainer
       nft={nft}

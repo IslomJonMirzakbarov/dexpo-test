@@ -54,6 +54,7 @@ const NftCreate = () => {
   const [stopChecker, setStopChecker] = useState(null);
   const [responseChecker, setResponseChecker] = useState(false);
   const [newItemConAd, setNewItemConAd] = useState("");
+  const [newItemId, setNewItemId] = useState("");
   const [previewImgSrc, setPreviewImgSrc] = useState("");
 
   let myFunc;
@@ -61,9 +62,11 @@ const NftCreate = () => {
     myFunc = setInterval(async () => {
       const web3 = new Web3(Web3.givenProvider);
       const response = await web3.eth.getTransactionReceipt(resChecker);
-      if (response) {
+      if (response?.logs[0]?.topics[3]) {
         setStopChecker(response);
         setNewItemConAd(response?.to);
+        const newId = Web3.utils.hexToNumber(response?.logs[0]?.topics[3]);
+        setNewItemId(newId);
         setTimeout(() => {
           setResponseChecker(true);
         }, 3000);
@@ -74,12 +77,6 @@ const NftCreate = () => {
   if (stopChecker) {
     clearInterval(myFunc);
   }
-  const { list } = useNftAPI({
-    isGetList: true,
-    type: "COLLECTED",
-    size: 20000,
-  });
-  const newId = list?.data?.items[0]?.nft?.token_id + 1;
 
   const imgBool =
     uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
@@ -318,10 +315,10 @@ const NftCreate = () => {
           responseChecker={responseChecker}
           page="nft-create"
           onSaveButtonClick={() => {
-            if (responseChecker && previewImgSrc) {
+            if (responseChecker && previewImgSrc && newItemId) {
               setShowModal(false);
               // setUploadedImg({});
-              navigate(`/user/nft/${newId}/${newItemConAd}`);
+              navigate(`/user/nft/${newItemId}/${newItemConAd}`);
             } else {
               return;
             }

@@ -4,6 +4,7 @@ import CollectionEdit from "../views/Collections/Edit";
 import MyPage from "../views/MyPage";
 import MyCollections from "../views/MyPage/Collections";
 import NFTSellRequest from "../views/Nft/SellRequest";
+import Settings from "../views/Settings";
 
 export const userRoutes = {
   path: "user",
@@ -46,6 +47,10 @@ export const userRoutes = {
           element: <MyPage />,
         },
       ],
+    },
+    {
+      path: "settings",
+      element: <Settings />,
     },
   ],
 };
