@@ -54,6 +54,36 @@
           position: absolute;
         }
       }
+
+      .EditVectorContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: rgba(31, 31, 31, 0.45);
+        position: relative;
+      }
+
+      .EditVector {
+        height: 38px;
+        width: 38px;
+        position: absolute;
+      }
+
+      .ImgIcon {
+        box-sizing: border-box;
+        width: 140px;
+        height: 140px;
+        z-index: -40;
+        box-shadow: none;
+      }
+      .ImgIcon2 {
+        box-sizing: border-box;
+        z-index: -40;
+        box-shadow: none;
+      }
     }
 
     .dropzoneIitle {
@@ -147,7 +177,6 @@
         text-align: center;
       }
     }
-
   }
 }
 
@@ -199,6 +228,23 @@
     gap: 6.29px;
     width: 100%;
     height: 105%;
+    background: rgba(31, 31, 31, 0.45);
+    font-style: normal;
+    font-weight: 600;
+    @include fontProcessDesc;
+    text-align: center;
+    color: colors.$whiteBg;
+  }
+  .HoverLogoSettingsContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6.29px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
     background: rgba(31, 31, 31, 0.45);
     font-style: normal;
     font-weight: 600;
