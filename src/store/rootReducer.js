@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux';
-import persistReducer from 'redux-persist/es/persistReducer';
-import { alertReducer } from './alert/alert.slice';
-import { authReducer } from './auth/auth.slice';
-import storage from 'redux-persist/lib/storage';
-import { constructorTableReducer } from './constructorTable/constructorTable.slice';
-import { walletReducer } from './wallet/wallet.slice';
-import { popupReducer } from './popup/popup.slice';
+import { combineReducers } from "redux";
+import persistReducer from "redux-persist/es/persistReducer";
+import { alertReducer } from "./alert/alert.slice";
+import { authReducer } from "./auth/auth.slice";
+import storage from "redux-persist/lib/storage";
+import { constructorTableReducer } from "./constructorTable/constructorTable.slice";
+import { walletReducer } from "./wallet/wallet.slice";
+import { popupReducer } from "./popup/popup.slice";
 import { nftReducer } from "./nft/nft.slice";
 import { artistReducer } from "./artist/artist.slice";
-import { collectionReducer } from './collection/collection.slice';
-import { myPageReducer } from './myPage/myPage.slice';
+import { collectionReducer } from "./collection/collection.slice";
+import { myPageReducer } from "./myPage/myPage.slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -26,10 +26,10 @@ const constructorTablePersistConfig = {
   storage,
 };
 
-const nftPersistConfig = {
-  key: "nft",
-  storage,
-};
+// const nftPersistConfig = {
+//   key: "nft",
+//   storage,
+// };
 
 const artistPersistConfig = {
   key: "artist",
@@ -42,8 +42,8 @@ const collectionPersistConfig = {
 };
 
 const popupPersistConfig = {
-  key: 'popup',
-  storage
+  key: "popup",
+  storage,
 };
 
 const rootReducer = combineReducers({
@@ -54,7 +54,8 @@ const rootReducer = combineReducers({
     constructorTableReducer
   ),
   popup: persistReducer(popupPersistConfig, popupReducer),
-  nft: persistReducer(nftPersistConfig, nftReducer),
+  // nft: persistReducer(nftPersistConfig, nftReducer),
+  nft: nftReducer,
   artist: persistReducer(artistPersistConfig, artistReducer),
   collection: persistReducer(collectionPersistConfig, collectionReducer),
   alert: alertReducer,

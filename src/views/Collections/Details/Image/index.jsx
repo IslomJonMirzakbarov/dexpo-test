@@ -9,10 +9,13 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import useNFTAPI from "../../../../hooks/useNFT";
 import { useDispatch } from "react-redux";
-import { setDislikedNfts, setLikedNfts } from "../../../../store/nft/nft.slice";
+import {
+  setDislikedNfts,
+  setLikedNfts,
+  setNewNftSrc,
+} from "../../../../store/nft/nft.slice";
 
 const CollectionDetailImage = ({
-  previewImgSrc,
   price = 1000,
   img = nft1Img,
   alt = "nft picture",
@@ -25,10 +28,18 @@ const CollectionDetailImage = ({
   ...props
 }) => {
   const dispatch = useDispatch();
-  const { likedNfts } = useSelector((store) => store.nft);
+  const { likedNfts, newNftSrc } = useSelector((store) => store.nft);
   const [likedNFT, setLikedNFT] = useState(false);
   const [likeCount, setLikeCount] = useState(price);
   const { postLike, postDislike } = useNFTAPI({});
+
+  useEffect(() => {
+    if (newNftSrc) {
+      setTimeout(() => {
+        dispatch(setNewNftSrc(""));
+      }, 8000);
+    }
+  }, [dispatch, newNftSrc]);
 
   useEffect(() => {
     if (postLike.isSuccess) {
@@ -111,7 +122,8 @@ const CollectionDetailImage = ({
         )}
       </Typography>
       <img
-        src={previewImgSrc ? previewImgSrc : img}
+        // src={newNftSrc || img}
+        src={newNftSrc || img}
         alt={alt}
         height={554}
         width="100%"

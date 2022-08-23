@@ -4,6 +4,7 @@ export const { actions: nftActions, reducer: nftReducer } = createSlice({
   name: "nft",
   initialState: {
     likedNfts: [],
+    newNftSrc: "",
   },
   reducers: {
     setLikedNfts(state, { payload }) {
@@ -12,7 +13,10 @@ export const { actions: nftActions, reducer: nftReducer } = createSlice({
     setDislikedNfts(state, { payload }) {
       state.likedNfts = state.likedNfts.filter((item) => item !== payload);
     },
+    setNewNftSrc(state, { payload }) {
+      state.newNftSrc = payload;
+    },
   },
 });
 
-export const { setLikedNfts, setDislikedNfts } = nftActions;
+export const { setLikedNfts, setDislikedNfts, setNewNftSrc } = nftActions;
