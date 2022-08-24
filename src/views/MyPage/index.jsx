@@ -27,17 +27,21 @@ const MyPage = () => {
   const { account } = useSelector((store) => store.wallet);
   const [hovered, setHovered] = useState(false);
   const [tabs, setTabs] = useState(myPageTabs);
-  const myApplicationWords =
-    "collection-status-created" ||
-    "collection-status" ||
-    "artist-status" ||
-    "sell-request";
   let num;
   switch (id) {
     case "favorites":
       num = 2;
       break;
-    case myApplicationWords:
+    case "collection-status-created":
+      num = 4;
+      break;
+    case "collection-status":
+      num = 4;
+      break;
+    case "artist-status":
+      num = 4;
+      break;
+    case "sell-request":
       num = 4;
       break;
     default:

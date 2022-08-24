@@ -12,7 +12,6 @@ const CreatedCollections = () => {
     page: 1,
     filter_type: "COMPLETE",
   });
-  console.log(collections?.data?.items);
   return (
     <Box className={styles.Container}>
       <Box className={styles.Title}>Collections</Box>
