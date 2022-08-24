@@ -17,10 +17,10 @@ const CollectionStatusTable = ({ id }) => {
   });
   useEffect(() => {
     if (id === "collection-status-created") {
-      setRefetchInterval(2000);
+      setRefetchInterval(3000);
       setTimeout(() => {
         setRefetchInterval(false);
-      }, 2500);
+      }, 3500);
     }
   }, [id]);
   const collectionItems = collections?.data?.items;
