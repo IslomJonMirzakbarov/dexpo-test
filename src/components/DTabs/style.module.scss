@@ -1,42 +1,45 @@
-@use "/src/scss/colors";
+@use '/src/scss/colors';
 
 .tabs {
-   .list {
-      list-style: none;
+  .list {
+    list-style: none;
+    display: flex;
+
+    .item {
+      cursor: pointer;
+      border-bottom: 3px solid colors.$placeholder;
+      padding-bottom: 10px;
+      margin: 0 15px;
+      transition: cubic-bezier(0.165, 0.84, 0.44, 1) all 0.4s;
+      height: 40px;
       display: flex;
+      align-items: center;
 
-      .item {
-         cursor: pointer;
-         border-bottom: 3px solid colors.$placeholder;
-         padding-bottom: 10px;
-         margin: 0 15px;
-         transition: cubic-bezier(0.165, 0.84, 0.44, 1) all 0.4s;
-
-         span {
-            font-weight: 600 !important;
-            color: colors.$placeholder;
-         }
-
-         &:first-child {
-            margin: 0 15px 0 0 !important;
-         }
-
-         &:hover {
-            span {
-               color: #000;
-            }
-            color: #000;
-            border-color: colors.$primary;
-         }
-
-         &.active {
-            span,
-            svg {
-               color: #000;
-            }
-            color: colors.$primary;
-            border-color: colors.$primary;
-         }
+      span {
+        font-weight: 600 !important;
+        color: colors.$placeholder;
       }
-   }
+
+      &:first-child {
+        margin: 0 15px 0 0 !important;
+      }
+
+      &:hover {
+        span {
+          color: #000;
+        }
+        color: #000;
+        border-color: colors.$primary;
+      }
+
+      &.active {
+        span,
+        svg {
+          color: #000;
+        }
+        color: colors.$primary;
+        border-color: colors.$primary;
+      }
+    }
+  }
 }

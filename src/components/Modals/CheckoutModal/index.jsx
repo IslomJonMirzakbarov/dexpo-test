@@ -27,7 +27,7 @@ const CheckoutModal = ({
   exchangedPrice,
   type,
   currentAmount,
-  leftDays,
+
   collectionName,
   txHash,
   status,
@@ -57,7 +57,9 @@ const CheckoutModal = ({
     [checkoutStatuses.INITIAL]: null,
     [checkoutStatuses.PENDING]: <PendingFooter />,
     [checkoutStatuses.PROCESSING]: <div />,
-    [checkoutStatuses.COMPLETE]: <CompleteFooter onConfirm={onConfirm} />
+    [checkoutStatuses.COMPLETE]: (
+      <CompleteFooter onConfirm={onConfirm} isAuction={isAuction} />
+    )
   };
 
   const RenderComponent = Render[status];
@@ -87,6 +89,7 @@ const CheckoutModal = ({
         bidPrice={bidPrice}
         setBidPrice={setBidPrice}
         bidPriceControl={bidPriceControl}
+        isAuction={isAuction}
       />
     </DModal>
   );

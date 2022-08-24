@@ -3,17 +3,20 @@ export const purchaseLabels = {
   bid: 'Bid',
   auctionEnded: 'Auction is being finished now',
   notStarted: 'Auction not started yet',
-  default: 'Purchase Artwork'
+  default: 'Purchase Artwork',
+  beingFinished: 'Auction is being finished'
 };
 
 export const getPurchaseLabel = ({
   isSoldOut,
   isAuction,
   isAuctionEnded,
-  isAuctionNotStarted
+  isAuctionNotStarted,
+  isAuctionBeingFinished
 }) => {
   if (isSoldOut) return purchaseLabels.sold;
   if (isAuction && isAuctionNotStarted) return purchaseLabels.notStarted;
+  if (isAuction && isAuctionBeingFinished) return purchaseLabels.beingFinished;
   if (isAuction && !isAuctionEnded) return purchaseLabels.bid;
   if (isAuction && isAuctionEnded) return purchaseLabels.auctionEnded;
 

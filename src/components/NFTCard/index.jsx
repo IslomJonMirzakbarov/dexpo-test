@@ -127,7 +127,7 @@ const NFTCard = ({
         {leftDays && (
           <Box className={styles.leftDays}>
             <TimelapseRoundedIcon className={styles.icon} />
-            <span>{leftDays} left</span>
+            <span>{leftDays}</span>
           </Box>
         )}
       </Box>

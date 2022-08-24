@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 
@@ -19,9 +19,12 @@ import useToast from '../../../hooks/useToast';
 import { parseDate } from '../../../utils/parseDate';
 import { getRPCErrorMessage } from '../../../constants/metamaskErrors';
 
+const REF_INTERVAL = 5000;
+
 const CollectionDetails = () => {
   const { account } = useSelector((store) => store.wallet);
   const { checkAllowance, makeApprove, purchase, bid } = useWeb3();
+  const [refetchInterval, setRefetchInterval] = useState(false);
 
   const params = useParams();
   const { toast } = useToast();
@@ -36,7 +39,8 @@ const CollectionDetails = () => {
     useNFTAPI({
       id: params?.id,
       contractAddress: params?.contract_address,
-      wallet: account
+      wallet: account,
+      refetchInterval: refetchInterval ? REF_INTERVAL : null
     });
 
   const {
@@ -62,9 +66,12 @@ const CollectionDetails = () => {
     params?.id
   );
 
+  const [isAuctionBeingFinished, setIsAuctionBeingFinished] = useState(false);
+
   const market = detail?.data?.market;
   const currentDate = utils().getToday();
   const currentTime = Math.round(new Date().getTime() / 1000);
+  const isSoldOut = !market?.price;
 
   const isAuction = market?.type === 'A';
   const isAuctionEnded =
@@ -72,17 +79,33 @@ const CollectionDetails = () => {
   const isAuctionNotStarted =
     isAuction && market?.start_date > Number(currentTime);
 
-  const isSoldOut = !market?.price;
   const isNotExist = detail?.message?.includes('NOT_EXIST');
   const isCurrentUserNFT = market?.seller_address?.includes(account);
   const isPurchaseBtnDisabled =
-    isCurrentUserNFT || isAuctionEnded || isAuctionNotStarted;
+    isCurrentUserNFT ||
+    isAuctionEnded ||
+    isAuctionNotStarted ||
+    isAuctionBeingFinished;
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
   const [txHash, setTxHash] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState('');
   const [bidPrice, setBidPrice] = useState();
+
+  const handleRefresh = useCallback(() => {
+    refetchDetail();
+    refetchHistory();
+    refetchBid();
+  }, []);
+
+  const onTimeout = useCallback(() => {
+    setIsAuctionBeingFinished(true);
+  }, []);
+
+  useEffect(() => {
+    setRefetchInterval(isAuction);
+  }, [market]);
 
   const handleLike = (liked) => {
     const payload = {
@@ -121,9 +144,7 @@ const CollectionDetails = () => {
       if (!!res) {
         setTxHash(res.transactionHash);
         setStatus(checkoutStatuses.COMPLETE);
-        refetchDetail();
-        refetchHistory();
-        refetchBid();
+        handleRefresh();
       }
     } catch (err) {
       setError(getRPCErrorMessage(err));
@@ -194,9 +215,12 @@ const CollectionDetails = () => {
       bidPrice={bidPrice}
       setBidPrice={setBidPrice}
       bidHistory={bidHistory}
+      handleRefresh={handleRefresh}
+      onTimeOut={onTimeout}
       bidPriceControl={control}
       isAuctionEnded={isAuctionEnded}
       isAuctionNotStarted={isAuctionNotStarted}
+      isAuctionBeingFinished={isAuctionBeingFinished}
     />
   );
 };

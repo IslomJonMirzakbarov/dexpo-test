@@ -35,19 +35,21 @@ const useStyles = makeStyles({
   }
 });
 
-const ProcessingCheckout = ({ name, txHash }) => {
+const ProcessingCheckout = ({ name, isAuction }) => {
   const classes = useStyles();
+
+  const word = isAuction ? 'bid' : 'purchase';
 
   return (
     <Box className={classes.wrapper}>
       <Typography fontSize={22} fontWeight={700} lineHeight="33px">
-        Your purchase is processing…
+        Your {word} is processing…
       </Typography>
       <Box className={classes.box}>
         <CircularProgress size={83} />
       </Box>
       <Typography variant="placeholder" className={classes.text}>
-        Your purchase of{' '}
+        Your {word} of{' '}
         <Typography variant="placeholder" color="primary" fontWeight={700}>
           {name}
         </Typography>{' '}

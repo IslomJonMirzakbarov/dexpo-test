@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import styles from "./style.module.scss";
-import { myPageTabs } from "../Ratings/mocks";
-import DTabs from "../../components/DTabs";
-import nftItems from "./nftListData";
-import CollectedBottom from "./CollectedBottom";
-import MyApplicationBottom from "./MyApplicationBottom";
-import ListedArtworkBottom from "./ListedArtworkName";
-import FavoritesBottom from "./FavoritesBottom";
-import { useSelector } from "react-redux";
-import CreatedItems from "./CreatedBottom/CreatedItems";
-import CreatedCollections from "./CreatedBottom/CreatedCollections";
-import useArtistAPI from "../../hooks/useArtistAPI";
-import { truncateAddress } from "../../utils";
+import React, { useState } from 'react';
+import styles from './style.module.scss';
+import { myPageTabs } from '../Ratings/mocks';
+import DTabs from '../../components/DTabs';
+import nftItems from './nftListData';
+import CollectedBottom from './CollectedBottom';
+import MyApplicationBottom from './MyApplicationBottom';
+import ListedArtworkBottom from './ListedArtworkName';
+import FavoritesBottom from './FavoritesBottom';
+import { useSelector } from 'react-redux';
+import CreatedItems from './CreatedBottom/CreatedItems';
+import CreatedCollections from './CreatedBottom/CreatedCollections';
+import useArtistAPI from '../../hooks/useArtistAPI';
+import { truncateAddress } from '../../utils';
+import PageSettingsIcon from '/src/assets/icons/page-settings-icon.svg?component';
+import ProfileImageIcon from '/src/assets/icons/profile-img-icon.svg?component';
+import { useParams } from 'react-router-dom';
+import { Box } from '@mui/material';
+import classNames from 'classnames';
 
-import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
-import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
-import { useNavigate, useParams } from "react-router-dom";
-import { Box } from "@mui/material";
-import classNames from "classnames";
 
 const MyPage = () => {
   const { id } = useParams();
@@ -35,7 +35,7 @@ const MyPage = () => {
     case "collection-status-created":
       num = 4;
       break;
-    case "collection-status":
+    case 'collection-status':
       num = 4;
       break;
     case "artist-status":
@@ -55,10 +55,10 @@ const MyPage = () => {
   );
 
   const notShowItems =
-    tab?.value !== "collected" &&
-    tab?.value !== "myApplication" &&
-    tab?.value !== "favorites" &&
-    tab?.value !== "listedArtworks";
+    tab?.value !== 'collected' &&
+    tab?.value !== 'myApplication' &&
+    tab?.value !== 'favorites' &&
+    tab?.value !== 'listedArtworks';
 
   const [showCopied, setShowCopied] = useState(false);
   const [showCopy, setShowCopy] = useState(false);
@@ -82,7 +82,7 @@ const MyPage = () => {
       <Box className={styles.ProfileSection}>
         <ProfileImageIcon />
         <Box className={styles.UserName}>
-          {artist ? artist?.data?.artist_name : "UserName"}
+          {artist ? artist?.data?.artist_name : 'UserName'}
         </Box>
         <Box
           className={styles.WalletAddress}
@@ -98,7 +98,7 @@ const MyPage = () => {
           {showCopied && (
             <div className={classNames(styles.CopiedText)}>Copied</div>
           )}
-          {walletAddress || ""}
+          {walletAddress || ''}
         </Box>
         <Box className={styles.Bio}>Bio</Box>
         <Box className={styles.BioDescription}>{artist?.data?.description}</Box>
@@ -113,16 +113,16 @@ const MyPage = () => {
         {tab?.value === "collected" && (
           <CollectedBottom tabValue={tab?.value} />
         )}
-        {tab?.value === "myApplication" && (
+        {tab?.value === 'myApplication' && (
           <MyApplicationBottom artist={artist} id={id} />
         )}
-        {tab?.value === "listedArtworks" && <ListedArtworkBottom />}
-        {tab?.value === "favorites" && <FavoritesBottom items={nftItems} />}
-        {tab?.value === "created" &&
-          createdTab !== "Items" &&
-          createdTab !== "Collections" && <CreatedItems />}
-        {createdTab === "Items" && notShowItems && <CreatedItems />}
-        {createdTab === "Collections" && notShowItems && <CreatedCollections />}
+        {tab?.value === 'listedArtworks' && <ListedArtworkBottom />}
+        {tab?.value === 'favorites' && <FavoritesBottom items={nftItems} />}
+        {tab?.value === 'created' &&
+          createdTab !== 'Items' &&
+          createdTab !== 'Collections' && <CreatedItems />}
+        {createdTab === 'Items' && notShowItems && <CreatedItems />}
+        {createdTab === 'Collections' && notShowItems && <CreatedCollections />}
       </Box>
     </Box>
   );
