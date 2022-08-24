@@ -36,6 +36,9 @@ const MyApplicationBottom = ({ artist, id }) => {
     case "collection-status":
       statusWord = statuses.collection_status;
       break;
+    case "collection-status-created":
+      statusWord = statuses.collection_status;
+      break;
     case "sell-request":
       statusWord = statuses.sell_request;
       break;
@@ -65,7 +68,7 @@ const MyApplicationBottom = ({ artist, id }) => {
 
       {active === "SELL_REQUEST" && <SellRequestTable />}
       {active === "COLLECTION_STATUS" && (
-        <CollectionStatusTable fCollection={collections} />
+        <CollectionStatusTable id={id} fCollection={collections} />
       )}
       {active === "ARTIST_STATUS" && <ArtistStatusTable artist={artist} />}
     </Box>

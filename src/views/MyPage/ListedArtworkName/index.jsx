@@ -1,13 +1,14 @@
 import React from "react";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
+import { Box } from "@mui/material";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import useNftAPI from "../../../hooks/useNftApi";
+import Loader from "../../../components/Loader";
+import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
 
 import styles from "./style.module.scss";
-import { Box } from "@mui/material";
-import Loader from "../../../components/Loader";
-import classNames from "classnames";
-import { useNavigate } from "react-router-dom";
 
 const ListedArtworkBottom = () => {
   const navigate = useNavigate();
@@ -26,7 +27,12 @@ const ListedArtworkBottom = () => {
 
   return (
     <Box className={styles.Container}>
-      {loadChecker ? (
+      {list?.data?.items.length === 0 ? (
+        <Box className={styles.NoItemsContainer}>
+          <NoItemsYet />
+          <Box className={styles.NoItemsText}>No items yet</Box>
+        </Box>
+      ) : loadChecker ? (
         <Loader page="my-page" />
       ) : (
         <table className={styles.Table}>

@@ -15,7 +15,6 @@ const configQuery = {
 
 const useArtistAPI = ({ isDetail, onSuccess }) => {
   const { token } = useSelector((store) => store.auth);
-  console.log(token);
 
   const dispatch = useDispatch();
 

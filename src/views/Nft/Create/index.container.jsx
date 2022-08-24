@@ -5,8 +5,6 @@ import Web3 from "web3";
 import FormInputText from "../../../components/FormInputText";
 import ModalCard from "../../../components/ModalCard";
 import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
-
-import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import SingleABI from "../../../utils/abi/SingleABI";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
@@ -16,11 +14,11 @@ import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
 import classNames from "classnames";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import useNFTCreateApi from "../../../hooks/useNFTCreateApi";
-import useNftAPI from "../../../hooks/useNftApi";
 import SelectAsync from "../../../components/SelectAsync";
 import CollectionOption from "./Option";
 import { setNewNftSrc } from "../../../store/nft/nft.slice";
-import useNFTAPI from "../../../hooks/useNFT";
+
+import styles from "./style.module.scss";
 
 const NftCreate = () => {
   const dispatch = useDispatch();
@@ -69,7 +67,7 @@ const NftCreate = () => {
         setNewItemId(newId);
         setTimeout(() => {
           setResponseChecker(true);
-        }, 3000);
+        }, 3500);
       }
     }, 1000);
   }
@@ -303,11 +301,6 @@ const NftCreate = () => {
         {(errorChecker > 0 || errBool) && (
           <Box className={styles.Error}>Please enter all required values.</Box>
         )}
-        <Box className={styles.MintTxt}>
-          Mint an NFT charges 1 CON, so don't upload sensitive content. In
-          addition, the content will be uploaded <br /> after censoring it. If
-          the content is incorrect, the upload may berejected.
-        </Box>
       </Box>
 
       {showModal && (

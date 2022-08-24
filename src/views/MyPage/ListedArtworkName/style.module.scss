@@ -2,148 +2,160 @@
 @import "/src/styles/fonts";
 
 .Container {
-   margin-top: 30px;
+  margin-top: 30px;
 
-   .Table {
-      width: 100%;
-      border-spacing: 0;
+  .NoItemsContainer {
+    width: 100%;
+    padding-top: 154px;
+    text-align: center;
 
-      .TableHead {
-         border-radius: 7px 7px 0px 0px;
-         border: colors.$border;
-         background: #f4f4f4;
-         height: 50px;
+    .NoItemsText {
+      @include fontProcessDesc;
+      text-align: center;
+      color: colors.$text;
+    }
+  }
 
-         .TableHeadRow {
-            border-radius: 7px 7px 0px 0px;
-            border: colors.$border;
+  .Table {
+    width: 100%;
+    border-spacing: 0;
 
-            th {
-               border-top: colors.$border;
-               border-bottom: colors.$border;
-            }
+    .TableHead {
+      border-radius: 7px 7px 0px 0px;
+      border: colors.$border;
+      background: #f4f4f4;
+      height: 50px;
 
-            & :nth-child(1) {
-               width: 114px;
-               text-align: left;
-               border-radius: 7px 0 0 0;
-               border-left: colors.$border;
-               padding-left: 30px;
-            }
+      .TableHeadRow {
+        border-radius: 7px 7px 0px 0px;
+        border: colors.$border;
 
-            & :nth-child(2) {
-               width: 324px;
-               padding-left: 48px;
-               text-align: left;
-            }
-            & :nth-child(3) {
-               text-align: right;
-               width: 299px;
-               padding-right: 79px;
-            }
+        th {
+          border-top: colors.$border;
+          border-bottom: colors.$border;
+        }
 
-            & :nth-child(4) {
-               text-align: right;
-               width: 239px;
-            }
-            & :nth-child(5) {
-               margin-right: 75px;
-               border-radius: 0 7px 0 0;
-               border-right: colors.$border;
-            }
-         }
+        & :nth-child(1) {
+          width: 114px;
+          text-align: left;
+          border-radius: 7px 0 0 0;
+          border-left: colors.$border;
+          padding-left: 30px;
+        }
+
+        & :nth-child(2) {
+          width: 324px;
+          padding-left: 48px;
+          text-align: left;
+        }
+        & :nth-child(3) {
+          text-align: right;
+          width: 299px;
+          padding-right: 79px;
+        }
+
+        & :nth-child(4) {
+          text-align: right;
+          width: 239px;
+        }
+        & :nth-child(5) {
+          margin-right: 75px;
+          border-radius: 0 7px 0 0;
+          border-right: colors.$border;
+        }
       }
+    }
 
-      .TableBody {
-         .TableBodyRow {
-            td {
-               border-bottom: 1px solid colors.$placeholder;
-               height: 84px;
+    .TableBody {
+      .TableBodyRow {
+        td {
+          border-bottom: 1px solid colors.$placeholder;
+          height: 84px;
+        }
+
+        & :nth-child(1) {
+          text-align: left;
+
+          img {
+            margin-left: 30px;
+            width: 40px;
+            height: 40px;
+            border-radius: 7px;
+          }
+          cursor: pointer;
+        }
+        & :nth-child(2) {
+          width: 324px;
+          padding-left: 48px;
+          text-align: left;
+          font-style: normal;
+          @include fontLabel;
+          font-weight: 700;
+          color: #1f1f1f;
+          cursor: pointer;
+        }
+        & :nth-child(3) {
+          font-style: normal;
+          @include fontProcessDesc;
+          color: #fd9330;
+        }
+
+        .ThirdOne {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-end;
+          text-align: right;
+          width: 299px;
+          padding-right: 79px;
+
+          .CycPrice {
+            font-style: normal;
+            @include fontProcessDesc;
+            color: colors.$greyBg;
+          }
+
+          .UsdPrice {
+            font-style: normal;
+            @include fontLagInfo;
+            text-align: right;
+            color: #2bbeac;
+          }
+        }
+        & :nth-child(4) {
+          text-align: right;
+          width: 320px;
+          font-style: normal;
+          @include fontProcessDesc;
+          color: colors.$greyBg;
+        }
+        & :nth-child(5) {
+          text-align: left;
+          width: 170px;
+
+          .BtnCancel {
+            width: 140px;
+            height: 45px;
+            margin-left: 75px;
+            margin-right: 30px;
+            border: 1px solid colors.$primary;
+            border-radius: 7px;
+            background-color: transparent;
+            font-style: normal;
+            @include fontLabel;
+            text-align: center;
+            color: colors.$primary;
+
+            &:hover {
+              background: colors.$primary;
+              border: 1px solid colors.$icon;
+              box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+              border-radius: 7px;
+              color: colors.$whiteBg;
             }
-
-            & :nth-child(1) {
-               text-align: left;
-
-               img {
-                  margin-left: 30px;
-                  width: 40px;
-                  height: 40px;
-                  border-radius: 7px;
-               }
-               cursor: pointer;
-            }
-            & :nth-child(2) {
-               width: 324px;
-               padding-left: 48px;
-               text-align: left;
-               font-style: normal;
-               @include fontLabel;
-               font-weight: 700;
-               color: #1f1f1f;
-               cursor: pointer;
-            }
-            & :nth-child(3) {
-               font-style: normal;
-               @include fontProcessDesc;
-               color: #fd9330;
-            }
-
-            .ThirdOne {
-               display: flex;
-               flex-direction: column;
-               justify-content: center;
-               align-items: flex-end;
-               text-align: right;
-               width: 299px;
-               padding-right: 79px;
-
-               .CycPrice {
-                  font-style: normal;
-                  @include fontProcessDesc;
-                  color: colors.$greyBg;
-               }
-
-               .UsdPrice {
-                  font-style: normal;
-                  @include fontLagInfo;
-                  text-align: right;
-                  color: #2bbeac;
-               }
-            }
-            & :nth-child(4) {
-               text-align: right;
-               width: 320px;
-               font-style: normal;
-               @include fontProcessDesc;
-               color: colors.$greyBg;
-            }
-            & :nth-child(5) {
-               text-align: left;
-               width: 170px;
-
-               .BtnCancel {
-                  width: 140px;
-                  height: 45px;
-                  margin-left: 75px;
-                  margin-right: 30px;
-                  border: 1px solid colors.$primary;
-                  border-radius: 7px;
-                  background-color: transparent;
-                  font-style: normal;
-                  @include fontLabel;
-                  text-align: center;
-                  color: colors.$primary;
-
-                  &:hover {
-                     background: colors.$primary;
-                     border: 1px solid colors.$icon;
-                     box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
-                     border-radius: 7px;
-                     color: colors.$whiteBg;
-                  }
-               }
-            }
-         }
+          }
+        }
       }
-   }
+    }
+  }
 }

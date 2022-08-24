@@ -7,6 +7,7 @@ import Loader from "../../../components/Loader";
 import NFTCard from "../../../components/NFTCard";
 import { priceType } from "../../../constants";
 import useNftAPI from "../../../hooks/useNftApi";
+import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
 
 import styles from "./style.module.scss";
 
@@ -32,8 +33,12 @@ const CollectedBottom = ({ tabValue }) => {
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items.length === 0 ? null : list?.data?.items[0]
-            ?.request_type !== "COLLECTED" ? (
+        {list?.data?.items.length === 0 ? (
+          <Box className={styles.NoItemsContainer}>
+            <NoItemsYet />
+            <Box className={styles.NoItemsText}>No items yet</Box>
+          </Box>
+        ) : list?.data?.items[0]?.request_type !== "COLLECTED" ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items?.map((nftItem, index) => {
