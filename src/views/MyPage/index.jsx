@@ -15,17 +15,24 @@ import { truncateAddress } from "../../utils";
 
 import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import classNames from "classnames";
 
 const MyPage = () => {
   const { id } = useParams();
+  console.log(id);
+  const navigate = useNavigate();
   const { createdTab } = useSelector((store) => store.myPage);
+  const { artist } = useArtistAPI({ isDetail: true });
+  const { account } = useSelector((store) => store.wallet);
   const [hovered, setHovered] = useState(false);
   const [tabs, setTabs] = useState(myPageTabs);
   let num;
   switch (id) {
+    case "favorites":
+      num = 2;
+      break;
     case "artist-status":
       num = 4;
       break;
@@ -40,10 +47,8 @@ const MyPage = () => {
   }
   const [tab, setTab] = useState(tabs[num]);
 
-  const { artist } = useArtistAPI({ isDetail: true });
-
   const walletAddress = truncateAddress(
-    artist?.data?.wallet_address,
+    artist?.data?.wallet_address || account,
     "my-page"
   );
 
@@ -54,6 +59,7 @@ const MyPage = () => {
     tab?.value !== "listedArtworks";
 
   const [showCopied, setShowCopied] = useState(false);
+  const [showCopy, setShowCopy] = useState(false);
 
   const copyToClipboard = (copyText) => {
     navigator.clipboard.writeText(copyText);
@@ -68,6 +74,7 @@ const MyPage = () => {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           fill={hovered ? "#7D8890" : "#D1D1D1"}
+          onClick={() => navigate("/user/settings")}
         />
       </Box>
       <Box className={styles.ProfileSection}>
@@ -80,7 +87,12 @@ const MyPage = () => {
           onClick={() => {
             copyToClipboard(artist?.data?.wallet_address);
           }}
+          onMouseEnter={() => setShowCopy(true)}
+          onMouseLeave={() => setShowCopy(false)}
         >
+          {showCopy && (
+            <Box className={classNames(styles.CopiedText)}>Copy</Box>
+          )}
           {showCopied && (
             <div className={classNames(styles.CopiedText)}>Copied</div>
           )}
@@ -97,7 +109,7 @@ const MyPage = () => {
           setValues={setTabs}
         />
         {tab?.value === "collected" && (
-          <CollectedBottom tabValue={tab?.value}/>
+          <CollectedBottom tabValue={tab?.value} />
         )}
         {tab?.value === "myApplication" && (
           <MyApplicationBottom artist={artist} id={id} />
