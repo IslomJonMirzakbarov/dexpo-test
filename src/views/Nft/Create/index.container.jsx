@@ -69,7 +69,7 @@ const NftCreate = () => {
         setNewItemId(newId);
         setTimeout(() => {
           setResponseChecker(true);
-        }, 3000);
+        }, 3500);
       }
     }, 1000);
   }
