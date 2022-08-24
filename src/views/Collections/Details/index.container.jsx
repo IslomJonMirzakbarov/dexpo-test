@@ -54,10 +54,13 @@ const CollectionDetailsContainer = ({
   bidPrice,
   setBidPrice,
   bidHistory,
+  handleRefresh,
+  onTimeOut,
   bidPriceControl,
   isAuctionEnded,
   setRefetchInterval,
-  isAuctionNotStarted
+  isAuctionNotStarted,
+  isAuctionBeingFinished
 }) => {
   const navigate = useNavigate();
 
@@ -84,7 +87,8 @@ const CollectionDetailsContainer = ({
     isSoldOut,
     isAuction,
     isAuctionEnded,
-    isAuctionNotStarted
+    isAuctionNotStarted,
+    isAuctionBeingFinished
   });
 
   const auctionStartDate = moment(market?.start_date * 1000).format(
@@ -158,7 +162,7 @@ const CollectionDetailsContainer = ({
                       </Typography>
                     </Typography>
                   ) : (
-                    <Countdown date={endDate} />
+                    <Countdown date={endDate} onFinish={onTimeOut} />
                   )
                 ) : (
                   <Box />
@@ -205,16 +209,18 @@ const CollectionDetailsContainer = ({
                       </Typography>
                     </>
                   )}
-                  <Button
-                    className={classes.button}
-                    variant="containedSecondary"
-                    fullWidth
-                    onClick={handleClick}
-                    disabled={isSoldOut || isDisabled}
-                    sx={{ height: 55 }}
-                  >
-                    {btnLabel}
-                  </Button>
+                  {!isSoldOut && (
+                    <Button
+                      className={classes.button}
+                      variant="containedSecondary"
+                      fullWidth
+                      onClick={handleClick}
+                      disabled={isSoldOut || isDisabled}
+                      sx={{ height: 55 }}
+                    >
+                      {btnLabel}
+                    </Button>
+                  )}
                 </Box>
               </Box>
             </Box>

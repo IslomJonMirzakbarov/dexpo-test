@@ -57,13 +57,16 @@ const useStyles = makeStyles((theme) => ({
 
 const PendingCheckout = ({
   img = nftImg,
-  name = 'GEMMA #1422',
-  collectionName = 'Collection Name',
-  quantity = 1,
-  price = 652124.1225,
-  exchangedPrice = 154123661
+  name,
+  collectionName,
+  quantity,
+  price,
+  exchangedPrice,
+  isAuction
 }) => {
   const classes = useStyles();
+
+  const word = isAuction ? 'bid' : 'purchase';
 
   return (
     <Box
@@ -143,10 +146,10 @@ const PendingCheckout = ({
             </Box>
             <Box display="flex" flexDirection="column" ml={1}>
               <Typography variant="placeholder" fontWeight={700}>
-                Confirm purchase
+                Confirm {word}
               </Typography>
               <Typography fontWeight={400} color="grey.1000" mt="3px">
-                You’ll be asked to approve this purchase from your wallet.
+                You’ll be asked to approve this {word} from your wallet.
               </Typography>
             </Box>
           </Box>

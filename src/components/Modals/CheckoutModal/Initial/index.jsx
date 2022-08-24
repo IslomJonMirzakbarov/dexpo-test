@@ -59,11 +59,10 @@ const InitialCheckout = ({
   type,
   leftDays,
   error,
-  bidPriceControl
+  bidPriceControl,
+  isAuction
 }) => {
   const classes = useStyles();
-
-  const isAuction = type === priceTypeChar.A;
 
   return (
     <Box

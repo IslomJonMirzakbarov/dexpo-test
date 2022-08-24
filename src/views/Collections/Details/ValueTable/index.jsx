@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import CopyButton from '../../../../components/CopyButton';
+import InfoIcon from '../../../../assets/icons/info.svg?component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '13px 20px 13px 17px'
+    padding: '8px 20px 8px 17px'
   },
   address: {
     color: theme.palette.primary.main,
@@ -22,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
   value: {
     color: theme.palette.primary.main
+  },
+  img: {
+    position: 'absolute',
+    right: 11
   }
 }));
 
@@ -63,9 +68,37 @@ const ValueTable = ({
         <Typography variant="subtitle1">Creator’s address</Typography>
         <CopyButton value={addrressCreator} isTruncated={true} />
       </Box>
-      <Box className={classes.box} borderBottom="none !important">
+      <Box className={classes.box}>
         <Typography variant="subtitle1">Owner’s address</Typography>
         <CopyButton value={addrressOwner} isTruncated={true} />
+      </Box>
+      <Box className={classes.box} position="relative">
+        <Typography variant="subtitle1">Creator fee</Typography>
+        <Typography
+          variant="subtitle1"
+          fontWeight={500}
+          mr={2.5}
+          display="flex"
+          alignItems="center"
+        >
+          2%{' '}
+          <Tooltip
+            title="The creator will receive 2% for
+every sale of this collection.
+"
+            placement="right"
+          >
+            <IconButton className={classes.img}>
+              <InfoIcon />
+            </IconButton>
+          </Tooltip>
+        </Typography>
+      </Box>
+      <Box className={classes.box} borderBottom="none !important">
+        <Typography variant="subtitle1">Platform fee</Typography>
+        <Typography variant="subtitle1" fontWeight={500} mr={2.5}>
+          2%
+        </Typography>
       </Box>
     </Box>
   );

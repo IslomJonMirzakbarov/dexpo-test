@@ -9,7 +9,7 @@ const useStyles = makeStyles((_) => ({
     padding: '15px'
   }
 }));
-const CompleteFooter = ({ onConfirm }) => {
+const CompleteFooter = ({ onConfirm, isAuction }) => {
   const classes = useStyles();
 
   return (
@@ -20,7 +20,7 @@ const CompleteFooter = ({ onConfirm }) => {
       onClick={onConfirm}
     >
       <Typography variant="placeholder" fontWeight={600}>
-        View Item
+        {isAuction ? 'Confirm' : 'View Item'}
       </Typography>
     </Button>
   );

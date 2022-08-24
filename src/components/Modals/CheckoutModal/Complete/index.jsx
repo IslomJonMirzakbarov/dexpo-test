@@ -39,19 +39,22 @@ const useStyles = makeStyles({
   }
 });
 
-const CompleteCheckout = ({ name, txHash, img }) => {
+const CompleteCheckout = ({ name, txHash, img, isAuction }) => {
   const classes = useStyles();
+  const word = isAuction ? 'bid' : 'purchase';
+
   const handleCopy = () => navigator.clipboard.writeText(txHash);
+
   return (
     <Box className={classes.wrapper}>
       <Typography fontSize={22} fontWeight={700} lineHeight="33px">
-        Your purchase is complete
+        Your {word} is complete
       </Typography>
       <Box className={classes.box}>
         <img src={img} alt={name} width={193} height={193} />
       </Box>
       <Typography variant="placeholder" className={classes.text}>
-        Congrats you just purchased&nbsp;
+        Congrats you just {isAuction ? 'bided' : 'purchased'}&nbsp;
         <Typography variant="placeholder" color="primary" fontWeight={700}>
           {name}!
         </Typography>
