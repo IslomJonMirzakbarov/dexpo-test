@@ -34,12 +34,12 @@ const list = [
       },
       {
         title: 'My Application',
-        link: '/user/applications',
+        link: '/user/my-page/artist-status',
         isAuthenticated: true
       },
       {
         title: 'Favourites',
-        link: '/user/favourites',
+        link: '/user/my-page/favorites',
         isAuthenticated: true
       },
       {
