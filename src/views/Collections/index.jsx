@@ -24,7 +24,7 @@ const Collections = () => {
   const { data, isLoading } = useMarketAPI({
     page,
     type: filter?.value,
-    refetchInterval
+    refetchInterval: 5000
   });
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
