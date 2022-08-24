@@ -14,7 +14,6 @@ const SellRequestTable = () => {
     orderBy: "desc",
   });
   const sellRequestItems = sellRequestList?.data?.items;
-  console.log(sellRequestItems);
   return (
     <table className={styles.Table}>
       <thead className={styles.TableHead}>

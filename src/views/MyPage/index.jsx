@@ -21,7 +21,6 @@ import classNames from "classnames";
 
 const MyPage = () => {
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
   const { createdTab } = useSelector((store) => store.myPage);
   const { artist } = useArtistAPI({ isDetail: true });

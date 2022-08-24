@@ -2,13 +2,25 @@
 @import "/src/styles/fonts";
 
 .Container {
-   margin-top: 25px;
+  margin-top: 25px;
 
-   .Title {
-      font-style: normal;
-      @include userText;
-      font-weight: 700;
-      color: colors.$greyBg;
-      margin-bottom: 20px;
-   }
+  .NoItemsContainer {
+    width: 100%;
+    padding-top: 154px;
+    text-align: center;
+
+    .NoItemsText {
+      @include fontProcessDesc;
+      text-align: center;
+      color: colors.$text;
+    }
+  }
+
+  .Title {
+    font-style: normal;
+    @include userText;
+    font-weight: 700;
+    color: colors.$greyBg;
+    margin-bottom: 20px;
+  }
 }
