@@ -42,7 +42,7 @@ const ProfileMenu = () => {
       },
       {
          name: "Favorites",
-         to: "/user/favourites",
+         to: "/user/my-page/favorites",
          icon: <FavoriteRoundedIcon />,
       },
       {
