@@ -76,7 +76,7 @@ const CollectionCreate = () => {
 
   const modalClick = () => {
     setShowModal(false);
-    navigate("/user/my-page/collection-status");
+    navigate("/user/my-page/collection-status-created");
   };
 
   return (

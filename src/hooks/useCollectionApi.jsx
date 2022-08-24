@@ -18,6 +18,7 @@ const useCollectionAPI = ({
   size,
   id,
   filter_type = "ALL",
+  refetchInterval,
 }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
@@ -80,6 +81,7 @@ const useCollectionAPI = ({
       enabled: isDetail || false,
       ...configQuery,
       refetch: page,
+      refetchInterval,
     }
   );
 
