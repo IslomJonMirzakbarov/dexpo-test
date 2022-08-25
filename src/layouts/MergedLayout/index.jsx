@@ -1,5 +1,5 @@
 import { Box, Button, List, ListItem, Typography } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
@@ -16,14 +16,17 @@ import logo from '../../assets/images/logo.svg';
 import useWallet from '../../hooks/useWallet';
 import { securedAPI } from '../../services/api';
 import { setArtist } from '../../store/artist/artist.slice';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
 import { logout } from '../../store/auth/auth.slice';
-import { setAccount } from '../../store/wallet/wallet.slice';
+import { setAccount, setPriceeUSD } from '../../store/wallet/wallet.slice';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
 const MergedLayout = ({ children }) => {
   const ref = useRef(null);
+  const contactRef = useRef(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -32,6 +35,7 @@ const MergedLayout = ({ children }) => {
   const { account } = useSelector((store) => store.wallet);
   const { token } = useSelector((store) => store.auth);
   const { isProfileOpen } = useSelector((store) => store.popup);
+  const [contactOpen, setContactOpen] = useState(false);
 
   const label = account ? truncateAddress(account) : BUTTON_LABEL;
 
@@ -44,8 +48,10 @@ const MergedLayout = ({ children }) => {
     else navigate('/login');
   };
 
+  const handleToggleContact = () => setContactOpen((prev) => !prev);
+
   const handleNetwork = async () => {
-    if (window.ethereum) {
+    if (window.ethereum && account) {
       window.ethereum.on('chainChanged', () => {
         window.location.reload();
       });
@@ -54,6 +60,17 @@ const MergedLayout = ({ children }) => {
 
         connectWallet('metamask');
       });
+    }
+  };
+
+  const handlePrice = async () => {
+    try {
+      const res = await securedAPI(token).get('/api/home/conPrice');
+      if (res?.data) {
+        dispatch(setPriceeUSD(res?.data.data?.price_usd));
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -79,9 +96,11 @@ const MergedLayout = ({ children }) => {
   };
 
   useOnClickOutside(ref, isProfileOpen ? handleToggleMenu : () => {});
+  useOnClickOutside(contactRef, contactOpen ? handleToggleContact : () => {});
 
   useEffect(() => {
     handleNetwork();
+    handlePrice();
   }, []);
 
   useEffect(() => {
@@ -124,9 +143,34 @@ const MergedLayout = ({ children }) => {
               })}
               key={page.name}
             >
-              <NavLink to={page.isAuthenticated && !token ? '/login' : page.to}>
-                <Typography variant="body2">{page.name}</Typography>
-              </NavLink>
+              {!!page.children ? (
+                <Box className={styles.box} ref={contactRef}>
+                  <Typography
+                    variant="body2"
+                    display="flex"
+                    alignItems="center"
+                    onClick={handleToggleContact}
+                  >
+                    {page.name}&nbsp;{' '}
+                    {!!page.children && <KeyboardArrowDownRoundedIcon />}
+                  </Typography>
+                  {!!page.children && contactOpen && (
+                    <ProfileMenu options={page.children} />
+                  )}
+                </Box>
+              ) : (
+                <NavLink
+                  to={page.isAuthenticated && !token ? '/login' : page.to}
+                >
+                  <Typography
+                    variant="body2"
+                    display="flex"
+                    alignItems="center"
+                  >
+                    {page.name}&nbsp;{' '}
+                  </Typography>
+                </NavLink>
+              )}
             </ListItem>
           ))}
         </List>

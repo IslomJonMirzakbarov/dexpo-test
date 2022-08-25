@@ -12,6 +12,7 @@ import React from 'react';
 import { historyMockHeadRows } from './mock';
 import HistoryTableItem from './TableItem';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HistoryTable = ({ data, title = 'NFT History' }) => {
   const classes = useStyles();
+  const { price_usd } = useSelector((store) => store.wallet);
 
   return (
     <Box className={classes.root} mt={5}>
@@ -64,7 +66,7 @@ const HistoryTable = ({ data, title = 'NFT History' }) => {
                   index={i + 1}
                   event={item.event}
                   amount={item.price}
-                  price={48}
+                  price={item.price * price_usd}
                   from={item.from_address}
                   to={item.to_address}
                   txHash={item.tx_hash}

@@ -1,41 +1,63 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
-import React, { useMemo, useState } from "react";
-import styles from "./style.module.scss";
-import { makeStyles } from "@mui/styles";
-import ValueTable from "../../Collections/Details/ValueTable";
-import HistoryTable from "../../Collections/Details/HistoryTable";
-import CollectionDetailsInfo from "../../Collections/Details/Info";
-import CollectionDetailImage from "../../Collections/Details/Image";
-import Countdown from "../../../components/Countdown";
-import NumberFormat from "react-number-format";
-import tokenImg from "../../../assets/images/con-token.png";
-import { DATE_FORMAT, priceType, priceTypeChar } from "../../../constants";
-
-import { utils } from "react-modern-calendar-datepicker";
-import PriceInput from "../../../components/PriceInput";
-import DRangePicker from "../../../components/DRangePicker";
-import SellModal from "../../../components/Modals/SellModal";
-import { useTheme } from "@emotion/react";
-import moment from "moment";
-import DModal from "../../../components/DModal";
-import { marketStatuses } from "../../../constants/marketStatuses";
-import TimeInput from "./TimeInput";
-import { useSelector } from "react-redux";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  TextField,
+  Typography
+} from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import styles from './style.module.scss';
+import { makeStyles } from '@mui/styles';
+import ValueTable from '../../Collections/Details/ValueTable';
+import HistoryTable from '../../Collections/Details/HistoryTable';
+import CollectionDetailsInfo from '../../Collections/Details/Info';
+import CollectionDetailImage from '../../Collections/Details/Image';
+import Countdown from '../../../components/Countdown';
+import NumberFormat from 'react-number-format';
+import tokenImg from '../../../assets/images/con-token.png';
+import { DATE_FORMAT, priceType, priceTypeChar } from '../../../constants';
+import PriceInput from '../../../components/PriceInput';
+import SellModal from '../../../components/Modals/SellModal';
+import { useTheme } from '@emotion/react';
+import moment from 'moment';
+import DModal from '../../../components/DModal';
+import { marketStatuses } from '../../../constants/marketStatuses';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   priceBox: {
-    marginTop: 61,
+    marginTop: 61
   },
   box: {
-    width: "50%",
+    width: '50%'
   },
   button: {
-    padding: "16px 0",
-    marginTop: 17,
+    padding: '16px 0',
+    marginTop: 17
   },
   timeInput: {
-    width: "48%",
+    width: '48%'
   },
+  datetime: {
+    cursor: 'pointer',
+    transition: '0.4s ease-in-out all',
+
+    '&:focus, &:hover': {
+      'box-shadow': ' -1px 1px 16px 7px rgba(0, 0, 0, 0.06)'
+    },
+
+    '& fieldset': {
+      width: '100%',
+      border: '1px solid #dedede !important',
+      'border-radius': '7px',
+      '&:focus, &:hover': {
+        border: ' none !important',
+        outline: 'none'
+      }
+    }
+  }
 });
 
 const NFTSellRequestContainer = ({
@@ -64,13 +86,10 @@ const NFTSellRequestContainer = ({
   submitLabel,
   marketStatus,
   onBack,
-  handleChangeDate,
+  handleChangeStartingDate,
+  handleChangeEndingDate,
   sdValue,
-  edValue,
-  startTime,
-  endTime,
-  handleChangeFromTime,
-  handleChangeToTime,
+  edValue
 }) => {
   const theme = useTheme();
 
@@ -79,6 +98,7 @@ const NFTSellRequestContainer = ({
   const { newNftSrc } = useSelector((store) => store.nft);
 
   const [openImg, setOpenImg] = useState(false);
+  const { price_usd } = useSelector((store) => store.wallet);
 
   const isAuction = priceType.AUCTION.key.includes(type?.value);
 
@@ -90,6 +110,8 @@ const NFTSellRequestContainer = ({
     return moment(newDate).format(DATE_FORMAT);
   }, [market?.end_date]);
 
+  const exchangedPrice = price_usd * (market?.price || sellPrice);
+
   const SetPrice = () => (
     <>
       <Box display="flex" alignItems="center" className={classes.priceBox}>
@@ -97,7 +119,8 @@ const NFTSellRequestContainer = ({
         <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
           <NumberFormat
             value={market?.price}
-            displayType={"text"}
+            displayType={'text'}
+            decimalScale={4}
             thousandSeparator={true}
           />
         </Typography>
@@ -107,11 +130,13 @@ const NFTSellRequestContainer = ({
         fontWeight={500}
         color={theme.palette.grey[1000]}
       >
-        ( ${" "}
+        (
         <NumberFormat
-          value={parsedPrice}
-          displayType={"text"}
+          value={exchangedPrice}
+          displayType={'text'}
           thousandSeparator={true}
+          prefix="$"
+          decimalScale={4}
         />
         )
       </Typography>
@@ -176,46 +201,34 @@ const NFTSellRequestContainer = ({
                   <Box
                     display="flex"
                     flexDirection="column"
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
+                    className={styles.dates}
                   >
                     {!!type && <PriceInput control={control} name="price" />}
                     {isAuction && (
                       <>
-                        <Box mt="15px" display="flex" sx={{ width: "100%" }}>
-                          <DRangePicker
-                            minimumDate={utils().getToday()}
-                            placeholderText="Please select an auction period"
-                            onChange={handleChangeDate}
-                            value={{
-                              from: sdValue,
-                              to: edValue,
+                        <Box mt="15px" display="flex" alignItems="center">
+                          <TextField
+                            label="Starting Date"
+                            type="datetime-local"
+                            value={sdValue}
+                            className={classes.datetime}
+                            onChange={handleChangeStartingDate}
+                            InputLabelProps={{
+                              shrink: true
                             }}
                           />
-                        </Box>
-                        <Box
-                          mt="15px"
-                          display="flex"
-                          justifyContent="space-between"
-                          style={{ width: "100%" }}
-                        >
-                          {sdValue && (
-                            <TimeInput
-                              label="From time"
-                              value={startTime}
-                              className={classes.timeInput}
-                              onChange={(val) => {
-                                handleChangeFromTime(val);
-                              }}
-                            />
-                          )}
-                          {edValue && (
-                            <TimeInput
-                              label="To time"
-                              value={endTime}
-                              className={classes.timeInput}
-                              onChange={handleChangeToTime}
-                            />
-                          )}
+                          &nbsp;~&nbsp;
+                          <TextField
+                            label="Ending Date"
+                            type="datetime-local"
+                            value={edValue}
+                            className={classes.datetime}
+                            onChange={handleChangeEndingDate}
+                            InputLabelProps={{
+                              shrink: true
+                            }}
+                          />
                         </Box>
                       </>
                     )}
@@ -227,12 +240,12 @@ const NFTSellRequestContainer = ({
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: "100%" }}
+                  sx={{ width: '100%' }}
                 >
                   {isCancel && market?.price && <SetPrice />}
                   <Button
                     className={classes.button}
-                    variant={isCancel ? "outlined" : "containedSecondary"}
+                    variant={isCancel ? 'outlined' : 'containedSecondary'}
                     fullWidth
                     onClick={isCancel ? toggle : handleClick}
                     disabled={isDisabled}
@@ -258,7 +271,7 @@ const NFTSellRequestContainer = ({
         name={nft?.token_name}
         type={priceTypeChar?.[market?.type]}
         price={market?.price}
-        exchangedPrice={12321200}
+        exchangedPrice={exchangedPrice}
         img={nft?.token_image}
         collectionName={collection?.name}
         onClick={handleConfirm}

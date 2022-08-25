@@ -133,6 +133,7 @@ const PendingCheckout = ({
                   displayType={'text'}
                   thousandSeparator={true}
                   prefix="$"
+                  decimalScale={4}
                 />
               </Typography>
             </Box>

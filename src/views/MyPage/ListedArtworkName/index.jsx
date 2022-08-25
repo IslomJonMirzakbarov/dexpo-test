@@ -1,29 +1,110 @@
-import React from "react";
-import moment from "moment";
-import { useNavigate } from "react-router-dom";
-import classNames from "classnames";
-import { Box } from "@mui/material";
-import PrimaryButton from "../../../components/Buttons/PrimaryButton";
-import useNftAPI from "../../../hooks/useNftApi";
-import Loader from "../../../components/Loader";
-import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
+import React, { useState } from 'react';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
+import { Box, Button, CircularProgress } from '@mui/material';
 
-import styles from "./style.module.scss";
+import useNftAPI from '../../../hooks/useNftApi';
+import Loader from '../../../components/Loader';
+import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component';
+import useWeb3 from '../../../hooks/useWeb3';
+
+import styles from './style.module.scss';
+import { useSelector } from 'react-redux';
+import NumberFormat from 'react-number-format';
+
+const TableRow = ({
+  item,
+  navigateClick,
+  dateConverter,
+  handleCancel,
+  price_usd
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const exchangedPrice = item?.market?.price * price_usd;
+
+  const handleClick = (item) => {
+    if (isLoading) return;
+
+    const { market, collection, nft } = item;
+    const isFixed = market.type.includes('F');
+    const contractAddress = collection.contract_address;
+    const id = nft.token_id;
+
+    handleCancel(isFixed, contractAddress, id, setIsLoading);
+  };
+
+  return (
+    <tr className={styles.TableBodyRow} key={item?.nft?.token_id}>
+      <td onClick={navigateClick}>
+        <img src={item?.nft?.token_image} alt="img" />
+      </td>
+      <td onClick={navigateClick}>{item?.nft?.token_name}</td>
+
+      <td className={styles.ThirdOne}>
+        <Box className={styles.CycPrice}>CYCON {item?.market?.price}</Box>
+        <Box className={styles.UsdPrice}>
+          <NumberFormat
+            value={exchangedPrice}
+            displayType={'text'}
+            thousandSeparator={true}
+            prefix="$"
+            decimalScale={4}
+          />
+        </Box>
+      </td>
+
+      <td>{dateConverter(item?.market?.created_at)}</td>
+      <td>
+        <Button className={styles.BtnCancel} onClick={() => handleClick(item)}>
+          {isLoading ? <CircularProgress size={20} /> : 'Cancel'}
+        </Button>
+      </td>
+    </tr>
+  );
+};
 
 const ListedArtworkBottom = () => {
   const navigate = useNavigate();
-  const { list } = useNftAPI({
+  const { price_usd } = useSelector((store) => store.wallet);
+
+  const { list, refetchList } = useNftAPI({
     isGetList: true,
-    type: "LISTED",
-    size: 20000,
+    type: 'LISTED',
+    size: 20000
   });
+
+  const { cancel, cancelAuction } = useWeb3();
+
+  const handleCancel = async (
+    isFixedContract,
+    contract_address,
+    id,
+    setIsLoading
+  ) => {
+    setIsLoading(true);
+    try {
+      let res;
+
+      if (isFixedContract) res = await cancel(contract_address, id);
+      else res = await cancelAuction(contract_address, id);
+
+      if (!!res) refetchList();
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const dateConverter = (stringNum) => {
     const date = new Date(Number(stringNum) * 1000);
-    const fdate = moment(date).format("YYYY.MM.DD hh:mm:ss");
+    const fdate = moment(date).format('YYYY.MM.DD hh:mm:ss');
     return fdate;
   };
 
-  const loadChecker = list?.data?.items[0]?.request_type !== "LISTED";
+  const loadChecker = list?.data?.items[0]?.request_type !== 'LISTED';
 
   return (
     <Box className={styles.Container}>
@@ -48,7 +129,7 @@ const ListedArtworkBottom = () => {
 
           <tbody
             className={classNames(styles.TableBody, {
-              [styles.LoaderPos]: true,
+              [styles.LoaderPos]: true
             })}
           >
             {list?.data?.items.length === 0
@@ -59,29 +140,13 @@ const ListedArtworkBottom = () => {
                       `/user/nft/${item?.nft?.token_id}/${item?.collection?.contract_address}`
                     );
                   return (
-                    <tr
-                      className={styles.TableBodyRow}
-                      key={item?.nft?.token_id}
-                    >
-                      <td onClick={navigateClick}>
-                        <img src={item?.nft?.token_image} alt="img" />
-                      </td>
-                      <td onClick={navigateClick}>{item?.nft?.token_name}</td>
-
-                      <td className={styles.ThirdOne}>
-                        <Box className={styles.CycPrice}>
-                          CYC {item?.market?.price}
-                        </Box>
-                        <Box className={styles.UsdPrice}>$ 0</Box>
-                      </td>
-
-                      <td>{dateConverter(item?.market?.created_at)}</td>
-                      <td>
-                        <PrimaryButton className={styles.BtnCancel}>
-                          Cancel
-                        </PrimaryButton>
-                      </td>
-                    </tr>
+                    <TableRow
+                      navigateClick={navigateClick}
+                      item={item}
+                      dateConverter={dateConverter}
+                      handleCancel={handleCancel}
+                      price_usd={price_usd}
+                    />
                   );
                 })}
           </tbody>

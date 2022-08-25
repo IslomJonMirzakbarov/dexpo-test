@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { useSelector } from 'react-redux';
 import { ERC20_ABI } from '../utils/abi/ERC20ABI';
@@ -15,6 +15,22 @@ const approveAmount = import.meta.env.VITE_APPROVE_AMOUNT;
 
 const useWeb3 = () => {
   const { account } = useSelector((store) => store.wallet);
+  const [balance, setBalance] = useState(null);
+
+  useEffect(() => {
+    getUserBalance();
+  }, [account]);
+
+  const getUserBalance = async () => {
+    try {
+      const balance = await web3.eth.getBalance(account);
+      const res = web3.utils.fromWei(balance);
+
+      setBalance(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const checkAllowance = async (isFixed = true) => {
     const contract = isFixed ? fixedContract : auctionContract;
@@ -217,6 +233,7 @@ const useWeb3 = () => {
     bid,
     sell,
     cancel,
+    balance,
     purchase,
     makeApprove,
     cancelAuction,

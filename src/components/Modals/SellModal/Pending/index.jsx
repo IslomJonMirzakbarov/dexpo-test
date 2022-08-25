@@ -87,6 +87,15 @@ const PendingSell = ({
               <Typography fontWeight={700}>{name}</Typography>
               <Typography>Quantity: {quantity}</Typography>
             </Box>
+            <Box display="flex" alignItems="center" ml={2}>
+              <Typography color="grey.1000" fontWeight={400}>
+                Creator's fee:
+              </Typography>
+              &nbsp;&nbsp;
+              <Typography color="primary" fontWeight={600}>
+                2%
+              </Typography>
+            </Box>
             <Box className={classes.countBox} px={2} mt={1}>
               <Box
                 px={2}
@@ -100,6 +109,7 @@ const PendingSell = ({
                     value={sellPrice}
                     displayType={'text'}
                     thousandSeparator={true}
+                    decimalScale={4}
                   />
                 </Typography>
                 <Box display="flex" alignItems="center">
@@ -121,6 +131,7 @@ const PendingSell = ({
                   displayType={'text'}
                   thousandSeparator={true}
                   prefix="$"
+                  decimalScale={4}
                 />
               </Typography>
             </Box>
