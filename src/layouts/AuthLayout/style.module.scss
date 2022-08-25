@@ -19,6 +19,8 @@
   .box {
     color: white;
     transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s all;
+    cursor: pointer;
+
     &:hover {
       color: colors.$primary;
     }
