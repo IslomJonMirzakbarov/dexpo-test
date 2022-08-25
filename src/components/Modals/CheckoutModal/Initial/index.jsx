@@ -55,7 +55,7 @@ const InitialCheckout = ({
   name,
   artistName,
   price,
-  exchangedPrice = 233424300,
+  exchangedPrice,
   type,
   leftDays,
   error,
@@ -100,6 +100,15 @@ const InitialCheckout = ({
                 Artist: {artistName}
               </Typography>
             </Box>
+            <Box display="flex" alignItems="center">
+              <Typography color="grey.1000" fontWeight={400}>
+                Creator's fee:
+              </Typography>
+              &nbsp;
+              <Typography color="primary" fontWeight={600}>
+                2%
+              </Typography>
+            </Box>
           </Box>
           <Box className={classes.countBox} py={1} px={2}>
             {isAuction ? (
@@ -141,6 +150,7 @@ const InitialCheckout = ({
                 displayType={'text'}
                 thousandSeparator={true}
                 prefix="$"
+                decimalScale={4}
               />
             </Typography>
             {isAuction && <BidInput control={bidPriceControl} />}

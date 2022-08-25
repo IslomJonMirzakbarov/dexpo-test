@@ -10,6 +10,7 @@ import MintedIcon from '../../../../../assets/icons/minted.svg?component';
 import { makeStyles } from '@mui/styles';
 import { truncateAddress } from '../../../../../utils';
 import { redirectAccount, redirectTx } from '../../../../../utils/redirect';
+import TokenIcon from '../../../../../assets/images/con-token.svg?component';
 
 const eventTypes = {
   SOLD: {
@@ -75,18 +76,16 @@ const HistoryTableItem = ({
       </CTableCell>
       <CTableCell className={classes.cell}>
         {amount && (
-          <>
-            <Typography variant="placeholder" fontWeight={700}>
-              <b>CYC</b>
-            </Typography>
-            <Typography variant="placeholder" ml={1} fontWeight={500}>
+          <Box display="flex" alignItems="center">
+            <TokenIcon style={{ width: 16, height: 16 }} />
+            <Typography variant="placeholder" fontWeight={500} ml={1}>
               <NumberFormat
                 value={amount}
                 displayType={'text'}
                 thousandSeparator={true}
               />
             </Typography>
-          </>
+          </Box>
         )}
       </CTableCell>
       <CTableCell className={classes.cell}>
@@ -95,6 +94,7 @@ const HistoryTableItem = ({
             <NumberFormat
               value={price}
               prefix="$"
+              decimalScale={4}
               displayType={'text'}
               thousandSeparator={true}
             />

@@ -1,6 +1,6 @@
 export const metamaskError = {
   4001: 'User denied transaction signature.',
-  '-32603': 'Not enough CON Amount',
+  '-32603': 'Not enough CYCON Amount',
   default: 'Metamask error'
 };
 

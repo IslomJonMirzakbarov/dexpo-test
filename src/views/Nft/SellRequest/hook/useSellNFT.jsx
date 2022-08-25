@@ -190,6 +190,9 @@ const useSellNFT = ({
     if (isIDLEMarketStatus) return handleRequest();
     if (isEmptyPriceField) return toast.error('Fill the price form');
 
+    if (!isCancel && !isFixedContract && startDate >= endDate)
+      return toast.error('Ending Date should be greater than Starting Date');
+
     if (isCompleted) return clear();
 
     setError('');

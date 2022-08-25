@@ -8,12 +8,15 @@
 }
 .navItem {
   white-space: nowrap;
+  position: relative;
   &.active {
-    a {
+    a,
+    .box {
       color: colors.$primary;
     }
   }
-  a {
+  a,
+  .box {
     color: white;
     transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s all;
     &:hover {
