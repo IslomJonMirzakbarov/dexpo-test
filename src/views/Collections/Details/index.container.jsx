@@ -1,39 +1,39 @@
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useMemo, useState } from 'react';
-import CollectionDetailImage from './Image';
-import CollectionDetailsInfo from './Info';
-import NumberFormat from 'react-number-format';
-import styles from './style.module.scss';
-import Countdown from '../../../components/Countdown';
-import { makeStyles, useTheme } from '@mui/styles';
-import ValueTable from './ValueTable';
-import moment from 'moment';
-import HistoryTable from './HistoryTable';
-import TokenImg from '../../../assets/images/con-token.svg?component';
-import CheckoutModal from '../../../components/Modals/CheckoutModal';
-import { DATE_FORMAT, priceTypeChar } from '../../../constants';
-import MoreCollections from './MoreCollections';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import DModal from '../../../components/DModal';
-import { getPurchaseLabel } from './util';
+import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import React, { useMemo, useState } from "react";
+import CollectionDetailImage from "./Image";
+import CollectionDetailsInfo from "./Info";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import Countdown from "../../../components/Countdown";
+import { makeStyles, useTheme } from "@mui/styles";
+import ValueTable from "./ValueTable";
+import moment from "moment";
+import HistoryTable from "./HistoryTable";
+import TokenImg from "../../../assets/images/con-token.svg?component";
+import CheckoutModal from "../../../components/Modals/CheckoutModal";
+import { DATE_FORMAT, priceTypeChar } from "../../../constants";
+import MoreCollections from "./MoreCollections";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import DModal from "../../../components/DModal";
+import { getPurchaseLabel } from "./util";
 
 const useStyles = makeStyles({
   priceBox: {
-    marginTop: 61
+    marginTop: 61,
   },
   box: {
-    width: '50%'
+    width: "50%",
   },
   button: {
-    padding: '16px 0',
-    marginTop: 17
+    padding: "16px 0",
+    marginTop: 17,
   },
   grid: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  }
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
 });
 
 const CollectionDetailsContainer = ({
@@ -60,7 +60,7 @@ const CollectionDetailsContainer = ({
   isAuctionEnded,
   setRefetchInterval,
   isAuctionNotStarted,
-  isAuctionBeingFinished
+  isAuctionBeingFinished,
 }) => {
   const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const CollectionDetailsContainer = ({
 
   const handleClick = () => {
     if (token) toggle();
-    else navigate('/login');
+    else navigate("/login");
   };
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
@@ -88,14 +88,14 @@ const CollectionDetailsContainer = ({
     isAuction,
     isAuctionEnded,
     isAuctionNotStarted,
-    isAuctionBeingFinished
+    isAuctionBeingFinished,
   });
 
   const auctionStartDate = moment(market?.start_date * 1000).format(
-    'DD.MM.yyyy'
+    "DD.MM.yyyy"
   );
 
-  const auctionStartTime = moment(market?.start_date * 1000).format('HH:mm');
+  const auctionStartTime = moment(market?.start_date * 1000).format("HH:mm");
 
   return (
     <Paper className={styles.container}>
@@ -107,6 +107,7 @@ const CollectionDetailsContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               alt="nft picture"
+              isLiked={nft?.is_liked}
               isSoldOut={isSoldOut}
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
@@ -144,15 +145,15 @@ const CollectionDetailsContainer = ({
                 {isAuction && endDate ? (
                   isAuctionNotStarted ? (
                     <Typography variant="placeholder" fontWeight={500}>
-                      Auction will start on{' '}
+                      Auction will start on{" "}
                       <Typography
                         variant="placeholder"
                         color="primary"
                         fontWeight={500}
                       >
                         {auctionStartDate}
-                      </Typography>{' '}
-                      at{' '}
+                      </Typography>{" "}
+                      at{" "}
                       <Typography
                         variant="placeholder"
                         color="primary"
@@ -171,7 +172,7 @@ const CollectionDetailsContainer = ({
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: '100%' }}
+                  sx={{ width: "100%" }}
                 >
                   {market?.price && (
                     <>
@@ -189,7 +190,7 @@ const CollectionDetailsContainer = ({
                         >
                           <NumberFormat
                             value={market?.price}
-                            displayType={'text'}
+                            displayType={"text"}
                             thousandSeparator={true}
                           />
                         </Typography>
@@ -199,10 +200,10 @@ const CollectionDetailsContainer = ({
                         fontWeight={500}
                         color={theme.palette.grey[1000]}
                       >
-                        ( ${' '}
+                        ( ${" "}
                         <NumberFormat
                           value={parsedPrice}
-                          displayType={'text'}
+                          displayType={"text"}
                           thousandSeparator={true}
                         />
                         )

@@ -1,27 +1,23 @@
-import { Box, Button, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import { Box, Button, Typography } from "@mui/material";
 import NumberFormat from "react-number-format";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import styles from "./style.module.scss";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import TokenImg from "../../assets/images/con-token.svg?component";
-import conTokenImg from "../../assets/images/con-token.svg";
 import classNames from "classnames";
 import { calculateDeadline } from "../../utils/deadline";
 import useNFTAPI from "../../hooks/useNFT";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setDislikedNfts, setLikedNfts } from "../../store/nft/nft.slice";
+
+import styles from "./style.module.scss";
 
 const NFTCard = ({
   page,
   img,
   name,
   price,
-  liked = false,
   onClick,
   endDate,
   onAction,
@@ -39,15 +35,11 @@ const NFTCard = ({
   className,
   hasShadow = true,
 }) => {
-  const dispatch = useDispatch();
-  const { likedNfts } = useSelector((store) => store.nft);
-  const [likedNFT, setLikedNFT] = useState(liked);
   const [likeCount, setLikeCount] = useState(purchaseCount);
-  const { postLike, postDislike } = useNFTAPI({});
+  const { postLike } = useNFTAPI({});
 
   useEffect(() => {
     if (postLike.isSuccess) {
-      dispatch(setLikedNfts(JSON.stringify({ tokenId, contractAddress })));
       setLikeCount(postLike?.data?.data?.like_count);
       if (setRefetchInterval) {
         setRefetchInterval(200);
@@ -57,57 +49,16 @@ const NFTCard = ({
       }
     }
   }, [
-    contractAddress,
-    dispatch,
     postLike?.data?.data?.like_count,
     postLike.isSuccess,
     setRefetchInterval,
-    tokenId,
   ]);
-
-  useEffect(() => {
-    if (postDislike.isSuccess) {
-      dispatch(setDislikedNfts(JSON.stringify({ tokenId, contractAddress })));
-      setLikeCount(postDislike?.data?.data?.data?.like_count);
-      if (setRefetchInterval) {
-        setRefetchInterval(200);
-        setTimeout(() => {
-          setRefetchInterval(false);
-        }, 300);
-      }
-    }
-  }, [
-    contractAddress,
-    dispatch,
-    postDislike?.data?.data?.data?.like_count,
-    postDislike.isSuccess,
-    setRefetchInterval,
-    tokenId,
-  ]);
-
-  // please do not merge above useEffects, they work separately
-  // okay)
-
-  useEffect(() => {
-    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
-      setLikedNFT(true);
-    } else {
-      setLikedNFT(false);
-    }
-  }, [contractAddress, likedNfts, tokenId]);
 
   const likeClick = () => {
-    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
-      postDislike.mutate({
-        contract_address: contractAddress,
-        token_id: tokenId,
-      });
-    } else {
-      postLike.mutate({
-        contract_address: contractAddress,
-        token_id: tokenId,
-      });
-    }
+    postLike.mutate({
+      contract_address: contractAddress,
+      token_id: tokenId,
+    });
   };
 
   const leftDays =
@@ -147,7 +98,7 @@ const NFTCard = ({
             <div className={styles.actions}>
               <span
                 className={classNames(styles.count, {
-                  [styles.liked]: page === "favoritesBottom" || likedNFT,
+                  [styles.liked]: page === "favoritesBottom",
                 })}
               >
                 <NumberFormat
@@ -157,7 +108,7 @@ const NFTCard = ({
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg} onClick={() => likeClick()}>
-                  {page === "favoritesBottom" || likedNFT ? (
+                  {page === "favoritesBottom" ? (
                     <FavoriteRoundedIcon />
                   ) : (
                     <FavoriteBorderIcon />

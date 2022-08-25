@@ -18,7 +18,7 @@ const Home = () => {
     connectCollections,
   } = useTopCollections();
   const { collections: notableCollections, isLoading: loadingNotable } =
-    useCollecionsByCategory(categoryTypes.NOTABLE);
+    useCollecionsByCategory(categoryTypes.NOTABLE, refetchInterval);
   const { collections: hottestCollections, isLoading: loadingHottest } =
     useCollecionsByCategory(categoryTypes.HOTTEST, refetchInterval);
 

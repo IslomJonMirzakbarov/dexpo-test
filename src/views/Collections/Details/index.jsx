@@ -1,23 +1,23 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { checkoutStatuses } from '../../../constants/checkoutStatuses';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { checkoutStatuses } from "../../../constants/checkoutStatuses";
 
-import CollectionDetailsContainer from './index.container';
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
-import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import useWeb3 from '../../../hooks/useWeb3';
-import Loader from '../../../components/Loader';
-import useNFTAPI from '../../../hooks/useNFT';
+import CollectionDetailsContainer from "./index.container";
+import useNFTHistoryAPI from "../../../hooks/useNFTHistoryAPI";
+import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
+import useWeb3 from "../../../hooks/useWeb3";
+import Loader from "../../../components/Loader";
+import useNFTAPI from "../../../hooks/useNFT";
 
-import { utils } from 'react-modern-calendar-datepicker';
-import NoItemsFound from '../../../components/NoItems';
-import { useSelector } from 'react-redux';
-import { Box } from '@mui/material';
-import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI';
-import { useForm } from 'react-hook-form';
-import useToast from '../../../hooks/useToast';
-import { parseDate } from '../../../utils/parseDate';
-import { getRPCErrorMessage } from '../../../constants/metamaskErrors';
+import { utils } from "react-modern-calendar-datepicker";
+import NoItemsFound from "../../../components/NoItems";
+import { useSelector } from "react-redux";
+import { Box } from "@mui/material";
+import useBidHistoryAPI from "../../../hooks/useBidHistoryAPI";
+import { useForm } from "react-hook-form";
+import useToast from "../../../hooks/useToast";
+import { parseDate } from "../../../utils/parseDate";
+import { getRPCErrorMessage } from "../../../constants/metamaskErrors";
 
 const REF_INTERVAL = 5000;
 
@@ -31,34 +31,33 @@ const CollectionDetails = () => {
 
   const { control, getValues } = useForm({
     defaultValues: {
-      bidPrice: ''
-    }
+      bidPrice: "",
+    },
   });
 
-  const { detail, loadingDetail, refetchDetail, postDislike, postLike } =
-    useNFTAPI({
-      id: params?.id,
-      contractAddress: params?.contract_address,
-      wallet: account,
-      refetchInterval: refetchInterval ? REF_INTERVAL : null
-    });
+  const { detail, loadingDetail, refetchDetail, postLike } = useNFTAPI({
+    id: params?.id,
+    contractAddress: params?.contract_address,
+    wallet: account,
+    refetchInterval: refetchInterval ? REF_INTERVAL : null,
+  });
 
   const {
     data: history,
     isLoading: loadingHistory,
-    refetch: refetchHistory
+    refetch: refetchHistory,
   } = useNFTHistoryAPI({
     tokenId: params?.id,
-    contractAddress: params?.contract_address
+    contractAddress: params?.contract_address,
   });
 
   const {
     data: bidHistory,
     isLoading: loadingBid,
-    refetch: refetchBid
+    refetch: refetchBid,
   } = useBidHistoryAPI({
     tokenId: params?.id,
-    contractAddress: params?.contract_address
+    contractAddress: params?.contract_address,
   });
 
   const { data: moreNFTs } = useMoreByCollectionAPI(
@@ -73,13 +72,13 @@ const CollectionDetails = () => {
   const currentTime = Math.round(new Date().getTime() / 1000);
   const isSoldOut = !market?.price;
 
-  const isAuction = market?.type === 'A';
+  const isAuction = market?.type === "A";
   const isAuctionEnded =
     isAuction && market?.end_date < Number(parseDate(currentDate));
   const isAuctionNotStarted =
     isAuction && market?.start_date > Number(currentTime);
 
-  const isNotExist = detail?.message?.includes('NOT_EXIST');
+  const isNotExist = detail?.message?.includes("NOT_EXIST");
   const isCurrentUserNFT = market?.seller_address?.includes(account);
   const isPurchaseBtnDisabled =
     isCurrentUserNFT ||
@@ -88,9 +87,9 @@ const CollectionDetails = () => {
     isAuctionBeingFinished;
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
-  const [txHash, setTxHash] = useState('');
+  const [txHash, setTxHash] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [bidPrice, setBidPrice] = useState();
 
   const handleRefresh = useCallback(() => {
@@ -107,14 +106,12 @@ const CollectionDetails = () => {
     setRefetchInterval(isAuction);
   }, [market]);
 
-  const handleLike = (liked) => {
+  const handleLike = () => {
     const payload = {
       token_id: params?.id,
-      contract_address: params?.contract_address
+      contract_address: params?.contract_address,
     };
-    if (liked)
-      postDislike.mutate(payload, { onSuccess: () => refetchDetail() });
-    else postLike.mutate(payload, { onSuccess: () => refetchDetail() });
+    postLike.mutate(payload, { onSuccess: () => refetchDetail() });
   };
 
   const handleContract = async () => {
@@ -135,7 +132,7 @@ const CollectionDetails = () => {
 
     try {
       let res;
-      const bidPrice = getValues('bidPrice');
+      const bidPrice = getValues("bidPrice");
 
       if (!isAuction)
         res = await purchase(params?.contract_address, params?.id);
@@ -153,7 +150,7 @@ const CollectionDetails = () => {
   };
 
   const makeContract = async () => {
-    const bidPrice = getValues('bidPrice');
+    const bidPrice = getValues("bidPrice");
     const price = market?.price;
 
     if (isAuction && bidPrice <= price)
@@ -180,7 +177,7 @@ const CollectionDetails = () => {
   };
 
   useEffect(() => {
-    setError('');
+    setError("");
   }, [openModal]);
 
   if (loadingDetail || loadingHistory || loadingBid) return <Loader />;

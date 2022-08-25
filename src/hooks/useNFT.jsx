@@ -23,15 +23,13 @@ const getDetail = ({ contractAddress, tokenId, wallet }, token) =>
     })
     .then((res) => res.data);
 
-const fetchLike = (data, token) =>
+const fetchLikeDislike = (data, token) =>
   securedAPI(token)
-    .post(`/api/nft/like`, data)
+    .post(`/api/nft/likeDislike`, data)
     .then((res) => {
+      // console.log(res.data);
       return res.data;
     });
-
-const fetchUnlike = (data, token) =>
-  securedAPI(token).post(`/api/nft/dislike`, data);
 
 const configQuery = {
   refetchOnMount: true,
@@ -78,17 +76,12 @@ const useNFTAPI = ({
     }
   );
 
-  const mutationLike = useMutation((data) => fetchLike(data, token), {
-    ...configQuery,
-  });
-
-  const mutationDislike = useMutation((data) => fetchUnlike(data, token), {
+  const mutationLike = useMutation((data) => fetchLikeDislike(data, token), {
     ...configQuery,
   });
 
   return {
     postLike: mutationLike,
-    postDislike: mutationDislike,
     detail,
     refetchDetail,
     loadingDetail,

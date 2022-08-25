@@ -48,17 +48,17 @@ const NFTCollections = ({
                   return (
                     <Box key={c} className={styles.card}>
                       <NFTCard
-                        img={nft.token_image}
-                        name={nft.token_name}
+                        img={nft?.token_image}
+                        name={nft?.token_name}
                         price={market?.price}
                         startDate={market?.start_date}
                         endDate={market?.end_date}
                         leftDays={null}
                         artistName={artist.artist_name}
-                        description={nft.token_name}
+                        description={nft?.token_name}
                         priceType={priceTypeChar?.[market?.type]}
                         hasAction={!!market?.price}
-                        purchaseCount={nft.like_count}
+                        purchaseCount={nft?.like_count}
                         buttonVariant="containedSecondary"
                         key={c}
                         isDefault
@@ -67,12 +67,12 @@ const NFTCollections = ({
                         setRefetchInterval={setRefetchInterval}
                         onClick={() => {
                           navigate(
-                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                            `/marketplace/${nft?.token_id}/${collection?.contract_address}`
                           );
                         }}
                         onAction={() => {
                           navigate(
-                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                            `/marketplace/${nft?.token_id}/${collection?.contract_address}`
                           );
                         }}
                       />
@@ -95,9 +95,9 @@ const NFTCollections = ({
                       description={nft.token_name}
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
-                      purchaseCount={nft.like_count}
                       hasShadow={false}
                       isDefault
+                      purchaseCount={nft.like_count}
                       setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         navigate(

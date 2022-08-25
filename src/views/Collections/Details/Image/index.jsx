@@ -9,11 +9,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import useNFTAPI from "../../../../hooks/useNFT";
 import { useDispatch } from "react-redux";
-import {
-  setDislikedNfts,
-  setLikedNfts,
-  setNewNftSrc,
-} from "../../../../store/nft/nft.slice";
+import { setNewNftSrc } from "../../../../store/nft/nft.slice";
 
 const CollectionDetailImage = ({
   price = 1000,
@@ -25,13 +21,32 @@ const CollectionDetailImage = ({
   tokenId,
   contractAddress,
   setRefetchInterval,
+  isLiked,
   ...props
 }) => {
   const dispatch = useDispatch();
-  const { likedNfts, newNftSrc } = useSelector((store) => store.nft);
-  const [likedNFT, setLikedNFT] = useState(false);
+  const { newNftSrc } = useSelector((store) => store.nft);
+  const [likedNFT, setLikedNFT] = useState(isLiked);
   const [likeCount, setLikeCount] = useState(price);
-  const { postLike, postDislike } = useNFTAPI({});
+  const { postLike } = useNFTAPI({});
+
+  useEffect(() => {
+    if (postLike.isSuccess) {
+      setLikeCount(postLike?.data?.data?.like_count);
+      setLikedNFT(postLike?.data?.data?.isLiked);
+      if (setRefetchInterval) {
+        setRefetchInterval(200);
+        setTimeout(() => {
+          setRefetchInterval(false);
+        }, 300);
+      }
+    }
+  }, [
+    postLike?.data?.data?.isLiked,
+    postLike?.data?.data?.like_count,
+    postLike.isSuccess,
+    setRefetchInterval,
+  ]);
 
   useEffect(() => {
     if (newNftSrc) {
@@ -41,66 +56,11 @@ const CollectionDetailImage = ({
     }
   }, [dispatch, newNftSrc]);
 
-  useEffect(() => {
-    if (postLike.isSuccess) {
-      setLikeCount(postLike?.data?.data?.like_count);
-      dispatch(setLikedNfts(JSON.stringify({ tokenId, contractAddress })));
-      if (setRefetchInterval) {
-        setRefetchInterval(200);
-        setTimeout(() => {
-          setRefetchInterval(false);
-        }, 300);
-      }
-    }
-  }, [
-    contractAddress,
-    dispatch,
-    postLike?.data?.data?.like_count,
-    postLike.isSuccess,
-    setRefetchInterval,
-    tokenId,
-  ]);
-
-  useEffect(() => {
-    if (postDislike.isSuccess) {
-      setLikeCount(postDislike?.data?.data?.data?.like_count);
-      dispatch(setDislikedNfts(JSON.stringify({ tokenId, contractAddress })));
-      if (setRefetchInterval) {
-        setRefetchInterval(200);
-        setTimeout(() => {
-          setRefetchInterval(false);
-        }, 300);
-      }
-    }
-  }, [
-    contractAddress,
-    dispatch,
-    postDislike?.data?.data?.data?.like_count,
-    postDislike.isSuccess,
-    setRefetchInterval,
-    tokenId,
-  ]);
-
-  useEffect(() => {
-    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
-      setLikedNFT(true);
-    } else {
-      setLikedNFT(false);
-    }
-  }, [contractAddress, likedNfts, tokenId]);
-
   const likeClick = () => {
-    if (likedNfts.includes(JSON.stringify({ tokenId, contractAddress }))) {
-      postDislike.mutate({
-        contract_address: contractAddress,
-        token_id: tokenId,
-      });
-    } else {
-      postLike.mutate({
-        contract_address: contractAddress,
-        token_id: tokenId,
-      });
-    }
+    postLike.mutate({
+      contract_address: contractAddress,
+      token_id: tokenId,
+    });
   };
 
   return (
@@ -115,14 +75,9 @@ const CollectionDetailImage = ({
         onClick={likeClick}
       >
         {likeCount}
-        {likedNFT || isPurchased ? (
-          <FavoriteRoundedIcon />
-        ) : (
-          <FavoriteBorderRoundedIcon />
-        )}
+        {likedNFT ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
       </Typography>
       <img
-        // src={newNftSrc || img}
         src={newNftSrc || img}
         alt={alt}
         height={554}
