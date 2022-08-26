@@ -10,6 +10,7 @@ import { nftReducer } from "./nft/nft.slice";
 import { artistReducer } from "./artist/artist.slice";
 import { collectionReducer } from "./collection/collection.slice";
 import { myPageReducer } from "./myPage/myPage.slice";
+import { userReducer } from "./user/user.slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -46,6 +47,11 @@ const popupPersistConfig = {
   storage,
 };
 
+const userPersistConfig = {
+  key: "user",
+  storage,
+};
+
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   wallet: persistReducer(walletPersistConfig, walletReducer),
@@ -57,6 +63,7 @@ const rootReducer = combineReducers({
   // nft: persistReducer(nftPersistConfig, nftReducer),
   nft: nftReducer,
   artist: persistReducer(artistPersistConfig, artistReducer),
+  user: persistReducer(userPersistConfig, userReducer),
   collection: persistReducer(collectionPersistConfig, collectionReducer),
   alert: alertReducer,
   myPage: myPageReducer,

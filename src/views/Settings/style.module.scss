@@ -256,6 +256,9 @@
         background: #dedede;
         border-radius: 7px;
         border: none;
+        background: colors.$gradient_pink2blue;
+        box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
 
         &:hover {
           background: colors.$gradient_pink2blue;

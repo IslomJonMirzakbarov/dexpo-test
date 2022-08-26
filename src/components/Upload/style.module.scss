@@ -235,22 +235,41 @@
     text-align: center;
     color: colors.$whiteBg;
   }
-  .HoverLogoSettingsContainer {
-    position: absolute;
+}
+.HoverLogoSettingsContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6.29px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(31, 31, 31, 0.45);
+  font-style: normal;
+  font-weight: 600;
+  @include fontProcessDesc;
+  text-align: center;
+  color: colors.$whiteBg;
+
+  .DefaultImgContainer {
+    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6.29px;
-    width: 100%;
-    height: 100%;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    background: rgba(31, 31, 31, 0.45);
-    font-style: normal;
-    font-weight: 600;
-    @include fontProcessDesc;
-    text-align: center;
-    color: colors.$whiteBg;
+    background: rgba(31, 31, 31, 0.05);
+
+    svg {
+      position: absolute;
+    }
+
+    img {
+      z-index: -40;
+    }
   }
 }
 

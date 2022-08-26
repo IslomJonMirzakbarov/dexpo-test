@@ -19,10 +19,10 @@ const FileUploadWithDrag = ({
   page,
   src = "",
   imgBool = false,
+  defaultImg,
 }) => {
   const inputRef = useRef(null);
   const [hovered, setHovered] = useState(false);
-  const [settingsHovered, setSettingsHovered] = useState(false);
 
   const onDrop = useCallback((files) => {
     const file = files[0];
@@ -81,50 +81,63 @@ const FileUploadWithDrag = ({
         <input {...getInputProps()} />
         {!loader ? (
           <>
-            {src.length === 0 && (
-              <div className={classNames(styles.LogoContainer)}>
-                {page === EDIT_COLLECTION ? (
-                  hovered ? (
-                    <div className={styles.HoveredContainer}>
-                      <EditCollectionHover />
+            {src.length === 0 && defaultImg ? (
+              hovered ? (
+                <div className={styles.HoverLogoSettingsContainer}>
+                  <div className={styles.DefaultImgContainer}>
+                    <CollectionEditVector />
+                    <img src={defaultImg} className={styles.ImgIcon} alt="" />
+                  </div>
+                </div>
+              ) : (
+                <img src={defaultImg} className={styles.ImgIcon} alt="" />
+              )
+            ) : (
+              src.length === 0 && (
+                <div className={classNames(styles.LogoContainer)}>
+                  {page === EDIT_COLLECTION ? (
+                    hovered ? (
+                      <div className={styles.HoveredContainer}>
+                        <EditCollectionHover />
+                        <CollectionEditVector className={styles.EditVector} />
+                      </div>
+                    ) : (
+                      <EditUnhoveredIcon />
+                    )
+                  ) : (page === CREATE_COLLECTION || page === CREATE_NFT) &&
+                    hovered ? (
+                    <UploadImgHovered
+                      width={page === CREATE_NFT ? 93 : 42}
+                      height={page === CREATE_NFT ? 68 : 31}
+                      className={styles.UploadImg}
+                    />
+                  ) : page !== USER_SETTINGS ? (
+                    <UploadImg
+                      width={page === CREATE_NFT ? 93 : 42}
+                      height={page === CREATE_NFT ? 68 : 31}
+                      fill="#7D8890"
+                      className={styles.UploadImg}
+                    />
+                  ) : hovered ? (
+                    <div className={styles.EditVectorContainer}>
                       <CollectionEditVector className={styles.EditVector} />
+                      <ProfileImageIcon className={styles.ImgIcon2} />
                     </div>
                   ) : (
-                    <EditUnhoveredIcon />
-                  )
-                ) : (page === CREATE_COLLECTION || page === CREATE_NFT) &&
-                  hovered ? (
-                  <UploadImgHovered
-                    width={page === CREATE_NFT ? 93 : 42}
-                    height={page === CREATE_NFT ? 68 : 31}
-                    className={styles.UploadImg}
-                  />
-                ) : page !== USER_SETTINGS ? (
-                  <UploadImg
-                    width={page === CREATE_NFT ? 93 : 42}
-                    height={page === CREATE_NFT ? 68 : 31}
-                    fill="#7D8890"
-                    className={styles.UploadImg}
-                  />
-                ) : hovered ? (
-                  <div className={styles.EditVectorContainer}>
-                    <CollectionEditVector className={styles.EditVector} />
-                    <ProfileImageIcon className={styles.ImgIcon2} />
-                  </div>
-                ) : (
-                  <ProfileImageIcon className={styles.ImgIcon} />
-                )}
+                    <ProfileImageIcon className={styles.ImgIcon} />
+                  )}
 
-                {page !== EDIT_COLLECTION && page !== USER_SETTINGS && (
-                  <p
-                    className={styles.dropzoneTitle}
-                    style={{ color: hovered && "#1f1f1f" }}
-                  >
-                    Upload {page === CREATE_COLLECTION && "logo"}{" "}
-                    {page === CREATE_NFT && "image"}
-                  </p>
-                )}
-              </div>
+                  {page !== EDIT_COLLECTION && page !== USER_SETTINGS && (
+                    <p
+                      className={styles.dropzoneTitle}
+                      style={{ color: hovered && "#1f1f1f" }}
+                    >
+                      Upload {page === CREATE_COLLECTION && "logo"}{" "}
+                      {page === CREATE_NFT && "image"}
+                    </p>
+                  )}
+                </div>
+              )
             )}
             {src.length > 0 && (
               <div className={styles.UploadLogo}>

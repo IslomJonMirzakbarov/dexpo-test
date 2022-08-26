@@ -22,7 +22,6 @@ const useCollectionAPI = ({
 }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
-  console.log(token);
 
   const config = {
     headers: { "content-type": "multipart/form-data" },

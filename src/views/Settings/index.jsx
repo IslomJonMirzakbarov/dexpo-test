@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import useCollectionAPI from "../../hooks/useCollectionApi";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import FileUploadWithDrag from "../../components/Upload/FileUploadWithDrag";
 import classNames from "classnames";
@@ -10,21 +9,51 @@ import FormInputText from "../../components/FormInputText";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import ModalCard from "../../components/ModalCard";
 import CreateCollectionForm from "../../assets/icons/create-collection-form.svg?component";
-import SpinningIcon from "../../assets/icons/spinning-icon.svg?component";
 
 import styles from "./style.module.scss";
+import useUserAPI from "../../hooks/useUserAPI";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setUserDesc, setUserName } from "../../store/user/user.slice";
 
 const Settings = () => {
   const navigate = useNavigate();
-  const { id, name, symbol } = useParams();
-  const { update } = useCollectionAPI({
-    isDetail: true,
+  const dispatch = useDispatch();
+  const { userInfo, updateImg, updateDesc, updateName } = useUserAPI({
+    isUserInfo: true,
   });
+
+  useEffect(() => {
+    if (updateDesc?.data?.data?.description) {
+      dispatch(
+        setUserDesc({
+          userDescription: updateDesc?.data?.data?.description,
+        })
+      );
+    }
+    if (updateName?.data?.data?.username) {
+      dispatch(
+        setUserName({
+          userName: updateName?.data?.data?.username,
+        })
+      );
+    }
+    if (updateImg?.data || updateDesc?.data || updateImg?.data) {
+      setShowModal(true);
+    }
+  }, [
+    dispatch,
+    updateDesc?.data,
+    updateDesc?.isSuccess,
+    updateImg?.data,
+    updateName?.data,
+    updateName?.isSuccess,
+  ]);
+
+  const { userName, userDescription } = useSelector((store) => store.user);
+
   const [showModal, setShowModal] = useState(false);
-  const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
-  const [type, setType] = useState(collectionType.SINGLE);
   const [uploadedImg, setUploadedImg] = useState({});
-  const [errBool, setErrBool] = useState(false);
 
   const imgBool =
     uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
@@ -34,48 +63,40 @@ const Settings = () => {
   const {
     handleSubmit,
     control,
-    reset,
-    formState: { errors },
+    formState: {},
   } = useForm({
     defaultValues: {
-      userEditName: name || "",
-      userEditBio: symbol || "",
+      userEditName: userName || "",
+      userEditBio: userDescription || "",
     },
   });
 
-  useEffect(() => {
-    if (Object.keys(uploadedImg).length > 0) {
-      setErrBool(false);
-    }
-  }, [uploadedImg, type, errBool]);
-
-  const errorChecker = Object.keys(errors).length;
-
   const onSubmit = (data) => {
-    if (Object.keys(uploadedImg).length === 0) {
-      setErrBool(true);
-    } else {
-      setErrBool(false);
-      data["logo"] = uploadedImg;
+    data["image"] = uploadedImg;
 
-      let formData = new FormData();
-      formData.append("contract_address", id);
-      formData.append("logo", data.logo);
+    if (Object.keys(uploadedImg).length > 0) {
+      let formDataImg = new FormData();
+      formDataImg.append("image", data.image);
+      updateImg.mutate(formDataImg);
+    }
 
-      update.mutate(formData);
+    if (data.userEditBio) {
+      let formDataDesc = new FormData();
+      formDataDesc.append("description", data.userEditBio);
+      updateDesc.mutate(formDataDesc);
+    }
+
+    if (data.userEditName) {
+      const payload = {
+        username: data.userEditName,
+      };
+      updateName.mutate(payload);
     }
   };
 
-  useEffect(() => {
-    if (update?.data) {
-      reset();
-      setShowModal(true);
-    }
-  }, [reset, update.data, update?.isLoading]);
-
   const modalClick = () => {
     setShowModal(false);
-    navigate("/user/collections");
+    navigate("/user/my-page");
   };
 
   return (
@@ -85,6 +106,7 @@ const Settings = () => {
 
         <Box className={styles.UploadLogo}>
           <FileUploadWithDrag
+            defaultImg={userInfo?.data?.image_url}
             editCollection={true}
             imgBool={imgBool}
             onUpload={setUploadedImg}
