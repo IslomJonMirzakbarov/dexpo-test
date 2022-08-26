@@ -4,16 +4,24 @@ import { securedAPI } from '../services/api';
 import { useQuery } from 'react-query';
 import { marketFilters } from '../constants/marketFilter';
 
-const size = 20;
+const size = 10;
 
-const getList = ({ filterType, page, orderBy }, token) =>
+const configQuery = {
+  refetchOnMount: true,
+  refetchOnWindowFocus: true, // constantly updating
+  refetchOnReconnect: true,
+  staleTime: 0
+};
+
+const getList = ({ filterType, page, orderBy, search }, token) =>
   securedAPI(token)
-    .get(`/api/market/list`, {
+    .get(`/api/market/${!!search ? 'search' : 'list'}`, {
       params: {
         page,
         order_by: orderBy,
         size,
-        filter_type: filterType
+        filter_type: filterType,
+        search_query: search
       }
     })
     .then((res) => res?.data?.data);
@@ -21,16 +29,18 @@ const getList = ({ filterType, page, orderBy }, token) =>
 const useMarketAPI = ({
   type = marketFilters.RECENTLY_LISTED,
   page = 1,
-  orderBy = 'desc', 
-  refetchInterval
+  orderBy = 'desc',
+  refetchInterval,
+  search
 }) => {
   const { token } = useSelector((store) => store.auth);
 
   const { data, refetch, isLoading, error } = useQuery(
-    `GET-NFT-MARKET-LIST-${type}`,
-    () => getList({ filterType: type, page, orderBy }, token),
+    `GET-NFT-MARKET-LIST-${type}-${search || ''}-${page}-${orderBy || ''}`,
+    () => getList({ filterType: type, page, orderBy, search }, token),
     {
-      refetchInterval
+      refetchInterval,
+      ...configQuery
     }
   );
 

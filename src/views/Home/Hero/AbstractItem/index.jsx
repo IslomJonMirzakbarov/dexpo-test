@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { motion } from 'framer-motion';
 import React from 'react';
 import classnames from 'classnames';
-import heroCard1Img from '../../../../assets/images/hero/hero-card1.png';
+import heroCard1Img from '../../../../assets/images/hero/hero-card4.svg';
 import heroCard2Img from '../../../../assets/images/hero/hero-card2.png';
 import heroCard3Img from '../../../../assets/images/hero/hero-card3.png';
 import abstractBallImg from '../../../../assets/images/hero/abstract-ball.svg';

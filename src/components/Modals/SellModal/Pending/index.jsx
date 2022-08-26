@@ -66,7 +66,7 @@ const PendingSell = ({
       px={3}
     >
       <Typography variant="modalTitle" mb={2}>
-        Complete Checkout
+        Complete your listing
       </Typography>
       <Box display="flex" mb={5}>
         <img

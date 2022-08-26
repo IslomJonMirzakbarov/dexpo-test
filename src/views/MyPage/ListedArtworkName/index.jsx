@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
@@ -12,28 +12,18 @@ import useWeb3 from '../../../hooks/useWeb3';
 import styles from './style.module.scss';
 import { useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
+import SellModal from '../../../components/Modals/SellModal';
+import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
+import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
 
 const TableRow = ({
   item,
   navigateClick,
   dateConverter,
-  handleCancel,
-  price_usd
+  price_usd,
+  handleClick
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const exchangedPrice = item?.market?.price * price_usd;
-
-  const handleClick = (item) => {
-    if (isLoading) return;
-
-    const { market, collection, nft } = item;
-    const isFixed = market.type.includes('F');
-    const contractAddress = collection.contract_address;
-    const id = nft.token_id;
-
-    handleCancel(isFixed, contractAddress, id, setIsLoading);
-  };
 
   return (
     <tr className={styles.TableBodyRow} key={item?.nft?.token_id}>
@@ -58,7 +48,7 @@ const TableRow = ({
       <td>{dateConverter(item?.market?.created_at)}</td>
       <td>
         <Button className={styles.BtnCancel} onClick={() => handleClick(item)}>
-          {isLoading ? <CircularProgress size={20} /> : 'Cancel'}
+          Cancel
         </Button>
       </td>
     </tr>
@@ -69,6 +59,12 @@ const ListedArtworkBottom = () => {
   const navigate = useNavigate();
   const { price_usd } = useSelector((store) => store.wallet);
 
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL);
+
+  const handleToggleModal = () => setOpenModal((prev) => !prev);
+
   const { list, refetchList } = useNftAPI({
     isGetList: true,
     type: 'LISTED',
@@ -77,25 +73,40 @@ const ListedArtworkBottom = () => {
 
   const { cancel, cancelAuction } = useWeb3();
 
-  const handleCancel = async (
-    isFixedContract,
-    contract_address,
-    id,
-    setIsLoading
-  ) => {
-    setIsLoading(true);
+  useEffect(() => {
+    if (!openModal) setIsLoading(awaitStatus.INITIAL);
+  }, [openModal]);
+
+  const handleCancel = async (isFixedContract, contract_address, id) => {
+    setIsLoading(awaitStatus.PENDING);
     try {
       let res;
 
       if (isFixedContract) res = await cancel(contract_address, id);
       else res = await cancelAuction(contract_address, id);
 
-      if (!!res) refetchList();
+      if (!!res) {
+        setIsLoading(awaitStatus.COMPLETE);
+        refetchList();
+      }
     } catch (err) {
       console.log(err.message);
-    } finally {
-      setIsLoading(false);
+      setIsLoading(awaitStatus.ERROR);
     }
+  };
+
+  const handleConfirm = () => {
+    const { market, collection, nft } = selectedItem;
+    const isFixed = market.type.includes('F');
+    const contractAddress = collection.contract_address;
+    const id = nft.token_id;
+
+    handleCancel(isFixed, contractAddress, id);
+  };
+
+  const handleClick = (item) => {
+    setSelectedItem(item);
+    setOpenModal(true);
   };
 
   const dateConverter = (stringNum) => {
@@ -108,6 +119,14 @@ const ListedArtworkBottom = () => {
 
   return (
     <Box className={styles.Container}>
+      <SellModal
+        open={openModal}
+        onClose={handleToggleModal}
+        onClick={handleConfirm}
+        status={sellReqStatuses.CANCEL}
+        isCanceling={isLoading}
+      />
+
       {list?.data?.items.length === 0 ? (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
@@ -144,8 +163,8 @@ const ListedArtworkBottom = () => {
                       navigateClick={navigateClick}
                       item={item}
                       dateConverter={dateConverter}
-                      handleCancel={handleCancel}
                       price_usd={price_usd}
+                      handleClick={handleClick}
                     />
                   );
                 })}

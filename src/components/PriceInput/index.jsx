@@ -5,7 +5,7 @@ import ConToken from '../../assets/images/con-token.svg?component';
 import NumberFormat from 'react-number-format';
 import styles from './style.module.scss';
 
-const PriceInput = ({ control, exchangedPrice = 1231232100, ...props }) => {
+const PriceInput = ({ control, exchangedPrice, ...props }) => {
   return (
     <Paper className={styles.wrapper}>
       <Box className={styles.box}>
@@ -32,10 +32,11 @@ const PriceInput = ({ control, exchangedPrice = 1231232100, ...props }) => {
           color="grey.1000"
         >
           <NumberFormat
-            value={123213200}
+            value={exchangedPrice}
             displayType={'text'}
             thousandSeparator={true}
             prefix="~$"
+            decimalScale={4}
           />
         </Typography>
       </Box>

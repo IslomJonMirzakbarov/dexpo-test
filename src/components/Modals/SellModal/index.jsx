@@ -59,7 +59,7 @@ const SellModal = ({
       <CancelFooter
         onBack={onBack || onClose}
         onContinue={onClick}
-        loading={isCanceling.includes(awaitStatus.PENDING)}
+        loading={isCanceling?.includes(awaitStatus.PENDING)}
         type={isCanceling}
       />
     )

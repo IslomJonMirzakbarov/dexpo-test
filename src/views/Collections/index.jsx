@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import DSelect from '../../components/DSelect';
 import styles from './style.module.scss';
 import SearchField from '../../components/Autocomplete';
@@ -12,23 +12,37 @@ import NFTCardSkeleton from '../../components/NFTCard/index.skeleton';
 import NoItemsFound from '../../components/NoItems';
 import { marketFilterList } from '../../constants/marketFilter';
 import { useSelector } from 'react-redux';
+import { debounce } from 'lodash';
 
 const Collections = () => {
   const navigate = useNavigate();
 
   const { account } = useSelector((store) => store.wallet);
+
   const [filter, setFilter] = useState(null);
   const [page, setPage] = useState(1);
-  const [refetchInterval, setRefetchInterval] = useState(false);
+  const [search, setSearch] = useState();
+  const [input, setInput] = useState();
 
   const { data, isLoading } = useMarketAPI({
     page,
     type: filter?.value,
-    refetchInterval: 5000
+    search
   });
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
   const mockData = Array(8).fill(12);
+
+  const debounced = useCallback(
+    debounce((val) => setSearch(val), 300),
+    []
+  );
+
+  useEffect(() => {
+    debounced(input);
+  }, [input]);
+
+  const handleChange = (e) => setInput(e.target.value);
 
   const handleSelect = (item) => setFilter(item);
 
@@ -61,6 +75,8 @@ const Collections = () => {
             isDark={true}
             isBackdrop={false}
             placeholder="Search items & creators"
+            value={input}
+            onChange={handleChange}
           />
           <DSelect
             label="Filter"
@@ -93,7 +109,6 @@ const Collections = () => {
                       purchaseCount={nft.like_count}
                       tokenId={nft?.token_id}
                       contractAddress={collection?.contract_address}
-                      setRefetchInterval={setRefetchInterval}
                       onClick={() =>
                         handleNavigate(
                           nft.token_id,
