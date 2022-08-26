@@ -11,12 +11,12 @@
   }
 
   &.minified {
-    height: 378px !important;
+    // height: 378px !important;
 
-    .wrapper {
-      border-radius: 0px 0px 7px 7px;
-      overflow: hidden;
-    }
+    // .wrapper {
+    //   border-radius: 0px 0px 7px 7px;
+    //   overflow: hidden;
+    // }
   }
 
   .header {
@@ -178,6 +178,7 @@
       justify-content: flex-end;
       align-items: center;
       margin: 4px 13px 8px 13px;
+      height: 24px;
 
       @include fontBodyXXL;
       font-weight: 600;
@@ -199,6 +200,8 @@
     .footer {
       border-bottom-left-radius: 7px;
       border-bottom-right-radius: 7px;
+      height: 55px;
+      background-color: #fff;
 
       button {
         border-top-left-radius: 0;
@@ -220,6 +223,5 @@
 
 .CollectedCard {
   background: #ffffff;
-  box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
   border-radius: 7px;
 }

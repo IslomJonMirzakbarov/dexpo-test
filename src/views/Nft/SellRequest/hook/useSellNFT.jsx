@@ -18,7 +18,7 @@ const useSellNFT = ({
   setError,
   contract_address,
   id,
-  getValues,
+  sellPrice,
   refetch,
   refetchDetail,
   market,
@@ -107,7 +107,7 @@ const useSellNFT = ({
       const res = await createAuction(
         contract_address,
         id,
-        getValues('price'),
+        sellPrice,
         startDate,
         endDate
       );
@@ -124,7 +124,7 @@ const useSellNFT = ({
 
   const handleFixed = async () => {
     try {
-      const res = await sell(contract_address, id, getValues('price'));
+      const res = await sell(contract_address, id, sellPrice);
 
       if (!!res) {
         setIsListing(awaitStatus.COMPLETE);
@@ -185,9 +185,11 @@ const useSellNFT = ({
     if (isDisabledSellBtn) return;
 
     const isIDLEMarketStatus = status.includes(sellReqStatuses.INITIAL);
-    const isEmptyPriceField = !getValues('price') && !isCancel;
+    const isEmptyPriceField = !sellPrice && !isCancel;
+    const isTypeNotSelected = !type;
 
     if (isIDLEMarketStatus) return handleRequest();
+    if (isTypeNotSelected) return toast.error('Select a sell type');
     if (isEmptyPriceField) return toast.error('Fill the price form');
 
     if (!isCancel && !isFixedContract && startDate >= endDate)
@@ -197,7 +199,7 @@ const useSellNFT = ({
 
     setError('');
 
-    const price = getValues('price');
+    const price = sellPrice;
     const floorPrice = collection?.floor_price;
 
     if (floorPrice > price)

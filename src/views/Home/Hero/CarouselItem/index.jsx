@@ -1,77 +1,77 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import classNames from "classnames";
-import AbstractItem from "../AbstractItem";
-import { useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import useArtistAPI from "../../../../hooks/useArtistAPI";
+import React, { useState } from 'react';
+import { Box, Button, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import classNames from 'classnames';
+import AbstractItem from '../AbstractItem';
+import { useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import useArtistAPI from '../../../../hooks/useArtistAPI';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "700px",
+    height: '700px'
   },
   box: {
-    width: "50%",
-    height: "100%",
+    width: '50%',
+    height: '100%',
     color: theme.palette.common.white,
-    display: "flex",
-    justifyContent: "center",
-    "& img": {
-      objectFit: "cover",
-    },
+    display: 'flex',
+    justifyContent: 'center',
+    '& img': {
+      objectFit: 'cover'
+    }
   },
   firstBox: {
-    padding: "0 70px",
+    padding: '0 70px'
   },
   pretitle: {
     fontWeight: theme.typography.fontWeighBold,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
     color: theme.palette.grey[500_8],
-    transition: "0.4s ease-in-out all",
-    marginLeft: 5,
+    transition: '0.4s ease-in-out all',
+    marginLeft: 5
   },
   title: {
     fontSize: 75,
-    lineHeight: "90px",
-    width: "70%",
+    lineHeight: '90px',
+    width: '70%',
     color: theme.palette.grey[500_8],
-    transition: "0.4s ease-in-out all",
+    transition: '0.4s ease-in-out all'
   },
   description: {
-    width: "70%",
+    width: '70%',
     color: theme.palette.grey[500_8],
-    transition: "0.4s ease-in-out all",
+    transition: '0.4s ease-in-out all'
   },
   buttonGroup: {
     marginTop: 80,
-    "& button": {
+    '& button': {
       width: 180,
-      height: 55,
-    },
+      height: 55
+    }
   },
   buttonRight: {
-    margin: "0 10px",
+    margin: '0 10px'
   },
   active: {
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   active_grey: {
-    color: theme.palette.grey[1200],
-  },
+    color: theme.palette.grey[1200]
+  }
 }));
 
 const CarouselItem = ({ item }) => {
   const navigate = useNavigate();
   const { token } = useSelector((store) => store.auth);
   const classes = useStyles();
-  const [active] = useState(["h2", "h4", "p"]);
+  const [active] = useState(['h2', 'h4', 'p']);
   const { artist } = useArtistAPI({ isDetail: true });
 
   const notAuthencticated =
-    token === null || artist?.message === "EXPIRED_TOKEN";
+    token === null || artist?.message === 'EXPIRED_TOKEN';
 
-  const artistNaigation = notAuthencticated ? "/login" : "/nft/create";
+  const artistNaigation = notAuthencticated ? '/login' : '/nft/create';
 
   return (
     <Box
@@ -88,7 +88,7 @@ const CarouselItem = ({ item }) => {
         <Typography
           variant="h4"
           className={classNames(classes.pretitle, {
-            [classes.active_grey]: active.includes("h4"),
+            [classes.active_grey]: active.includes('h4')
           })}
         >
           {item.pretitle}
@@ -96,7 +96,7 @@ const CarouselItem = ({ item }) => {
         <Typography
           variant="h2"
           className={classNames(classes.title, {
-            [classes.active]: active.includes("h2"),
+            [classes.active]: active.includes('h2')
           })}
         >
           {item.name}
@@ -104,7 +104,7 @@ const CarouselItem = ({ item }) => {
         <Typography
           variant="placeholder"
           className={classNames(classes.description, {
-            [classes.active_grey]: active.includes("p"),
+            [classes.active_grey]: active.includes('p')
           })}
         >
           {item.description}
@@ -116,7 +116,7 @@ const CarouselItem = ({ item }) => {
           <Button
             variant="outlinedDark"
             className={classes.buttonRight}
-            onClick={() => navigate("/marketplace")}
+            onClick={() => navigate('/marketplace')}
           >
             Explore
           </Button>
