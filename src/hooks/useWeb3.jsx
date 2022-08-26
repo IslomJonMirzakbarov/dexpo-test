@@ -23,7 +23,8 @@ const useWeb3 = () => {
 
   const getUserBalance = async () => {
     try {
-      const balance = await web3.eth.getBalance(account);
+      const contractERC20 = new web3.eth.Contract(ERC20_ABI, conAddress);
+      const balance = await contractERC20.methods.balanceOf(account).call();
       const res = web3.utils.fromWei(balance);
 
       setBalance(res);
