@@ -25,6 +25,7 @@ import moment from 'moment';
 import DModal from '../../../components/DModal';
 import { marketStatuses } from '../../../constants/marketStatuses';
 import { useSelector } from 'react-redux';
+import CalendarIcon from '../../../assets/icons/calendar.svg';
 
 const auctionLabel = 'Please enter auction starting price';
 const fixedLabel = 'Please enter the selling price.';
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
 
     '& input[type="datetime-local"]::-webkit-calendar-picker-indicator': {
       opacity: 1,
-      background: 'url(/src/assets/icons/calendar.svg) no-repeat',
+      background: `url(${CalendarIcon}) no-repeat`,
       width: 18,
       height: 19
     },
@@ -87,7 +88,6 @@ const NFTSellRequestContainer = ({
   status,
   handleClick,
   handleConfirm,
-  parsedPrice = 58.4,
   isApprove,
   isListing,
   isCanceling,
@@ -106,7 +106,8 @@ const NFTSellRequestContainer = ({
   handleChangeEndingDate,
   sdValue,
   edValue,
-  isAuction
+  isAuction,
+  bidHistory
 }) => {
   const theme = useTheme();
 
@@ -118,6 +119,8 @@ const NFTSellRequestContainer = ({
   const { price_usd } = useSelector((store) => store.wallet);
 
   const isTypeHidden = isDisabled || marketStatuses.IDLE.includes(marketStatus);
+
+  const isBidHistory = isAuction && bidHistory?.length > 0;
 
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
@@ -193,7 +196,7 @@ const NFTSellRequestContainer = ({
               handleChangeType={handleChangeType}
               hideSelect={isTypeHidden}
             />
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" justifyContent="space-between" mt={3}>
               <Box className={classes.box} mr={3}>
                 <ValueTable
                   smartContract={collection?.contract_address}
@@ -202,6 +205,7 @@ const NFTSellRequestContainer = ({
                   blockchain="Klaytn"
                   addrressCreator={nft?.creator_address}
                   addrressOwner={nft?.owner_address}
+                  sellerAddress={market?.seller_address}
                 />
               </Box>
               <Box
@@ -279,6 +283,13 @@ const NFTSellRequestContainer = ({
             </Box>
           </Grid>
         </Grid>
+        {isBidHistory && (
+          <Grid container>
+            <Grid item lg={12}>
+              <HistoryTable data={bidHistory} title="BID History" />
+            </Grid>
+          </Grid>
+        )}
         <Grid container>
           <Grid item lg={12}>
             <HistoryTable data={history} />

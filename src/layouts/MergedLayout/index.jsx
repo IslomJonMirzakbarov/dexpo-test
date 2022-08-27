@@ -88,7 +88,6 @@ const MergedLayout = ({ children }) => {
       if (data?.message?.includes('EXPIRED_TOKEN')) {
         dispatch(logout());
         dispatch(setAccount(null));
-        window.location.reload();
       }
     } catch (err) {
       console.log(err);

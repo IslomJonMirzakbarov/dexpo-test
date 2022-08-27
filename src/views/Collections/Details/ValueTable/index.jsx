@@ -36,7 +36,8 @@ const ValueTable = ({
   tokenStandard = 'ERC-721',
   blockchain = 'Klaytn',
   addrressCreator = '0x4c0c499b1af2611035dbc95240e3827caeb2cfwe',
-  addrressOwner = '0x4c0c499b1af2611035dbc95240e3827caeb21fee'
+  addrressOwner = '0x4c0c499b1af2611035dbc95240e3827caeb21fee',
+  sellerAddress
 }) => {
   const classes = useStyles();
 
@@ -71,6 +72,10 @@ const ValueTable = ({
       <Box className={classes.box}>
         <Typography variant="subtitle1">Owner’s address</Typography>
         <CopyButton value={addrressOwner} isTruncated={true} />
+      </Box>
+      <Box className={classes.box}>
+        <Typography variant="subtitle1">Seller’s address</Typography>
+        <CopyButton value={sellerAddress} isTruncated={true} />
       </Box>
       <Box className={classes.box} position="relative">
         <Typography variant="subtitle1">Creator fee</Typography>
