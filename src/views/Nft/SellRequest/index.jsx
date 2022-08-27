@@ -73,9 +73,17 @@ const NFTSellRequest = () => {
 
   const fetching = isFetchingDetail || isFetchingHistory;
 
-  const isUserSeller = market?.seller_address?.includes(account);
+  const loweredAccount = account.toLowerCase();
 
-  const isUserOwner = nft?.owner_address?.includes(account);
+  const isUserSeller = market?.seller_address
+    ?.toLowerCase()
+    ?.includes(loweredAccount);
+
+  const isUserOwner = nft?.owner_address
+    ?.toLowerCase()
+    ?.includes(loweredAccount);
+
+  const isOwner = !market?.price ? isUserOwner : isUserSeller;
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
@@ -144,8 +152,7 @@ const NFTSellRequest = () => {
 
   if (loading || fetching) return <Loader />;
 
-  if (!isUserOwner && !isUserSeller)
-    return navigate(`/marketplace/${id}/${contract_address}`);
+  if (!isOwner) return navigate(`/marketplace/${id}/${contract_address}`);
 
   return (
     <NFTSellRequestContainer

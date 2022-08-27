@@ -88,7 +88,6 @@ const NFTSellRequestContainer = ({
   status,
   handleClick,
   handleConfirm,
-  parsedPrice = 58.4,
   isApprove,
   isListing,
   isCanceling,
@@ -194,7 +193,7 @@ const NFTSellRequestContainer = ({
               handleChangeType={handleChangeType}
               hideSelect={isTypeHidden}
             />
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" justifyContent="space-between" mt={3}>
               <Box className={classes.box} mr={3}>
                 <ValueTable
                   smartContract={collection?.contract_address}
@@ -203,6 +202,7 @@ const NFTSellRequestContainer = ({
                   blockchain="Klaytn"
                   addrressCreator={nft?.creator_address}
                   addrressOwner={nft?.owner_address}
+                  sellerAddress={market?.seller_address}
                 />
               </Box>
               <Box

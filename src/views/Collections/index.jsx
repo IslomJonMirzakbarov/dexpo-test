@@ -47,7 +47,10 @@ const Collections = () => {
   const handleSelect = (item) => setFilter(item);
 
   const handleNavigate = (tokenId, address, wallet) => {
-    if (!wallet?.includes(account))
+    const loweredWallet = wallet?.toLowerCase();
+    const loweredAccount = account?.toLowerCase();
+
+    if (!loweredWallet?.includes(loweredAccount))
       return navigate(`/marketplace/${tokenId}/${address}`);
     return navigate(`/user/nft/${tokenId}/${address}`);
   };
