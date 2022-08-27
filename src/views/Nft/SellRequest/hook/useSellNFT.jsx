@@ -24,7 +24,8 @@ const useSellNFT = ({
   market,
   type,
   startDate,
-  endDate
+  endDate,
+  refetchBid
 }) => {
   const navigate = useNavigate();
   const marketStatus = collection?.market_status;
@@ -61,6 +62,7 @@ const useSellNFT = ({
   const handleRefetch = () => {
     refetch();
     refetchDetail();
+    refetchBid();
   };
 
   const clear = () => {

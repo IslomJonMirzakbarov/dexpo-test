@@ -106,7 +106,8 @@ const NFTSellRequestContainer = ({
   handleChangeEndingDate,
   sdValue,
   edValue,
-  isAuction
+  isAuction,
+  bidHistory
 }) => {
   const theme = useTheme();
 
@@ -118,6 +119,8 @@ const NFTSellRequestContainer = ({
   const { price_usd } = useSelector((store) => store.wallet);
 
   const isTypeHidden = isDisabled || marketStatuses.IDLE.includes(marketStatus);
+
+  const isBidHistory = isAuction && bidHistory?.length > 0;
 
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
@@ -280,6 +283,13 @@ const NFTSellRequestContainer = ({
             </Box>
           </Grid>
         </Grid>
+        {isBidHistory && (
+          <Grid container>
+            <Grid item lg={12}>
+              <HistoryTable data={bidHistory} title="BID History" />
+            </Grid>
+          </Grid>
+        )}
         <Grid container>
           <Grid item lg={12}>
             <HistoryTable data={history} />

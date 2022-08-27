@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { parseNormalizedDate } from '../../../utils/parseDate';
 import moment from 'moment';
 import { useEffect } from 'react';
+import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI';
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
@@ -59,6 +60,15 @@ const NFTSellRequest = () => {
     isLoading: loadingHistory,
     refetch
   } = useNFTHistoryAPI({
+    tokenId: id,
+    contractAddress: contract_address
+  });
+
+  const {
+    data: bidHistory,
+    isLoading: loadingBid,
+    refetch: refetchBid
+  } = useBidHistoryAPI({
     tokenId: id,
     contractAddress: contract_address
   });
@@ -147,10 +157,11 @@ const NFTSellRequest = () => {
     market,
     type,
     startDate,
-    endDate
+    endDate,
+    refetchBid
   });
 
-  if (loading || fetching) return <Loader />;
+  if (loading || fetching || loadingBid) return <Loader />;
 
   if (!isOwner) return navigate(`/marketplace/${id}/${contract_address}`);
 
@@ -176,6 +187,7 @@ const NFTSellRequest = () => {
       isCanceling={isCanceling}
       error={error}
       sellPrice={sellPrice}
+      bidHistory={bidHistory}
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
       submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
