@@ -138,13 +138,17 @@ const Settings = () => {
         </Box>
       </form>
       {showModal && (
-        <ModalCard page="create-collection" onSaveButtonClick={modalClick}>
+        <ModalCard
+          page="create-collection"
+          responseChecker={true}
+          onSaveButtonClick={modalClick}
+        >
           <Box className={styles.IconContainer}>
             <CreateCollectionForm />
           </Box>
-          <Typography className={styles.ProcessTitle}>Updated!</Typography>
+          <Typography className={styles.ProcessTitle}>Saved!</Typography>
           <Typography className={styles.ProcessDesc}>
-            <>Your collection updated successfully</>
+            <>Your information saved successfully</>
           </Typography>
         </ModalCard>
       )}
