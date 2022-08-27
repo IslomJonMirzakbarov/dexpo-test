@@ -25,6 +25,7 @@ import moment from 'moment';
 import DModal from '../../../components/DModal';
 import { marketStatuses } from '../../../constants/marketStatuses';
 import { useSelector } from 'react-redux';
+import CalendarIcon from '../../../assets/icons/calendar.svg';
 
 const auctionLabel = 'Please enter auction starting price';
 const fixedLabel = 'Please enter the selling price.';
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
 
     '& input[type="datetime-local"]::-webkit-calendar-picker-indicator': {
       opacity: 1,
-      background: 'url(/src/assets/icons/calendar.svg) no-repeat',
+      background: `url(${CalendarIcon}) no-repeat`,
       width: 18,
       height: 19
     },
