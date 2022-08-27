@@ -7,6 +7,7 @@ const configQuery = {
   refetchOnMount: "always",
   refetchOnWindowFocus: true, // constantly updating when newCollection created
   refetchOnReconnect: true,
+  staleTime: 0,
 };
 
 const updateDescription = (data, token) =>
@@ -49,7 +50,7 @@ const useUserAPI = ({ isUserInfo }) => {
     data: userInfo,
     isLoading: userInfoLoading,
     error: userInfoError,
-  } = useQuery("get-artist", () => getUserInfo(token, account), {
+  } = useQuery("get-user-info", () => getUserInfo(token, account), {
     enabled: !!isUserInfo,
     ...configQuery,
   });

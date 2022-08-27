@@ -30,6 +30,12 @@
     align-items: center;
     margin-bottom: 70px;
 
+    .InfoImg {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+    }
+
     .UserName {
       font-style: normal;
       @include userText;

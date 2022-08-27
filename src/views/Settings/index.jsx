@@ -22,6 +22,7 @@ const Settings = () => {
   const { userInfo, updateImg, updateDesc, updateName } = useUserAPI({
     isUserInfo: true,
   });
+  const [responseChecker, setResponseChecker] = useState(false);
 
   useEffect(() => {
     if (updateDesc?.data?.data?.description) {
@@ -92,11 +93,17 @@ const Settings = () => {
       };
       updateName.mutate(payload);
     }
+
+    setTimeout(() => {
+      setResponseChecker(true);
+    }, 2500);
   };
 
   const modalClick = () => {
-    setShowModal(false);
-    navigate("/user/my-page");
+    if (responseChecker) {
+      setShowModal(false);
+      navigate("/user/my-page");
+    }
   };
 
   return (
@@ -140,7 +147,7 @@ const Settings = () => {
       {showModal && (
         <ModalCard
           page="create-collection"
-          responseChecker={true}
+          responseChecker={responseChecker}
           onSaveButtonClick={modalClick}
         >
           <Box className={styles.IconContainer}>

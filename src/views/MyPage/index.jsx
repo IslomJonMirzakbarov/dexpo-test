@@ -17,6 +17,7 @@ import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import classNames from "classnames";
+import useUserAPI from "../../hooks/useUserAPI";
 
 const MyPage = () => {
   const { id } = useParams();
@@ -26,6 +27,11 @@ const MyPage = () => {
   const { account } = useSelector((store) => store.wallet);
   const [hovered, setHovered] = useState(false);
   const [tabs, setTabs] = useState(myPageTabs);
+
+  const { userInfo } = useUserAPI({
+    isUserInfo: true,
+  });
+
   let num;
   switch (id) {
     case "favorites":
@@ -79,7 +85,15 @@ const MyPage = () => {
         />
       </Box>
       <Box className={styles.ProfileSection}>
-        <ProfileImageIcon />
+        {userInfo?.data?.image_url ? (
+          <img
+            src={userInfo?.data?.image_url}
+            className={styles.InfoImg}
+            alt=""
+          />
+        ) : (
+          <ProfileImageIcon />
+        )}
         <Box className={styles.UserName}>
           {artist ? artist?.data?.artist_name : "UserName"}
         </Box>
