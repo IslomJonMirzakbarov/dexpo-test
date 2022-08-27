@@ -32,21 +32,26 @@ const BidInput = ({ control, name = 'bidPrice', ...props }) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.input} mt={1} mb={2}>
-      <FormInputText
-        label="Please enter the bid price."
-        control={control}
-        type="number"
-        name={name}
-        {...props}
-      />
-      <Box display="flex" alignItems="center">
-        <ConToken className={classes.token} />
-        <Typography fontWeight={600} ml={1}>
-          CYCON
-        </Typography>
+    <>
+      <Typography mt={1} fontWeight={600} color="grey.2000">
+        Bid price
+      </Typography>
+      <Box className={classes.input} mt={1} mb={2}>
+        <FormInputText
+          label="Please enter the bid price."
+          control={control}
+          type="number"
+          name={name}
+          {...props}
+        />
+        <Box display="flex" alignItems="center">
+          <ConToken className={classes.token} />
+          <Typography fontWeight={600} ml={1}>
+            CYCON
+          </Typography>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

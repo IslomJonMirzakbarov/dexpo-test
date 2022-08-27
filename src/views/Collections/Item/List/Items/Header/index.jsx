@@ -14,11 +14,11 @@ const sortTypes = [
     value: 'recently'
   },
   {
-    label: 'Price: descending',
+    label: 'Price: low to high',
     value: 'price-des'
   },
   {
-    label: 'Price: ascending',
+    label: 'Price: high to low',
     value: 'price-asc'
   },
   {
@@ -63,7 +63,7 @@ const CollectionHeader = ({
     >
       <Paper component="form" className={classNames(classes.search)}>
         <SearchField
-          placeholder="Search NFT"
+          placeholder="Search Items, Creators"
           inputProps={{ 'aria-label': 'search nfts' }}
           value={searchInput}
           onChange={handleChangeSearch}

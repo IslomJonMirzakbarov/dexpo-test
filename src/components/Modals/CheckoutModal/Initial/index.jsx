@@ -85,7 +85,7 @@ const InitialCheckout = ({
         />
         <Box className={classes.box}>
           <Box display="flex" flexDirection="column" py={1} px={2}>
-            <Typography ml={1} fontSize={15} fontWeight={600}>
+            <Typography fontSize={15} fontWeight={600}>
               Item
             </Typography>
             <Box

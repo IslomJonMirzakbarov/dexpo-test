@@ -63,7 +63,7 @@ const NFTSellRequest = () => {
     contractAddress: contract_address
   });
 
-  const { control, getValues } = useForm({
+  const { control, watch } = useForm({
     price: ''
   });
 
@@ -89,6 +89,10 @@ const NFTSellRequest = () => {
 
   const [sendStartDate, setSendStartDate] = useState(null);
   const [sendEndDate, setSendEndDate] = useState(null);
+
+  const isAuction = type?.value === 'auction' || market?.type === 'A';
+
+  const sellPrice = !!control && watch('price');
 
   const handleChangeStartingDate = (e) => {
     const val = e.target.value;
@@ -129,7 +133,7 @@ const NFTSellRequest = () => {
     setError,
     contract_address,
     id,
-    getValues,
+    sellPrice,
     refetch,
     refetchDetail,
     market,
@@ -164,7 +168,7 @@ const NFTSellRequest = () => {
       isListing={isListing}
       isCanceling={isCanceling}
       error={error}
-      sellPrice={getValues('price')}
+      sellPrice={sellPrice}
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
       submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
@@ -173,6 +177,7 @@ const NFTSellRequest = () => {
       sdValue={sendStartDate}
       edValue={sendEndDate}
       onBack={onBack}
+      isAuction={isAuction}
       handleChangeStartingDate={handleChangeStartingDate}
       handleChangeEndingDate={handleChangeEndingDate}
     />

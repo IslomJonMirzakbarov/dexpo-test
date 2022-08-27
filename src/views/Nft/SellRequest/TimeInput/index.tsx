@@ -5,8 +5,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import React from 'react';
 
-// import TimePicker from 'rc-time-picker';
-
 const TimeInput = (props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>

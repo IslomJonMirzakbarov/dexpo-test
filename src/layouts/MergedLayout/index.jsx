@@ -12,7 +12,7 @@ import classNames from 'classnames';
 import ProfileMenu from './ProfileMenu';
 import { toggleProfilePopup } from '../../store/popup/popup.slice';
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
-import logo from '../../assets/images/logo.svg';
+import logo from '../../assets/icons/logo-beta.svg';
 import useWallet from '../../hooks/useWallet';
 import { securedAPI } from '../../services/api';
 import { setArtist } from '../../store/artist/artist.slice';

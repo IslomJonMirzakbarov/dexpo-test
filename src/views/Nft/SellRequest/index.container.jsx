@@ -17,7 +17,7 @@ import CollectionDetailImage from '../../Collections/Details/Image';
 import Countdown from '../../../components/Countdown';
 import NumberFormat from 'react-number-format';
 import tokenImg from '../../../assets/images/con-token.png';
-import { DATE_FORMAT, priceType, priceTypeChar } from '../../../constants';
+import { DATE_FORMAT, priceTypeChar } from '../../../constants';
 import PriceInput from '../../../components/PriceInput';
 import SellModal from '../../../components/Modals/SellModal';
 import { useTheme } from '@emotion/react';
@@ -25,6 +25,9 @@ import moment from 'moment';
 import DModal from '../../../components/DModal';
 import { marketStatuses } from '../../../constants/marketStatuses';
 import { useSelector } from 'react-redux';
+
+const auctionLabel = 'Please enter auction starting price';
+const fixedLabel = 'Please enter the selling price.';
 
 const useStyles = makeStyles({
   priceBox: {
@@ -43,9 +46,22 @@ const useStyles = makeStyles({
   datetime: {
     cursor: 'pointer',
     transition: '0.4s ease-in-out all',
+    borderRadius: 7,
 
     '&:focus, &:hover': {
       'box-shadow': ' -1px 1px 16px 7px rgba(0, 0, 0, 0.06)'
+    },
+
+    '& input': {
+      fontSize: '10px',
+      padding: '10px 12px!important'
+    },
+
+    '& input[type="datetime-local"]::-webkit-calendar-picker-indicator': {
+      opacity: 1,
+      background: 'url(/src/assets/icons/calendar.svg) no-repeat',
+      width: 18,
+      height: 19
     },
 
     '& fieldset': {
@@ -53,7 +69,7 @@ const useStyles = makeStyles({
       border: '1px solid #dedede !important',
       'border-radius': '7px',
       '&:focus, &:hover': {
-        border: ' none !important',
+        border: ' none!important',
         outline: 'none'
       }
     }
@@ -89,7 +105,8 @@ const NFTSellRequestContainer = ({
   handleChangeStartingDate,
   handleChangeEndingDate,
   sdValue,
-  edValue
+  edValue,
+  isAuction
 }) => {
   const theme = useTheme();
 
@@ -99,8 +116,6 @@ const NFTSellRequestContainer = ({
 
   const [openImg, setOpenImg] = useState(false);
   const { price_usd } = useSelector((store) => store.wallet);
-
-  const isAuction = priceType.AUCTION.key.includes(type?.value);
 
   const isTypeHidden = isDisabled || marketStatuses.IDLE.includes(marketStatus);
 
@@ -204,7 +219,14 @@ const NFTSellRequestContainer = ({
                     sx={{ width: '100%' }}
                     className={styles.dates}
                   >
-                    {!!type && <PriceInput control={control} name="price" />}
+                    {!!type && (
+                      <PriceInput
+                        control={control}
+                        name="price"
+                        label={isAuction ? auctionLabel : fixedLabel}
+                        exchangedPrice={price_usd * sellPrice}
+                      />
+                    )}
                     {isAuction && (
                       <>
                         <Box mt="15px" display="flex" alignItems="center">
