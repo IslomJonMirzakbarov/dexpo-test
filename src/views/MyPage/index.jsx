@@ -89,12 +89,14 @@ const MyPage = () => {
   return (
     <Box className={styles.Container}>
       <Box className={styles.SettingsIconContainer}>
-        <PageSettingsIcon
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          fill={hovered ? "#7D8890" : "#D1D1D1"}
-          onClick={() => navigate("/user/settings")}
-        />
+        {!otherUser && (
+          <PageSettingsIcon
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            fill={hovered ? "#7D8890" : "#D1D1D1"}
+            onClick={() => navigate("/user/settings")}
+          />
+        )}
       </Box>
       <Box className={styles.ProfileSection}>
         {otherUser && otherUserInfo?.otherUserLogoUrl && (
