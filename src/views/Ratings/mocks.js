@@ -74,6 +74,27 @@ export const myPageTabs = [
   },
 ];
 
+export const otherUserPageTabs = [
+  {
+    label: "Collected",
+    value: myPageTypes.COLLECTED,
+  },
+  {
+    label: "Created",
+    value: myPageTypes.CREATED,
+    children: [
+      {
+        label: "Items",
+        value: myPageTypes.ITEMS,
+      },
+      {
+        label: "Collections",
+        value: myPageTypes.COLLECTIONS,
+      },
+    ],
+  },
+];
+
 export const tableRows = {
   [topTypes.COLLECTIONS]: (percent) => [
     "Collection",

@@ -1,4 +1,3 @@
-
 import { Box, Grid } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,27 +9,32 @@ import NoItemsYet from "../../../../assets/icons/no-items-yet.svg?component";
 
 import styles from "./style.module.scss";
 
-const CreatedItems = () => {
+const CreatedItems = ({ id }) => {
   const navigate = useNavigate();
-  const { list } = useNftAPI({
-    isGetList: true,
+  const otherUser = id && id[0] === "0";
+  const { list, listByUser } = useNftAPI({
+    isGetList: !otherUser,
+    isGetListByUser: otherUser,
     type: "CREATED_BY_NFTS",
     size: 20000,
+    walletAddress: otherUser && id,
   });
+  const selectedList = otherUser ? listByUser : list;
+
   return (
     <Box className={styles.Container}>
       <Box className={styles.Title}>Items</Box>
 
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items.length === 0 ? (
+        {selectedList?.data?.items.length === 0 ? (
           <Box className={styles.NoItemsContainer}>
             <NoItemsYet />
             <Box className={styles.NoItemsText}>No items yet</Box>
           </Box>
-        ) : list?.data?.items[0]?.request_type !== "CREATED_BY_NFTS" ? (
+        ) : selectedList?.data?.items[0]?.request_type !== "CREATED_BY_NFTS" ? (
           <Loader page="my-page" />
         ) : (
-          list?.data?.items.map((nftItem, index) => (
+          selectedList?.data?.items.map((nftItem, index) => (
             <Grid item xs={4} sm={4} md={4} key={index}>
               <NFTCard
                 img={nftItem?.nft?.token_image}

@@ -11,15 +11,19 @@ import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
 
 import styles from "./style.module.scss";
 
-const CollectedBottom = ({ tabValue }) => {
+const CollectedBottom = ({ tabValue, id }) => {
   const navigate = useNavigate();
   const [refetchInterval, setRefetchInterval] = useState(false);
-  const { list } = useNftAPI({
-    isGetList: true,
+  const otherUser = id && id[0] === "0";
+  const { list, listByUser } = useNftAPI({
+    isGetList: !otherUser,
+    isGetListByUser: otherUser,
     type: "COLLECTED",
     size: 20000,
+    walletAddress: otherUser && id,
     refetchInterval,
   });
+  const selectedList = otherUser ? listByUser : list;
 
   useEffect(() => {
     if (tabValue === "collected") {
@@ -33,15 +37,15 @@ const CollectedBottom = ({ tabValue }) => {
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {list?.data?.items.length === 0 ? (
+        {selectedList?.data?.items.length === 0 ? (
           <Box className={styles.NoItemsContainer}>
             <NoItemsYet />
             <Box className={styles.NoItemsText}>No items yet</Box>
           </Box>
-        ) : list?.data?.items[0]?.request_type !== "COLLECTED" ? (
+        ) : selectedList?.data?.items[0]?.request_type !== "COLLECTED" ? (
           <Loader page="my-page" />
         ) : (
-          list?.data?.items?.map((nftItem, index) => {
+          selectedList?.data?.items?.map((nftItem, index) => {
             return (
               <Grid item xs={4} sm={4} md={4} key={index}>
                 <NFTCard

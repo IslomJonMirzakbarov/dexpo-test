@@ -1,13 +1,25 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { securedAPI } from '../services/api';
-import { useMutation, useQuery } from 'react-query';
-
+import React from "react";
+import { useSelector } from "react-redux";
+import { securedAPI } from "../services/api";
+import { useMutation, useQuery } from "react-query";
 
 const getList = ({ type, page, orderBy = "desc", size }, token) =>
   securedAPI(token)
     .get(
+      // /api/nft/listByUser?page=1&size=10&orderBy=desc&wallet_address=0x4c0c499b1af2611035dbc95240e3827caeb1cf1e&type=CREATED_BY_COLLECTIONS
       `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
+    )
+    .then((res) => {
+      return res.data;
+    });
+
+const getListByUser = (
+  { type, page, orderBy = "desc", size, walletAddress },
+  token
+) =>
+  securedAPI(token)
+    .get(
+      `/api/nft/listByUser?page=${page}&size=${size}&orderBy=${orderBy}&wallet_address=${walletAddress}&type=${type}`
     )
     .then((res) => {
       return res.data;
@@ -43,6 +55,7 @@ const configQuery = {
 const useNftAPI = ({
   contractAddress,
   isGetList = false,
+  isGetListByUser = false,
   isGetListByCollection = false,
   isGetDetail = false,
   type = "COLLECTED",
@@ -50,6 +63,7 @@ const useNftAPI = ({
   orderBy = "desc",
   size = 10,
   refetchInterval,
+  walletAddress,
 }) => {
   const { token } = useSelector((store) => store.auth);
 
@@ -83,6 +97,21 @@ const useNftAPI = ({
   );
 
   const {
+    data: listByUser,
+    refetch: refetchListByUser,
+    isLoading: loadingListByUser,
+    error: errorByUser,
+  } = useQuery(
+    `get-nft-list-by-user-${type}`,
+    () => getListByUser({ type, page, orderBy, size, walletAddress }, token),
+    {
+      enabled: !!isGetListByUser,
+      ...configQuery,
+      refetchInterval,
+    }
+  );
+
+  const {
     data: detail,
     refetch: refetchDetail,
     isLoading: loadingDetail,
@@ -103,6 +132,8 @@ const useNftAPI = ({
     loadingDetail,
     errorDetail,
     list,
+    listByUser,
+    loadingListByUser,
     nftListCollection,
     loadingListByCollection,
     refetchList,
