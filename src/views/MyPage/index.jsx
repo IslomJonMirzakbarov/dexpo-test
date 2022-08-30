@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { myPageTabs, otherUserPageTabs } from "../Ratings/mocks";
 import DTabs from "../../components/DTabs";
@@ -28,8 +28,12 @@ const MyPage = () => {
   const { artist } = useArtistAPI({ isDetail: true });
   const { account } = useSelector((store) => store.wallet);
   const [hovered, setHovered] = useState(false);
-  const selectedTabs = otherUser ? otherUserPageTabs : myPageTabs;
-  const [tabs, setTabs] = useState(selectedTabs);
+  const [tabs, setTabs] = useState(myPageTabs);
+  useEffect(() => {
+    if (otherUser) {
+      setTabs(otherUserPageTabs);
+    }
+  }, [otherUser]);
 
   const { userInfo } = useUserAPI({
     isUserInfo: true,
