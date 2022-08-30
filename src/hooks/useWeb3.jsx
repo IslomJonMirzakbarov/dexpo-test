@@ -5,12 +5,14 @@ import { ERC20_ABI } from '../utils/abi/ERC20ABI';
 import { FIXED_MARKET_ABI } from '../utils/abi/FixedMarketABI';
 import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
 import { ERC721 } from '../utils/abi/ERC721ABI';
+import { FAUCET_ABI } from '../utils/abi/FaucetABI';
 
 const web3 = new Web3(Web3.givenProvider);
 
 const conAddress = import.meta.env.VITE_ERC20_HASH;
 const fixedContract = import.meta.env.VITE_FIXED_MARKET_HASH;
 const auctionContract = import.meta.env.VITE_AUCTION_MARKET_HASH;
+const faucetContractEnv = import.meta.env.VITE_FAUCET_CONTRACT;
 const approveAmount = import.meta.env.VITE_APPROVE_AMOUNT;
 
 const useWeb3 = () => {
@@ -230,9 +232,52 @@ const useWeb3 = () => {
     return result;
   };
 
+  const faucet = async (account) => {
+    try {
+      const faucetContract = new web3.eth.Contract(
+        FAUCET_ABI,
+        faucetContractEnv
+      );
+      const isClaimedWallet = await faucetContract.methods
+        .isClaimed(account)
+        .call();
+
+      if (isClaimedWallet)
+        return {
+          success: false,
+          message: 'Token was already claimed by this wallet address',
+          data: null
+        };
+
+      const gasLimit = await faucetContract.methods.claimToken().estimateGas({
+        from: account
+      });
+
+      const result = await faucetContract.methods.claimToken().send({
+        from: account,
+        gas: gasLimit
+      });
+
+      return {
+        success: true,
+        message: 'Token was successfuly claimed',
+        data: result
+      };
+    } catch (err) {
+      console.log(err);
+
+      return {
+        success: false,
+        message: 'Transaction error',
+        data: null
+      };
+    }
+  };
+
   return {
     bid,
     sell,
+    faucet,
     cancel,
     balance,
     purchase,
