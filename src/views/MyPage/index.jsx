@@ -32,6 +32,8 @@ const MyPage = () => {
   useEffect(() => {
     if (otherUser) {
       setTabs(otherUserPageTabs);
+    } else {
+      setTabs(myPageTabs);
     }
   }, [otherUser]);
 
@@ -113,8 +115,14 @@ const MyPage = () => {
             alt=""
           />
         )}
-        {((otherUser && !otherUserInfo?.otherUserLogoUrl) ||
-          !userInfo?.data?.image_url) && <ProfileImageIcon />}
+        {(!userInfo?.data?.image_url &&
+          otherUserInfo?.otherUserLogoUrl &&
+          otherUser) ||
+        (userInfo?.data?.image_url && !otherUserInfo?.otherUserLogoUrl) ||
+        (userInfo?.data?.image_url &&
+          otherUserInfo?.otherUserLogoUrl) ? null : (
+          <ProfileImageIcon />
+        )}
 
         <Box className={styles.UserName}>
           {otherUser
