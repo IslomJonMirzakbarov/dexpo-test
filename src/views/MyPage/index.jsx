@@ -22,8 +22,8 @@ import useUserAPI from "../../hooks/useUserAPI";
 const MyPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { otherUserInfo } = useSelector((store) => store.user);
   const otherUser = id && id[0] === "0";
-  const { otherUser: otherUserInfo } = useSelector((store) => store.user);
   const { createdTab } = useSelector((store) => store.myPage);
   const { artist } = useArtistAPI({ isDetail: true });
   const { account } = useSelector((store) => store.wallet);
@@ -93,9 +93,9 @@ const MyPage = () => {
         />
       </Box>
       <Box className={styles.ProfileSection}>
-        {otherUser && otherUserInfo.otherUserLogoUrl && (
+        {otherUser && otherUserInfo?.otherUserLogoUrl && (
           <img
-            src={otherUserInfo.otherUserLogoUrl}
+            src={otherUserInfo?.otherUserLogoUrl}
             className={styles.InfoImg}
             alt=""
           />
@@ -107,12 +107,12 @@ const MyPage = () => {
             alt=""
           />
         )}
-        {((otherUser && !otherUserInfo.otherUserLogoUrl) ||
+        {((otherUser && !otherUserInfo?.otherUserLogoUrl) ||
           !userInfo?.data?.image_url) && <ProfileImageIcon />}
 
         <Box className={styles.UserName}>
           {otherUser
-            ? otherUserInfo.otherUserName
+            ? otherUserInfo?.otherUserName
             : artist
             ? artist?.data?.artist_name
             : "UserName"}
@@ -136,7 +136,7 @@ const MyPage = () => {
         <Box className={styles.Bio}>Bio</Box>
         <Box className={styles.BioDescription}>
           {otherUser
-            ? otherUserInfo.otherUserDescription
+            ? otherUserInfo?.otherUserDescription
             : artist?.data?.description}
         </Box>
       </Box>

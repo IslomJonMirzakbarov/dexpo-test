@@ -5,7 +5,7 @@ export const { actions: userActions, reducer: userReducer } = createSlice({
   initialState: {
     userName: "",
     userDescription: "",
-    otherUser: {
+    otherUserInfo: {
       otherUserName: "",
       otherUserDescription: "",
       otherUserLogoUrl: "",
@@ -19,7 +19,7 @@ export const { actions: userActions, reducer: userReducer } = createSlice({
       state.userDescription = payload.userDescription;
     },
     setOtherUser(state, { payload }) {
-      state.otherUser = {
+      state.otherUserInfo = {
         otherUserName: payload.otherUserName,
         otherUserDescription: payload.otherUserDescription,
         otherUserLogoUrl: payload.otherUserLogoUrl,
