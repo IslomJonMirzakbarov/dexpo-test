@@ -5,6 +5,7 @@ export default function Button(theme) {
     MuiButton: {
       styleOverrides: {
         root: {
+          cursor: 'pointer',
           textTransform: 'none',
           borderRadius: theme.shape.borderRadius,
           ...theme.typography.body2,

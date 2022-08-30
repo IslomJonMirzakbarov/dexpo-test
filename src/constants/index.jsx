@@ -30,6 +30,11 @@ export const pages = [
   {
     name: 'Rankings',
     to: '/rankings'
+  },
+  {
+    name: 'Faucet',
+    to: '/faucet',
+    isAuthenticated: true
   }
 ];
 

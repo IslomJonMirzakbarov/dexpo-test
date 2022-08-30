@@ -104,7 +104,7 @@ const MergedLayout = ({ children }) => {
 
   useEffect(() => {
     handleGetArtist();
-  }, [token]);
+  }, [token, pathname]);
 
   return (
     <>
