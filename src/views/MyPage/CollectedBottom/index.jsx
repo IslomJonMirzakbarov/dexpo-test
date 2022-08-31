@@ -10,9 +10,12 @@ import useNftAPI from "../../../hooks/useNftApi";
 import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
 
 import styles from "./style.module.scss";
+import { useSelector } from "react-redux";
 
 const CollectedBottom = ({ tabValue, id }) => {
   const navigate = useNavigate();
+  const { otherUserInfo } = useSelector((store) => store.user);
+  // console.log(otherUserInfo?.otherUserId);
   const [refetchInterval, setRefetchInterval] = useState(false);
   const otherUser = id && id[0] === "0";
   const { list, listByUser } = useNftAPI({
@@ -24,6 +27,14 @@ const CollectedBottom = ({ tabValue, id }) => {
     refetchInterval,
   });
   const selectedList = otherUser ? listByUser : list;
+  useEffect(() => {
+    if (id && otherUserInfo?.otherUserId !== id) {
+      setRefetchInterval(300);
+      setTimeout(() => {
+        setRefetchInterval(false);
+      }, 400);
+    }
+  }, [id, otherUserInfo?.otherUserId]);
 
   useEffect(() => {
     if (tabValue === "collected") {

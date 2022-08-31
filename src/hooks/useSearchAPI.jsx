@@ -44,6 +44,7 @@ const useSearchAPI = (query) => {
                 otherUserName: artist.artist_name,
                 otherUserDescription: artist.description,
                 otherUserLogoUrl: artist.logo_url,
+                otherUserId: artist.artist_wallet_address,
               })
             );
             navigate(`/user/my-page/${artist.artist_wallet_address}`);

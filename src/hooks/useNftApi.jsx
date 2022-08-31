@@ -50,6 +50,7 @@ const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: true, // constantly updating
   refetchOnReconnect: true,
+  staleTime: 0,
 };
 
 const useNftAPI = ({
@@ -102,7 +103,7 @@ const useNftAPI = ({
     isLoading: loadingListByUser,
     error: errorByUser,
   } = useQuery(
-    `get-nft-list-by-user-${type}`,
+    `get-nft-list-by-user-${type}-${walletAddress}`,
     () => getListByUser({ type, page, orderBy, size, walletAddress }, token),
     {
       enabled: !!isGetListByUser,

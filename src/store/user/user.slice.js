@@ -9,6 +9,7 @@ export const { actions: userActions, reducer: userReducer } = createSlice({
       otherUserName: "",
       otherUserDescription: "",
       otherUserLogoUrl: "",
+      otherUserId: "",
     },
   },
   reducers: {
@@ -23,6 +24,7 @@ export const { actions: userActions, reducer: userReducer } = createSlice({
         otherUserName: payload.otherUserName,
         otherUserDescription: payload.otherUserDescription,
         otherUserLogoUrl: payload.otherUserLogoUrl,
+        otherUserId: payload.otherUserId,
       };
     },
   },
