@@ -5,6 +5,18 @@
 .navList {
   display: flex;
   align-items: center;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 72px);
+    background-color: #404040;
+    padding: 0;
+  }
 }
 .navItem {
   white-space: nowrap;
@@ -21,6 +33,36 @@
     transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s all;
     cursor: pointer;
 
+    &:hover {
+      color: colors.$primary;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 21px 20px;
+    background-color: #595959;
+    width: 100%;
+
+    a {
+      width: 100%;
+    }
+  }
+}
+
+.childs {
+  width: 100%;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+
+  .child {
+    width: 100%;
+    background: #e7e7e7;
+    padding: 21px 20px;
+    transition: 0.4s ease-in-out all;
+
+    &.active,
     &:hover {
       color: colors.$primary;
     }
