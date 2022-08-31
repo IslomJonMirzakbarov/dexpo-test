@@ -5,6 +5,7 @@
 .navList {
   display: flex;
   align-items: center;
+  overflow-y: scroll;
 
   @media (max-width: 600px) {
     flex-direction: column;
