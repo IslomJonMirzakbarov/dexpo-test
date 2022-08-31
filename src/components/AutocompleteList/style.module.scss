@@ -9,6 +9,19 @@
   max-height: 400px;
   overflow-y: scroll;
 
+  @media (max-width: 600px) {
+    position: fixed;
+    background-color: #fff;
+    border-radius: 0;
+    overflow: scroll;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    height: calc(100vh - 72px) !important;
+    max-height: 100vh;
+    width: 100%;
+    top: 72px;
+    left: 0;
+  }
+
   .menu {
     .item {
       padding: 11px 14px;

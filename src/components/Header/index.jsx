@@ -7,6 +7,8 @@ import IconGenerator from '../IconPicker/IconGenerator';
 import styles from './style.module.scss';
 import { debounce } from 'lodash';
 import useSearchAPI from '../../hooks/useSearchAPI';
+import LinkListResponsive from '../../layouts/MergedLayout/LinkList/index.responsive';
+import SearchFieldResponsive from '../Autocomplete/index.responsive';
 
 const Header = ({
   title = '',
@@ -91,6 +93,18 @@ const Header = ({
       <div className={styles.rightSide}>
         <div className={styles.links}>{children}</div>
         {extra}
+      </div>
+      <div className={styles.rightSideResponsive}>
+        <SearchFieldResponsive value={search} onChange={handleChange} />
+        <LinkListResponsive />
+        <div className={styles.result}>
+          <AutocompleteList
+            isLoading={isLoading}
+            isOpen={isOpen}
+            data={data}
+            handleClose={handleClose}
+          />
+        </div>
       </div>
     </div>
   );

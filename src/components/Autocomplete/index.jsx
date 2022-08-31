@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
     zIndex: 11,
     position: 'relative',
-    color: theme.palette.grey[1100]
+    color: theme.palette.grey[1100],
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
   dark: {
     backgroundColor: '#f3f3f3',
