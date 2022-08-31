@@ -118,11 +118,13 @@ const MyPage = () => {
         {(!userInfo?.data?.image_url &&
           otherUserInfo?.otherUserLogoUrl &&
           otherUser) ||
+        (otherUser && !userInfo?.data?.image_url) ||
         (userInfo?.data?.image_url && !otherUserInfo?.otherUserLogoUrl) ||
         (userInfo?.data?.image_url &&
           otherUserInfo?.otherUserLogoUrl) ? null : (
           <ProfileImageIcon />
         )}
+        {otherUser && !otherUserInfo?.otherUserLogoUrl && <ProfileImageIcon />}
 
         <Box className={styles.UserName}>
           {otherUser
