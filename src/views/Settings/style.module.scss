@@ -19,12 +19,23 @@
   margin-top: 90px;
   margin-bottom: 180px;
 
+  @media (max-width: 600px) {
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 80px;
+  }
+
   .FormContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 650px;
+
+    @media (max-width: 600px) {
+      max-width: 335px;
+      align-items: center;
+    }
 
     .Title {
       height: 60px;
@@ -33,140 +44,13 @@
       text-align: center;
       color: colors.$textColor1;
       margin-bottom: 68px;
-    }
 
-    .ModeContainer {
-      display: flex;
-      gap: 92px;
-      margin-bottom: 70px;
-
-      & > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-
-        & :nth-child(1) {
-          font-weight: bold;
-        }
-      }
-
-      .SingleMode {
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        margin-top: 18px;
-      }
-
-      .MultipleMode {
-        .MultipleModeContainer {
-          position: relative;
-          width: 192px;
-          height: 243px;
-
-          .FirstItem {
-            position: absolute;
-            z-index: 200;
-            bottom: 0;
-            left: 0;
-
-            .TopIContainer {
-              background: linear-gradient(
-                171.69deg,
-                #ff006b 16.37%,
-                #1e4ced 89.07%
-              );
-            }
-          }
-          .SecondItem {
-            z-index: 199;
-            position: absolute;
-            left: 6px;
-            bottom: 6px;
-
-            .TopIContainer {
-              background: #d1d1d1;
-            }
-          }
-          .ThirdItem {
-            position: absolute;
-            left: 12px;
-            bottom: 12px;
-            z-index: 198;
-
-            .TopIContainer {
-              background: #e9e9e9;
-            }
-          }
-        }
-      }
-
-      .SingleIContainer {
-        width: 174px;
-        height: 225px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        cursor: pointer;
-
-        .TopIContainer {
-          top: 0;
-          position: absolute;
-          background: linear-gradient(53.13deg, #e2007f 3.12%, #1e4ced 92.85%);
-          border-radius: 7px 7px 0px 0px;
-          width: 100%;
-          height: 174px;
-        }
-
-        .MiddleCircle {
-          position: absolute;
-          bottom: 0.1px;
-          z-index: 10;
-        }
-
-        .BottomIContainer {
-          background: colors.$whiteBg;
-          box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.1);
-          border-radius: 7px 7px 0px 0px;
-          transform: rotate(-180deg);
-          width: 100%;
-          height: 51px;
-          position: absolute;
-          bottom: 0;
-        }
-
-        &:hover {
-          box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.2);
-        }
-      }
-
-      .ClickShadow {
-        box-shadow: 5px 5px 52px 2px rgba(0, 0, 0, 0.2);
-      }
-
-      .HorizontalLine {
-        margin-top: 32px;
-        margin-bottom: 15px;
-        background: colors.$icon;
-        width: 174px;
-        margin-right: auto;
-        height: 3px;
-      }
-
-      .TypePhrase {
-        font-style: normal;
-        @include fontTypePhrase;
-        text-align: center;
-        color: colors.$icon;
-      }
-
-      .HiglightedCol {
-        color: colors.$textColor1;
-      }
-
-      .Higlighted {
-        background: colors.$primary;
+      @media (max-width: 600px) {
+        height: 42px;
+        font-size: 28px;
+        line-height: 42px;
+        max-width: 217px;
+        margin-bottom: 30px;
       }
     }
 
@@ -238,6 +122,10 @@
 
     .CollectionName {
       margin-top: 40px;
+
+      @media (max-width: 600px) {
+        margin-top: 30px;
+      }
     }
     .CollectionSymbol {
       margin-top: 30px;
