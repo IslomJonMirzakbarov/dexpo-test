@@ -327,6 +327,7 @@ const NftCreate = () => {
       )}
       {rejected && (
         <ModalCard
+          responseChecker={true}
           page="nft-create"
           onSaveButtonClick={() => {
             setShowModal(false);

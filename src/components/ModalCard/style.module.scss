@@ -20,6 +20,12 @@
     background: #ffffff;
     border-radius: 7px;
 
+    @media (max-width: 600px) {
+      max-width: 335px;
+      // max-height: 267px;
+      height: auto;
+    }
+
     .header {
       .cardTitle {
         font-weight: 600;
@@ -56,10 +62,20 @@
       background: linear-gradient(91.78deg, #e2007f 4.92%, #1e4ced 95.68%);
       border-radius: 0px 0px 7px 7px;
 
+      @media (max-width: 600px) {
+        position: static;
+        width: auto;
+        height: 45px;
+      }
+
       .button {
         flex: 1;
         background: none;
         border: none;
+
+        @media (max-width: 600px) {
+          font-size: 12px;
+        }
       }
     }
 
