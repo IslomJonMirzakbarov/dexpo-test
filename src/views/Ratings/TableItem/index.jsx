@@ -4,12 +4,12 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 import { CTableCell, CTableRow } from '../../../components/CTable';
 import styles from './style.module.scss';
-import collectionItemImg from '../../../assets/icons/profile-img-icon.svg';
+import CollectionItemImg from '../../../assets/icons/profile-img-icon.svg?component';
 import conTokenImg from '../../../assets/images/con-token.png';
 import { charCurrency } from '../../../utils/currency';
 
 const TableItem = ({
-  img = collectionItemImg,
+  img,
   name,
   index,
   volume,
@@ -29,13 +29,20 @@ const TableItem = ({
             {index < 10 && '0'}
             {index}
           </Typography>
-          <img
-            src={img || collectionItemImg}
-            className={styles.img}
-            alt={name}
-            width={40}
-            height={40}
-          />
+          {img ? (
+            <img
+              src={img}
+              className={styles.img}
+              alt={name}
+              width={40}
+              height={40}
+            />
+          ) : (
+            <CollectionItemImg
+              className={styles.img}
+              style={{ width: 50, height: 50 }}
+            />
+          )}
           <Typography className="placeholder" fontWeight={600}>
             {name}
           </Typography>
@@ -46,8 +53,7 @@ const TableItem = ({
           <img src={conTokenImg} alt="token" width={25} height={25} />
           <Typography variant="placeholder" fontWeight={600} ml={1}>
             <NumberFormat
-              value={charCurrency(volume)?.amount}
-              suffix={charCurrency(volume)?.char}
+              value={volume}
               displayType={'text'}
               decimalScale={3}
               thousandSeparator={true}
@@ -77,8 +83,7 @@ const TableItem = ({
             <img src={conTokenImg} alt="token" width={25} height={25} />
             <Typography variant="placeholder" fontWeight={600} ml={1}>
               <NumberFormat
-                value={charCurrency(floorPrice)?.amount}
-                suffix={charCurrency(floorPrice)?.char}
+                value={floorPrice}
                 displayType={'text'}
                 decimalScale={3}
                 thousandSeparator={true}

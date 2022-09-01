@@ -81,11 +81,10 @@ const HistoryTableItem = ({
             <TokenIcon style={{ width: 16, height: 16 }} />
             <Typography variant="placeholder" fontWeight={500} ml={1}>
               <NumberFormat
-                value={charCurrency(amount)?.amount}
+                value={amount}
                 displayType={'text'}
                 thousandSeparator={true}
                 decimalScale={3}
-                suffix={charCurrency(amount)?.char}
               />
             </Typography>
           </Box>
@@ -95,9 +94,8 @@ const HistoryTableItem = ({
         {price && (
           <Typography variant="placeholder" fontWeight={500}>
             <NumberFormat
-              value={charCurrency(price)?.amount}
+              value={price}
               prefix="$"
-              suffix={charCurrency(price)?.char}
               decimalScale={4}
               displayType={'text'}
               thousandSeparator={true}
