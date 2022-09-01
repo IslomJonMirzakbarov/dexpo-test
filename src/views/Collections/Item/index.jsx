@@ -28,15 +28,23 @@ const CollectionItem = () => {
   const { token } = useSelector((store) => store.auth);
 
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState(null);
+  const [searchInput, setSearchInput] = useState('');
 
-  const { data, isLoading } = useQuery(`get-collection-item-${id}`, () =>
+  const handleChangeSort = (e) => setSort(e);
+
+  const handleChangeSearch = (e) => setSearchInput(e.target.value);
+
+  const { data, isLoading } = useQuery(`GET-COLLECTION-ITEM-${id}`, () =>
     getCollectionDetail(token, id)
   );
 
   const { nftListCollection, loadingListByCollection } = useNftAPI({
     isGetListByCollection: true,
     contractAddress: id,
-    size: 20000
+    size: 20000,
+    type: sort?.value,
+    search
   });
 
   const innerData = data?.data;
@@ -63,19 +71,26 @@ const CollectionItem = () => {
         )}
       </Box>
       <Box className={styles.list}>
-        {!loadingListByCollection && noItems ? (
-          <NoItemsFound />
-        ) : (
-          <CollectionList
-            isLoading={loadingListByCollection}
-            data={innerList}
-            contract_address={id}
-            isGuest={isGuest}
-          />
-        )}
+        <CollectionList
+          isLoading={loadingListByCollection}
+          data={innerList}
+          contract_address={id}
+          isGuest={isGuest}
+          sort={sort}
+          noItems={!loadingListByCollection && noItems}
+          searchInput={searchInput}
+          handleChangeSearch={handleChangeSearch}
+          handleChangeSort={handleChangeSort}
+        />
       </Box>
       <Box display="flex" justifyContent="center" alignItems="center">
-        <CPagination page={page} setCurrentPage={setPage} count={totalPages} />
+        {totalPages > 1 && (
+          <CPagination
+            page={page}
+            setCurrentPage={setPage}
+            count={totalPages}
+          />
+        )}
       </Box>
     </div>
   );

@@ -33,12 +33,17 @@ const TopCollections = ({ collections = [] }) => {
   return (
     <Paper variant="div" className={styles.container}>
       <Container maxWidth>
-        <Box display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center" className={styles.filter}>
           <Typography variant="h2" fontWeight={700}>
             Top Collections
           </Typography>
         </Box>
-        <Box display="flex" justifyContent="end" mt={2}>
+        <Box
+          display="flex"
+          justifyContent="end"
+          mt={2}
+          className={styles.filter}
+        >
           <DSelect
             label="last 24 hours"
             isDark={true}
@@ -47,45 +52,59 @@ const TopCollections = ({ collections = [] }) => {
             onSelect={(item) => handleSelect(item)}
           />
         </Box>
-        <Grid container spacing={2} mt={2}>
-          <Grid item lg={4}>
+        <Grid container spacing={2} mt={2} className={styles.grid}>
+          <Grid item lg={4} sm={12} className={styles.gridContainer}>
             {collections1?.map(({ collection }, i) => (
-              <Box key={i} mt={2} pr={2}>
+              <Box key={i} mt={2} pr={2} className={styles.gridItem}>
                 <CollectionCard
                   index={i + 1}
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
+                  onClick={() =>
+                    navigate(`/collections/${collection.contract_address}`)
+                  }
                 />
               </Box>
             ))}
           </Grid>
-          <Grid item lg={4}>
+          <Grid item lg={4} sm={12} className={styles.gridContainer}>
             {collections2?.map(({ collection }, i) => (
-              <Box key={i} mt={2}>
+              <Box key={i} mt={2} className={styles.gridItem}>
                 <CollectionCard
                   index={i + 4}
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
+                  onClick={() =>
+                    navigate(`/collections/${collection.contract_address}`)
+                  }
                 />
               </Box>
             ))}
           </Grid>
-          <Grid item lg={4}>
+          <Grid item lg={4} sm={12} className={styles.gridContainer}>
             {collections3?.map(({ collection }, i) => (
-              <Box key={i} mt={2} pl={2}>
+              <Box key={i} mt={2} pl={2} className={styles.gridItem}>
                 <CollectionCard
                   index={i + 7}
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
+                  onClick={() =>
+                    navigate(`/collections/${collection.contract_address}`)
+                  }
                 />
               </Box>
             ))}
           </Grid>
         </Grid>
-        <Box display="flex" justifyContent="center" mt={10}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          mt={10}
+          className={styles.footer}
+        >
           <Button
             variant="containedPrimary"
             onClick={() => navigate('/rankings')}

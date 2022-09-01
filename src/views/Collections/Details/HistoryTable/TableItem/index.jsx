@@ -11,6 +11,7 @@ import { makeStyles } from '@mui/styles';
 import { truncateAddress } from '../../../../../utils';
 import { redirectAccount, redirectTx } from '../../../../../utils/redirect';
 import TokenIcon from '../../../../../assets/images/con-token.svg?component';
+import { charCurrency } from '../../../../../utils/currency';
 
 const eventTypes = {
   SOLD: {
@@ -80,9 +81,11 @@ const HistoryTableItem = ({
             <TokenIcon style={{ width: 16, height: 16 }} />
             <Typography variant="placeholder" fontWeight={500} ml={1}>
               <NumberFormat
-                value={amount}
+                value={charCurrency(amount)?.amount}
                 displayType={'text'}
                 thousandSeparator={true}
+                decimalScale={3}
+                suffix={charCurrency(amount)?.char}
               />
             </Typography>
           </Box>
@@ -92,8 +95,9 @@ const HistoryTableItem = ({
         {price && (
           <Typography variant="placeholder" fontWeight={500}>
             <NumberFormat
-              value={price}
+              value={charCurrency(price)?.amount}
               prefix="$"
+              suffix={charCurrency(price)?.char}
               decimalScale={4}
               displayType={'text'}
               thousandSeparator={true}

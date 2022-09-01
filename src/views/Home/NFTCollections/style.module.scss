@@ -5,15 +5,27 @@
   background-repeat: no-repeat;
   background-size: 100%;
   padding: 70px 0;
+
+  @media (max-width: 600px) {
+    background-size: 350%;
+    background-position: 0 0;
+  }
   h2 {
     font-family: 'Poppins', sans-serif !important;
   }
   .block {
     margin-top: 40px;
+    @media (max-width: 600px) {
+      &:first-child {
+        margin-top: 40px;
+      }
+      margin-top: 100px;
+    }
     .collection {
       margin: 20px 0;
       display: flex;
       justify-content: center;
+
       .card {
         margin: 0 12px;
       }

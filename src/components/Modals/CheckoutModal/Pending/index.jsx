@@ -5,6 +5,7 @@ import NumberFormat from 'react-number-format';
 
 import nftImg from '../../../../assets/images/nft1.png';
 import ConToken from '../../../../assets/images/con-token.svg?component';
+import { charCurrency } from '../../../../utils/currency';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -112,6 +113,7 @@ const PendingCheckout = ({
                     value={price}
                     displayType={'text'}
                     thousandSeparator={true}
+                    decimalScale={2}
                   />
                 </Typography>
                 <Box display="flex" alignItems="center">
@@ -133,7 +135,7 @@ const PendingCheckout = ({
                   displayType={'text'}
                   thousandSeparator={true}
                   prefix="$"
-                  decimalScale={4}
+                  decimalScale={3}
                 />
               </Typography>
             </Box>

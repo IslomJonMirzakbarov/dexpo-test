@@ -6,10 +6,6 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 import { truncateAddress } from '../../utils';
-import PersonIcon from '@mui/icons-material/Person';
-import styles from '../AuthLayout/style.module.scss';
-import classNames from 'classnames';
-import ProfileMenu from './ProfileMenu';
 import { toggleProfilePopup } from '../../store/popup/popup.slice';
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
 import logo from '../../assets/icons/logo-beta.svg';
@@ -20,6 +16,7 @@ import { setArtist } from '../../store/artist/artist.slice';
 import { logout } from '../../store/auth/auth.slice';
 import { setAccount, setPriceeUSD } from '../../store/wallet/wallet.slice';
 import LinkList from './LinkList';
+import Profile from './Profile';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
@@ -33,17 +30,11 @@ const MergedLayout = ({ children }) => {
 
   const { account } = useSelector((store) => store.wallet);
   const { token } = useSelector((store) => store.auth);
-  const { isProfileOpen } = useSelector((store) => store.popup);
 
   const label = account ? truncateAddress(account) : BUTTON_LABEL;
 
   const handleClick = () => {
     navigate('/login');
-  };
-
-  const handleToggleMenu = () => {
-    if (token) dispatch(toggleProfilePopup());
-    else navigate('/login');
   };
 
   const handleNetwork = async () => {
@@ -90,8 +81,6 @@ const MergedLayout = ({ children }) => {
     }
   };
 
-  useOnClickOutside(ref, isProfileOpen ? handleToggleMenu : () => {});
-
   useEffect(() => {
     handleNetwork();
     handlePrice();
@@ -119,13 +108,7 @@ const MergedLayout = ({ children }) => {
             >
               {label}
             </Button>
-            <PersonIcon
-              className={classNames(styles.profile, {
-                [styles.active]: isProfileOpen
-              })}
-              onClick={handleToggleMenu}
-            />
-            {!!token && isProfileOpen && <ProfileMenu />}
+            <Profile forwardedRef={ref} />
           </Box>
         }
       >

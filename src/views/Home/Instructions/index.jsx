@@ -52,9 +52,29 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${detailBg})`,
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
     borderRadius: 0,
     padding: '115px 0',
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
+    [theme.breakpoints.down('sm')]: {
+      padding: '0',
+      paddingBottom: 119,
+      backgroundPosition: '-500px 0'
+    }
+  },
+  wrapper: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      margin: 0,
+      padding: 0
+    }
+  },
+  item: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      margin: '50px 0 0 0',
+      padding: '0!important'
+    }
   },
   description: {
     maxWidth: 500
@@ -79,9 +99,17 @@ const Instructions = () => {
   return (
     <Paper className={classes.container}>
       <Container>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} className={classes.wrapper}>
           {data.map((item, i) => (
-            <Grid item lg={6} key={i} px={3} mt={5}>
+            <Grid
+              item
+              lg={6}
+              key={i}
+              px={3}
+              mt={5}
+              sm={12}
+              className={classes.item}
+            >
               <Box display="flex" flexDirection="column" alignItems="center">
                 <Box className={classes.imgBox}>
                   <img src={item.icon} alt={'icon'} />

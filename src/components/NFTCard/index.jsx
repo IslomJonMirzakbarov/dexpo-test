@@ -12,6 +12,7 @@ import { calculateDeadline } from '../../utils/deadline';
 import useNFTAPI from '../../hooks/useNFT';
 
 import styles from './style.module.scss';
+import { charCurrency } from '../../utils/currency';
 
 const NFTCard = ({
   page,
@@ -128,9 +129,11 @@ const NFTCard = ({
                   }}
                 />
                 <NumberFormat
-                  value={price}
+                  value={charCurrency(price).amount}
                   displayType={'text'}
                   thousandSeparator={true}
+                  suffix={charCurrency(price).char}
+                  decimalScale={2}
                 />
               </>
             )}

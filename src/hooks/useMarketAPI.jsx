@@ -4,7 +4,7 @@ import { securedAPI } from '../services/api';
 import { useQuery } from 'react-query';
 import { marketFilters } from '../constants/marketFilter';
 
-const size = 10;
+const size = 20;
 
 const configQuery = {
   refetchOnMount: true,

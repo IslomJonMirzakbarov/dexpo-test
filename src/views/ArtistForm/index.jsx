@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import styles from './style.module.scss';
@@ -6,10 +6,10 @@ import FormInputText from '../../components/FormInputText';
 import { Box, Container } from '@mui/system';
 import useArtistAPI from '../../hooks/useArtistAPI';
 import PrimaryButton from '../../components/Buttons/PrimaryButton';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { togglePopupByKey } from '../../store/popup/popup.slice';
+
 import SubmittedModal from '../../components/Modals/SubmittedModal';
 import RejectedModal from '../../components/Modals/RejectedModal';
 import Loader from '../../components/Loader';
@@ -17,30 +17,37 @@ import classNames from 'classnames';
 
 const ArtistForm = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { account } = useSelector((store) => store.wallet);
 
   const [rejectCasePopup, setRejectCasePopup] = useState(false);
-  const { create, artist, isLoading } = useArtistAPI({ isDetail: true });
+  const { create, artist, isLoading, refetch } = useArtistAPI({
+    isDetail: true
+  });
 
-  const isRejected = artist?.data?.status === "REJECT";
-  const isPending =
-    artist?.data?.status === "IDLE" || artist?.data?.status === "PENDING";
+  const isNotExisted = artist?.message === 'NOT_EXIST';
+
+  const isRejected = artist?.data?.status === 'REJECT';
+  const isPending = useMemo(
+    () =>
+      !isNotExisted &&
+      (artist?.data?.status === 'IDLE' || artist?.data?.status === 'PENDING'),
+    [artist?.data, isNotExisted]
+  );
 
   const {
     handleSubmit,
     formState: { errors },
     control,
-    reset,
+    reset
   } = useForm({
     defaultValues: {
-      artistName: artist?.data?.artist_name || "",
-      email: artist?.data?.artist_email || "",
+      artistName: artist?.data?.artist_name || '',
+      email: artist?.data?.artist_email || '',
       walletAddress: account,
-      youtubeURL: artist?.data?.youtube_url || "",
-      description: artist?.data?.description || "",
-    },
+      youtubeURL: artist?.data?.youtube_url || '',
+      description: artist?.data?.description || ''
+    }
   });
 
   const onSubmit = (data) => {
@@ -48,30 +55,34 @@ const ArtistForm = () => {
       artist_name: data.artistName,
       artist_email: data.email,
       artist_youtube_url: data.youtubeURL,
-      description: data.description,
+      description: data.description
     };
     create.mutate(payload);
 
     if (artist.data !== null) {
       if (
-        artist.code.toString()[0] === "4" ||
-        artist.code.toString()[0] === "5"
+        artist.code.toString()[0] === '4' ||
+        artist.code.toString()[0] === '5'
       ) {
         setRejectCasePopup(true);
       }
     }
 
     reset();
-    dispatch(togglePopupByKey("submittedPopup"));
+    refetch();
   };
 
   const modalClick = () => {
     if (!rejectCasePopup) {
-      navigate("/user/my-page/artist-status");
+      navigate('/user/my-page/artist-status');
     } else {
-      navigate("/");
+      navigate('/');
     }
   };
+
+  useEffect(() => {
+    refetch();
+  }, [account, isPending]);
 
   if (isLoading) return <Loader />;
 

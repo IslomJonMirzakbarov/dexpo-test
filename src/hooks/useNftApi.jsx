@@ -1,9 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { securedAPI } from "../services/api";
-import { useMutation, useQuery } from "react-query";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { securedAPI } from '../services/api';
+import { useMutation, useQuery } from 'react-query';
 
-const getList = ({ type, page, orderBy = "desc", size }, token) =>
+const getList = ({ type, page, orderBy = 'desc', size }, token) =>
   securedAPI(token)
     .get(
       // /api/nft/listByUser?page=1&size=10&orderBy=desc&wallet_address=0x4c0c499b1af2611035dbc95240e3827caeb1cf1e&type=CREATED_BY_COLLECTIONS
@@ -14,7 +14,7 @@ const getList = ({ type, page, orderBy = "desc", size }, token) =>
     });
 
 const getListByUser = (
-  { type, page, orderBy = "desc", size, walletAddress },
+  { type, page, orderBy = 'desc', size, walletAddress },
   token
 ) =>
   securedAPI(token)
@@ -37,20 +37,26 @@ const fetchUnlike = (data, token) =>
   securedAPI(token).post(`/api/nft/dislike`, data);
 
 const nftListByCollection = (
-  { page, orderBy = "desc", size, contractAddress },
+  { page, orderBy = 'desc', size, contractAddress, type },
   token
 ) =>
   securedAPI(token)
-    .get(
-      `/api/nft/listByCollection?contract_address=${contractAddress}&page=${page}&size=${size}&orderBy=${orderBy}`
-    )
+    .get(`/api/nft/listByCollection`, {
+      params: {
+        contract_address: contractAddress,
+        page,
+        size,
+        orderBy,
+        filter_type: type
+      }
+    })
     .then((res) => res.data);
 
 const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: true, // constantly updating
   refetchOnReconnect: true,
-  staleTime: 0,
+  staleTime: 0
 };
 
 const useNftAPI = ({
@@ -59,12 +65,12 @@ const useNftAPI = ({
   isGetListByUser = false,
   isGetListByCollection = false,
   isGetDetail = false,
-  type = "COLLECTED",
+  type,
   page = 1,
-  orderBy = "desc",
+  orderBy = 'desc',
   size = 10,
   refetchInterval,
-  walletAddress,
+  walletAddress
 }) => {
   const { token } = useSelector((store) => store.auth);
 
@@ -72,13 +78,17 @@ const useNftAPI = ({
     data: nftListCollection,
     refetch: refetchListByCollection,
     isLoading: loadingListByCollection,
-    error: errorByCollection,
+    error: errorByCollection
   } = useQuery(
-    `get-nft-list-by-collection-${contractAddress}`,
-    () => nftListByCollection({ contractAddress, page, orderBy, size }, token),
+    `get-nft-list-by-collection-${contractAddress}-${page}-${type}`,
+    () =>
+      nftListByCollection(
+        { contractAddress, page, orderBy, size, type },
+        token
+      ),
     {
       enabled: !!isGetListByCollection,
-      ...configQuery,
+      ...configQuery
     }
   );
 
@@ -86,14 +96,14 @@ const useNftAPI = ({
     data: list,
     refetch: refetchList,
     isLoading: loadingList,
-    error,
+    error
   } = useQuery(
-    "get-nft-list",
+    'get-nft-list',
     () => getList({ type, page, orderBy, size }, token),
     {
       enabled: !!isGetList,
       ...configQuery,
-      refetchInterval,
+      refetchInterval
     }
   );
 
@@ -101,14 +111,14 @@ const useNftAPI = ({
     data: listByUser,
     refetch: refetchListByUser,
     isLoading: loadingListByUser,
-    error: errorByUser,
+    error: errorByUser
   } = useQuery(
     `get-nft-list-by-user-${type}-${walletAddress}`,
     () => getListByUser({ type, page, orderBy, size, walletAddress }, token),
     {
       enabled: !!isGetListByUser,
       ...configQuery,
-      refetchInterval,
+      refetchInterval
     }
   );
 
@@ -116,9 +126,9 @@ const useNftAPI = ({
     data: detail,
     refetch: refetchDetail,
     isLoading: loadingDetail,
-    error: errorDetail,
+    error: errorDetail
   } = useQuery(`get-nft-detail`, (payload) => getDetail(payload, token), {
-    enabled: !!isGetDetail,
+    enabled: !!isGetDetail
   });
 
   const mutationLike = useMutation((data) => fetchLike(data, token), {});
@@ -139,7 +149,11 @@ const useNftAPI = ({
     loadingListByCollection,
     refetchList,
     loadingList,
-    error,
+    refetchListByUser,
+    refetchListByCollection,
+    errorByCollection,
+    errorByUser,
+    error
   };
 };
 

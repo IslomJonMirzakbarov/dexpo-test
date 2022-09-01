@@ -15,44 +15,96 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     width: '100%',
-    height: '100%'
+    height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      height: 350
+    }
   },
   card1: {
     position: 'absolute',
     left: '30%',
     top: '101.59px',
-    zIndex: 12
+    zIndex: 12,
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      width: 133,
+      height: 210,
+      left: '45%',
+      top: '50px'
+    }
   },
   card2: {
     zIndex: 11,
     left: '10%',
     top: '80px',
-    transition: '0.2s ease-out all'
+    transition: '0.2s ease-out all',
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      width: 172,
+      height: 223,
+      left: '26%',
+      top: '45px'
+    }
   },
   card3: {
     zIndex: 10,
     left: '-5%',
-    transition: '0.2s ease-out all'
+    transition: '0.2s ease-out all',
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      width: 213,
+      height: 238,
+      left: '11%',
+      top: '50px'
+    }
   },
   gradientBall: {
     position: 'absolute',
     left: '60%',
-    top: '101.59px'
+    top: '101.59px',
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      width: 107,
+      height: 107,
+      left: '63%',
+      top: '30px'
+    }
   },
   abstractBall: {
     position: 'absolute',
     left: '68%',
-    top: '70%'
+    top: '70%',
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      width: 60,
+      height: 60,
+      left: '70%',
+      top: '200px'
+    }
   },
   greyBall: {
     position: 'absolute',
     left: '0%',
-    top: '55%'
+    top: '55%',
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      width: 66,
+      height: 66,
+      left: '12%',
+      top: '130px'
+    }
   },
   whiteBall: {
     position: 'absolute',
     left: '10%',
-    top: '75%'
+    top: '75%',
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      width: 29,
+      height: 29,
+      left: '25%',
+      top: '210px'
+    }
   }
 }));
 

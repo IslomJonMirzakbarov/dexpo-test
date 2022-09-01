@@ -4,14 +4,17 @@ import styles from '../style.module.scss';
 import classNames from 'classnames';
 import CollectionItems from './Items';
 
-const CollectionList = ({ isLoading, data, contract_address, isGuest }) => {
-  const [sort, setSort] = useState(null);
-  const [searchInput, setSearchInput] = useState('');
-
-  const handleChangeSort = (e) => setSort(e);
-
-  const handleChangeSearch = (e) => setSearchInput(e.target.value);
-
+const CollectionList = ({
+  isLoading,
+  data,
+  contract_address,
+  isGuest,
+  sort,
+  noItems,
+  searchInput,
+  handleChangeSort,
+  handleChangeSearch
+}) => {
   return (
     <Paper className={styles.box} variant="div">
       <Container>
@@ -26,6 +29,7 @@ const CollectionList = ({ isLoading, data, contract_address, isGuest }) => {
               data={data}
               contract_address={contract_address}
               isGuest={isGuest}
+              noItems={noItems}
             />
           </Box>
         </Box>

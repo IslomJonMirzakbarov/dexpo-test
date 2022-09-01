@@ -1,4 +1,5 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import React from 'react';
 import YoutubeIcon from '../../assets/icons/youtube.svg?component';
 import FacebookIcon from '../../assets/icons/facebook.svg?component';
@@ -107,14 +108,28 @@ const list = [
   }
 ];
 
+const useStyles = makeStyles((theme) => ({
+  grid: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 10
+    }
+  },
+  wrapper: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0
+    }
+  }
+}));
+
 const Footer = () => {
   const { token } = useSelector((store) => store.auth);
+  const classes = useStyles();
 
   return (
     <footer className={styles.container}>
       <Container>
-        <Grid container py={4} mt={4}>
-          <Grid item lg={3}>
+        <Grid container py={4} mt={4} className={classes.wrapper}>
+          <Grid item lg={3} xs={12}>
             <Box display="flex" flexDirection="column">
               <img src={logoImg} width={132} alt="logo" />
               <Typography variant="p" mt={2}>
@@ -124,11 +139,11 @@ const Footer = () => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item lg={9} pt={5}>
+          <Grid item lg={9} pt={5} xs={12}>
             <Grid container>
-              <Grid item lg={2}></Grid>
+              <Grid item lg={2} xs={0}></Grid>
               {list.map((item, i) => (
-                <Grid item key={i} lg={2}>
+                <Grid item key={i} xs={6} lg={2} className={classes.grid}>
                   <Typography variant="placeholder" fontWeight={700}>
                     {item.title}
                   </Typography>
