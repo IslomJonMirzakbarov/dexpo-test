@@ -1,5 +1,6 @@
 import { Box, Container, Paper, Typography } from '@mui/material';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CTable,
   CTableBody,
@@ -18,6 +19,7 @@ import TableItem from './TableItem';
 
 const Ratings = () => {
   const ref = useRef();
+  const navigate = useNavigate();
 
   const [filter, setFilter] = useState(rankingSorts[0]);
   const [tabs, setTabs] = useState(rankingTabs);
@@ -56,6 +58,7 @@ const Ratings = () => {
 
   const handleSelect = (item) => setFilter(item);
   const handleSelectTab = (item) => setTab(item);
+  const handleClick = (link) => navigate(link);
 
   useEffect(() => {
     if (tab.value.includes('artists')) connectArtists();
@@ -121,6 +124,9 @@ const Ratings = () => {
                   ) => {
                     const img = isArtists ? artist.image_url : item.logo_url;
                     const name = isArtists ? artist.artist_name : item.name;
+                    const link = isArtists
+                      ? `/user/my-page`
+                      : `/collections/${item?.contract_address}`;
 
                     return (
                       <TableItem
@@ -135,6 +141,7 @@ const Ratings = () => {
                         itemsCount={items}
                         ownersCount={owners}
                         isArtists={isArtists}
+                        onClick={() => handleClick(link)}
                       />
                     );
                   }

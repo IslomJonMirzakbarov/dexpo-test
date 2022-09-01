@@ -61,6 +61,9 @@ const TopCollections = ({ collections = [] }) => {
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
+                  onClick={() =>
+                    navigate(`/collections/${collection.contract_address}`)
+                  }
                 />
               </Box>
             ))}
@@ -73,6 +76,9 @@ const TopCollections = ({ collections = [] }) => {
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
+                  onClick={() =>
+                    navigate(`/collections/${collection.contract_address}`)
+                  }
                 />
               </Box>
             ))}
@@ -85,6 +91,9 @@ const TopCollections = ({ collections = [] }) => {
                   name={collection.name}
                   price={collection.floor_price}
                   src={collection.logo_url}
+                  onClick={() =>
+                    navigate(`/collections/${collection.contract_address}`)
+                  }
                 />
               </Box>
             ))}

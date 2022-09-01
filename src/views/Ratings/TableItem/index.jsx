@@ -18,10 +18,11 @@ const TableItem = ({
   floorPrice,
   itemsCount,
   ownersCount,
-  isArtists = false
+  isArtists = false,
+  onClick
 }) => {
   return (
-    <CTableRow>
+    <CTableRow onClick={onClick}>
       <CTableCell>
         <Box display="flex" alignItems="center">
           <Typography>
