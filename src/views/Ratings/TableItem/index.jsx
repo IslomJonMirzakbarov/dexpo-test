@@ -40,7 +40,7 @@ const TableItem = ({
           ) : (
             <CollectionItemImg
               className={styles.img}
-              style={{ width: 50, height: 50 }}
+              style={{ width: 40, height: 40 }}
             />
           )}
           <Typography className="placeholder" fontWeight={600}>
