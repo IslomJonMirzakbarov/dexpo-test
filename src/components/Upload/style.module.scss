@@ -6,6 +6,11 @@
   position: relative;
   width: 100%;
 
+  @media (max-width: 600px) {
+    max-width: 335px;
+    max-height: 335px;
+  }
+
   .dropzone {
     width: 100%;
     cursor: pointer;
