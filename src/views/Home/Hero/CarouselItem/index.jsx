@@ -9,7 +9,11 @@ import useArtistAPI from '../../../../hooks/useArtistAPI';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '700px'
+    height: '700px',
+    [theme.breakpoints.down('sm')]: {
+      height: '100%!important',
+      flexDirection: 'column'
+    }
   },
   box: {
     width: '50%',
@@ -19,39 +23,83 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     '& img': {
       objectFit: 'cover'
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
     }
   },
   firstBox: {
-    padding: '0 70px'
+    padding: '0 70px',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0',
+      textAlign: 'center'
+    }
   },
   pretitle: {
     fontWeight: theme.typography.fontWeighBold,
     textTransform: 'uppercase',
     color: theme.palette.grey[500_8],
     transition: '0.4s ease-in-out all',
-    marginLeft: 5
+    marginLeft: 5,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginLeft: 0,
+      textAlign: 'center',
+      'font-size': '15px',
+      'line-height': '22px',
+      marginTop: 30,
+      padding: '0 50px'
+    }
   },
   title: {
     fontSize: 75,
     lineHeight: '90px',
     width: '70%',
     color: theme.palette.grey[500_8],
-    transition: '0.4s ease-in-out all'
+    transition: '0.4s ease-in-out all',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginLeft: 0,
+      textAlign: 'center',
+      'font-size': 28,
+      'line-height': '40px',
+      padding: '0 50px'
+    }
   },
   description: {
     width: '70%',
     color: theme.palette.grey[500_8],
-    transition: '0.4s ease-in-out all'
+    transition: '0.4s ease-in-out all',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginLeft: 0,
+      marginTop: 20,
+      textAlign: 'center',
+      color: theme.palette.common.white + '!important',
+      padding: '0 50px'
+    }
   },
   buttonGroup: {
     marginTop: 80,
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%'
+    },
     '& button': {
       width: 180,
-      height: 55
+      height: 55,
+      [theme.breakpoints.down('sm')]: {
+        width: 160,
+        height: 55
+      }
     }
   },
   buttonRight: {
-    margin: '0 10px'
+    margin: '0 10px',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0'
+    }
   },
   active: {
     color: theme.palette.common.white

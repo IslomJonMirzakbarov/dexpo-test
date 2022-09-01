@@ -55,6 +55,9 @@ const Faucet = () => {
 
   const onSubmit = async (data) => {
     const account = data.account;
+
+    if (account?.length !== 42) return toast.error('Invalid wallet address!');
+
     try {
       const res = await faucet(account);
 

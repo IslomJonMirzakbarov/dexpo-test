@@ -7,9 +7,6 @@ import BidInput from '../BidInput';
 
 import ConToken from '../../../../assets/images/con-token.svg?component';
 
-import { useForm } from 'react-hook-form';
-import { priceTypeChar } from '../../../../constants';
-
 const useStyles = makeStyles((theme) => ({
   img: {
     borderRadius: 7,
@@ -131,6 +128,7 @@ const InitialCheckout = ({
                   thousandSeparator={true}
                 />
               </Typography>
+
               <Box display="flex" alignItems="center">
                 <ConToken className={classes.token} />
                 <Typography fontWeight={600} ml={1}>
@@ -146,10 +144,10 @@ const InitialCheckout = ({
             >
               ~
               <NumberFormat
-                value={exchangedPrice}
-                displayType={'text'}
                 thousandSeparator={true}
+                value={exchangedPrice}
                 prefix="$"
+                displayType="text"
                 decimalScale={4}
               />
             </Typography>

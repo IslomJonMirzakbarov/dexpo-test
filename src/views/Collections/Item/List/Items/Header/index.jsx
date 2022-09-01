@@ -10,24 +10,12 @@ import DSelect from '../../../../../../components/DSelect';
 
 const sortTypes = [
   {
-    label: 'Recently published',
-    value: 'recently'
+    label: 'Recently created',
+    value: 'RECENTLY_CREATED'
   },
   {
-    label: 'Price: low to high',
-    value: 'price-des'
-  },
-  {
-    label: 'Price: high to low',
-    value: 'price-asc'
-  },
-  {
-    label: 'Common',
-    value: 'common'
-  },
-  {
-    label: 'Rare',
-    value: 'rare'
+    label: 'In market',
+    value: 'IN_MARKET'
   }
 ];
 

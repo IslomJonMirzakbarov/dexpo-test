@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DModal from '../../../components/DModal';
 import { getPurchaseLabel } from './util';
+import { charCurrency } from '../../../utils/currency';
 
 const useStyles = makeStyles({
   priceBox: {
@@ -192,9 +193,10 @@ const CollectionDetailsContainer = ({
                           lineHeight="45px"
                         >
                           <NumberFormat
-                            value={market?.price}
+                            value={charCurrency(market?.price)?.amount}
                             displayType={'text'}
                             thousandSeparator={true}
+                            suffix={charCurrency(market?.price)?.char}
                             decimalScale={4}
                           />
                         </Typography>
@@ -206,11 +208,12 @@ const CollectionDetailsContainer = ({
                       >
                         (
                         <NumberFormat
-                          value={exchangedPrice}
+                          value={charCurrency(exchangedPrice)?.amount}
                           displayType={'text'}
                           thousandSeparator={true}
                           decimalScale={4}
                           prefix="$"
+                          suffix={charCurrency(exchangedPrice)?.char}
                         />
                         )
                       </Typography>

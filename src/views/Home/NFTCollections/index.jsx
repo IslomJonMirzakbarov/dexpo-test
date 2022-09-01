@@ -1,13 +1,14 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./style.module.scss";
-import Slider from "react-slick";
-import NFTCard from "../../../components/NFTCard";
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import classNames from "classnames";
-import { priceTypeChar } from "../../../constants";
+import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from './style.module.scss';
+import Slider from 'react-slick';
+import NFTCard from '../../../components/NFTCard';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import classNames from 'classnames';
+import { priceTypeChar } from '../../../constants';
+import { useTheme } from '@emotion/react';
 
 const slidesToShow = 4;
 
@@ -19,16 +20,30 @@ const settings = {
   slidesToScroll: 1,
   prevArrow: <ArrowBackIosNewRoundedIcon />,
   nextArrow: <ArrowForwardIosRoundedIcon />,
+  responsive: [
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: false,
+        dots: true
+      }
+    }
+  ]
 };
 
 const NFTCollections = ({
   collections,
   hottestCollections,
-  setRefetchInterval,
+  setRefetchInterval
 }) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <Box className={classNames(styles.container, "collections")}>
+    <Box className={classNames(styles.container, 'collections')}>
       <Container>
         <Box className={styles.block}>
           <Box
@@ -42,7 +57,7 @@ const NFTCollections = ({
             </Typography>
           </Box>
           <Box className={styles.collection}>
-            {hottestCollections?.length < 5 ? (
+            {hottestCollections?.length < 5 && !matches ? (
               hottestCollections?.map(
                 ({ nft, artist, market, collection }, c) => {
                   return (

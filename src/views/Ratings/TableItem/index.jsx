@@ -4,8 +4,9 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 import { CTableCell, CTableRow } from '../../../components/CTable';
 import styles from './style.module.scss';
-import collectionItemImg from '../../../assets/images/collection-item.png';
+import collectionItemImg from '../../../assets/icons/profile-img-icon.svg';
 import conTokenImg from '../../../assets/images/con-token.png';
+import { charCurrency } from '../../../utils/currency';
 
 const TableItem = ({
   img = collectionItemImg,
@@ -44,7 +45,8 @@ const TableItem = ({
           <img src={conTokenImg} alt="token" width={25} height={25} />
           <Typography variant="placeholder" fontWeight={600} ml={1}>
             <NumberFormat
-              value={volume}
+              value={charCurrency(volume)?.amount}
+              suffix={charCurrency(volume)?.char}
               displayType={'text'}
               decimalScale={3}
               thousandSeparator={true}
@@ -74,7 +76,8 @@ const TableItem = ({
             <img src={conTokenImg} alt="token" width={25} height={25} />
             <Typography variant="placeholder" fontWeight={600} ml={1}>
               <NumberFormat
-                value={floorPrice}
+                value={charCurrency(floorPrice)?.amount}
+                suffix={charCurrency(floorPrice)?.char}
                 displayType={'text'}
                 decimalScale={3}
                 thousandSeparator={true}

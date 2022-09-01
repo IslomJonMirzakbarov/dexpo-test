@@ -29,8 +29,8 @@ export const calculateDeadline = (start, end) => {
   const comparedMonth = compareMonths(parsedStart, parsedEnd);
   const comparedDays = compareDays(parsedStart, parsedEnd);
 
-  if (comparedMonth > 0 && comparedDays > 0)
-    return comparedMonth + ' months left';
+  // if (comparedMonth > 0 && comparedDays > 0)
+  //   return comparedMonth + ' months left';
 
   if (comparedDays + comparedMonth * dayInEndMonth > 0)
     return comparedDays + comparedMonth * dayInEndMonth + ' days left';

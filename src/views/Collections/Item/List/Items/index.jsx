@@ -7,6 +7,7 @@ import { fakeNFTs } from '../../../../../constants/faker';
 import NFTCard from '../../../../../components/NFTCard';
 import { useNavigate } from 'react-router-dom';
 import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton';
+import NoItemsFound from '../../../../../components/NoItems';
 
 const CollectionItems = ({
   sort = '',
@@ -16,7 +17,8 @@ const CollectionItems = ({
   isLoading,
   data,
   contract_address,
-  isGuest
+  isGuest,
+  noItems
 }) => {
   const navigate = useNavigate();
 
@@ -40,35 +42,39 @@ const CollectionItems = ({
         handleChangeSearch={handleChangeSearch}
       />
       <Box className={styles.body} mt={2}>
-        <Grid container>
-          {isLoading
-            ? fakeNFTs.map((_, c) => (
-                <Grid item lg={3} key={c} p={1}>
-                  <NFTCardSkeleton />
-                </Grid>
-              ))
-            : data.map(({ artist, nft, collection, market }, c) => (
-                <Grid item lg={3} key={c} p={1}>
-                  <NFTCard
-                    img={nft?.token_image}
-                    name={nft?.token_name}
-                    price={market.price}
-                    leftDays={null}
-                    artistName={artist?.artist_name}
-                    description={nft?.token_name}
-                    priceType={nft?.token_price}
-                    hasAction={!!nft?.token_price}
-                    purchaseCount={nft?.like_count}
-                    onClick={() =>
-                      getNavigate(nft?.token_id, collection?.contract_address)
-                    }
-                    onAction={() =>
-                      getNavigate(nft?.token_id, collection?.contract_address)
-                    }
-                  />
-                </Grid>
-              ))}
-        </Grid>
+        {noItems ? (
+          <NoItemsFound />
+        ) : (
+          <Grid container>
+            {isLoading
+              ? fakeNFTs.map((_, c) => (
+                  <Grid item lg={3} key={c} p={1}>
+                    <NFTCardSkeleton />
+                  </Grid>
+                ))
+              : data.map(({ artist, nft, collection, market }, c) => (
+                  <Grid item lg={3} key={c} p={1}>
+                    <NFTCard
+                      img={nft?.token_image}
+                      name={nft?.token_name}
+                      price={market.price}
+                      leftDays={null}
+                      artistName={artist?.artist_name}
+                      description={nft?.token_name}
+                      priceType={nft?.token_price}
+                      hasAction={!!nft?.token_price}
+                      purchaseCount={nft?.like_count}
+                      onClick={() =>
+                        getNavigate(nft?.token_id, collection?.contract_address)
+                      }
+                      onAction={() =>
+                        getNavigate(nft?.token_id, collection?.contract_address)
+                      }
+                    />
+                  </Grid>
+                ))}
+          </Grid>
+        )}
       </Box>
     </Paper>
   );
