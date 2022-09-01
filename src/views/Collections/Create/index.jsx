@@ -96,7 +96,7 @@ const CollectionCreate = () => {
               }}
             >
               <Box className={styles.TopIContainer}></Box>
-              <MiddleCircleType className={styles.MiddleCircle} />
+              <MiddleCircleType  className={styles.MiddleCircle} />
               <Box className={styles.BottomIContainer}></Box>
             </Box>
             <Box
