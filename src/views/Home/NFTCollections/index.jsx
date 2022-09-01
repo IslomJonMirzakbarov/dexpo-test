@@ -143,7 +143,7 @@ const NFTCollections = ({
             </Typography>
           </Box>
           <Box className={styles.collection}>
-            {collections?.length < 5 ? (
+            {collections?.length < 5 && !matches ? (
               <Grid
                 container
                 display="flex"

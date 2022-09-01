@@ -193,10 +193,9 @@ const CollectionDetailsContainer = ({
                           lineHeight="45px"
                         >
                           <NumberFormat
-                            value={charCurrency(market?.price)?.amount}
+                            value={market?.price}
                             displayType={'text'}
                             thousandSeparator={true}
-                            suffix={charCurrency(market?.price)?.char}
                             decimalScale={4}
                           />
                         </Typography>
@@ -208,12 +207,11 @@ const CollectionDetailsContainer = ({
                       >
                         (
                         <NumberFormat
-                          value={charCurrency(exchangedPrice)?.amount}
+                          value={exchangedPrice}
                           displayType={'text'}
                           thousandSeparator={true}
                           decimalScale={4}
                           prefix="$"
-                          suffix={charCurrency(exchangedPrice)?.char}
                         />
                         )
                       </Typography>

@@ -129,10 +129,9 @@ const NFTCard = ({
                   }}
                 />
                 <NumberFormat
-                  value={charCurrency(price).amount}
+                  value={price}
                   displayType={'text'}
                   thousandSeparator={true}
-                  suffix={charCurrency(price).char}
                   decimalScale={2}
                 />
               </>
