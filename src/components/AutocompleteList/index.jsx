@@ -2,7 +2,7 @@ import { Box, Paper, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import styles from './style.module.scss';
 import classNames from 'classnames';
-
+import DefaultImg from '../../assets/icons/profile-img-icon.svg?component';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
 
@@ -69,12 +69,22 @@ const AutocompleteList = ({
                   alignItems="center"
                   className={classNames(styles.item, styles.child)}
                 >
-                  <img
-                    src={child.img}
-                    alt={child.label}
-                    width={24}
-                    height={24}
-                  />
+                  {child.img ? (
+                    <img
+                      src={child.img}
+                      alt={child.label}
+                      width={24}
+                      height={24}
+                    />
+                  ) : (
+                    <DefaultImg
+                      style={{
+                        width: 24,
+                        height: 24
+                      }}
+                    />
+                  )}
+
                   <Typography
                     ml="7px"
                     fontWeight={500}

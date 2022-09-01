@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { securedAPI } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-import defaultImg from '../assets/icons/profile-img-icon.svg';
 
 import { useDispatch } from 'react-redux';
 import { setOtherUser } from '../store/user/user.slice';
@@ -38,7 +37,7 @@ const useSearchAPI = (query) => {
         children: artists.map((artist) => ({
           ...artist,
           label: artist.username,
-          img: artist.image_url || defaultImg,
+          img: artist.image_url,
           action: () => {
             dispatch(
               setOtherUser({
@@ -59,7 +58,7 @@ const useSearchAPI = (query) => {
         children: collections.map((collection) => ({
           ...collection,
           label: collection.name,
-          img: collection.logo_url || defaultImg,
+          img: collection.logo_url,
           action: () => navigate(`/collections/${collection.contract_address}`)
         }))
       });
@@ -70,7 +69,7 @@ const useSearchAPI = (query) => {
         children: nfts.map((nft) => ({
           ...nft,
           label: nft.token_name,
-          img: nft.token_image || defaultImg,
+          img: nft.token_image,
           action: () =>
             navigate(`/marketplace/${nft.id}/${nft.contract_address}`)
         }))
