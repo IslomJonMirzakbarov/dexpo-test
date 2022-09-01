@@ -22,18 +22,24 @@
     width: 650px;
     height: 45px;
     padding: 11px 2px 11px 15px;
-
-    // input text
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
     line-height: 22px;
-    /* identical to box height */
     color: #1f1f1f;
 
     &:focus {
       outline: none;
       border: 1.5px solid colors.$text;
+    }
+    @media (max-width: 600px) {
+      max-width: 335px;
+      height: 45px;
+    }
+  }
+  .SmWalletInputText {
+    @media (max-width: 600px) {
+      font-size: 13px;
     }
   }
   .DescriptionInput {
@@ -50,7 +56,7 @@
     color: colors.$text;
   }
   .ArtistInputText {
-    background: #7D8890;
+    background: #7d8890;
     border: none;
     border-radius: 7px;
     width: 650px;
@@ -63,7 +69,7 @@
     font-size: 15px;
     line-height: 22px;
     /* identical to box height */
-    color: #FFFFFF;
+    color: #ffffff;
 
     &:focus {
       outline: none;

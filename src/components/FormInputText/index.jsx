@@ -39,26 +39,32 @@ const FormInputText = ({
           return isDescSection ? (
             <textarea
               placeholder={
-                name === 'description'
-                  ? 'Describe your fields of artwork'
-                  : name === 'userEditBio'
-                  ? 'Please write about yourself'
-                  : 'Enter an artwork description'
+                name === "description"
+                  ? "Describe your fields of artwork"
+                  : name === "userEditBio"
+                  ? "Please write about yourself"
+                  : "Enter an artwork description"
               }
               className={classNames(
                 styles.ArtistInputText,
                 styles.DescriptionInput,
-                { [styles.CollectionEdit]: name === 'collectionEdit' }
+                { [styles.CollectionEdit]: name === "collectionEdit" }
               )}
               type={type}
               {...field}
             />
           ) : (
             <input
-              disabled={name === 'walletAddress' || isCollectionEdit}
-              className={classNames(styles.InputText, {
-                [styles.ArtistInputText]: artistInput
-              })}
+              disabled={name === "walletAddress" || isCollectionEdit}
+              className={classNames(
+                styles.InputText,
+                {
+                  [styles.ArtistInputText]: artistInput,
+                },
+                {
+                  [styles.SmWalletInputText]: name === "walletAddress",
+                }
+              )}
               placeholder={label}
               type={type}
               {...field}
