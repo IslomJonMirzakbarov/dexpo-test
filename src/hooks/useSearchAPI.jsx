@@ -61,7 +61,6 @@ const useSearchAPI = (query) => {
           img: collection.logo_url,
           action: () => {
             navigate(`/collections/${collection.contract_address}`);
-            console.log('heeey');
           }
         }))
       });
