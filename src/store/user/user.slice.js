@@ -5,12 +5,6 @@ export const { actions: userActions, reducer: userReducer } = createSlice({
   initialState: {
     userName: "",
     userDescription: "",
-    otherUserInfo: {
-      otherUserName: "",
-      otherUserDescription: "",
-      otherUserLogoUrl: "",
-      otherUserId: "",
-    },
   },
   reducers: {
     setUserName(state, { payload }) {
@@ -19,15 +13,7 @@ export const { actions: userActions, reducer: userReducer } = createSlice({
     setUserDesc(state, { payload }) {
       state.userDescription = payload.userDescription;
     },
-    setOtherUser(state, { payload }) {
-      state.otherUserInfo = {
-        otherUserName: payload.otherUserName,
-        otherUserDescription: payload.otherUserDescription,
-        otherUserLogoUrl: payload.otherUserLogoUrl,
-        otherUserId: payload.otherUserId,
-      };
-    },
   },
 });
 
-export const { setUserName, setUserDesc, setOtherUser } = userActions;
+export const { setUserName, setUserDesc } = userActions;
