@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
-import React, { useRef } from 'react';
+import React from 'react';
 import styles from './style.module.scss';
 import classNames from 'classnames';
 import DefaultImg from '../../assets/icons/profile-img-icon.svg?component';
@@ -37,11 +37,10 @@ const AutocompleteList = ({
   isOpen = false,
   data = [],
   handleClose,
-  isLoading = false
+  isLoading = false,
+  forwardedRef
 }) => {
-  const ref = useRef(null);
-
-  useOnClickOutside(ref, () => handleClose());
+  useOnClickOutside(forwardedRef, () => handleClose());
 
   if (!isOpen) return;
 
@@ -50,11 +49,11 @@ const AutocompleteList = ({
   if (!data?.length || data?.length === 0) return <NoItems />;
 
   return (
-    <Paper className={styles.container} ref={ref}>
+    <Paper className={styles.container} ref={forwardedRef}>
       <Box className={styles.menu}>
         {data.map((item, i) => (
           <>
-            <Box key={i} onClick={() => item.action()} className={styles.item}>
+            <Box key={i} onClick={item.action} className={styles.item}>
               <Typography fontWeight={500} color="grey.1000">
                 {item.label}
               </Typography>

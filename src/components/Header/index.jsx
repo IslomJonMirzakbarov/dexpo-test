@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SearchField from '../Autocomplete';
 import AutocompleteList from '../AutocompleteList';
@@ -24,10 +24,13 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const listRef = useRef();
+  const listResponsiveRef = useRef();
 
   const [search, setSearch] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenResponsive, setIsOpenResponsive] = useState(false);
 
   const { data, isLoading } = useSearchAPI(debouncedValue);
 
@@ -39,11 +42,16 @@ const Header = ({
   const clear = () => {
     setSearch('');
     setIsOpen(false);
+    setIsOpenResponsive(false);
   };
 
   const handleChange = (e) => setSearch(e?.target?.value);
 
   const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleCloseResponsive = () => {
     setIsOpen(false);
   };
 
@@ -53,6 +61,7 @@ const Header = ({
 
   useEffect(() => {
     setIsOpen(!!search);
+    setIsOpenResponsive(!!search);
     if (!search) return;
 
     debounced(search);
@@ -85,6 +94,7 @@ const Header = ({
               isOpen={isOpen}
               data={data}
               handleClose={handleClose}
+              forwardedRef={listRef}
             />
           </div>
         </div>
@@ -100,9 +110,10 @@ const Header = ({
         <div className={styles.result}>
           <AutocompleteList
             isLoading={isLoading}
-            isOpen={isOpen}
+            isOpen={isOpenResponsive}
             data={data}
-            handleClose={handleClose}
+            handleClose={handleCloseResponsive}
+            forwardedRef={listResponsiveRef}
           />
         </div>
       </div>
