@@ -41,8 +41,6 @@ const MyPage = () => {
     walletAddress: id,
   });
 
-  console.log(OtherUserInfo?.data);
-
   let num;
   switch (id) {
     case "favorites":
