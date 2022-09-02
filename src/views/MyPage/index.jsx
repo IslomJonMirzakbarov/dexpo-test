@@ -29,7 +29,7 @@ const MyPage = () => {
   const [hovered, setHovered] = useState(false);
   const [tabs, setTabs] = useState(myPageTabs);
   useEffect(() => {
-    if (otherUser) {
+    if (otherUser && id !== account) {
       setTabs(otherUserPageTabs);
     } else {
       setTabs(myPageTabs);
@@ -91,7 +91,7 @@ const MyPage = () => {
   return (
     <Box className={styles.Container}>
       <Box className={styles.SettingsIconContainer}>
-        {!otherUser && (
+        {!(otherUser && id !== account) && (
           <PageSettingsIcon
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -165,13 +165,13 @@ const MyPage = () => {
         {tab?.value === "collected" && (
           <CollectedBottom tabValue={tab?.value} id={id} />
         )}
-        {!otherUser && tab?.value === "myApplication" && (
+        {!(otherUser && id !== account) && tab?.value === "myApplication" && (
           <MyApplicationBottom artist={artist} id={id} />
         )}
-        {!otherUser && tab?.value === "listedArtworks" && (
+        {!(otherUser && id !== account) && tab?.value === "listedArtworks" && (
           <ListedArtworkBottom />
         )}
-        {!otherUser && tab?.value === "favorites" && (
+        {!(otherUser && id !== account) && tab?.value === "favorites" && (
           <FavoritesBottom items={nftItems} />
         )}
         {tab?.value === "created" &&
