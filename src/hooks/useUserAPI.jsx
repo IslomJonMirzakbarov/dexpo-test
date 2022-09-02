@@ -42,7 +42,7 @@ const getUserInfo = (token, walletAddress) =>
       return res.data;
     });
 
-const useUserAPI = ({ isUserInfo }) => {
+const useUserAPI = ({ isUserInfo, walletAddress }) => {
   const { account } = useSelector((store) => store.wallet);
   const { token } = useSelector((store) => store.auth);
 
@@ -55,6 +55,15 @@ const useUserAPI = ({ isUserInfo }) => {
     ...configQuery,
   });
 
+  const { data: OtherUserInfo } = useQuery(
+    "get-other-user-info",
+    () => getUserInfo(token, walletAddress),
+    {
+      enabled: !!walletAddress,
+      ...configQuery,
+    }
+  );
+
   const updateDesc = useMutation((data) => updateDescription(data, token), {});
   const updateImg = useMutation((data) => updateImage(data, token), {});
   const updateName = useMutation((data) => updateUsername(data, token), {});
@@ -64,6 +73,7 @@ const useUserAPI = ({ isUserInfo }) => {
     updateImg,
     updateName,
     userInfo,
+    OtherUserInfo,
     userInfoLoading,
     userInfoError,
   };

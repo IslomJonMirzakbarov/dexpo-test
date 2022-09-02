@@ -1,21 +1,21 @@
-import { Box, Container, Paper, Typography } from '@mui/material';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Box, Container, Paper, Typography } from "@mui/material";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CTable,
   CTableBody,
   CTableCell,
   CTableHead,
-  CTableHeadRow
-} from '../../components/CTable';
-import DSelect from '../../components/DSelect';
-import DTabs from '../../components/DTabs';
-import useTopArtists from '../../hooks/useTopArtistsAPI';
-import useTopCollections from '../../hooks/useTopCollectionsAPI';
-import { rankingSorts, rankingTabs, tableRows, topTypes } from './mocks';
-import ArtistSkeleton from './Skeletons/Artist';
-import styles from './style.module.scss';
-import TableItem from './TableItem';
+  CTableHeadRow,
+} from "../../components/CTable";
+import DSelect from "../../components/DSelect";
+import DTabs from "../../components/DTabs";
+import useTopArtists from "../../hooks/useTopArtistsAPI";
+import useTopCollections from "../../hooks/useTopCollectionsAPI";
+import { rankingSorts, rankingTabs, tableRows, topTypes } from "./mocks";
+import ArtistSkeleton from "./Skeletons/Artist";
+import styles from "./style.module.scss";
+import TableItem from "./TableItem";
 
 const Ratings = () => {
   const ref = useRef();
@@ -28,13 +28,13 @@ const Ratings = () => {
   const {
     collections,
     connectCollections,
-    isLoading: loadingCollections
+    isLoading: loadingCollections,
   } = useTopCollections();
 
   const {
     artists,
     connectArtists,
-    isLoading: loadingArtists
+    isLoading: loadingArtists,
   } = useTopArtists();
 
   const isLoading = loadingArtists || loadingCollections;
@@ -42,13 +42,13 @@ const Ratings = () => {
   const storeCollections = useMemo(
     () => ({
       [topTypes.ARTISTS]: {
-        title: 'Top Artists',
-        data: artists
+        title: "Top Artists",
+        data: artists,
       },
       [topTypes.COLLECTIONS]: {
-        title: 'Top NFTs',
-        data: collections
-      }
+        title: "Top NFTs",
+        data: collections,
+      },
     }),
     [collections, tab, artists]
   );
@@ -61,8 +61,8 @@ const Ratings = () => {
   const handleClick = (link) => navigate(link);
 
   useEffect(() => {
-    if (tab.value.includes('artists')) connectArtists();
-    if (tab.value.includes('collections')) connectCollections();
+    if (tab.value.includes("artists")) connectArtists();
+    if (tab.value.includes("collections")) connectCollections();
   }, [tab]);
 
   return (
@@ -122,10 +122,11 @@ const Ratings = () => {
                     { collection: item, tradeVolume, items, owners, artist },
                     i
                   ) => {
+                    console.log(artist);
                     const img = isArtists ? artist.image_url : item.logo_url;
                     const name = isArtists ? artist.artist_name : item.name;
                     const link = isArtists
-                      ? `/user/my-page`
+                      ? `/user/my-page/${artist?.wallet_address}`
                       : `/collections/${item?.contract_address}`;
 
                     return (

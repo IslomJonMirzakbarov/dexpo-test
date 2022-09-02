@@ -22,7 +22,6 @@ import useUserAPI from "../../hooks/useUserAPI";
 const MyPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { otherUserInfo } = useSelector((store) => store.user);
   const otherUser = id && id[0] === "0";
   const { createdTab } = useSelector((store) => store.myPage);
   const { artist } = useArtistAPI({ isDetail: true });
@@ -37,9 +36,12 @@ const MyPage = () => {
     }
   }, [otherUser]);
 
-  const { userInfo } = useUserAPI({
+  const { userInfo, OtherUserInfo } = useUserAPI({
     isUserInfo: true,
+    walletAddress: id,
   });
+
+  console.log(OtherUserInfo?.data);
 
   let num;
   switch (id) {
@@ -101,9 +103,9 @@ const MyPage = () => {
         )}
       </Box>
       <Box className={styles.ProfileSection}>
-        {otherUser && otherUserInfo?.otherUserLogoUrl && (
+        {otherUser && OtherUserInfo?.data?.image_url && (
           <img
-            src={otherUserInfo?.otherUserLogoUrl}
+            src={OtherUserInfo?.data?.image_url}
             className={styles.InfoImg}
             alt=""
           />
@@ -116,19 +118,18 @@ const MyPage = () => {
           />
         )}
         {(!userInfo?.data?.image_url &&
-          otherUserInfo?.otherUserLogoUrl &&
+          OtherUserInfo?.data?.image_url &&
           otherUser) ||
         (otherUser && !userInfo?.data?.image_url) ||
-        (userInfo?.data?.image_url && !otherUserInfo?.otherUserLogoUrl) ||
-        (userInfo?.data?.image_url &&
-          otherUserInfo?.otherUserLogoUrl) ? null : (
+        (userInfo?.data?.image_url && !OtherUserInfo?.data?.image_url) ||
+        (userInfo?.data?.image_url && OtherUserInfo?.data?.image_url) ? null : (
           <ProfileImageIcon />
         )}
-        {otherUser && !otherUserInfo?.otherUserLogoUrl && <ProfileImageIcon />}
+        {otherUser && !OtherUserInfo?.data?.image_url && <ProfileImageIcon />}
 
         <Box className={styles.UserName}>
           {otherUser
-            ? otherUserInfo?.otherUserName
+            ? OtherUserInfo?.data?.username
             : artist
             ? artist?.data?.artist_name
             : "UserName"}
@@ -152,7 +153,7 @@ const MyPage = () => {
         <Box className={styles.Bio}>Bio</Box>
         <Box className={styles.BioDescription}>
           {otherUser
-            ? otherUserInfo?.otherUserDescription
+            ? OtherUserInfo?.data?.description
             : artist?.data?.description}
         </Box>
       </Box>
