@@ -64,6 +64,7 @@ const SearchField = ({
   isDark = false,
   isBackdrop = true,
   placeholder = 'Search items, collections, and accounts',
+  paperClass,
   ...props
 }) => {
   const classes = useStyles();
@@ -74,10 +75,14 @@ const SearchField = ({
   return (
     <Paper
       component="form"
-      className={classnames(classes.paper, {
-        [classes.active]: focused,
-        [classes.dark]: isDark
-      })}
+      className={classnames(
+        classes.paper,
+        {
+          [classes.active]: focused,
+          [classes.dark]: isDark
+        },
+        paperClass
+      )}
     >
       <SearchIcon style={{ fontSize: 25 }} />
       <InputBase

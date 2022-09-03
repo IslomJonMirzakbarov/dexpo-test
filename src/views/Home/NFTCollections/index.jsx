@@ -8,7 +8,7 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import classNames from 'classnames';
 import { priceTypeChar } from '../../../constants';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/styles';
 
 const slidesToShow = 4;
 

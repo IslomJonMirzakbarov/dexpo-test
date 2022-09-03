@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI';
 import { useForm } from 'react-hook-form';
-import useToast from '../../../hooks/useToast';
+
 import { parseDate } from '../../../utils/parseDate';
 import {
   getRPCErrorMessage,

@@ -1,8 +1,12 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
 
 .container {
   padding: 90px 0;
+
+  @media (max-width: 600px) {
+    padding: 30px 0;
+  }
 
   .img {
     overflow: hidden;

@@ -29,6 +29,11 @@
     overflow: hidden;
     min-width: 480px;
 
+    @media (max-width: 600px) {
+      min-width: calc(100% - 40px);
+      max-width: calc(100% - 40px);
+    }
+
     &.expanded {
       background-color: transparent;
       width: 794px;

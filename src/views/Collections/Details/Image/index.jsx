@@ -1,20 +1,20 @@
-import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import styles from "../style.module.scss";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import nft1Img from "../../../../assets/images/nft1.png";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import useNFTAPI from "../../../../hooks/useNFT";
-import { useDispatch } from "react-redux";
-import { setNewNftSrc } from "../../../../store/nft/nft.slice";
+import { Box, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import styles from '../style.module.scss';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import nft1Img from '../../../../assets/images/nft1.png';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import useNFTAPI from '../../../../hooks/useNFT';
+import { useDispatch } from 'react-redux';
+import { setNewNftSrc } from '../../../../store/nft/nft.slice';
 
 const CollectionDetailImage = ({
   price = 1000,
   img = nft1Img,
-  alt = "nft picture",
+  alt = 'nft picture',
   isPurchased = false,
   isSoldOut,
   onClick,
@@ -22,6 +22,9 @@ const CollectionDetailImage = ({
   contractAddress,
   setRefetchInterval,
   isLiked,
+  isResponsive,
+  artistName = 'TRISTAN EATON',
+  youtubeURL = 'https://www.youtube.com/watch?v=3kcj7p8DUwE',
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -45,13 +48,13 @@ const CollectionDetailImage = ({
     postLike?.data?.data?.isLiked,
     postLike?.data?.data?.like_count,
     postLike.isSuccess,
-    setRefetchInterval,
+    setRefetchInterval
   ]);
 
   useEffect(() => {
     if (newNftSrc) {
       setTimeout(() => {
-        dispatch(setNewNftSrc(""));
+        dispatch(setNewNftSrc(''));
       }, 8000);
     }
   }, [dispatch, newNftSrc]);
@@ -59,33 +62,55 @@ const CollectionDetailImage = ({
   const likeClick = () => {
     postLike.mutate({
       contract_address: contractAddress,
-      token_id: tokenId,
+      token_id: tokenId
     });
   };
 
   return (
-    <Box className={classNames(styles.img)}>
-      {isSoldOut && <Box className={styles.soldImg}></Box>}
-      <Typography
-        variant="placeholder"
-        display="flex"
-        alignItems="center"
-        p={1}
-        style={{ color: likedNFT && "#ff006b" }}
-        onClick={likeClick}
-      >
-        {likeCount}
-        {likedNFT ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
-      </Typography>
-      <img
-        src={newNftSrc || img}
-        alt={alt}
-        height={554}
-        width="100%"
-        onClick={onClick}
-        {...props}
-      />
-    </Box>
+    <>
+      {isResponsive && (
+        <Box display="flex" flexDirection="column" mb={1}>
+          <Typography
+            variant="placeholder"
+            fontWeight={700}
+            textTransform="uppercase"
+          >
+            Artist: {artistName}
+          </Typography>
+          <a
+            href={youtubeURL}
+            className={styles.link}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {youtubeURL}
+          </a>
+        </Box>
+      )}
+
+      <Box className={classNames(styles.img)}>
+        {isSoldOut && <Box className={styles.soldImg}></Box>}
+        <Typography
+          variant="placeholder"
+          display="flex"
+          alignItems="center"
+          p={1}
+          style={{ color: likedNFT && '#ff006b' }}
+          onClick={likeClick}
+        >
+          {likeCount}
+          {likedNFT ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
+        </Typography>
+        <img
+          src={newNftSrc || img}
+          alt={alt}
+          height={554}
+          width="100%"
+          onClick={onClick}
+          {...props}
+        />
+      </Box>
+    </>
   );
 };
 

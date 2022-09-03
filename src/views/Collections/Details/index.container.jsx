@@ -1,4 +1,12 @@
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  useMediaQuery
+} from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import CollectionDetailImage from './Image';
 import CollectionDetailsInfo from './Info';
@@ -17,31 +25,48 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DModal from '../../../components/DModal';
 import { getPurchaseLabel } from './util';
-import { charCurrency } from '../../../utils/currency';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   priceBox: {
     marginTop: 61
   },
+  boxWrapper: {
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column-reverse'
+    }
+  },
   box: {
-    width: '50%'
+    width: '50%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
   },
   button: {
     padding: '16px 0',
-    marginTop: 17
+    marginTop: 17,
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 20
+    }
   },
   grid: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
+  },
+  table: {
+    [theme.breakpoints.down('sm')]: {
+      overflowX: 'scroll'
+    }
   }
-});
+}));
 
 const CollectionDetailsContainer = ({
   data,
   history,
   moreNFTs,
-  parsedPrice,
   status,
   onConfirm,
   isSoldOut,
@@ -55,7 +80,6 @@ const CollectionDetailsContainer = ({
   bidPrice,
   setBidPrice,
   bidHistory,
-  handleRefresh,
   onTimeOut,
   bidPriceControl,
   isAuctionEnded,
@@ -67,6 +91,7 @@ const CollectionDetailsContainer = ({
 
   const theme = useTheme();
   const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { nft, artist, market, collection } = data || {};
   const { token } = useSelector((store) => store.auth);
@@ -103,8 +128,8 @@ const CollectionDetailsContainer = ({
   return (
     <Paper className={styles.container}>
       <Container>
-        <Grid container spacing={3}>
-          <Grid item lg={5}>
+        <Grid container spacing={!matches ? 3 : 0}>
+          <Grid item lg={5} sm={12}>
             <CollectionDetailImage
               setRefetchInterval={setRefetchInterval}
               price={nft?.like_count}
@@ -117,17 +142,26 @@ const CollectionDetailsContainer = ({
               contractAddress={collection?.contract_address}
               onClick={() => setOpenImg(true)}
               onLike={() => onLike(nft?.is_liked)}
+              artistName={artist?.artist_name}
+              youtubeURL={artist?.youtube_url}
+              isResponsive={matches}
             />
           </Grid>
-          <Grid item lg={7} className={classes.grid}>
+          <Grid item lg={7} sm={12} className={classes.grid}>
             <CollectionDetailsInfo
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               nftName={nft?.token_name}
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
+              isResponsive={matches}
             />
-            <Box display="flex" justifyContent="space-between" mt={3}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              mt={3}
+              className={classes.boxWrapper}
+            >
               <Box className={classes.box} mr={3}>
                 <ValueTable
                   smartContract={collection?.contract_address}
@@ -167,7 +201,13 @@ const CollectionDetailsContainer = ({
                       </Typography>
                     </Typography>
                   ) : (
-                    <Countdown date={endDate} onFinish={onTimeOut} />
+                    <Box
+                      display="flex"
+                      justifyContent={matches ? 'center' : 'end'}
+                      width="100%"
+                    >
+                      <Countdown date={endDate} onFinish={onTimeOut} />
+                    </Box>
                   )
                 ) : (
                   <Box />
@@ -188,7 +228,8 @@ const CollectionDetailsContainer = ({
                         <TokenImg style={{ width: 28, height: 28 }} />
                         <Typography
                           ml={1}
-                          fontSize={30}
+                          variant="body2"
+                          fontSize="30px!important"
                           fontWeight={600}
                           lineHeight="45px"
                         >
@@ -235,13 +276,13 @@ const CollectionDetailsContainer = ({
           </Grid>
         </Grid>
         {isBidHistory && (
-          <Grid container>
+          <Grid container className={classes.table}>
             <Grid item lg={12}>
               <HistoryTable data={bidHistory} title="BID History" />
             </Grid>
           </Grid>
         )}
-        <Grid container>
+        <Grid container className={classes.table}>
           <Grid item lg={12}>
             <HistoryTable data={history} />
           </Grid>
@@ -251,6 +292,7 @@ const CollectionDetailsContainer = ({
         data={moreNFTs}
         title="More Artworks From This Collection"
         contractAddress={collection?.contract_address}
+        isResponsive={matches}
       />
       <CheckoutModal
         artistName={artist?.artist_name}

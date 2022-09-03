@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
-    borderRadius: 7
+    borderRadius: 7,
+    width: '100%'
   },
   header: {
     backgroundColor: theme.palette.grey[1600],
