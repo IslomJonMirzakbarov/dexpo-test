@@ -97,36 +97,39 @@ const NFTCollections = ({
               )
             ) : (
               <Slider {...settings}>
-                {collections?.map(({ nft, artist, market, collection }, c) => (
-                  <div className={styles.card} key={c}>
-                    <NFTCard
-                      className={styles.card_item}
-                      img={nft.token_image}
-                      name={nft.token_name}
-                      price={market?.price}
-                      startDate={market?.start_date}
-                      endDate={market?.end_date}
-                      artistName={artist.artist_name}
-                      description={nft.token_name}
-                      priceType={priceTypeChar?.[market?.type]}
-                      hasAction={!!market?.price}
-                      hasShadow={false}
-                      isDefault
-                      purchaseCount={nft.like_count}
-                      setRefetchInterval={setRefetchInterval}
-                      onClick={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                      onAction={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                    />
-                  </div>
-                ))}
+                {hottestCollections?.map(
+                  ({ nft, artist, market, collection }, c) => (
+                    <div className={styles.card} key={c}>
+                      <NFTCard
+                        className={styles.card_item}
+                        img={nft.token_image}
+                        name={nft.token_name}
+                        price={market?.price}
+                        startDate={market?.start_date}
+                        endDate={market?.end_date}
+                        artistName={artist.artist_name}
+                        description={nft.token_name}
+                        priceType={priceTypeChar?.[market?.type]}
+                        hasAction={!!market?.price}
+                        buttonVariant="containedSecondary"
+                        hasShadow={false}
+                        isDefault
+                        purchaseCount={nft.like_count}
+                        setRefetchInterval={setRefetchInterval}
+                        onClick={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                        onAction={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                      />
+                    </div>
+                  )
+                )}
               </Slider>
             )}
           </Box>
