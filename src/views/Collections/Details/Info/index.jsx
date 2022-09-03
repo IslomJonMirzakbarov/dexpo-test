@@ -14,7 +14,8 @@ const CollectionDetailsInfo = ({
   sellType,
   types,
   handleChangeType,
-  hideSelect
+  hideSelect,
+  isResponsive
 }) => {
   return (
     <Box display="flex" flexDirection="column">
@@ -24,23 +25,26 @@ const CollectionDetailsInfo = ({
         alignItems="end"
         mb={2}
       >
-        <Box display="flex" flexDirection="column" mb={1}>
-          <Typography
-            variant="placeholder"
-            fontWeight={700}
-            textTransform="uppercase"
-          >
-            Artist: {artistName}
-          </Typography>
-          <a
-            href={youtubeURL}
-            className={styles.link}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {youtubeURL}
-          </a>
-        </Box>
+        {!isResponsive && (
+          <Box display="flex" flexDirection="column" mb={1}>
+            <Typography
+              variant="placeholder"
+              fontWeight={700}
+              textTransform="uppercase"
+            >
+              Artist: {artistName}
+            </Typography>
+            <a
+              href={youtubeURL}
+              className={styles.link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {youtubeURL}
+            </a>
+          </Box>
+        )}
+
         {isArtwork && !hideSelect && (
           <DSelect
             value={sellType}

@@ -5,11 +5,13 @@ import NumberFormat from 'react-number-format';
 
 import nftImg from '../../../../assets/images/nft1.png';
 import ConToken from '../../../../assets/images/con-token.svg?component';
-import { charCurrency } from '../../../../utils/currency';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    height: 375
+    height: 375,
+    [theme.breakpoints.down('sm')]: {
+      height: 335
+    }
   },
   img: {
     borderRadius: 7,
@@ -23,7 +25,10 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.grey[1500]}`,
     borderRadius: 7,
     backgroundColor: theme.palette.common.white,
-    paddingBottom: 15
+    paddingBottom: 15,
+    [theme.breakpoints.down('sm')]: {
+      width: 223
+    }
   },
   countBox: {
     height: '100%',
@@ -63,10 +68,12 @@ const PendingCheckout = ({
   quantity,
   price,
   exchangedPrice,
-  isAuction
+  isAuction,
+  isResponsive
 }) => {
   const classes = useStyles();
 
+  const imgDim = !isResponsive ? 150 : 85;
   const word = isAuction ? 'bid' : 'purchase';
 
   return (
@@ -86,8 +93,8 @@ const PendingCheckout = ({
           className={classes.img}
           src={img}
           alt={name}
-          width={150}
-          height={150}
+          width={imgDim}
+          height={imgDim}
         />
         <Box display="flex" flexDirection="column">
           <Box className={classes.box}>

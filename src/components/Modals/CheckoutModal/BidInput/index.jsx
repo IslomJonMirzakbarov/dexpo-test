@@ -23,12 +23,15 @@ const useStyles = makeStyles((theme) => ({
       outline: 'none',
       width: '230%',
       fontSize: 15,
-      fontWeight: 600
+      fontWeight: 600,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 12
+      }
     }
   }
 }));
 
-const BidInput = ({ control, name = 'bidPrice', ...props }) => {
+const BidInput = ({ control, name = 'bidPrice', isResponsive, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -44,7 +47,7 @@ const BidInput = ({ control, name = 'bidPrice', ...props }) => {
           name={name}
           {...props}
         />
-        <Box display="flex" alignItems="center">
+        <Box display={!isResponsive ? 'flex' : 'none'} alignItems="center">
           <ConToken className={classes.token} />
           <Typography fontWeight={600} ml={1}>
             CYCON

@@ -46,7 +46,10 @@ const typography = {
     fontWeight: 600,
     lineHeight: 1.55,
     fontSize: 20,
-    ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 })
+    // ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 }),
+    '@media (max-width:600px)': {
+      fontSize: '10px!important'
+    }
   },
   h5: {
     fontWeight: 600,
@@ -72,7 +75,10 @@ const typography = {
   },
   body1: {
     lineHeight: 1.5,
-    fontSize: pxToRem(15)
+    fontSize: pxToRem(15),
+    '@media (max-width:600px)': {
+      fontSize: '8px!important'
+    }
   },
   body2: {
     fontWeight: 500,
@@ -99,12 +105,18 @@ const typography = {
   placeholder: {
     fontWeight: 300,
     lineHeight: '22px',
-    fontSize: '15px'
+    fontSize: '15px',
+    '@media (max-width:600px)': {
+      fontSize: '12px',
+      lineHeight: '16px'
+    }
   },
   modalTitle: {
     fontWeight: 700,
-    lineHeight: '33px',
-    fontSize: '22px'
+    fontSize: '22px',
+    '@media (max-width:600px)': {
+      fontSize: '15px'
+    }
   }
 };
 

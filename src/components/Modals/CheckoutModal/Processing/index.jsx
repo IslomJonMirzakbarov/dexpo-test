@@ -1,15 +1,17 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
-import { truncateAddress } from '../../../../utils';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     width: 650,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '17px 17px 55px 17px'
+    padding: '17px 17px 55px 17px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
   },
   box: {
     marginTop: 35,
@@ -33,7 +35,7 @@ const useStyles = makeStyles({
     color: 'rgba(30, 76, 237, 1)',
     cursor: 'pointer'
   }
-});
+}));
 
 const ProcessingCheckout = ({ name, isAuction }) => {
   const classes = useStyles();
@@ -42,7 +44,7 @@ const ProcessingCheckout = ({ name, isAuction }) => {
 
   return (
     <Box className={classes.wrapper}>
-      <Typography fontSize={22} fontWeight={700} lineHeight="33px">
+      <Typography variant="modalTitle" mb={2}>
         Your {word} is processing…
       </Typography>
       <Box className={classes.box}>

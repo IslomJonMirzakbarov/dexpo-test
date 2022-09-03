@@ -28,7 +28,7 @@ const LabelSkeleton = ({ noMargin = false }) => (
   />
 );
 
-const ArtistSkeleton = ({ isArtists = false }) => {
+const ArtistSkeleton = ({ isArtists = false, isResponsive }) => {
   return (
     <CTableRow>
       <CTableCell>
@@ -37,31 +37,45 @@ const ArtistSkeleton = ({ isArtists = false }) => {
           <LabelSkeleton />
         </Box>
       </CTableCell>
-      <CTableCell>
-        <Box display="flex" alignItems="center">
-          <img src={conTokenImg} alt="token" width={25} height={25} />
-          <LabelSkeleton />
-        </Box>
-      </CTableCell>
-      {!isArtists && (
+      {isResponsive ? (
         <CTableCell>
-          <LabelSkeleton noMargin={true} />
-        </CTableCell>
-      )}
-      {!isArtists && (
-        <CTableCell>
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" mb={1} justifyContent="end">
             <img src={conTokenImg} alt="token" width={25} height={25} />
             <LabelSkeleton />
           </Box>
+          <Box display="flex" alignItems="center" justifyContent="end">
+            <LabelSkeleton noMargin={true} />
+          </Box>
         </CTableCell>
+      ) : (
+        <>
+          <CTableCell>
+            <Box display="flex" alignItems="center">
+              <img src={conTokenImg} alt="token" width={25} height={25} />
+              <LabelSkeleton />
+            </Box>
+          </CTableCell>
+          {!isArtists && (
+            <CTableCell>
+              <LabelSkeleton noMargin={true} />
+            </CTableCell>
+          )}
+          {!isArtists && (
+            <CTableCell>
+              <Box display="flex" alignItems="center">
+                <img src={conTokenImg} alt="token" width={25} height={25} />
+                <LabelSkeleton />
+              </Box>
+            </CTableCell>
+          )}
+          <CTableCell>
+            <LabelSkeleton noMargin={true} />
+          </CTableCell>
+          <CTableCell>
+            <LabelSkeleton noMargin={true} />
+          </CTableCell>
+        </>
       )}
-      <CTableCell>
-        <LabelSkeleton noMargin={true} />
-      </CTableCell>
-      <CTableCell>
-        <LabelSkeleton noMargin={true} />
-      </CTableCell>
     </CTableRow>
   );
 };

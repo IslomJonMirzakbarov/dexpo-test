@@ -1,25 +1,72 @@
-import { Box, Container, Paper, Typography } from "@mui/material";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Container,
+  Paper,
+  Typography,
+  useMediaQuery
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/styles';
 import {
   CTable,
   CTableBody,
   CTableCell,
   CTableHead,
-  CTableHeadRow,
-} from "../../components/CTable";
-import DSelect from "../../components/DSelect";
-import DTabs from "../../components/DTabs";
-import useTopArtists from "../../hooks/useTopArtistsAPI";
-import useTopCollections from "../../hooks/useTopCollectionsAPI";
-import { rankingSorts, rankingTabs, tableRows, topTypes } from "./mocks";
-import ArtistSkeleton from "./Skeletons/Artist";
-import styles from "./style.module.scss";
-import TableItem from "./TableItem";
+  CTableHeadRow
+} from '../../components/CTable';
+import DSelect from '../../components/DSelect';
+import DTabs from '../../components/DTabs';
+import useTopArtists from '../../hooks/useTopArtistsAPI';
+import useTopCollections from '../../hooks/useTopCollectionsAPI';
+import {
+  rankingSorts,
+  rankingTabs,
+  tableRows,
+  topTypes,
+  tableRowsResponsive
+} from './mocks';
+import ArtistSkeleton from './Skeletons/Artist';
+import styles from './style.module.scss';
+import TableItem from './TableItem';
+
+const useStyles = makeStyles((theme) => ({
+  filter: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column-reverse',
+      alignItems: 'flex-end'
+    }
+  },
+  tabs: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      width: '100%',
+      marginTop: 40
+    }
+  },
+  head: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
+  },
+  table: {
+    [theme.breakpoints.down('sm')]: {
+      overflowX: 'scroll'
+    }
+  }
+}));
 
 const Ratings = () => {
   const ref = useRef();
   const navigate = useNavigate();
+  const theme = useTheme();
+
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const classes = useStyles();
 
   const [filter, setFilter] = useState(rankingSorts[0]);
   const [tabs, setTabs] = useState(rankingTabs);
@@ -28,13 +75,13 @@ const Ratings = () => {
   const {
     collections,
     connectCollections,
-    isLoading: loadingCollections,
+    isLoading: loadingCollections
   } = useTopCollections();
 
   const {
     artists,
     connectArtists,
-    isLoading: loadingArtists,
+    isLoading: loadingArtists
   } = useTopArtists();
 
   const isLoading = loadingArtists || loadingCollections;
@@ -42,13 +89,13 @@ const Ratings = () => {
   const storeCollections = useMemo(
     () => ({
       [topTypes.ARTISTS]: {
-        title: "Top Artists",
-        data: artists,
+        title: 'Top Artists',
+        data: artists
       },
       [topTypes.COLLECTIONS]: {
-        title: "Top NFTs",
-        data: collections,
-      },
+        title: 'Top NFTs',
+        data: collections
+      }
     }),
     [collections, tab, artists]
   );
@@ -56,13 +103,20 @@ const Ratings = () => {
   const filteredCollections = storeCollections[tab.value];
   const isArtists = tab.value === topTypes.ARTISTS;
 
+  const laptopRows = tableRows[tab.value](filter.value);
+  const responsiveRows = tableRowsResponsive[tab.value](filter.value);
+
+  const rows = matches ? responsiveRows : laptopRows;
+
+  console.log(rows);
+
   const handleSelect = (item) => setFilter(item);
   const handleSelectTab = (item) => setTab(item);
   const handleClick = (link) => navigate(link);
 
   useEffect(() => {
-    if (tab.value.includes("artists")) connectArtists();
-    if (tab.value.includes("collections")) connectCollections();
+    if (tab.value.includes('artists')) connectArtists();
+    if (tab.value.includes('collections')) connectCollections();
   }, [tab]);
 
   return (
@@ -78,17 +132,13 @@ const Ratings = () => {
             {filteredCollections.title}
           </Typography>
         </Box>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mt={5}
-        >
+        <Box className={classes.filter} mt={5}>
           <DTabs
             values={tabs}
             active={tab?.value}
             onSelect={handleSelectTab}
             setValues={setTabs}
+            className={classes.tabs}
           />
           <DSelect
             label="last 24 hours"
@@ -97,19 +147,24 @@ const Ratings = () => {
             onSelect={(item) => handleSelect(item)}
           />
         </Box>
-        <Box display="flex" my={4}>
+        <Box display="flex" my={4} className={classes.table}>
           <CTable disablePagination={true} removableHeight={false} count={10}>
-            <CTableHead>
+            <CTableHead className={classes.head}>
               <CTableHeadRow>
-                {tableRows[tab.value](filter.value).map((item, i) => (
+                {rows.map((item, i) => (
                   <CTableCell key={i}>{item}</CTableCell>
                 ))}
               </CTableHeadRow>
             </CTableHead>
             {isLoading &&
-              Array(3)
+              Array(10)
                 .fill(2)
-                .map((_) => <ArtistSkeleton isArtists={isArtists} />)}
+                .map((_) => (
+                  <ArtistSkeleton
+                    isArtists={isArtists}
+                    isResponsive={matches}
+                  />
+                ))}
             {
               <CTableBody
                 ref={ref}
@@ -122,7 +177,6 @@ const Ratings = () => {
                     { collection: item, tradeVolume, items, owners, artist },
                     i
                   ) => {
-                    console.log(artist);
                     const img = isArtists ? artist.image_url : item.logo_url;
                     const name = isArtists ? artist.artist_name : item.name;
                     const link = isArtists
@@ -143,6 +197,7 @@ const Ratings = () => {
                         ownersCount={owners}
                         isArtists={isArtists}
                         onClick={() => handleClick(link)}
+                        isResponsive={matches}
                       />
                     );
                   }

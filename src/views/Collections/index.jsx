@@ -1,4 +1,11 @@
-import { Box, Container, Grid, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  useMediaQuery
+} from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import DSelect from '../../components/DSelect';
 import styles from './style.module.scss';
@@ -13,9 +20,33 @@ import NoItemsFound from '../../components/NoItems';
 import { marketFilterList } from '../../constants/marketFilter';
 import { useSelector } from 'react-redux';
 import { debounce } from 'lodash';
+import { useTheme } from '@emotion/react';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  filter: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end'
+    }
+  },
+  search: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      width: '100%',
+      marginBottom: 20
+    }
+  }
+}));
 
 const Collections = () => {
   const navigate = useNavigate();
+  const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { account } = useSelector((store) => store.wallet);
 
@@ -68,18 +99,14 @@ const Collections = () => {
             Marketplace
           </Typography>
         </Box>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mt={5}
-        >
+        <Box className={classes.filter} mt={5}>
           <SearchField
             isDark={true}
             isBackdrop={false}
             placeholder="Search items & creators"
             value={input}
             onChange={handleChange}
+            paperClass={classes.search}
           />
           <DSelect
             label="Filter"
@@ -89,15 +116,28 @@ const Collections = () => {
           />
         </Box>
         <Box display="flex" my={4}>
-          <Grid container spacing={3}>
+          <Grid container spacing={matches ? 0 : 3}>
             {isLoading
               ? mockData.map((_, i) => (
-                  <Grid item key={i} lg={12 / 5}>
+                  <Grid
+                    item
+                    key={i}
+                    lg={12 / 5}
+                    my={matches ? 2 : 0}
+                    sx={{ width: '100%' }}
+                  >
                     <NFTCardSkeleton />
                   </Grid>
                 ))
               : data?.items?.map(({ nft, artist, market, collection }, i) => (
-                  <Grid item key={i} lg={12 / 5}>
+                  <Grid
+                    item
+                    key={i}
+                    lg={12 / 5}
+                    sm={1}
+                    my={matches ? 2 : 0}
+                    sx={{ width: '100%' }}
+                  >
                     <NFTCard
                       img={nft.token_image}
                       name={nft.token_name}

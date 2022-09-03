@@ -22,7 +22,7 @@ const settings = {
   nextArrow: <ArrowForwardIosRoundedIcon />
 };
 
-const MoreCollections = ({ data, title, contractAddress }) => {
+const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () =>
@@ -36,8 +36,8 @@ const MoreCollections = ({ data, title, contractAddress }) => {
         <Box display="flex" justifyContent="center" alignItems="center" mb={5}>
           <Typography
             variant="h2"
-            fontSize="40px !important"
-            lineHeight="60px"
+            fontSize={`${isResponsive ? '28px' : '40px'}!important`}
+            lineHeight={`${isResponsive ? '42px' : '60px'}`}
             fontWeight={700}
             textAlign="center"
           >

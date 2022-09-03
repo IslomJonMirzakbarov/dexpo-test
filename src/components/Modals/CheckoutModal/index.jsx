@@ -10,6 +10,8 @@ import CompleteFooter from './Footer/Complete';
 import { calculateDeadline } from '../../../utils/deadline';
 import { parseNormalizedDate } from '../../../utils/parseDate';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/styles';
+import { useMediaQuery } from '@mui/material';
 
 const Render = {
   [checkoutStatuses.INITIAL]: InitialCheckout,
@@ -42,6 +44,8 @@ const CheckoutModal = ({
   endDate,
   isAuction
 }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
 
   const leftDeadline = calculateDeadline(null, parseNormalizedDate(endDate));
@@ -90,6 +94,7 @@ const CheckoutModal = ({
         setBidPrice={setBidPrice}
         bidPriceControl={bidPriceControl}
         isAuction={isAuction}
+        isResponsive={matches}
       />
     </DModal>
   );

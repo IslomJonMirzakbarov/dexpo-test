@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import NumberFormat from 'react-number-format';
@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     border: `1px solid ${theme.palette.grey[1500]}`,
     borderRadius: 7,
-    backgroundColor: theme.palette.common.white
+    backgroundColor: theme.palette.common.white,
+    [theme.breakpoints.down('sm')]: {
+      width: 223
+    }
   },
   countBox: {
     backgroundColor: theme.palette.grey[1700],
@@ -53,13 +56,14 @@ const InitialCheckout = ({
   artistName,
   price,
   exchangedPrice,
-  type,
   leftDays,
   error,
   bidPriceControl,
-  isAuction
+  isAuction,
+  isResponsive
 }) => {
   const classes = useStyles();
+  const imgDim = !isResponsive ? 150 : 85;
 
   return (
     <Box
@@ -77,12 +81,12 @@ const InitialCheckout = ({
           className={classes.img}
           src={img}
           alt={name}
-          width={150}
-          height={150}
+          width={imgDim}
+          height={imgDim}
         />
         <Box className={classes.box}>
           <Box display="flex" flexDirection="column" py={1} px={2}>
-            <Typography fontSize={15} fontWeight={600}>
+            <Typography variant="placeholder" fontSize={15} fontWeight={600}>
               Item
             </Typography>
             <Box
@@ -151,7 +155,9 @@ const InitialCheckout = ({
                 decimalScale={4}
               />
             </Typography>
-            {isAuction && <BidInput control={bidPriceControl} />}
+            {isAuction && (
+              <BidInput control={bidPriceControl} isResponsive={isResponsive} />
+            )}
           </Box>
         </Box>
       </Box>
