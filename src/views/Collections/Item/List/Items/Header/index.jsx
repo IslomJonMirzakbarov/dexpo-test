@@ -58,7 +58,7 @@ const CollectionHeader = ({
           isDark={true}
         />
       </Paper>
-      <FormControl>
+      <FormControl className={styles.selecBox}>
         <DSelect
           label="Filter"
           isDark={false}

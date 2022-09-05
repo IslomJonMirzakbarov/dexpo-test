@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 
 import CollectionInfoSkeleton from './Info/index.skeleton';
-import NoItemsFound from '../../../components/NoItems';
 import CPagination from '../../../components/CPagination';
 import useNftAPI from '../../../hooks/useNftApi';
 
