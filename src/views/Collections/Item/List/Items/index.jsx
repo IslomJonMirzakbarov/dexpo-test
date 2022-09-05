@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Grid, Paper, useMediaQuery } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import styles from './style.module.scss';
@@ -8,6 +8,7 @@ import NFTCard from '../../../../../components/NFTCard';
 import { useNavigate } from 'react-router-dom';
 import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton';
 import NoItemsFound from '../../../../../components/NoItems';
+import { useTheme } from '@mui/styles';
 
 const CollectionItems = ({
   sort = '',
@@ -21,6 +22,10 @@ const CollectionItems = ({
   noItems
 }) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const width = matches ? '100%' : '';
 
   const getNavigate = (tokenId, contractAddress) => {
     if (!isGuest)
@@ -48,12 +53,12 @@ const CollectionItems = ({
           <Grid container>
             {isLoading
               ? fakeNFTs.map((_, c) => (
-                  <Grid item lg={3} key={c} p={1}>
+                  <Grid item lg={3} sm={12} key={c} p={1} width={width}>
                     <NFTCardSkeleton />
                   </Grid>
                 ))
               : data.map(({ artist, nft, collection, market }, c) => (
-                  <Grid item lg={3} key={c} p={1}>
+                  <Grid item lg={3} sm={12} key={c} p={1} width={width}>
                     <NFTCard
                       img={nft?.token_image}
                       name={nft?.token_name}

@@ -10,10 +10,13 @@ import { FAUCET_ABI } from '../utils/abi/FaucetABI';
 const web3 = new Web3(Web3.givenProvider);
 
 const conAddress = import.meta.env.VITE_ERC20_HASH;
+const symbol = 'CONX';
 const fixedContract = import.meta.env.VITE_FIXED_MARKET_HASH;
 const auctionContract = import.meta.env.VITE_AUCTION_MARKET_HASH;
 const faucetContractEnv = import.meta.env.VITE_FAUCET_CONTRACT;
 const approveAmount = import.meta.env.VITE_APPROVE_AMOUNT;
+const tokenImg =
+  'https://dexpo.s3.ap-northeast-2.amazonaws.com/1662393423341_con-token.png';
 
 const useWeb3 = () => {
   const { account } = useSelector((store) => store.wallet);
@@ -22,6 +25,30 @@ const useWeb3 = () => {
   useEffect(() => {
     getUserBalance();
   }, [account]);
+
+  const tokenRegister = async () => {
+    try {
+      const wasAdded = await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20', // Initially only supports ERC20, but eventually more!
+          options: {
+            address: conAddress, // The address that the token is at.
+            symbol, // A ticker symbol or shorthand, up to 5 chars.
+            decimals: 4, // The number of decimals in the token,
+            image: tokenImg
+          }
+        }
+      });
+      if (wasAdded) {
+        console.log('Conx added successfully');
+      } else {
+        console.log('Fail on adding conx');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const getUserBalance = async () => {
     try {
@@ -282,6 +309,7 @@ const useWeb3 = () => {
     balance,
     purchase,
     makeApprove,
+    tokenRegister,
     cancelAuction,
     createAuction,
     checkAllowance,

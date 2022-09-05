@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SearchField from '../Autocomplete';
 import AutocompleteList from '../AutocompleteList';
@@ -9,6 +9,9 @@ import { debounce } from 'lodash';
 import useSearchAPI from '../../hooks/useSearchAPI';
 import LinkListResponsive from '../../layouts/MergedLayout/LinkList/index.responsive';
 import SearchFieldResponsive from '../Autocomplete/index.responsive';
+import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
+import { useTheme } from '@mui/styles';
+import { useMediaQuery } from '@mui/material';
 
 const Header = ({
   title = '',
@@ -24,8 +27,10 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const listRef = useRef();
-  const listResponsiveRef = useRef();
+  const listRef = createRef();
+  const listResponsiveRef = createRef();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [search, setSearch] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
@@ -48,10 +53,14 @@ const Header = ({
   const handleChange = (e) => setSearch(e?.target?.value);
 
   const handleClose = () => {
+    if (matches) return;
+
     setIsOpen(false);
   };
 
   const handleCloseResponsive = () => {
+    if (!matches) return;
+
     setIsOpen(false);
   };
 
@@ -66,6 +75,10 @@ const Header = ({
 
     debounced(search);
   }, [search]);
+
+  useOnClickOutside(listRef, handleClose);
+
+  useOnClickOutside(listResponsiveRef, handleCloseResponsive);
 
   return (
     <div
@@ -94,7 +107,7 @@ const Header = ({
               isOpen={isOpen}
               data={data}
               handleClose={handleClose}
-              forwardedRef={listRef}
+              ref={listRef}
             />
           </div>
         </div>
@@ -113,7 +126,7 @@ const Header = ({
             isOpen={isOpenResponsive}
             data={data}
             handleClose={handleCloseResponsive}
-            forwardedRef={listResponsiveRef}
+            ref={listResponsiveRef}
           />
         </div>
       </div>
