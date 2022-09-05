@@ -54,7 +54,7 @@ const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
               mb={10}
             >
               {data?.map(({ nft, artist, market, collection }, c) => (
-                <Grid item key={c} lg={3}>
+                <Grid item key={c} lg={3} sm={12}>
                   <NFTCard
                     img={nft.token_image}
                     name={nft.token_name}
