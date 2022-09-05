@@ -9,7 +9,8 @@ import logoImg from "../../assets/images/logo.svg";
 import { NavLink } from "react-router-dom";
 import styles from "./style.module.scss";
 import { useSelector } from "react-redux";
-import PDF from "../../assets/docs/UserGuide.pdf";
+import PDF1 from "/WAD_user_guide_en.pdf";
+import PDF2 from "/WAD_user_guide_ko.pdf";
 
 const list = [
   {
@@ -59,8 +60,12 @@ const list = [
       //   link: '/help'
       // },
       {
-        title: "User Guide",
-        link: "/user-guide",
+        title: "User Guide (en)",
+        link: "/user-guide-en",
+      },
+      {
+        title: "User Guide (ko)",
+        link: "/user-guide-ko",
       },
       {
         title: "Rankings",
@@ -151,13 +156,22 @@ const Footer = () => {
                   {!item.icons ? (
                     <ul className={styles.links}>
                       {item.children.map((link) => {
-                        const showPDF = link.link === "/user-guide";
+                        const showPDF1 = link.link === "/user-guide-en";
+                        const showPDF2 = link.link === "/user-guide-ko";
                         return (
                           <li key={link.link}>
-                            {showPDF ? (
-                              <a href={PDF} target="_blank" rel="noreferrer">
-                                User Guide
-                              </a>
+                            {showPDF1 ? (
+                              <>
+                                <a href={PDF1} target="_blank" rel="noreferrer">
+                                  User Guide (en)
+                                </a>
+                              </>
+                            ) : showPDF2 ? (
+                              <>
+                                <a href={PDF2} target="_blank" rel="noreferrer">
+                                  User Guide (ko)
+                                </a>
+                              </>
                             ) : (
                               <NavLink
                                 to={

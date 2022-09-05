@@ -58,8 +58,9 @@ const CollectedBottom = ({ tabValue, id }) => {
         ) : (
           selectedList?.data?.items?.map((nftItem, index) => {
             return (
-              <Grid item xs={4} sm={4} md={4} key={index}>
+              <Grid item xs={12} sm={4} md={4} key={index}>
                 <NFTCard
+                  className={styles.NftMobile}
                   img={nftItem?.nft?.token_image}
                   name={nftItem?.nft?.token_name}
                   price={nftItem?.market?.price}

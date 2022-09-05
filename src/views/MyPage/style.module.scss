@@ -12,12 +12,24 @@
   margin-top: 90px;
   margin-bottom: 180px;
 
+  @media (max-width: 600px) {
+    height: auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    overflow: auto;
+  }
+
   .SettingsIconContainer {
     width: 45px;
     height: 45px;
     position: absolute;
     top: 102px;
     right: 53px;
+
+    @media (max-width: 600px) {
+      top: 87px;
+      right: 15px;
+    }
 
     svg {
       cursor: pointer;
@@ -29,6 +41,10 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 70px;
+
+    @media (max-width: 600px) {
+      margin-bottom: 25px;
+    }
 
     .InfoImg {
       width: 140px;
@@ -110,6 +126,11 @@
       font-style: normal;
       @include fontTypePhrase;
       color: colors.$textColor1;
+
+      @media (max-width: 600px) {
+        max-width: 335px;
+        max-height: 120px;
+      }
     }
   }
 
@@ -117,6 +138,12 @@
     width: 1240px;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 600px) {
+      overflow: auto;
+      max-width: 345px;
+      height: auto;
+    }
 
     .BottomContainer {
       margin-top: 30px;

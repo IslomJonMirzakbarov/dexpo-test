@@ -4,6 +4,15 @@
 .Container {
   margin-top: 30px;
 
+  @media (max-width: 600px) {
+    margin-left: 24px;
+    margin-bottom: 15px;
+
+    .NftMobile {
+      width: 292px;
+    }
+  }
+
   .NoItemsContainer {
     width: 100%;
     padding-top: 154px;
@@ -15,4 +24,6 @@
       color: colors.$text;
     }
   }
+
+
 }
