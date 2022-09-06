@@ -31,6 +31,7 @@ const CreatedCollections = ({ id }) => {
         </Box>
       )}
       <MyCollectionsList
+        id={id}
         page="my-page"
         className={styles.CollectionList}
         isLoading={otherUser ? loadingListByUser : isLoading}
