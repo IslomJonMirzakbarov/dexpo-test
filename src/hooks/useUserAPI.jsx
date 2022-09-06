@@ -55,7 +55,7 @@ const useUserAPI = ({ isUserInfo, walletAddress }) => {
     ...configQuery,
   });
 
-  const { data: OtherUserInfo } = useQuery(
+  const { data: OtherUserInfo, refetch: refetchOtherUser } = useQuery(
     "get-other-user-info",
     () => getUserInfo(token, walletAddress),
     {
@@ -74,6 +74,7 @@ const useUserAPI = ({ isUserInfo, walletAddress }) => {
     updateName,
     userInfo,
     OtherUserInfo,
+    refetchOtherUser,
     userInfoLoading,
     userInfoError,
   };

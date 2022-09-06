@@ -36,10 +36,15 @@ const MyPage = () => {
     }
   }, [otherUser]);
 
-  const { userInfo, OtherUserInfo } = useUserAPI({
+  const { userInfo, OtherUserInfo, refetchOtherUser } = useUserAPI({
     isUserInfo: true,
     walletAddress: id,
   });
+  useEffect(() => {
+    if (id !== OtherUserInfo?.data?.wallet_address) {
+      refetchOtherUser();
+    }
+  }, [OtherUserInfo?.data?.wallet_address, id, refetchOtherUser]);
 
   let num;
   switch (id) {
