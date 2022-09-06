@@ -8,6 +8,11 @@
    align-items: center;
    justify-content: center;
 
+   @media (max-width: 600px) {
+      width: 100vw;
+      padding-bottom: 30px;
+   }
+
    .ButtonsBox {
       display: flex;
       align-items: center;
@@ -26,6 +31,11 @@
          text-align: right;
          color: colors.$greyBg;
          cursor: pointer;
+
+         @media (max-width: 600px) {
+            max-width: 112px;
+            text-align: center;
+         }
       }
 
       .Active {

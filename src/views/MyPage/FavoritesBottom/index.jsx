@@ -29,8 +29,9 @@ const FavoritesBottom = () => {
         ) : (
           list?.data?.items.map((nftItem, index) => {
             return (
-              <Grid item xs={4} sm={4} md={4} key={index}>
+              <Grid item xs={12} sm={4} md={4} key={index}>
                 <NFTCard
+                  className={styles.NftMobile}
                   page="favoritesBottom"
                   liked
                   img={nftItem?.nft?.token_image}

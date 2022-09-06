@@ -4,10 +4,24 @@
 .Container {
   margin-top: 30px;
 
+  @media (max-width: 600px) {
+    padding-bottom: 30px;
+  }
+
   .NoItemsContainer {
     width: 100%;
     padding-top: 154px;
     text-align: center;
+
+    @media (max-width: 600px) {
+      padding-top: 54px;
+      padding-bottom: 54px;
+
+      svg {
+        width: 80px;
+        height: 80px;
+      }
+    }
 
     .NoItemsText {
       @include fontProcessDesc;
