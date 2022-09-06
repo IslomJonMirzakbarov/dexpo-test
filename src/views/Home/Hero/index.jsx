@@ -10,7 +10,7 @@ import heroImg from '../../../assets/images/hero.png';
 
 var items = [
   {
-    pretitle: 'Create,sell and collect',
+    pretitle: 'Create, sell and collect',
     name: 'Extraordinary NFTs',
     description:
       'Great chance for artists to create their own items. Lowest fee for selling and buying NFTs',
