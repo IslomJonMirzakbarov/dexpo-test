@@ -7,6 +7,7 @@ import useVerifySign from './useVerifySign';
 import { customAPI } from '../services/api';
 import { setToken } from '../store/auth/auth.slice';
 import useToast from './useToast';
+import useWeb3 from '../hooks/useWeb3';
 
 const chainId = import.meta.env.VITE_CHAIN_ID;
 const chainName = import.meta.env.VITE_CHAIN_NAME;
@@ -18,6 +19,7 @@ const web3 = new Web3(Web3.givenProvider);
 const useWallet = () => {
   const dispatch = useDispatch();
   const { toast } = useToast();
+  const { tokenRegister } = useWeb3();
 
   const { mutation } = useVerifySign();
 
@@ -114,7 +116,9 @@ const useWallet = () => {
 
   const handleNetwork = async () => {
     try {
+      console.log('switching network');
       switchNetwork();
+      tokenRegister();
     } catch (err) {
       if (err.code === 4902) {
         addNetwork();

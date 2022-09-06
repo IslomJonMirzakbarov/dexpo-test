@@ -6,8 +6,6 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 import { truncateAddress } from '../../utils';
-import { toggleProfilePopup } from '../../store/popup/popup.slice';
-import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
 import logo from '../../assets/icons/logo-beta.svg';
 import useWallet from '../../hooks/useWallet';
 import { securedAPI } from '../../services/api';

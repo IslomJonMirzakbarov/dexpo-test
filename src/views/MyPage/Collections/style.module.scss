@@ -1,3 +1,21 @@
 .container {
   margin: 90px 0;
+
+  @media (max-width: 600px) {
+    margin: 50px 0;
+
+    p {
+      font-weight: 700;
+      font-size: 28px !important;
+      line-height: 42px;
+    }
+
+    span {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 22px;
+      padding: 0 29px;
+      text-align: center;
+    }
+  }
 }
