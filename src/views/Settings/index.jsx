@@ -24,33 +24,6 @@ const Settings = () => {
     isUserInfo: true,
   });
 
-  useEffect(() => {
-    if (updateDesc?.data?.data?.description) {
-      dispatch(
-        setUserDesc({
-          userDescription: updateDesc?.data?.data?.description,
-        })
-      );
-    }
-    if (updateName?.data?.data?.username) {
-      dispatch(
-        setUserName({
-          userName: updateName?.data?.data?.username,
-        })
-      );
-    }
-    if (updateImg?.data || updateDesc?.data || updateName?.data) {
-      setShowModal(true);
-    }
-  }, [
-    dispatch,
-    updateDesc?.data,
-    updateDesc?.isSuccess,
-    updateImg?.data,
-    updateName?.data,
-    updateName?.isSuccess,
-  ]);
-
   const [uploadedImg, setUploadedImg] = useState({});
 
   const imgBool =
@@ -95,15 +68,41 @@ const Settings = () => {
     formDataDesc.append("description", data.userEditBio);
     updateDesc.mutate(formDataDesc);
 
-    const payload = {
+    updateName.mutate({
       username: data.userEditName,
-    };
-    updateName.mutate(payload);
+    });
 
     setTimeout(() => {
       setResponseChecker(true);
     }, 2500);
   };
+
+  useEffect(() => {
+    if (updateDesc?.data?.data?.description) {
+      dispatch(
+        setUserDesc({
+          userDescription: updateDesc?.data?.data?.description,
+        })
+      );
+    }
+    if (updateName?.data?.data?.username) {
+      dispatch(
+        setUserName({
+          userName: updateName?.data?.data?.username,
+        })
+      );
+    }
+    if (updateImg?.data || updateDesc?.data || updateName?.data) {
+      setShowModal(true);
+    }
+  }, [
+    dispatch,
+    updateDesc?.data,
+    updateDesc?.isSuccess,
+    updateImg?.data,
+    updateName?.data,
+    updateName?.isSuccess,
+  ]);
 
   const modalClick = () => {
     if (responseChecker) {

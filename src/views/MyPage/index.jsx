@@ -40,7 +40,7 @@ const MyPage = () => {
     isUserInfo: true,
     walletAddress: id,
   });
-  console.log(userInfo?.data);
+
   useEffect(() => {
     if (id !== OtherUserInfo?.data?.wallet_address) {
       refetchOtherUser();
