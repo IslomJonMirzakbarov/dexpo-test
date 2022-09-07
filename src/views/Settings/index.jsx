@@ -12,7 +12,6 @@ import CreateCollectionForm from "../../assets/icons/create-collection-form.svg?
 
 import styles from "./style.module.scss";
 import useUserAPI from "../../hooks/useUserAPI";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setUserDesc, setUserName } from "../../store/user/user.slice";
 
@@ -51,8 +50,6 @@ const Settings = () => {
     updateName?.isSuccess,
   ]);
 
-  const { userName, userDescription } = useSelector((store) => store.user);
-
   const [showModal, setShowModal] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
 
@@ -65,12 +62,22 @@ const Settings = () => {
     handleSubmit,
     control,
     formState: {},
+    reset,
   } = useForm({
     defaultValues: {
-      userEditName: userName || "",
-      userEditBio: userDescription || "",
+      userEditName: "",
+      userEditBio: "",
     },
   });
+
+  useEffect(() => {
+    if (userInfo?.data) {
+      reset({
+        userEditName: userInfo?.data?.username,
+        userEditBio: userInfo?.data?.description,
+      });
+    }
+  }, [reset, userInfo?.data]);
 
   const onSubmit = (data) => {
     data["image"] = uploadedImg;

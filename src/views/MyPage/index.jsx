@@ -40,6 +40,7 @@ const MyPage = () => {
     isUserInfo: true,
     walletAddress: id,
   });
+  console.log(userInfo?.data);
   useEffect(() => {
     if (id !== OtherUserInfo?.data?.wallet_address) {
       refetchOtherUser();
@@ -133,8 +134,8 @@ const MyPage = () => {
         <Box className={styles.UserName}>
           {otherUser
             ? OtherUserInfo?.data?.username
-            : artist
-            ? artist?.data?.artist_name
+            : userInfo?.data?.username
+            ? userInfo?.data?.username
             : "UserName"}
         </Box>
         <Box
@@ -157,7 +158,9 @@ const MyPage = () => {
         <Box className={styles.BioDescription}>
           {otherUser
             ? OtherUserInfo?.data?.description
-            : artist?.data?.description}
+            : userInfo?.data?.description
+            ? userInfo?.data?.description
+            : null}
         </Box>
       </Box>
       <Box className={styles.BottomSideContainer}>
