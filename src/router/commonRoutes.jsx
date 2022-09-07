@@ -1,4 +1,5 @@
 import React from 'react';
+import About from '../views/About';
 import Home from '../views/Home';
 import Ratings from '../views/Ratings';
 import { collectionRoutes } from './collectionRoutes';
@@ -12,6 +13,10 @@ export const commonRoutes = [
   {
     path: 'rankings',
     element: <Ratings />
+  },
+  {
+    path: 'about',
+    element: <About />
   },
   {
     ...marketplaceRoutes
