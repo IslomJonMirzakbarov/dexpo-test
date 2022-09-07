@@ -18,10 +18,11 @@ import { setUserDesc, setUserName } from "../../store/user/user.slice";
 const Settings = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  const [responseChecker, setResponseChecker] = useState(false);
   const { userInfo, updateImg, updateDesc, updateName } = useUserAPI({
     isUserInfo: true,
   });
-  const [responseChecker, setResponseChecker] = useState(false);
 
   useEffect(() => {
     if (updateDesc?.data?.data?.description) {
@@ -38,7 +39,7 @@ const Settings = () => {
         })
       );
     }
-    if (updateImg?.data || updateDesc?.data || updateImg?.data) {
+    if (updateImg?.data || updateDesc?.data || updateName?.data) {
       setShowModal(true);
     }
   }, [
@@ -50,7 +51,6 @@ const Settings = () => {
     updateName?.isSuccess,
   ]);
 
-  const [showModal, setShowModal] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
 
   const imgBool =
@@ -82,24 +82,23 @@ const Settings = () => {
   const onSubmit = (data) => {
     data["image"] = uploadedImg;
 
-    if (Object.keys(uploadedImg).length > 0) {
+    if (
+      Object.keys(uploadedImg).length &&
+      Object.keys(uploadedImg).length > 0
+    ) {
       let formDataImg = new FormData();
       formDataImg.append("image", data.image);
       updateImg.mutate(formDataImg);
     }
 
-    if (data.userEditBio) {
-      let formDataDesc = new FormData();
-      formDataDesc.append("description", data.userEditBio);
-      updateDesc.mutate(formDataDesc);
-    }
+    let formDataDesc = new FormData();
+    formDataDesc.append("description", data.userEditBio);
+    updateDesc.mutate(formDataDesc);
 
-    if (data.userEditName) {
-      const payload = {
-        username: data.userEditName,
-      };
-      updateName.mutate(payload);
-    }
+    const payload = {
+      username: data.userEditName,
+    };
+    updateName.mutate(payload);
 
     setTimeout(() => {
       setResponseChecker(true);
