@@ -35,7 +35,7 @@ const useWeb3 = () => {
           options: {
             address: conAddress, // The address that the token is at.
             symbol, // A ticker symbol or shorthand, up to 5 chars.
-            decimals: 4, // The number of decimals in the token,
+            decimals: 18, // The number of decimals in the token,
             image: tokenImg
           }
         }
