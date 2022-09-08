@@ -22,6 +22,7 @@ const DModal = ({
     if (!onConfirm) onClose();
     else onConfirm();
   };
+
   useOnClickOutside(ref, onClose);
 
   if (!open) return;
@@ -33,6 +34,7 @@ const DModal = ({
           className={classNames(styles.modal, {
             [styles.expanded]: isExpandedImg
           })}
+          ref={ref}
         >
           <img src={img} alt="expanded image" width="100%" height="100%" />
         </Box>

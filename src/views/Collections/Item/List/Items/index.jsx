@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton';
 import NoItemsFound from '../../../../../components/NoItems';
 import { useTheme } from '@mui/styles';
+import { useSelector } from 'react-redux';
 
 const CollectionItems = ({
   sort = '',
@@ -22,19 +23,24 @@ const CollectionItems = ({
   noItems
 }) => {
   const navigate = useNavigate();
+  const { account } = useSelector((store) => store.wallet);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const width = matches ? '100%' : '';
 
-  const getNavigate = (tokenId, contractAddress) => {
-    if (!isGuest)
+  const getNavigate = (tokenId, contractAddress, ownerAddress) => {
+    const loweredOwnerAddress = ownerAddress?.toLowerCase();
+    const loweredAccount = account?.toLowerCase();
+    const isOwner = loweredAccount?.includes(loweredOwnerAddress);
+
+    if (!isGuest && !isOwner)
       return navigate(
-        `/user/nft/${tokenId}/${contractAddress || contract_address}`
+        `/marketplace/${tokenId}/${contractAddress || contract_address}`
       );
 
     return navigate(
-      `/marketplace/${tokenId}/${contractAddress || contract_address}`
+      `/user/nft/${tokenId}/${contractAddress || contract_address}`
     );
   };
 
@@ -70,10 +76,18 @@ const CollectionItems = ({
                       hasAction={!!nft?.token_price}
                       purchaseCount={nft?.like_count}
                       onClick={() =>
-                        getNavigate(nft?.token_id, collection?.contract_address)
+                        getNavigate(
+                          nft?.token_id,
+                          collection?.contract_address,
+                          collection?.owner_address
+                        )
                       }
                       onAction={() =>
-                        getNavigate(nft?.token_id, collection?.contract_address)
+                        getNavigate(
+                          nft?.token_id,
+                          collection?.contract_address,
+                          collection?.owner_address
+                        )
                       }
                     />
                   </Grid>
