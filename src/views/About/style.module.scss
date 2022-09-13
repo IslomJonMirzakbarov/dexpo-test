@@ -111,23 +111,28 @@
     }
 
     .ExploreContainer {
-      max-width: 941px;
+      width: 941px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
+      margin-bottom: 237px;
 
       .InnerContainer {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
 
-        & > div {
+        & > :nth-child(1) {
           font-weight: 500;
           font-size: 16px;
           line-height: 24px;
           text-align: center;
           color: #ffffff;
+        }
+
+        & > :nth-child(2) {
+          width: 150px;
+          height: 150px;
         }
 
         & > :nth-child(3) {
@@ -138,6 +143,19 @@
           color: #ffffff;
         }
       }
+    }
+
+    .InvestTxt {
+      margin-bottom: 8px;
+    }
+
+    .InvestInfoTxt {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 22px;
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 50px;
     }
   }
 }

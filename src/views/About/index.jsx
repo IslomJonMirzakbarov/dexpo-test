@@ -1,20 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import AboutCoverage from "../../assets/icons/about-coverage.svg?component";
 import DexpoIcon from "../../assets/icons/edit-collection-hover.svg?component";
 import StorageImage from "../../assets/images/storage-image.png";
-import MintImage from "../../assets/images/mint-image.png";
+import MintImage from "../../assets/images/mint-image2.png";
 import TradeImage from "../../assets/images/trade-image.png";
 import AuditionImage from "../../assets/images/audition-image.png";
 import CollabImage from "../../assets/images/collab-image.png";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { useTheme } from "@mui/styles";
 import classNames from "classnames";
+import useCollecionsByCategory, {
+  categoryTypes,
+} from "../../hooks/useCollectionsByCategoryAPI";
+import NFTCard from "../../components/NFTCard";
+import { priceTypeChar } from "../../constants";
+import Slider from "react-slick";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 import styles from "./style.module.scss";
+import styles2 from "./style2.module.scss";
+
+const slidesToShow = 4;
+
+const settings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow,
+  slidesToScroll: 1,
+  prevArrow: (
+    <ArrowBackIosNewRoundedIcon
+      style={{ backgroundColor: "white", color: "black" }}
+    />
+  ),
+  nextArrow: (
+    <ArrowForwardIosRoundedIcon
+      style={{ backgroundColor: "white", color: "black" }}
+    />
+  ),
+  responsive: [
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: false,
+        dots: true,
+      },
+    },
+  ],
+};
 
 const About = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const [refetchInterval, setRefetchInterval] = useState(false);
+
+  const { collections, isLoading: loadingNotable } = useCollecionsByCategory(
+    categoryTypes.NOTABLE,
+    refetchInterval
+  );
   return (
     <Box className={styles.Container}>
       <div className={styles.AboutCoverage}>
@@ -108,7 +163,7 @@ const About = () => {
               <img src={MintImage} alt="" />
             </div>
             <div className={styles.MintTxt}>
-              Various NFT artworks can be created.
+              Various NFT artworks <br /> can be created.
             </div>
           </div>
 
@@ -118,8 +173,8 @@ const About = () => {
               <img src={TradeImage} alt="" />
             </div>
             <div className={styles.TradeTxt}>
-              OceanDrive users can be rewarded with CYCON COIN and can buy and
-              sell NFTs with CYCON in DEXPO.
+              OceanDrive users can be rewarded <br /> with CYCON COIN and can{" "}
+              <br /> buy and sell NFTs with CYCON in DEXPO.
             </div>
           </div>
 
@@ -129,11 +184,102 @@ const About = () => {
               <img src={AuditionImage} alt="" />
             </div>
             <div className={styles.AuditionTxt}>
-              OceanDrive users can be rewarded with CYCON COIN and can buy and
-              sell NFTs with CYCON in DEXPO.
+              Through an audition, all <br /> information regarding the artists{" "}
+              <br /> will be checked and processed.
             </div>
           </div>
         </div>
+
+        <div className={classNames(styles.WhatWeDoTxt, styles.InvestTxt)}>
+          Invest in valuable NFT artworks!
+        </div>
+
+        <div className={styles.InvestInfoTxt}>
+          We would like to present a list of works and top collections to
+          consumers.
+        </div>
+
+        <Box className={classNames(styles2.container)}>
+          <Container>
+            <Box className={styles2.block}>
+              <Box className={styles2.collection}>
+                {collections?.length < 5 && !matches ? (
+                  <Grid
+                    container
+                    display="flex"
+                    justifyContent="center"
+                    spacing={3}
+                    mb={10}
+                  >
+                    {collections?.map(
+                      ({ nft, artist, market, collection }, c) => (
+                        <Grid item key={c} lg={3}>
+                          <NFTCard
+                            img={nft.token_image}
+                            name={nft.token_name}
+                            price={market?.price}
+                            startDate={market?.start_date}
+                            endDate={market?.end_date}
+                            artistName={artist.artist_name}
+                            description={nft.token_name}
+                            priceType={priceTypeChar?.[market?.type]}
+                            hasAction={!!market?.price}
+                            purchaseCount={nft.like_count}
+                            setRefetchInterval={setRefetchInterval}
+                            onClick={() =>
+                              navigate(
+                                `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                              )
+                            }
+                            onAction={() =>
+                              navigate(
+                                `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                              )
+                            }
+                          />
+                        </Grid>
+                      )
+                    )}
+                  </Grid>
+                ) : (
+                  <Slider {...settings}>
+                    {collections?.map(
+                      ({ nft, artist, market, collection }, c) => (
+                        <div className={styles2.card} key={c}>
+                          <NFTCard
+                            className={styles2.card_item}
+                            img={nft.token_image}
+                            name={nft.token_name}
+                            price={market?.price}
+                            startDate={market?.start_date}
+                            endDate={market?.end_date}
+                            artistName={artist.artist_name}
+                            description={nft.token_name}
+                            priceType={priceTypeChar?.[market?.type]}
+                            hasAction={!!market?.price}
+                            purchaseCount={nft.like_count}
+                            hasShadow={false}
+                            setRefetchInterval={setRefetchInterval}
+                            onClick={() =>
+                              navigate(
+                                `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                              )
+                            }
+                            onAction={() =>
+                              navigate(
+                                `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                              )
+                            }
+                          />
+                        </div>
+                      )
+                    )}
+                  </Slider>
+                )}
+              </Box>
+            </Box>
+          </Container>
+        </Box>
       </div>
     </Box>
   );

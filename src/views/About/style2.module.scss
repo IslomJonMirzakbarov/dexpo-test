@@ -1,0 +1,36 @@
+.container {
+  overflow: hidden;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-bottom: 220px;
+  width: 100%;
+
+  @media (max-width: 600px) {
+    background-size: 350%;
+    background-position: 0 0;
+  }
+  h2 {
+    font-family: "Poppins", sans-serif !important;
+  }
+  .block {
+    @media (max-width: 600px) {
+      &:first-child {
+        margin-top: 40px;
+      }
+      margin-top: 100px;
+    }
+    .collection {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+
+      .card {
+        margin: 0 12px;
+      }
+      .card_item {
+        width: calc(100% - 24px) !important;
+      }
+    }
+  }
+}
