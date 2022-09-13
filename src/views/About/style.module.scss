@@ -56,8 +56,6 @@
     }
 
     .WhatWeDoTxt {
-      width: 251px;
-      height: 60px;
       font-weight: 700;
       font-size: 40px;
       line-height: 60px;
@@ -106,6 +104,40 @@
     .CollabKfa {
       gap: 76px;
       margin-bottom: 246.37px;
+    }
+
+    .ExploreTxt {
+      margin-bottom: 50px;
+    }
+
+    .ExploreContainer {
+      max-width: 941px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .InnerContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        & > div {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          text-align: center;
+          color: #ffffff;
+        }
+
+        & > :nth-child(3) {
+          font-weight: 400;
+          font-size: 15px;
+          line-height: 22px;
+          text-align: center;
+          color: #ffffff;
+        }
+      }
     }
   }
 }

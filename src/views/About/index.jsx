@@ -4,6 +4,9 @@ import { Box } from "@mui/system";
 import AboutCoverage from "../../assets/icons/about-coverage.svg?component";
 import DexpoIcon from "../../assets/icons/edit-collection-hover.svg?component";
 import StorageImage from "../../assets/images/storage-image.png";
+import MintImage from "../../assets/images/mint-image.png";
+import TradeImage from "../../assets/images/trade-image.png";
+import AuditionImage from "../../assets/images/audition-image.png";
 import CollabImage from "../../assets/images/collab-image.png";
 import { Button } from "@mui/material";
 import classNames from "classnames";
@@ -90,6 +93,44 @@ const About = () => {
               <div className={styles.CollabText}>
                 - Discover the valuable artworks at World Art DEXPO
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={classNames(styles.WhatWeDoTxt, styles.ExploreTxt)}>
+          Explore World Art DEXPO!
+        </div>
+
+        <div className={styles.ExploreContainer}>
+          <div className={classNames(styles.Mint, styles.InnerContainer)}>
+            <div className={styles.MintTitle}>Mint</div>
+            <div className={styles.MintImg}>
+              <img src={MintImage} alt="" />
+            </div>
+            <div className={styles.MintTxt}>
+              Various NFT artworks can be created.
+            </div>
+          </div>
+
+          <div className={classNames(styles.Trade, styles.InnerContainer)}>
+            <div className={styles.TradeTitle}>Trade with CYCON</div>
+            <div className={styles.TradeImg}>
+              <img src={TradeImage} alt="" />
+            </div>
+            <div className={styles.TradeTxt}>
+              OceanDrive users can be rewarded with CYCON COIN and can buy and
+              sell NFTs with CYCON in DEXPO.
+            </div>
+          </div>
+
+          <div className={classNames(styles.Audition, styles.InnerContainer)}>
+            <div className={styles.AuditionTitle}>Audition</div>
+            <div className={styles.AuditionImg}>
+              <img src={AuditionImage} alt="" />
+            </div>
+            <div className={styles.AuditionTxt}>
+              OceanDrive users can be rewarded with CYCON COIN and can buy and
+              sell NFTs with CYCON in DEXPO.
             </div>
           </div>
         </div>
