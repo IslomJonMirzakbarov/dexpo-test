@@ -157,7 +157,7 @@ const FileUploadWithDrag = ({
                       </div>
                     </div>
                   ) : (
-                    <img src={src} alt="" />
+                    <img src={src} style={{objectFit: 'cover'}} alt="" />
                   )}
                   {page === EDIT_COLLECTION
                     ? hovered && (
