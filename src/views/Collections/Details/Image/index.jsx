@@ -10,6 +10,7 @@ import { useState } from "react";
 import useNFTAPI from "../../../../hooks/useNFT";
 import { useDispatch } from "react-redux";
 import { setNewNftSrc } from "../../../../store/nft/nft.slice";
+import { useLocation } from "react-router-dom";
 
 const CollectionDetailImage = ({
   price = 1000,
@@ -27,6 +28,7 @@ const CollectionDetailImage = ({
   youtubeURL = "https://www.youtube.com/watch?v=3kcj7p8DUwE",
   ...props
 }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const { newNftSrc } = useSelector((store) => store.nft);
   const [likedNFT, setLikedNFT] = useState(isLiked);
@@ -66,6 +68,18 @@ const CollectionDetailImage = ({
     });
   };
 
+  const valueStyle = location.pathname.includes("/user")
+    ? {
+        color: likedNFT && "#ff006b",
+        justifyContent: "flex-end",
+        border: "1px solid #D1D1D1",
+        borderRadius: "7px 7px 0 0",
+        gap: "6px",
+      }
+    : {
+        color: likedNFT && "#ff006b",
+      };
+
   return (
     <>
       {isResponsive && (
@@ -95,7 +109,7 @@ const CollectionDetailImage = ({
           display="flex"
           alignItems="center"
           p={1}
-          style={{ color: likedNFT && "#ff006b" }}
+          style={valueStyle}
           onClick={likeClick}
         >
           {likeCount}

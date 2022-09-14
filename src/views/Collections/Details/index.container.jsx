@@ -131,16 +131,16 @@ const CollectionDetailsContainer = ({
         <Grid container spacing={!matches ? 3 : 0}>
           <Grid item lg={5} sm={12}>
             <CollectionDetailImage
-              setRefetchInterval={setRefetchInterval}
               price={nft?.like_count}
               img={nft?.token_image}
-              alt="nft picture"
               isLiked={nft?.is_liked}
-              isSoldOut={isSoldOut}
+              alt="nft picture"
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
               onClick={() => setOpenImg(true)}
+              setRefetchInterval={setRefetchInterval}
+              isSoldOut={isSoldOut}
               onLike={() => onLike(nft?.is_liked)}
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
