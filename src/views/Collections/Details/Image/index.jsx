@@ -70,7 +70,7 @@ const CollectionDetailImage = ({
 
   const valueStyle = location.pathname.includes("/user")
     ? {
-        color: likedNFT && "#ff006b",
+        color: likedNFT ? "#ff006b" : "#7D8890",
         justifyContent: "flex-end",
         border: "1px solid #D1D1D1",
         borderRadius: "7px 7px 0 0",
