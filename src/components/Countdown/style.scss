@@ -9,6 +9,15 @@
     display: flex !important;
     flex-direction: column-reverse;
 
+    .flip-countdown-title {
+      @include fontBodyXSS; /* identical to box height */
+      font-weight: 500;
+      margin: 2px 3px;
+      text-align: center;
+
+      color: colors.$text;
+    }
+
     .flip-countdown-card {
       display: flex;
       justify-content: center;
@@ -44,15 +53,6 @@
           top: 46% !important;
         }
       }
-    }
-
-    .flip-countdown-title {
-      text-align: left;
-      @include fontBodyXSS; /* identical to box height */
-      font-weight: 500;
-      margin: 2px 3px;
-
-      color: colors.$text;
     }
   }
 }

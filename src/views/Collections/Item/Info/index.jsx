@@ -64,6 +64,7 @@ const CollectionInfo = ({
                 fontSize="20px!important"
                 className={styles.value}
                 color="black"
+                mb={1.2}
               >
                 <NumberFormat
                   value={charCurrency(price.value)?.amount}

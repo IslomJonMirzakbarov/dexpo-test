@@ -112,7 +112,14 @@ const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
           )}
         </Box>
         <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
-          <Button variant="containedSecondary1" onClick={handleNavigate}>
+          <Button
+            variant="containedSecondary1"
+            onClick={handleNavigate}
+            sx={{
+              width: 185,
+              height: 55
+            }}
+          >
             View collection
           </Button>
         </Box>

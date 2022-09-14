@@ -15,12 +15,19 @@
   }
   .block {
     margin-top: 40px;
+    padding-bottom: 70px;
+
     @media (max-width: 600px) {
       &:first-child {
         margin-top: 40px;
       }
       margin-top: 100px;
     }
+
+    &:last-child {
+      margin-bottom: 40px;
+    }
+
     .collection {
       margin: 20px 0;
       display: flex;

@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 17,
     [theme.breakpoints.down('sm')]: {
       marginBottom: 20
+    },
+    '&:hover': {
+      boxShadow: '5px 5px 52px 2px rgba(0, 0, 0, 0.1)'
     }
   },
   grid: {
