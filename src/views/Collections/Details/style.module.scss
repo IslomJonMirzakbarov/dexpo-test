@@ -67,4 +67,11 @@
 
 .HoverCursor {
   cursor: pointer;
+
+  img {
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    border-top: 0px;
+    object-fit: cover;
+  }
 }

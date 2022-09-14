@@ -124,7 +124,6 @@ const CollectionDetailImage = ({
           height={554}
           width="100%"
           onClick={onClick}
-          style={{ objectFit: "cover" }}
           {...props}
         />
       </Box>
