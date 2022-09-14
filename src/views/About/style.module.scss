@@ -10,15 +10,16 @@
 
   .AboutCoverage {
     width: 100%;
-    position: absolute;
+    position: relative;
     top: 221px;
     z-index: 4;
 
     .AboutIcon {
+      top: -80px;
       position: absolute;
       height: 934px;
       width: 1503px;
-      right: -293px;
+      right: 0;
     }
   }
 
@@ -97,6 +98,10 @@
     .CollabKfa {
       gap: 76px;
       margin-bottom: 246.37px;
+
+      & > div {
+        margin-left: -30px;
+      }
     }
 
     .ExploreTxt {

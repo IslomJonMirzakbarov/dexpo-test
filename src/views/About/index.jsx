@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
-import AboutCoverage from "../../assets/icons/about-coverage.svg?component";
+import AboutCoverage from "../../assets/icons/about-coverage2.svg?component";
 import DexpoIcon from "../../assets/icons/edit-collection-hover.svg?component";
 import StorageImage from "../../assets/images/storage-image.png";
 import MintImage from "../../assets/images/mint-image2.png";
@@ -128,25 +128,37 @@ const About = () => {
         <div className={classNames(styles.CollabContainer, styles.CollabKfa)}>
           <img src={StorageImage} alt="storage" />
           <div className={styles.CollabRightSide}>
-            <div className={styles.RightSideTitle}>
-              Collaboration with KFAA(Korean Fine Arts Association)
-            </div>
+            <div className={styles.RightSideTitle}>OceanDrive Storage</div>
             <div className={styles.CollabParagraphContainer}>
-              <div className={styles.CollabText}>
-                - Buy or collect artworks owned by KFAA(Korean Fine Arts
-                Association)
-              </div>
               <div
                 className={classNames(styles.CollabText, styles.ArtworkStyle)}
               >
                 <div>-</div>
                 <div>
-                  See artworks of national treasures, works by famous painters,
-                  and even <br /> the up-and-coming artists!
+                  A secure and reliable artwork trading platform with
+                  distributed storage technology.
                 </div>
               </div>
-              <div className={styles.CollabText}>
-                - Discover the valuable artworks at World Art DEXPO
+
+              <div
+                className={classNames(styles.CollabText, styles.ArtworkStyle)}
+              >
+                <div>-</div>
+                <div>
+                  World Art DEXPO does not use third-party cloud storage, but
+                  uses OceanDrive with distributed storage technology.
+                </div>
+              </div>
+
+              <div
+                className={classNames(styles.CollabText, styles.ArtworkStyle)}
+              >
+                <div>-</div>
+                <div>
+                  A more secure trading is made because encrypted data is stored
+                  in OceanDrive and cannot be accessed without permission from
+                  the owner.
+                </div>
               </div>
             </div>
           </div>
