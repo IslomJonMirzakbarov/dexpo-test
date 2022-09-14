@@ -5,57 +5,61 @@ import {
   Grid,
   Paper,
   TextField,
-  Typography,
-} from "@mui/material";
-import React, { useMemo, useState } from "react";
-import styles from "./style.module.scss";
-import { makeStyles } from "@mui/styles";
-import ValueTable from "../../Collections/Details/ValueTable";
-import HistoryTable from "../../Collections/Details/HistoryTable";
-import CollectionDetailsInfo from "../../Collections/Details/Info";
-import CollectionDetailImage from "../../Collections/Details/Image";
-import Countdown from "../../../components/Countdown";
-import NumberFormat from "react-number-format";
-import tokenImg from "../../../assets/images/con-token.png";
-import { DATE_FORMAT, priceTypeChar } from "../../../constants";
-import PriceInput from "../../../components/PriceInput";
-import SellModal from "../../../components/Modals/SellModal";
-import { useTheme } from "@emotion/react";
-import moment from "moment";
-import DModal from "../../../components/DModal";
-import { marketStatuses } from "../../../constants/marketStatuses";
-import { useSelector } from "react-redux";
-import CalendarIcon from "../../../assets/icons/calendar.svg";
+  Typography
+} from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import styles from './style.module.scss';
+import { makeStyles } from '@mui/styles';
+import ValueTable from '../../Collections/Details/ValueTable';
+import HistoryTable from '../../Collections/Details/HistoryTable';
+import CollectionDetailsInfo from '../../Collections/Details/Info';
+import CollectionDetailImage from '../../Collections/Details/Image';
+import Countdown from '../../../components/Countdown';
+import NumberFormat from 'react-number-format';
+import TokenImg from '../../../assets/images/con-token.svg?component';
+import { DATE_FORMAT, priceTypeChar } from '../../../constants';
+import PriceInput from '../../../components/PriceInput';
+import SellModal from '../../../components/Modals/SellModal';
+import { useTheme } from '@emotion/react';
+import moment from 'moment';
+import DModal from '../../../components/DModal';
+import { marketStatuses } from '../../../constants/marketStatuses';
+import { useSelector } from 'react-redux';
+import CalendarIcon from '../../../assets/icons/calendar.svg';
 
-const auctionLabel = "Please enter auction starting price";
-const fixedLabel = "Please enter the selling price.";
+const auctionLabel = 'Please enter auction starting price';
+const fixedLabel = 'Please enter the selling price.';
 
 const useStyles = makeStyles({
   priceBox: {
-    marginTop: 61,
+    marginTop: 61
   },
   box: {
-    width: "50%",
+    minWidth: '50%',
+    maxWidth: '50%'
   },
   button: {
-    padding: "16px 0",
+    padding: '16px 0',
     marginTop: 17,
+    '&:hover': {
+      boxShadow: '5px 5px 52px 2px rgba(0, 0, 0, 0.1)'
+    }
   },
   timeInput: {
-    width: "48%",
+    width: '48%'
   },
   datetime: {
-    cursor: "pointer",
-    transition: "0.4s ease-in-out all",
+    cursor: 'pointer',
+    transition: '0.4s ease-in-out all',
     borderRadius: 7,
 
-    "&:focus, &:hover": {
-      "box-shadow": " -1px 1px 16px 7px rgba(0, 0, 0, 0.06)",
+    '&:focus, &:hover': {
+      'box-shadow': ' -1px 1px 16px 7px rgba(0, 0, 0, 0.06)'
     },
 
-    "& input": {
-      fontSize: "10px",
-      padding: "10px 12px!important",
+    '& input': {
+      fontSize: '10px',
+      padding: '10px 12px!important'
     },
 
     '& input[type="datetime-local"]::-webkit-calendar-picker-indicator': {
@@ -63,18 +67,19 @@ const useStyles = makeStyles({
       background: `url(${CalendarIcon}) no-repeat`,
       width: 18,
       height: 19,
+      cursor: 'pointer'
     },
 
-    "& fieldset": {
-      width: "100%",
-      border: "1px solid #dedede !important",
-      "border-radius": "7px",
-      "&:focus, &:hover": {
-        border: " none!important",
-        outline: "none",
-      },
-    },
-  },
+    '& fieldset': {
+      width: '100%',
+      border: '1px solid #dedede !important',
+      'border-radius': '7px',
+      '&:focus, &:hover': {
+        border: ' none!important',
+        outline: 'none'
+      }
+    }
+  }
 });
 
 const NFTSellRequestContainer = ({
@@ -107,7 +112,7 @@ const NFTSellRequestContainer = ({
   sdValue,
   edValue,
   isAuction,
-  bidHistory,
+  bidHistory
 }) => {
   const theme = useTheme();
 
@@ -133,11 +138,17 @@ const NFTSellRequestContainer = ({
   const SetPrice = () => (
     <>
       <Box display="flex" alignItems="center" className={classes.priceBox}>
-        <img src={tokenImg} alt="token" width={28} height={28} />
+        <TokenImg
+          style={{
+            width: 28,
+            height: 28
+          }}
+        />
+
         <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
           <NumberFormat
             value={market?.price}
-            displayType={"text"}
+            displayType={'text'}
             decimalScale={4}
             thousandSeparator={true}
           />
@@ -151,7 +162,7 @@ const NFTSellRequestContainer = ({
         (
         <NumberFormat
           value={exchangedPrice}
-          displayType={"text"}
+          displayType={'text'}
           thousandSeparator={true}
           prefix="$"
           decimalScale={4}
@@ -220,7 +231,7 @@ const NFTSellRequestContainer = ({
                   <Box
                     display="flex"
                     flexDirection="column"
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                     className={styles.dates}
                   >
                     {!!type && (
@@ -241,7 +252,7 @@ const NFTSellRequestContainer = ({
                             className={classes.datetime}
                             onChange={handleChangeStartingDate}
                             InputLabelProps={{
-                              shrink: true,
+                              shrink: true
                             }}
                           />
                           &nbsp;~&nbsp;
@@ -252,7 +263,7 @@ const NFTSellRequestContainer = ({
                             className={classes.datetime}
                             onChange={handleChangeEndingDate}
                             InputLabelProps={{
-                              shrink: true,
+                              shrink: true
                             }}
                           />
                         </Box>
@@ -266,12 +277,12 @@ const NFTSellRequestContainer = ({
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: "100%" }}
+                  sx={{ width: '100%' }}
                 >
                   {isCancel && market?.price && <SetPrice />}
                   <Button
                     className={classes.button}
-                    variant={isCancel ? "outlined" : "containedSecondary"}
+                    variant={isCancel ? 'outlined' : 'containedSecondary'}
                     fullWidth
                     onClick={isCancel ? toggle : handleClick}
                     disabled={isDisabled}

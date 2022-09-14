@@ -48,6 +48,9 @@
     align-items: center;
     li {
       margin: 0 5px;
+      &:first-child {
+        margin: 0 5px 0 0;
+      }
     }
     li a {
       width: 35px;

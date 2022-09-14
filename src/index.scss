@@ -179,7 +179,7 @@ div[role='status'] {
     }
 
     .flip-countdown-title {
-      text-align: left;
+      text-align: center;
       @include fontBodyXSS; /* identical to box height */
       font-weight: 500 !important;
       margin: 2px 3px;

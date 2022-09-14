@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format';
 import { CTableCell, CTableRow } from '../../../components/CTable';
 import styles from './style.module.scss';
 import CollectionItemImg from '../../../assets/icons/profile-img-icon.svg?component';
-import conTokenImg from '../../../assets/images/con-token.png';
+import ConTokenImg from '../../../assets/images/con-token.svg?component';
 
 const TableItem = ({
   img,
@@ -51,7 +51,12 @@ const TableItem = ({
       {isResponsive ? (
         <CTableCell>
           <Box display="flex" alignItems="center" mb={1} justifyContent="end">
-            <img src={conTokenImg} alt="token" width={25} height={25} />
+            <ConTokenImg
+              style={{
+                width: 25,
+                height: 25
+              }}
+            />
             <Typography variant="placeholder" fontWeight={600} ml={1}>
               <NumberFormat
                 value={volume}
@@ -78,7 +83,12 @@ const TableItem = ({
         <>
           <CTableCell>
             <Box display="flex" alignItems="center">
-              <img src={conTokenImg} alt="token" width={25} height={25} />
+              <ConTokenImg
+                style={{
+                  width: 25,
+                  height: 25
+                }}
+              />
               <Typography variant="placeholder" fontWeight={600} ml={1}>
                 <NumberFormat
                   value={volume}
@@ -108,7 +118,12 @@ const TableItem = ({
           {!isArtists && (
             <CTableCell>
               <Box display="flex" alignItems="center">
-                <img src={conTokenImg} alt="token" width={25} height={25} />
+                <ConTokenImg
+                  style={{
+                    width: 25,
+                    height: 25
+                  }}
+                />
                 <Typography variant="placeholder" fontWeight={600} ml={1}>
                   <NumberFormat
                     value={floorPrice}

@@ -46,7 +46,7 @@ const HistoryTable = ({ data, title = 'NFT History' }) => {
   return (
     <Box className={classes.root} mt={5}>
       <Box className={classes.header}>
-        <Typography variant="h4" fontSize="20px!important" lineHeight={'30px'}>
+        <Typography variant="h4" fontSize="18px!important" lineHeight={'30px'}>
           {title}
         </Typography>
       </Box>
@@ -55,7 +55,11 @@ const HistoryTable = ({ data, title = 'NFT History' }) => {
           <CTableHead className={classes.head}>
             <CTableHeadRow>
               {historyMockHeadRows.map((item, i) => (
-                <CTableCell key={i}>{item}</CTableCell>
+                <CTableCell key={i}>
+                  <Typography fontSize="15px" fontWeight={700}>
+                    {item}
+                  </Typography>
+                </CTableCell>
               ))}
             </CTableHeadRow>
           </CTableHead>
