@@ -73,6 +73,7 @@ const CollectionDetailImage = ({
         color: likedNFT ? "#ff006b" : "#7D8890",
         justifyContent: "flex-end",
         border: "1px solid #D1D1D1",
+        borderBottom: '0px',
         borderRadius: "7px 7px 0 0",
         gap: "6px",
       }
