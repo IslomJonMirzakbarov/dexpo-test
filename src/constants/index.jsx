@@ -9,39 +9,39 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 export const pages = [
   {
-    name: 'Create NFT',
-    to: '/nft/create',
-    isAuthenticated: true
+    name: "Create NFT",
+    to: "/nft/create",
+    isAuthenticated: true,
   },
   {
-    name: 'Marketplace',
-    to: '/marketplace'
+    name: "Marketplace",
+    to: "/marketplace",
   },
   {
-    name: 'Contact',
-    to: '/contact',
+    name: "Contact",
+    to: "/contact",
     children: [
       {
-        name: 'Telegram',
-        to: '#',
-        icon: <TelegramIcon />
+        name: "Telegram",
+        to: "#",
+        icon: <TelegramIcon />,
       },
       {
-        name: 'KakaoTalk',
-        to: '#',
-        icon: <KakaoTalkIcon />
-      }
-    ]
+        name: "KakaoTalk",
+        to: "#",
+        icon: <KakaoTalkIcon />,
+      },
+    ],
   },
   {
-    name: 'Rankings',
-    to: '/rankings'
+    name: "Rankings",
+    to: "/rankings",
   },
   {
-    name: 'Faucet',
-    to: '/faucet',
-    isAuthenticated: true
-  }
+    name: "Faucet",
+    to: "/faucet",
+    isAuthenticated: true,
+  },
 ];
 
 export const responsivePages = (handleLogout) => [

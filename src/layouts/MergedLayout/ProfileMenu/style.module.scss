@@ -28,6 +28,7 @@
         align-items: center;
         border-radius: 7px;
         @include fontBodyXL2;
+        color: colors.$textColor1;
         svg {
           margin-right: 10px;
           color: colors.$icon;
