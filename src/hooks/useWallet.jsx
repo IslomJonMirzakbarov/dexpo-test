@@ -118,7 +118,7 @@ const useWallet = () => {
     try {
       console.log('switching network');
       switchNetwork();
-      tokenRegister();
+      // tokenRegister();
     } catch (err) {
       if (err.code === 4902) {
         addNetwork();
