@@ -1,15 +1,15 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
-import DModal from '../DModal';
-import submittedImg from '../../assets/icons/submitted.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { togglePopupByKey } from '../../store/popup/popup.slice';
+import { Box, Typography } from "@mui/material";
+import React from "react";
+import DModal from "../DModal";
+import submittedImg from "../../assets/icons/submitted.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { togglePopupByKey } from "../../store/popup/popup.slice";
 
 const SubmittedModal = ({ onClick, submitted }) => {
   const dispatch = useDispatch();
   const { submittedPopup } = useSelector((store) => store.popup);
 
-  const onClose = () => dispatch(togglePopupByKey('submittedPopup'));
+  const onClose = () => dispatch(togglePopupByKey("submittedPopup"));
 
   return (
     <DModal
@@ -27,7 +27,8 @@ const SubmittedModal = ({ onClick, submitted }) => {
           textAlign="center"
         >
           Your request is submitted successfully and sent to admin to review.
-          You can also check your status on
+          After reviewing we will inform you via email. You can also check your
+          status on
         </Typography>
         <Typography
           variant="placeholder"
@@ -35,7 +36,7 @@ const SubmittedModal = ({ onClick, submitted }) => {
           fontWeight={500}
           mb={4}
         >
-          My Page {'>'} My application tab.
+          My Page {">"} My application tab.
         </Typography>
       </Box>
     </DModal>

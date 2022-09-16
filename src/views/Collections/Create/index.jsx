@@ -96,7 +96,7 @@ const CollectionCreate = () => {
               }}
             >
               <Box className={styles.TopIContainer}></Box>
-              <MiddleCircleType  className={styles.MiddleCircle} />
+              <MiddleCircleType className={styles.MiddleCircle} />
               <Box className={styles.BottomIContainer}></Box>
             </Box>
             <Box
@@ -242,7 +242,8 @@ const CollectionCreate = () => {
           <Typography className={styles.ProcessDesc}>
             <>
               Your collection is submitted successfully and sent to <br />
-              admin to review. You can also check your status on
+              admin to review. After reviewing we will inform you via email. You
+              can also check your status on
               <br />
               <span className={styles.MainDesc}>
                 My Page {">"} My application tab.

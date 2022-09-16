@@ -27,7 +27,8 @@ const SentModal = ({ onClick }) => {
           textAlign="center"
         >
           Your request is submitted successfully and sent to admin to review.
-          You can also check your status on
+          After reviewing we will inform you via email. You can also check your
+          status on
         </Typography>
         <Typography
           variant="placeholder"
@@ -35,7 +36,7 @@ const SentModal = ({ onClick }) => {
           fontWeight={500}
           mb={4}
         >
-          My Page {'>'} My application tab.
+          My Page {">"} My application tab.
         </Typography>
       </Box>
     </DModal>
