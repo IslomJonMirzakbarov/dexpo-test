@@ -1,4 +1,4 @@
-@use 'src/scss/colors';
+@use "src/scss/colors";
 
 .layout {
 }
@@ -75,6 +75,10 @@
     &.active,
     &:hover {
       color: colors.$primary;
+    }
+
+    @media (max-width: 600px) {
+      color: colors.$greyBg;
     }
   }
 }

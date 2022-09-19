@@ -1,40 +1,40 @@
-import { ListItem, List, Box, Typography, Paper, Button } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { responsivePages } from '../../../constants';
-import styles from '../../AuthLayout/style.module.scss';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import { useDispatch, useSelector } from 'react-redux';
+import { ListItem, List, Box, Typography, Paper, Button } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { responsivePages } from "../../../constants";
+import styles from "../../AuthLayout/style.module.scss";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
-import classNames from 'classnames';
-import { motion } from 'framer-motion';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import { clearWallet } from '../../../store/wallet/wallet.slice';
-import { logout } from '../../../store/auth/auth.slice';
+import { useOnClickOutside } from "../../../hooks/useOnOutsideClick";
+import classNames from "classnames";
+import { motion } from "framer-motion";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import { clearWallet } from "../../../store/wallet/wallet.slice";
+import { logout } from "../../../store/auth/auth.slice";
 
 const FramerList = motion(Box);
 
 const variant = {
   hidden: {
-    x: '120vw'
+    x: "120vw",
   },
   animate: {
-    x: 0
-  }
+    x: 0,
+  },
 };
 
 const variantChild = {
   hidden: {
-    opacity: 0
+    opacity: 0,
     // height: 0
   },
   animate: {
-    opacity: 1
+    opacity: 1,
     // height: '100%'
-  }
+  },
 };
 
 const ToggleList = ({ page, location, navigate, token }) => {
@@ -43,7 +43,7 @@ const ToggleList = ({ page, location, navigate, token }) => {
     <>
       <Box
         className={classNames(styles.navItem, {
-          [styles.active]: location?.pathname?.includes(page.to)
+          [styles.active]: location?.pathname?.includes(page.to),
         })}
         key={page.name}
         onClick={() => setOpenList((prev) => !prev)}
@@ -60,7 +60,7 @@ const ToggleList = ({ page, location, navigate, token }) => {
             alignItems="center"
             fontWeight={600}
           >
-            {page.name}&nbsp;{' '}
+            {page.name}&nbsp;{" "}
           </Typography>
           <ArrowForwardIosRoundedIcon />
         </Box>
@@ -75,7 +75,7 @@ const ToggleList = ({ page, location, navigate, token }) => {
                     display="flex"
                     justifyContent="flex-start"
                     alignItems="center"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                   >
                     {child.icon}
                     <Typography fontSize={13} fontWeight={500} ml="17px">
@@ -84,26 +84,52 @@ const ToggleList = ({ page, location, navigate, token }) => {
                   </Box>
                 </Box>
               );
-            return (
-              <Box
-                className={styles.child}
-                onClick={() =>
-                  navigate(page.isAuthenticated && !token ? '/login' : child.to)
-                }
-              >
-                <Box
-                  display="flex"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  style={{ width: '100%' }}
+
+            if (child.name === "Telegram") {
+              return (
+                <a
+                  href="https://t.me/worldartdexpo"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={classNames(styles.child)}
                 >
-                  {child.icon}
-                  <Typography fontSize={13} fontWeight={500} ml="17px">
-                    {child.name}
-                  </Typography>
-                </Box>
-              </Box>
-            );
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    style={{ width: "100%" }}
+                  >
+                    {child.icon}
+                    <Typography fontSize={13} fontWeight={500} ml="17px">
+                      {child.name}
+                    </Typography>
+                  </Box>
+                </a>
+              );
+            }
+
+            if (child.name === "KakaoTalk") {
+              return (
+                <a
+                  href="http://pf.kakao.com/_teauxj"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={classNames(styles.child)}
+                >
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    style={{ width: "100%" }}
+                  >
+                    {child.icon}
+                    <Typography fontSize={13} fontWeight={500} ml="17px">
+                      {child.name}
+                    </Typography>
+                  </Box>
+                </a>
+              );
+            }
           })}
         </FramerList>
       )}
@@ -125,7 +151,7 @@ const LinkListResponsive = () => {
   const handleLogout = () => {
     dispatch(clearWallet());
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -136,22 +162,22 @@ const LinkListResponsive = () => {
     <Box display="flex" alignItems="center">
       {!isOpen ? (
         <MenuRoundedIcon
-          style={{ fontSize: 25, color: 'white', marginLeft: 30 }}
+          style={{ fontSize: 25, color: "white", marginLeft: 30 }}
           onClick={toggleMenu}
         />
       ) : (
         <CloseRoundedIcon
-          style={{ fontSize: 25, color: 'white', marginLeft: 30 }}
+          style={{ fontSize: 25, color: "white", marginLeft: 30 }}
           onClick={toggleMenu}
         />
       )}
       <FramerList
         className={styles.navList}
         variants={variant}
-        animate={isOpen ? 'animate' : 'hidden'}
+        animate={isOpen ? "animate" : "hidden"}
         initial="hidden"
         transition={{
-          duration: 0.6
+          duration: 0.6,
         }}
       >
         <Box display="flex" flexDirection="column" width="100%">
@@ -169,12 +195,12 @@ const LinkListResponsive = () => {
             return (
               <Box
                 className={classNames(styles.navItem, {
-                  [styles.active]: location?.pathname?.includes(page.to)
+                  [styles.active]: location?.pathname?.includes(page.to),
                 })}
                 key={page.name}
               >
                 <NavLink
-                  to={page.isAuthenticated && !token ? '/login' : page.to}
+                  to={page.isAuthenticated && !token ? "/login" : page.to}
                 >
                   <Box
                     display="flex"
@@ -187,7 +213,7 @@ const LinkListResponsive = () => {
                       alignItems="center"
                       fontWeight={600}
                     >
-                      {page.name}&nbsp;{' '}
+                      {page.name}&nbsp;{" "}
                     </Typography>
                     <ArrowForwardIosRoundedIcon />
                   </Box>
@@ -201,7 +227,7 @@ const LinkListResponsive = () => {
           pb={2}
           display="flex"
           width="100%"
-          onClick={() => navigate('/login')}
+          onClick={() => navigate("/login")}
         >
           <Button variant="containedInherit" fullWidth>
             Connect Wallet
