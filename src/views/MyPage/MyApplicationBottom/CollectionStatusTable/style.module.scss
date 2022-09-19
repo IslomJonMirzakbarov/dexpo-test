@@ -5,7 +5,7 @@
   display: block;
   overflow: auto;
   max-height: 470px;
-  width: 100%;
+  width: 1240px;
   border-spacing: 0;
 
   .TableHead {
@@ -31,19 +31,19 @@
       & :nth-child(1) {
         border-radius: 7px 0 0 0;
         border-left: colors.$border;
-        width: 364px;
+        width: 379.66px;
         padding-left: 30px;
         text-align: left;
       }
 
       & :nth-child(2) {
-        width: 677px;
+        width: 692.66px;
         text-align: left;
       }
 
       & :nth-child(3) {
         text-align: right;
-        width: 152px;
+        width: 167.66px;
         padding-right: 13px;
         border-radius: 0 7px 0 0;
         border-right: colors.$border;
@@ -71,7 +71,7 @@
         color: colors.$greyBg;
 
         svg {
-         padding-left: 0;
+          padding-left: 0;
         }
 
         .Svg {
