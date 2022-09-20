@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-
-import styles from "./style.module.scss";
 import FormInputText from "../../components/FormInputText";
 import { Box, Container } from "@mui/system";
 import useArtistAPI from "../../hooks/useArtistAPI";
@@ -9,13 +7,15 @@ import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-import SubmittedModal from "../../components/Modals/SubmittedModal";
-import RejectedModal from "../../components/Modals/RejectedModal";
 import Loader from "../../components/Loader";
 import classNames from "classnames";
 import isEmail from "../../utils/isEmail";
 import useToast from "../../hooks/useToast";
+import ModalCard from "../../components/ModalCard";
+import ArtistFormSuccess from "../../assets/icons/artist-form-success.svg?component";
+import ArtistFormReject from "../../assets/icons/artist-form-reject.svg?component";
+
+import styles from "./style.module.scss";
 
 const ArtistForm = () => {
   const navigate = useNavigate();
@@ -24,13 +24,30 @@ const ArtistForm = () => {
   const { account } = useSelector((store) => store.wallet);
 
   const [rejectCasePopup, setRejectCasePopup] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [responseChecker, setResponseChecker] = useState(false);
   const { create, artist, isLoading, refetch } = useArtistAPI({
     isDetail: true,
   });
 
-  const isNotExisted = artist?.message === "NOT_EXIST";
+  console.log(artist);
 
+  const isNotExisted = artist?.message === "NOT_EXIST";
   const isRejected = artist?.data?.status === "REJECT";
+
+  useEffect(() => {
+    if (isNotExisted) {
+      setShowModal(false);
+    }
+    if (artist?.data?.status === "IDLE" || artist?.data?.status === "PENDING") {
+      setShowModal(true);
+      setResponseChecker(true);
+    }
+    if (isRejected) {
+      setRejectCasePopup(true);
+    }
+  }, [artist?.data?.status, isNotExisted, isRejected]);
+
   const isPending = useMemo(
     () =>
       !isNotExisted &&
@@ -63,15 +80,10 @@ const ArtistForm = () => {
       };
       create.mutate(payload);
 
-      if (artist.data !== null) {
-        if (
-          artist.code.toString()[0] === "4" ||
-          artist.code.toString()[0] === "5"
-        ) {
-          setRejectCasePopup(true);
-        }
-      }
-
+      setShowModal(true);
+      setTimeout(() => {
+        setResponseChecker(true);
+      }, 2000);
       reset();
       refetch();
     } else {
@@ -80,11 +92,10 @@ const ArtistForm = () => {
   };
 
   const modalClick = () => {
-    if (!rejectCasePopup) {
-      navigate("/user/my-page/artist-status");
-    } else {
-      navigate("/");
-    }
+    if (responseChecker) navigate("/user/my-page/artist-status");
+  };
+  const rejectModalClick = () => {
+    navigate("/");
   };
 
   useEffect(() => {
@@ -176,8 +187,46 @@ const ArtistForm = () => {
           </Box>
         </form>
       </Box>
-      <SubmittedModal onClick={modalClick} submitted={isPending} />
-      <RejectedModal onClick={modalClick} rejected={isRejected} />
+      {showModal && (
+        <ModalCard
+          responseChecker={responseChecker}
+          page="create-collection"
+          onSaveButtonClick={modalClick}
+        >
+          <Box className={styles.IconContainer}>
+            <ArtistFormSuccess />
+          </Box>
+          <Typography className={styles.ProcessTitle}>Sent!</Typography>
+          <Typography className={styles.ProcessDesc}>
+            <>
+              Your request is submitted successfully and sent to admin to
+              review. After reviewing <br /> we will inform you via email.
+              <br />
+              <span className={styles.MainDesc}>
+                My Page {">"} My application tab.
+              </span>
+            </>
+          </Typography>
+        </ModalCard>
+      )}
+      {rejectCasePopup && (
+        <ModalCard
+          responseChecker={true}
+          page="create-collection"
+          onSaveButtonClick={rejectModalClick}
+        >
+          <Box className={styles.IconContainer}>
+            <ArtistFormReject />
+          </Box>
+          <Typography className={styles.ProcessTitle}>Rejected!</Typography>
+          <Typography className={styles.ProcessDesc}>
+            <>
+              Artist registration has been rejected.Please contact
+              [support@dexpo.world] <br /> for resubmission.
+            </>
+          </Typography>
+        </ModalCard>
+      )}
     </Container>
   );
 };
