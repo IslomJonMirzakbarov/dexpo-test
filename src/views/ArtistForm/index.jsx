@@ -30,8 +30,6 @@ const ArtistForm = () => {
     isDetail: true,
   });
 
-  console.log(artist);
-
   const isNotExisted = artist?.message === "NOT_EXIST";
   const isRejected = artist?.data?.status === "REJECT";
 
