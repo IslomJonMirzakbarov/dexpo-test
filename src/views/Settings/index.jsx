@@ -64,13 +64,17 @@ const Settings = () => {
       updateImg.mutate(formDataImg);
     }
 
-    let formDataDesc = new FormData();
-    formDataDesc.append("description", data.userEditBio);
-    updateDesc.mutate(formDataDesc);
+    if (data.userEditBio) {
+      let formDataDesc = new FormData();
+      formDataDesc.append("description", data.userEditBio);
+      updateDesc.mutate(formDataDesc);
+    }
 
-    updateName.mutate({
-      username: data.userEditName,
-    });
+    if (data.userEditName) {
+      updateName.mutate({
+        username: data.userEditName,
+      });
+    }
 
     setTimeout(() => {
       setResponseChecker(true);
