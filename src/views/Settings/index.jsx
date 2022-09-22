@@ -64,7 +64,7 @@ const Settings = () => {
       updateImg.mutate(formDataImg);
     }
 
-    if (data.userEditBio) {
+    if (data.userEditBio || data.userEditBio.length === 0) {
       let formDataDesc = new FormData();
       formDataDesc.append("description", data.userEditBio);
       updateDesc.mutate(formDataDesc);
