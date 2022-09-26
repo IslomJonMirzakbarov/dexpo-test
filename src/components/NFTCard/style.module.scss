@@ -1,5 +1,5 @@
-@use '../../scss/colors';
-@import '../../styles/fonts';
+@use "../../scss/colors";
+@import "../../styles/fonts";
 
 .card {
   display: flex;
@@ -180,6 +180,7 @@
       align-items: center;
       margin: 4px 13px 8px 13px;
       height: 24px;
+      color: #000000;
 
       @include fontBodyXXL;
       font-weight: 600;

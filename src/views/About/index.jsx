@@ -70,6 +70,7 @@ const About = () => {
     categoryTypes.NOTABLE,
     refetchInterval
   );
+
   return (
     <Box className={styles.Container}>
       <div className={styles.AboutCoverage}>
