@@ -1,4 +1,4 @@
-@use '../../scss/colors';
+@use "../../scss/colors";
 
 .container {
   padding: 30px 0;
@@ -11,7 +11,7 @@
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -46,13 +46,14 @@
     list-style: none;
     display: flex;
     align-items: center;
-    li {
+    li,
+    a {
       margin: 0 5px;
       &:first-child {
         margin: 0 5px 0 0;
       }
     }
-    li a {
+    .ChildLink {
       width: 35px;
       height: 35px;
       color: #fff;

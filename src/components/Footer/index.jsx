@@ -5,6 +5,7 @@ import YoutubeIcon from "../../assets/icons/youtube.svg?component";
 import FacebookIcon from "../../assets/icons/facebook.svg?component";
 import DiscordIcon from "../../assets/icons/discord.svg?component";
 import TelegramIcon from "../../assets/icons/telegram.svg?component";
+import KakaoTalkIcon from "../../assets/icons/kakaotalk2.svg?component";
 import logoImg from "../../assets/images/logo.svg";
 import { NavLink } from "react-router-dom";
 import styles from "./style.module.scss";
@@ -101,10 +102,11 @@ const list = [
         link: "/telegram",
         icon: <TelegramIcon />,
       },
-      // {
-      //     title: 'Kakaotalk',
-      //     link: '/kakaotalk'
-      // },
+      {
+        title: "Kakaotalk",
+        link: "/kakaotalk",
+        icon: <KakaoTalkIcon />,
+      },
       {
         title: "Discord",
         link: "/discrod",
@@ -189,11 +191,44 @@ const Footer = () => {
                     </ul>
                   ) : (
                     <ul className={styles.links_icons}>
-                      {item.children.map((link) => (
-                        <li key={link.link}>
-                          <NavLink to={link.link}>{link.icon}</NavLink>
-                        </li>
-                      ))}
+                      {item.children.map((link) => {
+                        if (link.link === "/kakaotalk") {
+                          return (
+                            <a
+                              href="http://pf.kakao.com/_teauxj"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <div className={styles.ChildLink}>
+                                {link.icon}
+                              </div>
+                            </a>
+                          );
+                        }
+                        if (link.link === "/telegram") {
+                          return (
+                            <a
+                              href="https://t.me/worldartdexpo"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <div className={styles.ChildLink}>
+                                {link.icon}
+                              </div>
+                            </a>
+                          );
+                        }
+                        return (
+                          <li key={link.link}>
+                            <NavLink
+                              className={styles.ChildLink}
+                              to={link.link}
+                            >
+                              {link.icon}
+                            </NavLink>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </Grid>
