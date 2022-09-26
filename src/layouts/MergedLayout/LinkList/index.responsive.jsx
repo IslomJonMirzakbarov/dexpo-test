@@ -39,6 +39,7 @@ const variantChild = {
 
 const ToggleList = ({ page, location, navigate, token }) => {
   const [openList, setOpenList] = useState(false);
+  console.log(page);
   return (
     <>
       <Box
@@ -68,23 +69,6 @@ const ToggleList = ({ page, location, navigate, token }) => {
       {openList && (
         <FramerList className={styles.childs}>
           {page.children.map((child) => {
-            if (!!child.onClick)
-              return (
-                <Box className={styles.child} onClick={child.onClick}>
-                  <Box
-                    display="flex"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    style={{ width: "100%" }}
-                  >
-                    {child.icon}
-                    <Typography fontSize={13} fontWeight={500} ml="17px">
-                      {child.name}
-                    </Typography>
-                  </Box>
-                </Box>
-              );
-
             if (child.name === "Telegram") {
               return (
                 <a
@@ -130,6 +114,30 @@ const ToggleList = ({ page, location, navigate, token }) => {
                 </a>
               );
             }
+
+            const childClick = () => {
+              if (!!child.onClick) {
+                child.onClick();
+              } else {
+                navigate(child.to);
+              }
+            };
+
+            return (
+              <Box className={styles.child} onClick={childClick}>
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  style={{ width: "100%" }}
+                >
+                  {child.icon}
+                  <Typography fontSize={13} fontWeight={500} ml="17px">
+                    {child.name}
+                  </Typography>
+                </Box>
+              </Box>
+            );
           })}
         </FramerList>
       )}

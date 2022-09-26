@@ -67,6 +67,7 @@ const ProfileMenu = ({ options }) => {
           {lastItems.map((item, i) => {
             const navigateIt = () => navigate(item.to);
             const handleClick = item.to ? navigateIt : item.onClick;
+            console.log(item);
 
             if (item.name === "Telegram") {
               return (
