@@ -5,6 +5,19 @@
   background-size: 100%;
   margin-bottom: 220px;
   width: 100%;
+  padding-bottom: 20px;
+
+  ul {
+    bottom: -45px;
+  }
+
+  svg {
+    color: white;
+
+    &:hover {
+      color: white;
+    }
+  }
 
   @media (max-width: 600px) {
     background-size: 350%;

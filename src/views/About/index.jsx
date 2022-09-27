@@ -37,16 +37,8 @@ const settings = {
   speed: 500,
   slidesToShow,
   slidesToScroll: 1,
-  prevArrow: (
-    <ArrowBackIosNewRoundedIcon
-      style={{ backgroundColor: "white", color: "black" }}
-    />
-  ),
-  nextArrow: (
-    <ArrowForwardIosRoundedIcon
-      style={{ backgroundColor: "white", color: "black" }}
-    />
-  ),
+  prevArrow: <ArrowBackIosNewRoundedIcon />,
+  nextArrow: <ArrowForwardIosRoundedIcon />,
   responsive: [
     {
       breakpoint: 600,
@@ -228,6 +220,7 @@ const About = () => {
                       ({ nft, artist, market, collection }, c) => (
                         <Grid item key={c} lg={3}>
                           <NFTCard
+                            page="about"
                             img={nft.token_image}
                             name={nft.token_name}
                             price={market?.price}
@@ -260,6 +253,7 @@ const About = () => {
                       ({ nft, artist, market, collection }, c) => (
                         <div className={styles2.card} key={c}>
                           <NFTCard
+                            page="about"
                             className={styles2.card_item}
                             img={nft.token_image}
                             name={nft.token_name}
