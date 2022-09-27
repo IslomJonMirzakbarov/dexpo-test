@@ -39,7 +39,6 @@ const variantChild = {
 
 const ToggleList = ({ page, location, navigate, token }) => {
   const [openList, setOpenList] = useState(false);
-  console.log(page);
   return (
     <>
       <Box
