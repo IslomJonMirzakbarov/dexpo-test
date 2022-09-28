@@ -89,27 +89,27 @@ const list = [
     children: [
       {
         title: "Youtube",
-        link: "/youtube",
+        link: "https://www.youtube.com/channel/UCmGfGTpfawlJbDNSNXk8N-w",
         icon: <YoutubeIcon />,
       },
       {
         title: "Facebook",
-        link: "/facebook",
+        link: "https://www.facebook.com/WADexpo",
         icon: <FacebookIcon />,
       },
       {
         title: "Telegram",
-        link: "/telegram",
+        link: "https://t.me/worldartdexpo",
         icon: <TelegramIcon />,
       },
       {
         title: "Kakaotalk",
-        link: "/kakaotalk",
+        link: "http://pf.kakao.com/_teauxj",
         icon: <KakaoTalkIcon />,
       },
       {
         title: "Discord",
-        link: "/discrod",
+        link: "https://discord.gg/bcK55PH9",
         icon: <DiscordIcon />,
       },
     ],
@@ -192,41 +192,15 @@ const Footer = () => {
                   ) : (
                     <ul className={styles.links_icons}>
                       {item.children.map((link) => {
-                        if (link.link === "/kakaotalk") {
-                          return (
-                            <a
-                              href="http://pf.kakao.com/_teauxj"
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <div className={styles.ChildLink}>
-                                {link.icon}
-                              </div>
-                            </a>
-                          );
-                        }
-                        if (link.link === "/telegram") {
-                          return (
-                            <a
-                              href="https://t.me/worldartdexpo"
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <div className={styles.ChildLink}>
-                                {link.icon}
-                              </div>
-                            </a>
-                          );
-                        }
                         return (
-                          <li key={link.link}>
-                            <NavLink
-                              className={styles.ChildLink}
-                              to={link.link}
-                            >
-                              {link.icon}
-                            </NavLink>
-                          </li>
+                          <a
+                            href={link.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            key={link.title}
+                          >
+                            <div className={styles.ChildLink}>{link.icon}</div>
+                          </a>
                         );
                       })}
                     </ul>
