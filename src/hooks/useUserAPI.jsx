@@ -45,6 +45,7 @@ const getUserInfo = (token, walletAddress) =>
 const useUserAPI = ({ isUserInfo, walletAddress }) => {
   const { account } = useSelector((store) => store.wallet);
   const { token } = useSelector((store) => store.auth);
+  // console.log(token);
 
   const {
     data: userInfo,
