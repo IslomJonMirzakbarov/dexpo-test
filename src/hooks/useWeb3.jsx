@@ -23,7 +23,9 @@ const useWeb3 = () => {
   const [balance, setBalance] = useState(null);
 
   useEffect(() => {
-    getUserBalance();
+    if (!account) return;
+
+    getUserBalance(account);
   }, [account]);
 
   const tokenRegister = async () => {
@@ -50,10 +52,10 @@ const useWeb3 = () => {
     }
   };
 
-  const getUserBalance = async () => {
+  const getUserBalance = async (acc) => {
     try {
       const contractERC20 = new web3.eth.Contract(ERC20_ABI, conAddress);
-      const balance = await contractERC20.methods.balanceOf(account).call();
+      const balance = await contractERC20.methods.balanceOf(acc).call();
       const res = web3.utils.fromWei(balance);
 
       setBalance(res);
