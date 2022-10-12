@@ -12,7 +12,7 @@ dist
 dist-ssr
 build
 
-yarn.lock
+
 *.local
 
 # Editor directories and files
