@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import styles from './style.module.scss';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, useTheme } from '@mui/styles';
 import ValueTable from '../../Collections/Details/ValueTable';
 import HistoryTable from '../../Collections/Details/HistoryTable';
 import CollectionDetailsInfo from '../../Collections/Details/Info';
@@ -20,7 +20,6 @@ import TokenImg from '../../../assets/images/con-token.svg?component';
 import { DATE_FORMAT, priceTypeChar } from '../../../constants';
 import PriceInput from '../../../components/PriceInput';
 import SellModal from '../../../components/Modals/SellModal';
-import { useTheme } from '@emotion/react';
 import moment from 'moment';
 import DModal from '../../../components/DModal';
 import { marketStatuses } from '../../../constants/marketStatuses';

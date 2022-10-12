@@ -1,21 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import FormInputText from "../../components/FormInputText";
-import { Box, Container } from "@mui/system";
-import useArtistAPI from "../../hooks/useArtistAPI";
-import PrimaryButton from "../../components/Buttons/PrimaryButton";
-import { useSelector } from "react-redux";
-import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader";
-import classNames from "classnames";
-import isEmail from "../../utils/isEmail";
-import useToast from "../../hooks/useToast";
-import ModalCard from "../../components/ModalCard";
-import ArtistFormSuccess from "../../assets/icons/artist-form-success.svg?component";
-import ArtistFormReject from "../../assets/icons/artist-form-reject.svg?component";
+import React, { useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import FormInputText from '../../components/FormInputText';
+import { Box, Container } from '@mui/system';
+import useArtistAPI from '../../hooks/useArtistAPI';
+import PrimaryButton from '../../components/Buttons/PrimaryButton';
+import { useSelector } from 'react-redux';
+import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import Loader from '../../components/Loader';
+import classNames from 'classnames';
+import isEmail from '../../utils/isEmail';
+import useToast from '../../hooks/useToast';
+import ModalCard from '../../components/ModalCard';
+import ArtistFormSuccess from '../../assets/icons/artist-form-success.svg?component';
+import ArtistFormReject from '../../assets/icons/artist-form-reject.svg?component';
 
-import styles from "./style.module.scss";
+import styles from './style.module.scss';
+import { errorMessages } from '../../constants/errorHandlers';
 
 const ArtistForm = () => {
   const navigate = useNavigate();
@@ -27,17 +28,17 @@ const ArtistForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [responseChecker, setResponseChecker] = useState(false);
   const { create, artist, isLoading, refetch } = useArtistAPI({
-    isDetail: true,
+    isDetail: true
   });
 
-  const isNotExisted = artist?.message === "NOT_EXIST";
-  const isRejected = artist?.data?.status === "REJECT";
+  const isNotExisted = artist?.message === 'NOT_EXIST';
+  const isRejected = artist?.data?.status === 'REJECT';
 
   useEffect(() => {
     if (isNotExisted) {
       setShowModal(false);
     }
-    if (artist?.data?.status === "IDLE" || artist?.data?.status === "PENDING") {
+    if (artist?.data?.status === 'IDLE' || artist?.data?.status === 'PENDING') {
       setShowModal(true);
       setResponseChecker(true);
     }
@@ -49,7 +50,7 @@ const ArtistForm = () => {
   const isPending = useMemo(
     () =>
       !isNotExisted &&
-      (artist?.data?.status === "IDLE" || artist?.data?.status === "PENDING"),
+      (artist?.data?.status === 'IDLE' || artist?.data?.status === 'PENDING'),
     [artist?.data, isNotExisted]
   );
 
@@ -57,15 +58,15 @@ const ArtistForm = () => {
     handleSubmit,
     formState: { errors },
     control,
-    reset,
+    reset
   } = useForm({
     defaultValues: {
-      artistName: artist?.data?.artist_name || "",
-      email: artist?.data?.artist_email || "",
+      artistName: artist?.data?.artist_name || '',
+      email: artist?.data?.artist_email || '',
       walletAddress: account,
-      youtubeURL: artist?.data?.youtube_url || "",
-      description: artist?.data?.description || "",
-    },
+      youtubeURL: artist?.data?.youtube_url || '',
+      description: artist?.data?.description || ''
+    }
   });
 
   const onSubmit = (data) => {
@@ -74,26 +75,34 @@ const ArtistForm = () => {
         artist_name: data.artistName,
         artist_email: data.email,
         artist_youtube_url: data.youtubeURL,
-        description: data.description,
+        description: data.description
       };
-      create.mutate(payload);
+      create.mutate(payload, {
+        onError: (err) => {
+          console.log(err);
+        },
+        onSuccess: (res) => {
+          if (!res.data?.data)
+            return toast.error(
+              errorMessages[res.data?.message] || res.data?.message
+            );
 
-      setShowModal(true);
-      setTimeout(() => {
-        setResponseChecker(true);
-      }, 2000);
-      reset();
-      refetch();
+          setShowModal(true);
+          setResponseChecker(true);
+          reset();
+          refetch();
+        }
+      });
     } else {
-      return toast.error("An invalid email address!");
+      return toast.error('An invalid email address!');
     }
   };
 
   const modalClick = () => {
-    if (responseChecker) navigate("/user/my-page/artist-status");
+    if (responseChecker) navigate('/user/my-page/artist-status');
   };
   const rejectModalClick = () => {
-    navigate("/");
+    navigate('/');
   };
 
   useEffect(() => {
@@ -171,7 +180,7 @@ const ArtistForm = () => {
           <Box>
             <PrimaryButton
               className={classNames(styles.Btn, {
-                [styles.BtnErrorFree]: Object.keys(errors).length === 0,
+                [styles.BtnErrorFree]: Object.keys(errors).length === 0
               })}
               disabled={isPending || isRejected}
             >
@@ -201,7 +210,7 @@ const ArtistForm = () => {
               review. After reviewing <br /> we will inform you via email.
               <br />
               <span className={styles.MainDesc}>
-                My Page {">"} My application tab.
+                My Page {'>'} My application tab.
               </span>
             </>
           </Typography>

@@ -6,6 +6,7 @@ import svgr from '@honkhonk/vite-plugin-svgr';
 export default defineConfig({
   plugins: [svgr(), react()],
   publicDir: 'public',
+  base: './',
   build: {
     outDir: 'build'
   },

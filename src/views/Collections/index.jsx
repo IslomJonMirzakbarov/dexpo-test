@@ -20,8 +20,8 @@ import NoItemsFound from '../../components/NoItems';
 import { marketFilterList } from '../../constants/marketFilter';
 import { useSelector } from 'react-redux';
 import { debounce } from 'lodash';
-import { useTheme } from '@emotion/react';
-import { makeStyles } from '@mui/styles';
+
+import { makeStyles, useTheme } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   filter: {
