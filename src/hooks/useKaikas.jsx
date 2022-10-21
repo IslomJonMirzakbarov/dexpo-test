@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
 import { useSelector } from 'react-redux';
+import Caver from 'caver-js';
+import {
+  approveAmount,
+  auctionContract,
+  chainId,
+  chainName,
+  conAddress,
+  conName,
+  faucetContractEnv,
+  fixedContract,
+  rpcUrl,
+  symbol,
+  tokenImg
+} from './useWeb3';
 import { ERC20_ABI } from '../utils/abi/ERC20ABI';
+import { ERC721 } from '../utils/abi/ERC721ABI';
 import { FIXED_MARKET_ABI } from '../utils/abi/FixedMarketABI';
 import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
-import { ERC721 } from '../utils/abi/ERC721ABI';
 import { FAUCET_ABI } from '../utils/abi/FaucetABI';
+// const caver = new Caver(rpcUrl);
 
-const web3 = new Web3(Web3.givenProvider);
+const { caver } = window;
 
-export const conAddress = import.meta.env.VITE_ERC20_HASH;
-export const symbol = 'CONX';
-export const fixedContract = import.meta.env.VITE_FIXED_MARKET_HASH;
-export const auctionContract = import.meta.env.VITE_AUCTION_MARKET_HASH;
-export const faucetContractEnv = import.meta.env.VITE_FAUCET_CONTRACT;
-export const approveAmount = import.meta.env.VITE_APPROVE_AMOUNT;
-export const tokenImg =
-  'https://dexpo.s3.ap-northeast-2.amazonaws.com/1662393423341_con-token.png';
-export const chainId = import.meta.env.VITE_CHAIN_ID;
-export const chainName = import.meta.env.VITE_CHAIN_NAME;
-export const rpcUrl = import.meta.env.VITE_RPC_URL;
-export const conName = import.meta.env.VITE_CON_NAME;
-
-const useWeb3 = () => {
+const useKaikas = () => {
   const { account } = useSelector((store) => store.wallet);
-  const [balance, setBalance] = useState(null);
+
+  const [balance, setBalance] = useState();
 
   useEffect(() => {
     if (!account) return;
@@ -34,7 +36,7 @@ const useWeb3 = () => {
 
   const tokenRegister = async () => {
     try {
-      const wasAdded = await window.ethereum.request({
+      const wasAdded = await caver.request({
         method: 'wallet_watchAsset',
         params: {
           type: 'ERC20', // Initially only supports ERC20, but eventually more!
@@ -58,9 +60,8 @@ const useWeb3 = () => {
 
   const getUserBalance = async (acc) => {
     try {
-      const contractERC20 = new web3.eth.Contract(ERC20_ABI, conAddress);
-      const balance = await contractERC20.methods.balanceOf(acc).call();
-      const res = web3.utils.fromWei(balance);
+      const balance = await caver.klay.getBalance(account);
+      const res = caver.utils.fromWei(balance);
 
       setBalance(res);
     } catch (err) {
@@ -70,7 +71,7 @@ const useWeb3 = () => {
 
   const checkAllowance = async (isFixed = true) => {
     const contract = isFixed ? fixedContract : auctionContract;
-    const contractRC20 = new web3.eth.Contract(ERC20_ABI, conAddress);
+    const contractRC20 = new caver.contract(ERC20_ABI, conAddress);
     const allowance = await contractRC20.methods
       .allowance(account, contract)
       .call();
@@ -80,7 +81,7 @@ const useWeb3 = () => {
 
   const checkAllowance721 = async (contract_address, isFixed = true) => {
     const contract = isFixed ? fixedContract : auctionContract;
-    const contractRC721 = new web3.eth.Contract(ERC721, contract_address);
+    const contractRC721 = new caver.contract(ERC721, contract_address);
     const allowance = await contractRC721.methods
       .isApprovedForAll(account, contract)
       .call();
@@ -90,7 +91,7 @@ const useWeb3 = () => {
 
   const makeApprove721 = async (contract_address, isFixed = true) => {
     const contract = isFixed ? fixedContract : auctionContract;
-    const contractERC721 = new web3.eth.Contract(ERC721, contract_address);
+    const contractERC721 = new caver.contract(ERC721, contract_address);
     const gasLimitApprove = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .estimateGas({
@@ -108,32 +109,37 @@ const useWeb3 = () => {
   };
 
   const makeApprove = async (isFixed = true) => {
-    const contract = isFixed ? fixedContract : auctionContract;
-    const contractRC20 = new web3.eth.Contract(ERC20_ABI, conAddress);
-    const gasLimitApprove = await contractRC20.methods
-      .approve(contract, approveAmount)
-      .estimateGas({
-        from: account
-      });
+    try {
+      const contract = isFixed ? fixedContract : auctionContract;
+      const contractRC20 = new caver.contract(ERC20_ABI, conAddress);
 
-    const approve = await contractRC20.methods
-      .approve(contract, approveAmount)
-      .send({
-        from: account,
-        gas: gasLimitApprove
-      });
+      const gasLimitApprove = await contractRC20.methods
+        .approve(contract, approveAmount)
+        .estimateGas({
+          from: account
+        });
 
-    return approve;
+      const approve = await contractRC20.methods
+        .approve(contract, approveAmount)
+        .send({
+          from: account,
+          gas: gasLimitApprove
+        });
+
+      return approve;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const sell = async (contract_address, tokenId, price) => {
-    const fixedMarket = new web3.eth.Contract(FIXED_MARKET_ABI, fixedContract);
+    const fixedMarket = new caver.contract(FIXED_MARKET_ABI, fixedContract);
 
     const gasLimit = await fixedMarket.methods
       .place(
         contract_address,
         tokenId,
-        Web3.utils.toWei(String(price), 'ether')
+        caver.utils.toWei(String(price), 'ether')
       )
       .estimateGas({
         from: account
@@ -143,7 +149,7 @@ const useWeb3 = () => {
       .place(
         contract_address,
         tokenId,
-        Web3.utils.toWei(String(price), 'ether')
+        caver.utils.toWei(String(price), 'ether')
       )
       .send({
         from: account,
@@ -154,7 +160,7 @@ const useWeb3 = () => {
   };
 
   const purchase = async (contract_address, tokenId) => {
-    const fixedMarket = new web3.eth.Contract(FIXED_MARKET_ABI, fixedContract);
+    const fixedMarket = new caver.contract(FIXED_MARKET_ABI, fixedContract);
 
     const gasLimit = await fixedMarket.methods
       .buy(contract_address, tokenId)
@@ -173,7 +179,7 @@ const useWeb3 = () => {
   };
 
   const cancel = async (contract_address, tokenId) => {
-    const fixedMarket = new web3.eth.Contract(FIXED_MARKET_ABI, fixedContract);
+    const fixedMarket = new caver.contract(FIXED_MARKET_ABI, fixedContract);
 
     const gasLimit = await fixedMarket.methods
       .unPlace(contract_address, tokenId)
@@ -192,7 +198,7 @@ const useWeb3 = () => {
   };
 
   const cancelAuction = async (contract_address, tokenId) => {
-    const auctionMarket = new web3.eth.Contract(
+    const auctionMarket = new caver.contract(
       AUCTION_MARKET_ABI,
       auctionContract
     );
@@ -220,8 +226,8 @@ const useWeb3 = () => {
     startDate,
     endDate
   ) => {
-    const price = Web3.utils.toWei(startPrice, 'ether');
-    const auctionMarket = new web3.eth.Contract(
+    const price = caver.utils.toWei(startPrice, 'ether');
+    const auctionMarket = new caver.contract(
       AUCTION_MARKET_ABI,
       auctionContract
     );
@@ -243,8 +249,8 @@ const useWeb3 = () => {
   };
 
   const bid = async (contract_address, tokenId, price) => {
-    const weidPrice = Web3.utils.toWei(String(price), 'ether');
-    const auctionMarket = new web3.eth.Contract(
+    const weidPrice = caver.utils.toWei(String(price), 'ether');
+    const auctionMarket = new caver.contract(
       AUCTION_MARKET_ABI,
       auctionContract
     );
@@ -267,10 +273,7 @@ const useWeb3 = () => {
 
   const faucet = async (account) => {
     try {
-      const faucetContract = new web3.eth.Contract(
-        FAUCET_ABI,
-        faucetContractEnv
-      );
+      const faucetContract = new caver.contract(FAUCET_ABI, faucetContractEnv);
       const isClaimedWallet = await faucetContract.methods
         .isClaimed(account)
         .call();
@@ -313,7 +316,7 @@ const useWeb3 = () => {
       params: [
         {
           chainName: chainName,
-          chainId: web3.utils.toHex(chainId),
+          chainId: caver.utils.toHex(chainId),
           nativeCurrency: { name: conName, decimals: 18, symbol: conName },
           rpcUrls: [rpcUrl]
         }
@@ -322,11 +325,11 @@ const useWeb3 = () => {
   };
 
   const switchNetwork = async () => {
-    await web3.currentProvider.request({
+    await caver.currentProvider.request({
       method: 'wallet_addEthereumChain',
       params: [
         {
-          chainId: web3.utils.toHex(chainId),
+          chainId: caver.utils.toHex(chainId),
           chainName: chainName,
           rpcUrls: [rpcUrl],
           nativeCurrency: {
@@ -358,4 +361,4 @@ const useWeb3 = () => {
   };
 };
 
-export default useWeb3;
+export default useKaikas;

@@ -15,6 +15,7 @@ import { logout } from '../../store/auth/auth.slice';
 import { setAccount, setPriceeUSD } from '../../store/wallet/wallet.slice';
 import LinkList from './LinkList';
 import Profile from './Profile';
+import useKaikas from '../../hooks/useKaikas';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
@@ -25,6 +26,9 @@ const MergedLayout = ({ children }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { connectWallet } = useWallet();
+
+  const { balance, checkAllowance } = useKaikas();
+  console.log(balance);
 
   const { account } = useSelector((store) => store.wallet);
   const { token } = useSelector((store) => store.auth);

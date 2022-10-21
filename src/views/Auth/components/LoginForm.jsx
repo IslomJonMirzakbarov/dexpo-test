@@ -8,6 +8,12 @@ const wallets = [
     key: 'metamask',
     img: 'https://cdn.iconscout.com/icon/free/png-256/metamask-2728406-2261817.png',
     isPopular: true
+  },
+  {
+    name: 'Kaikas',
+    key: 'kaikas',
+    img: 'https://cdn.iconscout.com/icon/free/png-256/metamask-2728406-2261817.png',
+    isPopular: false
   }
 ];
 

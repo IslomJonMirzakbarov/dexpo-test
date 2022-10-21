@@ -9,6 +9,7 @@ import FormInputText from '../../components/FormInputText';
 import NumberFormat from 'react-number-format';
 import useWeb3 from '../../hooks/useWeb3';
 import useToast from '../../hooks/useToast';
+import useCurrnetProvider from '../../hooks/useCurrentProvider';
 
 const price = 1000;
 
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Faucet = () => {
   const classes = useStyles();
-  const { faucet } = useWeb3();
+  const { faucet } = useCurrnetProvider();
   const { toast } = useToast();
 
   const { control, handleSubmit } = useForm();
