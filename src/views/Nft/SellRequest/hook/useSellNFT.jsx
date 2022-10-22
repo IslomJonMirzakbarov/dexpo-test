@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { awaitStatus } from '../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
 import { marketStatuses } from '../../../../constants/marketStatuses';
 import { sellReqStatuses } from '../../../../constants/sellRequestStatuses';
+import useCurrnetProvider from '../../../../hooks/useCurrentProvider';
 import useToast from '../../../../hooks/useToast';
 import useWeb3 from '../../../../hooks/useWeb3';
 import { securedAPI } from '../../../../services/api';
@@ -47,7 +48,7 @@ const useSellNFT = ({
     cancel,
     createAuction,
     cancelAuction
-  } = useWeb3();
+  } = useCurrnetProvider();
 
   const { toast } = useToast();
 

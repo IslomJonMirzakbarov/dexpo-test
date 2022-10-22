@@ -19,6 +19,14 @@ export default defineConfig({
         stream: 'stream-browserify',
         zlib: 'browserify-zlib',
         util: 'util'
+      },
+      {
+        find: 'caver-js',
+        replacement: 'caver-js/dist/caver.min.js',
+        process: 'process/browser',
+        stream: 'stream-browserify',
+        zlib: 'browserify-zlib',
+        util: 'util'
       }
     ]
   }

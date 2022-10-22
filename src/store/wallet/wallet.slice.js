@@ -6,7 +6,8 @@ export const { actions: walletActions, reducer: walletReducer } = createSlice({
     account: null,
     signature: null,
     nonce: null,
-    price_usd: null
+    price_usd: null,
+    type: null
   },
   reducers: {
     setAccount: (state, { payload }) => {
@@ -21,6 +22,9 @@ export const { actions: walletActions, reducer: walletReducer } = createSlice({
     setPriceeUSD: (state, { payload }) => {
       state.price_usd = payload;
     },
+    setType: (state, { payload }) => {
+      state.type = payload;
+    },
     clearWallet: (state) => {
       state.account = null;
       state.signature = null;
@@ -29,5 +33,11 @@ export const { actions: walletActions, reducer: walletReducer } = createSlice({
   }
 });
 
-export const { setAccount, setNonce, setSignature, clearWallet, setPriceeUSD } =
-  walletActions;
+export const {
+  setAccount,
+  setNonce,
+  setSignature,
+  clearWallet,
+  setPriceeUSD,
+  setType
+} = walletActions;

@@ -21,13 +21,15 @@ import {
   getRPCErrorMessage,
   metamaskError
 } from '../../../constants/metamaskErrors';
+import useCurrnetProvider from '../../../hooks/useCurrentProvider';
 
 const REF_INTERVAL = 5000;
 
 const CollectionDetails = () => {
   const { account } = useSelector((store) => store.wallet);
 
-  const { checkAllowance, makeApprove, purchase, bid, balance } = useWeb3();
+  const { checkAllowance, makeApprove, purchase, bid, balance } =
+    useCurrnetProvider();
 
   const [refetchInterval, setRefetchInterval] = useState(false);
 

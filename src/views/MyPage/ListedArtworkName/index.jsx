@@ -15,6 +15,7 @@ import NumberFormat from 'react-number-format';
 import SellModal from '../../../components/Modals/SellModal';
 import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
 import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
+import useCurrnetProvider from '../../../hooks/useCurrentProvider';
 
 const TableRow = ({
   item,
@@ -71,7 +72,7 @@ const ListedArtworkBottom = () => {
     size: 20000
   });
 
-  const { cancel, cancelAuction } = useWeb3();
+  const { cancel, cancelAuction } = useCurrnetProvider();
 
   useEffect(() => {
     if (!openModal) setIsLoading(awaitStatus.INITIAL);
