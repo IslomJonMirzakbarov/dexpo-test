@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Caver from 'caver-js';
 import {
   approveAmount,
   auctionContract,
@@ -19,6 +18,8 @@ import { ERC721 } from '../utils/abi/ERC721ABI';
 import { FIXED_MARKET_ABI } from '../utils/abi/FixedMarketABI';
 import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
 import { FAUCET_ABI } from '../utils/abi/FaucetABI';
+import Caver from 'caver-js';
+
 // const caver = new Caver(rpcUrl);
 
 const { caver } = window;
@@ -71,7 +72,7 @@ const useKaikas = () => {
 
   const checkAllowance = async (isFixed = true) => {
     const contract = isFixed ? fixedContract : auctionContract;
-    const contractRC20 = new caver.contract(ERC20_ABI, conAddress);
+    const contractRC20 = new caver.klay.Contract(ERC20_ABI, conAddress);
     const allowance = await contractRC20.methods
       .allowance(account, contract)
       .call();
@@ -81,7 +82,7 @@ const useKaikas = () => {
 
   const checkAllowance721 = async (contract_address, isFixed = true) => {
     const contract = isFixed ? fixedContract : auctionContract;
-    const contractRC721 = new caver.contract(ERC721, contract_address);
+    const contractRC721 = new caver.klay.Contract(ERC721, contract_address);
     const allowance = await contractRC721.methods
       .isApprovedForAll(account, contract)
       .call();
@@ -91,7 +92,7 @@ const useKaikas = () => {
 
   const makeApprove721 = async (contract_address, isFixed = true) => {
     const contract = isFixed ? fixedContract : auctionContract;
-    const contractERC721 = new caver.contract(ERC721, contract_address);
+    const contractERC721 = new caver.klay.Contract(ERC721, contract_address);
     const gasLimitApprove = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .estimateGas({
@@ -111,7 +112,7 @@ const useKaikas = () => {
   const makeApprove = async (isFixed = true) => {
     try {
       const contract = isFixed ? fixedContract : auctionContract;
-      const contractRC20 = new caver.contract(ERC20_ABI, conAddress);
+      const contractRC20 = new caver.klay.Contract(ERC20_ABI, conAddress);
 
       const gasLimitApprove = await contractRC20.methods
         .approve(contract, approveAmount)
@@ -133,7 +134,10 @@ const useKaikas = () => {
   };
 
   const sell = async (contract_address, tokenId, price) => {
-    const fixedMarket = new caver.contract(FIXED_MARKET_ABI, fixedContract);
+    const fixedMarket = new caver.klay.Contract(
+      FIXED_MARKET_ABI,
+      fixedContract
+    );
 
     const gasLimit = await fixedMarket.methods
       .place(
@@ -160,7 +164,10 @@ const useKaikas = () => {
   };
 
   const purchase = async (contract_address, tokenId) => {
-    const fixedMarket = new caver.contract(FIXED_MARKET_ABI, fixedContract);
+    const fixedMarket = new caver.klay.Contract(
+      FIXED_MARKET_ABI,
+      fixedContract
+    );
 
     const gasLimit = await fixedMarket.methods
       .buy(contract_address, tokenId)
@@ -179,7 +186,10 @@ const useKaikas = () => {
   };
 
   const cancel = async (contract_address, tokenId) => {
-    const fixedMarket = new caver.contract(FIXED_MARKET_ABI, fixedContract);
+    const fixedMarket = new caver.klay.Contract(
+      FIXED_MARKET_ABI,
+      fixedContract
+    );
 
     const gasLimit = await fixedMarket.methods
       .unPlace(contract_address, tokenId)
@@ -198,7 +208,7 @@ const useKaikas = () => {
   };
 
   const cancelAuction = async (contract_address, tokenId) => {
-    const auctionMarket = new caver.contract(
+    const auctionMarket = new caver.klay.Contract(
       AUCTION_MARKET_ABI,
       auctionContract
     );
@@ -227,7 +237,7 @@ const useKaikas = () => {
     endDate
   ) => {
     const price = caver.utils.toWei(startPrice, 'ether');
-    const auctionMarket = new caver.contract(
+    const auctionMarket = new caver.klay.Contract(
       AUCTION_MARKET_ABI,
       auctionContract
     );
@@ -250,7 +260,7 @@ const useKaikas = () => {
 
   const bid = async (contract_address, tokenId, price) => {
     const weidPrice = caver.utils.toWei(String(price), 'ether');
-    const auctionMarket = new caver.contract(
+    const auctionMarket = new caver.klay.Contract(
       AUCTION_MARKET_ABI,
       auctionContract
     );
@@ -273,7 +283,10 @@ const useKaikas = () => {
 
   const faucet = async (account) => {
     try {
-      const faucetContract = new caver.contract(FAUCET_ABI, faucetContractEnv);
+      const faucetContract = new caver.klay.Contract(
+        FAUCET_ABI,
+        faucetContractEnv
+      );
       const isClaimedWallet = await faucetContract.methods
         .isClaimed(account)
         .call();

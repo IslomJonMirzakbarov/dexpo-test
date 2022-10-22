@@ -123,9 +123,7 @@ const CollectionDetails = () => {
 
   const handleContract = async () => {
     try {
-      console.log('2221');
       const approve = await makeApprove(!isAuction);
-      console.log(approve);
 
       if (!!approve) {
         handlePurchase();
@@ -147,8 +145,6 @@ const CollectionDetails = () => {
         res = await purchase(params?.contract_address, params?.id);
       else res = await bid(params?.contract_address, params?.id, bidPrice);
 
-      console.log(res);
-
       if (!!res) {
         setTxHash(res.transactionHash);
         setStatus(checkoutStatuses.COMPLETE);
@@ -166,12 +162,9 @@ const CollectionDetails = () => {
       const allowance = await checkAllowance(!isAuction);
       const numericAllowance = Number(allowance);
 
-      console.log(allowance);
-
       if (numericAllowance > 0) {
         handlePurchase();
       } else {
-        console.log('1222');
         handleContract();
       }
     } catch (err) {
