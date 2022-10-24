@@ -8,7 +8,11 @@ export default defineConfig({
   publicDir: 'public',
   base: './',
   build: {
-    outDir: 'build'
+    outDir: 'build',
+    commonjsOptions: { include: [] }
+  },
+  optimizeDeps: {
+    disabled: false
   },
   resolve: {
     alias: [
@@ -22,11 +26,11 @@ export default defineConfig({
       },
       {
         find: 'caver-js',
-        replacement: 'caver-js/dist/caver.min.js',
-        process: 'process/browser',
-        stream: 'stream-browserify',
-        zlib: 'browserify-zlib',
-        util: 'util'
+        replacement: 'caver-js/dist/caver.min.js'
+        // process: 'process/browser',
+        // stream: 'stream-browserify',
+        // zlib: 'browserify-zlib',
+        // util: 'util'
       }
     ]
   }

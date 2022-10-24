@@ -20,7 +20,8 @@ import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
 import { FAUCET_ABI } from '../utils/abi/FaucetABI';
 import Caver from 'caver-js';
 
-// const caver = new Caver(rpcUrl);
+// const { klaytn } = window;
+// const caver = new Caver(klaytn);
 
 const { caver } = window;
 
@@ -61,13 +62,16 @@ const useKaikas = () => {
 
   const getUserBalance = async (acc) => {
     try {
-      const balance = await caver.klay.getBalance(account);
+      const contractERC20 = new caver.klay.Contract(ERC20_ABI, conAddress);
+      const balance = await contractERC20.methods.balanceOf(acc).call();
       const res = caver.utils.fromWei(balance);
 
       setBalance(res);
+      return res;
     } catch (err) {
       console.log(err);
     }
+    return 0;
   };
 
   const checkAllowance = async (isFixed = true) => {
@@ -368,6 +372,7 @@ const useKaikas = () => {
     switchNetwork,
     cancelAuction,
     createAuction,
+    getUserBalance,
     checkAllowance,
     makeApprove721,
     checkAllowance721
