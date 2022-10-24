@@ -34,7 +34,7 @@ const LoginForm = () => {
               <li key={wallet.key} onClick={() => connectWallet(wallet.key)}>
                 <div className={classes.content}>
                   <div className={classes.info}>
-                    <img src={wallet.img} alt={wallet.name} width={100} />
+                    <img src={wallet.img} alt={wallet.name} width={30} />
                     <Typography variant="placeholder" mt={2}>
                       {wallet.name}
                     </Typography>

@@ -63,9 +63,12 @@ const useWeb3 = () => {
       const res = web3.utils.fromWei(balance);
 
       setBalance(res);
+      return res;
     } catch (err) {
       console.log(err);
     }
+
+    return 0;
   };
 
   const checkAllowance = async (isFixed = true) => {
@@ -352,6 +355,7 @@ const useWeb3 = () => {
     switchNetwork,
     cancelAuction,
     createAuction,
+    getUserBalance,
     checkAllowance,
     makeApprove721,
     checkAllowance721

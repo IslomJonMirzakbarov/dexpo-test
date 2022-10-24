@@ -39,13 +39,25 @@ const MergedLayout = ({ children }) => {
     if (window.ethereum && account) {
       window.ethereum.on('chainChanged', () => {
         window.location.reload();
+        console.log('chainchanged');
       });
       window.ethereum.on('accountsChanged', (accounts) => {
         if (account?.includes(accounts[0])) return;
-
+        console.log('accountschanged');
         connectWallet('metamask');
       });
     }
+  };
+
+  const handleNetworkKaikas = async () => {
+    window.klaytn.on('accountsChanged', function (accounts) {
+      // Time to reload your interface with accounts[0]!
+    });
+
+    window.klaytn.on('networkChanged', function () {
+      // `networkChanged` event is only useful when auto-refresh on network is disabled
+      // Otherwise, Kaikas will auto-reload pages upon network change
+    });
   };
 
   const handlePrice = async () => {

@@ -5,7 +5,7 @@ import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 import CollectionDetailsContainer from './index.container';
 import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
 import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import useWeb3 from '../../../hooks/useWeb3';
+
 import Loader from '../../../components/Loader';
 import useNFTAPI from '../../../hooks/useNFT';
 
@@ -28,7 +28,7 @@ const REF_INTERVAL = 5000;
 const CollectionDetails = () => {
   const { account } = useSelector((store) => store.wallet);
 
-  const { checkAllowance, makeApprove, purchase, bid, balance } =
+  const { checkAllowance, makeApprove, purchase, bid, getUserBalance } =
     useCurrnetProvider();
 
   const [refetchInterval, setRefetchInterval] = useState(false);
@@ -72,6 +72,24 @@ const CollectionDetails = () => {
   );
 
   const [isAuctionBeingFinished, setIsAuctionBeingFinished] = useState(false);
+
+  const [balance, setBalance] = useState(0);
+
+  const getBalnc = useCallback(async () => {
+    try {
+      const res = await getUserBalance(account);
+
+      setBalance(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [account]);
+
+  useEffect(() => {
+    if (!account) return;
+
+    getBalnc();
+  }, [account]);
 
   const market = detail?.data?.market;
   const currentDate = utils().getToday();

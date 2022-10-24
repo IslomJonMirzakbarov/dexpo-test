@@ -108,8 +108,6 @@ const Ratings = () => {
 
   const rows = matches ? responsiveRows : laptopRows;
 
-  console.log(rows);
-
   const handleSelect = (item) => setFilter(item);
   const handleSelectTab = (item) => setTab(item);
   const handleClick = (link) => navigate(link);
