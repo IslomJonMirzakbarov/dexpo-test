@@ -50,14 +50,17 @@ const MergedLayout = ({ children }) => {
   };
 
   const handleNetworkKaikas = async () => {
-    window.klaytn.on('accountsChanged', function (accounts) {
-      // Time to reload your interface with accounts[0]!
-    });
+    if (window.klaytn && account) {
+      window.klaytn.on('accountsChanged', function (accounts) {
+        // Time to reload your interface with accounts[0]!
+        connectWallet('kaikas');
+      });
 
-    window.klaytn.on('networkChanged', function () {
-      // `networkChanged` event is only useful when auto-refresh on network is disabled
-      // Otherwise, Kaikas will auto-reload pages upon network change
-    });
+      window.klaytn.on('networkChanged', function () {
+        // `networkChanged` event is only useful when auto-refresh on network is disabled
+        // Otherwise, Kaikas will auto-reload pages upon network change
+      });
+    }
   };
 
   const handlePrice = async () => {
@@ -93,6 +96,7 @@ const MergedLayout = ({ children }) => {
 
   useEffect(() => {
     handleNetwork();
+    handleNetworkKaikas();
     handlePrice();
   }, []);
 
