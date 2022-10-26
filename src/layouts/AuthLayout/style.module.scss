@@ -1,4 +1,4 @@
-@use "src/scss/colors";
+@use 'src/scss/colors';
 
 .layout {
 }
@@ -42,6 +42,10 @@
   @media (max-width: 1500px) {
     padding: 7px;
     width: 100%;
+
+    p {
+      font-size: 13px !important;
+    }
 
     a {
       width: 100%;
