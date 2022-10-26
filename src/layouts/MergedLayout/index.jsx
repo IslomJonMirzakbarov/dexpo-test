@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-
+import KaikasIcon from '../../assets/icons/kaikas.svg?component';
+import MetamaskIcon from '../../assets/icons/metamask.svg?component';
 import { truncateAddress } from '../../utils';
 import logo from '../../assets/icons/logo-beta.svg';
 import useWallet from '../../hooks/useWallet';
@@ -15,18 +16,33 @@ import { logout } from '../../store/auth/auth.slice';
 import { setAccount, setPriceeUSD } from '../../store/wallet/wallet.slice';
 import LinkList from './LinkList';
 import Profile from './Profile';
+import { makeStyles } from '@mui/styles';
 
 const BUTTON_LABEL = 'Connect Wallet';
 
+const useStyles = makeStyles({
+  walletIcon: {
+    width: 45,
+    height: 45,
+    background: '#38363E',
+    borderRadius: 7,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 10px'
+  }
+});
+
 const MergedLayout = ({ children }) => {
   const ref = useRef(null);
+  const classes = useStyles();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { connectWallet } = useWallet();
 
-  const { account } = useSelector((store) => store.wallet);
+  const { account, type } = useSelector((store) => store.wallet);
   const { token } = useSelector((store) => store.auth);
 
   const label = account ? truncateAddress(account) : BUTTON_LABEL;
@@ -111,6 +127,11 @@ const MergedLayout = ({ children }) => {
         sticky={true}
         extra={
           <Box display="flex" alignItems="center" position="relative" ref={ref}>
+            {account && (
+              <Box className={classes.walletIcon}>
+                {type === 'kaikas' ? <KaikasIcon /> : <MetamaskIcon />}
+              </Box>
+            )}
             <Button
               variant="outlinedDark"
               onClick={handleClick}

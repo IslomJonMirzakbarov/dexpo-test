@@ -76,7 +76,7 @@ const HistoryTable = ({ data, title = 'NFT History' }) => {
                   to={item.to_address}
                   txHash={item.tx_hash}
                   date={moment(item.timestamp * 1000).format(
-                    'DD.MM.yyyy hh:mm:ss'
+                    'DD.MM.yyyy HH:mm:ss'
                   )}
                 />
               ))}
