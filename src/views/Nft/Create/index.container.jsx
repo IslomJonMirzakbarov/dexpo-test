@@ -218,9 +218,9 @@ const NftCreate = () => {
             <Box className={styles.RightTitle}>Collection</Box>
             <Box className={styles.TitleDesc}>
               If you have no collection yet, then{" "}
-              <span onClick={() => navigate("/user/collections/create")}>
+              <div onClick={() => navigate("/user/collections/create")}>
                 create a collection
-              </span>{" "}
+              </div>{" "}
               first, and your item will appear in this collection.
             </Box>
             <FormControl fullWidth className={styles.CollectionForm}>
