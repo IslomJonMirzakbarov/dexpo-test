@@ -14,6 +14,7 @@ import useArtistAPI from "../../hooks/useArtistAPI";
 import { truncateAddress } from "../../utils";
 import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
+import defaultImg from "/src/assets/images/artist-default.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import classNames from "classnames";
@@ -129,7 +130,15 @@ const MyPage = () => {
         (userInfo?.data?.image_url && OtherUserInfo?.data?.image_url) ? null : (
           <ProfileImageIcon />
         )}
-        {otherUser && !OtherUserInfo?.data?.image_url && <ProfileImageIcon />}
+        {otherUser && !OtherUserInfo?.data?.image_url && (
+          <img
+            src={defaultImg}
+            alt="Name"
+            width={140}
+            height={140}
+            className={styles.artistImg}
+          />
+        )}
 
         <Box className={styles.UserName}>
           {otherUser
