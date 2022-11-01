@@ -9,6 +9,7 @@ import EditCollectionHover from "../../assets/icons/edit-collection-hover.svg?co
 import CollectionEditVector from "../../assets/icons/collection-edit-vector.svg?component";
 import EditUnhoveredIcon from "../../assets/icons/edit-unhovered-icon.svg?component";
 import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
+import defaultImage from "/src/assets/images/artist-default2.jpg";
 
 import styles from "./style.module.scss";
 import classNames from "classnames";
@@ -121,10 +122,20 @@ const FileUploadWithDrag = ({
                   ) : hovered ? (
                     <div className={styles.EditVectorContainer}>
                       <CollectionEditVector className={styles.EditVector} />
-                      <ProfileImageIcon className={styles.ImgIcon2} />
+                      {/* <ProfileImageIcon className={styles.ImgIcon2} /> */}
+                      <img
+                        src={defaultImage}
+                        alt="name"
+                        className={styles.ImgIcon2}
+                      />
                     </div>
                   ) : (
-                    <ProfileImageIcon className={styles.ImgIcon} />
+                    // <ProfileImageIcon className={styles.ImgIcon} />
+                    <img
+                      src={defaultImage}
+                      alt="name"
+                      className={styles.ImgIcon}
+                    />
                   )}
 
                   {page !== EDIT_COLLECTION && page !== USER_SETTINGS && (
@@ -157,7 +168,7 @@ const FileUploadWithDrag = ({
                       </div>
                     </div>
                   ) : (
-                    <img src={src} style={{objectFit: 'cover'}} alt="" />
+                    <img src={src} style={{ objectFit: "cover" }} alt="" />
                   )}
                   {page === EDIT_COLLECTION
                     ? hovered && (

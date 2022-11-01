@@ -128,7 +128,13 @@ const MyPage = () => {
         (otherUser && !userInfo?.data?.image_url) ||
         (userInfo?.data?.image_url && !OtherUserInfo?.data?.image_url) ||
         (userInfo?.data?.image_url && OtherUserInfo?.data?.image_url) ? null : (
-          <ProfileImageIcon />
+          <img
+            src={defaultImg}
+            alt="Name"
+            width={140}
+            height={140}
+            className={styles.artistImg}
+          />
         )}
         {otherUser && !OtherUserInfo?.data?.image_url && (
           <img
