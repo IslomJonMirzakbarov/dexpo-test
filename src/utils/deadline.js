@@ -7,6 +7,8 @@ export const compareDays = (start, end) => end.getDate() - start.getDate();
 
 export const compareMonths = (start, end) => end.getMonth() - start.getMonth();
 
+export const compareYears = (start, end) => end.getYear() - start.getYear();
+
 function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
 }
@@ -24,13 +26,12 @@ export const calculateDeadline = (start, end) => {
 
   const dayInEndMonth = daysInMonth(currentMonth, currentYear);
 
-  // if (now > end) return '0 times';
-
+  const comparedYear = compareYears(parsedStart, parsedEnd);
   const comparedMonth = compareMonths(parsedStart, parsedEnd);
   const comparedDays = compareDays(parsedStart, parsedEnd);
 
-  // if (comparedMonth > 0 && comparedDays > 0)
-  //   return comparedMonth + ' months left';
+  if (comparedYear > 0)
+    return comparedYear * 12 + comparedMonth + ' months left';
 
   if (comparedDays + comparedMonth * dayInEndMonth > 0)
     return comparedDays + comparedMonth * dayInEndMonth + ' days left';

@@ -39,6 +39,7 @@
     "moment": "^2.29.4",
     "process": "^0.11.10",
     "react": "^18.0.0",
+    "react-cool-img": "^1.2.12",
     "react-dom": "^18.0.0",
     "react-dropzone": "^14.2.1",
     "react-hook-form": "^7.33.0",
