@@ -12,7 +12,7 @@ import useWallet from '../../hooks/useWallet';
 import { securedAPI } from '../../services/api';
 import { setArtist } from '../../store/artist/artist.slice';
 
-import { logout } from '../../store/auth/auth.slice';
+import { logout, setToken } from '../../store/auth/auth.slice';
 import { setAccount, setPriceeUSD } from '../../store/wallet/wallet.slice';
 import LinkList from './LinkList';
 import Profile from './Profile';
@@ -55,11 +55,10 @@ const MergedLayout = ({ children }) => {
     if (window.ethereum && account) {
       window.ethereum.on('chainChanged', () => {
         window.location.reload();
-        console.log('chainchanged');
       });
       window.ethereum.on('accountsChanged', (accounts) => {
         if (account?.includes(accounts[0])) return;
-        console.log('accountschanged');
+
         connectWallet('metamask');
       });
     }
@@ -104,6 +103,7 @@ const MergedLayout = ({ children }) => {
       if (data?.message?.includes('EXPIRED_TOKEN')) {
         dispatch(logout());
         dispatch(setAccount(null));
+        dispatch(setToken(null));
       }
     } catch (err) {
       console.log(err);
@@ -111,8 +111,8 @@ const MergedLayout = ({ children }) => {
   };
 
   useEffect(() => {
-    handleNetwork();
-    handleNetworkKaikas();
+    if (type === 'metamask') handleNetwork();
+    else handleNetworkKaikas();
     handlePrice();
   }, []);
 

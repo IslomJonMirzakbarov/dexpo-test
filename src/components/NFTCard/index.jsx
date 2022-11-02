@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import NumberFormat from "react-number-format";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import TokenImg from "../../assets/images/con-token.svg?component";
-import classNames from "classnames";
-import { calculateDeadline } from "../../utils/deadline";
-import useNFTAPI from "../../hooks/useNFT";
+import React, { useState, useEffect } from 'react';
+import { Box, Button, Typography } from '@mui/material';
+import NumberFormat from 'react-number-format';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import TokenImg from '../../assets/images/con-token.svg?component';
+import classNames from 'classnames';
+import { calculateDeadline } from '../../utils/deadline';
+import useNFTAPI from '../../hooks/useNFT';
 
-import styles from "./style.module.scss";
-import { charCurrency } from "../../utils/currency";
+import styles from './style.module.scss';
+import { charCurrency } from '../../utils/currency';
 
 const NFTCard = ({
   page,
@@ -28,13 +28,13 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = "containedInherit",
+  buttonVariant = 'containedInherit',
   isDefault = false,
   tokenId,
   contractAddress,
   setRefetchInterval,
   className,
-  hasShadow = true,
+  hasShadow = true
 }) => {
   const [likeCount, setLikeCount] = useState(purchaseCount);
   const { postLike } = useNFTAPI({});
@@ -52,13 +52,13 @@ const NFTCard = ({
   }, [
     postLike?.data?.data?.like_count,
     postLike.isSuccess,
-    setRefetchInterval,
+    setRefetchInterval
   ]);
 
   const likeClick = () => {
     postLike.mutate({
       contract_address: contractAddress,
-      token_id: tokenId,
+      token_id: tokenId
     });
   };
 
@@ -68,9 +68,9 @@ const NFTCard = ({
   return (
     <Box
       className={classNames(styles.card, className, {
-        [styles.CollectedCard]: page === "collectedBottom",
+        [styles.CollectedCard]: page === 'collectedBottom',
         [styles.minified]: !price,
-        [styles.default]: isDefault,
+        [styles.default]: isDefault
       })}
     >
       <Box className={styles.header} onClick={onClick}>
@@ -85,7 +85,7 @@ const NFTCard = ({
       </Box>
       <Box
         className={classNames(styles.wrapper, {
-          [styles.noShadow]: !hasShadow,
+          [styles.noShadow]: !hasShadow
         })}
       >
         <Box display="flex" flexDirection="column">
@@ -99,17 +99,17 @@ const NFTCard = ({
             <div className={styles.actions}>
               <span
                 className={classNames(styles.count, {
-                  [styles.liked]: page === "favoritesBottom",
+                  [styles.liked]: page === 'favoritesBottom'
                 })}
               >
                 <NumberFormat
                   value={likeCount}
-                  displayType={"text"}
+                  displayType={'text'}
                   decimalScale={3}
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg} onClick={() => likeClick()}>
-                  {page === "favoritesBottom" ? (
+                  {page === 'favoritesBottom' ? (
                     <FavoriteRoundedIcon />
                   ) : (
                     <FavoriteBorderIcon />
@@ -125,12 +125,12 @@ const NFTCard = ({
                   className={styles.coin}
                   style={{
                     width: 16,
-                    height: 16,
+                    height: 16
                   }}
                 />
                 <NumberFormat
                   value={price}
-                  displayType={"text"}
+                  displayType={'text'}
                   thousandSeparator={true}
                   decimalScale={2}
                 />
@@ -144,7 +144,7 @@ const NFTCard = ({
               fullWidth
               variant={buttonVariant}
               onClick={onAction}
-              className={page === "about" && styles.aboutBtn}
+              className={page === 'about' && styles.aboutBtn}
             >
               Buy now
             </Button>
