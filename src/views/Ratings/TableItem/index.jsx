@@ -1,11 +1,12 @@
-import { Box, Typography } from '@mui/material';
-import classNames from 'classnames';
-import React from 'react';
-import NumberFormat from 'react-number-format';
-import { CTableCell, CTableRow } from '../../../components/CTable';
-import styles from './style.module.scss';
-import CollectionItemImg from '../../../assets/icons/profile-img-icon.svg?component';
-import ConTokenImg from '../../../assets/images/con-token.svg?component';
+import { Box, Typography } from "@mui/material";
+import classNames from "classnames";
+import React from "react";
+import NumberFormat from "react-number-format";
+import { CTableCell, CTableRow } from "../../../components/CTable";
+import styles from "./style.module.scss";
+import CollectionItemImg from "../../../assets/icons/profile-img-icon.svg?component";
+import defaultImg from "/src/assets/images/artist-default.png";
+import ConTokenImg from "../../../assets/images/con-token.svg?component";
 
 const TableItem = ({
   img,
@@ -19,14 +20,14 @@ const TableItem = ({
   ownersCount,
   isArtists = false,
   onClick,
-  isResponsive
+  isResponsive,
 }) => {
   return (
     <CTableRow onClick={onClick}>
       <CTableCell>
         <Box display="flex" alignItems="center">
           <Typography>
-            {index < 10 && '0'}
+            {index < 10 && "0"}
             {index}
           </Typography>
           {img ? (
@@ -38,9 +39,12 @@ const TableItem = ({
               height={40}
             />
           ) : (
-            <CollectionItemImg
+            <img
+              src={defaultImg}
+              alt="Name"
+              width={40}
+              height={40}
               className={styles.img}
-              style={{ width: 40, height: 40 }}
             />
           )}
           <Typography className="placeholder" fontWeight={600}>
@@ -54,13 +58,13 @@ const TableItem = ({
             <ConTokenImg
               style={{
                 width: 25,
-                height: 25
+                height: 25,
               }}
             />
             <Typography variant="placeholder" fontWeight={600} ml={1}>
               <NumberFormat
                 value={volume}
-                displayType={'text'}
+                displayType={"text"}
                 decimalScale={3}
                 thousandSeparator={true}
               />
@@ -73,7 +77,7 @@ const TableItem = ({
           >
             <NumberFormat
               value={percent}
-              displayType={'text'}
+              displayType={"text"}
               decimalScale={3}
               thousandSeparator={true}
             />
@@ -86,13 +90,13 @@ const TableItem = ({
               <ConTokenImg
                 style={{
                   width: 25,
-                  height: 25
+                  height: 25,
                 }}
               />
               <Typography variant="placeholder" fontWeight={600} ml={1}>
                 <NumberFormat
                   value={volume}
-                  displayType={'text'}
+                  displayType={"text"}
                   decimalScale={3}
                   thousandSeparator={true}
                 />
@@ -108,7 +112,7 @@ const TableItem = ({
               >
                 <NumberFormat
                   value={percent}
-                  displayType={'text'}
+                  displayType={"text"}
                   decimalScale={3}
                   thousandSeparator={true}
                 />
@@ -121,13 +125,13 @@ const TableItem = ({
                 <ConTokenImg
                   style={{
                     width: 25,
-                    height: 25
+                    height: 25,
                   }}
                 />
                 <Typography variant="placeholder" fontWeight={600} ml={1}>
                   <NumberFormat
                     value={floorPrice}
-                    displayType={'text'}
+                    displayType={"text"}
                     decimalScale={3}
                     thousandSeparator={true}
                   />
