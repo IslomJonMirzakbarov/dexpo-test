@@ -5,7 +5,7 @@ import detail1Img from '../../../assets/icons/what-is-dexpo.svg';
 import detail2Img from '../../../assets/icons/how-buy.svg';
 import detail3Img from '../../../assets/icons/discount.svg';
 import detail4Img from '../../../assets/icons/edit.svg';
-import detailBg from '../../../assets/images/detail-bg.png';
+import detailBg from '../../../assets/images/detail-bg.webp';
 
 const data = [
   {

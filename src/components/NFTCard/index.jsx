@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import NumberFormat from 'react-number-format';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
@@ -12,7 +11,7 @@ import { calculateDeadline } from '../../utils/deadline';
 import useNFTAPI from '../../hooks/useNFT';
 
 import styles from './style.module.scss';
-import { charCurrency } from '../../utils/currency';
+import Img from 'react-cool-img';
 
 const NFTCard = ({
   page,
@@ -74,7 +73,12 @@ const NFTCard = ({
       })}
     >
       <Box className={styles.header} onClick={onClick}>
-        <LazyLoadImage alt={name} src={img} />
+        <Img
+          src={img}
+          alt={name}
+          debounce={500}
+          placeholder="https://media0.giphy.com/media/jAYUbVXgESSti/giphy.gif?cid=ecf05e47xo28ah6jgjiaql443z10gtl4xi6pwclydt2qf75a&rid=giphy.gif&ct=g"
+        />
         {priceType && <span className={styles.price_type}>{priceType}</span>}
         {leftDays && (
           <Box className={styles.leftDays}>
