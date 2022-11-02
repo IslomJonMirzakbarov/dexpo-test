@@ -8,7 +8,6 @@ import InvalidLogo from "../../assets/icons/invalid-logo.svg?component";
 import EditCollectionHover from "../../assets/icons/edit-collection-hover.svg?component";
 import CollectionEditVector from "../../assets/icons/collection-edit-vector.svg?component";
 import EditUnhoveredIcon from "../../assets/icons/edit-unhovered-icon.svg?component";
-import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
 import defaultImage from "/src/assets/images/artist-default2.jpg";
 
 import styles from "./style.module.scss";
@@ -122,7 +121,6 @@ const FileUploadWithDrag = ({
                   ) : hovered ? (
                     <div className={styles.EditVectorContainer}>
                       <CollectionEditVector className={styles.EditVector} />
-                      {/* <ProfileImageIcon className={styles.ImgIcon2} /> */}
                       <img
                         src={defaultImage}
                         alt="name"
@@ -130,7 +128,6 @@ const FileUploadWithDrag = ({
                       />
                     </div>
                   ) : (
-                    // <ProfileImageIcon className={styles.ImgIcon} />
                     <img
                       src={defaultImage}
                       alt="name"
