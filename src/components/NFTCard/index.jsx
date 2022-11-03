@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { calculateDeadline } from '../../utils/deadline';
 import useNFTAPI from '../../hooks/useNFT';
 
+import loader from '../../assets/gif/loader.gif';
 import styles from './style.module.scss';
 import Img from 'react-cool-img';
 
@@ -73,12 +74,7 @@ const NFTCard = ({
       })}
     >
       <Box className={styles.header} onClick={onClick}>
-        <Img
-          src={img}
-          alt={name}
-          debounce={500}
-          placeholder="https://media0.giphy.com/media/jAYUbVXgESSti/giphy.gif?cid=ecf05e47xo28ah6jgjiaql443z10gtl4xi6pwclydt2qf75a&rid=giphy.gif&ct=g"
-        />
+        <Img src={img} alt={name} debounce={500} placeholder={loader} />
         {priceType && <span className={styles.price_type}>{priceType}</span>}
         {leftDays && (
           <Box className={styles.leftDays}>
