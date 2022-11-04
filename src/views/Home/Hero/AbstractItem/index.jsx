@@ -7,8 +7,8 @@ import heroCard1Img from '../../../../assets/images/hero/hero-card4.svg';
 import heroCard2Img from '../../../../assets/images/hero/hero-card5.svg';
 import heroCard3Img from '../../../../assets/images/hero/hero-card6.svg';
 import abstractBallImg from '../../../../assets/images/hero/abstract-ball.svg';
-import gradientBallImg from '../../../../assets/images/hero/gradient-ball.svg';
-import greyBallImg from '../../../../assets/images/hero/grey-ball.svg';
+import gradientBallImg from '../../../../assets/images/hero/gradient-ball.webp';
+import greyBallImg from '../../../../assets/images/hero/grey-ball.webp';
 import whiteBallImg from '../../../../assets/images/hero/white-ball.svg';
 
 const useStyles = makeStyles((theme) => ({
