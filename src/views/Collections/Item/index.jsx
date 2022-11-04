@@ -53,8 +53,6 @@ const CollectionItem = () => {
   const noItems = !innerList?.length || innerList?.length === 0;
   const isGuest = search?.includes('user=false');
 
-  console.log(totalPages);
-
   return (
     <div className={styles.container}>
       <Box className={styles.info}>
