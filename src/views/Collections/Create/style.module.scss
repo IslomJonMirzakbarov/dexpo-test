@@ -1,6 +1,15 @@
 @use "/src/scss/colors";
 @import "/src/styles/fonts";
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
 .Container {
   width: 100%;
   height: 100%;
@@ -311,6 +320,12 @@
           border-radius: 7px;
         }
       }
+
+      .SpinningIcon {
+        margin-top: 3px;
+        animation: spin 1.1s linear infinite;
+      }
+
       .BtnErrorFree {
         background: colors.$gradient_pink2blue;
         box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);

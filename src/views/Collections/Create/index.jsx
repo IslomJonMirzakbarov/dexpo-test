@@ -7,6 +7,7 @@ import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import MiddleCircleType from "../../../assets/icons/middle-circle-type.svg?component";
 import CreateCollectionForm from "../../../assets/icons/create-collection-form.svg?component";
+import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
 
 import styles from "./style.module.scss";
 import { Box } from "@mui/system";
@@ -27,6 +28,7 @@ const CollectionCreate = () => {
   const [type, setType] = useState(collectionType.SINGLE);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
+  const [fakeLoading, setFakeLoading] = useState(false);
 
   const imgBool =
     uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
@@ -69,8 +71,14 @@ const CollectionCreate = () => {
       formData.append("logo", data.logo);
 
       create.mutate(formData);
-      reset();
-      setShowModal(true);
+      if (errorChecker === 0) {
+        setFakeLoading(true);
+      }
+      setTimeout(() => {
+        setFakeLoading(false);
+        setShowModal(true);
+        reset();
+      }, 2000);
     }
   };
 
@@ -216,8 +224,13 @@ const CollectionCreate = () => {
             className={classNames(styles.Btn, {
               [styles.BtnErrorFree]: errorChecker === 0,
             })}
+            disabled={fakeLoading}
           >
-            Submit
+            {fakeLoading ? (
+              <SpinningIcon className={styles.SpinningIcon} />
+            ) : (
+              "Submit"
+            )}
           </PrimaryButton>
           {errorChecker > 0 && (
             <Box className={styles.ErrorPhrase}>
