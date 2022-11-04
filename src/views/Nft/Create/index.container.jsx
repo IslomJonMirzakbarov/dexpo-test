@@ -40,7 +40,7 @@ const NftCreate = () => {
     );
   }
   const navigate = useNavigate();
-  const { account } = useSelector((store) => store.wallet);
+  const { account, type } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
   const [contractAddress, setContractAddress] = useState("");
   const [artName, setArtName] = useState("");
@@ -131,14 +131,21 @@ const NftCreate = () => {
     }
   };
 
+  const { caver } = window;
+
   useEffect(() => {
     const nftMint = async () => {
       if (create?.isSuccess) {
         const web3 = new Web3(Web3.givenProvider);
-        const contractERC721 = new web3.eth.Contract(
-          SingleABI,
-          contractAddress
-        );
+        let contractERC721;
+        if (type === "metamask") {
+          contractERC721 = new web3.eth.Contract(SingleABI, contractAddress);
+        }
+        if (type === "kaikas") {
+          contractERC721 = new caver.klay.Contract(SingleABI, contractAddress, {
+            from: account,
+          });
+        }
         const estimatedGas = await contractERC721.methods
           .mint(account, metadata.data.metadata)
           .estimateGas({
@@ -172,11 +179,13 @@ const NftCreate = () => {
     return () => {};
   }, [
     account,
+    caver.klay.Contract,
     contractAddress,
     create?.isSuccess,
     errorChecker,
     metadata,
     reset,
+    type,
     uploadedImg,
   ]);
 
