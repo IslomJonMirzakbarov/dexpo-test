@@ -41,9 +41,10 @@ const CollectionItem = () => {
   const { nftListCollection, loadingListByCollection } = useNftAPI({
     isGetListByCollection: true,
     contractAddress: id,
-    size: 20000,
+    size: 20,
     type: sort?.value,
-    search
+    search,
+    page
   });
 
   const innerData = data?.data;
@@ -51,6 +52,8 @@ const CollectionItem = () => {
   const totalPages = nftListCollection?.data?.totalPages;
   const noItems = !innerList?.length || innerList?.length === 0;
   const isGuest = search?.includes('user=false');
+
+  console.log(totalPages);
 
   return (
     <div className={styles.container}>
