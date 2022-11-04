@@ -34,13 +34,13 @@ const CollectionItems = ({
     const loweredAccount = account?.toLowerCase();
     const isOwner = loweredAccount?.includes(loweredOwnerAddress);
 
-    if (!isGuest && !isOwner)
+    if (isOwner || !isGuest)
       return navigate(
-        `/marketplace/${tokenId}/${contractAddress || contract_address}`
+        `/user/nft/${tokenId}/${contractAddress || contract_address}`
       );
 
     return navigate(
-      `/user/nft/${tokenId}/${contractAddress || contract_address}`
+      `/marketplace/${tokenId}/${contractAddress || contract_address}`
     );
   };
 
