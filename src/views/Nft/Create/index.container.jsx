@@ -131,21 +131,72 @@ const NftCreate = () => {
     }
   };
 
-  const { caver } = window;
+  // const { caver } = window;
+
+  // useEffect(() => {
+  //   const nftMint = async () => {
+  //     if (create?.isSuccess) {
+  //       const web3 = new Web3(Web3.givenProvider);
+  //       let contractERC721;
+  //       if (type === "metamask") {
+  //         contractERC721 = new web3.eth.Contract(SingleABI, contractAddress);
+  //       }
+  //       if (type === "kaikas") {
+  //         contractERC721 = new caver.klay.Contract(SingleABI, contractAddress, {
+  //           from: account,
+  //         });
+  //       }
+  //       const estimatedGas = await contractERC721.methods
+  //         .mint(account, metadata.data.metadata)
+  //         .estimateGas({
+  //           gasPrice: await web3.eth.getGasPrice(),
+  //           from: account,
+  //         });
+
+  //       contractERC721.methods.mint(account, metadata.data.metadata).send(
+  //         {
+  //           gasPrice: await web3.eth.getGasPrice(),
+  //           from: account,
+  //           gas: estimatedGas,
+  //         },
+  //         function (err, res) {
+  //           if (err) {
+  //             setRejected(true);
+  //           }
+  //           if (res) {
+  //             setResChecker(res);
+  //             if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
+  //               reset();
+  //               setChecked(false);
+  //               setShowModal(true);
+  //             }
+  //           }
+  //         }
+  //       );
+  //     }
+  //   };
+  //   nftMint();
+  //   return () => {};
+  // }, [
+  //   account,
+  //   caver.klay.Contract,
+  //   contractAddress,
+  //   create?.isSuccess,
+  //   errorChecker,
+  //   metadata,
+  //   reset,
+  //   type,
+  //   uploadedImg,
+  // ]);
 
   useEffect(() => {
     const nftMint = async () => {
       if (create?.isSuccess) {
         const web3 = new Web3(Web3.givenProvider);
-        let contractERC721;
-        if (type === "metamask") {
-          contractERC721 = new web3.eth.Contract(SingleABI, contractAddress);
-        }
-        if (type === "kaikas") {
-          contractERC721 = new caver.klay.Contract(SingleABI, contractAddress, {
-            from: account,
-          });
-        }
+        const contractERC721 = new web3.eth.Contract(
+          SingleABI,
+          contractAddress
+        );
         const estimatedGas = await contractERC721.methods
           .mint(account, metadata.data.metadata)
           .estimateGas({
@@ -179,13 +230,11 @@ const NftCreate = () => {
     return () => {};
   }, [
     account,
-    caver.klay.Contract,
     contractAddress,
     create?.isSuccess,
     errorChecker,
     metadata,
     reset,
-    type,
     uploadedImg,
   ]);
 
