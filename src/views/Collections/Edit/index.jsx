@@ -17,8 +17,9 @@ import styles from "./style.module.scss";
 const CollectionEdit = () => {
   const navigate = useNavigate();
   const { id, name, symbol } = useParams();
-  const { update } = useCollectionAPI({
+  const { update, collection } = useCollectionAPI({
     isDetail: true,
+    id,
   });
   const [showModal, setShowModal] = useState(false);
   const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
@@ -85,6 +86,7 @@ const CollectionEdit = () => {
 
         <Box className={styles.UploadLogo}>
           <FileUploadWithDrag
+            defaultImg={collection?.data?.collection?.logo_url}
             editCollection={true}
             imgBool={imgBool}
             onUpload={setUploadedImg}
