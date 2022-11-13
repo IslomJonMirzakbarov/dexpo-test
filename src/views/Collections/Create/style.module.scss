@@ -156,6 +156,18 @@
             background-color: #ffffff;
             border-radius: 7px 7px 19px 19px;
           }
+
+          .SingleTypeText {
+            @include fontProcessTitle;
+            font-weight: 400;
+            color: colors.$whiteBg;
+            margin-top: 15px;
+            margin-left: 16px;
+
+            span {
+              font-weight: bold;
+            }
+          }
         }
 
         .MiddleCircle {
