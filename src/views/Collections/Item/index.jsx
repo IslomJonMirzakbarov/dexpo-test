@@ -43,7 +43,7 @@ const CollectionItem = () => {
     contractAddress: id,
     size: 20,
     type: sort?.value,
-    search,
+    search: searchInput,
     page
   });
 

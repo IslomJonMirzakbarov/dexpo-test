@@ -89,7 +89,7 @@ const NFTCard = ({
                   decimalScale={3}
                   thousandSeparator={true}
                 />
-                <div className={styles.LikeSvg} onClick={() => likeClick()}>
+                <div className={styles.LikeSvg}>
                   {page === 'favoritesBottom' ? (
                     <FavoriteRoundedIcon />
                   ) : (

@@ -70,7 +70,8 @@ const useNftAPI = ({
   orderBy = 'desc',
   size = 10,
   refetchInterval,
-  walletAddress
+  walletAddress,
+  search
 }) => {
   const { token } = useSelector((store) => store.auth);
 
