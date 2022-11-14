@@ -103,22 +103,28 @@ const CollectionCreate = () => {
                 setType(collectionType.SINGLE);
               }}
             >
-              <Box className={styles.TopIContainer}></Box>
+              <Box className={styles.TopIContainer}>
+                <Box
+                  className={styles.SingleTypeText}
+                >
+                  Single <br /> <span>ERC-721</span>
+                </Box>
+              </Box>
               <MiddleCircleType className={styles.MiddleCircle} />
               <Box className={styles.BottomIContainer}></Box>
             </Box>
-            <Box
+            {/* <Box
               className={classNames(styles.HorizontalLine, {
                 [styles.Higlighted]: type === collectionType.SINGLE,
               })}
-            ></Box>
-            <Box
+            ></Box> */}
+            {/* <Box
               className={classNames(styles.TypePhrase, {
                 [styles.HiglightedCol]: type === collectionType.SINGLE,
               })}
             >
               Single <span>ERC-721</span>
-            </Box>
+            </Box> */}
           </Box>
 
           {/* below code will be available when we add erc-1155 type */}
