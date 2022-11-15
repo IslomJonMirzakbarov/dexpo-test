@@ -61,7 +61,7 @@ const useSearchAPI = (query) => {
           label: nft.token_name,
           img: nft.token_image,
           action: () =>
-            navigate(`/marketplace/${nft.id}/${nft.contract_address}`),
+            navigate(`/marketplace/${nft.token_id}/${nft.contract_address}`),
         })),
       });
 
