@@ -278,7 +278,7 @@ const NFTSellRequestContainer = ({
                   alignItems="end"
                   sx={{ width: '100%' }}
                 >
-                  {isCancel && market?.price && <SetPrice />}
+                  {isCancel && market?.price && <SetPrice key={submitLabel} />}
                   <Button
                     className={classes.button}
                     variant={isCancel ? 'outlined' : 'containedSecondary'}

@@ -60,7 +60,8 @@ const HistoryTableItem = ({
   from,
   to,
   txHash,
-  date
+  date,
+  type
 }) => {
   const classes = useStyles();
 
@@ -71,7 +72,7 @@ const HistoryTableItem = ({
         <Box display="flex" alignItems="center" justifyContent="flex-start">
           {eventTypes[event].icon}
           <Typography variant="placeholder" fontWeight={500} ml={1}>
-            {eventTypes[event].label}
+            {type === 'A' ? 'Auction' : ''}&nbsp;{eventTypes[event].label}
           </Typography>
         </Box>
       </CTableCell>

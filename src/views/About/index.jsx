@@ -52,7 +52,7 @@ const About = () => {
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const [refetchInterval, setRefetchInterval] = useState(false);
 
-  const { collections, isLoading: loadingNotable } = useCollecionsByCategory(
+  const { collections, isLoading } = useCollecionsByCategory(
     categoryTypes.NOTABLE,
     refetchInterval
   );

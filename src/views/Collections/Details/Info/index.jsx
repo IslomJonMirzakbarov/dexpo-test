@@ -3,6 +3,7 @@ import React from 'react';
 import styles from '../style.module.scss';
 import CollectionDetailCard from './Card';
 import DSelect from '../../../../components/DSelect';
+import { NavLink } from 'react-router-dom';
 
 const CollectionDetailsInfo = ({
   artistName = 'TRISTAN EATON',
@@ -15,7 +16,8 @@ const CollectionDetailsInfo = ({
   types,
   handleChangeType,
   hideSelect,
-  isResponsive
+  isResponsive,
+  artistWallet
 }) => {
   return (
     <Box display="flex" flexDirection="column">
@@ -32,7 +34,11 @@ const CollectionDetailsInfo = ({
               fontWeight={700}
               textTransform="uppercase"
             >
-              Artist: {artistName}
+              Artist:
+              <NavLink to={`/user/my-page/${artistWallet}`}>
+                &nbsp;
+                {artistName}
+              </NavLink>
             </Typography>
             <a
               href={youtubeURL}

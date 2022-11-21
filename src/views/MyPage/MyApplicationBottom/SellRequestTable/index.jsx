@@ -1,17 +1,17 @@
-import React from "react";
-import useCollectionAPI from "../../../../hooks/useCollectionApi";
-import CollectionStatusSvg from "../../../../assets/icons/collection-status-svg.svg?component";
+import React from 'react';
+import useCollectionAPI from '../../../../hooks/useCollectionApi';
+import CollectionStatusSvg from '../../../../assets/icons/collection-status-svg.svg?component';
 
-import styles from "./style.module.scss";
-import classNames from "classnames";
-import moment from "moment";
+import styles from './style.module.scss';
+import classNames from 'classnames';
+import moment from 'moment';
 
 const SellRequestTable = () => {
   const { sellRequestList } = useCollectionAPI({
     isDetail: true,
     size: 200,
     page: 1,
-    orderBy: "desc",
+    orderBy: 'desc'
   });
   const sellRequestItems = sellRequestList?.data?.items;
   return (
@@ -29,12 +29,12 @@ const SellRequestTable = () => {
         {sellRequestItems?.length > 0 &&
           sellRequestItems.map((item) => {
             const itemStatus =
-              item?.market_status === "IDLE" ||
-              item?.market_status === "PENDING"
-                ? "Under Review"
-                : item?.market_status === "REJECT"
-                ? "Rejected"
-                : "Approved";
+              item?.market_status === 'IDLE' ||
+              item?.market_status === 'PENDING'
+                ? 'Under Review'
+                : item?.market_status === 'REJECT'
+                ? 'Rejected'
+                : 'Approved';
             return (
               <tr className={styles.TableBodyRow}>
                 <td>
@@ -52,8 +52,8 @@ const SellRequestTable = () => {
                 <td
                   className={classNames(
                     styles.UnderReview,
-                    { [styles.Approved]: item?.market_status === "COMPLETE" },
-                    { [styles.Rejected]: item?.market_status === "REJECT" }
+                    { [styles.Approved]: item?.market_status === 'COMPLETE' },
+                    { [styles.Rejected]: item?.market_status === 'REJECT' }
                   )}
                 >
                   {itemStatus}
@@ -62,7 +62,7 @@ const SellRequestTable = () => {
                   {item?.market_status_timestamp &&
                     moment(
                       new Date(item?.market_status_timestamp * 1000)
-                    ).format("YYYY.MM.DD hh:mm:ss")}
+                    ).format('YYYY.MM.DD HH:MM:ss')}
                 </td>
               </tr>
             );

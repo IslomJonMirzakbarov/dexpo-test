@@ -60,6 +60,7 @@ const CollectionItem = () => {
           <CollectionInfoSkeleton />
         ) : (
           <CollectionInfo
+            key={id}
             artistName={innerData?.artist?.artist_name}
             collectionName={innerData?.collection?.name}
             artistImg={innerData?.collection?.logo_url}

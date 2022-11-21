@@ -11,7 +11,8 @@ import { calculateDeadline } from '../../../utils/deadline';
 import { parseNormalizedDate } from '../../../utils/parseDate';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
-import { useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 
 const Render = {
   [checkoutStatuses.INITIAL]: InitialCheckout,
@@ -29,7 +30,6 @@ const CheckoutModal = ({
   exchangedPrice,
   type,
   currentAmount,
-
   collectionName,
   txHash,
   status,
@@ -76,26 +76,38 @@ const CheckoutModal = ({
       onConfirm={onClick}
       footer={FooterComponent}
     >
-      <RenderComponent
-        onClick={onClick}
-        img={img}
-        name={name}
-        artistName={artistName}
-        price={price}
-        exchangedPrice={exchangedPrice}
-        type={type}
-        currentAmount={currentAmount}
-        leftDays={leftDeadline}
-        collectionName={collectionName}
-        quantity={1}
-        txHash={txHash}
-        error={error}
-        bidPrice={bidPrice}
-        setBidPrice={setBidPrice}
-        bidPriceControl={bidPriceControl}
-        isAuction={isAuction}
-        isResponsive={matches}
-      />
+      <Box position="relative">
+        <ClearRoundedIcon
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: -7,
+            right: 10,
+            fontSize: 20,
+            cursor: 'pointer'
+          }}
+        />
+        <RenderComponent
+          onClick={onClick}
+          img={img}
+          name={name}
+          artistName={artistName}
+          price={price}
+          exchangedPrice={exchangedPrice}
+          type={type}
+          currentAmount={currentAmount}
+          leftDays={leftDeadline}
+          collectionName={collectionName}
+          quantity={1}
+          txHash={txHash}
+          error={error}
+          bidPrice={bidPrice}
+          setBidPrice={setBidPrice}
+          bidPriceControl={bidPriceControl}
+          isAuction={isAuction}
+          isResponsive={matches}
+        />
+      </Box>
     </DModal>
   );
 };

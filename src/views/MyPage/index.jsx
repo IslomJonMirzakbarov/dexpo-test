@@ -1,34 +1,37 @@
-import React, { useEffect, useState } from "react";
-import styles from "./style.module.scss";
-import { myPageTabs, otherUserPageTabs } from "../Ratings/mocks";
-import DTabs from "../../components/DTabs";
-import nftItems from "./nftListData";
-import CollectedBottom from "./CollectedBottom";
-import MyApplicationBottom from "./MyApplicationBottom";
-import ListedArtworkBottom from "./ListedArtworkName";
-import FavoritesBottom from "./FavoritesBottom";
-import { useSelector } from "react-redux";
-import CreatedItems from "./CreatedBottom/CreatedItems";
-import CreatedCollections from "./CreatedBottom/CreatedCollections";
-import useArtistAPI from "../../hooks/useArtistAPI";
-import { truncateAddress } from "../../utils";
-import PageSettingsIcon from "/src/assets/icons/page-settings-icon.svg?component";
-import ProfileImageIcon from "/src/assets/icons/profile-img-icon.svg?component";
-import defaultImg from "/src/assets/images/artist-default.png";
-import { useNavigate, useParams } from "react-router-dom";
-import { Box } from "@mui/material";
-import classNames from "classnames";
-import useUserAPI from "../../hooks/useUserAPI";
+import React, { useEffect, useState } from 'react';
+import styles from './style.module.scss';
+import { myPageTabs, otherUserPageTabs } from '../Ratings/mocks';
+import DTabs from '../../components/DTabs';
+import nftItems from './nftListData';
+import CollectedBottom from './CollectedBottom';
+import MyApplicationBottom from './MyApplicationBottom';
+import ListedArtworkBottom from './ListedArtworkName';
+import FavoritesBottom from './FavoritesBottom';
+import { useSelector } from 'react-redux';
+import CreatedItems from './CreatedBottom/CreatedItems';
+import CreatedCollections from './CreatedBottom/CreatedCollections';
+import useArtistAPI from '../../hooks/useArtistAPI';
+import { truncateAddress } from '../../utils';
+import PageSettingsIcon from '/src/assets/icons/page-settings-icon.svg?component';
+import ProfileImageIcon from '/src/assets/icons/profile-img-icon.svg?component';
+import defaultImg from '/src/assets/images/artist-default.png';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Box } from '@mui/material';
+import classNames from 'classnames';
+import useUserAPI from '../../hooks/useUserAPI';
 
 const MyPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const otherUser = id && id[0] === "0";
+  const otherUser = id && id[0] === '0';
+
   const { createdTab } = useSelector((store) => store.myPage);
   const { artist } = useArtistAPI({ isDetail: true });
   const { account } = useSelector((store) => store.wallet);
+
   const [hovered, setHovered] = useState(false);
   const [tabs, setTabs] = useState(myPageTabs);
+
   useEffect(() => {
     if (otherUser && id !== account) {
       setTabs(otherUserPageTabs);
@@ -39,7 +42,7 @@ const MyPage = () => {
 
   const { userInfo, OtherUserInfo, refetchOtherUser } = useUserAPI({
     isUserInfo: true,
-    walletAddress: id,
+    walletAddress: id
   });
 
   useEffect(() => {
@@ -50,19 +53,19 @@ const MyPage = () => {
 
   let num;
   switch (id) {
-    case "favorites":
+    case 'favorites':
       num = 2;
       break;
-    case "collection-status-created":
+    case 'collection-status-created':
       num = 4;
       break;
-    case "collection-status":
+    case 'collection-status':
       num = 4;
       break;
-    case "artist-status":
+    case 'artist-status':
       num = 4;
       break;
-    case "sell-request":
+    case 'sell-request':
       num = 4;
       break;
     default:
@@ -72,19 +75,19 @@ const MyPage = () => {
 
   const walletAddress = truncateAddress(
     artist?.data?.wallet_address || account,
-    "my-page"
+    'my-page'
   );
 
-  const otherUserWalletAddress = truncateAddress(id, "my-page");
+  const otherUserWalletAddress = truncateAddress(id, 'my-page');
   const selectedWalletAddress = otherUser
     ? otherUserWalletAddress
     : walletAddress;
 
   const notShowItems =
-    tab?.value !== "collected" &&
-    tab?.value !== "myApplication" &&
-    tab?.value !== "favorites" &&
-    tab?.value !== "listedArtworks";
+    tab?.value !== 'collected' &&
+    tab?.value !== 'myApplication' &&
+    tab?.value !== 'favorites' &&
+    tab?.value !== 'listedArtworks';
 
   const [showCopied, setShowCopied] = useState(false);
   const [showCopy, setShowCopy] = useState(false);
@@ -102,8 +105,8 @@ const MyPage = () => {
           <PageSettingsIcon
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            fill={hovered ? "#7D8890" : "#D1D1D1"}
-            onClick={() => navigate("/user/settings")}
+            fill={hovered ? '#7D8890' : '#D1D1D1'}
+            onClick={() => navigate('/user/settings')}
           />
         )}
       </Box>
@@ -151,7 +154,7 @@ const MyPage = () => {
             ? OtherUserInfo?.data?.username
             : userInfo?.data?.username
             ? userInfo?.data?.username
-            : "UserName"}
+            : 'UserName'}
         </Box>
         <Box
           className={styles.WalletAddress}
@@ -167,7 +170,7 @@ const MyPage = () => {
           {showCopied && (
             <div className={classNames(styles.CopiedText)}>Copied</div>
           )}
-          {selectedWalletAddress || ""}
+          {selectedWalletAddress || ''}
         </Box>
         <Box className={styles.Bio}>Bio</Box>
         <Box className={styles.BioDescription}>
@@ -185,24 +188,29 @@ const MyPage = () => {
           onSelect={(item) => setTab(item)}
           setValues={setTabs}
         />
-        {tab?.value === "collected" && (
+        {tab?.value === 'collected' && (
           <CollectedBottom tabValue={tab?.value} id={id} />
         )}
-        {!(otherUser && id !== account) && tab?.value === "myApplication" && (
+        {!(otherUser && id !== account) && tab?.value === 'myApplication' && (
           <MyApplicationBottom artist={artist} id={id} />
         )}
-        {!(otherUser && id !== account) && tab?.value === "listedArtworks" && (
+        {!(otherUser && id !== account) && tab?.value === 'listedArtworks' && (
           <ListedArtworkBottom />
         )}
-        {!(otherUser && id !== account) && tab?.value === "favorites" && (
+        {!(otherUser && id !== account) && tab?.value === 'favorites' && (
           <FavoritesBottom items={nftItems} />
         )}
-        {tab?.value === "created" &&
-          createdTab !== "Items" &&
-          createdTab !== "Collections" && <CreatedItems id={id} />}
-        {createdTab === "Items" && notShowItems && <CreatedItems id={id} />}
-        {createdTab === "Collections" && notShowItems && (
-          <CreatedCollections id={id} />
+        {tab?.value === 'created' &&
+          createdTab !== 'Items' &&
+          createdTab !== 'Collections' && <CreatedItems id={id} key={id} />}
+        {createdTab === 'Items' && notShowItems && (
+          <CreatedItems id={id} key={id} />
+        )}
+        {createdTab === 'Collections' && notShowItems && (
+          <CreatedCollections
+            id={id}
+            artistName={OtherUserInfo?.data?.username}
+          />
         )}
       </Box>
     </Box>

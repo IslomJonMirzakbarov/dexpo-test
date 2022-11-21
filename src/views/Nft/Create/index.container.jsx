@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { Box, Checkbox, FormControl, Typography } from "@mui/material";
-import Web3 from "web3";
-import FormInputText from "../../../components/FormInputText";
-import ModalCard from "../../../components/ModalCard";
-import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
-import { useNavigate } from "react-router-dom";
-import SingleABI from "../../../utils/abi/SingleABI";
-import useCollectionAPI from "../../../hooks/useCollectionApi";
-import { useDispatch, useSelector } from "react-redux";
-import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
-import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
-import classNames from "classnames";
-import PrimaryButton from "../../../components/Buttons/PrimaryButton";
-import useNFTCreateApi from "../../../hooks/useNFTCreateApi";
-import SelectAsync from "../../../components/SelectAsync";
-import CollectionOption from "./Option";
-import { setNewNftSrc } from "../../../store/nft/nft.slice";
+import React, { useState, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Box, Checkbox, FormControl, Typography } from '@mui/material';
+import Web3 from 'web3';
+import FormInputText from '../../../components/FormInputText';
+import ModalCard from '../../../components/ModalCard';
+import FileUploadWithDrag from '../../../components/Upload/FileUploadWithDrag';
+import { useNavigate } from 'react-router-dom';
+import SingleABI from '../../../utils/abi/SingleABI';
+import useCollectionAPI from '../../../hooks/useCollectionApi';
+import { useDispatch, useSelector } from 'react-redux';
+import SpinningIcon from '../../../assets/icons/spinning-icon.svg?component';
+import RejectIcon from '../../../assets/icons/artist-form-reject.svg?component';
+import classNames from 'classnames';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+import useNFTCreateApi from '../../../hooks/useNFTCreateApi';
+import SelectAsync from '../../../components/SelectAsync';
+import CollectionOption from './Option';
+import { setNewNftSrc } from '../../../store/nft/nft.slice';
 
-import styles from "./style.module.scss";
+import styles from './style.module.scss';
 
 const NftCreate = () => {
   const dispatch = useDispatch();
   const { collections } = useCollectionAPI({
     isDetail: true,
     page: 1,
-    orderBy: "desc",
-    size: 200,
+    orderBy: 'desc',
+    size: 200
   });
 
   const { create, metadata } = useNFTCreateApi({});
@@ -36,14 +36,14 @@ const NftCreate = () => {
     collectionList = collections?.data?.items;
     approvedCollectionList = collectionList?.filter(
       (collectionItem) =>
-        collectionItem.status === "COMPLETE" && collectionItem.type === "S"
+        collectionItem.status === 'COMPLETE' && collectionItem.type === 'S'
     );
   }
   const navigate = useNavigate();
   const { account, type } = useSelector((store) => store.wallet);
   const [showModal, setShowModal] = useState(false);
-  const [contractAddress, setContractAddress] = useState("");
-  const [artName, setArtName] = useState("");
+  const [contractAddress, setContractAddress] = useState('');
+  const [artName, setArtName] = useState('');
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
@@ -51,9 +51,9 @@ const NftCreate = () => {
   const [resChecker, setResChecker] = useState(null);
   const [stopChecker, setStopChecker] = useState(null);
   const [responseChecker, setResponseChecker] = useState(false);
-  const [newItemConAd, setNewItemConAd] = useState("");
-  const [newItemId, setNewItemId] = useState("");
-  const [previewImgSrc, setPreviewImgSrc] = useState("");
+  const [newItemConAd, setNewItemConAd] = useState('');
+  const [newItemId, setNewItemId] = useState('');
+  const [previewImgSrc, setPreviewImgSrc] = useState('');
 
   let myFunc;
   if (resChecker) {
@@ -77,7 +77,7 @@ const NftCreate = () => {
   }
 
   const imgBool =
-    uploadedImg?.type === "image/png" || uploadedImg.type === "image/jpeg"
+    uploadedImg?.type === 'image/png' || uploadedImg.type === 'image/jpeg'
       ? true
       : false;
 
@@ -93,14 +93,15 @@ const NftCreate = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    watch,
+    formState: { errors }
   } = useForm({
     defaultValues: {
-      collection: "",
-      tokenQuantity: "",
-      artworkName: "",
-      artworkDescription: "",
-    },
+      collection: '',
+      tokenQuantity: '',
+      artworkName: '',
+      artworkDescription: ''
+    }
   });
   const errorChecker = Object.keys(errors).length;
 
@@ -110,12 +111,12 @@ const NftCreate = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     setArtName(data.artworkName);
-    data["imageFile"] = uploadedImg;
+    data['imageFile'] = uploadedImg;
 
     let formData = new FormData();
-    formData.append("name", data.artworkName);
-    formData.append("description", data.artworkDescription);
-    formData.append("image", data.imageFile);
+    formData.append('name', data.artworkName);
+    formData.append('description', data.artworkDescription);
+    formData.append('image', data.imageFile);
 
     await create?.mutateAsync(formData);
   });
@@ -197,18 +198,19 @@ const NftCreate = () => {
           SingleABI,
           contractAddress
         );
+        const gasPrice = await web3.eth.getGasPrice();
         const estimatedGas = await contractERC721.methods
           .mint(account, metadata.data.metadata)
           .estimateGas({
-            gasPrice: await web3.eth.getGasPrice(),
-            from: account,
+            gasPrice,
+            from: account
           });
 
         contractERC721.methods.mint(account, metadata.data.metadata).send(
           {
-            gasPrice: await web3.eth.getGasPrice(),
+            gasPrice,
             from: account,
-            gas: estimatedGas,
+            gas: estimatedGas
           },
           function (err, res) {
             if (err) {
@@ -235,7 +237,7 @@ const NftCreate = () => {
     errorChecker,
     metadata,
     reset,
-    uploadedImg,
+    uploadedImg
   ]);
 
   return (
@@ -256,18 +258,21 @@ const NftCreate = () => {
                   onUpload={setUploadedImg}
                   page="create-nft"
                 />
-                <Box className={styles.TermsAgreement}>
-                  <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    className={styles.CheckBox}
-                  />
-                  <Box className={styles.AgreementTxt}>
-                    I declare that this is an original artwork. I understand
-                    that no plagiarism is allowed, and that the artwork can be
-                    removed anytime if detected.
+                <label htmlFor="terms-checkbox" style={{ cursor: 'pointer' }}>
+                  <Box className={styles.TermsAgreement}>
+                    <Checkbox
+                      checked={checked}
+                      onChange={handleChange}
+                      className={styles.CheckBox}
+                      id="terms-checkbox"
+                    />
+                    <Box className={styles.AgreementTxt}>
+                      I declare that this is an original artwork. I understand
+                      that no plagiarism is allowed, and that the artwork can be
+                      removed anytime if detected.
+                    </Box>
                   </Box>
-                </Box>
+                </label>
               </Box>
             </Box>
           </Box>
@@ -275,10 +280,10 @@ const NftCreate = () => {
           <Box className={styles.RightSide}>
             <Box className={styles.RightTitle}>Collection</Box>
             <Box className={styles.TitleDesc}>
-              If you have no collection yet, then{" "}
-              <div onClick={() => navigate("/user/collections/create")}>
+              If you have no collection yet, then{' '}
+              <div onClick={() => navigate('/user/collections/create')}>
                 create a collection
-              </div>{" "}
+              </div>{' '}
               first, and your item will appear in this collection.
             </Box>
             <FormControl fullWidth className={styles.CollectionForm}>
@@ -299,7 +304,7 @@ const NftCreate = () => {
                       shouldControlInputValue={false}
                       placeholder="Select Collection"
                       components={{
-                        Option: CollectionOption,
+                        Option: CollectionOption
                       }}
                     />
                   );
@@ -347,17 +352,24 @@ const NftCreate = () => {
             }
           }}
           className={classNames(styles.Btn, {
-            [styles.CheckedBtn]: checked,
+            [styles.CheckedBtn]: checked
           })}
         >
           {create?.isLoading ? (
             <SpinningIcon className={styles.SpinningIcon} />
           ) : (
-            "Mint"
+            'Mint'
           )}
         </PrimaryButton>
         {(errorChecker > 0 || errBool) && (
-          <Box className={styles.Error}>Please enter all required values.</Box>
+          <Box className={styles.Error}>
+            Please {!watch('collection') ? ' "Select collection"' : ''}{' '}
+            {!watch('artworkName') ? ' "Enter artwork name"' : ''}
+            {!watch('artworkDescription')
+              ? ' "Enter artwork description"'
+              : ''}{' '}
+            enter all required values.
+          </Box>
         )}
       </Box>
 
@@ -391,7 +403,7 @@ const NftCreate = () => {
             setShowModal(false);
             // setUploadedImg({});
             setRejected(false);
-            navigate("/");
+            navigate('/');
           }}
         >
           <Box className={styles.IconContainer}>

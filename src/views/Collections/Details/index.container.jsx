@@ -148,6 +148,7 @@ const CollectionDetailsContainer = ({
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               isResponsive={matches}
+              artistWallet={nft?.creator_address}
             />
           </Grid>
           <Grid item lg={7} sm={12} className={classes.grid}>
@@ -158,6 +159,7 @@ const CollectionDetailsContainer = ({
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
+              artistWallet={nft?.creator_address}
             />
             <Box
               display="flex"

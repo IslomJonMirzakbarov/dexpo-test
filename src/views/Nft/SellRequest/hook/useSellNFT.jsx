@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { awaitStatus } from '../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
 import { marketStatuses } from '../../../../constants/marketStatuses';
+import { getRPCErrorMessage } from '../../../../constants/metamaskErrors';
 import { sellReqStatuses } from '../../../../constants/sellRequestStatuses';
 import useCurrnetProvider from '../../../../hooks/useCurrentProvider';
 import useToast from '../../../../hooks/useToast';
-import useWeb3 from '../../../../hooks/useWeb3';
 import { securedAPI } from '../../../../services/api';
 
 const useSellNFT = ({
@@ -100,7 +100,7 @@ const useSellNFT = ({
         setIsApprove(awaitStatus.COMPLETE);
       }
     } catch (err) {
-      setError(err.message);
+      setError(getRPCErrorMessage(err));
       setIsApprove(awaitStatus.ERROR);
     }
   };
@@ -120,7 +120,7 @@ const useSellNFT = ({
         setTimeout(() => setStatus(sellReqStatuses.COMPLETE), 1200);
       }
     } catch (err) {
-      setError(err.message);
+      setError(getRPCErrorMessage(err));
       setIsListing(awaitStatus.ERROR);
     }
   };
@@ -134,7 +134,7 @@ const useSellNFT = ({
         setTimeout(() => setStatus(sellReqStatuses.COMPLETE), 1200);
       }
     } catch (err) {
-      setError(err.message);
+      setError(getRPCErrorMessage(err));
       setIsListing(awaitStatus.ERROR);
     }
   };
@@ -162,7 +162,7 @@ const useSellNFT = ({
         handleContract();
       }
     } catch (err) {
-      setError(err.message);
+      setError(getRPCErrorMessage(err));
       setIsApprove(awaitStatus.ERROR);
     }
   };
@@ -179,7 +179,7 @@ const useSellNFT = ({
         setIsCanceling(awaitStatus.COMPLETE);
       }
     } catch (err) {
-      setError(err.message);
+      setError(getRPCErrorMessage(err));
       setIsCanceling(awaitStatus.ERROR);
     }
   };

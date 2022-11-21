@@ -6,13 +6,13 @@ import {
   Typography,
   useMediaQuery
 } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import DSelect from '../../components/DSelect';
 import styles from './style.module.scss';
 import SearchField from '../../components/Autocomplete';
 import NFTCard from '../../components/NFTCard';
 import CPagination from '../../components/CPagination';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useMarketAPI from '../../hooks/useMarketAPI';
 import { priceTypeChar } from '../../constants';
 import NFTCardSkeleton from '../../components/NFTCard/index.skeleton';
@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 
 import { makeStyles, useTheme } from '@mui/styles';
+import { getPaginationDetailsByPathname } from '../../utils/paginationQueries';
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -44,16 +45,31 @@ const useStyles = makeStyles((theme) => ({
 
 const Collections = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+
+  const urlDetails = getPaginationDetailsByPathname(location.search);
+
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { account } = useSelector((store) => store.wallet);
 
-  const [filter, setFilter] = useState(null);
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState();
-  const [input, setInput] = useState();
+  const [search, setSearch] = useState(urlDetails?.search);
+  const [input, setInput] = useState(urlDetails?.search);
+
+  const filter = useMemo(() => {
+    const seletedFilter = marketFilterList.find((item) =>
+      item.value.includes(urlDetails?.filter)
+    );
+    return seletedFilter;
+  }, [urlDetails?.filter]);
+
+  const page = useMemo(
+    () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
+    [urlDetails?.page]
+  );
 
   const { data, isLoading } = useMarketAPI({
     page,
@@ -73,9 +89,23 @@ const Collections = () => {
     debounced(input);
   }, [input]);
 
-  const handleChange = (e) => setInput(e.target.value);
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    navigate(
+      `/marketplace?page=${page}${filter ? `&filter=${filter.value}` : ''}${
+        search ? `&search=${e.target.value}` : ''
+      }`
+    );
+  };
 
-  const handleSelect = (item) => setFilter(item);
+  const handleSelect = (item) => {
+    // setFilter(item);
+    navigate(
+      `/marketplace?page=${page}&filter=${item.value}${
+        search ? `&search=${search}` : ''
+      }`
+    );
+  };
 
   const handleNavigate = (tokenId, address, wallet) => {
     const loweredWallet = wallet?.toLowerCase();
@@ -84,6 +114,14 @@ const Collections = () => {
     if (!loweredWallet?.includes(loweredAccount))
       return navigate(`/marketplace/${tokenId}/${address}`);
     return navigate(`/user/nft/${tokenId}/${address}`);
+  };
+
+  const handlePaginate = (next) => {
+    navigate(
+      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ''}${
+        search ? `&search=${search}` : ''
+      }`
+    );
   };
 
   return (
@@ -176,7 +214,12 @@ const Collections = () => {
           <CPagination
             count={data?.totalPages}
             page={page}
-            setCurrentPage={setPage}
+            setCurrentPage={handlePaginate}
+            hidePrevButton={false}
+            hideNextButton={false}
+            showFirstButton={true}
+            showLastButton={true}
+            siblingCount={1}
           />
         )}
       </Container>

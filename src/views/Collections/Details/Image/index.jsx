@@ -1,21 +1,21 @@
-import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import styles from "../style.module.scss";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import nft1Img from "../../../../assets/images/nft1.png";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import useNFTAPI from "../../../../hooks/useNFT";
-import { useDispatch } from "react-redux";
-import { setNewNftSrc } from "../../../../store/nft/nft.slice";
-import { useLocation } from "react-router-dom";
+import { Box, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import styles from '../style.module.scss';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import nft1Img from '../../../../assets/images/nft1.png';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import useNFTAPI from '../../../../hooks/useNFT';
+import { useDispatch } from 'react-redux';
+import { setNewNftSrc } from '../../../../store/nft/nft.slice';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const CollectionDetailImage = ({
   price = 1000,
   img = nft1Img,
-  alt = "nft picture",
+  alt = 'nft picture',
   isPurchased = false,
   isSoldOut,
   onClick,
@@ -24,8 +24,9 @@ const CollectionDetailImage = ({
   setRefetchInterval,
   isLiked,
   isResponsive,
-  artistName = "TRISTAN EATON",
-  youtubeURL = "https://www.youtube.com/watch?v=3kcj7p8DUwE",
+  artistWallet,
+  artistName = 'TRISTAN EATON',
+  youtubeURL = 'https://www.youtube.com/watch?v=3kcj7p8DUwE',
   ...props
 }) => {
   const location = useLocation();
@@ -50,13 +51,13 @@ const CollectionDetailImage = ({
     postLike?.data?.data?.isLiked,
     postLike?.data?.data?.like_count,
     postLike.isSuccess,
-    setRefetchInterval,
+    setRefetchInterval
   ]);
 
   useEffect(() => {
     if (newNftSrc) {
       setTimeout(() => {
-        dispatch(setNewNftSrc(""));
+        dispatch(setNewNftSrc(''));
       }, 8000);
     }
   }, [dispatch, newNftSrc]);
@@ -64,21 +65,21 @@ const CollectionDetailImage = ({
   const likeClick = () => {
     postLike.mutate({
       contract_address: contractAddress,
-      token_id: tokenId,
+      token_id: tokenId
     });
   };
 
-  const valueStyle = location.pathname.includes("/user")
+  const valueStyle = location.pathname.includes('/user')
     ? {
-        color: likedNFT ? "#ff006b" : "#7D8890",
-        justifyContent: "flex-end",
-        border: "1px solid #D1D1D1",
-        borderBottom: "0px",
-        borderRadius: "7px 7px 0 0",
-        gap: "6px",
+        color: likedNFT ? '#ff006b' : '#7D8890',
+        justifyContent: 'flex-end',
+        border: '1px solid #D1D1D1',
+        borderBottom: '0px',
+        borderRadius: '7px 7px 0 0',
+        gap: '6px'
       }
     : {
-        color: likedNFT && "#ff006b",
+        color: likedNFT && '#ff006b'
       };
 
   return (
@@ -90,7 +91,8 @@ const CollectionDetailImage = ({
             fontWeight={700}
             textTransform="uppercase"
           >
-            Artist: {artistName}
+            Artist:{' '}
+            <NavLink to={`/user/my-page/${artistWallet}`}>{artistName}</NavLink>
           </Typography>
           <a
             href={youtubeURL}
@@ -103,9 +105,7 @@ const CollectionDetailImage = ({
         </Box>
       )}
 
-      <Box
-        className={classNames(styles.img, styles.HoverCursor)}
-      >
+      <Box className={classNames(styles.img, styles.HoverCursor)}>
         {isSoldOut && <Box className={styles.soldImg}></Box>}
         <Typography
           variant="placeholder"

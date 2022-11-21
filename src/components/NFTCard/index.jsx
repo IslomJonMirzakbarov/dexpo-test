@@ -8,7 +8,6 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import TokenImg from '../../assets/images/con-token.svg?component';
 import classNames from 'classnames';
 import { calculateDeadline } from '../../utils/deadline';
-import useNFTAPI from '../../hooks/useNFT';
 
 // import loader from '../../assets/gif/loader.gif';
 import styles from './style.module.scss';
@@ -113,7 +112,7 @@ const NFTCard = ({
                   value={price}
                   displayType={'text'}
                   thousandSeparator={true}
-                  decimalScale={2}
+                  decimalScale={3}
                 />
               </>
             )}
