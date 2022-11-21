@@ -37,13 +37,13 @@ const CollectionItem = () => {
   const { data, isLoading } = useQuery(`GET-COLLECTION-ITEM-${id}`, () =>
     getCollectionDetail(token, id)
   );
-
+  console.log(searchInput);
   const { nftListCollection, loadingListByCollection } = useNftAPI({
     isGetListByCollection: true,
     contractAddress: id,
     size: 20,
     type: sort?.value,
-    search: searchInput,
+    search_query: searchInput,
     page
   });
 
