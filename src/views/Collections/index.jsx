@@ -213,7 +213,7 @@ const Collections = () => {
         {data?.totalPages > 1 && (
           <CPagination
             count={data?.totalPages}
-            page={page}
+            page={page ? Number(page) : 1}
             setCurrentPage={handlePaginate}
             hidePrevButton={false}
             hideNextButton={false}

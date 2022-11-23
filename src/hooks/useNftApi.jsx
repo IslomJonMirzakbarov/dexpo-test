@@ -75,7 +75,7 @@ const useNftAPI = ({
   search_query
 }) => {
   const { token } = useSelector((store) => store.auth);
-  console.log(search_query);
+
   const {
     data: nftListCollection,
     refetch: refetchListByCollection,

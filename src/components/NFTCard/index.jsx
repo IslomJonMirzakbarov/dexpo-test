@@ -13,9 +13,7 @@ import { calculateDeadline } from '../../utils/deadline';
 import styles from './style.module.scss';
 import Img from 'react-cool-img';
 import { urlToIpfs } from '../../utils';
-
-const loader =
-  'https://media0.giphy.com/media/jAYUbVXgESSti/giphy.gif?cid=ecf05e47xo28ah6jgjiaql443z10gtl4xi6pwclydt2qf75a&rid=giphy.gif&ct=g';
+import loader from '../../assets/gif/ring.gif';
 
 const NFTCard = ({
   page,
