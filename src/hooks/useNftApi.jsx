@@ -48,7 +48,7 @@ const nftListByCollection = (
         size,
         orderBy,
         filter_type: type,
-        search: search_query
+        search_query
       }
     })
     .then((res) => res.data);
