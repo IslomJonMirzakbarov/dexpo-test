@@ -65,7 +65,7 @@ const TableItem = ({
               <NumberFormat
                 value={volume}
                 displayType={"text"}
-                decimalScale={3}
+                decimalScale={6}
                 thousandSeparator={true}
               />
             </Typography>
@@ -78,7 +78,7 @@ const TableItem = ({
             <NumberFormat
               value={percent}
               displayType={"text"}
-              decimalScale={3}
+              decimalScale={6}
               thousandSeparator={true}
             />
           </Typography>
@@ -97,7 +97,7 @@ const TableItem = ({
                 <NumberFormat
                   value={volume}
                   displayType={"text"}
-                  decimalScale={3}
+                  decimalScale={6}
                   thousandSeparator={true}
                 />
               </Typography>
@@ -113,7 +113,7 @@ const TableItem = ({
                 <NumberFormat
                   value={percent}
                   displayType={"text"}
-                  decimalScale={3}
+                  decimalScale={6}
                   thousandSeparator={true}
                 />
               </Typography>
@@ -132,7 +132,7 @@ const TableItem = ({
                   <NumberFormat
                     value={floorPrice}
                     displayType={"text"}
-                    decimalScale={3}
+                    decimalScale={6}
                     thousandSeparator={true}
                   />
                 </Typography>

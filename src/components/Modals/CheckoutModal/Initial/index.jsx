@@ -152,7 +152,7 @@ const InitialCheckout = ({
                 value={exchangedPrice}
                 prefix="$"
                 displayType="text"
-                decimalScale={4}
+                decimalScale={6}
               />
             </Typography>
             {isAuction && (

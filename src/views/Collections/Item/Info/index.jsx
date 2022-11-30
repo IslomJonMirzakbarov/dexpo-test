@@ -71,7 +71,7 @@ const CollectionInfo = ({
                   suffix={charCurrency(price.value)?.char}
                   displayType={'text'}
                   thousandSeparator={true}
-                  decimalScale={2}
+                  decimalScale={6}
                 />
               </Typography>
             </Box>

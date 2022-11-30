@@ -242,7 +242,7 @@ const CollectionDetailsContainer = ({
                             value={market?.price}
                             displayType={'text'}
                             thousandSeparator={true}
-                            decimalScale={4}
+                            decimalScale={6}
                           />
                         </Typography>
                       </Box>
@@ -256,7 +256,7 @@ const CollectionDetailsContainer = ({
                           value={exchangedPrice}
                           displayType={'text'}
                           thousandSeparator={true}
-                          decimalScale={4}
+                          decimalScale={6}
                           prefix="$"
                         />
                         )

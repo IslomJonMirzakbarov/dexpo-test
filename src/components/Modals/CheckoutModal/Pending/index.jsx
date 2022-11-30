@@ -120,7 +120,7 @@ const PendingCheckout = ({
                     value={price}
                     displayType={'text'}
                     thousandSeparator={true}
-                    decimalScale={2}
+                    decimalScale={6}
                   />
                 </Typography>
                 <Box display="flex" alignItems="center">
@@ -142,7 +142,7 @@ const PendingCheckout = ({
                   displayType={'text'}
                   thousandSeparator={true}
                   prefix="$"
-                  decimalScale={3}
+                  decimalScale={6}
                 />
               </Typography>
             </Box>
