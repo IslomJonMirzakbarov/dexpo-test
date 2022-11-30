@@ -3,13 +3,14 @@ import { makeStyles } from '@mui/styles';
 import { motion } from 'framer-motion';
 import React from 'react';
 import classnames from 'classnames';
-import heroCard1Img from '../../../../assets/images/hero/hero-card4.svg';
-import heroCard2Img from '../../../../assets/images/hero/hero-card5.svg';
-import heroCard3Img from '../../../../assets/images/hero/hero-card6.svg';
+import heroCard1Img from '../../../../assets/images/hero/hero-card4.webp';
+import heroCard2Img from '../../../../assets/images/hero/hero-card5.webp';
+import heroCard3Img from '../../../../assets/images/hero/hero-card6.webp';
 import abstractBallImg from '../../../../assets/images/hero/abstract-ball.svg';
 import gradientBallImg from '../../../../assets/images/hero/gradient-ball.webp';
 import greyBallImg from '../../../../assets/images/hero/grey-ball.webp';
 import whiteBallImg from '../../../../assets/images/hero/white-ball.svg';
+import Img from 'react-cool-img';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -108,114 +109,34 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const card2Variant = {
-  hidden: {
-    rotate: '12.5deg',
-    x: 103
-  },
-  animate: {
-    rotate: '0',
-    x: 0
-  }
-};
-
-const card3Variant = {
-  hidden: {
-    rotate: '29deg',
-    x: 170,
-    y: -30
-  },
-  animate: {
-    rotate: '0',
-    x: 0,
-    y: 0
-  }
-};
-
-const card2Transition = {
-  delay: 2,
-  type: 'spring',
-  rotate: {
-    delay: 2.5
-  }
-};
-
-const card3Transition = {
-  delay: 3,
-  type: 'spring',
-  rotate: {
-    delay: 3.5
-  }
-};
-
-const abstractVariant = {
-  //   animate: {
-  //     scale: 1
-  //   },
-  //   hidden: {
-  //     scale: 0
-  //   }
-};
-
-const ballTransition = {
-  //   delay: 2,
-  //   type: 'spring'
-};
-
 const AbstractItem = () => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
-      <motion.img src={heroCard1Img} className={classes.card1} />
-      <motion.img
+      <Img src={heroCard1Img} className={classes.card1} alt="hero card img" />
+      <Img
         src={heroCard2Img}
         className={classnames(classes.card1, classes.card2)}
-        // animate="animate"
-        // initial="hidden"
-        // variants={card2Variant}
-        // transition={card2Transition}
+        alt="hero card img2"
       />
-      <motion.img
+      <Img
         src={heroCard3Img}
         className={classnames(classes.card1, classes.card3)}
-        // animate="animate"
-        // initial="hidden"
-        // variants={card3Variant}
-        // transition={card3Transition}
+        alt="hero card img"
       />
-      <motion.img
+      <Img
         className={classes.abstractBall}
         src={abstractBallImg}
-        // animate="animate"
-        // initial="hidden"
-        // variants={abstractVariant}
-        // transition={ballTransition}
+        alt="abstract ball img"
       />
-      <motion.img
+      <Img
         className={classes.gradientBall}
         src={gradientBallImg}
-        // animate="animate"
-        // initial="hidden"
-        // variants={abstractVariant}
-        // transition={{ ...ballTransition, delay: ballTransition.delay + 1 }}
+        alt="gradient ball"
       />
-      <motion.img
-        className={classes.greyBall}
-        src={greyBallImg}
-        // animate="animate"
-        // initial="hidden"
-        // variants={abstractVariant}
-        // transition={{ ...ballTransition, delay: ballTransition.delay + 2 }}
-      />
-      <motion.img
-        className={classes.whiteBall}
-        src={whiteBallImg}
-        // animate="animate"
-        // initial="hidden"
-        // variants={abstractVariant}
-        // transition={{ ...ballTransition, delay: ballTransition.delay + 3 }}
-      />
+      <Img className={classes.greyBall} src={greyBallImg} alt="grey ball" />
+      <Img className={classes.whiteBall} src={whiteBallImg} alt="white ball" />
     </Box>
   );
 };

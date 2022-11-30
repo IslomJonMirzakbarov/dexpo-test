@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import styles from '../style.module.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import nft1Img from '../../../../assets/images/nft1.png';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -14,7 +13,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const CollectionDetailImage = ({
   price = 1000,
-  img = nft1Img,
+  img,
   alt = 'nft picture',
   isPurchased = false,
   isSoldOut,

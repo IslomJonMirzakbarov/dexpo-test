@@ -4,6 +4,9 @@ import NumberFormat from 'react-number-format';
 import styles from './style.module.scss';
 import conTokenImg from '../../../../assets/images/con-token.png';
 import collectionItemImg from '../../../../assets/images/collection-item.png';
+import Img from 'react-cool-img';
+import loader from '../../../../assets/gif/ring.gif';
+import { urlToIpfs } from '../../../../utils';
 
 const CollectionCard = ({
   index = 1,
@@ -22,7 +25,15 @@ const CollectionCard = ({
         </Typography>
       </Box>
       <Box className={styles.thumb}>
-        <img src={src || collectionItemImg} alt={name} width={50} height={50} />
+        <Img
+          src={src || collectionItemImg}
+          alt={name}
+          debounce={500}
+          placeholder={loader}
+          error={urlToIpfs(src)}
+          width={50}
+          height={50}
+        />
       </Box>
       <Box className={styles.info}>
         <Typography variant="placeholder" className={styles.name}>

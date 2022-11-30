@@ -3,7 +3,6 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import NumberFormat from 'react-number-format';
 
-import nftImg from '../../../../assets/images/nft1.png';
 import ConToken from '../../../../assets/images/con-token.svg?component';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PendingCheckout = ({
-  img = nftImg,
+  img,
   name,
   collectionName,
   quantity,

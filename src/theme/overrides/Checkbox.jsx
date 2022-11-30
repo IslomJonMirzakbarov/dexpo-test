@@ -1,7 +1,7 @@
-import { Icon } from '@iconify/react';
-import squareFill from '@iconify/icons-eva/square-fill';
-import minusSquareFill from '@iconify/icons-eva/minus-square-fill';
-import checkmarkSquare2Fill from '@iconify/icons-eva/checkmark-square-2-fill';
+// import { Icon } from '@iconify/react';
+// import squareFill from '@iconify/icons-eva/square-fill';
+// import minusSquareFill from '@iconify/icons-eva/minus-square-fill';
+// import checkmarkSquare2Fill from '@iconify/icons-eva/checkmark-square-2-fill';
 
 // ----------------------------------------------------------------------
 
@@ -12,10 +12,10 @@ export default function Checkbox(theme) {
   return {
     MuiCheckbox: {
       defaultProps: {
-        color: 'primary',
-        icon: <Icon icon={squareFill} {...ICON_MEDIUM} />,
-        checkedIcon: <Icon icon={checkmarkSquare2Fill} {...ICON_MEDIUM} />,
-        indeterminateIcon: <Icon icon={minusSquareFill} {...ICON_MEDIUM} />
+        color: 'primary'
+        // icon: <Icon icon={squareFill} {...ICON_MEDIUM} />,
+        // checkedIcon: <Icon icon={checkmarkSquare2Fill} {...ICON_MEDIUM} />,
+        // indeterminateIcon: <Icon icon={minusSquareFill} {...ICON_MEDIUM} />
       },
 
       styleOverrides: {

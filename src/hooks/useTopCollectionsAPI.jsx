@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
-import { useQuery } from "react-query";
-import { securedAPI } from "../services/api";
+import React, { useCallback, useState } from 'react';
+import { useQuery } from 'react-query';
+import { securedAPI } from '../services/api';
 
 const size = 10;
 
@@ -12,7 +12,7 @@ const getList = (page) =>
 const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: true, // constantly updating
-  refetchOnReconnect: true,
+  refetchOnReconnect: true
 };
 
 const useTopCollections = () => {
@@ -20,7 +20,7 @@ const useTopCollections = () => {
   const [isInvoked, setIsInvoked] = useState(false);
 
   const { data, isLoading, refetch } = useQuery(
-    "GET-TOP-COLLECTIONS",
+    'GET-TOP-COLLECTIONS',
     () => getList(page),
     { ...configQuery, enabled: !!isInvoked }
   );
@@ -36,7 +36,7 @@ const useTopCollections = () => {
     collections: data,
     isLoading,
     setPage,
-    connectCollections,
+    connectCollections
   };
 };
 

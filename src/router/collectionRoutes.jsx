@@ -1,5 +1,6 @@
 import React from 'react';
-import CollectionItem from '../views/Collections/Item';
+
+const CollectionItem = React.lazy(() => import('../views/Collections/Item'));
 
 export const collectionRoutes = {
   path: 'collections',

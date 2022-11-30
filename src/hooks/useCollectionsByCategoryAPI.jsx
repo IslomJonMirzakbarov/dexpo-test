@@ -1,16 +1,16 @@
-import React from "react";
-import { useQuery } from "react-query";
-import { securedAPI } from "../services/api";
+import React from 'react';
+import { useQuery } from 'react-query';
+import { securedAPI } from '../services/api';
 
 export const categoryTypes = {
-  HOTTEST: "hottest",
-  NOTABLE: "notableList",
+  HOTTEST: 'hottest',
+  NOTABLE: 'notableList'
 };
 
 const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: true, // constantly updating
-  refetchOnReconnect: true,
+  refetchOnReconnect: true
 };
 
 const getList = (type) =>
@@ -18,19 +18,19 @@ const getList = (type) =>
     .get(`/api/home/${type}`)
     .then((res) => res.data?.data);
 
-const useCollecionsByCategory = (type, refetchInterval) => {
+const useCollecionsByCategory = (type, refetchInterval, enabled) => {
   const { data, isLoading } = useQuery(
     `GET-COLLECTIONS-BY-CATEGORY-${type}`,
     () => getList(type),
     {
       ...configQuery,
-      refetchInterval,
+      enabled
     }
   );
 
   return {
     collections: data,
-    isLoading,
+    isLoading
   };
 };
 
