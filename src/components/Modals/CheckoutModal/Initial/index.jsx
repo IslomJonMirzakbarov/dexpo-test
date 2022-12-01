@@ -6,6 +6,7 @@ import AuctionBox from '../AuctionBox';
 import BidInput from '../BidInput';
 
 import ConToken from '../../../../assets/images/con-token.svg?component';
+import numFormat from '../../../../utils/numFormat';
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -127,8 +128,8 @@ const InitialCheckout = ({
             >
               <Typography variant="placeholder" fontWeight={600}>
                 <NumberFormat
-                  value={price}
-                  displayType={'text'}
+                  value={numFormat(price)}
+                  displayType={"text"}
                   thousandSeparator={true}
                 />
               </Typography>
@@ -149,10 +150,9 @@ const InitialCheckout = ({
               ~
               <NumberFormat
                 thousandSeparator={true}
-                value={exchangedPrice}
+                value={numFormat(exchangedPrice)}
                 prefix="$"
                 displayType="text"
-                decimalScale={6}
               />
             </Typography>
             {isAuction && (

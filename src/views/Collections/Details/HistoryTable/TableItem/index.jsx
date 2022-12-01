@@ -12,6 +12,7 @@ import { truncateAddress } from '../../../../../utils';
 import { redirectAccount, redirectTx } from '../../../../../utils/redirect';
 import TokenIcon from '../../../../../assets/images/con-token.svg?component';
 import { charCurrency } from '../../../../../utils/currency';
+import numFormat from '../../../../../utils/numFormat';
 
 const eventTypes = {
   SOLD: {
@@ -82,10 +83,9 @@ const HistoryTableItem = ({
             <TokenIcon style={{ width: 16, height: 16 }} />
             <Typography variant="placeholder" fontWeight={500} ml={1}>
               <NumberFormat
-                value={amount}
+                value={numFormat(amount)}
                 displayType={'text'}
                 thousandSeparator={true}
-                decimalScale={6}
               />
             </Typography>
           </Box>
@@ -95,9 +95,8 @@ const HistoryTableItem = ({
         {price && (
           <Typography variant="placeholder" fontWeight={500}>
             <NumberFormat
-              value={price}
+              value={numFormat(price)}
               prefix="$"
-              decimalScale={6}
               displayType={'text'}
               thousandSeparator={true}
             />

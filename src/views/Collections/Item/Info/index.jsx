@@ -5,6 +5,7 @@ import defaultImg from '../../../../assets/images/artist-default.png';
 
 import NumberFormat from 'react-number-format';
 import { charCurrency } from '../../../../utils/currency';
+import numFormat from '../../../../utils/numFormat';
 
 const CollectionInfo = ({
   artistName = 'Artist Name',
@@ -67,11 +68,10 @@ const CollectionInfo = ({
                 mb={1.2}
               >
                 <NumberFormat
-                  value={charCurrency(price.value)?.amount}
+                  value={numFormat(charCurrency(price.value)?.amount)}
                   suffix={charCurrency(price.value)?.char}
                   displayType={'text'}
                   thousandSeparator={true}
-                  decimalScale={6}
                 />
               </Typography>
             </Box>
