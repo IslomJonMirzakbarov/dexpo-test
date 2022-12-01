@@ -36,7 +36,7 @@ const PriceInput = ({ control, exchangedPrice, ...props }) => {
             displayType={'text'}
             thousandSeparator={true}
             prefix="~$"
-            decimalScale={4}
+            decimalScale={6}
           />
         </Typography>
       </Box>

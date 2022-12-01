@@ -85,7 +85,7 @@ const HistoryTableItem = ({
                 value={amount}
                 displayType={'text'}
                 thousandSeparator={true}
-                decimalScale={3}
+                decimalScale={6}
               />
             </Typography>
           </Box>
@@ -97,7 +97,7 @@ const HistoryTableItem = ({
             <NumberFormat
               value={price}
               prefix="$"
-              decimalScale={4}
+              decimalScale={6}
               displayType={'text'}
               thousandSeparator={true}
             />

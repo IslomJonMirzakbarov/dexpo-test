@@ -148,7 +148,7 @@ const NFTSellRequestContainer = ({
           <NumberFormat
             value={market?.price}
             displayType={'text'}
-            decimalScale={4}
+            decimalScale={6}
             thousandSeparator={true}
           />
         </Typography>
@@ -164,7 +164,7 @@ const NFTSellRequestContainer = ({
           displayType={'text'}
           thousandSeparator={true}
           prefix="$"
-          decimalScale={4}
+          decimalScale={6}
         />
         )
       </Typography>

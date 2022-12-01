@@ -109,7 +109,7 @@ const PendingSell = ({
                     value={sellPrice}
                     displayType={'text'}
                     thousandSeparator={true}
-                    decimalScale={4}
+                    decimalScale={6}
                   />
                 </Typography>
                 <Box display="flex" alignItems="center">
@@ -131,7 +131,7 @@ const PendingSell = ({
                   displayType={'text'}
                   thousandSeparator={true}
                   prefix="$"
-                  decimalScale={4}
+                  decimalScale={6}
                 />
               </Typography>
             </Box>

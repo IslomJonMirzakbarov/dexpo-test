@@ -41,7 +41,7 @@ const TableRow = ({
             displayType={'text'}
             thousandSeparator={true}
             prefix="$"
-            decimalScale={4}
+            decimalScale={6}
           />
         </Box>
       </td>

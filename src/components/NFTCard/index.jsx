@@ -83,7 +83,7 @@ const NFTCard = ({
                 <NumberFormat
                   value={purchaseCount}
                   displayType={'text'}
-                  decimalScale={3}
+                  decimalScale={6}
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg}>
@@ -110,7 +110,7 @@ const NFTCard = ({
                   value={price}
                   displayType={'text'}
                   thousandSeparator={true}
-                  decimalScale={3}
+                  decimalScale={6}
                 />
               </>
             )}
