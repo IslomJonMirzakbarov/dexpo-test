@@ -51,7 +51,7 @@ const CollectionHeader = ({
     >
       <Paper component="form" className={classNames(classes.search)}>
         <SearchField
-          placeholder="Search Items, Creators"
+          placeholder="Search Items"
           inputProps={{ 'aria-label': 'search nfts' }}
           value={searchInput}
           onChange={handleChangeSearch}
