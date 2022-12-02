@@ -10,6 +10,7 @@ import NumberFormat from 'react-number-format';
 import useWeb3 from '../../hooks/useWeb3';
 import useToast from '../../hooks/useToast';
 import useCurrnetProvider from '../../hooks/useCurrentProvider';
+import numFormat from '../../utils/numFormat';
 
 const price = 1000;
 
@@ -131,7 +132,7 @@ const Faucet = () => {
             >
               <Typography fontWeight={600} fontSize="22px">
                 <NumberFormat
-                  value={price}
+                  value={numFormat(price)}
                   displayType={'text'}
                   thousandSeparator={true}
                 />

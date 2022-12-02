@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 import styles from './style.module.scss';
 import conTokenImg from '../../../../assets/images/con-token.png';
 import collectionItemImg from '../../../../assets/images/collection-item.png';
+import numFormat from '../../../../utils/numFormat';
 import Img from 'react-cool-img';
 import loader from '../../../../assets/gif/ring.gif';
 import { urlToIpfs } from '../../../../utils';
@@ -47,7 +48,7 @@ const CollectionCard = ({
           <Typography variant="placeholder" className={styles.price}>
             <NumberFormat
               fixedDecimalScale={true}
-              value={price}
+              value={numFormat(price)}
               displayType={'text'}
               thousandSeparator={true}
             />

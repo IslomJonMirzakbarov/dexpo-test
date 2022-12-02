@@ -25,6 +25,7 @@ import DModal from '../../../components/DModal';
 import { marketStatuses } from '../../../constants/marketStatuses';
 import { useSelector } from 'react-redux';
 import CalendarIcon from '../../../assets/icons/calendar.svg';
+import numFormat from '../../../utils/numFormat';
 
 const auctionLabel = 'Please enter auction starting price';
 const fixedLabel = 'Please enter the selling price.';
@@ -146,9 +147,8 @@ const NFTSellRequestContainer = ({
 
         <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
           <NumberFormat
-            value={market?.price}
+            value={numFormat(market?.price)}
             displayType={'text'}
-            decimalScale={4}
             thousandSeparator={true}
           />
         </Typography>
@@ -160,11 +160,10 @@ const NFTSellRequestContainer = ({
       >
         (
         <NumberFormat
-          value={exchangedPrice}
+          value={numFormat(exchangedPrice)}
           displayType={'text'}
           thousandSeparator={true}
           prefix="$"
-          decimalScale={4}
         />
         )
       </Typography>

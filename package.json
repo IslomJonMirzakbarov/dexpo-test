@@ -13,6 +13,9 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@hassanmojab/react-modern-calendar-datepicker": "^3.1.7",
+    "@iconify/icons-eva": "^1.1.0",
+    "@iconify/react": "^4.0.1",
     "@mui/icons-material": "^5.2.4",
     "@mui/lab": "^5.0.0-alpha.60",
     "@mui/material": "^5.2.4",

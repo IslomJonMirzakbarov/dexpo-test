@@ -13,6 +13,7 @@ import styles from './style.module.scss';
 import Img from 'react-cool-img';
 import { urlToIpfs } from '../../utils';
 import loader from '../../assets/gif/ring.gif';
+import numFormat from '../../utils/numFormat';
 
 const NFTCard = ({
   page,
@@ -80,9 +81,8 @@ const NFTCard = ({
                 })}
               >
                 <NumberFormat
-                  value={purchaseCount}
+                  value={numFormat(purchaseCount)}
                   displayType={'text'}
-                  decimalScale={3}
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg}>
@@ -106,10 +106,9 @@ const NFTCard = ({
                   }}
                 />
                 <NumberFormat
-                  value={price}
+                  value={numFormat(price)}
                   displayType={'text'}
                   thousandSeparator={true}
-                  decimalScale={3}
                 />
               </>
             )}
