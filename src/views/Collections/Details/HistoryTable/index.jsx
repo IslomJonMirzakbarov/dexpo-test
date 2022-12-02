@@ -69,6 +69,7 @@ const HistoryTable = ({ data, title = 'NFT History' }) => {
                 <HistoryTableItem
                   key={i}
                   index={i + 1}
+                  type={item.type}
                   event={item.event}
                   amount={item.price}
                   price={item.price * price_usd}

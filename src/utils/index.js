@@ -20,3 +20,10 @@ export const toHex = (num) => {
   const val = Number(num);
   return '0x' + val.toString(16);
 };
+
+export const urlToIpfs = (url) => {
+  const arrUrl = url.split('/');
+  const cid = arrUrl[arrUrl.length - 1];
+
+  return `https://ipfs.io/ipfs/${cid}`;
+};

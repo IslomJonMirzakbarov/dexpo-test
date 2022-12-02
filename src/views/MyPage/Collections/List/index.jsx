@@ -1,25 +1,31 @@
-import { Container, Grid, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/styles";
-import React from "react";
-import { useSelector } from "react-redux";
-import CollectionCard from "../../../../components/CollectionCard";
-import CollectionSkeletonCard from "../../../../components/CollectionCard/index.skeleton";
-import NoItemsFound from "../../../../components/NoItems";
+import { Container, Grid, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/styles';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import CollectionCard from '../../../../components/CollectionCard';
+import CollectionSkeletonCard from '../../../../components/CollectionCard/index.skeleton';
+import NoItemsFound from '../../../../components/NoItems';
 
-import styles from "./style.module.scss";
+import styles from './style.module.scss';
 
-const MyCollectionsList = ({ collections, isLoading = false, page, id }) => {
+const MyCollectionsList = ({
+  collections,
+  isLoading = false,
+  page,
+  id,
+  artistName
+}) => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const width = matches ? "100%" : 0;
+  const width = matches ? '100%' : 0;
 
   const full = useSelector((store) => store.artist.full);
 
   const { account } = useSelector((store) => store.wallet);
 
   let idChecker;
-  if(id) {
+  if (id) {
     idChecker = id === account;
   } else {
     idChecker = true;
@@ -30,14 +36,14 @@ const MyCollectionsList = ({ collections, isLoading = false, page, id }) => {
   const isNotFound =
     (!collections?.length || collections?.length === 0) && !isLoading;
 
-  if (isNotFound) return page === "my-page" ? null : <NoItemsFound />;
+  if (isNotFound) return page === 'my-page' ? null : <NoItemsFound />;
 
   return (
-    <Container className={page === "my-page" && styles.Container}>
+    <Container className={page === 'my-page' && styles.Container}>
       <Grid
         container
         spacing={matches ? 0 : 3}
-        mt={page === "my-page" ? null : 6}
+        mt={page === 'my-page' ? null : 6}
       >
         {isLoading &&
           loadItems.map((_) => (
@@ -62,7 +68,7 @@ const MyCollectionsList = ({ collections, isLoading = false, page, id }) => {
                   id={contract_address}
                   img={logo_url}
                   name={name}
-                  artistName={full?.artist_name || "You"}
+                  artistName={artistName || full?.artist_name || 'You'}
                   collectionName={name}
                   count={items_count}
                 />

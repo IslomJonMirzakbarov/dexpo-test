@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DModal from '../../../components/DModal';
 import { getPurchaseLabel } from './util';
+import numFormat from '../../../utils/numFormat';
 
 const useStyles = makeStyles((theme) => ({
   priceBox: {
@@ -148,6 +149,7 @@ const CollectionDetailsContainer = ({
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               isResponsive={matches}
+              artistWallet={nft?.creator_address}
             />
           </Grid>
           <Grid item lg={7} sm={12} className={classes.grid}>
@@ -158,6 +160,7 @@ const CollectionDetailsContainer = ({
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
+              artistWallet={nft?.creator_address}
             />
             <Box
               display="flex"
@@ -237,10 +240,9 @@ const CollectionDetailsContainer = ({
                           lineHeight="45px"
                         >
                           <NumberFormat
-                            value={market?.price}
+                            value={numFormat(market?.price)}
                             displayType={'text'}
                             thousandSeparator={true}
-                            decimalScale={4}
                           />
                         </Typography>
                       </Box>
@@ -251,10 +253,9 @@ const CollectionDetailsContainer = ({
                       >
                         (
                         <NumberFormat
-                          value={exchangedPrice}
+                          value={numFormat(exchangedPrice)}
                           displayType={'text'}
                           thousandSeparator={true}
-                          decimalScale={4}
                           prefix="$"
                         />
                         )

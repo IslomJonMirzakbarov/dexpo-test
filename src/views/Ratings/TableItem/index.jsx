@@ -7,6 +7,7 @@ import styles from "./style.module.scss";
 import CollectionItemImg from "../../../assets/icons/profile-img-icon.svg?component";
 import defaultImg from "/src/assets/images/artist-default.png";
 import ConTokenImg from "../../../assets/images/con-token.svg?component";
+import numFormat from "../../../utils/numFormat";
 
 const TableItem = ({
   img,
@@ -63,9 +64,8 @@ const TableItem = ({
             />
             <Typography variant="placeholder" fontWeight={600} ml={1}>
               <NumberFormat
-                value={volume}
+                value={numFormat(volume)}
                 displayType={"text"}
-                decimalScale={3}
                 thousandSeparator={true}
               />
             </Typography>
@@ -76,9 +76,8 @@ const TableItem = ({
             className={classNames(styles.percent, styles[type])}
           >
             <NumberFormat
-              value={percent}
+              value={numFormat(percent)}
               displayType={"text"}
-              decimalScale={3}
               thousandSeparator={true}
             />
           </Typography>
@@ -95,9 +94,8 @@ const TableItem = ({
               />
               <Typography variant="placeholder" fontWeight={600} ml={1}>
                 <NumberFormat
-                  value={volume}
+                  value={numFormat(volume)}
                   displayType={"text"}
-                  decimalScale={3}
                   thousandSeparator={true}
                 />
               </Typography>
@@ -111,9 +109,8 @@ const TableItem = ({
                 className={classNames(styles.percent, styles[type])}
               >
                 <NumberFormat
-                  value={percent}
+                  value={numFormat(percent)}
                   displayType={"text"}
-                  decimalScale={3}
                   thousandSeparator={true}
                 />
               </Typography>
@@ -130,9 +127,8 @@ const TableItem = ({
                 />
                 <Typography variant="placeholder" fontWeight={600} ml={1}>
                   <NumberFormat
-                    value={floorPrice}
+                    value={numFormat(floorPrice)}
                     displayType={"text"}
-                    decimalScale={3}
                     thousandSeparator={true}
                   />
                 </Typography>

@@ -25,6 +25,7 @@ const useWallet = () => {
   };
 
   const handleMetaMask = () => {
+    console.log('sadas');
     if (typeof window.ethereum !== 'undefined') {
       getAccount('metamask');
     } else {

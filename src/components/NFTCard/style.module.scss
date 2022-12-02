@@ -1,5 +1,5 @@
-@use "../../scss/colors";
-@import "../../styles/fonts";
+@use '../../scss/colors';
+@import '../../styles/fonts';
 
 .card {
   display: flex;
@@ -133,7 +133,6 @@
           display: flex;
           align-items: center;
           justify-content: flex-end;
-          cursor: pointer;
 
           span {
             margin-right: 5px;

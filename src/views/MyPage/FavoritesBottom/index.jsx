@@ -42,11 +42,20 @@ const FavoritesBottom = () => {
                   price={nftItem?.market?.price}
                   priceType={priceType.AUCTION.value.value}
                   purchaseCount={nftItem?.nft?.like_count}
-                  onClick={() =>
-                    navigate(
-                      `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
-                    )
-                  }
+                  onClick={() => {
+                    if (
+                      nftItem?.nft?.creator_address ===
+                      nftItem?.nft?.owner_address
+                    ) {
+                      navigate(
+                        `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
+                      );
+                    } else {
+                      navigate(
+                        `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
+                      );
+                    }
+                  }}
                 />
               </Grid>
             );

@@ -8,14 +8,13 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import TokenImg from '../../assets/images/con-token.svg?component';
 import classNames from 'classnames';
 import { calculateDeadline } from '../../utils/deadline';
-import useNFTAPI from '../../hooks/useNFT';
 
 // import loader from '../../assets/gif/loader.gif';
 import styles from './style.module.scss';
 import Img from 'react-cool-img';
-
-const loader =
-  'https://media0.giphy.com/media/jAYUbVXgESSti/giphy.gif?cid=ecf05e47xo28ah6jgjiaql443z10gtl4xi6pwclydt2qf75a&rid=giphy.gif&ct=g';
+import { urlToIpfs } from '../../utils';
+import loader from '../../assets/gif/ring.gif';
+import numFormat from '../../utils/numFormat';
 
 const NFTCard = ({
   page,
@@ -33,38 +32,9 @@ const NFTCard = ({
   purchaseCount,
   buttonVariant = 'containedInherit',
   isDefault = false,
-  tokenId,
-  contractAddress,
-  setRefetchInterval,
   className,
   hasShadow = true
 }) => {
-  const [likeCount, setLikeCount] = useState(purchaseCount);
-  const { postLike } = useNFTAPI({});
-
-  useEffect(() => {
-    if (postLike.isSuccess) {
-      setLikeCount(postLike?.data?.data?.like_count);
-      if (setRefetchInterval) {
-        setRefetchInterval(200);
-        setTimeout(() => {
-          setRefetchInterval(false);
-        }, 300);
-      }
-    }
-  }, [
-    postLike?.data?.data?.like_count,
-    postLike.isSuccess,
-    setRefetchInterval
-  ]);
-
-  const likeClick = () => {
-    postLike.mutate({
-      contract_address: contractAddress,
-      token_id: tokenId
-    });
-  };
-
   const leftDays =
     endDate && startDate && calculateDeadline(startDate, endDate);
 
@@ -77,7 +47,13 @@ const NFTCard = ({
       })}
     >
       <Box className={styles.header} onClick={onClick}>
-        <Img src={img} alt={name} debounce={500} placeholder={loader} />
+        <Img
+          src={img}
+          alt={name}
+          debounce={500}
+          placeholder={loader}
+          error={urlToIpfs(img)}
+        />
         {priceType && <span className={styles.price_type}>{priceType}</span>}
         {leftDays && (
           <Box className={styles.leftDays}>
@@ -106,12 +82,11 @@ const NFTCard = ({
                 })}
               >
                 <NumberFormat
-                  value={likeCount}
+                  value={numFormat(purchaseCount)}
                   displayType={'text'}
-                  decimalScale={3}
                   thousandSeparator={true}
                 />
-                <div className={styles.LikeSvg} onClick={() => likeClick()}>
+                <div className={styles.LikeSvg}>
                   {page === 'favoritesBottom' ? (
                     <FavoriteRoundedIcon />
                   ) : (
@@ -132,10 +107,9 @@ const NFTCard = ({
                   }}
                 />
                 <NumberFormat
-                  value={price}
+                  value={numFormat(price)}
                   displayType={'text'}
                   thousandSeparator={true}
-                  decimalScale={2}
                 />
               </>
             )}

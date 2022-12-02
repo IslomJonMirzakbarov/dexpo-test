@@ -1,18 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { securedAPI } from "../services/api";
-import { useMutation, useQuery } from "react-query";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { securedAPI } from '../services/api';
+import { useMutation, useQuery } from 'react-query';
 
 const configQuery = {
-  refetchOnMount: "always",
+  refetchOnMount: 'always',
   refetchOnWindowFocus: true, // constantly updating when newCollection created
   refetchOnReconnect: true,
-  staleTime: 0,
+  staleTime: 0
 };
 
 const updateDescription = (data, token) =>
   securedAPI(token)
-    .post("/api/user/updateDescription", data)
+    .post('/api/user/updateDescription', data)
     .then((res) => {
       // console.log(res?.data);
       return res?.data;
@@ -20,7 +20,7 @@ const updateDescription = (data, token) =>
 
 const updateImage = (data, token) =>
   securedAPI(token)
-    .post("/api/user/updateImage", data)
+    .post('/api/user/updateImage', data)
     .then((res) => {
       // console.log(res?.data);
       return res?.data;
@@ -28,7 +28,7 @@ const updateImage = (data, token) =>
 
 const updateUsername = (data, token) =>
   securedAPI(token)
-    .post("/api/user/updateUsername", data)
+    .post('/api/user/updateUsername', data)
     .then((res) => {
       // console.log(res?.data);
       return res?.data;
@@ -45,23 +45,26 @@ const getUserInfo = (token, walletAddress) =>
 const useUserAPI = ({ isUserInfo, walletAddress }) => {
   const { account } = useSelector((store) => store.wallet);
   const { token } = useSelector((store) => store.auth);
-  // console.log(token);
 
   const {
     data: userInfo,
     isLoading: userInfoLoading,
-    error: userInfoError,
-  } = useQuery("get-user-info", () => getUserInfo(token, account), {
-    enabled: !!isUserInfo,
-    ...configQuery,
-  });
+    error: userInfoError
+  } = useQuery(
+    `get-user-info-${walletAddress}`,
+    () => getUserInfo(token, account),
+    {
+      enabled: !!isUserInfo,
+      ...configQuery
+    }
+  );
 
   const { data: OtherUserInfo, refetch: refetchOtherUser } = useQuery(
-    "get-other-user-info",
+    'get-other-user-info',
     () => getUserInfo(token, walletAddress),
     {
       enabled: !!walletAddress,
-      ...configQuery,
+      ...configQuery
     }
   );
 
@@ -77,7 +80,7 @@ const useUserAPI = ({ isUserInfo, walletAddress }) => {
     OtherUserInfo,
     refetchOtherUser,
     userInfoLoading,
-    userInfoError,
+    userInfoError
   };
 };
 

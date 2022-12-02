@@ -16,6 +16,7 @@ import SellModal from '../../../components/Modals/SellModal';
 import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
 import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
 import useCurrnetProvider from '../../../hooks/useCurrentProvider';
+import numFormat from '../../../utils/numFormat';
 
 const TableRow = ({
   item,
@@ -37,11 +38,10 @@ const TableRow = ({
         <Box className={styles.CycPrice}>CYCON {item?.market?.price}</Box>
         <Box className={styles.UsdPrice}>
           <NumberFormat
-            value={exchangedPrice}
+            value={numFormat(exchangedPrice)}
             displayType={'text'}
             thousandSeparator={true}
             prefix="$"
-            decimalScale={4}
           />
         </Box>
       </td>

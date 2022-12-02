@@ -6,6 +6,7 @@ import NumberFormat from 'react-number-format';
 import nftImg from '../../../../assets/images/nft1.png';
 import ConToken from '../../../../assets/images/con-token.svg?component';
 import ConditionAwaitLabel from './ConditionAwaitLabel';
+import numFormat from '../../../../utils/numFormat';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -106,10 +107,9 @@ const PendingSell = ({
               >
                 <Typography variant="placeholder" fontWeight={600}>
                   <NumberFormat
-                    value={sellPrice}
+                    value={numFormat(sellPrice)}
                     displayType={'text'}
                     thousandSeparator={true}
-                    decimalScale={4}
                   />
                 </Typography>
                 <Box display="flex" alignItems="center">
@@ -127,11 +127,10 @@ const PendingSell = ({
               >
                 ~
                 <NumberFormat
-                  value={exchangedPrice}
+                  value={numFormat(exchangedPrice)}
                   displayType={'text'}
                   thousandSeparator={true}
                   prefix="$"
-                  decimalScale={4}
                 />
               </Typography>
             </Box>

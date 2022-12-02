@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 import styles from './style.module.scss';
 import conTokenImg from '../../../../assets/images/con-token.png';
 import collectionItemImg from '../../../../assets/images/collection-item.png';
+import numFormat from '../../../../utils/numFormat';
 
 const CollectionCard = ({
   index = 1,
@@ -36,7 +37,7 @@ const CollectionCard = ({
           <Typography variant="placeholder" className={styles.price}>
             <NumberFormat
               fixedDecimalScale={true}
-              value={price}
+              value={numFormat(price)}
               displayType={'text'}
               thousandSeparator={true}
             />
