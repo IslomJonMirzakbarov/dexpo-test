@@ -81,7 +81,7 @@ const CheckoutModal = ({
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: -7,
+            top: 5,
             right: 10,
             fontSize: 20,
             cursor: 'pointer'
