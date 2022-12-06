@@ -1,7 +1,9 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import DSelect from '../../../components/DSelect';
+import useTopCollections from '../../../hooks/useTopCollectionsAPI';
 import CollectionCard from './CollectionCard';
 import styles from './style.module.scss';
 
@@ -20,15 +22,25 @@ const mockList = [
   }
 ];
 
-const TopCollections = ({ collections = [] }) => {
+const TopCollections = () => {
   const navigate = useNavigate();
+  const { ref, inView } = useInView({
+    threshold: 0
+  });
+
+  const { collections, connectCollections } = useTopCollections();
+
   const [filter, setFilter] = useState(mockList[0]);
 
   const handleSelect = (item) => setFilter(item);
 
-  const collections1 = collections?.slice(0, 3);
-  const collections2 = collections?.slice(3, 6);
-  const collections3 = collections?.slice(6, 9);
+  useEffect(() => {
+    if (!collections && inView) return connectCollections();
+  }, [inView]);
+
+  const collections1 = collections?.items?.slice(0, 3);
+  const collections2 = collections?.items?.slice(3, 6);
+  const collections3 = collections?.items?.slice(6, 9);
 
   return (
     <Paper variant="div" className={styles.container}>
@@ -52,7 +64,7 @@ const TopCollections = ({ collections = [] }) => {
             onSelect={(item) => handleSelect(item)}
           />
         </Box>
-        <Grid container spacing={2} mt={2} className={styles.grid}>
+        <Grid container spacing={2} mt={2} className={styles.grid} ref={ref}>
           <Grid item lg={4} sm={12} className={styles.gridContainer}>
             {collections1?.map(({ collection }, i) => (
               <Box key={i} mt={2} pr={2} className={styles.gridItem}>

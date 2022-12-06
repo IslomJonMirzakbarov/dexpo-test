@@ -12,6 +12,7 @@ import SearchFieldResponsive from '../Autocomplete/index.responsive';
 import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
 import { useTheme } from '@mui/styles';
 import { useMediaQuery } from '@mui/material';
+import Img from 'react-cool-img';
 
 const Header = ({
   title = '',
@@ -91,7 +92,13 @@ const Header = ({
         {icon && <IconGenerator className={styles.icon} icon={icon} />}
 
         {img && (
-          <img src={img} alt="logo" width={132} onClick={() => navigate('/')} />
+          <Img
+            src={img}
+            alt="logo"
+            width={132}
+            height={30}
+            onClick={() => navigate('/')}
+          />
         )}
 
         <div className={styles.titleBlock}>

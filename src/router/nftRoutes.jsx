@@ -1,5 +1,6 @@
 import React from 'react';
-import ApplicationForm from '../views/Nft/Create';
+
+const ApplicationForm = React.lazy(() => import('../views/Nft/Create'));
 
 export const nftRoutes = {
   path: 'nft',

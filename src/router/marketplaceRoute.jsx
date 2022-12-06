@@ -1,6 +1,9 @@
 import React from 'react';
-import Collections from '../views/Collections';
-import CollectionDetails from '../views/Collections/Details';
+
+const Collections = React.lazy(() => import('../views/Collections'));
+const CollectionDetails = React.lazy(() =>
+  import('../views/Collections/Details')
+);
 
 export const marketplaceRoutes = {
   path: 'marketplace',

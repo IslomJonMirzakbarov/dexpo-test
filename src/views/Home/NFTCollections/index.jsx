@@ -9,6 +9,10 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import classNames from 'classnames';
 import { priceTypeChar } from '../../../constants';
 import { useTheme } from '@mui/styles';
+import { useInView } from 'react-intersection-observer';
+import useCollecionsByCategory, {
+  categoryTypes
+} from '../../../hooks/useCollectionsByCategoryAPI';
 
 const slidesToShow = 4;
 
@@ -33,12 +37,28 @@ const settings = {
   ]
 };
 
-const NFTCollections = ({
-  collections,
-  hottestCollections,
-  setRefetchInterval
-}) => {
+const NFTCollections = ({ setRefetchInterval }) => {
   const navigate = useNavigate();
+  const { ref, inView } = useInView({
+    threshold: 0
+  });
+
+  const { ref: ref1, inView: inView1 } = useInView({
+    threshold: 0
+  });
+
+  const { collections: notableCollections } = useCollecionsByCategory(
+    categoryTypes.NOTABLE,
+    null,
+    inView
+  );
+
+  const { collections: hottestCollections } = useCollecionsByCategory(
+    categoryTypes.HOTTEST,
+    null,
+    inView1
+  );
+
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -56,7 +76,7 @@ const NFTCollections = ({
               Hottest Artworks
             </Typography>
           </Box>
-          <Box className={styles.collection}>
+          <Box className={styles.collection} ref={ref}>
             {hottestCollections?.length < 5 && !matches ? (
               hottestCollections?.map(
                 ({ nft, artist, market, collection }, c) => {
@@ -145,8 +165,8 @@ const NFTCollections = ({
               Notable Artworks
             </Typography>
           </Box>
-          <Box className={styles.collection}>
-            {collections?.length < 5 && !matches ? (
+          <Box className={styles.collection} ref={ref1}>
+            {notableCollections?.length < 5 && !matches ? (
               <Grid
                 container
                 display="flex"
@@ -154,65 +174,69 @@ const NFTCollections = ({
                 spacing={3}
                 mb={10}
               >
-                {collections?.map(({ nft, artist, market, collection }, c) => (
-                  <Grid item key={c} lg={3}>
-                    <NFTCard
-                      img={nft.token_image}
-                      name={nft.token_name}
-                      price={market?.price}
-                      startDate={market?.start_date}
-                      endDate={market?.end_date}
-                      artistName={artist.artist_name}
-                      description={nft.token_name}
-                      priceType={priceTypeChar?.[market?.type]}
-                      hasAction={!!market?.price}
-                      purchaseCount={nft.like_count}
-                      setRefetchInterval={setRefetchInterval}
-                      onClick={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                      onAction={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                    />
-                  </Grid>
-                ))}
+                {notableCollections?.map(
+                  ({ nft, artist, market, collection }, c) => (
+                    <Grid item key={c} lg={3}>
+                      <NFTCard
+                        img={nft.token_image}
+                        name={nft.token_name}
+                        price={market?.price}
+                        startDate={market?.start_date}
+                        endDate={market?.end_date}
+                        artistName={artist.artist_name}
+                        description={nft.token_name}
+                        priceType={priceTypeChar?.[market?.type]}
+                        hasAction={!!market?.price}
+                        purchaseCount={nft.like_count}
+                        setRefetchInterval={setRefetchInterval}
+                        onClick={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                        onAction={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                      />
+                    </Grid>
+                  )
+                )}
               </Grid>
             ) : (
               <Slider {...settings}>
-                {collections?.map(({ nft, artist, market, collection }, c) => (
-                  <div className={styles.card} key={c}>
-                    <NFTCard
-                      className={styles.card_item}
-                      img={nft.token_image}
-                      name={nft.token_name}
-                      price={market?.price}
-                      startDate={market?.start_date}
-                      endDate={market?.end_date}
-                      artistName={artist.artist_name}
-                      description={nft.token_name}
-                      priceType={priceTypeChar?.[market?.type]}
-                      hasAction={!!market?.price}
-                      purchaseCount={nft.like_count}
-                      hasShadow={false}
-                      setRefetchInterval={setRefetchInterval}
-                      onClick={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                      onAction={() =>
-                        navigate(
-                          `/marketplace/${nft.token_id}/${collection?.contract_address}`
-                        )
-                      }
-                    />
-                  </div>
-                ))}
+                {notableCollections?.map(
+                  ({ nft, artist, market, collection }, c) => (
+                    <div className={styles.card} key={c}>
+                      <NFTCard
+                        className={styles.card_item}
+                        img={nft.token_image}
+                        name={nft.token_name}
+                        price={market?.price}
+                        startDate={market?.start_date}
+                        endDate={market?.end_date}
+                        artistName={artist.artist_name}
+                        description={nft.token_name}
+                        priceType={priceTypeChar?.[market?.type]}
+                        hasAction={!!market?.price}
+                        purchaseCount={nft.like_count}
+                        hasShadow={false}
+                        setRefetchInterval={setRefetchInterval}
+                        onClick={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                        onAction={() =>
+                          navigate(
+                            `/marketplace/${nft.token_id}/${collection?.contract_address}`
+                          )
+                        }
+                      />
+                    </div>
+                  )
+                )}
               </Slider>
             )}
           </Box>

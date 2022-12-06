@@ -1,8 +1,8 @@
-import { Icon } from '@iconify/react';
-import infoFill from '@iconify/icons-eva/info-fill';
-import alertCircleFill from '@iconify/icons-eva/alert-circle-fill';
-import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
-import checkmarkCircle2Fill from '@iconify/icons-eva/checkmark-circle-2-fill';
+// import { Icon } from '@iconify/react';
+// import infoFill from '@iconify/icons-eva/info-fill';
+// import alertCircleFill from '@iconify/icons-eva/alert-circle-fill';
+// import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
+// import checkmarkCircle2Fill from '@iconify/icons-eva/checkmark-circle-2-fill';
 
 // ----------------------------------------------------------------------
 
@@ -28,10 +28,10 @@ export default function Alert(theme) {
     MuiAlert: {
       defaultProps: {
         iconMapping: {
-          error: <Icon icon={infoFill} />,
-          info: <Icon icon={alertCircleFill} />,
-          success: <Icon icon={checkmarkCircle2Fill} />,
-          warning: <Icon icon={alertTriangleFill} />
+          // error: <Icon icon={infoFill} />,
+          // info: <Icon icon={alertCircleFill} />,
+          // success: <Icon icon={checkmarkCircle2Fill} />,
+          // warning: <Icon icon={alertTriangleFill} />
         }
       },
 

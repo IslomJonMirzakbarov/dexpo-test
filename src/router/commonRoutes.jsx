@@ -1,9 +1,10 @@
 import React from 'react';
-import About from '../views/About';
-import Home from '../views/Home';
-import Ratings from '../views/Ratings';
 import { collectionRoutes } from './collectionRoutes';
 import { marketplaceRoutes } from './marketplaceRoute';
+
+const Home = React.lazy(() => import('../views/Home'));
+const Ratings = React.lazy(() => import('../views/Ratings'));
+const About = React.lazy(() => import('../views/About'));
 
 export const commonRoutes = [
   {

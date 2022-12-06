@@ -3,7 +3,6 @@ import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import NumberFormat from 'react-number-format';
 
-import nftImg from '../../../../assets/images/nft1.png';
 import ConToken from '../../../../assets/images/con-token.svg?component';
 import ConditionAwaitLabel from './ConditionAwaitLabel';
 import numFormat from '../../../../utils/numFormat';
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PendingSell = ({
-  img = nftImg,
+  img,
   name = 'GEMMA #1422',
   collectionName = 'Collection Name',
   quantity = 1,

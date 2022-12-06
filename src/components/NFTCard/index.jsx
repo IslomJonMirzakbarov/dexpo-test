@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import NumberFormat from 'react-number-format';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';

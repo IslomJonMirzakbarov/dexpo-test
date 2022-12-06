@@ -3,7 +3,8 @@ import React from 'react';
 import { nftRoutes } from './nftRoutes';
 import { commonRoutes } from './commonRoutes';
 import { userRoutes } from './user';
-import Faucet from '../views/Faucet';
+
+const Faucet = React.lazy(() => import('../views/Faucet'));
 
 export const privateRoutes = [
   {

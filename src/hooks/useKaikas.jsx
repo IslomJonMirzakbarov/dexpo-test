@@ -18,7 +18,6 @@ import { ERC721 } from '../utils/abi/ERC721ABI';
 import { FIXED_MARKET_ABI } from '../utils/abi/FixedMarketABI';
 import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
 import { FAUCET_ABI } from '../utils/abi/FaucetABI';
-import Caver from 'caver-js';
 
 // const { klaytn } = window;
 // const caver = new Caver(klaytn);

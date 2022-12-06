@@ -6,6 +6,7 @@ import detail2Img from '../../../assets/icons/how-buy.svg';
 import detail3Img from '../../../assets/icons/discount.svg';
 import detail4Img from '../../../assets/icons/edit.svg';
 import detailBg from '../../../assets/images/detail-bg.webp';
+import Img from 'react-cool-img';
 
 const data = [
   {
@@ -112,7 +113,7 @@ const Instructions = () => {
             >
               <Box display="flex" flexDirection="column" alignItems="center">
                 <Box className={classes.imgBox}>
-                  <img src={item.icon} alt={'icon'} />
+                  <Img src={item.icon} alt={'icon'} width={108} height={108} />
                 </Box>
                 <Typography
                   mt={3}

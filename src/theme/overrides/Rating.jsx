@@ -1,5 +1,5 @@
-import { Icon } from '@iconify/react';
-import starFill from '@iconify/icons-eva/star-fill';
+// import { Icon } from '@iconify/react';
+// import starFill from '@iconify/icons-eva/star-fill';
 import { SvgIcon } from '@mui/material';
 
 // ----------------------------------------------------------------------
@@ -7,11 +7,7 @@ import { SvgIcon } from '@mui/material';
 const ICON_SMALL = { width: 20, height: 20 };
 const ICON_LARGE = { width: 28, height: 28 };
 
-const ICON = (
-  <SvgIcon>
-    <Icon icon={starFill} />
-  </SvgIcon>
-);
+const ICON = <SvgIcon>{/* <Icon icon={starFill} /> */}</SvgIcon>;
 
 export default function Rating(theme) {
   return {

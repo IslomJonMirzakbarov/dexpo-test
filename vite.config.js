@@ -1,15 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from '@honkhonk/vite-plugin-svgr';
+import viteCompression from 'vite-plugin-compression';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svgr(), react()],
+  plugins: [svgr(), react(), viteCompression()],
   publicDir: 'public',
   base: './',
   build: {
     outDir: 'build',
-    commonjsOptions: { include: [] }
+    commonjsOptions: { include: [] },
+    minify: true
   },
   optimizeDeps: {
     disabled: false
@@ -23,14 +24,6 @@ export default defineConfig({
         stream: 'stream-browserify',
         zlib: 'browserify-zlib',
         util: 'util'
-      },
-      {
-        find: 'caver-js',
-        replacement: 'caver-js/dist/caver.min.js'
-        // process: 'process/browser',
-        // stream: 'stream-browserify',
-        // zlib: 'browserify-zlib',
-        // util: 'util'
       }
     ]
   }

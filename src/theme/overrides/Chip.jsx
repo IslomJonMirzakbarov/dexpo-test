@@ -1,5 +1,5 @@
-import { Icon } from '@iconify/react';
-import closeCircleFill from '@iconify/icons-eva/close-circle-fill';
+// import { Icon } from '@iconify/react';
+// import closeCircleFill from '@iconify/icons-eva/close-circle-fill';
 
 // ----------------------------------------------------------------------
 
@@ -7,7 +7,7 @@ export default function Chip(theme) {
   return {
     MuiChip: {
       defaultProps: {
-        deleteIcon: <Icon icon={closeCircleFill} />
+        // deleteIcon: <Icon icon={closeCircleFill} />
       },
 
       styleOverrides: {
