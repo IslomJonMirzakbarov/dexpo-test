@@ -1,10 +1,11 @@
 import { Box, Skeleton } from '@mui/material';
+import classNames from 'classnames';
 import React from 'react';
 import styles from './style.module.scss';
 
-const NFTCardSkeleton = () => {
+const NFTCardSkeleton = ({ isDefault }) => {
   return (
-    <Box className={styles.card}>
+    <Box className={classNames(styles.card, { [styles.default]: isDefault })}>
       <Box className={styles.header}>
         <Box className={styles.imgSkeleton} />
       </Box>
