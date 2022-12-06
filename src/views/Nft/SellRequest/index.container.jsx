@@ -194,6 +194,7 @@ const NFTSellRequestContainer = ({
             justifyContent="space-between"
           >
             <CollectionDetailsInfo
+              artistWallet={artist?.wallet_address}
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               nftName={nft?.token_name}

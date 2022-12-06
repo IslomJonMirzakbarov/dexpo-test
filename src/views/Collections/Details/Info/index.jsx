@@ -1,13 +1,13 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
-import styles from '../style.module.scss';
-import CollectionDetailCard from './Card';
-import DSelect from '../../../../components/DSelect';
-import { NavLink } from 'react-router-dom';
+import { Box, Typography } from "@mui/material";
+import React from "react";
+import styles from "../style.module.scss";
+import CollectionDetailCard from "./Card";
+import DSelect from "../../../../components/DSelect";
+import { NavLink } from "react-router-dom";
 
 const CollectionDetailsInfo = ({
-  artistName = 'TRISTAN EATON',
-  youtubeURL = 'https://www.youtube.com/watch?v=3kcj7p8DUwE',
+  artistName = "TRISTAN EATON",
+  youtubeURL = "https://www.youtube.com/watch?v=3kcj7p8DUwE",
   description,
   nftName,
   type,
@@ -17,7 +17,7 @@ const CollectionDetailsInfo = ({
   handleChangeType,
   hideSelect,
   isResponsive,
-  artistWallet
+  artistWallet,
 }) => {
   return (
     <Box display="flex" flexDirection="column">

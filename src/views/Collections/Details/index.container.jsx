@@ -5,66 +5,66 @@ import {
   Grid,
   Paper,
   Typography,
-  useMediaQuery
-} from '@mui/material';
-import React, { useMemo, useState } from 'react';
-import CollectionDetailImage from './Image';
-import CollectionDetailsInfo from './Info';
-import NumberFormat from 'react-number-format';
-import styles from './style.module.scss';
-import Countdown from '../../../components/Countdown';
-import { makeStyles, useTheme } from '@mui/styles';
-import ValueTable from './ValueTable';
-import moment from 'moment';
-import HistoryTable from './HistoryTable';
-import TokenImg from '../../../assets/images/con-token.svg?component';
-import CheckoutModal from '../../../components/Modals/CheckoutModal';
-import { DATE_FORMAT, priceTypeChar } from '../../../constants';
-import MoreCollections from './MoreCollections';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import DModal from '../../../components/DModal';
-import { getPurchaseLabel } from './util';
-import numFormat from '../../../utils/numFormat';
+  useMediaQuery,
+} from "@mui/material";
+import React, { useMemo, useState } from "react";
+import CollectionDetailImage from "./Image";
+import CollectionDetailsInfo from "./Info";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import Countdown from "../../../components/Countdown";
+import { makeStyles, useTheme } from "@mui/styles";
+import ValueTable from "./ValueTable";
+import moment from "moment";
+import HistoryTable from "./HistoryTable";
+import TokenImg from "../../../assets/images/con-token.svg?component";
+import CheckoutModal from "../../../components/Modals/CheckoutModal";
+import { DATE_FORMAT, priceTypeChar } from "../../../constants";
+import MoreCollections from "./MoreCollections";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import DModal from "../../../components/DModal";
+import { getPurchaseLabel } from "./util";
+import numFormat from "../../../utils/numFormat";
 
 const useStyles = makeStyles((theme) => ({
   priceBox: {
-    marginTop: 61
+    marginTop: 61,
   },
   boxWrapper: {
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column-reverse'
-    }
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+    },
   },
   box: {
-    width: '50%',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%'
-    }
+    width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   button: {
-    padding: '16px 0',
+    padding: "16px 0",
     marginTop: 17,
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: 20
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: 20,
     },
-    '&:hover': {
-      boxShadow: '5px 5px 52px 2px rgba(0, 0, 0, 0.1)'
-    }
+    "&:hover": {
+      boxShadow: "5px 5px 52px 2px rgba(0, 0, 0, 0.1)",
+    },
   },
   grid: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%'
-    }
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   table: {
-    [theme.breakpoints.down('sm')]: {
-      overflowX: 'scroll'
-    }
-  }
+    [theme.breakpoints.down("sm")]: {
+      overflowX: "scroll",
+    },
+  },
 }));
 
 const CollectionDetailsContainer = ({
@@ -89,13 +89,13 @@ const CollectionDetailsContainer = ({
   isAuctionEnded,
   setRefetchInterval,
   isAuctionNotStarted,
-  isAuctionBeingFinished
+  isAuctionBeingFinished,
 }) => {
   const navigate = useNavigate();
 
   const theme = useTheme();
   const classes = useStyles();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { nft, artist, market, collection } = data || {};
   const { token } = useSelector((store) => store.auth);
@@ -104,7 +104,7 @@ const CollectionDetailsContainer = ({
 
   const handleClick = () => {
     if (token) toggle();
-    else navigate('/login');
+    else navigate("/login");
   };
   const endDate = useMemo(() => {
     const newDate = new Date(market?.end_date * 1000);
@@ -120,14 +120,14 @@ const CollectionDetailsContainer = ({
     isAuction,
     isAuctionEnded,
     isAuctionNotStarted,
-    isAuctionBeingFinished
+    isAuctionBeingFinished,
   });
 
   const auctionStartDate = moment(market?.start_date * 1000).format(
-    'DD.MM.yyyy'
+    "yyyy.MM.DD"
   );
 
-  const auctionStartTime = moment(market?.start_date * 1000).format('HH:mm');
+  const auctionStartTime = moment(market?.start_date * 1000).format("HH:mm");
 
   return (
     <Paper className={styles.container}>
@@ -189,15 +189,15 @@ const CollectionDetailsContainer = ({
                 {isAuction && endDate ? (
                   isAuctionNotStarted ? (
                     <Typography variant="placeholder" fontWeight={500}>
-                      Auction will start on{' '}
+                      Auction will start on{" "}
                       <Typography
                         variant="placeholder"
                         color="primary"
                         fontWeight={500}
                       >
                         {auctionStartDate}
-                      </Typography>{' '}
-                      at{' '}
+                      </Typography>{" "}
+                      at{" "}
                       <Typography
                         variant="placeholder"
                         color="primary"
@@ -209,7 +209,7 @@ const CollectionDetailsContainer = ({
                   ) : (
                     <Box
                       display="flex"
-                      justifyContent={matches ? 'center' : 'end'}
+                      justifyContent={matches ? "center" : "end"}
                       width="100%"
                     >
                       <Countdown date={endDate} onFinish={onTimeOut} />
@@ -222,7 +222,7 @@ const CollectionDetailsContainer = ({
                   display="flex"
                   flexDirection="column"
                   alignItems="end"
-                  sx={{ width: '100%' }}
+                  sx={{ width: "100%" }}
                 >
                   {market?.price && (
                     <>
@@ -241,7 +241,7 @@ const CollectionDetailsContainer = ({
                         >
                           <NumberFormat
                             value={numFormat(market?.price)}
-                            displayType={'text'}
+                            displayType={"text"}
                             thousandSeparator={true}
                           />
                         </Typography>
@@ -254,7 +254,7 @@ const CollectionDetailsContainer = ({
                         (
                         <NumberFormat
                           value={numFormat(exchangedPrice)}
-                          displayType={'text'}
+                          displayType={"text"}
                           thousandSeparator={true}
                           prefix="$"
                         />
