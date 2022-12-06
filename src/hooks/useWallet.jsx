@@ -6,13 +6,12 @@ import useVerifySign from './useVerifySign';
 import { customAPI } from '../services/api';
 import { setToken } from '../store/auth/auth.slice';
 import useToast from './useToast';
-import useWeb3 from '../hooks/useWeb3';
 import useCurrnetProvider from './useCurrentProvider';
 
 const useWallet = () => {
   const dispatch = useDispatch();
   const { toast } = useToast();
-  const { tokenRegister, addNetwork, switchNetwork } = useCurrnetProvider();
+  const { addNetwork, switchNetwork } = useCurrnetProvider();
 
   const { mutation } = useVerifySign();
 
@@ -25,7 +24,6 @@ const useWallet = () => {
   };
 
   const handleMetaMask = () => {
-    console.log('sadas');
     if (typeof window.ethereum !== 'undefined') {
       getAccount('metamask');
     } else {
@@ -76,7 +74,6 @@ const useWallet = () => {
       const accounts = await getAccountsByType(type);
 
       const account = accounts[0];
-
       const nonce = await customAPI
         .get(`/api/user/nonce?wallet_address=${account}`)
         .then((res) => res?.data?.data?.nonce);
