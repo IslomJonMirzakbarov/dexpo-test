@@ -53,7 +53,6 @@ export const CollectionsSuspence = () => {
 
 const CollectionsContainer = forwardRef(({ collections, matches }, ref) => {
   const navigate = useNavigate();
-
   return (
     <Box className={styles.collection} ref={ref}>
       {collections?.length < 5 && !matches ? (
