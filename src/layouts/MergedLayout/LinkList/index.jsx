@@ -45,13 +45,15 @@ const LinkList = () => {
                 <ProfileMenu options={page.children} />
               )}
             </Box>
-          ) : page.name === "Swap" && page.isAuthenticated && token ? (
+          ) 
+          : page.name === "Swap" && page.isAuthenticated && token ? (
             <a href="https://swap.conun.io/" target="_blank" rel="noreferrer">
               <Typography variant="body2" display="flex" alignItems="center">
                 {page.name}&nbsp;{" "}
               </Typography>
             </a>
-          ) : (
+          )
+           : (
             <NavLink to={page.isAuthenticated && !token ? "/login" : page.to}>
               <Typography variant="body2" display="flex" alignItems="center">
                 {page.name}&nbsp;{" "}

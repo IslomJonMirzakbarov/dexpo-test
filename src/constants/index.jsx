@@ -39,7 +39,7 @@ export const pages = [
   },
   {
     name: "Swap",
-    to: "/swap",
+    to: "/faucet",
     isAuthenticated: true,
   },
 ];
