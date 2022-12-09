@@ -38,7 +38,7 @@ export const pages = [
     to: "/rankings",
   },
   {
-    name: "Swap",
+    name: import.meta.env.PROD ? "Swap" : 'Faucet',
     to: "/faucet",
     isAuthenticated: true,
   },
