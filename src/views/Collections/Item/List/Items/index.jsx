@@ -1,40 +1,41 @@
-import { Grid, Paper, useMediaQuery } from '@mui/material';
-import { Box } from '@mui/system';
-import React from 'react';
-import styles from './style.module.scss';
-import CollectionHeader from './Header';
-import { fakeNFTs } from '../../../../../constants/faker';
-import NFTCard from '../../../../../components/NFTCard';
-import { useNavigate } from 'react-router-dom';
-import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton';
-import NoItemsFound from '../../../../../components/NoItems';
-import { useTheme } from '@mui/styles';
-import { useSelector } from 'react-redux';
+import { Grid, Paper, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/system";
+import React from "react";
+import styles from "./style.module.scss";
+import CollectionHeader from "./Header";
+import { fakeNFTs } from "../../../../../constants/faker";
+import NFTCard from "../../../../../components/NFTCard";
+import { useNavigate } from "react-router-dom";
+import NFTCardSkeleton from "../../../../../components/NFTCard/index.skeleton";
+import NoItemsFound from "../../../../../components/NoItems";
+import { useTheme } from "@mui/styles";
+import { useSelector } from "react-redux";
 
 const CollectionItems = ({
-  sort = '',
-  searchInput = '',
+  sort = "",
+  searchInput = "",
   handleChangeSort,
   handleChangeSearch,
   isLoading,
   data,
   contract_address,
   isGuest,
-  noItems
+  noItems,
 }) => {
   const navigate = useNavigate();
   const { account } = useSelector((store) => store.wallet);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const width = matches ? '100%' : '';
+  const width = matches ? "100%" : "";
 
-  const getNavigate = (tokenId, contractAddress, ownerAddress) => {
+  const getNavigate = (nft, tokenId, contractAddress, ownerAddress) => {
     const loweredOwnerAddress = ownerAddress?.toLowerCase();
     const loweredAccount = account?.toLowerCase();
     const isOwner = loweredAccount?.includes(loweredOwnerAddress);
 
-    if (isOwner || !isGuest)
+    // if (isOwner || !isGuest)
+    if (nft?.creator_address === nft?.owner_address)
       return navigate(
         `/user/nft/${tokenId}/${contractAddress || contract_address}`
       );
@@ -77,6 +78,7 @@ const CollectionItems = ({
                       purchaseCount={nft?.like_count}
                       onClick={() =>
                         getNavigate(
+                          nft,
                           nft?.token_id,
                           collection?.contract_address,
                           collection?.owner_address
