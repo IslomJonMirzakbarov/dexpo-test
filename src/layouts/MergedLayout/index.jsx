@@ -1,36 +1,36 @@
-import { Box, Button } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
-import KaikasIcon from '../../assets/icons/kaikas.svg?component';
-import MetamaskIcon from '../../assets/icons/metamask.svg?component';
-import { truncateAddress } from '../../utils';
-import logo from '../../assets/icons/logo-beta.svg';
-import useWallet from '../../hooks/useWallet';
-import { securedAPI } from '../../services/api';
-import { setArtist } from '../../store/artist/artist.slice';
+import { Box, Button } from "@mui/material";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import KaikasIcon from "../../assets/icons/kaikas.svg?component";
+import MetamaskIcon from "../../assets/icons/metamask.svg?component";
+import { truncateAddress } from "../../utils";
+import logo from "../../assets/images/logo.svg";
+import useWallet from "../../hooks/useWallet";
+import { securedAPI } from "../../services/api";
+import { setArtist } from "../../store/artist/artist.slice";
 
-import { logout, setToken } from '../../store/auth/auth.slice';
-import { setAccount, setPriceeUSD } from '../../store/wallet/wallet.slice';
-import LinkList from './LinkList';
-import Profile from './Profile';
-import { makeStyles } from '@mui/styles';
+import { logout, setToken } from "../../store/auth/auth.slice";
+import { setAccount, setPriceeUSD } from "../../store/wallet/wallet.slice";
+import LinkList from "./LinkList";
+import Profile from "./Profile";
+import { makeStyles } from "@mui/styles";
 
-const BUTTON_LABEL = 'Connect Wallet';
+const BUTTON_LABEL = "Connect Wallet";
 
 const useStyles = makeStyles({
   walletIcon: {
     width: 45,
     height: 45,
-    background: '#38363E',
+    background: "#38363E",
     borderRadius: 7,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '0 10px'
-  }
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 10px",
+  },
 });
 
 const MergedLayout = ({ children }) => {
@@ -48,30 +48,30 @@ const MergedLayout = ({ children }) => {
   const label = account ? truncateAddress(account) : BUTTON_LABEL;
 
   const handleClick = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleNetwork = async () => {
     if (window.ethereum && account) {
-      window.ethereum.on('chainChanged', () => {
+      window.ethereum.on("chainChanged", () => {
         window.location.reload();
       });
-      window.ethereum.on('accountsChanged', (accounts) => {
+      window.ethereum.on("accountsChanged", (accounts) => {
         if (account?.includes(accounts[0])) return;
 
-        connectWallet('metamask');
+        connectWallet("metamask");
       });
     }
   };
 
   const handleNetworkKaikas = async () => {
     if (window.klaytn && account) {
-      window.klaytn.on('accountsChanged', function (accounts) {
+      window.klaytn.on("accountsChanged", function (accounts) {
         // Time to reload your interface with accounts[0]!
-        connectWallet('kaikas');
+        connectWallet("kaikas");
       });
 
-      window.klaytn.on('networkChanged', function () {
+      window.klaytn.on("networkChanged", function () {
         // `networkChanged` event is only useful when auto-refresh on network is disabled
         // Otherwise, Kaikas will auto-reload pages upon network change
       });
@@ -80,7 +80,7 @@ const MergedLayout = ({ children }) => {
 
   const handlePrice = async () => {
     try {
-      const res = await securedAPI(token).get('/api/home/conPrice');
+      const res = await securedAPI(token).get("/api/home/conPrice");
       if (res?.data) {
         dispatch(setPriceeUSD(res?.data.data?.price_usd));
       }
@@ -92,7 +92,7 @@ const MergedLayout = ({ children }) => {
   const handleGetArtist = async () => {
     if (!token) return;
     try {
-      const { data } = await securedAPI(token).get('/api/artist/detail');
+      const { data } = await securedAPI(token).get("/api/artist/detail");
 
       if (data?.code === 200) {
         dispatch(setArtist(data?.data));
@@ -100,7 +100,7 @@ const MergedLayout = ({ children }) => {
         dispatch(setArtist(null));
       }
 
-      if (data?.message?.includes('EXPIRED_TOKEN')) {
+      if (data?.message?.includes("EXPIRED_TOKEN")) {
         dispatch(logout());
         dispatch(setAccount(null));
         dispatch(setToken(null));
@@ -111,7 +111,7 @@ const MergedLayout = ({ children }) => {
   };
 
   useEffect(() => {
-    if (type === 'metamask') handleNetwork();
+    if (type === "metamask") handleNetwork();
     else handleNetworkKaikas();
     handlePrice();
   }, []);
@@ -129,16 +129,16 @@ const MergedLayout = ({ children }) => {
           <Box display="flex" alignItems="center" position="relative" ref={ref}>
             {account && (
               <Box className={classes.walletIcon}>
-                {type === 'kaikas' ? <KaikasIcon /> : <MetamaskIcon />}
+                {type === "kaikas" ? <KaikasIcon /> : <MetamaskIcon />}
               </Box>
             )}
             <Button
               variant="outlinedDark"
               onClick={handleClick}
               sx={{
-                width: '170px!important',
-                height: '45px!important',
-                padding: 0
+                width: "170px!important",
+                height: "45px!important",
+                padding: 0,
               }}
             >
               {label}
