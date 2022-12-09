@@ -12,6 +12,7 @@ import { persistor, store } from './store';
 import './i18next';
 import { Suspense } from 'react';
 import PageFallback from './components/PageFallback';
+import Loader from './components/Loader';
 import MergedLayout from './layouts/MergedLayout';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -26,7 +27,7 @@ const toastOptions = {
 
 function App() {
   return (
-    <Suspense fallback={<PageFallback />}>
+    <Suspense fallback={<Loader />}>
       <div className="App">
         <Provider store={store}>
           <PersistGate persistor={persistor}>
