@@ -5,14 +5,14 @@ import { Box, Container } from "@mui/system";
 import useArtistAPI from "../../hooks/useArtistAPI";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import { useSelector } from "react-redux";
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import classNames from "classnames";
 import isEmail from "../../utils/isEmail";
 import useToast from "../../hooks/useToast";
 import ModalCard from "../../components/ModalCard";
-import ArtistFormSuccess from "../../assets/icons/artist-form-success.svg?component";
+import TelegramQRCode from "../../assets/images/telegram-qr-code.png";
 import ArtistFormReject from "../../assets/icons/artist-form-reject.svg?component";
 import SpinningIcon from "../../assets/icons/spinning-icon.svg?component";
 
@@ -205,15 +205,31 @@ const ArtistForm = () => {
           page="create-collection"
           onSaveButtonClick={modalClick}
         >
-          <Box className={styles.IconContainer}>
-            <ArtistFormSuccess />
+          <Box className={styles.SuccessIconContainer}>
+            <img src={TelegramQRCode} alt="telegram-qr-code" />
           </Box>
-          <Typography className={styles.ProcessTitle}>Sent!</Typography>
-          <Typography className={styles.ProcessDesc}>
+          <Box className={styles.LinkBox}>
+            <Link
+              color="#183dbe"
+              variant="inherit"
+              target="_blank"
+              rel="noreferrer"
+              href="https://t.me/dexponft_bot"
+              className={styles.SuccessProcessTitle}
+            >
+              https://t.me/dexponft_bot
+            </Link>
+          </Box>
+          <Typography className={styles.SuccessProcessDesc}>
             <>
-              Your request is submitted successfully and sent to admin to
-              review. After reviewing <br /> we will inform you via email.
+              <span className={styles.Sphrase}>
+                Your request was submitted successfully and
+                <br /> sent to admin for review.
+              </span>
               <br />
+              <br />
+              1. Scan the QR code and you will be directed to Telegram. <br />{" "}
+              2. You can also check your status on{" "}
               <span className={styles.MainDesc}>
                 My Page {">"} My application tab.
               </span>
