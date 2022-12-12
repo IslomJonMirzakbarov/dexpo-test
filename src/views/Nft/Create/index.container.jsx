@@ -64,6 +64,7 @@ const NftCreate = () => {
 
         setNewItemConAd(response?.to);
         setNewItemId(newId);
+
         setTimeout(() => {
           setResponseChecker(true);
         }, 3500);
