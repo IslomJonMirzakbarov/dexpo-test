@@ -1,5 +1,5 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
 
 @keyframes spin {
   0% {
@@ -210,16 +210,16 @@
       margin: auto;
       width: 180px;
       height: 55px;
-      background: #dedede;
-      border-radius: 7px;
+      // background: #dedede;
+      // border-radius: 7px;
       border: none;
       margin-bottom: 13px;
 
-      &:hover {
-        background: colors.$gradient_pink2blue;
-        box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 7px;
-      }
+      // &:hover {
+      //   background: colors.$gradient_pink2blue;
+      //   box-shadow: 8px 8px 25px 6px rgba(0, 0, 0, 0.1);
+      //   border-radius: 7px;
+      // }
     }
 
     .CheckedBtn {

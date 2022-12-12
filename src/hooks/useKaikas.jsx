@@ -18,6 +18,7 @@ import { ERC721 } from '../utils/abi/ERC721ABI';
 import { FIXED_MARKET_ABI } from '../utils/abi/FixedMarketABI';
 import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
 import { FAUCET_ABI } from '../utils/abi/FaucetABI';
+import SingleABI from '../utils/abi/SingleABI';
 
 // const { klaytn } = window;
 // const caver = new Caver(klaytn);
@@ -358,9 +359,47 @@ const useKaikas = () => {
     });
   };
 
+  const mint = async (metadata, contractAddress) => {
+    const contractERC721 = new caver.klay.Contract(SingleABI, contractAddress);
+    try {
+      const gasPrice = await caver.klay.getGasPrice();
+      const estimatedGas = await contractERC721.methods
+        .mint(account, metadata)
+        .estimateGas({
+          gasPrice,
+          from: account
+        });
+
+      const res = await contractERC721.methods.mint(account, metadata).send({
+        gasPrice,
+        from: account,
+        gas: estimatedGas
+      });
+
+      return res;
+    } catch (err) {
+      console.log(err);
+
+      return null;
+    }
+  };
+
+  const getTransactionReceipt = async (tx) => {
+    try {
+      const response = await caver.klay.getTransactionReceipt(tx);
+
+      return response;
+    } catch (err) {
+      console.log(err);
+
+      return null;
+    }
+  };
+
   return {
     bid,
     sell,
+    mint,
     faucet,
     cancel,
     balance,
@@ -374,7 +413,8 @@ const useKaikas = () => {
     getUserBalance,
     checkAllowance,
     makeApprove721,
-    checkAllowance721
+    checkAllowance721,
+    getTransactionReceipt
   };
 };
 
