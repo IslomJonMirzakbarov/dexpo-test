@@ -1,52 +1,52 @@
-import { Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { Box } from "@mui/system";
+import { Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
 import {
   CTable,
   CTableBody,
   CTableCell,
   CTableHead,
-  CTableHeadRow,
-} from "../../../../components/CTable";
-import React from "react";
-import { historyMockHeadRows } from "./mock";
-import HistoryTableItem from "./TableItem";
-import moment from "moment";
-import { useSelector } from "react-redux";
+  CTableHeadRow
+} from '../../../../components/CTable';
+import React from 'react';
+import { historyMockHeadRows } from './mock';
+import HistoryTableItem from './TableItem';
+import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden",
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
     borderRadius: 7,
-    width: "100%",
+    width: '100%'
   },
   header: {
     backgroundColor: theme.palette.grey[1600],
-    padding: "11px 26px",
+    padding: '11px 26px',
     border: `1px solid ${theme.palette.grey[1500]}`,
-    borderRadius: "7px 7px 0px 0px",
+    borderRadius: '7px 7px 0px 0px'
   },
   head: {
-    backgroundColor: "transparent",
-    "& tr": {
-      borderRadius: "0!important",
+    backgroundColor: 'white!important',
+    '& tr': {
+      borderRadius: '0!important'
     },
-    "& td": {
-      padding: "18px 26px",
-    },
-  },
+    '& td': {
+      padding: '18px 26px'
+    }
+  }
 }));
 
-const HistoryTable = ({ data, title = "NFT History" }) => {
+const HistoryTable = ({ data, title = 'NFT History' }) => {
   const classes = useStyles();
   const { price_usd } = useSelector((store) => store.wallet);
 
   return (
     <Box className={classes.root} mt={5}>
       <Box className={classes.header}>
-        <Typography variant="h4" fontSize="18px!important" lineHeight={"30px"}>
+        <Typography variant="h4" fontSize="18px!important" lineHeight={'30px'}>
           {title}
         </Typography>
       </Box>
@@ -77,7 +77,7 @@ const HistoryTable = ({ data, title = "NFT History" }) => {
                   to={item.to_address}
                   txHash={item.tx_hash}
                   date={moment(item.timestamp * 1000).format(
-                    "yyyy.MM.DD HH:mm:ss"
+                    'yyyy.MM.DD HH:mm:ss'
                   )}
                 />
               ))}

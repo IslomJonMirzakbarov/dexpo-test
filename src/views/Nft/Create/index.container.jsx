@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Box, Checkbox, FormControl, Typography } from '@mui/material';
+import { Box, Button, Checkbox, FormControl, Typography } from '@mui/material';
 import Web3 from 'web3';
 import FormInputText from '../../../components/FormInputText';
 import ModalCard from '../../../components/ModalCard';
 import FileUploadWithDrag from '../../../components/Upload/FileUploadWithDrag';
 import { useNavigate } from 'react-router-dom';
-import SingleABI from '../../../utils/abi/SingleABI';
 import useCollectionAPI from '../../../hooks/useCollectionApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import SpinningIcon from '../../../assets/icons/spinning-icon.svg?component';
 import RejectIcon from '../../../assets/icons/artist-form-reject.svg?component';
 import classNames from 'classnames';
-import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+
 import useNFTCreateApi from '../../../hooks/useNFTCreateApi';
 import SelectAsync from '../../../components/SelectAsync';
 import CollectionOption from './Option';
 import { setNewNftSrc } from '../../../store/nft/nft.slice';
-
+import useCurrentProvider from '../../../hooks/useCurrentProvider';
 import styles from './style.module.scss';
 
 const NftCreate = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { mint, getTransactionReceipt } = useCurrentProvider();
+
   const { collections } = useCollectionAPI({
     isDetail: true,
     page: 1,
@@ -29,18 +32,15 @@ const NftCreate = () => {
     size: 200
   });
 
-  const { create, metadata } = useNFTCreateApi({});
-  let collectionList;
-  let approvedCollectionList;
-  if (collections) {
-    collectionList = collections?.data?.items;
-    approvedCollectionList = collectionList?.filter(
+  const { create } = useNFTCreateApi({});
+
+  const approvedCollectionList = useMemo(() => {
+    return collections?.data?.items?.filter(
       (collectionItem) =>
         collectionItem.status === 'COMPLETE' && collectionItem.type === 'S'
     );
-  }
-  const navigate = useNavigate();
-  const { account, type } = useSelector((store) => store.wallet);
+  }, [collections]);
+
   const [showModal, setShowModal] = useState(false);
   const [contractAddress, setContractAddress] = useState('');
   const [artName, setArtName] = useState('');
@@ -48,38 +48,32 @@ const NftCreate = () => {
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
   const [rejected, setRejected] = useState(false);
-  const [resChecker, setResChecker] = useState(null);
-  const [stopChecker, setStopChecker] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [responseChecker, setResponseChecker] = useState(false);
   const [newItemConAd, setNewItemConAd] = useState('');
   const [newItemId, setNewItemId] = useState('');
   const [previewImgSrc, setPreviewImgSrc] = useState('');
 
-  let myFunc;
-  if (resChecker) {
-    myFunc = setInterval(async () => {
-      const web3 = new Web3(Web3.givenProvider);
-      const response = await web3.eth.getTransactionReceipt(resChecker);
+  const postMint = async (tx) => {
+    setIsLoading(false);
+    try {
+      const response = await getTransactionReceipt(tx);
+
       if (response?.logs[0]?.topics[3]) {
-        setStopChecker(response);
-        setNewItemConAd(response?.to);
         const newId = Web3.utils.hexToNumber(response?.logs[0]?.topics[3]);
+
+        setNewItemConAd(response?.to);
         setNewItemId(newId);
         setTimeout(() => {
           setResponseChecker(true);
         }, 3500);
       }
-    }, 1000);
-  }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  if (stopChecker) {
-    clearInterval(myFunc);
-  }
-
-  const imgBool =
-    uploadedImg?.type === 'image/png' || uploadedImg.type === 'image/jpeg'
-      ? true
-      : false;
+  const imgBool = ['image/png', 'image/jpeg'].includes(uploadedImg.type);
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {
@@ -118,127 +112,38 @@ const NftCreate = () => {
     formData.append('description', data.artworkDescription);
     formData.append('image', data.imageFile);
 
-    await create?.mutateAsync(formData);
+    setIsLoading(true);
+
+    await create?.mutateAsync(formData, {
+      onSuccess: async (res) => {
+        try {
+          const response = await mint(res?.data?.metadata, contractAddress);
+          if (response) {
+            postMint(response.transactionHash);
+            if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
+              reset();
+              setChecked(false);
+              setShowModal(true);
+            }
+          } else {
+            setIsLoading(false);
+            setRejected(true);
+          }
+        } catch (err) {}
+      }
+    });
   });
 
   const mintClick = () => {
-    if (checked) {
-      onSubmit();
-      if (Object.keys(uploadedImg).length === 0) {
-        setErrBool(true);
-      } else {
-        setErrBool(false);
-      }
+    if (isLoading || !checked) return;
+
+    onSubmit();
+    if (Object.keys(uploadedImg).length === 0) {
+      setErrBool(true);
+    } else {
+      setErrBool(false);
     }
   };
-
-  // const { caver } = window;
-
-  // useEffect(() => {
-  //   const nftMint = async () => {
-  //     if (create?.isSuccess) {
-  //       const web3 = new Web3(Web3.givenProvider);
-  //       let contractERC721;
-  //       if (type === "metamask") {
-  //         contractERC721 = new web3.eth.Contract(SingleABI, contractAddress);
-  //       }
-  //       if (type === "kaikas") {
-  //         contractERC721 = new caver.klay.Contract(SingleABI, contractAddress, {
-  //           from: account,
-  //         });
-  //       }
-  //       const estimatedGas = await contractERC721.methods
-  //         .mint(account, metadata.data.metadata)
-  //         .estimateGas({
-  //           gasPrice: await web3.eth.getGasPrice(),
-  //           from: account,
-  //         });
-
-  //       contractERC721.methods.mint(account, metadata.data.metadata).send(
-  //         {
-  //           gasPrice: await web3.eth.getGasPrice(),
-  //           from: account,
-  //           gas: estimatedGas,
-  //         },
-  //         function (err, res) {
-  //           if (err) {
-  //             setRejected(true);
-  //           }
-  //           if (res) {
-  //             setResChecker(res);
-  //             if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-  //               reset();
-  //               setChecked(false);
-  //               setShowModal(true);
-  //             }
-  //           }
-  //         }
-  //       );
-  //     }
-  //   };
-  //   nftMint();
-  //   return () => {};
-  // }, [
-  //   account,
-  //   caver.klay.Contract,
-  //   contractAddress,
-  //   create?.isSuccess,
-  //   errorChecker,
-  //   metadata,
-  //   reset,
-  //   type,
-  //   uploadedImg,
-  // ]);
-
-  useEffect(() => {
-    const nftMint = async () => {
-      if (create?.isSuccess) {
-        const web3 = new Web3(Web3.givenProvider);
-        const contractERC721 = new web3.eth.Contract(
-          SingleABI,
-          contractAddress
-        );
-        const gasPrice = await web3.eth.getGasPrice();
-        const estimatedGas = await contractERC721.methods
-          .mint(account, metadata.data.metadata)
-          .estimateGas({
-            gasPrice,
-            from: account
-          });
-
-        contractERC721.methods.mint(account, metadata.data.metadata).send(
-          {
-            gasPrice,
-            from: account,
-            gas: estimatedGas
-          },
-          function (err, res) {
-            if (err) {
-              setRejected(true);
-            }
-            if (res) {
-              setResChecker(res);
-              if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
-                reset();
-                setChecked(false);
-                setShowModal(true);
-              }
-            }
-          }
-        );
-      }
-    };
-    nftMint();
-    return () => {};
-  }, [
-    account,
-    contractAddress,
-    create?.isSuccess,
-    errorChecker,
-    metadata,
-    reset,
-    uploadedImg
-  ]);
 
   return (
     <Box className={styles.Container}>
@@ -345,22 +250,18 @@ const NftCreate = () => {
       </Box>
 
       <Box className={styles.BottomSide}>
-        <PrimaryButton
-          onClick={() => {
-            if (!create?.isLoading) {
-              mintClick();
-            }
-          }}
-          className={classNames(styles.Btn, {
-            [styles.CheckedBtn]: checked
-          })}
+        <Button
+          disabled={!checked}
+          variant="containedSecondary"
+          className={classNames(styles.Btn)}
+          onClick={mintClick}
         >
-          {create?.isLoading ? (
+          {isLoading ? (
             <SpinningIcon className={styles.SpinningIcon} />
           ) : (
             'Mint'
           )}
-        </PrimaryButton>
+        </Button>
         {(errorChecker > 0 || errBool) && (
           <Box className={styles.Error}>
             Please {!watch('collection') ? ' "Select collection"' : ''}{' '}
