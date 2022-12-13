@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 const Collections = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { pathname } = location;
 
   const urlDetails = getPaginationDetailsByPathname(location.search);
 
@@ -99,7 +98,6 @@ const Collections = () => {
   };
 
   const handleSelect = (item) => {
-    // setFilter(item);
     navigate(
       `/marketplace?page=${page}&filter=${item.value}${
         search ? `&search=${search}` : ''

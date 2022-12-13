@@ -108,7 +108,6 @@ const Ratings = () => {
 
   const rows = matches ? responsiveRows : laptopRows;
 
-  const handleSelect = (item) => setFilter(item);
   const handleSelectTab = (item) => setTab(item);
   const handleClick = (link) => navigate(link);
 
@@ -137,12 +136,6 @@ const Ratings = () => {
             onSelect={handleSelectTab}
             setValues={setTabs}
             className={classes.tabs}
-          />
-          <DSelect
-            label="last 24 hours"
-            value={filter}
-            items={rankingSorts}
-            onSelect={(item) => handleSelect(item)}
           />
         </Box>
         <Box display="flex" my={4} className={classes.table}>
