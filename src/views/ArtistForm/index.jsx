@@ -12,7 +12,7 @@ import classNames from "classnames";
 import isEmail from "../../utils/isEmail";
 import useToast from "../../hooks/useToast";
 import ModalCard from "../../components/ModalCard";
-import TelegramQRCode from "../../assets/images/telegram-qr-code.png";
+import TelegramQRCode from "../../assets/images/telegram-qrcode.png";
 import ArtistFormReject from "../../assets/icons/artist-form-reject.svg?component";
 import SpinningIcon from "../../assets/icons/spinning-icon.svg?component";
 

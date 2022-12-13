@@ -21,7 +21,7 @@ const Render = {
 };
 
 const Images = {
-  [sellReqStatuses.INITIAL]: submittedImg,
+  [sellReqStatuses.INITIAL]: null,
   [sellReqStatuses.PENDING]: null,
   [sellReqStatuses.COMPLETE]: null,
   [sellReqStatuses.CANCEL]: cancelImg
