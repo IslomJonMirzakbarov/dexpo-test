@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import SearchField from '../../../../../../components/Autocomplete';
 import DSelect from '../../../../../../components/DSelect';
 
-const sortTypes = [
+export const sortTypes = [
   {
     label: 'Recently created',
     value: 'RECENTLY_CREATED'

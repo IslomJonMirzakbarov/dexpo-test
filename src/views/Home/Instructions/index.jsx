@@ -113,7 +113,7 @@ const Instructions = () => {
             >
               <Box display="flex" flexDirection="column" alignItems="center">
                 <Box className={classes.imgBox}>
-                  <Img src={item.icon} alt={'icon'} width={108} height={108} />
+                  <Img src={item.icon} alt={'icon'} width={68} height={68} />
                 </Box>
                 <Typography
                   mt={3}
