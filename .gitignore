@@ -31,5 +31,5 @@ coverage
 .env.production
 .env.development
 
-# staging.yml
+staging.yml
 main.yml
