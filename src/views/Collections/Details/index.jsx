@@ -1,19 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
 import { checkoutStatuses } from '../../../constants/checkoutStatuses';
 
 import CollectionDetailsContainer from './index.container';
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
 import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-
-import Loader from '../../../components/Loader';
-import useNFTAPI from '../../../hooks/useNFT';
 
 import { utils } from 'react-modern-calendar-datepicker';
 import NoItemsFound from '../../../components/NoItems';
-import { useSelector } from 'react-redux';
 import { Box } from '@mui/material';
-import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI';
 import { useForm } from 'react-hook-form';
 
 import { parseDate } from '../../../utils/parseDate';
@@ -23,17 +16,24 @@ import {
 } from '../../../constants/metamaskErrors';
 import useCurrnetProvider from '../../../hooks/useCurrentProvider';
 
-const REF_INTERVAL = 5000;
-
-const CollectionDetails = () => {
-  const { account } = useSelector((store) => store.wallet);
-
+const CollectionDetails = ({
+  nftID: id,
+  history,
+  bidHistory,
+  account,
+  refetch,
+  refetchBid,
+  refetchDetail,
+  contract_address,
+  setRefetchInterval,
+  refetchHistory,
+  message,
+  postLike,
+  market,
+  data
+}) => {
   const { checkAllowance, makeApprove, purchase, bid, getUserBalance } =
     useCurrnetProvider();
-
-  const [refetchInterval, setRefetchInterval] = useState(false);
-
-  const params = useParams();
 
   const { control, getValues } = useForm({
     defaultValues: {
@@ -41,35 +41,7 @@ const CollectionDetails = () => {
     }
   });
 
-  const { detail, loadingDetail, refetchDetail, postLike } = useNFTAPI({
-    id: params?.id,
-    contractAddress: params?.contract_address,
-    wallet: account,
-    refetchInterval: refetchInterval ? REF_INTERVAL : null
-  });
-
-  const {
-    data: history,
-    isLoading: loadingHistory,
-    refetch: refetchHistory
-  } = useNFTHistoryAPI({
-    tokenId: params?.id,
-    contractAddress: params?.contract_address
-  });
-
-  const {
-    data: bidHistory,
-    isLoading: loadingBid,
-    refetch: refetchBid
-  } = useBidHistoryAPI({
-    tokenId: params?.id,
-    contractAddress: params?.contract_address
-  });
-
-  const { data: moreNFTs } = useMoreByCollectionAPI(
-    params?.contract_address,
-    params?.id
-  );
+  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address, id);
 
   const [isAuctionBeingFinished, setIsAuctionBeingFinished] = useState(false);
 
@@ -91,11 +63,10 @@ const CollectionDetails = () => {
     getBalnc();
   }, [account]);
 
-  const market = detail?.data?.market;
   const currentDate = utils().getToday();
   const currentTime = Math.round(new Date().getTime() / 1000);
   const isSoldOut = !market?.price;
-  const notEnoughBalance = balance < detail?.data?.market?.price;
+  const notEnoughBalance = balance < market?.price;
 
   const isAuction = market?.type === 'A';
   const isAuctionEnded =
@@ -103,7 +74,7 @@ const CollectionDetails = () => {
   const isAuctionNotStarted =
     isAuction && market?.start_date > Number(currentTime);
 
-  const isNotExist = detail?.message?.includes('NOT_EXIST');
+  const isNotExist = message?.includes('NOT_EXIST');
   const isCurrentUserNFT = market?.seller_address?.includes(account);
   const isPurchaseBtnDisabled =
     isCurrentUserNFT ||
@@ -133,8 +104,8 @@ const CollectionDetails = () => {
 
   const handleLike = () => {
     const payload = {
-      token_id: params?.id,
-      contract_address: params?.contract_address
+      token_id: id,
+      contract_address: contract_address
     };
     postLike.mutate(payload, { onSuccess: () => refetchDetail() });
   };
@@ -159,9 +130,8 @@ const CollectionDetails = () => {
       let res;
       const bidPrice = getValues('bidPrice');
 
-      if (!isAuction)
-        res = await purchase(params?.contract_address, params?.id);
-      else res = await bid(params?.contract_address, params?.id, bidPrice);
+      if (!isAuction) res = await purchase(contract_address, id);
+      else res = await bid(contract_address, id, bidPrice);
 
       if (!!res) {
         setTxHash(res.transactionHash);
@@ -211,8 +181,6 @@ const CollectionDetails = () => {
     setError('');
   }, [openModal]);
 
-  if (loadingDetail || loadingHistory || loadingBid) return <Loader />;
-
   if (isNotExist)
     return (
       <Box
@@ -227,7 +195,7 @@ const CollectionDetails = () => {
 
   return (
     <CollectionDetailsContainer
-      data={detail?.data}
+      data={data}
       history={history}
       moreNFTs={moreNFTs}
       status={status}

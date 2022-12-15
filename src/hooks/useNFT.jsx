@@ -22,7 +22,7 @@ const getDetail = ({ contractAddress, tokenId, wallet }, token) =>
       },
     })
     .then((res) => {
-      console.log(res.data);
+
       return res.data;
     });
 
@@ -30,7 +30,7 @@ const fetchLikeDislike = (data, token) =>
   securedAPI(token)
     .post(`/api/nft/likeDislike`, data)
     .then((res) => {
-      // console.log(res.data);
+
       return res.data;
     });
 

@@ -1,19 +1,19 @@
-import { Box, Grid } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import Loader from "../../../components/Loader";
-import NFTCard from "../../../components/NFTCard";
-import { priceType } from "../../../constants";
-import useNftAPI from "../../../hooks/useNftApi";
-import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
+import { Box, Grid } from '@mui/material';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Loader from '../../../components/Loader';
+import NFTCard from '../../../components/NFTCard';
+import { priceType } from '../../../constants';
+import useNftAPI from '../../../hooks/useNftApi';
+import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component';
 
-import styles from "./style.module.scss";
+import styles from './style.module.scss';
 
 const FavoritesBottom = () => {
   const { list } = useNftAPI({
     isGetList: true,
-    type: "INTEREST",
-    size: 20000,
+    type: 'INTEREST',
+    size: 20000
   });
   const navigate = useNavigate();
   return (
@@ -24,7 +24,7 @@ const FavoritesBottom = () => {
             <NoItemsYet />
             <Box className={styles.NoItemsText}>No items yet</Box>
           </Box>
-        ) : list?.data?.items[0]?.request_type !== "INTEREST" ? (
+        ) : list?.data?.items[0]?.request_type !== 'INTEREST' ? (
           <Loader page="my-page" />
         ) : (
           list?.data?.items.map((nftItem, index) => {
@@ -42,20 +42,11 @@ const FavoritesBottom = () => {
                   price={nftItem?.market?.price}
                   priceType={priceType.AUCTION.value.value}
                   purchaseCount={nftItem?.nft?.like_count}
-                  onClick={() => {
-                    if (
-                      nftItem?.nft?.creator_address ===
-                      nftItem?.nft?.owner_address
-                    ) {
-                      navigate(
-                        `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
-                      );
-                    } else {
-                      navigate(
-                        `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
-                      );
-                    }
-                  }}
+                  onClick={() =>
+                    navigate(
+                      `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
+                    )
+                  }
                 />
               </Grid>
             );

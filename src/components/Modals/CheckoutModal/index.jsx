@@ -54,7 +54,7 @@ const CheckoutModal = ({
 
   const onConfirm = () => {
     if (isAuction) return onClose();
-    return navigate(`/user/nft/${tokenId}/${contractAddress}`);
+    return navigate(`/marketplace/${tokenId}/${contractAddress}`);
   };
 
   const Footer = {

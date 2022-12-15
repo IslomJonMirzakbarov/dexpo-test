@@ -282,8 +282,7 @@ const NftCreate = () => {
           onSaveButtonClick={() => {
             if (responseChecker && previewImgSrc && newItemId) {
               setShowModal(false);
-              // setUploadedImg({});
-              navigate(`/user/nft/${newItemId}/${newItemConAd}`);
+              navigate(`/marketplace/${newItemId}/${newItemConAd}`);
             } else {
               return;
             }

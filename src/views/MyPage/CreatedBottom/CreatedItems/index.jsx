@@ -1,23 +1,23 @@
-import { Box, Grid } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import Loader from "../../../../components/Loader";
-import NFTCard from "../../../../components/NFTCard";
-import { priceType } from "../../../../constants";
-import useNftAPI from "../../../../hooks/useNftApi";
-import NoItemsYet from "../../../../assets/icons/no-items-yet.svg?component";
+import { Box, Grid } from '@mui/material';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Loader from '../../../../components/Loader';
+import NFTCard from '../../../../components/NFTCard';
+import { priceType } from '../../../../constants';
+import useNftAPI from '../../../../hooks/useNftApi';
+import NoItemsYet from '../../../../assets/icons/no-items-yet.svg?component';
 
-import styles from "./style.module.scss";
+import styles from './style.module.scss';
 
 const CreatedItems = ({ id }) => {
   const navigate = useNavigate();
-  const otherUser = id && id[0] === "0";
+  const otherUser = id && id[0] === '0';
   const { list, listByUser } = useNftAPI({
     isGetList: !otherUser,
     isGetListByUser: otherUser,
-    type: "CREATED_BY_NFTS",
+    type: 'CREATED_BY_NFTS',
     size: 20000,
-    walletAddress: otherUser && id,
+    walletAddress: otherUser && id
   });
   const selectedList = otherUser ? listByUser : list;
 
@@ -31,7 +31,7 @@ const CreatedItems = ({ id }) => {
             <NoItemsYet />
             <Box className={styles.NoItemsText}>No items yet</Box>
           </Box>
-        ) : selectedList?.data?.items[0]?.request_type !== "CREATED_BY_NFTS" ? (
+        ) : selectedList?.data?.items[0]?.request_type !== 'CREATED_BY_NFTS' ? (
           <Loader page="my-page" />
         ) : (
           selectedList?.data?.items.map((nftItem, index) => (
@@ -46,20 +46,11 @@ const CreatedItems = ({ id }) => {
                 description={nftItem?.nft?.token_name}
                 priceType={priceType.AUCTION.value.value}
                 purchaseCount={nftItem?.nft?.like_count}
-                onClick={() => {
-                  if (
-                    nftItem?.nft?.creator_address ===
-                    nftItem?.nft?.owner_address
-                  ) {
-                    navigate(
-                      `/user/nft/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
-                    );
-                  } else {
-                    navigate(
-                      `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
-                    );
-                  }
-                }}
+                onClick={() =>
+                  navigate(
+                    `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
+                  )
+                }
               />
             </Grid>
           ))

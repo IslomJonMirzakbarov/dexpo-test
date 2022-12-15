@@ -14,7 +14,6 @@ const updateDescription = (data, token) =>
   securedAPI(token)
     .post('/api/user/updateDescription', data)
     .then((res) => {
-      // console.log(res?.data);
       return res?.data;
     });
 
@@ -22,7 +21,6 @@ const updateImage = (data, token) =>
   securedAPI(token)
     .post('/api/user/updateImage', data)
     .then((res) => {
-      // console.log(res?.data);
       return res?.data;
     });
 
@@ -30,7 +28,6 @@ const updateUsername = (data, token) =>
   securedAPI(token)
     .post('/api/user/updateUsername', data)
     .then((res) => {
-      // console.log(res?.data);
       return res?.data;
     });
 
@@ -38,7 +35,6 @@ const getUserInfo = (token, walletAddress) =>
   securedAPI(token)
     .get(`/api/user/info?wallet_address=${walletAddress}`)
     .then((res) => {
-      // console.log(res?.data);
       return res.data;
     });
 

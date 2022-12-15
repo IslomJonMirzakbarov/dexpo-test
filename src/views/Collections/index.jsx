@@ -106,12 +106,7 @@ const Collections = () => {
   };
 
   const handleNavigate = (tokenId, address, wallet) => {
-    const loweredWallet = wallet?.toLowerCase();
-    const loweredAccount = account?.toLowerCase();
-
-    if (!loweredWallet?.includes(loweredAccount))
-      return navigate(`/marketplace/${tokenId}/${address}`);
-    return navigate(`/user/nft/${tokenId}/${address}`);
+    return navigate(`/marketplace/${tokenId}/${address}`);
   };
 
   const handlePaginate = (next) => {

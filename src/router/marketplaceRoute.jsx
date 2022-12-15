@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Collections = React.lazy(() => import('../views/Collections'));
-const CollectionDetails = React.lazy(() =>
-  import('../views/Collections/Details')
+const CollectionDetailsPage = React.lazy(() =>
+  import('../views/Collections/Details/page')
 );
 
 export const marketplaceRoutes = {
@@ -14,7 +14,7 @@ export const marketplaceRoutes = {
     },
     {
       path: ':id/:contract_address',
-      element: <CollectionDetails />
+      element: <CollectionDetailsPage />
     }
   ]
 };
