@@ -1,9 +1,0 @@
-VITE_BASE_URL = https://mainnetapi.dexpo.world
-VITE_CHAIN_ID = 8217
-VITE_CHAIN_NAME = Klaytn Mainnet
-VITE_RPC_URL = https://public-en.kaikas.io/v1/cypress
-VITE_CON_NAME = KLAY
-VITE_ERC20_HASH = 0xe4a1bd45cddbbd5d9f605b08ed13a94b6b6ab5aa
-VITE_FIXED_MARKET_HASH = 0x307509E497e5159371428348a474fC9157A3B1dB
-VITE_AUCTION_MARKET_HASH = 0xB78132E7a7E99FaEEd8B935919b4a032E55e5361
-VITE_APPROVE_AMOUNT = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff

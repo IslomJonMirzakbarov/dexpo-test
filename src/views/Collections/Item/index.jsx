@@ -1,63 +1,100 @@
-import { Box } from "@mui/material";
-import React, { useState } from "react";
-import CollectionInfo from "./Info";
-import CollectionList from "./List";
-import styles from "./style.module.scss";
-import { useLocation, useParams } from "react-router-dom";
-import { securedAPI } from "../../../services/api";
-import { useSelector } from "react-redux";
-import { useQuery } from "react-query";
+import { Box } from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import CollectionInfo from './Info';
+import CollectionList from './List';
+import styles from './style.module.scss';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { securedAPI } from '../../../services/api';
+import { useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
 
-import CollectionInfoSkeleton from "./Info/index.skeleton";
-import CPagination from "../../../components/CPagination";
-import useNftAPI from "../../../hooks/useNftApi";
+import CollectionInfoSkeleton from './Info/index.skeleton';
+import CPagination from '../../../components/CPagination';
+import useNftAPI from '../../../hooks/useNftApi';
+import { getPaginationDetailsByPathname } from '../../../utils/paginationQueries';
+import { sortTypes } from './List/Items/Header';
 
 const getCollectionDetail = (token, id) =>
   securedAPI(token)
-    .get("/api/collection/detail", {
+    .get('/api/collection/detail', {
       params: {
-        contract_address: id,
-      },
+        contract_address: id
+      }
     })
     .then((res) => res.data);
 
 const CollectionItem = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
-  const { search } = useLocation();
   const { token } = useSelector((store) => store.auth);
+  const { search } = useLocation();
 
-  const [page, setPage] = useState(1);
-  const [sort, setSort] = useState(null);
-  const [searchInput, setSearchInput] = useState("");
+  const urlDetails = getPaginationDetailsByPathname(search);
 
-  const handleChangeSort = (e) => setSort(e);
+  const [searchInput, setSearchInput] = useState(urlDetails?.search);
 
-  const handleChangeSearch = (e) => setSearchInput(e.target.value);
+  const page = useMemo(
+    () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
+    [urlDetails?.page]
+  );
+
+  const sort = useMemo(() => {
+    const seletedFilter = sortTypes.find((item) =>
+      item.value.includes(urlDetails?.sort)
+    );
+    return seletedFilter;
+  }, [urlDetails?.sort]);
+
+  const handleChangeSearch = (e) => {
+    setSearchInput(e.target.value);
+    navigate(
+      `/collections/${id}?page=1${sort ? `&sort=${sort.value}` : ''}${
+        searchInput ? `&search=${e.target.value}` : ''
+      }`
+    );
+  };
+
+  const handleSelect = (item) => {
+    navigate(
+      `/collections/${id}?page=${page}&sort=${item.value}${
+        search ? `&search=${search}` : ''
+      }`
+    );
+  };
+
+  const handlePaginate = (next) => {
+    navigate(
+      `/collections/${id}?page=${next}${sort ? `&sort=${sort?.value}` : ''}${
+        search ? `&search=${searchInput}` : ''
+      }`
+    );
+  };
 
   const { data, isLoading } = useQuery(
     `GET-COLLECTION-ITEM-${id}`,
     () => getCollectionDetail(token, id),
     {
-      refetchOnMount: "always",
-      refetchOnWindowFocus: true, // constantly updating when newCollection created
-      refetchOnReconnect: true,
+      // refetchOnMount: 'always',
+      // refetchOnWindowFocus: true, // constantly updating when newCollection created
+      // refetchOnReconnect: true
     }
   );
-  console.log(searchInput);
+
   const { nftListCollection, loadingListByCollection } = useNftAPI({
     isGetListByCollection: true,
     contractAddress: id,
     size: 20,
     type: sort?.value,
     search_query: searchInput,
-    page,
+    page
   });
 
   const innerData = data?.data;
   const innerList = nftListCollection?.data?.items;
   const totalPages = nftListCollection?.data?.totalPages;
   const noItems = !innerList?.length || innerList?.length === 0;
-  const isGuest = search?.includes("user=false");
+  const isGuest = search?.includes('user=false');
 
   return (
     <div className={styles.container}>
@@ -87,14 +124,14 @@ const CollectionItem = () => {
           noItems={!loadingListByCollection && noItems}
           searchInput={searchInput}
           handleChangeSearch={handleChangeSearch}
-          handleChangeSort={handleChangeSort}
+          handleChangeSort={handleSelect}
         />
       </Box>
       <Box display="flex" justifyContent="center" alignItems="center">
         {totalPages > 1 && (
           <CPagination
-            page={page}
-            setCurrentPage={setPage}
+            page={page ? Number(page) : 1}
+            setCurrentPage={handlePaginate}
             count={totalPages}
           />
         )}

@@ -57,11 +57,6 @@ const ArtistSkeleton = ({ isArtists = false, isResponsive }) => {
           </CTableCell>
           {!isArtists && (
             <CTableCell>
-              <LabelSkeleton noMargin={true} />
-            </CTableCell>
-          )}
-          {!isArtists && (
-            <CTableCell>
               <Box display="flex" alignItems="center">
                 <img src={conTokenImg} alt="token" width={25} height={25} />
                 <LabelSkeleton />

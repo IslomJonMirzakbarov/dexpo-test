@@ -27,3 +27,5 @@ export const urlToIpfs = (url) => {
 
   return `https://ipfs.io/ipfs/${cid}`;
 };
+
+export const isMainnet = () => import.meta.env.VITE_NETWORK_ENV === 'mainnet';

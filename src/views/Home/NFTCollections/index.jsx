@@ -38,6 +38,7 @@ const NFTCollections = () => {
             justifyContent="center"
             alignItems="center"
             mb={5}
+            ref={ref}
           >
             <Typography variant="h2" fontWeight={700}>
               Hottest Artworks
@@ -47,7 +48,6 @@ const NFTCollections = () => {
             <CollectionsSuspence />
           ) : (
             <CollectionsContainer
-              ref={ref}
               collections={hottestCollections}
               matches={matches}
             />
@@ -59,6 +59,7 @@ const NFTCollections = () => {
             justifyContent="center"
             alignItems="center"
             mb={5}
+            ref={ref1}
           >
             <Typography variant="h2" fontWeight={700}>
               Notable Artworks
@@ -68,7 +69,6 @@ const NFTCollections = () => {
             <CollectionsSuspence />
           ) : (
             <CollectionsContainer
-              ref={ref1}
               collections={notableCollections}
               matches={matches}
             />

@@ -6,8 +6,7 @@ import ModalCard from "../../../components/ModalCard";
 import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import MiddleCircleType from "../../../assets/icons/middle-circle-type.svg?component";
-import TelegramQRCode from "../../../assets/images/telegram-qr-code.png";
-import CreateCollectionForm from "../../../assets/icons/create-collection-form.svg?component";
+import TelegramQRCode from "../../../assets/images/telegram-qrcode.png";
 import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
 
 import styles from "./style.module.scss";

@@ -99,7 +99,6 @@ export const tableRows = {
   [topTypes.COLLECTIONS]: (percent) => [
     'Collection',
     'Volume (CYCON)',
-    `${percent} %`,
     'Floor Price (CYCON)',
     'Owners',
     'Items'

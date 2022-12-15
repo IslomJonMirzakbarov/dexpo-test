@@ -13,7 +13,6 @@ import CreatedCollections from './CreatedBottom/CreatedCollections';
 import useArtistAPI from '../../hooks/useArtistAPI';
 import { truncateAddress } from '../../utils';
 import PageSettingsIcon from '/src/assets/icons/page-settings-icon.svg?component';
-import ProfileImageIcon from '/src/assets/icons/profile-img-icon.svg?component';
 import defaultImg from '/src/assets/images/artist-default.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
