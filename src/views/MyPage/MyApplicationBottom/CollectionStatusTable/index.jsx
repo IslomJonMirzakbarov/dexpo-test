@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames';
-import moment from 'moment';
-import CollectionStatusSvg from '../../../../assets/icons/collection-status-svg.svg?component';
-import useCollectionAPI from '../../../../hooks/useCollectionApi';
+import React, { useEffect, useState } from "react";
+import classNames from "classnames";
+import moment from "moment";
+import CollectionStatusSvg from "../../../../assets/icons/collection-status-svg.svg?component";
+import useCollectionAPI from "../../../../hooks/useCollectionApi";
 
-import styles from './style.module.scss';
+import styles from "./style.module.scss";
 
 const CollectionStatusTable = ({ id }) => {
   const [refetchInterval, setRefetchInterval] = useState(false);
   const { collections } = useCollectionAPI({
     isDetail: true,
     page: 1,
-    orderBy: 'desc',
+    orderBy: "desc",
     size: 200,
-    refetchInterval
+    refetchInterval,
   });
   useEffect(() => {
-    if (id === 'collection-status-created') {
+    if (id === "collection-status-created") {
       setRefetchInterval(3000);
       setTimeout(() => {
         setRefetchInterval(false);
@@ -24,6 +24,7 @@ const CollectionStatusTable = ({ id }) => {
     }
   }, [id]);
   const collectionItems = collections?.data?.items;
+
   return (
     <table className={styles.Table}>
       <thead className={styles.TableHead}>
@@ -38,11 +39,11 @@ const CollectionStatusTable = ({ id }) => {
         {collectionItems?.length > 0 &&
           collectionItems.map((item) => {
             const itemStatus =
-              item.status === 'IDLE' || item.status === 'PENDING'
-                ? 'Under Review'
-                : item.status === 'REJECT'
-                ? 'Rejected'
-                : 'Approved';
+              item.status === "IDLE" || item.status === "PENDING"
+                ? "Under Review"
+                : item.status === "REJECT"
+                ? "Rejected"
+                : "Approved";
             return (
               <tr className={styles.TableBodyRow}>
                 <td>
@@ -60,13 +61,18 @@ const CollectionStatusTable = ({ id }) => {
                 <td
                   className={classNames(
                     styles.UnderReview,
-                    { [styles.Approved]: item?.status === 'COMPLETE' },
-                    { [styles.Rejected]: item?.status === 'REJECT' }
+                    { [styles.Approved]: item?.status === "COMPLETE" },
+                    { [styles.Rejected]: item?.status === "REJECT" }
                   )}
                 >
                   {itemStatus}
                 </td>
-                <td>{moment(item.created_at).format('YYYY.MM.DD HH:MM:ss')}</td>
+                <td>
+                  {item.timestamp &&
+                    moment(item?.timestamp * 1000).format(
+                      "YYYY.MM.DD HH:MM:ss"
+                    )}
+                </td>
               </tr>
             );
           })}
