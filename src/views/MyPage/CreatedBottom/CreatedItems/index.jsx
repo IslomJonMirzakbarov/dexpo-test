@@ -46,20 +46,11 @@ const CreatedItems = ({ id }) => {
                 description={nftItem?.nft?.token_name}
                 priceType={priceType.AUCTION.value.value}
                 purchaseCount={nftItem?.nft?.like_count}
-                onClick={() => {
-                  if (
-                    nftItem?.nft?.creator_address ===
-                    nftItem?.nft?.owner_address
-                  ) {
-                    navigate(
-                      `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
-                    );
-                  } else {
-                    navigate(
-                      `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
-                    );
-                  }
-                }}
+                onClick={() =>
+                  navigate(
+                    `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
+                  )
+                }
               />
             </Grid>
           ))
