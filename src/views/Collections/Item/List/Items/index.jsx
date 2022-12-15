@@ -29,13 +29,8 @@ const CollectionItems = ({
 
   const width = matches ? "100%" : "";
 
-  const getNavigate = (nft, tokenId, contractAddress, ownerAddress) => {
-    const loweredOwnerAddress = ownerAddress?.toLowerCase();
-    const loweredAccount = account?.toLowerCase();
-    const isOwner = loweredAccount?.includes(loweredOwnerAddress);
-
-    // if (isOwner || !isGuest)
-    if (nft?.creator_address === nft?.owner_address)
+  const getNavigate = (market, nft, tokenId, contractAddress, ownerAddress) => {
+    if (nft?.creator_address === market?.seller_address)
       return navigate(
         `/user/nft/${tokenId}/${contractAddress || contract_address}`
       );
@@ -78,6 +73,7 @@ const CollectionItems = ({
                       purchaseCount={nft?.like_count}
                       onClick={() =>
                         getNavigate(
+                          market,
                           nft,
                           nft?.token_id,
                           collection?.contract_address,
