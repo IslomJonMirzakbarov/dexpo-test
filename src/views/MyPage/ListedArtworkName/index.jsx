@@ -157,7 +157,7 @@ const ListedArtworkBottom = () => {
               : list?.data?.items.map((item) => {
                   const navigateClick = () =>
                     navigate(
-                      `/user/nft/${item?.nft?.token_id}/${item?.collection?.contract_address}`
+                      `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
                     );
                   return (
                     <TableRow

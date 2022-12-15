@@ -1,11 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
 import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
-import Loader from '../../../components/Loader';
-import useNFTAPI from '../../../hooks/useNFT';
 import NFTSellRequestContainer from './index.container';
 
 import { DATE_FORMAT, priceType } from '../../../constants';
@@ -16,32 +12,26 @@ import { useSelector } from 'react-redux';
 import { parseNormalizedDate } from '../../../utils/parseDate';
 import moment from 'moment';
 import { useEffect } from 'react';
-import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI';
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
   { value: priceType.AUCTION.key, label: priceType.AUCTION.value }
 ];
 
-const NFTSellRequest = () => {
-  const navigate = useNavigate();
-  const { id, contract_address } = useParams();
-
-  const { account } = useSelector((store) => store.wallet);
-  const [refetchInterval, setRefetchInterval] = useState(false);
-  const {
-    detail,
-    loadingDetail,
-    refetchDetail,
-    isFetchingDetail,
-    isFetchingHistory
-  } = useNFTAPI({
-    id: id,
-    contractAddress: contract_address,
-    wallet: account,
-    refetchInterval
-  });
-
+const NFTSellRequest = ({
+  nftID: id,
+  history,
+  bidHistory,
+  refetch,
+  refetchBid,
+  refetchDetail,
+  contract_address,
+  setRefetchInterval,
+  market,
+  nft,
+  collection,
+  artist
+}) => {
   const { newNftSrc } = useSelector((store) => store.nft);
 
   useEffect(() => {
@@ -55,45 +45,9 @@ const NFTSellRequest = () => {
     }, 7000);
   }, [newNftSrc]);
 
-  const {
-    data: history,
-    isLoading: loadingHistory,
-    refetch
-  } = useNFTHistoryAPI({
-    tokenId: id,
-    contractAddress: contract_address
-  });
-
-  const {
-    data: bidHistory,
-    isLoading: loadingBid,
-    refetch: refetchBid
-  } = useBidHistoryAPI({
-    tokenId: id,
-    contractAddress: contract_address
-  });
-
   const { control, watch } = useForm({
     price: ''
   });
-
-  const { market, nft, collection, artist } = detail?.data || {};
-
-  const loading = loadingDetail || loadingHistory;
-
-  const fetching = isFetchingDetail || isFetchingHistory;
-
-  const loweredAccount = account.toLowerCase();
-
-  const isUserSeller = market?.seller_address
-    ?.toLowerCase()
-    ?.includes(loweredAccount);
-
-  const isUserOwner = nft?.owner_address
-    ?.toLowerCase()
-    ?.includes(loweredAccount);
-
-  const isOwner = !market?.price ? isUserOwner : isUserSeller;
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
 
@@ -160,10 +114,6 @@ const NFTSellRequest = () => {
     endDate,
     refetchBid
   });
-
-  if (loading || fetching || loadingBid) return <Loader />;
-
-  if (!isOwner) return navigate(`/marketplace/${id}/${contract_address}`);
 
   return (
     <NFTSellRequestContainer

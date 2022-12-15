@@ -6,7 +6,6 @@ const CollectionCreate = React.lazy(() =>
 const CollectionEdit = React.lazy(() => import('../views/Collections/Edit'));
 const MyPage = React.lazy(() => import('../views/MyPage'));
 const MyCollections = React.lazy(() => import('../views/MyPage/Collections'));
-const NFTSellRequest = React.lazy(() => import('../views/Nft/SellRequest'));
 const Settings = React.lazy(() => import('../views/Settings'));
 
 export const userRoutes = {
@@ -26,15 +25,6 @@ export const userRoutes = {
         {
           path: 'collection/edit/:id/:name/:symbol',
           element: <CollectionEdit />
-        }
-      ]
-    },
-    {
-      path: 'nft',
-      children: [
-        {
-          path: ':id/:contract_address',
-          element: <NFTSellRequest />
         }
       ]
     },
