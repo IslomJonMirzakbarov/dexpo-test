@@ -21,7 +21,10 @@ const getDetail = ({ contractAddress, tokenId, wallet }, token) =>
         wallet_address: wallet,
       },
     })
-    .then((res) => res.data);
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    });
 
 const fetchLikeDislike = (data, token) =>
   securedAPI(token)

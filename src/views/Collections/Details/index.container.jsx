@@ -98,6 +98,7 @@ const CollectionDetailsContainer = ({
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { nft, artist, market, collection } = data || {};
+  const isCancel = nft?.creator_address === market?.seller_address;
   const { token } = useSelector((store) => store.auth);
   const { price_usd } = useSelector((store) => store.wallet);
   const [openImg, setOpenImg] = useState(false);
@@ -262,7 +263,7 @@ const CollectionDetailsContainer = ({
                       </Typography>
                     </>
                   )}
-                  {!isSoldOut && (
+                  {!isSoldOut && !isCancel ? (
                     <Button
                       className={classes.button}
                       variant="containedSecondary"
@@ -272,6 +273,15 @@ const CollectionDetailsContainer = ({
                       sx={{ height: 55 }}
                     >
                       {btnLabel}
+                    </Button>
+                  ) : (
+                    <Button
+                      className={classes.button}
+                      variant={isCancel ? "outlined" : "containedSecondary"}
+                      fullWidth
+                      onClick={isCancel ? toggle : handleClick}
+                    >
+                      Cancel
                     </Button>
                   )}
                 </Box>
