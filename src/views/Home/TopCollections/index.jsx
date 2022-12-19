@@ -1,17 +1,17 @@
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { useNavigate } from "react-router-dom";
 
-import useTopCollections from '../../../hooks/useTopCollectionsAPI';
-import CollectionCard from './CollectionCard';
-import CollectionCardSkeleton from './CollectionCard/index.skeleton';
-import styles from './style.module.scss';
+import useTopCollections from "../../../hooks/useTopCollectionsAPI";
+import CollectionCard from "./CollectionCard";
+import CollectionCardSkeleton from "./CollectionCard/index.skeleton";
+import styles from "./style.module.scss";
 
 const TopCollections = () => {
   const navigate = useNavigate();
   const { ref, inView } = useInView({
-    threshold: 0
+    threshold: 0,
   });
 
   const { collections, connectCollections, isLoading } = useTopCollections();
@@ -66,7 +66,7 @@ const TopCollections = () => {
               : collections2?.map(({ collection }, i) => (
                   <Box key={i} mt={2} pr={2} className={styles.gridItem}>
                     <CollectionCard
-                      index={i + 1}
+                      index={i + 4}
                       name={collection.name}
                       price={collection.floor_price}
                       src={collection.logo_url}
@@ -87,7 +87,7 @@ const TopCollections = () => {
               : collections3?.map(({ collection }, i) => (
                   <Box key={i} mt={2} pr={2} className={styles.gridItem}>
                     <CollectionCard
-                      index={i + 1}
+                      index={i + 7}
                       name={collection.name}
                       price={collection.floor_price}
                       src={collection.logo_url}
@@ -107,7 +107,7 @@ const TopCollections = () => {
         >
           <Button
             variant="containedPrimary"
-            onClick={() => navigate('/rankings')}
+            onClick={() => navigate("/rankings")}
             sx={{ width: 180, height: 55, padding: 0 }}
           >
             Go To Rankings
