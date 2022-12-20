@@ -70,7 +70,7 @@ const CollectionStatusTable = ({ id }) => {
                 <td>
                   {item.timestamp &&
                     moment(item?.timestamp * 1000).format(
-                      "YYYY.MM.DD HH:MM:ss"
+                      "YYYY.MM.DD HH:mm:ss"
                     )}
                 </td>
               </tr>
