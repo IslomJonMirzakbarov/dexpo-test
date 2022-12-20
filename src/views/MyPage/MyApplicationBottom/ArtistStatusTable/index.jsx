@@ -7,7 +7,7 @@ import styles from "./style.module.scss";
 const ArtistStatusTable = ({ artist }) => {
   const fdate =
     artist?.data?.timestamp &&
-    moment(artist?.data?.timestamp * 1000).format("YYYY.MM.DD HH:MM:ss");
+    moment(artist?.data?.timestamp * 1000).format("YYYY.MM.DD hh:mm:ss");
   const artistStatus = artist?.data?.status;
   const ArtistStatus =
     artistStatus === "IDLE" || artistStatus === "PENDING"
