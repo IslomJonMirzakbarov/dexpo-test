@@ -6,6 +6,7 @@ import DSelect from "../../../../components/DSelect";
 import { NavLink } from "react-router-dom";
 
 const CollectionDetailsInfo = ({
+  collection,
   artistName = "TRISTAN EATON",
   youtubeURL = "https://www.youtube.com/watch?v=3kcj7p8DUwE",
   description,
@@ -34,10 +35,14 @@ const CollectionDetailsInfo = ({
               fontWeight={700}
               textTransform="uppercase"
             >
-              Artist:
+              {/* Artist:
               <NavLink to={`/user/my-page/${artistWallet}`}>
                 &nbsp;
                 {artistName}
+              </NavLink> */}
+              <NavLink to={`/collections/${collection?.contract_address}`}>
+                &nbsp;
+                {collection?.name}
               </NavLink>
             </Typography>
             <a

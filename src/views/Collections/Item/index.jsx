@@ -1,25 +1,25 @@
-import { Box } from '@mui/material';
-import React, { useMemo, useState } from 'react';
-import CollectionInfo from './Info';
-import CollectionList from './List';
-import styles from './style.module.scss';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { securedAPI } from '../../../services/api';
-import { useSelector } from 'react-redux';
-import { useQuery } from 'react-query';
+import { Box } from "@mui/material";
+import React, { useMemo, useState } from "react";
+import CollectionInfo from "./Info";
+import CollectionList from "./List";
+import styles from "./style.module.scss";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { securedAPI } from "../../../services/api";
+import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
 
-import CollectionInfoSkeleton from './Info/index.skeleton';
-import CPagination from '../../../components/CPagination';
-import useNftAPI from '../../../hooks/useNftApi';
-import { getPaginationDetailsByPathname } from '../../../utils/paginationQueries';
-import { sortTypes } from './List/Items/Header';
+import CollectionInfoSkeleton from "./Info/index.skeleton";
+import CPagination from "../../../components/CPagination";
+import useNftAPI from "../../../hooks/useNftApi";
+import { getPaginationDetailsByPathname } from "../../../utils/paginationQueries";
+import { sortTypes } from "./List/Items/Header";
 
 const getCollectionDetail = (token, id) =>
   securedAPI(token)
-    .get('/api/collection/detail', {
+    .get("/api/collection/detail", {
       params: {
-        contract_address: id
-      }
+        contract_address: id,
+      },
     })
     .then((res) => res.data);
 
@@ -49,8 +49,8 @@ const CollectionItem = () => {
   const handleChangeSearch = (e) => {
     setSearchInput(e.target.value);
     navigate(
-      `/collections/${id}?page=1${sort ? `&sort=${sort.value}` : ''}${
-        searchInput ? `&search=${e.target.value}` : ''
+      `/collections/${id}?page=1${sort ? `&sort=${sort.value}` : ""}${
+        searchInput ? `&search=${e.target.value}` : ""
       }`
     );
   };
@@ -58,15 +58,15 @@ const CollectionItem = () => {
   const handleSelect = (item) => {
     navigate(
       `/collections/${id}?page=${page}&sort=${item.value}${
-        search ? `&search=${search}` : ''
+        searchInput ? `&search=${searchInput}` : ""
       }`
     );
   };
 
   const handlePaginate = (next) => {
     navigate(
-      `/collections/${id}?page=${next}${sort ? `&sort=${sort?.value}` : ''}${
-        search ? `&search=${searchInput}` : ''
+      `/collections/${id}?page=${next}${sort ? `&sort=${sort?.value}` : ""}${
+        searchInput ? `&search=${searchInput}` : ""
       }`
     );
   };
@@ -75,9 +75,9 @@ const CollectionItem = () => {
     `GET-COLLECTION-ITEM-${id}`,
     () => getCollectionDetail(token, id),
     {
-      // refetchOnMount: 'always',
-      // refetchOnWindowFocus: true, // constantly updating when newCollection created
-      // refetchOnReconnect: true
+      refetchOnMount: "always",
+      refetchOnWindowFocus: true,
+      refetchOnReconnect: true,
     }
   );
 
@@ -87,14 +87,14 @@ const CollectionItem = () => {
     size: 20,
     type: sort?.value,
     search_query: searchInput,
-    page
+    page,
   });
 
   const innerData = data?.data;
   const innerList = nftListCollection?.data?.items;
   const totalPages = nftListCollection?.data?.totalPages;
   const noItems = !innerList?.length || innerList?.length === 0;
-  const isGuest = search?.includes('user=false');
+  const isGuest = search?.includes("user=false");
 
   return (
     <div className={styles.container}>

@@ -154,6 +154,7 @@ const CollectionDetailsContainer = ({
           </Grid>
           <Grid item lg={7} sm={12} className={classes.grid}>
             <CollectionDetailsInfo
+              collection={collection}
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               nftName={nft?.token_name}

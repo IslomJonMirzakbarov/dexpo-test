@@ -62,7 +62,7 @@ const SellRequestTable = () => {
                   {item?.market_status_timestamp &&
                     moment(
                       new Date(item?.market_status_timestamp * 1000)
-                    ).format('YYYY.MM.DD HH:MM:ss')}
+                    ).format('YYYY.MM.DD HH:mm:ss')}
                 </td>
               </tr>
             );

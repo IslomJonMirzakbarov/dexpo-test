@@ -46,7 +46,7 @@ const CollectionInfo = ({
         />
         <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
           <Typography variant="placeholder" color="grey.1000" fontWeight={500}>
-            {artistName}
+            {/* {artistName} */}
           </Typography>
           <Typography variant="h4" fontSize="20px!important" fontWeight={600}>
             {collectionName}
