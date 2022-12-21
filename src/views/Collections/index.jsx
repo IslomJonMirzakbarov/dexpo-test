@@ -4,43 +4,43 @@ import {
   Grid,
   Paper,
   Typography,
-  useMediaQuery
-} from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import DSelect from '../../components/DSelect';
-import styles from './style.module.scss';
-import SearchField from '../../components/Autocomplete';
-import NFTCard from '../../components/NFTCard';
-import CPagination from '../../components/CPagination';
-import { useLocation, useNavigate } from 'react-router-dom';
-import useMarketAPI from '../../hooks/useMarketAPI';
-import { priceTypeChar } from '../../constants';
-import NFTCardSkeleton from '../../components/NFTCard/index.skeleton';
-import NoItemsFound from '../../components/NoItems';
-import { marketFilterList } from '../../constants/marketFilter';
-import { useSelector } from 'react-redux';
-import { debounce } from 'lodash';
+  useMediaQuery,
+} from "@mui/material";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import DSelect from "../../components/DSelect";
+import styles from "./style.module.scss";
+import SearchField from "../../components/Autocomplete";
+import NFTCard from "../../components/NFTCard";
+import CPagination from "../../components/CPagination";
+import { useLocation, useNavigate } from "react-router-dom";
+import useMarketAPI from "../../hooks/useMarketAPI";
+import { priceTypeChar } from "../../constants";
+import NFTCardSkeleton from "../../components/NFTCard/index.skeleton";
+import NoItemsFound from "../../components/NoItems";
+import { marketFilterList } from "../../constants/marketFilter";
+import { useSelector } from "react-redux";
+import { debounce } from "lodash";
 
-import { makeStyles, useTheme } from '@mui/styles';
-import { getPaginationDetailsByPathname } from '../../utils/paginationQueries';
+import { makeStyles, useTheme } from "@mui/styles";
+import { getPaginationDetailsByPathname } from "../../utils/paginationQueries";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'flex-end'
-    }
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignItems: "flex-end",
+    },
   },
   search: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      width: '100%',
-      marginBottom: 20
-    }
-  }
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      width: "100%",
+      marginBottom: 20,
+    },
+  },
 }));
 
 const Collections = () => {
@@ -51,7 +51,7 @@ const Collections = () => {
 
   const classes = useStyles();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { account } = useSelector((store) => store.wallet);
 
@@ -73,7 +73,7 @@ const Collections = () => {
   const { data, isLoading } = useMarketAPI({
     page,
     type: filter?.value,
-    search
+    search,
   });
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
@@ -91,8 +91,8 @@ const Collections = () => {
   const handleChange = (e) => {
     setInput(e.target.value);
     navigate(
-      `/marketplace?page=${page}${filter ? `&filter=${filter.value}` : ''}${
-        search ? `&search=${e.target.value}` : ''
+      `/marketplace?page=${page}${filter ? `&filter=${filter.value}` : ""}${
+        search ? `&search=${e.target.value}` : ""
       }`
     );
   };
@@ -100,7 +100,7 @@ const Collections = () => {
   const handleSelect = (item) => {
     navigate(
       `/marketplace?page=${page}&filter=${item.value}${
-        search ? `&search=${search}` : ''
+        search ? `&search=${search}` : ""
       }`
     );
   };
@@ -111,8 +111,8 @@ const Collections = () => {
 
   const handlePaginate = (next) => {
     navigate(
-      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ''}${
-        search ? `&search=${search}` : ''
+      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ""}${
+        search ? `&search=${search}` : ""
       }`
     );
   };
@@ -155,7 +155,7 @@ const Collections = () => {
                     key={i}
                     lg={12 / 5}
                     my={matches ? 2 : 0}
-                    sx={{ width: '100%' }}
+                    sx={{ width: "100%" }}
                   >
                     <NFTCardSkeleton />
                   </Grid>
@@ -167,9 +167,10 @@ const Collections = () => {
                     lg={12 / 5}
                     sm={1}
                     my={matches ? 2 : 0}
-                    sx={{ width: '100%' }}
+                    sx={{ width: "100%" }}
                   >
                     <NFTCard
+                      collection={collection}
                       img={nft.token_image}
                       name={nft.token_name}
                       price={market?.price}
