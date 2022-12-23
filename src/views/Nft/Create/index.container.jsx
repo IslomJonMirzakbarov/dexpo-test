@@ -1,23 +1,26 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { Box, Button, Checkbox, FormControl, Typography } from '@mui/material';
-import Web3 from 'web3';
-import FormInputText from '../../../components/FormInputText';
-import ModalCard from '../../../components/ModalCard';
-import FileUploadWithDrag from '../../../components/Upload/FileUploadWithDrag';
-import { useNavigate } from 'react-router-dom';
-import useCollectionAPI from '../../../hooks/useCollectionApi';
-import { useDispatch } from 'react-redux';
-import SpinningIcon from '../../../assets/icons/spinning-icon.svg?component';
-import RejectIcon from '../../../assets/icons/artist-form-reject.svg?component';
-import classNames from 'classnames';
+import React, { useState, useEffect, useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Box, Button, Checkbox, FormControl, Typography } from "@mui/material";
+import Web3 from "web3";
+import FormInputText from "../../../components/FormInputText";
+import ModalCard from "../../../components/ModalCard";
+import FileUploadWithDrag from "../../../components/Upload/FileUploadWithDrag";
+import { useNavigate } from "react-router-dom";
+import useCollectionAPI from "../../../hooks/useCollectionApi";
+import { useDispatch } from "react-redux";
+import SpinningIcon from "../../../assets/icons/spinning-icon.svg?component";
+import RejectIcon from "../../../assets/icons/artist-form-reject.svg?component";
+import classNames from "classnames";
 
-import useNFTCreateApi from '../../../hooks/useNFTCreateApi';
-import SelectAsync from '../../../components/SelectAsync';
-import CollectionOption from './Option';
-import { setNewNftSrc } from '../../../store/nft/nft.slice';
-import useCurrentProvider from '../../../hooks/useCurrentProvider';
-import styles from './style.module.scss';
+import useNFTCreateApi from "../../../hooks/useNFTCreateApi";
+import SelectAsync from "../../../components/SelectAsync";
+import CollectionOption from "./Option";
+import { setNewNftSrc } from "../../../store/nft/nft.slice";
+import useCurrentProvider from "../../../hooks/useCurrentProvider";
+import styles from "./style.module.scss";
+import { convertToRaw, Editor, EditorState } from "draft-js";
+import "draft-js/dist/Draft.css";
+import draftToHtml from "draftjs-to-html";
 
 const NftCreate = () => {
   const dispatch = useDispatch();
@@ -28,8 +31,8 @@ const NftCreate = () => {
   const { collections } = useCollectionAPI({
     isDetail: true,
     page: 1,
-    orderBy: 'desc',
-    size: 200
+    orderBy: "desc",
+    size: 200,
   });
 
   const { create } = useNFTCreateApi({});
@@ -37,22 +40,33 @@ const NftCreate = () => {
   const approvedCollectionList = useMemo(() => {
     return collections?.data?.items?.filter(
       (collectionItem) =>
-        collectionItem.status === 'COMPLETE' && collectionItem.type === 'S'
+        collectionItem.status === "COMPLETE" && collectionItem.type === "S"
     );
   }, [collections]);
 
   const [showModal, setShowModal] = useState(false);
-  const [contractAddress, setContractAddress] = useState('');
-  const [artName, setArtName] = useState('');
+  const [contractAddress, setContractAddress] = useState("");
+  const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
   const [rejected, setRejected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [responseChecker, setResponseChecker] = useState(false);
-  const [newItemConAd, setNewItemConAd] = useState('');
-  const [newItemId, setNewItemId] = useState('');
-  const [previewImgSrc, setPreviewImgSrc] = useState('');
+  const [newItemConAd, setNewItemConAd] = useState("");
+  const [newItemId, setNewItemId] = useState("");
+  const [previewImgSrc, setPreviewImgSrc] = useState("");
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const description = editorState.getCurrentContent().getPlainText();
+  const rawContentState = convertToRaw(editorState.getCurrentContent());
+  const markup = draftToHtml(
+    rawContentState
+    // hashtagConfig,
+    // directional,
+    // customEntityTransform
+  );
 
   const postMint = async (tx) => {
     setIsLoading(false);
@@ -74,7 +88,7 @@ const NftCreate = () => {
     }
   };
 
-  const imgBool = ['image/png', 'image/jpeg'].includes(uploadedImg.type);
+  const imgBool = ["image/png", "image/jpeg"].includes(uploadedImg.type);
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {
@@ -89,14 +103,13 @@ const NftCreate = () => {
     control,
     reset,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      collection: '',
-      tokenQuantity: '',
-      artworkName: '',
-      artworkDescription: ''
-    }
+      collection: "",
+      tokenQuantity: "",
+      artworkName: "",
+    },
   });
   const errorChecker = Object.keys(errors).length;
 
@@ -106,12 +119,12 @@ const NftCreate = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     setArtName(data.artworkName);
-    data['imageFile'] = uploadedImg;
+    data["imageFile"] = uploadedImg;
 
     let formData = new FormData();
-    formData.append('name', data.artworkName);
-    formData.append('description', data.artworkDescription);
-    formData.append('image', data.imageFile);
+    formData.append("name", data.artworkName);
+    formData.append("description", markup);
+    formData.append("image", data.imageFile);
 
     setIsLoading(true);
 
@@ -131,18 +144,18 @@ const NftCreate = () => {
             setRejected(true);
           }
         } catch (err) {}
-      }
+      },
     });
   });
 
   const mintClick = () => {
     if (isLoading || !checked) return;
 
-    onSubmit();
-    if (Object.keys(uploadedImg).length === 0) {
+    if (Object.keys(uploadedImg).length === 0 || description.length === 0) {
       setErrBool(true);
     } else {
       setErrBool(false);
+      onSubmit();
     }
   };
 
@@ -164,7 +177,7 @@ const NftCreate = () => {
                   onUpload={setUploadedImg}
                   page="create-nft"
                 />
-                <label htmlFor="terms-checkbox" style={{ cursor: 'pointer' }}>
+                <label htmlFor="terms-checkbox" style={{ cursor: "pointer" }}>
                   <Box className={styles.TermsAgreement}>
                     <Checkbox
                       checked={checked}
@@ -186,10 +199,10 @@ const NftCreate = () => {
           <Box className={styles.RightSide}>
             <Box className={styles.RightTitle}>Collection</Box>
             <Box className={styles.TitleDesc}>
-              If you have no collection yet, then{' '}
-              <div onClick={() => navigate('/user/collections/create')}>
+              If you have no collection yet, then{" "}
+              <div onClick={() => navigate("/user/collections/create")}>
                 create a collection
-              </div>{' '}
+              </div>{" "}
               first, and your item will appear in this collection.
             </Box>
             <FormControl fullWidth className={styles.CollectionForm}>
@@ -210,7 +223,7 @@ const NftCreate = () => {
                       shouldControlInputValue={false}
                       placeholder="Select Collection"
                       components={{
-                        Option: CollectionOption
+                        Option: CollectionOption,
                       }}
                     />
                   );
@@ -239,11 +252,13 @@ const NftCreate = () => {
                 <Typography variant="label" className={styles.Label}>
                   Artwork Description
                 </Typography>
-                <FormInputText
-                  artistInput
-                  control={control}
-                  name="artworkDescription"
-                />
+                <Box className={styles.DraftEditorRoot}>
+                  <Editor
+                    editorState={editorState}
+                    onChange={setEditorState}
+                    placeholder="Enter an artwork description"
+                  />
+                </Box>
               </Box>
             </FormControl>
           </Box>
@@ -260,16 +275,16 @@ const NftCreate = () => {
           {isLoading ? (
             <SpinningIcon className={styles.SpinningIcon} />
           ) : (
-            'Mint'
+            "Mint"
           )}
         </Button>
         {(errorChecker > 0 || errBool) && (
           <Box className={styles.Error}>
-            Please {!watch('collection') ? ' "Select collection"' : ''}{' '}
-            {!watch('artworkName') ? ' "Enter artwork name"' : ''}
-            {!watch('artworkDescription')
+            Please {!watch("collection") ? ' "Select collection"' : ""}{" "}
+            {!watch("artworkName") ? ' "Enter artwork name"' : ""}
+            {!watch("artworkDescription")
               ? ' "Enter artwork description"'
-              : ''}{' '}
+              : ""}{" "}
             enter all required values.
           </Box>
         )}
@@ -304,7 +319,7 @@ const NftCreate = () => {
             setShowModal(false);
             // setUploadedImg({});
             setRejected(false);
-            navigate('/');
+            navigate("/");
           }}
         >
           <Box className={styles.IconContainer}>
