@@ -22,7 +22,6 @@ const getDetail = ({ contractAddress, tokenId, wallet }, token) =>
       },
     })
     .then((res) => {
-
       return res.data;
     });
 
