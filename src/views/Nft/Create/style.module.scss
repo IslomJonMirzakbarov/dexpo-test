@@ -1,5 +1,6 @@
 @use "/src/scss/colors";
 @import "/src/styles/fonts";
+@import "/src/styles/scrollbar.scss";
 
 @keyframes spin {
   0% {
@@ -319,4 +320,6 @@
   border-radius: 7px;
   @include fontTypePhrase;
   padding: 11px 2px 11px 15px;
+  @include scrollbar;
+  overflow: auto;
 }
