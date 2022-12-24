@@ -1,0 +1,39 @@
+.SwitchContainer {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 200px;
+  height: 45px;
+  background: #fdfdfd;
+  border: 1.5px solid #e8e8e8;
+  box-shadow: inset 3px 1px 11px 3px rgba(0, 0, 0, 0.12);
+  border-radius: 100px;
+  flex: 1;
+}
+
+.ToggleItem {
+  box-sizing: border-box;
+  width: 95px;
+  height: 33px;
+  background: transparent;
+}
+
+.Text {
+  color: black;
+  font-size: 14px;
+}
+
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: blanchedalmond;
+}
+
+.active {
+  background: linear-gradient(91.78deg, #e2007f 4.92%, #1e4ced 95.68%);
+  border: 1px solid #8d8d8d;
+  border-radius: 100px;
+}

@@ -1,4 +1,33 @@
 .container {
   padding: 90px 0;
   min-height: calc(100vh - 410px);
+
+  .SwitchFilterBox {
+    display: flex;
+    width: 100%;
+    border: 1px solid green;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .SwitchBox {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+
+      .SwitchText {
+        display: flex;
+        flex-direction: row;
+        gap: 3px;
+
+        width: 277px;
+        height: 36px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: #7d8890;
+      }
+    }
+  }
 }

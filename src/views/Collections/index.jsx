@@ -23,12 +23,14 @@ import { debounce } from "lodash";
 
 import { makeStyles, useTheme } from "@mui/styles";
 import { getPaginationDetailsByPathname } from "../../utils/paginationQueries";
+import CustomSwitch from "../../components/CustomSwitch";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: "15px",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       alignItems: "flex-end",
@@ -48,6 +50,7 @@ const Collections = () => {
   const location = useLocation();
 
   const urlDetails = getPaginationDetailsByPathname(location.search);
+  console.log(urlDetails?.filter);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -64,6 +67,8 @@ const Collections = () => {
     );
     return seletedFilter;
   }, [urlDetails?.filter]);
+
+  // if something... filter?.value = 'ORIGINAL_NFT'
 
   const page = useMemo(
     () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
@@ -130,21 +135,34 @@ const Collections = () => {
             Marketplace
           </Typography>
         </Box>
-        <Box className={classes.filter} mt={5}>
-          <SearchField
-            isDark={true}
-            isBackdrop={false}
-            placeholder="Search items & creators"
-            value={input}
-            onChange={handleChange}
-            paperClass={classes.search}
-          />
-          <DSelect
-            label="Filter"
-            value={filter}
-            items={marketFilterList}
-            onSelect={(item) => handleSelect(item)}
-          />
+        <Box className={styles.SwitchFilterBox} mt={5}>
+          <Box className={styles.SwitchBox}>
+            {/* <Box className={styles.SwitchComp}>Switch </Box> */}
+            <CustomSwitch />
+            <Typography className={styles.SwitchText}>
+              <Typography>*</Typography>
+              <Typography>
+                You can receive and own the artworks of the original page by
+                purchasing with CYCON.
+              </Typography>
+            </Typography>
+          </Box>
+          <Box className={classes.filter}>
+            <SearchField
+              isDark={true}
+              isBackdrop={false}
+              placeholder="Search items & creators"
+              value={input}
+              onChange={handleChange}
+              paperClass={classes.search}
+            />
+            <DSelect
+              label="Filter"
+              value={filter}
+              items={marketFilterList}
+              onSelect={(item) => handleSelect(item)}
+            />
+          </Box>
         </Box>
         <Box display="flex" my={4}>
           <Grid container spacing={matches ? 0 : 3}>
