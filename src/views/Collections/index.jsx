@@ -50,7 +50,6 @@ const Collections = () => {
   const location = useLocation();
 
   const urlDetails = getPaginationDetailsByPathname(location.search);
-  console.log(urlDetails?.filter);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -60,6 +59,12 @@ const Collections = () => {
 
   const [search, setSearch] = useState(urlDetails?.search);
   const [input, setInput] = useState(urlDetails?.search);
+  const SwitchOptions = {
+    OPTION1: "Original",
+    OPTION2: "Nft",
+  };
+  const [activeOption, setActiveOption] = useState(SwitchOptions.OPTION1);
+  const [type, setType] = useState("ORIGINAL_NFT");
 
   const filter = useMemo(() => {
     const seletedFilter = marketFilterList.find((item) =>
@@ -68,8 +73,6 @@ const Collections = () => {
     return seletedFilter;
   }, [urlDetails?.filter]);
 
-  // if something... filter?.value = 'ORIGINAL_NFT'
-
   const page = useMemo(
     () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
     [urlDetails?.page]
@@ -77,9 +80,23 @@ const Collections = () => {
 
   const { data, isLoading } = useMarketAPI({
     page,
-    type: filter?.value,
+    type: type,
     search,
   });
+
+  useEffect(() => {
+    if (activeOption === SwitchOptions.OPTION1) {
+      setType("ORIGINAL_NFT");
+    }
+    if (activeOption === SwitchOptions.OPTION2) {
+      setType(filter?.value);
+    }
+  }, [
+    SwitchOptions.OPTION1,
+    SwitchOptions.OPTION2,
+    activeOption,
+    filter?.value,
+  ]);
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
   const mockData = Array(8).fill(12);
@@ -93,6 +110,18 @@ const Collections = () => {
     debounced(input);
   }, [input]);
 
+  const handleSwitchClick = () => {
+    if (activeOption === SwitchOptions.OPTION1) {
+      setActiveOption(SwitchOptions.OPTION2);
+      navigate(`/marketplace?page=${page}&filter="RECENTLY_LISTED"`);
+      setType(marketFilterList[0].value);
+    }
+    if (activeOption === SwitchOptions.OPTION2) {
+      setActiveOption(SwitchOptions.OPTION1);
+      navigate(`/marketplace?page=${page}&filter="ORIGINAL_NFT"`);
+    }
+  };
+
   const handleChange = (e) => {
     setInput(e.target.value);
     navigate(
@@ -103,11 +132,13 @@ const Collections = () => {
   };
 
   const handleSelect = (item) => {
-    navigate(
-      `/marketplace?page=${page}&filter=${item.value}${
-        search ? `&search=${search}` : ""
-      }`
-    );
+    if (activeOption === SwitchOptions.OPTION2) {
+      navigate(
+        `/marketplace?page=${page}&filter=${item.value}${
+          search ? `&search=${search}` : ""
+        }`
+      );
+    }
   };
 
   const handleNavigate = (tokenId, address, wallet) => {
@@ -137,8 +168,11 @@ const Collections = () => {
         </Box>
         <Box className={styles.SwitchFilterBox} mt={5}>
           <Box className={styles.SwitchBox}>
-            {/* <Box className={styles.SwitchComp}>Switch </Box> */}
-            <CustomSwitch />
+            <CustomSwitch
+              handleClick={handleSwitchClick}
+              SwitchOptions={SwitchOptions}
+              activeOption={activeOption}
+            />
             <Typography className={styles.SwitchText}>
               <Typography>*</Typography>
               <Typography>

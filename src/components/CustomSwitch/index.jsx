@@ -1,36 +1,35 @@
 import React, { useState } from "react";
 import { Box } from "@mui/system";
 import styles from "./style.module.scss";
+import classNames from "classnames";
 
-const SwitchOptions = {
-  OPTION1: "Original",
-  OPTION2: "Nft",
-};
+// const SwitchOptions = {
+//   OPTION1: "Original",
+//   OPTION2: "Nft",
+// };
 
-const CustomSwitch = () => {
-  const [activeOption, setActiveOption] = useState(SwitchOptions.OPTION1);
+const CustomSwitch = ({ handleClick, activeOption, SwitchOptions }) => {
+  // const [activeOption, setActiveOption] = useState(SwitchOptions.OPTION1);
 
-  const handleSwitchClick = (option) => {
-    setActiveOption(option);
-  };
+  // const handleSwitchClick = (option) => {
+  //   setActiveOption(option);
+  // };
 
   return (
     <Box className={styles.SwitchContainer}>
       <Box
-        className={
-          (styles.ToggleItem,
-          { [styles.active]: activeOption === SwitchOptions.OPTION1 })
-        }
-        onClick={() => handleSwitchClick(SwitchOptions.OPTION1)}
+        className={classNames(styles.ToggleItem, {
+          [styles.active]: activeOption === SwitchOptions.OPTION1,
+        })}
+        onClick={() => handleClick()}
       >
         <Box className={styles.Text}>Original</Box>
       </Box>
       <Box
-        className={
-          (styles.ToggleItem,
-          { [styles.active]: activeOption === SwitchOptions.OPTION2 })
-        }
-        onClick={() => handleSwitchClick(SwitchOptions.OPTION2)}
+        className={classNames(styles.ToggleItem, {
+          [styles.active]: activeOption === SwitchOptions.OPTION2,
+        })}
+        onClick={() => handleClick()}
       >
         <Box className={styles.Text}>Nft</Box>
       </Box>

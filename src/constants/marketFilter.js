@@ -5,7 +5,7 @@ export const marketFilters = {
   LOW_TO_HIGH: "LOW_TO_HIGH",
   HIGH_TO_LOW: "HIGH_TO_LOW",
   MOST_FAVORITE: "MOST_FAVORITE",
-  // ORIGINAL_NFT: "ORIGINAL_NFT",
+  ORIGINAL_NFT: "ORIGINAL_NFT",
 };
 
 export const marketFilterList = [
@@ -33,8 +33,4 @@ export const marketFilterList = [
     value: "MOST_FAVORITE",
     label: "Most favorite",
   },
-  // {
-  //   value: "ORIGINAL_NFT",
-  //   label: "Original nfts",
-  // },
 ];

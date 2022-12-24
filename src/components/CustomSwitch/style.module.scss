@@ -1,6 +1,7 @@
 .SwitchContainer {
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   box-sizing: border-box;
   width: 200px;
   height: 45px;
@@ -12,15 +13,20 @@
 }
 
 .ToggleItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   width: 95px;
   height: 33px;
-  background: transparent;
 }
 
 .Text {
-  color: black;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  color: #7d8890;
 }
 
 .background {
@@ -36,4 +42,8 @@
   background: linear-gradient(91.78deg, #e2007f 4.92%, #1e4ced 95.68%);
   border: 1px solid #8d8d8d;
   border-radius: 100px;
+
+  .Text {
+    color: #ffffff;
+  }
 }
