@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Box } from "@mui/system";
-import styles from "./style.module.scss";
-import classNames from "classnames";
+import React, { useState } from 'react'
+import { Box } from '@mui/system'
+import styles from './style.module.scss'
+import classNames from 'classnames'
 
 // const SwitchOptions = {
 //   OPTION1: "Original",
@@ -19,7 +19,7 @@ const CustomSwitch = ({ handleClick, activeOption, SwitchOptions }) => {
     <Box className={styles.SwitchContainer}>
       <Box
         className={classNames(styles.ToggleItem, {
-          [styles.active]: activeOption === SwitchOptions.OPTION1,
+          [styles.active]: activeOption === SwitchOptions.OPTION1
         })}
         onClick={() => handleClick()}
       >
@@ -27,14 +27,14 @@ const CustomSwitch = ({ handleClick, activeOption, SwitchOptions }) => {
       </Box>
       <Box
         className={classNames(styles.ToggleItem, {
-          [styles.active]: activeOption === SwitchOptions.OPTION2,
+          [styles.activeNft]: activeOption === SwitchOptions.OPTION2
         })}
         onClick={() => handleClick()}
       >
         <Box className={styles.Text}>Nft</Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default CustomSwitch;
+export default CustomSwitch

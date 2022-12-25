@@ -19,6 +19,7 @@
   box-sizing: border-box;
   width: 95px;
   height: 33px;
+  cursor: pointer;
 }
 
 .Text {
@@ -38,7 +39,8 @@
   background-color: blanchedalmond;
 }
 
-.active {
+.active,
+.activeNft {
   background: linear-gradient(91.78deg, #e2007f 4.92%, #1e4ced 95.68%);
   border: 1px solid #8d8d8d;
   border-radius: 100px;
@@ -46,4 +48,9 @@
   .Text {
     color: #ffffff;
   }
+}
+
+.activeNft {
+  background: #1f1f1f;
+  border: 1px solid #ffffff;
 }
