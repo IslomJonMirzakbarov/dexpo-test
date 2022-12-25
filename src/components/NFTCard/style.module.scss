@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   height: 433px;
-
+  position: relative;
   &.default {
     width: 292px;
   }
@@ -19,6 +19,12 @@
     // }
   }
 
+  .originalIcon {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    z-index: 9;
+  }
   .header {
     position: relative;
     width: 100%;
