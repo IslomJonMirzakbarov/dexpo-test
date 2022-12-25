@@ -222,7 +222,7 @@ const CollectionDetailsContainer = ({
                           value={numFormat(orginalNftDetail?.price)}
                           displayType={'text'}
                           thousandSeparator={true}
-                          prefix='$'
+                          prefix='￦'
                         />
                         )
                       </Typography>
