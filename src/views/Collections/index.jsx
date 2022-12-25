@@ -194,6 +194,7 @@ const Collections = () => {
                       leftDays={null}
                       artistName={artist.artist_name}
                       description={nft.token_name}
+                      hasOriginal={nft?.has_original}
                       priceType={priceTypeChar?.[market?.type]}
                       hasAction={!!market?.price}
                       purchaseCount={nft.like_count}
