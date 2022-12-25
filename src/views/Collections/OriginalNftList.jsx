@@ -18,10 +18,12 @@ import { priceTypeChar } from '../../constants'
 import NFTCardSkeleton from '../../components/NFTCard/index.skeleton'
 import NoItemsFound from '../../components/NoItems'
 import { marketFilterList } from '../../constants/marketFilter'
+import { useSelector } from 'react-redux'
 import { debounce } from 'lodash'
 import { makeStyles, useTheme } from '@mui/styles'
 import { getPaginationDetailsByPathname } from '../../utils/paginationQueries'
 import CustomSwitch from '../../components/CustomSwitch'
+import useOriginalNftAPI from '../../hooks/useOriginalNftAPI'
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -43,10 +45,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Collections = () => {
+const OriginalNftList = () => {
   const navigate = useNavigate()
   const location = useLocation()
-
+  const { price_krw } = useSelector((store) => store.wallet)
   const urlDetails = getPaginationDetailsByPathname(location.search)
 
   const classes = useStyles()
@@ -56,21 +58,13 @@ const Collections = () => {
   const [search, setSearch] = useState(urlDetails?.search)
   const [input, setInput] = useState(urlDetails?.search)
 
-  const filter = useMemo(() => {
-    const seletedFilter = marketFilterList.find((item) =>
-      item.value.includes(urlDetails?.filter)
-    )
-    return seletedFilter
-  }, [urlDetails?.filter])
-
   const page = useMemo(
     () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
     [urlDetails?.page]
   )
 
-  const { data, isLoading } = useMarketAPI({
+  const { data, isLoading } = useOriginalNftAPI({
     page,
-    type: filter?.value,
     search
   })
 
@@ -98,33 +92,20 @@ const Collections = () => {
   const handleChange = (e) => {
     setInput(e.target.value)
     navigate({
-      pathname: '/marketplace',
+      pathname: '/originalNft',
       search: createSearchParams({
         page: 1,
-        filter: filter?.value,
         search: e.target.value
       }).toString()
     })
   }
 
-  const handleSelect = (item) => {
-    navigate(
-      `/marketplace?page=${page}&filter=${item.value}${
-        search ? `&search=${search}` : ''
-      }`
-    )
-  }
-
-  const handleNavigate = (tokenId, address, wallet) => {
-    return navigate(`/marketplace/${tokenId}/${address}`)
+  const handleNavigate = (tokenId, address) => {
+    return navigate(`/marketplace/original/${tokenId}/${address}`)
   }
 
   const handlePaginate = (next) => {
-    navigate(
-      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ''}${
-        search ? `&search=${search}` : ''
-      }`
-    )
+    navigate(`/originalNft?page=${next}${search ? `&search=${search}` : ''}`)
   }
 
   return (
@@ -142,7 +123,14 @@ const Collections = () => {
         </Box>
         <Box className={styles.SwitchFilterBox} mt={5}>
           <Box className={styles.SwitchBox}>
-            <CustomSwitch handleClick={handleSwitchClick} activeOption={2} />
+            <CustomSwitch handleClick={handleSwitchClick} activeOption={1} />
+            <Typography className={styles.SwitchText}>
+              <Typography>*</Typography>
+              <Typography>
+                You can receive and own the artworks of the original page by
+                purchasing with CYCON.
+              </Typography>
+            </Typography>
           </Box>
           <Box className={classes.filter}>
             <SearchField
@@ -153,12 +141,12 @@ const Collections = () => {
               onChange={handleChange}
               paperClass={classes.search}
             />
-            <DSelect
+            {/* <DSelect
               label='Filter'
               value={filter}
               items={marketFilterList}
               onSelect={(item) => handleSelect(item)}
-            />
+            /> */}
           </Box>
         </Box>
         <Box display='flex' my={4}>
@@ -175,47 +163,50 @@ const Collections = () => {
                     <NFTCardSkeleton />
                   </Grid>
                 ))
-              : data?.items?.map(({ nft, artist, market, collection }, i) => (
-                  <Grid
-                    item
-                    key={i}
-                    lg={12 / 5}
-                    sm={1}
-                    my={matches ? 2 : 0}
-                    sx={{ width: '100%' }}
-                  >
-                    <NFTCard
-                      collection={collection}
-                      img={nft.token_image}
-                      name={nft.token_name}
-                      price={market?.price}
-                      startDate={market?.start_date}
-                      endDate={market?.end_date}
-                      leftDays={null}
-                      artistName={artist.artist_name}
-                      description={nft.token_name}
-                      priceType={priceTypeChar?.[market?.type]}
-                      hasAction={!!market?.price}
-                      purchaseCount={nft.like_count}
-                      tokenId={nft?.token_id}
-                      contractAddress={collection?.contract_address}
-                      onClick={() =>
-                        handleNavigate(
-                          nft.token_id,
-                          collection?.contract_address,
-                          market?.seller_address
-                        )
-                      }
-                      onAction={() =>
-                        handleNavigate(
-                          nft.token_id,
-                          collection?.contract_address,
-                          market?.seller_address
-                        )
-                      }
-                    />
-                  </Grid>
-                ))}
+              : data?.items?.map(
+                  ({ nft, artist, market, collection, originalNft }, i) => (
+                    <Grid
+                      item
+                      key={i}
+                      lg={12 / 5}
+                      sm={1}
+                      my={matches ? 2 : 0}
+                      sx={{ width: '100%' }}
+                    >
+                      <NFTCard
+                        collection={collection}
+                        img={nft.token_image}
+                        name={nft.token_name}
+                        price={originalNft?.price / price_krw}
+                        startDate={market?.start_date}
+                        endDate={market?.end_date}
+                        leftDays={null}
+                        artistName={artist.artist_name}
+                        description={nft.token_name}
+                        priceType={priceTypeChar?.[market?.type]}
+                        hasAction={!!market?.price}
+                        purchaseCount={nft.like_count}
+                        hasOriginal
+                        tokenId={nft?.token_id}
+                        contractAddress={collection?.contract_address}
+                        onClick={() =>
+                          handleNavigate(
+                            nft.token_id,
+                            collection?.contract_address,
+                            market?.seller_address
+                          )
+                        }
+                        onAction={() =>
+                          handleNavigate(
+                            nft.token_id,
+                            collection?.contract_address,
+                            market?.seller_address
+                          )
+                        }
+                      />
+                    </Grid>
+                  )
+                )}
           </Grid>
         </Box>
         {!isLoading && noItems && <NoItemsFound />}
@@ -236,4 +227,4 @@ const Collections = () => {
   )
 }
 
-export default Collections
+export default OriginalNftList
