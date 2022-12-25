@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Container,
@@ -18,6 +21,7 @@ import ValueTable from "./ValueTable";
 import moment from "moment";
 import HistoryTable from "./HistoryTable";
 import TokenImg from "../../../assets/images/con-token.svg?component";
+import AddIcon from "../../../assets/icons/add.svg?component";
 import CheckoutModal from "../../../components/Modals/CheckoutModal";
 import { DATE_FORMAT, priceTypeChar } from "../../../constants";
 import MoreCollections from "./MoreCollections";
@@ -68,6 +72,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CollectionDetailsContainer = ({
+  id,
+  contract_address,
   data,
   history,
   moreNFTs,
@@ -154,10 +160,13 @@ const CollectionDetailsContainer = ({
           </Grid>
           <Grid item lg={7} sm={12} className={classes.grid}>
             <CollectionDetailsInfo
+              id={id}
+              contract_address={contract_address}
               collection={collection}
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               nftName={nft?.token_name}
+              isOriginal={nft?.has_original}
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
@@ -299,6 +308,47 @@ const CollectionDetailsContainer = ({
         contractAddress={collection?.contract_address}
         isResponsive={matches}
       />
+
+      <Container>
+        <Typography className={styles.AccordionTitle}>구매 확인사항</Typography>
+
+        <Accordion
+          defaultExpanded={true}
+          square={true}
+          style={{ margin: 0, boxShadow: "none" }}
+        >
+          <AccordionSummary
+            className={styles.AccordionSummary}
+            expandIcon={<AddIcon className={styles.AddIcon} />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography className={styles.AccordionSummaryText}>
+              결제 후 취소/환불 불가 안내
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails className={styles.AccordionDetails}>
+            <Typography className={styles.AccordionDetailsText}>
+              아트라는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된
+              이후에는 구매 취소 또는 환불이 되지 않습니다.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion square={true} style={{ margin: 0, boxShadow: "none" }}>
+          <AccordionSummary
+            className={styles.AccordionSummary}
+            expandIcon={<AddIcon className={styles.AddIcon} />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography className={styles.AccordionSummaryText}>
+              에디션 구매 가이드
+            </Typography>
+          </AccordionSummary>
+        </Accordion>
+      </Container>
+
       <CheckoutModal
         artistName={artist?.artist_name}
         name={nft?.token_name}
