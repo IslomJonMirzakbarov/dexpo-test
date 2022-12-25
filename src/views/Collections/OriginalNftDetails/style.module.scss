@@ -1,5 +1,5 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
 
 .img {
   overflow: hidden;
@@ -108,8 +108,12 @@
   font-size: 28px;
   line-height: 41px;
   color: #1f1f1f;
-  margin-top: 150px;
+  margin-top: 75px;
   margin-bottom: 32px;
+  @media (max-width: 600px) {
+    margin-bottom: 15px;
+    margin-top: 50px;
+  }
 }
 
 .AccordionSummary {
