@@ -20,15 +20,13 @@ export default function ContactUsModal({ open, handleClose }) {
             <div className={cls.element}>
               <p>Number</p>
               <p>
-                <a href='tel: 010-0000-0000'>010-0000-0000</a>
+                <a href='tel: 010-8266-0208'>010-8266-0208</a>
               </p>
             </div>
             <div className={cls.element}>
               <p>Mail</p>
               <p>
-                <a href='mailto: jilee@worldartdexpo.io'>
-                  jilee@worldartdexpo.io
-                </a>
+                <a href='mailto: cs@dexpo.world'>cs@dexpo.world</a>
               </p>
             </div>
           </div>

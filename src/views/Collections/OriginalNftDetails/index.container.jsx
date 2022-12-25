@@ -15,12 +15,10 @@ import CollectionDetailImage from './Image'
 import CollectionDetailsInfo from './Info'
 import NumberFormat from 'react-number-format'
 import styles from './style.module.scss'
-import Countdown from '../../../components/Countdown'
 import { makeStyles, useTheme } from '@mui/styles'
 import moment from 'moment'
 import TokenImg from '../../../assets/images/con-token.svg?component'
 import AddIcon from '../../../assets/icons/add.svg?component'
-import CheckoutModal from '../../../components/Modals/CheckoutModal'
 import { DATE_FORMAT, priceTypeChar } from '../../../constants'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -166,7 +164,7 @@ const CollectionDetailsContainer = ({
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               nftName={nft?.token_name}
-              isOriginal={nft?.has_original}
+              // isOriginal={nft?.has_original}
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
@@ -271,7 +269,7 @@ const CollectionDetailsContainer = ({
           </AccordionSummary>
           <AccordionDetails className={styles.AccordionDetails}>
             <Typography className={styles.AccordionDetailsText}>
-              아트라는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된
+              WAD는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된
               이후에는 구매 취소 또는 환불이 되지 않습니다.
             </Typography>
           </AccordionDetails>
@@ -291,28 +289,6 @@ const CollectionDetailsContainer = ({
         </Accordion>
       </Container>
 
-      <CheckoutModal
-        artistName={artist?.artist_name}
-        name={nft?.token_name}
-        type={priceTypeChar?.[market?.type]}
-        price={market?.price}
-        exchangedPrice={exchangedPrice}
-        img={nft?.token_image}
-        collectionName={collection?.name}
-        status={status}
-        onClick={onConfirm}
-        txHash={txHash}
-        openModal={openModal}
-        toggle={toggle}
-        error={error}
-        tokenId={nft?.token_id}
-        contractAddress={collection?.contract_address}
-        bidPrice={bidPrice}
-        setBidPrice={setBidPrice}
-        bidPriceControl={bidPriceControl}
-        endDate={endDate}
-        isAuction={isAuction}
-      />
       <DModal
         isExpandedImg
         img={openImg}
