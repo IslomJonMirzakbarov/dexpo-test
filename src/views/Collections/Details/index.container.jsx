@@ -329,7 +329,7 @@ const CollectionDetailsContainer = ({
           </AccordionSummary>
           <AccordionDetails className={styles.AccordionDetails}>
             <Typography className={styles.AccordionDetailsText}>
-              아트라는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된
+              WAD는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된
               이후에는 구매 취소 또는 환불이 되지 않습니다.
             </Typography>
           </AccordionDetails>
