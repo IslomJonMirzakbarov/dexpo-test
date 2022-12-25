@@ -109,7 +109,7 @@ const Collections = () => {
 
   const handleSelect = (item) => {
     navigate(
-      `/marketplace?page=${page}&filter=${item.value}${
+      `/marketplace?page=1&filter=${item.value}${
         search ? `&search=${search}` : ''
       }`
     )
