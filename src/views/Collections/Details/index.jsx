@@ -1,20 +1,20 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { checkoutStatuses } from '../../../constants/checkoutStatuses';
+import React, { useCallback, useEffect, useState } from "react";
+import { checkoutStatuses } from "../../../constants/checkoutStatuses";
 
-import CollectionDetailsContainer from './index.container';
-import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
+import CollectionDetailsContainer from "./index.container";
+import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
 
-import { utils } from 'react-modern-calendar-datepicker';
-import NoItemsFound from '../../../components/NoItems';
-import { Box } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { utils } from "react-modern-calendar-datepicker";
+import NoItemsFound from "../../../components/NoItems";
+import { Box } from "@mui/material";
+import { useForm } from "react-hook-form";
 
-import { parseDate } from '../../../utils/parseDate';
+import { parseDate } from "../../../utils/parseDate";
 import {
   getRPCErrorMessage,
-  metamaskError
-} from '../../../constants/metamaskErrors';
-import useCurrnetProvider from '../../../hooks/useCurrentProvider';
+  metamaskError,
+} from "../../../constants/metamaskErrors";
+import useCurrnetProvider from "../../../hooks/useCurrentProvider";
 
 const CollectionDetails = ({
   nftID: id,
@@ -30,15 +30,15 @@ const CollectionDetails = ({
   message,
   postLike,
   market,
-  data
+  data,
 }) => {
   const { checkAllowance, makeApprove, purchase, bid, getUserBalance } =
     useCurrnetProvider();
 
   const { control, getValues } = useForm({
     defaultValues: {
-      bidPrice: ''
-    }
+      bidPrice: "",
+    },
   });
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address, id);
@@ -68,13 +68,13 @@ const CollectionDetails = ({
   const isSoldOut = !market?.price;
   const notEnoughBalance = balance < market?.price;
 
-  const isAuction = market?.type === 'A';
+  const isAuction = market?.type === "A";
   const isAuctionEnded =
     isAuction && market?.end_date < Number(parseDate(currentDate));
   const isAuctionNotStarted =
     isAuction && market?.start_date > Number(currentTime);
 
-  const isNotExist = message?.includes('NOT_EXIST');
+  const isNotExist = message?.includes("NOT_EXIST");
   const isCurrentUserNFT = market?.seller_address?.includes(account);
   const isPurchaseBtnDisabled =
     isCurrentUserNFT ||
@@ -83,9 +83,9 @@ const CollectionDetails = ({
     isAuctionBeingFinished;
 
   const [status, setStatus] = useState(checkoutStatuses.INITIAL);
-  const [txHash, setTxHash] = useState('');
+  const [txHash, setTxHash] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [bidPrice, setBidPrice] = useState();
 
   const handleRefresh = useCallback(() => {
@@ -105,7 +105,7 @@ const CollectionDetails = ({
   const handleLike = () => {
     const payload = {
       token_id: id,
-      contract_address: contract_address
+      contract_address: contract_address,
     };
     postLike.mutate(payload, { onSuccess: () => refetchDetail() });
   };
@@ -128,7 +128,7 @@ const CollectionDetails = ({
 
     try {
       let res;
-      const bidPrice = getValues('bidPrice');
+      const bidPrice = getValues("bidPrice");
 
       if (!isAuction) res = await purchase(contract_address, id);
       else res = await bid(contract_address, id, bidPrice);
@@ -162,10 +162,10 @@ const CollectionDetails = ({
   };
 
   const makeContract = async () => {
-    const bidPrice = getValues('bidPrice');
+    const bidPrice = getValues("bidPrice");
     const price = market?.price;
 
-    if (notEnoughBalance) return setError(metamaskError['-32603']);
+    if (notEnoughBalance) return setError(metamaskError["-32603"]);
 
     if (isAuction && bidPrice <= price)
       return setError(`Bid price should be greater than ${price} CYCON`);
@@ -178,7 +178,7 @@ const CollectionDetails = ({
   };
 
   useEffect(() => {
-    setError('');
+    setError("");
   }, [openModal]);
 
   if (isNotExist)
@@ -217,6 +217,8 @@ const CollectionDetails = ({
       isAuctionEnded={isAuctionEnded}
       isAuctionNotStarted={isAuctionNotStarted}
       isAuctionBeingFinished={isAuctionBeingFinished}
+      id={id}
+      contract_address={contract_address}
     />
   );
 };

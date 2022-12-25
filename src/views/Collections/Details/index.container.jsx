@@ -72,6 +72,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CollectionDetailsContainer = ({
+  id,
+  contract_address,
   data,
   history,
   moreNFTs,
@@ -158,6 +160,8 @@ const CollectionDetailsContainer = ({
           </Grid>
           <Grid item lg={7} sm={12} className={classes.grid}>
             <CollectionDetailsInfo
+              id={id}
+              contract_address={contract_address}
               collection={collection}
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}

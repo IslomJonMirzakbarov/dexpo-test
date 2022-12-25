@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../style.module.scss";
 import CollectionDetailCard from "./Card";
 import DSelect from "../../../../components/DSelect";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import RedTgIcon from "../../../../assets/icons/red-tg-icon.svg?component";
 
 const CollectionDetailsInfo = ({
@@ -21,6 +21,8 @@ const CollectionDetailsInfo = ({
   isResponsive,
   artistWallet,
   isOriginal,
+  id,
+  contract_address,
 }) => {
   return (
     <Box display="flex" flexDirection="column">
@@ -68,10 +70,12 @@ const CollectionDetailsInfo = ({
           />
         )}
         {isOriginal && !isArtwork && (
-          <Box className={styles.OriginalPageLink}>
-            <RedTgIcon />
-            <Typography className={styles.LinkTxt}>Original page</Typography>
-          </Box>
+          <Link to={`/marketplace/original/${id}/${contract_address}`}>
+            <Box className={styles.OriginalPageLink}>
+              <RedTgIcon />
+              <Typography className={styles.LinkTxt}>Original page</Typography>
+            </Box>
+          </Link>
         )}
       </Box>
       <CollectionDetailCard
