@@ -12,7 +12,7 @@ import styles from './style.module.scss'
 import SearchField from '../../components/Autocomplete'
 import NFTCard from '../../components/NFTCard'
 import CPagination from '../../components/CPagination'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
 import useMarketAPI from '../../hooks/useMarketAPI'
 import { priceTypeChar } from '../../constants'
 import NFTCardSkeleton from '../../components/NFTCard/index.skeleton'
@@ -130,11 +130,16 @@ const Collections = () => {
 
   const handleChange = (e) => {
     setInput(e.target.value)
-    navigate(
-      `/marketplace?page=${page}${filter ? `&filter=${filter.value}` : ''}${
-        search ? `&search=${e.target.value}` : ''
-      }`
-    )
+    const activeStatus =
+      activeOption === 'Original' ? 'ORIGINAL_NFT' : 'RECENTLY_LISTED'
+    navigate({
+      pathname: '/marketplace',
+      search: createSearchParams({
+        page,
+        filter: filter?.value || activeStatus,
+        search: e.target.value
+      }).toString()
+    })
   }
 
   const handleSelect = (item) => {
