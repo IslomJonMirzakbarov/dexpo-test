@@ -4,7 +4,6 @@ import styles from "../style.module.scss";
 import CollectionDetailCard from "./Card";
 import DSelect from "../../../../components/DSelect";
 import { NavLink } from "react-router-dom";
-import RedTgIcon from "../../../../assets/icons/red-tg-icon.svg?component";
 
 const CollectionDetailsInfo = ({
   collection,
@@ -20,7 +19,6 @@ const CollectionDetailsInfo = ({
   hideSelect,
   isResponsive,
   artistWallet,
-  isOriginal,
 }) => {
   return (
     <Box display="flex" flexDirection="column">
@@ -42,7 +40,6 @@ const CollectionDetailsInfo = ({
                 &nbsp;
                 {artistName}
               </NavLink> */}
-              Artist:
               <NavLink to={`/collections/${collection?.contract_address}`}>
                 &nbsp;
                 {collection?.name}
@@ -66,12 +63,6 @@ const CollectionDetailsInfo = ({
             items={types}
             label="Select a sell type"
           />
-        )}
-        {isOriginal && !isArtwork && (
-          <Box className={styles.OriginalPageLink}>
-            <RedTgIcon />
-            <Typography className={styles.LinkTxt}>Original page</Typography>
-          </Box>
         )}
       </Box>
       <CollectionDetailCard

@@ -23,14 +23,12 @@ import { debounce } from "lodash";
 
 import { makeStyles, useTheme } from "@mui/styles";
 import { getPaginationDetailsByPathname } from "../../utils/paginationQueries";
-import CustomSwitch from "../../components/CustomSwitch";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: "15px",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       alignItems: "flex-end",
@@ -59,12 +57,6 @@ const Collections = () => {
 
   const [search, setSearch] = useState(urlDetails?.search);
   const [input, setInput] = useState(urlDetails?.search);
-  const SwitchOptions = {
-    OPTION1: "Original",
-    OPTION2: "Nft",
-  };
-  const [activeOption, setActiveOption] = useState(SwitchOptions.OPTION1);
-  const [type, setType] = useState("ORIGINAL_NFT");
 
   const filter = useMemo(() => {
     const seletedFilter = marketFilterList.find((item) =>
@@ -80,23 +72,9 @@ const Collections = () => {
 
   const { data, isLoading } = useMarketAPI({
     page,
-    type: type,
+    type: filter?.value,
     search,
   });
-
-  useEffect(() => {
-    if (activeOption === SwitchOptions.OPTION1) {
-      setType("ORIGINAL_NFT");
-    }
-    if (activeOption === SwitchOptions.OPTION2) {
-      setType(filter?.value);
-    }
-  }, [
-    SwitchOptions.OPTION1,
-    SwitchOptions.OPTION2,
-    activeOption,
-    filter?.value,
-  ]);
 
   const noItems = !data?.items?.length || data?.items?.length === 0;
   const mockData = Array(8).fill(12);
@@ -110,18 +88,6 @@ const Collections = () => {
     debounced(input);
   }, [input]);
 
-  const handleSwitchClick = () => {
-    if (activeOption === SwitchOptions.OPTION1) {
-      setActiveOption(SwitchOptions.OPTION2);
-      navigate(`/marketplace?page=${page}&filter="RECENTLY_LISTED"`);
-      setType(marketFilterList[0].value);
-    }
-    if (activeOption === SwitchOptions.OPTION2) {
-      setActiveOption(SwitchOptions.OPTION1);
-      navigate(`/marketplace?page=${page}&filter="ORIGINAL_NFT"`);
-    }
-  };
-
   const handleChange = (e) => {
     setInput(e.target.value);
     navigate(
@@ -132,13 +98,11 @@ const Collections = () => {
   };
 
   const handleSelect = (item) => {
-    if (activeOption === SwitchOptions.OPTION2) {
-      navigate(
-        `/marketplace?page=${page}&filter=${item.value}${
-          search ? `&search=${search}` : ""
-        }`
-      );
-    }
+    navigate(
+      `/marketplace?page=${page}&filter=${item.value}${
+        search ? `&search=${search}` : ""
+      }`
+    );
   };
 
   const handleNavigate = (tokenId, address, wallet) => {
@@ -166,37 +130,21 @@ const Collections = () => {
             Marketplace
           </Typography>
         </Box>
-        <Box className={styles.SwitchFilterBox} mt={5}>
-          <Box className={styles.SwitchBox}>
-            <CustomSwitch
-              handleClick={handleSwitchClick}
-              SwitchOptions={SwitchOptions}
-              activeOption={activeOption}
-            />
-            <Typography className={styles.SwitchText}>
-              <Typography>*</Typography>
-              <Typography>
-                You can receive and own the artworks of the original page by
-                purchasing with CYCON.
-              </Typography>
-            </Typography>
-          </Box>
-          <Box className={classes.filter}>
-            <SearchField
-              isDark={true}
-              isBackdrop={false}
-              placeholder="Search items & creators"
-              value={input}
-              onChange={handleChange}
-              paperClass={classes.search}
-            />
-            <DSelect
-              label="Filter"
-              value={filter}
-              items={marketFilterList}
-              onSelect={(item) => handleSelect(item)}
-            />
-          </Box>
+        <Box className={classes.filter} mt={5}>
+          <SearchField
+            isDark={true}
+            isBackdrop={false}
+            placeholder="Search items & creators"
+            value={input}
+            onChange={handleChange}
+            paperClass={classes.search}
+          />
+          <DSelect
+            label="Filter"
+            value={filter}
+            items={marketFilterList}
+            onSelect={(item) => handleSelect(item)}
+          />
         </Box>
         <Box display="flex" my={4}>
           <Grid container spacing={matches ? 0 : 3}>
