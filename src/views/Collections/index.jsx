@@ -63,6 +63,7 @@ const Collections = () => {
     OPTION1: 'Original',
     OPTION2: 'Nft'
   }
+
   const [activeOption, setActiveOption] = useState(SwitchOptions.OPTION1)
   const [type, setType] = useState('ORIGINAL_NFT')
 
@@ -70,6 +71,11 @@ const Collections = () => {
     const seletedFilter = marketFilterList.find((item) =>
       item.value.includes(urlDetails?.filter)
     )
+    if (urlDetails.filter === 'ORIGINAL_NFT') {
+      setActiveOption('Original')
+    } else {
+      setActiveOption('Nft')
+    }
     return seletedFilter
   }, [urlDetails?.filter])
 
@@ -113,12 +119,12 @@ const Collections = () => {
   const handleSwitchClick = () => {
     if (activeOption === SwitchOptions.OPTION1) {
       setActiveOption(SwitchOptions.OPTION2)
-      navigate(`/marketplace?page=${page}&filter="RECENTLY_LISTED"`)
+      navigate(`/marketplace?page=1&filter=RECENTLY_LISTED`)
       setType(marketFilterList[0].value)
     }
     if (activeOption === SwitchOptions.OPTION2) {
       setActiveOption(SwitchOptions.OPTION1)
-      navigate(`/marketplace?page=${page}&filter="ORIGINAL_NFT"`)
+      navigate(`/marketplace?page=1&filter=ORIGINAL_NFT`)
     }
   }
 
