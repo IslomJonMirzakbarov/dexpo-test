@@ -1,10 +1,41 @@
 .wrapper {
   width: 100%;
-  height: 700px;
-  background: url('../../../assets/images/hero-bg1.webp');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  // background: url('../../../assets/images/hero-bg1.webp');
+  // background-position: center;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  padding: 48px 0 70px;
+  background-color: #fff;
   .container {
+    position: relative;
+    border-radius: 50%;
+    .arrows {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      top: calc(50% - 22.5px);
+      left: 50px;
+      right: 50px;
+      z-index: 10px;
+      @media (max-width: 600px) {
+        display: none;
+      }
+      .arrow {
+        width: 45px;
+        height: 45px;
+        border: 1px solid #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+        svg {
+          color: #fff;
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
   }
 }

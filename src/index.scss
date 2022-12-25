@@ -22,6 +22,10 @@ body {
   width: 100%;
 }
 
+.hero .slick-dots {
+  bottom: -42px;
+}
+
 .slick-dots li {
   width: 35px;
   height: 3px;
