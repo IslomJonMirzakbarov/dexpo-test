@@ -17,19 +17,18 @@ import NumberFormat from 'react-number-format'
 import styles from './style.module.scss'
 import Countdown from '../../../components/Countdown'
 import { makeStyles, useTheme } from '@mui/styles'
-import ValueTable from './ValueTable'
 import moment from 'moment'
-import HistoryTable from './HistoryTable'
 import TokenImg from '../../../assets/images/con-token.svg?component'
 import AddIcon from '../../../assets/icons/add.svg?component'
 import CheckoutModal from '../../../components/Modals/CheckoutModal'
 import { DATE_FORMAT, priceTypeChar } from '../../../constants'
-import MoreCollections from './MoreCollections'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import DModal from '../../../components/DModal'
 import { getPurchaseLabel } from './util'
 import numFormat from '../../../utils/numFormat'
+import NftInfo from './NftInfo'
+import ContactUsModal from './ContactUsModal'
 
 const useStyles = makeStyles((theme) => ({
   priceBox: {
@@ -95,19 +94,20 @@ const CollectionDetailsContainer = ({
   isAuctionEnded,
   setRefetchInterval,
   isAuctionNotStarted,
-  isAuctionBeingFinished
+  isAuctionBeingFinished,
+  orginalNftDetail
 }) => {
   const navigate = useNavigate()
 
   const theme = useTheme()
   const classes = useStyles()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
-
+  const [openContactInfo, setOpenContactInfo] = useState(false)
   const { nft, artist, market, collection } = data || {}
   const { token } = useSelector((store) => store.auth)
   const { price_usd } = useSelector((store) => store.wallet)
   const [openImg, setOpenImg] = useState(false)
-
+  console.log('openContactInfo', openContactInfo)
   const handleClick = () => {
     if (token) toggle()
     else navigate('/login')
@@ -148,7 +148,7 @@ const CollectionDetailsContainer = ({
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
-              onClick={() => setOpenImg(true)}
+              onClick={(img) => setOpenImg(img)}
               setRefetchInterval={setRefetchInterval}
               isSoldOut={isSoldOut}
               onLike={() => onLike(nft?.is_liked)}
@@ -178,17 +178,7 @@ const CollectionDetailsContainer = ({
               mt={3}
               className={classes.boxWrapper}
             >
-              <Box className={classes.box} mr={3}>
-                <ValueTable
-                  smartContract={collection?.contract_address}
-                  tokenID={nft?.token_id}
-                  tokenStandard={nft?.standard}
-                  blockchain='Klaytn'
-                  addrressCreator={nft?.creator_address}
-                  addrressOwner={nft?.owner_address}
-                  sellerAddress={market?.seller_address}
-                />
-              </Box>
+              <Box className={classes.box} mr={3}></Box>
               <Box
                 display='flex'
                 justifyContent='space-between'
@@ -196,38 +186,6 @@ const CollectionDetailsContainer = ({
                 alignItems='end'
                 className={classes.box}
               >
-                {isAuction && endDate ? (
-                  isAuctionNotStarted ? (
-                    <Typography variant='placeholder' fontWeight={500}>
-                      Auction will start on{' '}
-                      <Typography
-                        variant='placeholder'
-                        color='primary'
-                        fontWeight={500}
-                      >
-                        {auctionStartDate}
-                      </Typography>{' '}
-                      at{' '}
-                      <Typography
-                        variant='placeholder'
-                        color='primary'
-                        fontWeight={500}
-                      >
-                        {auctionStartTime}
-                      </Typography>
-                    </Typography>
-                  ) : (
-                    <Box
-                      display='flex'
-                      justifyContent={matches ? 'center' : 'end'}
-                      width='100%'
-                    >
-                      <Countdown date={endDate} onFinish={onTimeOut} />
-                    </Box>
-                  )
-                ) : (
-                  <Box />
-                )}
                 <Box
                   display='flex'
                   flexDirection='column'
@@ -272,44 +230,28 @@ const CollectionDetailsContainer = ({
                       </Typography>
                     </>
                   )}
-                  {!isSoldOut && (
-                    <Button
-                      className={classes.button}
-                      variant='containedSecondary'
-                      fullWidth
-                      onClick={handleClick}
-                      disabled={isSoldOut || isDisabled}
-                      sx={{ height: 55 }}
-                    >
-                      {btnLabel}
-                    </Button>
-                  )}
+
+                  <Button
+                    className={classes.button}
+                    variant='containedSecondary'
+                    fullWidth
+                    sx={{ height: 55 }}
+                    onClick={() => setOpenContactInfo((prev) => !prev)}
+                  >
+                    Contact us
+                  </Button>
                 </Box>
               </Box>
             </Box>
           </Grid>
         </Grid>
-        {isBidHistory && (
-          <Grid container className={classes.table}>
-            <Grid item lg={12}>
-              <HistoryTable data={bidHistory} title='BID History' />
-            </Grid>
-          </Grid>
-        )}
-        <Grid container className={classes.table}>
-          <Grid item lg={12}>
-            <HistoryTable data={history} />
-          </Grid>
-        </Grid>
       </Container>
-      <MoreCollections
-        data={moreNFTs}
-        title='More Artworks From This Collection'
-        contractAddress={collection?.contract_address}
-        isResponsive={matches}
-      />
 
       <Container>
+        <NftInfo
+          orginalNftDetail={orginalNftDetail}
+          setOpentImage={(url) => setOpenImg(url)}
+        />
         <Typography className={styles.AccordionTitle}>구매 확인사항</Typography>
 
         <Accordion
@@ -373,9 +315,13 @@ const CollectionDetailsContainer = ({
       />
       <DModal
         isExpandedImg
-        img={nft?.token_image}
+        img={openImg}
         open={openImg}
         onClose={() => setOpenImg(false)}
+      />
+      <ContactUsModal
+        open={openContactInfo}
+        handleClose={() => setOpenContactInfo((prev) => !prev)}
       />
     </Paper>
   )

@@ -4,164 +4,167 @@ import {
   Grid,
   Paper,
   Typography,
-  useMediaQuery,
-} from "@mui/material";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import DSelect from "../../components/DSelect";
-import styles from "./style.module.scss";
-import SearchField from "../../components/Autocomplete";
-import NFTCard from "../../components/NFTCard";
-import CPagination from "../../components/CPagination";
-import { useLocation, useNavigate } from "react-router-dom";
-import useMarketAPI from "../../hooks/useMarketAPI";
-import { priceTypeChar } from "../../constants";
-import NFTCardSkeleton from "../../components/NFTCard/index.skeleton";
-import NoItemsFound from "../../components/NoItems";
-import { marketFilterList } from "../../constants/marketFilter";
-import { useSelector } from "react-redux";
-import { debounce } from "lodash";
+  useMediaQuery
+} from '@mui/material'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import DSelect from '../../components/DSelect'
+import styles from './style.module.scss'
+import SearchField from '../../components/Autocomplete'
+import NFTCard from '../../components/NFTCard'
+import CPagination from '../../components/CPagination'
+import { useLocation, useNavigate } from 'react-router-dom'
+import useMarketAPI from '../../hooks/useMarketAPI'
+import { priceTypeChar } from '../../constants'
+import NFTCardSkeleton from '../../components/NFTCard/index.skeleton'
+import NoItemsFound from '../../components/NoItems'
+import { marketFilterList } from '../../constants/marketFilter'
+import { useSelector } from 'react-redux'
+import { debounce } from 'lodash'
 
-import { makeStyles, useTheme } from "@mui/styles";
-import { getPaginationDetailsByPathname } from "../../utils/paginationQueries";
-import CustomSwitch from "../../components/CustomSwitch";
+import { makeStyles, useTheme } from '@mui/styles'
+import { getPaginationDetailsByPathname } from '../../utils/paginationQueries'
+import CustomSwitch from '../../components/CustomSwitch'
 
 const useStyles = makeStyles((theme) => ({
   filter: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: "15px",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-      alignItems: "flex-end",
-    },
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '15px',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end'
+    }
   },
   search: {
-    [theme.breakpoints.down("sm")]: {
-      display: "flex",
-      width: "100%",
-      marginBottom: 20,
-    },
-  },
-}));
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      width: '100%',
+      marginBottom: 20
+    }
+  }
+}))
 
 const Collections = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  const urlDetails = getPaginationDetailsByPathname(location.search);
+  const urlDetails = getPaginationDetailsByPathname(location.search)
 
-  const classes = useStyles();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const classes = useStyles()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const { account } = useSelector((store) => store.wallet);
+  const { account } = useSelector((store) => store.wallet)
 
-  const [search, setSearch] = useState(urlDetails?.search);
-  const [input, setInput] = useState(urlDetails?.search);
+  const [search, setSearch] = useState(urlDetails?.search)
+  const [input, setInput] = useState(urlDetails?.search)
   const SwitchOptions = {
-    OPTION1: "Original",
-    OPTION2: "Nft",
-  };
-  const [activeOption, setActiveOption] = useState(SwitchOptions.OPTION1);
-  const [type, setType] = useState("ORIGINAL_NFT");
+    OPTION1: 'Original',
+    OPTION2: 'Nft'
+  }
+  const [activeOption, setActiveOption] = useState(SwitchOptions.OPTION1)
+  const [type, setType] = useState('ORIGINAL_NFT')
 
   const filter = useMemo(() => {
     const seletedFilter = marketFilterList.find((item) =>
       item.value.includes(urlDetails?.filter)
-    );
-    return seletedFilter;
-  }, [urlDetails?.filter]);
+    )
+    return seletedFilter
+  }, [urlDetails?.filter])
 
   const page = useMemo(
     () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
     [urlDetails?.page]
-  );
+  )
 
   const { data, isLoading } = useMarketAPI({
     page,
     type: type,
-    search,
-  });
+    search
+  })
 
   useEffect(() => {
     if (activeOption === SwitchOptions.OPTION1) {
-      setType("ORIGINAL_NFT");
+      setType('ORIGINAL_NFT')
     }
     if (activeOption === SwitchOptions.OPTION2) {
-      setType(filter?.value);
+      setType(filter?.value)
     }
   }, [
     SwitchOptions.OPTION1,
     SwitchOptions.OPTION2,
     activeOption,
-    filter?.value,
-  ]);
+    filter?.value
+  ])
 
-  const noItems = !data?.items?.length || data?.items?.length === 0;
-  const mockData = Array(8).fill(12);
+  const noItems = !data?.items?.length || data?.items?.length === 0
+  const mockData = Array(8).fill(12)
 
   const debounced = useCallback(
     debounce((val) => setSearch(val), 300),
     []
-  );
+  )
 
   useEffect(() => {
-    debounced(input);
-  }, [input]);
+    debounced(input)
+  }, [input])
 
   const handleSwitchClick = () => {
     if (activeOption === SwitchOptions.OPTION1) {
-      setActiveOption(SwitchOptions.OPTION2);
-      navigate(`/marketplace?page=${page}&filter="RECENTLY_LISTED"`);
-      setType(marketFilterList[0].value);
+      setActiveOption(SwitchOptions.OPTION2)
+      navigate(`/marketplace?page=${page}&filter="RECENTLY_LISTED"`)
+      setType(marketFilterList[0].value)
     }
     if (activeOption === SwitchOptions.OPTION2) {
-      setActiveOption(SwitchOptions.OPTION1);
-      navigate(`/marketplace?page=${page}&filter="ORIGINAL_NFT"`);
+      setActiveOption(SwitchOptions.OPTION1)
+      navigate(`/marketplace?page=${page}&filter="ORIGINAL_NFT"`)
     }
-  };
+  }
 
   const handleChange = (e) => {
-    setInput(e.target.value);
+    setInput(e.target.value)
     navigate(
-      `/marketplace?page=${page}${filter ? `&filter=${filter.value}` : ""}${
-        search ? `&search=${e.target.value}` : ""
+      `/marketplace?page=${page}${filter ? `&filter=${filter.value}` : ''}${
+        search ? `&search=${e.target.value}` : ''
       }`
-    );
-  };
+    )
+  }
 
   const handleSelect = (item) => {
     if (activeOption === SwitchOptions.OPTION2) {
       navigate(
         `/marketplace?page=${page}&filter=${item.value}${
-          search ? `&search=${search}` : ""
+          search ? `&search=${search}` : ''
         }`
-      );
+      )
     }
-  };
+  }
 
   const handleNavigate = (tokenId, address, wallet) => {
-    return navigate(`/marketplace/${tokenId}/${address}`);
-  };
+    if (activeOption === 'Original') {
+      return navigate(`/marketplace/original/${tokenId}/${address}`)
+    }
+    return navigate(`/marketplace/${tokenId}/${address}`)
+  }
 
   const handlePaginate = (next) => {
     navigate(
-      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ""}${
-        search ? `&search=${search}` : ""
+      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ''}${
+        search ? `&search=${search}` : ''
       }`
-    );
-  };
+    )
+  }
 
   return (
     <Paper className={styles.container}>
       <Container maxWidth>
-        <Box display="flex" justifyContent="center">
+        <Box display='flex' justifyContent='center'>
           <Typography
-            variant="h2"
+            variant='h2'
             fontWeight={700}
-            fontSize="40px!important"
-            lineHeight="60px"
+            fontSize='40px!important'
+            lineHeight='60px'
           >
             Marketplace
           </Typography>
@@ -185,20 +188,20 @@ const Collections = () => {
             <SearchField
               isDark={true}
               isBackdrop={false}
-              placeholder="Search items & creators"
+              placeholder='Search items & creators'
               value={input}
               onChange={handleChange}
               paperClass={classes.search}
             />
             <DSelect
-              label="Filter"
+              label='Filter'
               value={filter}
               items={marketFilterList}
               onSelect={(item) => handleSelect(item)}
             />
           </Box>
         </Box>
-        <Box display="flex" my={4}>
+        <Box display='flex' my={4}>
           <Grid container spacing={matches ? 0 : 3}>
             {isLoading
               ? mockData.map((_, i) => (
@@ -207,7 +210,7 @@ const Collections = () => {
                     key={i}
                     lg={12 / 5}
                     my={matches ? 2 : 0}
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                   >
                     <NFTCardSkeleton />
                   </Grid>
@@ -219,7 +222,7 @@ const Collections = () => {
                     lg={12 / 5}
                     sm={1}
                     my={matches ? 2 : 0}
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                   >
                     <NFTCard
                       collection={collection}
@@ -270,7 +273,7 @@ const Collections = () => {
         )}
       </Container>
     </Paper>
-  );
-};
+  )
+}
 
-export default Collections;
+export default Collections

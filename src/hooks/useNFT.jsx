@@ -1,88 +1,112 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { securedAPI } from "../services/api";
-import { useMutation, useQuery } from "react-query";
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { securedAPI } from '../services/api'
+import { useMutation, useQuery } from 'react-query'
 
-const size = 10;
+const size = 10
 
-const getList = ({ type, page, orderBy = "desc" }, token) =>
+const getList = ({ type, page, orderBy = 'desc' }, token) =>
   securedAPI(token)
     .post(
       `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
     )
-    .then((res) => res.data);
+    .then((res) => res.data)
 
 const getDetail = ({ contractAddress, tokenId, wallet }, token) =>
   securedAPI(token)
-    .get("/api/nft/detail", {
+    .get('/api/nft/detail', {
       params: {
         contract_address: contractAddress,
         token_id: tokenId,
-        wallet_address: wallet,
-      },
+        wallet_address: wallet
+      }
     })
     .then((res) => {
-      return res.data;
-    });
+      return res.data
+    })
+
+const getOriginalNftDetail = ({ contractAddress, tokenId }, token) =>
+  securedAPI(token)
+    .get(
+      `/api/nft/originalDetail?contract_address=${contractAddress}&token_id=${tokenId}`
+    )
+    .then((res) => res.data)
 
 const fetchLikeDislike = (data, token) =>
   securedAPI(token)
     .post(`/api/nft/likeDislike`, data)
     .then((res) => {
-
-      return res.data;
-    });
+      return res.data
+    })
 
 const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: false, // constantly updating
   refetchOnReconnect: true,
-  staleTime: 0,
-};
+  staleTime: 0
+}
 
 const useNFTAPI = ({
   isGetList = false,
-  type = "COLLECTED",
+  type = 'COLLECTED',
   page = 1,
-  orderBy = "desc",
+  orderBy = 'desc',
   contractAddress,
   id,
   wallet,
   refetchInterval,
+  isGetOriginalNftDetail = false
 }) => {
-  const { token } = useSelector((store) => store.auth);
+  const { token } = useSelector((store) => store.auth)
 
   const {
     data: list,
     refetch: refetchList,
     isLoading: loadingList,
     isFetching: isFetchingDetail,
-    error,
-  } = useQuery("get-nft-list", () => getList({ type, page, orderBy }, token), {
-    enabled: !!isGetList,
-  });
+    error
+  } = useQuery('get-nft-list', () => getList({ type, page, orderBy }, token), {
+    enabled: !!isGetList
+  })
 
   const {
     data: detail,
     refetch: refetchDetail,
     isLoading: loadingDetail,
     error: errorDetail,
-    isFetching: isFetchingHistory,
+    isFetching: isFetchingHistory
   } = useQuery(
     `get-nft-detail-${contractAddress}-${id}`,
     () => getDetail({ contractAddress, tokenId: id, wallet }, token),
     {
       enabled: !!contractAddress && !!id,
       ...configQuery,
-      refetchInterval,
+      refetchInterval
     }
-  );
+  )
+
+  const {
+    data: orginalNftDetail,
+    refetch: refetchOriginalNftDetail,
+    isLoading: loadingOriginalNfDetail,
+    error: errorOriginalDetail
+  } = useQuery(
+    `get-orginal-nft-detail-${contractAddress}-${id}`,
+    () => getOriginalNftDetail({ contractAddress, tokenId: id }, token),
+    {
+      enabled: !!isGetOriginalNftDetail
+    }
+  )
 
   const mutationLike = useMutation((data) => fetchLikeDislike(data, token), {
-    ...configQuery,
-  });
+    ...configQuery
+  })
 
   return {
+    orginalNftDetail,
+    refetchOriginalNftDetail,
+    loadingOriginalNfDetail,
+    errorOriginalDetail,
     postLike: mutationLike,
     detail,
     refetchDetail,
@@ -93,8 +117,8 @@ const useNFTAPI = ({
     loadingList,
     error,
     isFetchingDetail,
-    isFetchingHistory,
-  };
-};
+    isFetchingHistory
+  }
+}
 
-export default useNFTAPI;
+export default useNFTAPI
