@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const { actions: walletActions, reducer: walletReducer } = createSlice({
   name: 'wallet',
@@ -7,31 +7,35 @@ export const { actions: walletActions, reducer: walletReducer } = createSlice({
     signature: null,
     nonce: null,
     price_usd: null,
-    type: null
+    type: null,
+    price_krw: null
   },
   reducers: {
     setAccount: (state, { payload }) => {
-      state.account = payload;
+      state.account = payload
     },
     setNonce: (state, { payload }) => {
-      state.nonce = payload;
+      state.nonce = payload
     },
     setSignature: (state, { payload }) => {
-      state.signature = payload;
+      state.signature = payload
     },
     setPriceeUSD: (state, { payload }) => {
-      state.price_usd = payload;
+      state.price_usd = payload
+    },
+    setPriceKrw: (state, { payload }) => {
+      state.price_krw = payload
     },
     setType: (state, { payload }) => {
-      state.type = payload;
+      state.type = payload
     },
     clearWallet: (state) => {
-      state.account = null;
-      state.signature = null;
-      state.nonce = null;
+      state.account = null
+      state.signature = null
+      state.nonce = null
     }
   }
-});
+})
 
 export const {
   setAccount,
@@ -39,5 +43,6 @@ export const {
   setSignature,
   clearWallet,
   setPriceeUSD,
-  setType
-} = walletActions;
+  setType,
+  setPriceKrw
+} = walletActions

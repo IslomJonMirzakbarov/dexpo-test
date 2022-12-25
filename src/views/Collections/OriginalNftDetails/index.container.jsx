@@ -102,36 +102,36 @@ const CollectionDetailsContainer = ({
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const [openContactInfo, setOpenContactInfo] = useState(false)
   const { nft, artist, market, collection } = data || {}
-  const { token } = useSelector((store) => store.auth)
-  const { price_usd } = useSelector((store) => store.wallet)
+  // const { token } = useSelector((store) => store.auth)
+  const { price_krw } = useSelector((store) => store.wallet)
   const [openImg, setOpenImg] = useState(false)
-  console.log('openContactInfo', openContactInfo)
-  const handleClick = () => {
-    if (token) toggle()
-    else navigate('/login')
-  }
-  const endDate = useMemo(() => {
-    const newDate = new Date(market?.end_date * 1000)
+  // console.log('openContactInfo', openContactInfo)
+  // const handleClick = () => {
+  //   if (token) toggle()
+  //   else navigate('/login')
+  // }
+  // const endDate = useMemo(() => {
+  //   const newDate = new Date(market?.end_date * 1000)
 
-    return moment(newDate).format(DATE_FORMAT)
-  }, [market?.end_date])
+  //   return moment(newDate).format(DATE_FORMAT)
+  // }, [market?.end_date])
 
-  const isBidHistory = isAuction && bidHistory?.length > 0
-  const exchangedPrice = price_usd * market?.price
+  // const isBidHistory = isAuction && bidHistory?.length > 0
+  const exchangedPrice = orginalNftDetail?.price / price_krw
 
-  const btnLabel = getPurchaseLabel({
-    isSoldOut,
-    isAuction,
-    isAuctionEnded,
-    isAuctionNotStarted,
-    isAuctionBeingFinished
-  })
+  // const btnLabel = getPurchaseLabel({
+  //   isSoldOut,
+  //   isAuction,
+  //   isAuctionEnded,
+  //   isAuctionNotStarted,
+  //   isAuctionBeingFinished
+  // })
 
-  const auctionStartDate = moment(market?.start_date * 1000).format(
-    'yyyy.MM.DD'
-  )
+  // const auctionStartDate = moment(market?.start_date * 1000).format(
+  //   'yyyy.MM.DD'
+  // )
 
-  const auctionStartTime = moment(market?.start_date * 1000).format('HH:mm')
+  // const auctionStartTime = moment(market?.start_date * 1000).format('HH:mm')
 
   return (
     <Paper className={styles.container}>
@@ -206,7 +206,7 @@ const CollectionDetailsContainer = ({
                           lineHeight='45px'
                         >
                           <NumberFormat
-                            value={numFormat(market?.price)}
+                            value={numFormat(exchangedPrice)}
                             displayType={'text'}
                             thousandSeparator={true}
                           />
@@ -219,7 +219,7 @@ const CollectionDetailsContainer = ({
                       >
                         (
                         <NumberFormat
-                          value={numFormat(exchangedPrice)}
+                          value={numFormat(orginalNftDetail?.price)}
                           displayType={'text'}
                           thousandSeparator={true}
                           prefix='$'
