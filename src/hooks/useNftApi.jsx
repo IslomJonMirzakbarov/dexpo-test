@@ -1,7 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { securedAPI } from '../services/api';
-import { useMutation, useQuery } from 'react-query';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { securedAPI } from '../services/api'
+import { useMutation, useQuery } from 'react-query'
 
 const getList = ({ type, page, orderBy = 'desc', size }, token) =>
   securedAPI(token)
@@ -10,8 +10,8 @@ const getList = ({ type, page, orderBy = 'desc', size }, token) =>
       `/api/nft/list?type=${type}&page=${page}&orderBy=${orderBy}&size=${size}`
     )
     .then((res) => {
-      return res.data;
-    });
+      return res.data
+    })
 
 const getListByUser = (
   { type, page, orderBy = 'desc', size, walletAddress },
@@ -22,19 +22,18 @@ const getListByUser = (
       `/api/nft/listByUser?page=${page}&size=${size}&orderBy=${orderBy}&wallet_address=${walletAddress}&type=${type}`
     )
     .then((res) => {
-      return res.data;
-    });
+      return res.data
+    })
 
 const getDetail = ({ contactAddress, tokenId }, token) =>
   securedAPI(token)
     .get(`/api/nft/detail?contact_address${contactAddress}&token_id=${tokenId}`)
-    .then((res) => res.data);
+    .then((res) => res.data)
 
-const fetchLike = (data, token) =>
-  securedAPI(token).post(`/api/nft/like`, data);
+const fetchLike = (data, token) => securedAPI(token).post(`/api/nft/like`, data)
 
 const fetchUnlike = (data, token) =>
-  securedAPI(token).post(`/api/nft/dislike`, data);
+  securedAPI(token).post(`/api/nft/dislike`, data)
 
 const nftListByCollection = (
   { page, orderBy = 'desc', size, contractAddress, type, search_query },
@@ -51,14 +50,14 @@ const nftListByCollection = (
         search_query
       }
     })
-    .then((res) => res.data);
+    .then((res) => res.data)
 
 const configQuery = {
   refetchOnMount: true,
   refetchOnWindowFocus: true, // constantly updating
   refetchOnReconnect: true,
   staleTime: 0
-};
+}
 
 const useNftAPI = ({
   contractAddress,
@@ -74,7 +73,7 @@ const useNftAPI = ({
   walletAddress,
   search_query
 }) => {
-  const { token } = useSelector((store) => store.auth);
+  const { token } = useSelector((store) => store.auth)
 
   const {
     data: nftListCollection,
@@ -92,7 +91,7 @@ const useNftAPI = ({
       enabled: !!isGetListByCollection,
       ...configQuery
     }
-  );
+  )
 
   const {
     data: list,
@@ -107,7 +106,7 @@ const useNftAPI = ({
       ...configQuery,
       refetchInterval
     }
-  );
+  )
 
   const {
     data: listByUser,
@@ -122,7 +121,7 @@ const useNftAPI = ({
       ...configQuery,
       refetchInterval
     }
-  );
+  )
 
   const {
     data: detail,
@@ -131,15 +130,16 @@ const useNftAPI = ({
     error: errorDetail
   } = useQuery(`get-nft-detail`, (payload) => getDetail(payload, token), {
     enabled: !!isGetDetail
-  });
+  })
 
-  const mutationLike = useMutation((data) => fetchLike(data, token), {});
+  const mutationLike = useMutation((data) => fetchLike(data, token), {})
 
-  const mutationDislike = useMutation((data) => fetchUnlike(data, token), {});
+  const mutationDislike = useMutation((data) => fetchUnlike(data, token), {})
 
   return {
     postLike: mutationLike,
     postDislike: mutationDislike,
+
     detail,
     refetchDetail,
     loadingDetail,
@@ -156,7 +156,7 @@ const useNftAPI = ({
     errorByCollection,
     errorByUser,
     error
-  };
-};
+  }
+}
 
-export default useNftAPI;
+export default useNftAPI

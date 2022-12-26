@@ -1,10 +1,11 @@
-import React from 'react';
-import { collectionRoutes } from './collectionRoutes';
-import { marketplaceRoutes } from './marketplaceRoute';
+import React from 'react'
+import { collectionRoutes } from './collectionRoutes'
+import { marketplaceRoutes } from './marketplaceRoute'
+import { originalNftRoutes } from './originalNftRoute'
 
-const Home = React.lazy(() => import('../views/Home'));
-const Ratings = React.lazy(() => import('../views/Ratings'));
-const About = React.lazy(() => import('../views/About'));
+const Home = React.lazy(() => import('../views/Home'))
+const Ratings = React.lazy(() => import('../views/Ratings'))
+const About = React.lazy(() => import('../views/About'))
 
 export const commonRoutes = [
   {
@@ -24,5 +25,8 @@ export const commonRoutes = [
   },
   {
     ...collectionRoutes
+  },
+  {
+    ...originalNftRoutes
   }
-];
+]

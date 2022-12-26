@@ -13,21 +13,19 @@ const configQuery = {
   staleTime: 0
 }
 
-const getList = ({ filterType, page, orderBy, search }, token) =>
+const getList = ({ page, orderBy, search }, token) =>
   securedAPI(token)
-    .get(`/api/market/${!!search ? 'search' : 'list'}`, {
+    .get(`/api/nft/${!!search ? 'searchOriginalNft' : 'originalNftList'}`, {
       params: {
         page,
         order_by: orderBy,
         size,
-        filter_type: filterType,
         search_query: search
       }
     })
     .then((res) => res?.data?.data)
 
-const useMarketAPI = ({
-  type,
+const useOriginalNftAPI = ({
   page = 1,
   orderBy = 'desc',
   refetchInterval,
@@ -36,8 +34,8 @@ const useMarketAPI = ({
   const { token } = useSelector((store) => store.auth)
 
   const { data, refetch, isLoading, error } = useQuery(
-    `GET-NFT-MARKET-LIST-${type}-${search || ''}-${page}-${orderBy || ''}`,
-    () => getList({ filterType: type, page, orderBy, search }, token),
+    `GET-ORIGINAL-NFT-LIST-${search || ''}-${page}-${orderBy || ''}`,
+    () => getList({ page, orderBy, search }, token),
     {
       refetchInterval,
       ...configQuery
@@ -52,4 +50,4 @@ const useMarketAPI = ({
   }
 }
 
-export default useMarketAPI
+export default useOriginalNftAPI
