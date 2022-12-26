@@ -184,7 +184,7 @@ const OriginalNftList = () => {
                         artistName={artist.artist_name}
                         description={nft.token_name}
                         priceType={priceTypeChar?.[market?.type]}
-                        hasAction={!!market?.price}
+                        hasAction
                         purchaseCount={nft.like_count}
                         hasOriginal
                         tokenId={nft?.token_id}
