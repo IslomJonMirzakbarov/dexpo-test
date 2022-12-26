@@ -121,7 +121,7 @@ const NFTSellRequestContainer = ({
   const { newNftSrc } = useSelector((store) => store.nft)
 
   const [openImg, setOpenImg] = useState(false)
-  const { price_usd } = useSelector((store) => store.wallet)
+  const { price_krw } = useSelector((store) => store.wallet)
 
   const isTypeHidden = isDisabled || marketStatuses.IDLE.includes(marketStatus)
 
@@ -133,7 +133,7 @@ const NFTSellRequestContainer = ({
     return moment(newDate).format(DATE_FORMAT)
   }, [market?.end_date])
 
-  const exchangedPrice = price_usd * (market?.price || sellPrice)
+  const exchangedPrice = price_krw * (market?.price || sellPrice)
 
   const SetPrice = () => (
     <>
@@ -163,7 +163,7 @@ const NFTSellRequestContainer = ({
           value={numFormat(exchangedPrice)}
           displayType={'text'}
           thousandSeparator={true}
-          prefix='$'
+          prefix='￦'
         />
         )
       </Typography>
@@ -239,7 +239,7 @@ const NFTSellRequestContainer = ({
                         control={control}
                         name='price'
                         label={isAuction ? auctionLabel : fixedLabel}
-                        exchangedPrice={price_usd * sellPrice}
+                        exchangedPrice={price_krw * sellPrice}
                       />
                     )}
                     {isAuction && (
