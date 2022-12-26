@@ -154,7 +154,7 @@ const CollectionDetailsContainer = ({
               setRefetchInterval={setRefetchInterval}
               isSoldOut={isSoldOut}
               onLike={() => onLike(nft?.is_liked)}
-              artistName={artist?.artist_name}
+              artistName={collection?.name}
               youtubeURL={artist?.youtube_url}
               isResponsive={matches}
               artistWallet={nft?.creator_address}

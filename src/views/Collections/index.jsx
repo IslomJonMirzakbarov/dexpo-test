@@ -31,14 +31,16 @@ const useStyles = makeStyles((theme) => ({
     gap: '15px',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
-      alignItems: 'flex-end'
+      alignItems: 'flex-end',
+      width: '100%',
+      marginTop: 15
     }
   },
   search: {
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
       width: '100%',
-      marginBottom: 20
+      marginBottom: 0
     }
   }
 }))
