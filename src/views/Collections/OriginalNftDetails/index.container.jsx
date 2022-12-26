@@ -10,20 +10,17 @@ import {
   Typography,
   useMediaQuery
 } from '@mui/material'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import CollectionDetailImage from './Image'
 import CollectionDetailsInfo from './Info'
 import NumberFormat from 'react-number-format'
 import styles from './style.module.scss'
 import { makeStyles, useTheme } from '@mui/styles'
-import moment from 'moment'
 import TokenImg from '../../../assets/images/con-token.svg?component'
 import AddIcon from '../../../assets/icons/add.svg?component'
-import { DATE_FORMAT, priceTypeChar } from '../../../constants'
+import { priceTypeChar } from '../../../constants'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import DModal from '../../../components/DModal'
-import { getPurchaseLabel } from './util'
 import numFormat from '../../../utils/numFormat'
 import NftInfo from './NftInfo'
 import ContactUsModal from './ContactUsModal'
@@ -72,66 +69,18 @@ const CollectionDetailsContainer = ({
   id,
   contract_address,
   data,
-  history,
-  moreNFTs,
-  status,
-  onConfirm,
-  isSoldOut,
-  txHash,
-  openModal,
-  toggle,
-  error,
-  isDisabled,
   onLike,
-  isAuction,
-  bidPrice,
-  setBidPrice,
-  bidHistory,
-  onTimeOut,
-  bidPriceControl,
-  isAuctionEnded,
   setRefetchInterval,
-  isAuctionNotStarted,
-  isAuctionBeingFinished,
   orginalNftDetail
 }) => {
-  const navigate = useNavigate()
-
   const theme = useTheme()
   const classes = useStyles()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const [openContactInfo, setOpenContactInfo] = useState(false)
   const { nft, artist, market, collection } = data || {}
-  // const { token } = useSelector((store) => store.auth)
   const { price_krw } = useSelector((store) => store.wallet)
   const [openImg, setOpenImg] = useState(false)
-  // console.log('openContactInfo', openContactInfo)
-  // const handleClick = () => {
-  //   if (token) toggle()
-  //   else navigate('/login')
-  // }
-  // const endDate = useMemo(() => {
-  //   const newDate = new Date(market?.end_date * 1000)
-
-  //   return moment(newDate).format(DATE_FORMAT)
-  // }, [market?.end_date])
-
-  // const isBidHistory = isAuction && bidHistory?.length > 0
   const exchangedPrice = orginalNftDetail?.price / price_krw
-
-  // const btnLabel = getPurchaseLabel({
-  //   isSoldOut,
-  //   isAuction,
-  //   isAuctionEnded,
-  //   isAuctionNotStarted,
-  //   isAuctionBeingFinished
-  // })
-
-  // const auctionStartDate = moment(market?.start_date * 1000).format(
-  //   'yyyy.MM.DD'
-  // )
-
-  // const auctionStartTime = moment(market?.start_date * 1000).format('HH:mm')
 
   return (
     <Paper className={styles.container}>
@@ -148,9 +97,9 @@ const CollectionDetailsContainer = ({
               contractAddress={collection?.contract_address}
               onClick={(img) => setOpenImg(img)}
               setRefetchInterval={setRefetchInterval}
-              isSoldOut={isSoldOut}
+              isSoldOut={false}
               onLike={() => onLike(nft?.is_liked)}
-              artistName={artist?.artist_name}
+              artistName={collection?.name}
               youtubeURL={artist?.youtube_url}
               isResponsive={matches}
               artistWallet={nft?.creator_address}

@@ -1,9 +1,9 @@
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import classnames from 'classnames';
-import { useState } from 'react';
-import { makeStyles } from '@mui/styles';
+import Paper from '@mui/material/Paper'
+import InputBase from '@mui/material/InputBase'
+import SearchIcon from '@mui/icons-material/Search'
+import classnames from 'classnames'
+import { useState } from 'react'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     backdropFilter: 'blur(4px)',
     backgroundColor: 'rgba(0,0,0,0.3)'
   }
-}));
+}))
 
 const SearchField = ({
   isDark = false,
@@ -67,14 +67,14 @@ const SearchField = ({
   paperClass,
   ...props
 }) => {
-  const classes = useStyles();
-  const [focused, setFocused] = useState(false);
-  const onFocus = () => setFocused(true);
-  const onBlur = () => setFocused(false);
+  const classes = useStyles()
+  const [focused, setFocused] = useState(false)
+  const onFocus = () => setFocused(true)
+  const onBlur = () => setFocused(false)
 
   return (
     <Paper
-      component="form"
+      component='form'
       className={classnames(
         classes.paper,
         {
@@ -96,7 +96,7 @@ const SearchField = ({
         {...props}
       />
     </Paper>
-  );
-};
+  )
+}
 
-export default SearchField;
+export default SearchField
