@@ -1,15 +1,15 @@
-import React, { forwardRef } from 'react';
-import styles from '../style.module.scss';
-import { Box } from '@mui/material';
-import NFTCard from '../../../../components/NFTCard';
-import { priceTypeChar } from '../../../../constants';
-import { useNavigate } from 'react-router-dom';
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import Slider from 'react-slick';
-import NFTCardSkeleton from '../../../../components/NFTCard/index.skeleton';
+import React, { forwardRef } from 'react'
+import styles from '../style.module.scss'
+import { Box } from '@mui/material'
+import NFTCard from '../../../../components/NFTCard'
+import { priceTypeChar } from '../../../../constants'
+import { useNavigate } from 'react-router-dom'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import Slider from 'react-slick'
+import NFTCardSkeleton from '../../../../components/NFTCard/index.skeleton'
 
-const slidesToShow = 4;
+const slidesToShow = 4
 
 const settings = {
   dots: true,
@@ -30,7 +30,7 @@ const settings = {
       }
     }
   ]
-};
+}
 
 export const CollectionsSuspence = () => {
   return (
@@ -48,11 +48,11 @@ export const CollectionsSuspence = () => {
         <NFTCardSkeleton isDefault={true} />
       </Box>
     </Box>
-  );
-};
+  )
+}
 
 const CollectionsContainer = forwardRef(({ collections, matches }, ref) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <Box className={styles.collection} ref={ref}>
       {collections?.length < 5 && !matches ? (
@@ -62,6 +62,7 @@ const CollectionsContainer = forwardRef(({ collections, matches }, ref) => {
               <NFTCard
                 img={nft?.token_image}
                 name={nft?.token_name}
+                collection={collection}
                 price={market?.price}
                 startDate={market?.start_date}
                 endDate={market?.end_date}
@@ -71,7 +72,7 @@ const CollectionsContainer = forwardRef(({ collections, matches }, ref) => {
                 priceType={priceTypeChar?.[market?.type]}
                 hasAction={!!market?.price}
                 purchaseCount={nft?.like_count}
-                buttonVariant="containedSecondary"
+                buttonVariant='containedSecondary'
                 key={c}
                 isDefault
                 tokenId={nft?.token_id}
@@ -79,16 +80,16 @@ const CollectionsContainer = forwardRef(({ collections, matches }, ref) => {
                 onClick={() => {
                   navigate(
                     `/marketplace/${nft?.token_id}/${collection?.contract_address}`
-                  );
+                  )
                 }}
                 onAction={() => {
                   navigate(
                     `/marketplace/${nft?.token_id}/${collection?.contract_address}`
-                  );
+                  )
                 }}
               />
             </Box>
-          );
+          )
         })
       ) : (
         <Slider {...settings}>
@@ -100,12 +101,13 @@ const CollectionsContainer = forwardRef(({ collections, matches }, ref) => {
                 name={nft.token_name}
                 price={market?.price}
                 startDate={market?.start_date}
+                collection={collection}
                 endDate={market?.end_date}
                 artistName={artist.artist_name}
                 description={nft.token_name}
                 priceType={priceTypeChar?.[market?.type]}
                 hasAction={!!market?.price}
-                buttonVariant="containedSecondary"
+                buttonVariant='containedSecondary'
                 hasShadow={false}
                 isDefault
                 purchaseCount={nft.like_count}
@@ -125,7 +127,7 @@ const CollectionsContainer = forwardRef(({ collections, matches }, ref) => {
         </Slider>
       )}
     </Box>
-  );
-});
+  )
+})
 
-export default CollectionsContainer;
+export default CollectionsContainer

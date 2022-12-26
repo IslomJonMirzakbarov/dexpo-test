@@ -121,8 +121,6 @@ const CollectionDetailsContainer = ({
   const isBidHistory = isAuction && bidHistory?.length > 0
   const exchangedPrice = price_krw * market?.price
 
-  console.log('exchangedPrice', exchangedPrice)
-
   const btnLabel = getPurchaseLabel({
     isSoldOut,
     isAuction,

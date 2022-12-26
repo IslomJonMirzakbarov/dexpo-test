@@ -19,7 +19,7 @@ const CustomSwitch = ({ handleClick, activeOption, SwitchOptions }) => {
         })}
         onClick={() => handleClick(2)}
       >
-        <Box className={styles.Text}>Nft</Box>
+        <Box className={styles.Text}>NFT</Box>
       </Box>
     </Box>
   )
