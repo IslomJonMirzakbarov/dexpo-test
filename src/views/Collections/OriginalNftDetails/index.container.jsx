@@ -190,7 +190,7 @@ const CollectionDetailsContainer = ({
                   alignItems='end'
                   sx={{ width: '100%' }}
                 >
-                  {market?.price && (
+                  {orginalNftDetail?.price && (
                     <>
                       <Box
                         display='flex'
@@ -275,7 +275,7 @@ const CollectionDetailsContainer = ({
           </AccordionDetails>
         </Accordion>
 
-        <Accordion square={true} style={{ margin: 0, boxShadow: 'none' }}>
+        {/* <Accordion square={true} style={{ margin: 0, boxShadow: 'none' }}>
           <AccordionSummary
             className={styles.AccordionSummary}
             expandIcon={<AddIcon className={styles.AddIcon} />}
@@ -286,7 +286,7 @@ const CollectionDetailsContainer = ({
               에디션 구매 가이드
             </Typography>
           </AccordionSummary>
-        </Accordion>
+        </Accordion> */}
       </Container>
 
       <DModal
