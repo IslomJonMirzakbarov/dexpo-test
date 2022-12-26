@@ -43,7 +43,8 @@ var items = [
     pretitleColor: '#2D2D2D',
     image: banner3,
     arrowColor: '#7D8890',
-    imageMobile: banner3Mobile
+    imageMobile: banner3Mobile,
+    link: '/original/2/0xeeb6b4126288e270fcec9fc9ddf98b0ed8b610b4'
   }
 ]
 
