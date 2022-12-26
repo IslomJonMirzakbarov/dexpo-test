@@ -1,11 +1,11 @@
-import { Box, Paper, Typography } from '@mui/material';
-import React from 'react';
-import styles from './style.module.scss';
-import defaultImg from '../../../../assets/images/artist-default.png';
+import { Box, Paper, Typography } from '@mui/material'
+import React from 'react'
+import styles from './style.module.scss'
+import defaultImg from '../../../../assets/images/artist-default.png'
 
-import NumberFormat from 'react-number-format';
-import { charCurrency } from '../../../../utils/currency';
-import numFormat from '../../../../utils/numFormat';
+import NumberFormat from 'react-number-format'
+import { charCurrency } from '../../../../utils/currency'
+import numFormat from '../../../../utils/numFormat'
 
 const CollectionInfo = ({
   artistName = 'Artist Name',
@@ -33,22 +33,22 @@ const CollectionInfo = ({
       key: 'Total Vol',
       value: totalVol
     }
-  ];
+  ]
   return (
-    <Paper variant="div" className={styles.container}>
-      <Box display="flex" alignItems="center" flexDirection="column">
+    <Paper variant='div' className={styles.container}>
+      <Box display='flex' alignItems='center' flexDirection='column'>
         <img
           src={artistImg}
-          alt="Name"
+          alt='Name'
           width={140}
           height={140}
           className={styles.artistImg}
         />
-        <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
-          <Typography variant="placeholder" color="grey.1000" fontWeight={500}>
+        <Box display='flex' flexDirection='column' alignItems='center' mt={2}>
+          <Typography variant='placeholder' color='grey.1000' fontWeight={500}>
             {/* {artistName} */}
           </Typography>
-          <Typography variant="h4" fontSize="20px!important" fontWeight={600}>
+          <Typography variant='h4' fontSize='20px!important' fontWeight={600}>
             {collectionName}
           </Typography>
         </Box>
@@ -57,14 +57,14 @@ const CollectionInfo = ({
         <Box className={styles.union}>
           {prices.map((price, p) => (
             <Box className={styles.price} key={p}>
-              <Typography color="grey.1000" fontWeight={500}>
+              <Typography color='grey.1000' fontWeight={500}>
                 {price.key}
               </Typography>
               <Typography
-                variant="h4"
-                fontSize="20px!important"
+                variant='h4'
+                fontSize='20px!important'
                 className={styles.value}
-                color="black"
+                color='black'
                 mb={1.2}
               >
                 <NumberFormat
@@ -79,7 +79,7 @@ const CollectionInfo = ({
         </Box>
       </Box>
     </Paper>
-  );
-};
+  )
+}
 
-export default CollectionInfo;
+export default CollectionInfo
