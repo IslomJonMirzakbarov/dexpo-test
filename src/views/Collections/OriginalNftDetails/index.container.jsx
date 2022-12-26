@@ -9,24 +9,21 @@ import {
   Paper,
   Typography,
   useMediaQuery
-} from '@mui/material'
-import React, { useMemo, useState } from 'react'
-import CollectionDetailImage from './Image'
-import CollectionDetailsInfo from './Info'
-import NumberFormat from 'react-number-format'
-import styles from './style.module.scss'
-import { makeStyles, useTheme } from '@mui/styles'
-import moment from 'moment'
-import TokenImg from '../../../assets/images/con-token.svg?component'
-import AddIcon from '../../../assets/icons/add.svg?component'
-import { DATE_FORMAT, priceTypeChar } from '../../../constants'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import DModal from '../../../components/DModal'
-import { getPurchaseLabel } from './util'
-import numFormat from '../../../utils/numFormat'
-import NftInfo from './NftInfo'
-import ContactUsModal from './ContactUsModal'
+} from '@mui/material';
+import React, { useState } from 'react';
+import CollectionDetailImage from './Image';
+import CollectionDetailsInfo from './Info';
+import NumberFormat from 'react-number-format';
+import styles from './style.module.scss';
+import { makeStyles, useTheme } from '@mui/styles';
+import TokenImg from '../../../assets/images/con-token.svg?component';
+import AddIcon from '../../../assets/icons/add.svg?component';
+import { priceTypeChar } from '../../../constants';
+import { useSelector } from 'react-redux';
+import DModal from '../../../components/DModal';
+import numFormat from '../../../utils/numFormat';
+import NftInfo from './NftInfo';
+import ContactUsModal from './ContactUsModal';
 
 const useStyles = makeStyles((theme) => ({
   priceBox: {
@@ -66,72 +63,24 @@ const useStyles = makeStyles((theme) => ({
       overflowX: 'scroll'
     }
   }
-}))
+}));
 
 const CollectionDetailsContainer = ({
   id,
   contract_address,
   data,
-  history,
-  moreNFTs,
-  status,
-  onConfirm,
-  isSoldOut,
-  txHash,
-  openModal,
-  toggle,
-  error,
-  isDisabled,
   onLike,
-  isAuction,
-  bidPrice,
-  setBidPrice,
-  bidHistory,
-  onTimeOut,
-  bidPriceControl,
-  isAuctionEnded,
   setRefetchInterval,
-  isAuctionNotStarted,
-  isAuctionBeingFinished,
   orginalNftDetail
 }) => {
-  const navigate = useNavigate()
-
-  const theme = useTheme()
-  const classes = useStyles()
-  const matches = useMediaQuery(theme.breakpoints.down('sm'))
-  const [openContactInfo, setOpenContactInfo] = useState(false)
-  const { nft, artist, market, collection } = data || {}
-  // const { token } = useSelector((store) => store.auth)
-  const { price_krw } = useSelector((store) => store.wallet)
-  const [openImg, setOpenImg] = useState(false)
-  // console.log('openContactInfo', openContactInfo)
-  // const handleClick = () => {
-  //   if (token) toggle()
-  //   else navigate('/login')
-  // }
-  // const endDate = useMemo(() => {
-  //   const newDate = new Date(market?.end_date * 1000)
-
-  //   return moment(newDate).format(DATE_FORMAT)
-  // }, [market?.end_date])
-
-  // const isBidHistory = isAuction && bidHistory?.length > 0
-  const exchangedPrice = orginalNftDetail?.price / price_krw
-
-  // const btnLabel = getPurchaseLabel({
-  //   isSoldOut,
-  //   isAuction,
-  //   isAuctionEnded,
-  //   isAuctionNotStarted,
-  //   isAuctionBeingFinished
-  // })
-
-  // const auctionStartDate = moment(market?.start_date * 1000).format(
-  //   'yyyy.MM.DD'
-  // )
-
-  // const auctionStartTime = moment(market?.start_date * 1000).format('HH:mm')
+  const theme = useTheme();
+  const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const [openContactInfo, setOpenContactInfo] = useState(false);
+  const { nft, artist, market, collection } = data || {};
+  const { price_krw } = useSelector((store) => store.wallet);
+  const [openImg, setOpenImg] = useState(false);
+  const exchangedPrice = orginalNftDetail?.price / price_krw;
 
   return (
     <Paper className={styles.container}>
@@ -142,13 +91,13 @@ const CollectionDetailsContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               isLiked={nft?.is_liked}
-              alt='nft picture'
+              alt="nft picture"
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
               onClick={(img) => setOpenImg(img)}
               setRefetchInterval={setRefetchInterval}
-              isSoldOut={isSoldOut}
+              isSoldOut={false}
               onLike={() => onLike(nft?.is_liked)}
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
@@ -171,39 +120,39 @@ const CollectionDetailsContainer = ({
               artistWallet={nft?.creator_address}
             />
             <Box
-              display='flex'
-              justifyContent='space-between'
+              display="flex"
+              justifyContent="space-between"
               mt={3}
               className={classes.boxWrapper}
             >
               <Box className={classes.box} mr={3}></Box>
               <Box
-                display='flex'
-                justifyContent='space-between'
-                flexDirection='column'
-                alignItems='end'
+                display="flex"
+                justifyContent="space-between"
+                flexDirection="column"
+                alignItems="end"
                 className={classes.box}
               >
                 <Box
-                  display='flex'
-                  flexDirection='column'
-                  alignItems='end'
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="end"
                   sx={{ width: '100%' }}
                 >
                   {orginalNftDetail?.price && (
                     <>
                       <Box
-                        display='flex'
-                        alignItems='center'
+                        display="flex"
+                        alignItems="center"
                         className={classes.priceBox}
                       >
                         <TokenImg style={{ width: 28, height: 28 }} />
                         <Typography
                           ml={1}
-                          variant='body2'
-                          fontSize='30px!important'
+                          variant="body2"
+                          fontSize="30px!important"
                           fontWeight={600}
-                          lineHeight='45px'
+                          lineHeight="45px"
                         >
                           <NumberFormat
                             value={numFormat(exchangedPrice)}
@@ -213,7 +162,7 @@ const CollectionDetailsContainer = ({
                         </Typography>
                       </Box>
                       <Typography
-                        variant='placeholder'
+                        variant="placeholder"
                         fontWeight={500}
                         color={theme.palette.grey[1000]}
                       >
@@ -222,7 +171,7 @@ const CollectionDetailsContainer = ({
                           value={numFormat(orginalNftDetail?.price)}
                           displayType={'text'}
                           thousandSeparator={true}
-                          prefix='￦'
+                          prefix="￦"
                         />
                         )
                       </Typography>
@@ -231,7 +180,7 @@ const CollectionDetailsContainer = ({
 
                   <Button
                     className={classes.button}
-                    variant='containedSecondary'
+                    variant="containedSecondary"
                     fullWidth
                     sx={{ height: 55 }}
                     onClick={() => setOpenContactInfo((prev) => !prev)}
@@ -260,8 +209,8 @@ const CollectionDetailsContainer = ({
           <AccordionSummary
             className={styles.AccordionSummary}
             expandIcon={<AddIcon className={styles.AddIcon} />}
-            aria-controls='panel1a-content'
-            id='panel1a-header'
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
             <Typography className={styles.AccordionSummaryText}>
               결제 후 취소/환불 불가 안내
@@ -300,7 +249,7 @@ const CollectionDetailsContainer = ({
         handleClose={() => setOpenContactInfo((prev) => !prev)}
       />
     </Paper>
-  )
-}
+  );
+};
 
-export default CollectionDetailsContainer
+export default CollectionDetailsContainer;
