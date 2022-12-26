@@ -1,10 +1,10 @@
-import React from 'react';
-import { Box, CircularProgress, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import NumberFormat from 'react-number-format';
+import React from 'react'
+import { Box, CircularProgress, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import NumberFormat from 'react-number-format'
 
-import ConToken from '../../../../assets/images/con-token.svg?component';
-import numFormat from '../../../../utils/numFormat';
+import ConToken from '../../../../assets/images/con-token.svg?component'
+import numFormat from '../../../../utils/numFormat'
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center'
   }
-}));
+}))
 
 const PendingCheckout = ({
   img,
@@ -71,24 +71,24 @@ const PendingCheckout = ({
   isAuction,
   isResponsive
 }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const imgDim = !isResponsive ? 150 : 85;
-  const word = isAuction ? 'bid' : 'purchase';
+  const imgDim = !isResponsive ? 150 : 85
+  const word = isAuction ? 'bid' : 'purchase'
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
+      display='flex'
+      flexDirection='column'
+      alignItems='center'
       className={classes.wrapper}
       my={2}
       px={3}
     >
-      <Typography variant="modalTitle" mb={2}>
+      <Typography variant='modalTitle' mb={2}>
         Complete Checkout
       </Typography>
-      <Box display="flex" mb={5}>
+      <Box display='flex' mb={5}>
         <img
           className={classes.img}
           src={img}
@@ -96,14 +96,14 @@ const PendingCheckout = ({
           width={imgDim}
           height={imgDim}
         />
-        <Box display="flex" flexDirection="column">
+        <Box display='flex' flexDirection='column'>
           <Box className={classes.box}>
-            <Box display="flex" flexDirection="column" py={1} px={2}>
-              <Typography fontWeight={600} color="grey.2000" mt={1}>
+            <Box display='flex' flexDirection='column' py={1} px={2}>
+              <Typography fontWeight={600} color='grey.2000' mt={1}>
                 {collectionName}
               </Typography>
             </Box>
-            <Box display="flex" justifyContent="space-between" px={2} pb={1}>
+            <Box display='flex' justifyContent='space-between' px={2} pb={1}>
               <Typography fontWeight={700}>{name}</Typography>
               <Typography>Quantity: {quantity}</Typography>
             </Box>
@@ -111,18 +111,18 @@ const PendingCheckout = ({
               <Box
                 px={2}
                 py={1}
-                display="flex"
-                justifyContent="space-between"
+                display='flex'
+                justifyContent='space-between'
                 className={classes.price}
               >
-                <Typography variant="placeholder" fontWeight={600}>
+                <Typography variant='placeholder' fontWeight={600}>
                   <NumberFormat
                     value={numFormat(price)}
                     displayType={'text'}
                     thousandSeparator={true}
                   />
                 </Typography>
-                <Box display="flex" alignItems="center">
+                <Box display='flex' alignItems='center'>
                   <ConToken className={classes.token} />
                   <Typography fontWeight={600} ml={1}>
                     CYCON
@@ -140,23 +140,23 @@ const PendingCheckout = ({
                   value={numFormat(exchangedPrice)}
                   displayType={'text'}
                   thousandSeparator={true}
-                  prefix="$"
+                  prefix='￦'
                 />
               </Typography>
             </Box>
           </Box>
-          <Box display="flex" alignItems="flex-start" mt="19px">
+          <Box display='flex' alignItems='flex-start' mt='19px'>
             <Box className={classes.progressBox}>
               <CircularProgress size={20} thickness={4} />
               <Box className={classes.progressItem}>
-                <Typography color="text.secondary">1</Typography>
+                <Typography color='text.secondary'>1</Typography>
               </Box>
             </Box>
-            <Box display="flex" flexDirection="column" ml={1}>
-              <Typography variant="placeholder" fontWeight={700}>
+            <Box display='flex' flexDirection='column' ml={1}>
+              <Typography variant='placeholder' fontWeight={700}>
                 Confirm {word}
               </Typography>
-              <Typography fontWeight={400} color="grey.1000" mt="3px">
+              <Typography fontWeight={400} color='grey.1000' mt='3px'>
                 You’ll be asked to approve this {word} from your wallet.
               </Typography>
             </Box>
@@ -164,7 +164,7 @@ const PendingCheckout = ({
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default PendingCheckout;
+export default PendingCheckout
