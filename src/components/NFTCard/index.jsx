@@ -78,9 +78,9 @@ const NFTCard = ({
           <Box className={classNames(styles.body, { [styles.last]: !price })}>
             <div className={styles.artist}>
               {/* <span className={styles.name}>{artistName}</span> */}
-              <span className={styles.name}>
-                {collection?.name ? `Artist: ${collection?.name}` : ''}
-              </span>
+              {collection?.name && (
+                <span className={styles.name}>Artist: {collection?.name}</span>
+              )}
               <Typography variant='placeholder' fontWeight={500}>
                 Artwork: {description}
               </Typography>
