@@ -22,7 +22,8 @@ var items = [
     image: banner1,
     gradient: 'linear-gradient(90deg, #000000 0%, rgba(255, 255, 255, 0) 100%)',
     arrowColor: '#fff',
-    imageMobile: banner1Mobile
+    imageMobile: banner1Mobile,
+    link: '/marketplace/15/0x46c258a6ced7d47810a0e4057e140bcdec3126c9'
   },
   {
     pretitle: '미석 박수근',
@@ -32,7 +33,8 @@ var items = [
     image: banner2,
     gradient: 'linear-gradient(90deg, #000000 0%, rgba(255, 255, 255, 0) 100%)',
     arrowColor: '#fff',
-    imageMobile: banner2Mobile
+    imageMobile: banner2Mobile,
+    link: '/marketplace/1/0xf17e008aea6fb483f9e025f165918b7340bc0bfc'
   },
   {
     pretitle: '이우환',

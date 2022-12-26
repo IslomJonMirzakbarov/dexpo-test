@@ -208,6 +208,7 @@ const CarouselItem = ({ item }) => {
           <Button
             variant='containedPrimary'
             sx={{ width: 180, height: 55, padding: 0 }}
+            // onClick={() => navigate(item.link)}
           >
             Detailed page
           </Button>
