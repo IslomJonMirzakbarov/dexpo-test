@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Container,
@@ -163,6 +166,7 @@ const CollectionDetailsContainer = ({
               artistName={artist?.artist_name}
               youtubeURL={artist?.youtube_url}
               nftName={nft?.token_name}
+              isOriginal={nft?.has_original}
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
