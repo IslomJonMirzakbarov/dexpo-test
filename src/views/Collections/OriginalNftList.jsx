@@ -209,7 +209,7 @@ const OriginalNftList = () => {
                         leftDays={null}
                         artistName={artist.artist_name}
                         description={nft.token_name}
-                        priceType={priceTypeChar?.[market?.type]}
+                        // priceType={priceTypeChar?.[market?.type]}
                         hasAction
                         purchaseCount={nft.like_count}
                         hasOriginal

@@ -115,7 +115,7 @@ const CollectionDetailsContainer = ({
               nftName={nft?.token_name}
               // isOriginal={nft?.has_original}
               description={nft?.token_description}
-              type={priceTypeChar?.[market?.type]}
+              //type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
               artistWallet={nft?.creator_address}
             />

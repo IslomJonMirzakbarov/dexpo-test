@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import NumberFormat from 'react-number-format';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import TokenImg from '../../assets/images/con-token.svg?component';
-import OriginalIcon from '../../assets/icons/original.svg?component';
-import classNames from 'classnames';
-import { calculateDeadline } from '../../utils/deadline';
+import React, { useState, useEffect } from 'react'
+import { Box, Button, Typography } from '@mui/material'
+import NumberFormat from 'react-number-format'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded'
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
+import TokenImg from '../../assets/images/con-token.svg?component'
+import OriginalIcon from '../../assets/icons/original.svg?component'
+import classNames from 'classnames'
+import { calculateDeadline } from '../../utils/deadline'
 
 // import loader from '../../assets/gif/loader.gif';
-import styles from './style.module.scss';
-import Img from 'react-cool-img';
-import { urlToIpfs } from '../../utils';
-import loader from '../../assets/gif/ring.gif';
-import numFormat from '../../utils/numFormat';
+import styles from './style.module.scss'
+import Img from 'react-cool-img'
+import { urlToIpfs } from '../../utils'
+import loader from '../../assets/gif/ring.gif'
+import numFormat from '../../utils/numFormat'
 
 const NFTCard = ({
   collection,
@@ -38,8 +38,7 @@ const NFTCard = ({
   hasOriginal
 }) => {
   // console.log(collection);
-  const leftDays =
-    endDate && startDate && calculateDeadline(startDate, endDate);
+  const leftDays = endDate && startDate && calculateDeadline(startDate, endDate)
 
   return (
     <Box
@@ -75,14 +74,14 @@ const NFTCard = ({
           [styles.noShadow]: !hasShadow
         })}
       >
-        <Box display="flex" flexDirection="column">
+        <Box display='flex' flexDirection='column'>
           <Box className={classNames(styles.body, { [styles.last]: !price })}>
             <div className={styles.artist}>
               {/* <span className={styles.name}>{artistName}</span> */}
               {collection?.name && (
                 <span className={styles.name}>Artist: {collection?.name}</span>
               )}
-              <Typography variant="placeholder" fontWeight={500}>
+              <Typography variant='placeholder' fontWeight={500}>
                 Artwork: {description}
               </Typography>
             </div>
@@ -140,7 +139,7 @@ const NFTCard = ({
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default NFTCard;
+export default NFTCard
