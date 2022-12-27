@@ -17,7 +17,10 @@ import useMarketAPI from '../../hooks/useMarketAPI'
 import { priceTypeChar } from '../../constants'
 import NFTCardSkeleton from '../../components/NFTCard/index.skeleton'
 import NoItemsFound from '../../components/NoItems'
-import { marketFilterList } from '../../constants/marketFilter'
+import {
+  marketFilterList,
+  orginalNftFilterList
+} from '../../constants/marketFilter'
 import { useSelector } from 'react-redux'
 import { debounce } from 'lodash'
 import { makeStyles, useTheme } from '@mui/styles'
@@ -60,6 +63,13 @@ const OriginalNftList = () => {
   const [search, setSearch] = useState(urlDetails?.search)
   const [input, setInput] = useState(urlDetails?.search)
 
+  const filter = useMemo(() => {
+    const seletedFilter = marketFilterList.find((item) =>
+      item.value.includes(urlDetails?.filter)
+    )
+    return seletedFilter
+  }, [urlDetails?.filter])
+
   const page = useMemo(
     () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
     [urlDetails?.page]
@@ -67,7 +77,8 @@ const OriginalNftList = () => {
 
   const { data, isLoading } = useOriginalNftAPI({
     page,
-    search
+    search,
+    type: filter?.value
   })
 
   const noItems = !data?.items?.length || data?.items?.length === 0
@@ -77,6 +88,14 @@ const OriginalNftList = () => {
     debounce((val) => setSearch(val), 300),
     []
   )
+
+  const handleSelect = (item) => {
+    navigate(
+      `/originalNft?page=1&filter=${item.value}${
+        search ? `&search=${search}` : ''
+      }`
+    )
+  }
 
   useEffect(() => {
     debounced(input)
@@ -97,7 +116,8 @@ const OriginalNftList = () => {
       pathname: '/originalNft',
       search: createSearchParams({
         page: 1,
-        search: e.target.value
+        search: e.target.value,
+        filter: filter?.value
       }).toString()
     })
   }
@@ -107,7 +127,11 @@ const OriginalNftList = () => {
   }
 
   const handlePaginate = (next) => {
-    navigate(`/originalNft?page=${next}${search ? `&search=${search}` : ''}`)
+    navigate(
+      `/originalNft?page=${next}${filter ? `&filter=${filter?.value}` : ''}${
+        search ? `&search=${search}` : ''
+      }`
+    )
   }
 
   return (
@@ -143,12 +167,12 @@ const OriginalNftList = () => {
               onChange={handleChange}
               paperClass={classes.search}
             />
-            {/* <DSelect
+            <DSelect
               label='Filter'
               value={filter}
-              items={marketFilterList}
+              items={orginalNftFilterList}
               onSelect={(item) => handleSelect(item)}
-            /> */}
+            />
           </Box>
         </Box>
         <Box display='flex' my={4}>

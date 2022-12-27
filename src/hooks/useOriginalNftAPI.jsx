@@ -13,14 +13,15 @@ const configQuery = {
   staleTime: 0
 }
 
-const getList = ({ page, orderBy, search }, token) =>
+const getList = ({ page, type, orderBy, search }, token) =>
   securedAPI(token)
     .get(`/api/nft/${!!search ? 'searchOriginalNft' : 'originalNftList'}`, {
       params: {
         page,
         order_by: orderBy,
         size,
-        search_query: search
+        search_query: search,
+        filter_type: type
       }
     })
     .then((res) => res?.data?.data)
@@ -29,13 +30,14 @@ const useOriginalNftAPI = ({
   page = 1,
   orderBy = 'desc',
   refetchInterval,
-  search
+  search,
+  type
 }) => {
   const { token } = useSelector((store) => store.auth)
 
   const { data, refetch, isLoading, error } = useQuery(
-    `GET-ORIGINAL-NFT-LIST-${search || ''}-${page}-${orderBy || ''}`,
-    () => getList({ page, orderBy, search }, token),
+    `GET-ORIGINAL-NFT-LIST-${search || ''}-${type}-${page}-${orderBy || ''}`,
+    () => getList({ page, orderBy, search, type }, token),
     {
       refetchInterval,
       ...configQuery
