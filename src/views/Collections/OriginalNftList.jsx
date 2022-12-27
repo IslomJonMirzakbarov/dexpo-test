@@ -210,10 +210,12 @@ const OriginalNftList = () => {
                         artistName={artist.artist_name}
                         description={nft.token_name}
                         // priceType={priceTypeChar?.[market?.type]}
-                        hasAction
+                        hasAction={false}
+                        isSold={originalNft.is_sold}
                         purchaseCount={nft.like_count}
                         hasOriginal
                         tokenId={nft?.token_id}
+                        isOriginalNft
                         contractAddress={collection?.contract_address}
                         onClick={() =>
                           handleNavigate(

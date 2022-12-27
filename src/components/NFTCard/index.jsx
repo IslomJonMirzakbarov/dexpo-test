@@ -35,7 +35,9 @@ const NFTCard = ({
   isDefault = false,
   className,
   hasShadow = true,
-  hasOriginal
+  hasOriginal,
+  isSold,
+  isOriginalNft
 }) => {
   // console.log(collection);
   const leftDays = endDate && startDate && calculateDeadline(startDate, endDate)
@@ -134,6 +136,16 @@ const NFTCard = ({
               className={page === 'about' && styles.aboutBtn}
             >
               Buy now
+            </Button>
+          )}
+          {isOriginalNft && (
+            <Button
+              disabled={isSold}
+              fullWidth
+              variant={buttonVariant}
+              onClick={onAction}
+            >
+              {isSold ? 'Sold out' : 'Buy now'}
             </Button>
           )}
         </Box>
