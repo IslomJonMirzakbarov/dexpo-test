@@ -115,7 +115,7 @@ const CollectionDetailsContainer = ({
               nftName={nft?.token_name}
               // isOriginal={nft?.has_original}
               description={nft?.token_description}
-              type={priceTypeChar?.[market?.type]}
+              //type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
               artistWallet={nft?.creator_address}
             />
@@ -183,9 +183,10 @@ const CollectionDetailsContainer = ({
                     variant='containedSecondary'
                     fullWidth
                     sx={{ height: 55 }}
+                    disabled={orginalNftDetail.is_sold}
                     onClick={() => setOpenContactInfo((prev) => !prev)}
                   >
-                    Contact us
+                    {orginalNftDetail.is_sold ? 'Sold out' : 'Contact us'}
                   </Button>
                 </Box>
               </Box>

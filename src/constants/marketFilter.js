@@ -5,7 +5,7 @@ export const marketFilters = {
   LOW_TO_HIGH: 'LOW_TO_HIGH',
   HIGH_TO_LOW: 'HIGH_TO_LOW',
   MOST_FAVORITE: 'MOST_FAVORITE'
-};
+}
 
 export const marketFilterList = [
   {
@@ -32,4 +32,23 @@ export const marketFilterList = [
     value: 'MOST_FAVORITE',
     label: 'Most favorite'
   }
-];
+]
+
+export const orginalNftFilterList = [
+  {
+    value: 'RECENTLY_LISTED',
+    label: 'Recently listed'
+  },
+  {
+    value: 'RECENTLY_SOLD',
+    label: 'Recently sold'
+  },
+  {
+    value: 'LOW_TO_HIGH',
+    label: 'Low to high'
+  },
+  {
+    value: 'HIGH_TO_LOW',
+    label: 'High to low'
+  }
+]
