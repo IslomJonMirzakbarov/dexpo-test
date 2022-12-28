@@ -64,10 +64,13 @@ const OriginalNftList = () => {
   const [input, setInput] = useState(urlDetails?.search)
 
   const filter = useMemo(() => {
-    const seletedFilter = marketFilterList.find((item) =>
-      item.value.includes(urlDetails?.filter)
-    )
-    return seletedFilter
+    if (urlDetails?.filter) {
+      const seletedFilter = orginalNftFilterList.find((item) =>
+        item.value.includes(urlDetails?.filter)
+      )
+      return seletedFilter
+    }
+    return ''
   }, [urlDetails?.filter])
 
   const page = useMemo(
@@ -117,7 +120,7 @@ const OriginalNftList = () => {
       search: createSearchParams({
         page: 1,
         search: e.target.value,
-        filter: filter?.value
+        filter: filter?.value || ''
       }).toString()
     })
   }
