@@ -59,10 +59,13 @@ const Collections = () => {
   const [input, setInput] = useState(urlDetails?.search)
 
   const filter = useMemo(() => {
-    const seletedFilter = marketFilterList.find((item) =>
-      item.value.includes(urlDetails?.filter)
-    )
-    return seletedFilter
+    if (urlDetails?.filter) {
+      const seletedFilter = marketFilterList.find((item) =>
+        item.value.includes(urlDetails?.filter)
+      )
+      return seletedFilter
+    }
+    return ''
   }, [urlDetails?.filter])
 
   const page = useMemo(
@@ -97,13 +100,15 @@ const Collections = () => {
     }
   }
 
+  console.log('filter', filter)
+
   const handleChange = (e) => {
     setInput(e.target.value)
     navigate({
       pathname: '/marketplace',
       search: createSearchParams({
         page: 1,
-        filter: filter?.value,
+        filter: filter?.value || '',
         search: e.target.value
       }).toString()
     })
