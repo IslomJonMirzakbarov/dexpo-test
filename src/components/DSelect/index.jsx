@@ -1,31 +1,41 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import styles from './style.module.scss';
-import classNames from 'classnames';
+import { Box, Typography } from "@mui/material";
+import React from "react";
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import styles from "./style.module.scss";
+import classNames from "classnames";
 
 const DSelect = ({
-  label = 'Title',
+  active,
+  label = "Title",
   isDark = false,
   hasGradient = true,
   value,
   items,
-  onSelect
+  onSelect,
 }) => {
+  const isCreatedActive =
+    active === "created" || active === "Items" || active === "Collections";
+  const isCreatedValues =
+    value?.label === "Items" || value?.label === "Collections";
   return (
     <Box className={styles.select}>
       <Box
         className={classNames(styles.control, {
           [styles.dark]: isDark,
-          [styles.simple]: !hasGradient
+          [styles.simple]: !hasGradient,
         })}
       >
-        <Typography variant="placeholder">
-          {!value ? label : value?.label}
+        <Typography
+          variant="placeholder"
+          className={isCreatedActive && styles.CreatedAcitve}
+        >
+          {!value ? label : isCreatedValues ? "Created" : value?.label}
         </Typography>
         {!hasGradient ? (
-          <KeyboardArrowDownRoundedIcon />
+          <KeyboardArrowDownRoundedIcon
+            style={{ color: isCreatedActive && "#FF006B" }}
+          />
         ) : (
           <ExpandCircleDownIcon />
         )}

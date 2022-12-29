@@ -1,4 +1,4 @@
-@use '/src/scss/colors';
+@use "/src/scss/colors";
 
 .select {
   position: relative;
@@ -59,7 +59,7 @@
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 100%;
       left: 0;
@@ -128,4 +128,8 @@
       }
     }
   }
+}
+
+.CreatedAcitve {
+  color: #000 !important;
 }
