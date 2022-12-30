@@ -68,7 +68,7 @@ const CollectionInfo = ({
                 mb={1.2}
               >
                 <NumberFormat
-                  value={numFormat(charCurrency(price.value)?.amount)}
+                  value={numFormat(charCurrency(price.value)?.amount, 'collectionDetail')}
                   suffix={charCurrency(price.value)?.char}
                   displayType={"text"}
                   thousandSeparator={true}

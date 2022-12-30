@@ -2,10 +2,10 @@ export const charCurrency = (currency) => {
   let char, amount;
 
   if (currency / Math.pow(10, 18) >= 1) {
-    char = "Quintillion";
+    char = "QT";
     amount = currency / Math.pow(10, 18);
   } else if (currency / Math.pow(10, 15) >= 1) {
-    char = "Quadrillion";
+    char = "QD";
     amount = currency / Math.pow(10, 15);
   } else if (currency / Math.pow(10, 12) >= 1) {
     char = "T";
