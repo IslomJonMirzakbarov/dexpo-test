@@ -5,9 +5,9 @@ const numFormat = (num, page = "") => {
   if (strNum.includes(".")) {
     const idx = strNum.indexOf(".");
     if (page === "collectionDetail") {
-      fixedNum = strNum.slice(0, idx);
+      fixedNum = strNum.slice(0, idx + 2);
     } else {
-      fixedNum = strNum.slice(0, idx + 1) + strNum.slice(idx + 1, idx + 5);
+      fixedNum = strNum.slice(0, idx + 5);
     }
     return Number(fixedNum);
   } else {

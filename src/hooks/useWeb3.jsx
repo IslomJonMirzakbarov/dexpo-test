@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
-import { useSelector } from 'react-redux';
-import { ERC20_ABI } from '../utils/abi/ERC20ABI';
-import { FIXED_MARKET_ABI } from '../utils/abi/FixedMarketABI';
-import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
-import { ERC721 } from '../utils/abi/ERC721ABI';
-import { FAUCET_ABI } from '../utils/abi/FaucetABI';
-import SingleABI from '../utils/abi/SingleABI';
+import React, { useEffect, useState } from "react";
+import Web3 from "web3";
+import { useSelector } from "react-redux";
+import { ERC20_ABI } from "../utils/abi/ERC20ABI";
+import { FIXED_MARKET_ABI } from "../utils/abi/FixedMarketABI";
+import { AUCTION_MARKET_ABI } from "../utils/abi/AuctionMarketABI";
+import { ERC721 } from "../utils/abi/ERC721ABI";
+import { FAUCET_ABI } from "../utils/abi/FaucetABI";
+import SingleABI from "../utils/abi/SingleABI";
 
 const web3 = new Web3(Web3.givenProvider);
 
 export const conAddress = import.meta.env.VITE_ERC20_HASH;
-export const symbol = 'CONX';
+export const symbol = "CONX";
 export const fixedContract = import.meta.env.VITE_FIXED_MARKET_HASH;
 export const auctionContract = import.meta.env.VITE_AUCTION_MARKET_HASH;
 export const faucetContractEnv = import.meta.env.VITE_FAUCET_CONTRACT;
 export const approveAmount = import.meta.env.VITE_APPROVE_AMOUNT;
 export const tokenImg =
-  'https://dexpo.s3.ap-northeast-2.amazonaws.com/1662393423341_con-token.png';
+  "https://dexpo.s3.ap-northeast-2.amazonaws.com/1662393423341_con-token.png";
 export const chainId = import.meta.env.VITE_CHAIN_ID;
 export const chainName = import.meta.env.VITE_CHAIN_NAME;
 export const rpcUrl = import.meta.env.VITE_RPC_URL;
@@ -36,21 +36,21 @@ const useWeb3 = () => {
   const tokenRegister = async () => {
     try {
       const wasAdded = await window.ethereum.request({
-        method: 'wallet_watchAsset',
+        method: "wallet_watchAsset",
         params: {
-          type: 'ERC20', // Initially only supports ERC20, but eventually more!
+          type: "ERC20", // Initially only supports ERC20, but eventually more!
           options: {
             address: conAddress, // The address that the token is at.
             symbol, // A ticker symbol or shorthand, up to 5 chars.
             decimals: 18, // The number of decimals in the token,
-            image: tokenImg
-          }
-        }
+            image: tokenImg,
+          },
+        },
       });
       if (wasAdded) {
-        console.log('Conx added successfully');
+        console.log("Conx added successfully");
       } else {
-        console.log('Fail on adding conx');
+        console.log("Fail on adding conx");
       }
     } catch (err) {
       console.log(err);
@@ -99,14 +99,14 @@ const useWeb3 = () => {
     const gasLimitApprove = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const approve = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .send({
         from: account,
-        gas: gasLimitApprove
+        gas: gasLimitApprove,
       });
 
     return approve;
@@ -118,14 +118,14 @@ const useWeb3 = () => {
     const gasLimitApprove = await contractRC20.methods
       .approve(contract, approveAmount)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const approve = await contractRC20.methods
       .approve(contract, approveAmount)
       .send({
         from: account,
-        gas: gasLimitApprove
+        gas: gasLimitApprove,
       });
 
     return approve;
@@ -138,21 +138,21 @@ const useWeb3 = () => {
       .place(
         contract_address,
         tokenId,
-        Web3.utils.toWei(String(price), 'ether')
+        Web3.utils.toWei(String(price), "ether")
       )
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await fixedMarket.methods
       .place(
         contract_address,
         tokenId,
-        Web3.utils.toWei(String(price), 'ether')
+        Web3.utils.toWei(String(price), "ether")
       )
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -164,14 +164,14 @@ const useWeb3 = () => {
     const gasLimit = await fixedMarket.methods
       .buy(contract_address, tokenId)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await fixedMarket.methods
       .buy(contract_address, tokenId)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -183,14 +183,14 @@ const useWeb3 = () => {
     const gasLimit = await fixedMarket.methods
       .unPlace(contract_address, tokenId)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await fixedMarket.methods
       .unPlace(contract_address, tokenId)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -205,14 +205,14 @@ const useWeb3 = () => {
     const gasLimit = await auctionMarket.methods
       .cancelAuction(contract_address, tokenId)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await auctionMarket.methods
       .cancelAuction(contract_address, tokenId)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -225,7 +225,7 @@ const useWeb3 = () => {
     startDate,
     endDate
   ) => {
-    const price = Web3.utils.toWei(startPrice, 'ether');
+    const price = Web3.utils.toWei(startPrice, "ether");
     const auctionMarket = new web3.eth.Contract(
       AUCTION_MARKET_ABI,
       auctionContract
@@ -234,21 +234,21 @@ const useWeb3 = () => {
     const gasLimit = await auctionMarket.methods
       .createAuction(contractAddress, tokenId, price, startDate, endDate)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await auctionMarket.methods
       .createAuction(contractAddress, tokenId, price, startDate, endDate)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
   };
 
   const bid = async (contract_address, tokenId, price) => {
-    const weidPrice = Web3.utils.toWei(String(price), 'ether');
+    const weidPrice = Web3.utils.toWei(String(price), "ether");
     const auctionMarket = new web3.eth.Contract(
       AUCTION_MARKET_ABI,
       auctionContract
@@ -257,78 +257,82 @@ const useWeb3 = () => {
     const gasLimit = await auctionMarket.methods
       .bid(contract_address, tokenId, weidPrice)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await auctionMarket.methods
       .bid(contract_address, tokenId, weidPrice)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
   };
 
-  const faucet = async (account) => {
+  const faucet = async (inputAccount) => {
     try {
       const faucetContract = new web3.eth.Contract(
         FAUCET_ABI,
         faucetContractEnv
       );
       const isClaimedWallet = await faucetContract.methods
-        .isClaimed(account)
+        .isClaimed(inputAccount)
         .call();
 
       if (isClaimedWallet)
         return {
           success: false,
-          message: 'Token was already claimed by this wallet address',
-          data: null
+          message: "Token was already claimed by this wallet address",
+          data: null,
         };
 
-      const gasLimit = await faucetContract.methods.claimToken().estimateGas({
-        from: account
-      });
+      const gasLimit = await faucetContract.methods
+        .claimToken(inputAccount)
+        .estimateGas({
+          from: account,
+        });
 
-      const result = await faucetContract.methods.claimToken().send({
-        from: account,
-        gas: gasLimit
-      });
+      const result = await faucetContract.methods
+        .claimToken(inputAccount)
+        .send({
+          from: account,
+          gas: gasLimit,
+        });
 
       return {
         success: true,
-        message: 'Token was successfuly claimed',
-        data: result
+        message: "Token was successfuly claimed",
+        data: result,
       };
     } catch (err) {
       console.log(err);
 
       return {
         success: false,
-        message: 'Transaction error',
-        data: null
+        message: "Transaction error",
+        data: null,
       };
     }
   };
 
   const addNetwork = async () => {
     await window.ethereum.request({
-      method: 'wallet_addEthereumChain',
+      method: "wallet_addEthereumChain",
       params: [
         {
           chainName: chainName,
           chainId: web3.utils.toHex(chainId),
           nativeCurrency: { name: conName, decimals: 18, symbol: conName },
-          rpcUrls: [rpcUrl]
-        }
-      ]
+          rpcUrls: [rpcUrl],
+        },
+      ],
     });
   };
 
   const switchNetwork = async () => {
     await web3.currentProvider.request({
-      method: 'wallet_addEthereumChain',
+      method: "wallet_addEthereumChain",
       params: [
         {
           chainId: web3.utils.toHex(chainId),
@@ -337,10 +341,10 @@ const useWeb3 = () => {
           nativeCurrency: {
             name: conName,
             decimals: 18,
-            symbol: conName
-          }
-        }
-      ]
+            symbol: conName,
+          },
+        },
+      ],
     });
   };
 
@@ -352,13 +356,13 @@ const useWeb3 = () => {
         .mint(account, metadata)
         .estimateGas({
           gasPrice,
-          from: account
+          from: account,
         });
 
       const res = await contractERC721.methods.mint(account, metadata).send({
         gasPrice,
         from: account,
-        gas: estimatedGas
+        gas: estimatedGas,
       });
 
       return res;
@@ -399,7 +403,7 @@ const useWeb3 = () => {
     checkAllowance,
     makeApprove721,
     checkAllowance721,
-    getTransactionReceipt
+    getTransactionReceipt,
   };
 };
 

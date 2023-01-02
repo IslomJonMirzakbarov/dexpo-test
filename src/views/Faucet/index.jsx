@@ -1,67 +1,67 @@
-import React from 'react';
-import { Paper, Box, Typography, Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import styles from './style.module.scss';
-import BetaIcon from '../../assets/icons/union.svg';
-import TokenIcon from '../../assets/images/con-token.svg?component';
-import { useForm } from 'react-hook-form';
-import FormInputText from '../../components/FormInputText';
-import NumberFormat from 'react-number-format';
-import useWeb3 from '../../hooks/useWeb3';
-import useToast from '../../hooks/useToast';
-import useCurrnetProvider from '../../hooks/useCurrentProvider';
-import numFormat from '../../utils/numFormat';
+import React, { useState } from "react";
+import { Paper, Box, Typography, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import styles from "./style.module.scss";
+import BetaIcon from "../../assets/icons/union.svg";
+import TokenIcon from "../../assets/images/con-token.svg?component";
+import { useForm } from "react-hook-form";
+import FormInputText from "../../components/FormInputText";
+import NumberFormat from "react-number-format";
+import useWeb3 from "../../hooks/useWeb3";
+import useToast from "../../hooks/useToast";
+import useCurrnetProvider from "../../hooks/useCurrentProvider";
+import numFormat from "../../utils/numFormat";
 
 const price = 1000;
 
 const useStyles = makeStyles((theme) => ({
   beta: {
     backgroundImage: `url(${BetaIcon})`,
-    backgroundSize: '90%',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center center',
-    padding: '15px 30px',
-    display: 'flex',
-    alignItems: 'center'
+    backgroundSize: "90%",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
+    padding: "15px 30px",
+    display: "flex",
+    alignItems: "center",
   },
   icon: {
     width: 65,
     height: 65,
     marginTop: 20,
-    marginLeft: 5
+    marginLeft: 5,
   },
   price: {
-    width: '100%',
+    width: "100%",
     backgroundColor: theme.palette.common.white,
-    transition: '0.4s ease all',
+    transition: "0.4s ease all",
     borderRadius: 7,
-    cursor: 'pointer',
-    boxShadow: '-1px 1px 16px 7px rgba(0, 0, 0, 0.06)',
-    padding: '10px 15px'
+    cursor: "pointer",
+    boxShadow: "-1px 1px 16px 7px rgba(0, 0, 0, 0.06)",
+    padding: "10px 15px",
   },
   token: {
     width: 27,
-    height: 27
+    height: 27,
   },
   btn: {
-    marginTop: 70
-  }
+    marginTop: 70,
+  },
 }));
 
 const Faucet = () => {
   const classes = useStyles();
-  const { faucet } = useCurrnetProvider();
   const { toast } = useToast();
-
+  const { faucet } = useCurrnetProvider();
   const { control, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    const account = data.account;
+    const inputAccount = data.account;
 
-    if (account?.length !== 42) return toast.error('Invalid wallet address!');
+    if (inputAccount?.length !== 42)
+      return toast.error("Invalid wallet address!");
 
     try {
-      const res = await faucet(account);
+      const res = await faucet(inputAccount);
 
       if (res?.success) return toast.success(res.message);
       else return toast.error(res.message);
@@ -133,7 +133,7 @@ const Faucet = () => {
               <Typography fontWeight={600} fontSize="22px">
                 <NumberFormat
                   value={numFormat(price)}
-                  displayType={'text'}
+                  displayType={"text"}
                   thousandSeparator={true}
                 />
               </Typography>
