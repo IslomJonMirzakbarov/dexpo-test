@@ -183,10 +183,10 @@ const CollectionDetailsContainer = ({
                     variant='containedSecondary'
                     fullWidth
                     sx={{ height: 55 }}
-                    disabled={orginalNftDetail.is_sold}
+                    disabled={orginalNftDetail?.is_sold}
                     onClick={() => setOpenContactInfo((prev) => !prev)}
                   >
-                    {orginalNftDetail.is_sold ? 'Sold out' : 'Contact us'}
+                    {orginalNftDetail?.is_sold ? 'Sold out' : 'Contact us'}
                   </Button>
                 </Box>
               </Box>
