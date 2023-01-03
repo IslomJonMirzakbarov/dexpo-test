@@ -1,17 +1,17 @@
-import React from 'react';
-import { Box, Paper, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import classNames from 'classnames';
-import { setSelectedTab } from '../../store/myPage/myPage.slice';
-import DSelect from '../DSelect';
-import styles from './style.module.scss';
+import React from "react";
+import { Box, Paper, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import classNames from "classnames";
+import { setSelectedTab } from "../../store/myPage/myPage.slice";
+import DSelect from "../DSelect";
+import styles from "./style.module.scss";
 
 const DTabs = ({
   values,
-  active = 'collections',
+  active = "collections",
   onSelect,
   setValues,
-  className
+  className,
 }) => {
   const dispatch = useDispatch();
   const handleSelect = (item, index) => {
@@ -29,13 +29,14 @@ const DTabs = ({
         {values.map((value, v) => (
           <li
             className={classNames(styles.item, {
-              [styles.active]: value.value === active
+              [styles.active]: value.value === active,
             })}
             key={v}
             onClick={() => onSelect(value)}
           >
             {value.children ? (
               <DSelect
+                active={active}
                 items={value.children}
                 value={value}
                 hasGradient={false}

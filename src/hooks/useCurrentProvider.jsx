@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import useKaikas from './useKaikas';
-import useWeb3 from './useWeb3';
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import useKaikas from "./useKaikas";
+import useWeb3 from "./useWeb3";
 
 const useCurrnetProvider = () => {
   const { type } = useSelector((store) => store.wallet);
@@ -11,7 +11,7 @@ const useCurrnetProvider = () => {
 
   const selected = useMemo(() => {
     if (!type) return;
-    return type.includes('metamask') ? metamask : kaikas;
+    return type.includes("metamask") ? metamask : kaikas;
   }, [type]);
 
   return { ...selected };

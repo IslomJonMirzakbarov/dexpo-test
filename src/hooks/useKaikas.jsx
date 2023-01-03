@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   approveAmount,
   auctionContract,
@@ -11,14 +11,14 @@ import {
   fixedContract,
   rpcUrl,
   symbol,
-  tokenImg
-} from './useWeb3';
-import { ERC20_ABI } from '../utils/abi/ERC20ABI';
-import { ERC721 } from '../utils/abi/ERC721ABI';
-import { FIXED_MARKET_ABI } from '../utils/abi/FixedMarketABI';
-import { AUCTION_MARKET_ABI } from '../utils/abi/AuctionMarketABI';
-import { FAUCET_ABI } from '../utils/abi/FaucetABI';
-import SingleABI from '../utils/abi/SingleABI';
+  tokenImg,
+} from "./useWeb3";
+import { ERC20_ABI } from "../utils/abi/ERC20ABI";
+import { ERC721 } from "../utils/abi/ERC721ABI";
+import { FIXED_MARKET_ABI } from "../utils/abi/FixedMarketABI";
+import { AUCTION_MARKET_ABI } from "../utils/abi/AuctionMarketABI";
+import { FAUCET_ABI } from "../utils/abi/FaucetABI";
+import SingleABI from "../utils/abi/SingleABI";
 
 // const { klaytn } = window;
 // const caver = new Caver(klaytn);
@@ -39,21 +39,21 @@ const useKaikas = () => {
   const tokenRegister = async () => {
     try {
       const wasAdded = await caver.request({
-        method: 'wallet_watchAsset',
+        method: "wallet_watchAsset",
         params: {
-          type: 'ERC20', // Initially only supports ERC20, but eventually more!
+          type: "ERC20", // Initially only supports ERC20, but eventually more!
           options: {
             address: conAddress, // The address that the token is at.
             symbol, // A ticker symbol or shorthand, up to 5 chars.
             decimals: 18, // The number of decimals in the token,
-            image: tokenImg
-          }
-        }
+            image: tokenImg,
+          },
+        },
       });
       if (wasAdded) {
-        console.log('Conx added successfully');
+        console.log("Conx added successfully");
       } else {
-        console.log('Fail on adding conx');
+        console.log("Fail on adding conx");
       }
     } catch (err) {
       console.log(err);
@@ -100,14 +100,14 @@ const useKaikas = () => {
     const gasLimitApprove = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const approve = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .send({
         from: account,
-        gas: gasLimitApprove
+        gas: gasLimitApprove,
       });
 
     return approve;
@@ -121,14 +121,14 @@ const useKaikas = () => {
       const gasLimitApprove = await contractRC20.methods
         .approve(contract, approveAmount)
         .estimateGas({
-          from: account
+          from: account,
         });
 
       const approve = await contractRC20.methods
         .approve(contract, approveAmount)
         .send({
           from: account,
-          gas: gasLimitApprove
+          gas: gasLimitApprove,
         });
 
       return approve;
@@ -147,21 +147,21 @@ const useKaikas = () => {
       .place(
         contract_address,
         tokenId,
-        caver.utils.toWei(String(price), 'ether')
+        caver.utils.toWei(String(price), "ether")
       )
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await fixedMarket.methods
       .place(
         contract_address,
         tokenId,
-        caver.utils.toWei(String(price), 'ether')
+        caver.utils.toWei(String(price), "ether")
       )
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -176,14 +176,14 @@ const useKaikas = () => {
     const gasLimit = await fixedMarket.methods
       .buy(contract_address, tokenId)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await fixedMarket.methods
       .buy(contract_address, tokenId)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -198,14 +198,14 @@ const useKaikas = () => {
     const gasLimit = await fixedMarket.methods
       .unPlace(contract_address, tokenId)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await fixedMarket.methods
       .unPlace(contract_address, tokenId)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -220,14 +220,14 @@ const useKaikas = () => {
     const gasLimit = await auctionMarket.methods
       .cancelAuction(contract_address, tokenId)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await auctionMarket.methods
       .cancelAuction(contract_address, tokenId)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
@@ -240,7 +240,7 @@ const useKaikas = () => {
     startDate,
     endDate
   ) => {
-    const price = caver.utils.toWei(startPrice, 'ether');
+    const price = caver.utils.toWei(startPrice, "ether");
     const auctionMarket = new caver.klay.Contract(
       AUCTION_MARKET_ABI,
       auctionContract
@@ -249,21 +249,21 @@ const useKaikas = () => {
     const gasLimit = await auctionMarket.methods
       .createAuction(contractAddress, tokenId, price, startDate, endDate)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await auctionMarket.methods
       .createAuction(contractAddress, tokenId, price, startDate, endDate)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
   };
 
   const bid = async (contract_address, tokenId, price) => {
-    const weidPrice = caver.utils.toWei(String(price), 'ether');
+    const weidPrice = caver.utils.toWei(String(price), "ether");
     const auctionMarket = new caver.klay.Contract(
       AUCTION_MARKET_ABI,
       auctionContract
@@ -272,78 +272,82 @@ const useKaikas = () => {
     const gasLimit = await auctionMarket.methods
       .bid(contract_address, tokenId, weidPrice)
       .estimateGas({
-        from: account
+        from: account,
       });
 
     const result = await auctionMarket.methods
       .bid(contract_address, tokenId, weidPrice)
       .send({
         from: account,
-        gas: gasLimit
+        gas: gasLimit,
       });
 
     return result;
   };
 
-  const faucet = async (account) => {
+  const faucet = async (inputAccount) => {
     try {
       const faucetContract = new caver.klay.Contract(
         FAUCET_ABI,
         faucetContractEnv
       );
       const isClaimedWallet = await faucetContract.methods
-        .isClaimed(account)
+        .isClaimed(inputAccount)
         .call();
 
       if (isClaimedWallet)
         return {
           success: false,
-          message: 'Token was already claimed by this wallet address',
-          data: null
+          message: "Token was already claimed by this wallet address",
+          data: null,
         };
 
-      const gasLimit = await faucetContract.methods.claimToken().estimateGas({
-        from: account
-      });
+      const gasLimit = await faucetContract.methods
+        .claimToken(inputAccount)
+        .estimateGas({
+          from: account,
+        });
 
-      const result = await faucetContract.methods.claimToken().send({
-        from: account,
-        gas: gasLimit
-      });
+      const result = await faucetContract.methods
+        .claimToken(inputAccount)
+        .send({
+          from: account,
+          gas: gasLimit,
+        });
 
       return {
         success: true,
-        message: 'Token was successfuly claimed',
-        data: result
+        message: "Token was successfuly claimed",
+        data: result,
       };
     } catch (err) {
       console.log(err);
 
       return {
         success: false,
-        message: 'Transaction error',
-        data: null
+        message: "Transaction error",
+        data: null,
       };
     }
   };
 
   const addNetwork = async () => {
     await window.ethereum.request({
-      method: 'wallet_addEthereumChain',
+      method: "wallet_addEthereumChain",
       params: [
         {
           chainName: chainName,
           chainId: caver.utils.toHex(chainId),
           nativeCurrency: { name: conName, decimals: 18, symbol: conName },
-          rpcUrls: [rpcUrl]
-        }
-      ]
+          rpcUrls: [rpcUrl],
+        },
+      ],
     });
   };
 
   const switchNetwork = async () => {
     await caver.currentProvider.request({
-      method: 'wallet_addEthereumChain',
+      method: "wallet_addEthereumChain",
       params: [
         {
           chainId: caver.utils.toHex(chainId),
@@ -352,10 +356,10 @@ const useKaikas = () => {
           nativeCurrency: {
             name: conName,
             decimals: 18,
-            symbol: conName
-          }
-        }
-      ]
+            symbol: conName,
+          },
+        },
+      ],
     });
   };
 
@@ -367,13 +371,13 @@ const useKaikas = () => {
         .mint(account, metadata)
         .estimateGas({
           gasPrice,
-          from: account
+          from: account,
         });
 
       const res = await contractERC721.methods.mint(account, metadata).send({
         gasPrice,
         from: account,
-        gas: estimatedGas
+        gas: estimatedGas,
       });
 
       return res;
@@ -414,7 +418,7 @@ const useKaikas = () => {
     checkAllowance,
     makeApprove721,
     checkAllowance721,
-    getTransactionReceipt
+    getTransactionReceipt,
   };
 };
 

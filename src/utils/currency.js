@@ -1,22 +1,31 @@
 export const charCurrency = (currency) => {
   let char, amount;
 
-  if (currency / 1000000000 >= 1) {
-    char = 'b';
-    amount = currency / 1000000;
-  } else if (currency / 1000000 >= 1) {
-    char = 'm';
-    amount = currency / 1000000;
-  } else if (currency / 1000 >= 1) {
-    char = 'k';
-    amount = currency / 1000;
+  if (currency / Math.pow(10, 18) >= 1) {
+    char = "QT";
+    amount = currency / Math.pow(10, 18);
+  } else if (currency / Math.pow(10, 15) >= 1) {
+    char = "QD";
+    amount = currency / Math.pow(10, 15);
+  } else if (currency / Math.pow(10, 12) >= 1) {
+    char = "T";
+    amount = currency / Math.pow(10, 12);
+  } else if (currency / Math.pow(10, 9) >= 1) {
+    char = "B";
+    amount = currency / Math.pow(10, 9);
+  } else if (currency / Math.pow(10, 6) >= 1) {
+    char = "M";
+    amount = currency / Math.pow(10, 6);
+  } else if (currency / Math.pow(10, 3) >= 1) {
+    char = "K";
+    amount = currency / Math.pow(10, 3);
   } else {
-    char = '';
+    char = "";
     amount = currency;
   }
 
   return {
     char,
-    amount
+    amount,
   };
 };
