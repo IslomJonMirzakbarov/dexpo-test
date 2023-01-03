@@ -17,15 +17,6 @@ i18n
       escapeValue: false, // not needed for react as it escapes by default
     },
     resources: {
-      en: {
-        translation: {
-          description: {
-            part1: "Edit <1>src/App.js</1> and save to reload.",
-            part2: "Learn React",
-          },
-          searchPlaceHolder: "",
-        },
-      },
       kr: {
         translation: {
           description: {
@@ -33,6 +24,11 @@ i18n
             part2: "Lerne tedk",
           },
           searchPlaceHolder: "작품 및 계정 검색",
+          Create_Nft: "NFT 생성",
+          Marketplace: "마켓플레이스",
+          Contact: "문의",
+          Rankings: "랭킹",
+          Swap: "스왑",
         },
       },
     },
