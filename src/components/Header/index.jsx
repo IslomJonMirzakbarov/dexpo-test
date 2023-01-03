@@ -1,21 +1,22 @@
-import { createRef, useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import SearchField from '../Autocomplete';
-import AutocompleteList from '../AutocompleteList';
-import BackButton from '../BackButton';
-import IconGenerator from '../IconPicker/IconGenerator';
-import styles from './style.module.scss';
-import { debounce } from 'lodash';
-import useSearchAPI from '../../hooks/useSearchAPI';
-import LinkListResponsive from '../../layouts/MergedLayout/LinkList/index.responsive';
-import SearchFieldResponsive from '../Autocomplete/index.responsive';
-import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
-import { useTheme } from '@mui/styles';
-import { useMediaQuery } from '@mui/material';
-import Img from 'react-cool-img';
+import { createRef, useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import SearchField from "../Autocomplete";
+import AutocompleteList from "../AutocompleteList";
+import BackButton from "../BackButton";
+import IconGenerator from "../IconPicker/IconGenerator";
+import styles from "./style.module.scss";
+import { debounce } from "lodash";
+import useSearchAPI from "../../hooks/useSearchAPI";
+import LinkListResponsive from "../../layouts/MergedLayout/LinkList/index.responsive";
+import SearchFieldResponsive from "../Autocomplete/index.responsive";
+import { useOnClickOutside } from "../../hooks/useOnOutsideClick";
+import { useTheme } from "@mui/styles";
+import { useMediaQuery } from "@mui/material";
+import Img from "react-cool-img";
+import { Trans, useTranslation } from "react-i18next";
 
 const Header = ({
-  title = '',
+  title = "",
   subtitle,
   extra,
   children,
@@ -31,10 +32,10 @@ const Header = ({
   const listRef = createRef();
   const listResponsiveRef = createRef();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [search, setSearch] = useState('');
-  const [debouncedValue, setDebouncedValue] = useState('');
+  const [search, setSearch] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenResponsive, setIsOpenResponsive] = useState(false);
 
@@ -46,7 +47,7 @@ const Header = ({
   );
 
   const clear = () => {
-    setSearch('');
+    setSearch("");
     setIsOpen(false);
     setIsOpenResponsive(false);
   };
@@ -81,9 +82,16 @@ const Header = ({
 
   useOnClickOutside(listResponsiveRef, handleCloseResponsive);
 
+  const lngs = {
+    en: { nativeName: "English" },
+    kr: { nativeName: "Korean" },
+  };
+
+  const { i18n } = useTranslation();
+
   return (
     <div
-      className={`${styles.header} ${sticky ? styles.sticky : ''}`}
+      className={`${styles.header} ${sticky ? styles.sticky : ""}`}
       {...props}
     >
       <div className={styles.leftSide}>
@@ -97,7 +105,7 @@ const Header = ({
             alt="logo"
             width={132}
             height={30}
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           />
         )}
 
@@ -137,6 +145,35 @@ const Header = ({
           />
         </div>
       </div>
+
+      <div>
+        {Object.keys(lngs).map((lng) => (
+          <button
+            key={lng}
+            style={{
+              fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
+            }}
+            type="submit"
+            onClick={() => i18n.changeLanguage(lng)}
+          >
+            {lngs[lng].nativeName}
+          </button>
+        ))}
+      </div>
+
+      {/* <p>
+        <Trans i18nKey="description.part1">
+          Edit <code>src/App.js</code> and save to reload.
+        </Trans>
+      </p>
+      <a
+        className="App-link"
+        href="https://reactjs.org"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {t("description.part2")}
+      </a> */}
     </div>
   );
 };

@@ -1,27 +1,26 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/system';
-import AboutCoverage from '../../assets/icons/about-coverage2.svg?component';
-import DexpoIcon from '../../assets/icons/edit-collection-hover.svg?component';
-import StorageImage from '../../assets/images/storage-image.png';
-import MintImage from '../../assets/images/mint-image2.png';
-import TradeImage from '../../assets/images/trade-image.png';
-import AuditionImage from '../../assets/images/audition-image.png';
-import CollabImage from '../../assets/images/collab-image.png';
-import { Button, Container, Grid, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/styles';
-import classNames from 'classnames';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
+import AboutCoverage from "../../assets/icons/about-coverage2.svg?component";
+import DexpoIcon from "../../assets/icons/edit-collection-hover.svg?component";
+import StorageImage from "../../assets/images/storage-image.png";
+import MintImage from "../../assets/images/mint-image2.png";
+import TradeImage from "../../assets/images/trade-image.png";
+import AuditionImage from "../../assets/images/audition-image.png";
+import CollabImage from "../../assets/images/collab-image.png";
+import { Button, Container, Grid, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/styles";
+import classNames from "classnames";
 import useCollecionsByCategory, {
-  categoryTypes
-} from '../../hooks/useCollectionsByCategoryAPI';
-import NFTCard from '../../components/NFTCard';
-import { priceTypeChar } from '../../constants';
-import Slider from 'react-slick';
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-
-import styles from './style.module.scss';
-import styles2 from './style2.module.scss';
+  categoryTypes,
+} from "../../hooks/useCollectionsByCategoryAPI";
+import NFTCard from "../../components/NFTCard";
+import { priceTypeChar } from "../../constants";
+import Slider from "react-slick";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import styles from "./style.module.scss";
+import styles2 from "./style2.module.scss";
 
 const slidesToShow = 4;
 
@@ -40,16 +39,16 @@ const settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: false,
-        dots: true
-      }
-    }
-  ]
+        dots: true,
+      },
+    },
+  ],
 };
 
 const About = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const [refetchInterval, setRefetchInterval] = useState(false);
 
   const { collections, isLoading } = useCollecionsByCategory(
@@ -78,7 +77,7 @@ const About = () => {
         <Button
           variant="containedPrimary"
           className={styles.ExploreBtn}
-          onClick={() => navigate('/marketplace')}
+          onClick={() => navigate("/marketplace")}
         >
           Explore
         </Button>
@@ -172,7 +171,7 @@ const About = () => {
               <img src={TradeImage} alt="" />
             </div>
             <div className={styles.TradeTxt}>
-              OceanDrive users can be rewarded <br /> with CYCON COIN and can{' '}
+              OceanDrive users can be rewarded <br /> with CYCON COIN and can{" "}
               <br /> buy and sell NFTs with CYCON in DEXPO.
             </div>
           </div>
@@ -183,7 +182,7 @@ const About = () => {
               <img src={AuditionImage} alt="" />
             </div>
             <div className={styles.AuditionTxt}>
-              Through an audition, all <br /> information regarding the artists{' '}
+              Through an audition, all <br /> information regarding the artists{" "}
               <br /> will be checked and processed.
             </div>
           </div>
