@@ -3,18 +3,13 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
-  // detect user language
-  // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(LanguageDetector)
-  // pass the i18n instance to react-i18next.
   .use(initReactI18next)
-  // init i18next
-  // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     debug: true,
     fallbackLng: "en",
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+      escapeValue: false,
     },
     resources: {
       en: {
@@ -80,7 +75,32 @@ i18n
           Kakaotalk: "Kakaotalk",
           Discord: "Discord",
 
-
+          ArtistFormTitle: "Artist application form",
+          "Artist Name": "Artist Name",
+          "Enter an artist name": "Enter an artist name",
+          "E-mail": "E-mail",
+          "Enter your email address": "Enter your email address",
+          "Wallet address": "Wallet address",
+          "YouTube URL (optional)": "YouTube URL (optional)",
+          "Enter your YouTube url": "Enter your YouTube url",
+          "Description of content": "Description of content",
+          "Describe your fields of artwork": "Describe your fields of artwork",
+          Submit: "Submit",
+          "Please enter all required values.":
+            "Please enter all required values.",
+          "Your request was submitted successfully and":
+            "Your request was submitted successfully and",
+          "sent to admin for review.": "sent to admin for review.",
+          "1. Scan the QR code and you will be directed to Telegram.":
+            "1. Scan the QR code and you will be directed to Telegram.",
+          "2. You can also check your status on":
+            "2. You can also check your status on",
+          "My Page > My application tab.": "My Page > My application tab.",
+          "Rejected!": "Rejected!",
+          "Artist registration has been rejected.Please contact  [support@dexpo.world]":
+            "Artist registration has been rejected.Please contact  [support@dexpo.world]",
+          "for resubmission.": "for resubmission.",
+          "An invalid email address!": "An invalid email address!",
         },
       },
       kr: {
@@ -148,7 +168,32 @@ i18n
           Kakaotalk: "Kakaotalk",
           Discord: "Discord",
 
-          
+          ArtistFormTitle: "작가 등록",
+          "Artist Name": "작가명",
+          "Enter an artist name": "작가 이름을 입력하세요",
+          "E-mail": "이메일",
+          "Enter your email address": "이메일 주소를 입력하세요",
+          "Wallet address": "지갑 주소",
+          "YouTube URL (optional)": "YouTube URL (선택)",
+          "Enter your YouTube url": "YouTube URL을 입력하세요",
+          "Description of content": "내용",
+          "Describe your fields of artwork":
+            "작가의 예술 분야 등 내용을 입력하세요",
+          Submit: "확인",
+          "Please enter all required values.": "모든 필수 값을 입력하십시오.",
+          "Your request was submitted successfully and":
+            "귀하의 요청이 성공적으로 제출되었으며",
+          "sent to admin for review.": "검토를 위해 관리자에게 보냈습니다.",
+          "1. Scan the QR code and you will be directed to Telegram.":
+            "1. QR 코드를 스캔하면 텔레그램으로 이동합니다.",
+          "2. You can also check your status on":
+            "2. 당신은 또한 당신의 상태를 확인할 수 있습니다",
+          "My Page > My application tab.": "마이페이지 > 나의 지원서 탭.",
+          "Rejected!": "거부되었습니다!",
+          "Artist registration has been rejected.Please contact  [support@dexpo.world]":
+            "아티스트 등록이 거부되었습니다.[support@dexpo.world]로 문의하십시오.",
+          "for resubmission.": "다시 제출하기 위해.",
+          "An invalid email address!": "유효하지 않은 이메일 주소!",
         },
       },
     },

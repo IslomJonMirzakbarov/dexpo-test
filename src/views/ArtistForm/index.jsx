@@ -18,10 +18,12 @@ import SpinningIcon from "../../assets/icons/spinning-icon.svg?component";
 
 import styles from "./style.module.scss";
 import { errorMessages } from "../../constants/errorHandlers";
+import { useTranslation } from "react-i18next";
 
 const ArtistForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const { account } = useSelector((store) => store.wallet);
 
@@ -95,7 +97,7 @@ const ArtistForm = () => {
         },
       });
     } else {
-      return toast.error("An invalid email address!");
+      return toast.error(t("An invalid email address!"));
     }
   };
 
@@ -119,34 +121,36 @@ const ArtistForm = () => {
           className={styles.FormContainer}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Box className={styles.Title}>Artist application form</Box>
+          <Box className={styles.Title}>{t("ArtistFormTitle")}</Box>
 
           <Box className={styles.NameContainer}>
             <Typography variant="label" className={styles.Label}>
-              Artist Name<span className={styles.LabelSpan}>*</span>
+              {t("Artist Name")}
+              <span className={styles.LabelSpan}>*</span>
             </Typography>
             <FormInputText
               artistInput
               name="artistName"
               control={control}
-              label="Enter an artist name"
+              label={t("Enter an artist name")}
             />
           </Box>
 
           <Box className={styles.EmailContainer}>
             <Box className={styles.Label}>
-              E-mail<span className={styles.LabelSpan}>*</span>
+              {t("E-mail")}
+              <span className={styles.LabelSpan}>*</span>
             </Box>
             <FormInputText
               artistInput
               name="email"
               control={control}
-              label="Enter your email address"
+              label={t("Enter your email address")}
             />
           </Box>
 
           <Box className={styles.WalletAddressContainer}>
-            <Box className={styles.Label}>Wallet address</Box>
+            <Box className={styles.Label}>{t("Wallet address")}</Box>
             <FormInputText
               artistInput
               name="walletAddress"
@@ -156,25 +160,25 @@ const ArtistForm = () => {
           </Box>
 
           <Box className={styles.YouTubeContainer}>
-            <Box className={styles.Label}>YouTube URL (optional)</Box>
+            <Box className={styles.Label}>{t("YouTube URL (optional)")}</Box>
             <FormInputText
               artistInput
               name="youtubeURL"
               control={control}
-              label="Enter your YouTube url"
+              label={t("Enter your YouTube url")}
             />
           </Box>
 
           <Box className={styles.DescriptionContainer}>
             <Box className={styles.Label}>
-              Description of content
+              {t("Description of content")}
               <span className={styles.LabelSpan}>*</span>
             </Box>
             <FormInputText
               artistInput
               name="description"
               control={control}
-              label="Describe your fields of artwork"
+              label={t("Describe your fields of artwork")}
             />
           </Box>
 
@@ -188,12 +192,12 @@ const ArtistForm = () => {
               {create?.isLoading ? (
                 <SpinningIcon className={styles.SpinningIcon} />
               ) : (
-                "Submit"
+                t("Submit")
               )}
             </PrimaryButton>
             {Object.keys(errors).length > 0 && (
               <Box className={styles.ErrorPhrase}>
-                Please enter all required values.
+                {t("Please enter all required values.")}
               </Box>
             )}
           </Box>
@@ -223,15 +227,17 @@ const ArtistForm = () => {
           <Typography className={styles.SuccessProcessDesc}>
             <>
               <span className={styles.Sphrase}>
-                Your request was submitted successfully and
-                <br /> sent to admin for review.
+                {t("Your request was submitted successfully and")}
+                <br /> {t("sent to admin for review.")}
               </span>
               <br />
               <br />
-              1. Scan the QR code and you will be directed to Telegram. <br />{" "}
-              2. You can also check your status on{" "}
+              {t(
+                "1. Scan the QR code and you will be directed to Telegram."
+              )}{" "}
+              <br /> {t("2. You can also check your status on")}{" "}
               <span className={styles.MainDesc}>
-                My Page {">"} My application tab.
+                {t("My Page > My application tab.")}
               </span>
             </>
           </Typography>
@@ -246,11 +252,15 @@ const ArtistForm = () => {
           <Box className={styles.IconContainer}>
             <ArtistFormReject />
           </Box>
-          <Typography className={styles.ProcessTitle}>Rejected!</Typography>
+          <Typography className={styles.ProcessTitle}>
+            {t("Rejected!")}
+          </Typography>
           <Typography className={styles.ProcessDesc}>
             <>
-              Artist registration has been rejected.Please contact
-              [support@dexpo.world] <br /> for resubmission.
+              {t(
+                "Artist registration has been rejected.Please contact  [support@dexpo.world]"
+              )}{" "}
+              <br /> {t("for resubmission.")}
             </>
           </Typography>
         </ModalCard>
