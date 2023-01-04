@@ -4,6 +4,7 @@ import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import styles from "./style.module.scss";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 const DSelect = ({
   active,
@@ -18,6 +19,7 @@ const DSelect = ({
     active === "created" || active === "Items" || active === "Collections";
   const isCreatedValues =
     value?.label === "Items" || value?.label === "Collections";
+  const { t } = useTranslation();
   return (
     <Box className={styles.select}>
       <Box
@@ -30,7 +32,7 @@ const DSelect = ({
           variant="placeholder"
           className={isCreatedActive && styles.CreatedAcitve}
         >
-          {!value ? label : isCreatedValues ? "Created" : value?.label}
+          {!value ? t(label) : isCreatedValues ? t("Created") : t(value?.label)}
         </Typography>
         {!hasGradient ? (
           <KeyboardArrowDownRoundedIcon
@@ -48,7 +50,7 @@ const DSelect = ({
               className={styles.item}
               onClick={() => onSelect(item)}
             >
-              {item?.label}
+              {t(item?.label)}
             </li>
           ))}
         </ul>
