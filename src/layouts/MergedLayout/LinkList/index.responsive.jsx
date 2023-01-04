@@ -248,7 +248,7 @@ const LinkListResponsive = () => {
           onClick={() => navigate("/login")}
         >
           <Button variant="containedInherit" fullWidth>
-            Connect Wallet
+            {t("ConnectWallet")}
           </Button>
         </Box>
       </FramerList>

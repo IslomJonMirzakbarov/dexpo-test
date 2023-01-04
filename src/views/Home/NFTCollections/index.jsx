@@ -1,23 +1,24 @@
-import { Box, Container, Typography, useMediaQuery } from '@mui/material';
-import React from 'react';
-import styles from './style.module.scss';
-import classNames from 'classnames';
-import { useTheme } from '@mui/styles';
-import { useInView } from 'react-intersection-observer';
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
+import React from "react";
+import styles from "./style.module.scss";
+import classNames from "classnames";
+import { useTheme } from "@mui/styles";
+import { useInView } from "react-intersection-observer";
 import useCollecionsByCategory, {
-  categoryTypes
-} from '../../../hooks/useCollectionsByCategoryAPI';
-import { CollectionsSuspence } from './CollectionsContainer';
+  categoryTypes,
+} from "../../../hooks/useCollectionsByCategoryAPI";
+import { CollectionsSuspence } from "./CollectionsContainer";
+import { useTranslation } from "react-i18next";
 
-const CollectionsContainer = React.lazy(() => import('./CollectionsContainer')); // Lazy-loaded
+const CollectionsContainer = React.lazy(() => import("./CollectionsContainer")); // Lazy-loaded
 
 const NFTCollections = () => {
   const { ref, inView } = useInView({
-    threshold: 0
+    threshold: 0,
   });
 
   const { ref: ref1, inView: inView1 } = useInView({
-    threshold: 0
+    threshold: 0,
   });
 
   const { collections: notableCollections, isLoading: isLoadingNotable } =
@@ -27,10 +28,12 @@ const NFTCollections = () => {
     useCollecionsByCategory(categoryTypes.HOTTEST, null, inView1);
 
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const { t } = useTranslation();
 
   return (
-    <Box className={classNames(styles.container, 'collections')}>
+    <Box className={classNames(styles.container, "collections")}>
       <Container>
         <Box className={styles.block}>
           <Box
@@ -41,7 +44,7 @@ const NFTCollections = () => {
             ref={ref}
           >
             <Typography variant="h2" fontWeight={700}>
-              Hottest Artworks
+              {t("HottestArtworks")}
             </Typography>
           </Box>
           {isLoadingHottest || hottestCollections?.length < 1 ? (
@@ -62,7 +65,7 @@ const NFTCollections = () => {
             ref={ref1}
           >
             <Typography variant="h2" fontWeight={700}>
-              Notable Artworks
+              {t("NotableArtworks")}
             </Typography>
           </Box>
           {isLoadingNotable || notableCollections?.length < 1 ? (
