@@ -125,8 +125,6 @@ i18n
           "High to low": "High to low",
           "Most favorite": "Most favorite",
           Filter: "Filter",
-
-          // Original page
           "Original page": "Original page",
           "Select a sell type": "Select a sell type",
           "NFT Smart Contract": "NFT Smart Contract",
@@ -158,6 +156,57 @@ i18n
           "More Artworks From This Collection":
             "More Artworks From This Collection",
           "View collection": "View collection",
+          // modals
+          "Auction Price": "Auction Price",
+          "Bid price": "Bid price",
+          "Please enter the bid price.": "Please enter the bid price.",
+          "Your bid is complete": "Your bid is complete",
+          "Your purchase is complete": "Your purchase is complete",
+          "Congrats you just bidded": "Congrats you just bidded",
+          "Congrats you just purchased": "Congrats you just purchased",
+          "TRANSACTION HASH": "TRANSACTION HASH",
+          Confirm: "Confirm",
+          "View Item": "View Item",
+          "Waiting for approval...": "Waiting for approval...",
+          Checkout: "Checkout",
+          Item: "Item",
+          "Creator's fee:": "Creator's fee:",
+          Total: "Total",
+          "Complete Checkout": "Complete Checkout",
+          "Quantity:": "Quantity:",
+          "Confirm bid": "Confirm bid",
+          "Confirm purchase": "Confirm purchase",
+          "You’ll be asked to approve this bid from your wallet.":
+            "You’ll be asked to approve this bid from your wallet.",
+          "You’ll be asked to approve this purchase from your wallet.":
+            "You’ll be asked to approve this purchase from your wallet.",
+          "This will cancel your listing. You will also asked to confirm this cancellation from your wallet.":
+            "This will cancel your listing. You will also asked to confirm this cancellation from your wallet.",
+          "Finally!": "Finally!",
+          "Your Item is now listed for sale":
+            "Your Item is now listed for sale",
+          "Go back": "Go back",
+          Continue: "Continue",
+          "Waiting for listing confirmation...":
+            "Waiting for listing confirmation...",
+          "Listing completed": "Listing completed",
+          "Complete your listing": "Complete your listing",
+          "Approve collection": "Approve collection",
+          "Confirm listing": "Confirm listing",
+          "Your purchase is processing…": "Your purchase is processing…",
+          "Your purchase of": "Your purchase of",
+          "processing. It should be confirmed on the blockchain shortly.":
+            "processing. It should be confirmed on the blockchain shortly.",
+          "Oops!": "Oops!",
+          "Something went wrong. Please check your network and try again.":
+            "Something went wrong. Please check your network and try again.",
+          "Artist registration has been rejected.":
+            "Artist registration has been rejected.",
+          "Please contact [support@dexpo.world] for resubmission.":
+            "Please contact [support@dexpo.world] for resubmission.",
+          "Your request is submitted successfully and sent to admin to review. After reviewing we will inform you via email. You can also check your status on":
+            "Your request is submitted successfully and sent to admin to review. After reviewing we will inform you via email. You can also check your status on",
+          "Submitted!": "Submitted!",
         },
       },
       kr: {
@@ -274,8 +323,6 @@ i18n
           "High to low": "높은 가격순",
           "Most favorite": "관심도 순",
           Filter: "정렬",
-
-          // Original page
           "Original page": "실물 페이지",
           "Select a sell type": "판매 유형 선택",
           "NFT Smart Contract": "NFT 컨트렉트 주소",
@@ -306,6 +353,56 @@ i18n
           Date: "거래일시",
           "More Artworks From This Collection": "이 작가의 더 많은 작품",
           "View collection": "더보기",
+          // modals
+          "Auction Price": "경매 가격",
+          "Bid price": "입찰 가격",
+          "Please enter the bid price.": "입찰가를 입력하세요.",
+          "Your bid is complete": "입찰이 완료되었습니다.",
+          "Your purchase is complete": "구매가 완료되었습니다",
+          "Congrats you just bidded": "방금 입찰한 것을 축하합니다",
+          "Congrats you just purchased": "축하합니다 방금 구입했습니다",
+          "TRANSACTION HASH": "트랜잭션 해시",
+          Confirm: "확인하다",
+          "View Item": "항목을보다",
+          "Waiting for approval...": "승인 대기 중...",
+          Checkout: "점검",
+          Item: "안건",
+          "Creator's fee:": "크리에이터 수수료:",
+          Total: "총",
+          "Complete Checkout": "결제 완료",
+          "Quantity:": "수량:",
+          "Confirm bid": "입찰 확인",
+          "Confirm purchase": "구매 확인",
+          "You’ll be asked to approve this bid from your wallet.":
+            "지갑에서 이 입찰을 승인하라는 메시지가 표시됩니다.",
+          "You’ll be asked to approve this purchase from your wallet.":
+            "지갑에서 이 구매를 승인하라는 메시지가 표시됩니다.",
+          "This will cancel your listing. You will also asked to confirm this cancellation from your wallet.":
+            "목록이 취소됩니다. 또한 지갑에서 이 취소를 확인하라는 메시지가 표시됩니다.",
+          "Finally!": "마침내!",
+          "Your Item is now listed for sale":
+            "귀하의 아이템이 현재 판매 목록에 있습니다.",
+          "Go back": "돌아가기",
+          Continue: "계속하다",
+          "Waiting for listing confirmation...": "목록 확인을 기다리는 중...",
+          "Listing completed": "상장완료",
+          "Complete your listing": "목록 작성",
+          "Approve collection": "컬렉션 승인",
+          "Confirm listing": "목록 확인",
+          "Your purchase is processing…": "구매 처리 중…",
+          "Your purchase of": "귀하의 구매",
+          "processing. It should be confirmed on the blockchain shortly.":
+            "처리. 곧 블록체인에서 확인되어야 합니다.",
+          "Oops!": "이런!",
+          "Something went wrong. Please check your network and try again.":
+            "문제가 발생했습니다. 네트워크를 확인하고 다시 시도하십시오.",
+          "Artist registration has been rejected.":
+            "아티스트 등록이 거부되었습니다.",
+          "Please contact [support@dexpo.world] for resubmission.":
+            "다시 제출하려면 [support@dexpo.world]로 문의하십시오.",
+          "Your request is submitted successfully and sent to admin to review. After reviewing we will inform you via email. You can also check your status on":
+            "귀하의 요청이 성공적으로 제출되었으며 검토를 위해 관리자에게 전송되었습니다. 검토 후 이메일로 알려드리겠습니다. 에서 상태를 확인할 수도 있습니다.",
+          "Submitted!": "제출된!",
         },
       },
     },
