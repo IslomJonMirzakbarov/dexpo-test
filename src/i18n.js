@@ -207,6 +207,109 @@ i18n
           "Your request is submitted successfully and sent to admin to review. After reviewing we will inform you via email. You can also check your status on":
             "Your request is submitted successfully and sent to admin to review. After reviewing we will inform you via email. You can also check your status on",
           "Submitted!": "Submitted!",
+          //original nft page
+          "Contact us": "Contact us",
+          // collection detail
+          Floor: "Floor",
+          "Total Vol": "Total Vol",
+          "Recently created": "Recently created",
+          "In market": "In market",
+          "Search Items": "Search Items",
+          "search nfts": "search nfts",
+          // login
+          "Connect your wallet": "Connect your wallet",
+          "Connect your wallet one of available provider by importing or creating new one.":
+            "Connect your wallet one of available provider by importing or creating new one.",
+          Popular: "Popular",
+          // my profile page
+          UserName: "UserName",
+          Copy: "Copy",
+          Copied: "Copied",
+          Bio: "Bio",
+          "No items yet": "No items yet",
+          "Artist Status": "Artist Status",
+          "Collection Status": "Collection Status",
+          "Sell Request": "Sell Request",
+          "Sell Request is Under Review": "Sell Request is Under Review",
+          Rejected: "Rejected",
+          "Sell Artwork": "Sell Artwork",
+          Cancel: "Cancel",
+          "Artwork name": "Artwork name",
+          "Unit Price": "Unit Price",
+          "Email address": "Email address",
+          Status: "Status",
+          "Under Review": "Under Review",
+          Approved: "Approved",
+          "Collection logo & Name": "Collection logo & Name",
+          Logo: "Logo",
+          "Collection name": "Collection name",
+          "Market Status": "Market Status",
+          // my collections page
+          "Create, curate, and manage collections of unique NFTs to share and sell.":
+            "Create, curate, and manage collections of unique NFTs to share and sell.",
+          "Create a collection": "Create a collection",
+          // profile settings
+          "Profile Settings": "Profile Settings",
+          Username: "Username",
+          "Enter an username": "Enter an username",
+          Save: "Save",
+          "Saved!": "Saved!",
+          "Your information saved successfully":
+            "Your information saved successfully",
+          // create collection
+          "Create a Collection": "Create a Collection",
+          Single: "Single",
+          "Collection Name": "Collection Name",
+          "Collection Symbol": "Collection Symbol",
+          "Please enter all input values.": "Please enter all input values.",
+          "Please upload logo.": "Please upload logo.",
+          "Enter a collection name": "Enter a collection name",
+          "Enter a collection symbol": "Enter a collection symbol",
+          // about page
+          "World Art DEXPO": "World Art DEXPO",
+          "World Art DEXPO is a next-generation":
+            "World Art DEXPO is a next-generation",
+          "NFT trading platform that combines blockchain":
+            "NFT trading platform that combines blockchain",
+          "technology with existing real artworks.":
+            "technology with existing real artworks.",
+          Explore: "Explore",
+          "What We Do": "What We Do",
+          "Collaboration with KFAA(Korean Fine Arts Association)":
+            "Collaboration with KFAA(Korean Fine Arts Association)",
+          "- Buy or collect artworks owned by KFAA(Korean Fine Arts Association)":
+            "- Buy or collect artworks owned by KFAA(Korean Fine Arts Association)",
+          "See artworks of national treasures, works by famous painters, and even":
+            "See artworks of national treasures, works by famous painters, and even",
+          "the up-and-coming artists!": "the up-and-coming artists!",
+          "- Discover the valuable artworks at World Art DEXPO":
+            "- Discover the valuable artworks at World Art DEXPO",
+          "OceanDrive Storage": "OceanDrive Storage",
+          "A secure and reliable artwork trading platform with distributed storage technology.":
+            "A secure and reliable artwork trading platform with distributed storage technology.",
+          "World Art DEXPO does not use third-party cloud storage, but uses OceanDrive with distributed storage technology.":
+            "World Art DEXPO does not use third-party cloud storage, but uses OceanDrive with distributed storage technology.",
+          "A more secure trading is made because encrypted data is stored in OceanDrive and cannot be accessed without permission from the owner.":
+            "A more secure trading is made because encrypted data is stored in OceanDrive and cannot be accessed without permission from the owner.",
+          "Explore World Art DEXPO!": "Explore World Art DEXPO!",
+          Mint: "Mint",
+          "Various NFT artworks": "Various NFT artworks",
+          "can be created.": "can be created.",
+          "Trade with CYCON": "Trade with CYCON",
+          "OceanDrive users can be rewarded":
+            "OceanDrive users can be rewarded",
+          "with CYCON COIN and can": "with CYCON COIN and can",
+          "buy and sell NFTs with CYCON in DEXPO.":
+            "buy and sell NFTs with CYCON in DEXPO.",
+          Audition: "Audition",
+          "Through an audition, all": "Through an audition, all",
+          "information regarding the artists":
+            "information regarding the artists",
+          "will be checked and processed.": "will be checked and processed.",
+          "Invest in valuable NFT artworks!":
+            "Invest in valuable NFT artworks!",
+          "We would like to present a list of works and top collections to consumers.":
+            "We would like to present a list of works and top collections to consumers.",
         },
       },
       kr: {
@@ -226,8 +329,8 @@ i18n
           KakaoTalk: "카카오톡",
           Profile: "프로필",
           MyCollections: "내 컬렉션",
-          MyApplication: "내 응용 프로그램",
-          Favorites: "즐겨찾기",
+          MyApplication: "내 거래 현황",
+          Favorites: "관심 작품",
           Settings: "설정",
           Logout: "로그 아웃",
           ConnectWallet: "지갑 연결",
@@ -350,7 +453,7 @@ i18n
           From: "From",
           To: "To",
           "Tx Hash": "Tx Hash",
-          Date: "거래일시",
+          Date: "날짜",
           "More Artworks From This Collection": "이 작가의 더 많은 작품",
           "View collection": "더보기",
           // modals
@@ -403,6 +506,105 @@ i18n
           "Your request is submitted successfully and sent to admin to review. After reviewing we will inform you via email. You can also check your status on":
             "귀하의 요청이 성공적으로 제출되었으며 검토를 위해 관리자에게 전송되었습니다. 검토 후 이메일로 알려드리겠습니다. 에서 상태를 확인할 수도 있습니다.",
           "Submitted!": "제출된!",
+          //original nft page
+          "Contact us": "문의하기",
+          // collection detail
+          Floor: "하한선",
+          "Total Vol": "총 거래량",
+          "Recently created": "최근 등록된 작",
+          "In market": "판매중인 작품",
+          "Search Items": "작품 검색",
+          "search nfts": "NFT 검색",
+          // login
+          "Connect your wallet": "지갑 연결",
+          "Connect your wallet one of available provider by importing or creating new one.":
+            "새 지갑을 가져오거나 생성하여 사용 가능한 공급자 중 하나를 지갑에 연결하세요.",
+          Popular: "인기 있는",
+          // my profile page
+          UserName: "사용자 이름",
+          Copy: "복사",
+          Copied: "복사됨",
+          Bio: "소개글",
+          "No items yet": "등록된 내용이 없습니다",
+          "Artist Status": "작가 승인 요청 현황",
+          "Collection Status": "내 작품 현황",
+          "Sell Request": "판매 요청",
+          "Sell Request is Under Review": "판매 요청이 검토 중입니다.",
+          Rejected: "거부됨",
+          "Sell Artwork": "작품 판매",
+          Cancel: "취소",
+          "Artwork name": "작품명",
+          "Unit Price": "가격",
+          "Email address": "이메일 주소",
+          Status: "상태",
+          "Under Review": "검토 중",
+          Approved: "승인됨",
+          "Collection logo & Name": "컬렉션 로고 및 이름",
+          Logo: "심벌 마크",
+          "Collection name": "컬렉션 이름",
+          "Market Status": "시장현황",
+          // my collections page
+          "Create, curate, and manage collections of unique NFTs to share and sell.":
+            "공유 및 판매할 고유한 NFT 컬렉션을 생성, 선별 및 관리합니다.",
+          "Create a collection": "컬렉션 만들기",
+          // profile settings
+          "Profile Settings": "프로필 설정",
+          Username: "사용자 이름",
+          "Enter an username": "사용자 이름을 입력하세요.",
+          Save: "확인",
+          "Saved!": "저장되었습니다!",
+          "Your information saved successfully":
+            "귀하의 정보가 성공적으로 저장되었습니다",
+          // create collection
+          "Create a Collection": "작품 등록",
+          Single: "Single",
+          "Collection Name": "작품명",
+          "Collection Symbol": "작품 심볼",
+          "Please enter all input values.": "모든 입력 값을 입력하십시오.",
+          "Please upload logo.": "로고를 업로드해주세요.",
+          "Enter a collection name": "작품명을 입력하세요.",
+          "Enter a collection symbol": "작품 심볼을 입력하세요.",
+          // about page
+          "World Art DEXPO": "World Art DEXPO",
+          "World Art DEXPO is a next-generation": "World Art DEXPO는 실존하는",
+          "NFT trading platform that combines blockchain":
+            "예술 작품에 블록체인 기술을 결합한 차세대",
+          "technology with existing real artworks.": "예술 거래 플 랫폼입니다",
+          Explore: "사용하기",
+          "What We Do": "우리가 하는 일",
+          "Collaboration with KFAA(Korean Fine Arts Association)":
+            "한국미술협회(KFAA)와 콜라보레이션",
+          "- Buy or collect artworks owned by KFAA(Korean Fine Arts Association)":
+            "- 한국미술협회(KFAA)가 소유한 작품을 구매 및 소장하세요",
+          "See artworks of national treasures, works by famous painters, and even":
+            "국보급 예술 작품과 유명 화가 작품 뿐만 아니라 신진",
+          "the up-and-coming artists!": "작가의 작품도 만나보세요",
+          "- Discover the valuable artworks at World Art DEXPO":
+            "- World Art DEXPO에서 가치 있는 다양한 미술 작품을 경험하세요",
+          "OceanDrive Storage": "오션드라이브 스토리지",
+          "A secure and reliable artwork trading platform with distributed storage technology.":
+            "분산 스토리지 기술을 사용한 안전하고 믿을 수 있는 예술 거래 플랫폼입니다.",
+          "World Art DEXPO does not use third-party cloud storage, but uses OceanDrive with distributed storage technology.":
+            "World Art DEXPO는 다른 NFT 거래소와는 다르게 타사 클라우드 스토리지를 사용하는 것이 아닌 분산스토리지 기술을 사용한 OceanDrive를 사용합니다.",
+          "A more secure trading is made because encrypted data is stored in OceanDrive and cannot be accessed without permission from the owner.":
+            "암호화된 데이터는 OceanDrive에 저장되고 소유자의 허가 없이는 접근할 수 없기 때문에 보다 안전한 거래가 이루어집니다.",
+          "Explore World Art DEXPO!": "World Art DEXPO 둘러보기!",
+          Mint: "Mint",
+          "Various NFT artworks": "다양한 NFT 예술",
+          "can be created.": "작품 발행 가능",
+          "Trade with CYCON": "CYCON으로 거래",
+          "OceanDrive users can be rewarded":
+            "OceanDrive 사용자는 보상을 받을 수 있습니다",
+          "with CYCON COIN and can": "CYCON COIN으로",
+          "buy and sell NFTs with CYCON in DEXPO.":
+            "DEXPO에서 CYCON으로 NFT를 사고 팔 수 있습니다",
+          Audition: "Audition",
+          "Through an audition, all": "모두 오디션을 통해",
+          "information regarding the artists": "아티스트에 대한 정보",
+          "will be checked and processed.": "확인하고 처리하겠습니다.",
+          "Invest in valuable NFT artworks!": "귀중한 NFT 작품에 투자하세요!",
+          "We would like to present a list of works and top collections to consumers.":
+            "우리는 소비자에게 작품 목록과 최고의 컬렉션을 제시하고자 합니다.",
         },
       },
     },
