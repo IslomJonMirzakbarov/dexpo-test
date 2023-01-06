@@ -53,12 +53,13 @@ const Faucet = () => {
   const { toast } = useToast();
   const { faucet } = useCurrnetProvider();
   const { control, handleSubmit } = useForm();
+  const { t } = useTranslation();
 
   const onSubmit = async (data) => {
     const inputAccount = data.account;
 
     if (inputAccount?.length !== 42)
-      return toast.error("Invalid wallet address!");
+      return toast.error(t("Invalid wallet address!"));
 
     try {
       const res = await faucet(inputAccount);
@@ -69,7 +70,6 @@ const Faucet = () => {
       console.log(err);
     }
   };
-  const { t } = useTranslation();
   return (
     <Paper className={styles.container}>
       <form className={styles.wrapper} onSubmit={handleSubmit(onSubmit)}>
@@ -91,10 +91,10 @@ const Faucet = () => {
             fontSize="40px!important"
             color="grey.1400"
           >
-            {t('CYCON Faucet')}
+            {t("CYCON Faucet")}
           </Typography>
           <Typography variant="placeholder" fontWeight={600} color="grey.1000">
-            {t('You can get test 1000 CYCON token for each wallet.')}
+            {t("You can get test 1000 CYCON token for each wallet.")}
           </Typography>
         </Box>
         <Box className={styles.form}>
@@ -106,7 +106,7 @@ const Faucet = () => {
               ml={1}
               mb={1}
             >
-              {t('Account Address')} <Typography color="primary">*</Typography>
+              {t("Account Address")} <Typography color="primary">*</Typography>
             </Typography>
             <FormInputText
               artistInput
@@ -123,7 +123,7 @@ const Faucet = () => {
               ml={1}
               mb={1}
             >
-              {t('CYCON Balance')}
+              {t("CYCON Balance")}
             </Typography>
             <Box
               display="flex"

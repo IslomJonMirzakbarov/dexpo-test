@@ -268,5 +268,6 @@
   "Account Address": "Account Address",
   "Please put your wallet address here": "Please put your wallet address here",
   "CYCON Balance": "CYCON Balance",
-  "Run Faucet": "Run Faucet"
+  "Run Faucet": "Run Faucet",
+  "Invalid wallet address!": "Invalid wallet address!"
 }
