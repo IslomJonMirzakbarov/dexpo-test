@@ -18,17 +18,16 @@ const CompleteFooter = ({ onConfirm, isAuction, viewClick }) => {
       fullWidth
       className={classes.button}
       variant="containedSecondary1"
-      onClick={onConfirm}
+      onClick={() => {
+        if (isAuction) {
+          viewClick();
+          onConfirm();
+        } else {
+          viewClick();
+        }
+      }}
     >
-      <Typography
-        variant="placeholder"
-        fontWeight={600}
-        onClick={() => {
-          if (!isAuction) {
-            viewClick();
-          }
-        }}
-      >
+      <Typography variant="placeholder" fontWeight={600}>
         {t(`${isAuction ? "Confirm" : "View Item"}`)}
       </Typography>
     </Button>
