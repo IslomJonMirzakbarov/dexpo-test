@@ -136,13 +136,14 @@ const CollectionDetails = ({
       if (!!res) {
         setTxHash(res.transactionHash);
         setStatus(checkoutStatuses.COMPLETE);
-        handleRefresh();
       }
     } catch (err) {
       setError(getRPCErrorMessage(err));
       setStatus(checkoutStatuses.INITIAL);
     }
   };
+
+  const viewClick = () => handleRefresh();
 
   const makePurchase = async () => {
     setStatus(checkoutStatuses.PENDING);
@@ -204,6 +205,7 @@ const CollectionDetails = ({
       txHash={txHash}
       openModal={openModal}
       toggle={toggle}
+      viewClick={viewClick}
       error={error}
       isDisabled={isPurchaseBtnDisabled}
       onLike={handleLike}

@@ -58,12 +58,12 @@ const CompleteCheckout = ({ name, txHash, img, isAuction }) => {
       <Typography variant="placeholder" className={classes.text}>
         {t(`Congrats you just ${isAuction ? "bidded" : "purchased"}`)}&nbsp;
         <Typography variant="placeholder" color="primary" fontWeight={700}>
-          {t(name)}!
+          {name}
         </Typography>
       </Typography>
       <Box className={classes.transaction}>
         <Typography variant="placeholder" fontWeight={500}>
-          {t('TRANSACTION HASH')}
+          {t("TRANSACTION HASH")}
         </Typography>
         <Typography
           variant="placeholder"

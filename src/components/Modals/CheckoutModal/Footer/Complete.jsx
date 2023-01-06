@@ -10,7 +10,7 @@ const useStyles = makeStyles((_) => ({
     padding: "15px",
   },
 }));
-const CompleteFooter = ({ onConfirm, isAuction }) => {
+const CompleteFooter = ({ onConfirm, isAuction, viewClick }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
@@ -20,7 +20,15 @@ const CompleteFooter = ({ onConfirm, isAuction }) => {
       variant="containedSecondary1"
       onClick={onConfirm}
     >
-      <Typography variant="placeholder" fontWeight={600}>
+      <Typography
+        variant="placeholder"
+        fontWeight={600}
+        onClick={() => {
+          if (!isAuction) {
+            viewClick();
+          }
+        }}
+      >
         {t(`${isAuction ? "Confirm" : "View Item"}`)}
       </Typography>
     </Button>
