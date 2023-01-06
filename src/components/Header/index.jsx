@@ -8,6 +8,7 @@ import styles from "./style.module.scss";
 import { debounce } from "lodash";
 import useSearchAPI from "../../hooks/useSearchAPI";
 import LinkListResponsive from "../../layouts/MergedLayout/LinkList/index.responsive";
+import { ReactSVG } from "react-svg";
 import SearchFieldResponsive from "../Autocomplete/index.responsive";
 import { useOnClickOutside } from "../../hooks/useOnOutsideClick";
 import { useTheme } from "@mui/styles";
@@ -15,8 +16,8 @@ import { ToggleButton, ToggleButtonGroup, useMediaQuery } from "@mui/material";
 import Img from "react-cool-img";
 import { useTranslation } from "react-i18next";
 import LangIcon from "../../assets/icons/lang-icon.svg?component";
-import EngLangImage from "../../assets/images/english-language-img.png";
-import KrLangImage from "../../assets/images/korean-language-img.png";
+import EnglishIcon from "../../assets/icons/en-lang-icon.svg";
+import KoreanIcon from "../../assets/icons/kr-lang-icon.svg";
 
 import { makeStyles } from "@mui/styles";
 
@@ -49,6 +50,7 @@ const useStyles = makeStyles({
       height: 45,
       display: "flex",
       justifyContent: "flex-start",
+      alignItems: "center",
       gap: 15,
       fontWeight: "500",
       fontSize: 13,
@@ -136,9 +138,34 @@ const Header = ({
   const lngs = {
     en: {
       nativeName: "En",
-      nativeImage: <img src={EngLangImage} alt="lang" />,
+      nativeImage: (
+        <ReactSVG
+          src={EnglishIcon}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: 20,
+            marginTop: 10,
+          }}
+        />
+      ),
     },
-    kr: { nativeName: "Kr", nativeImage: <img src={KrLangImage} alt="lang" /> },
+    kr: {
+      nativeName: "Kr",
+      nativeImage: (
+        <ReactSVG
+          src={KoreanIcon}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: 20,
+            marginTop: 10,
+          }}
+        />
+      ),
+    },
   };
 
   const handleLanguageChange = (language) => {
