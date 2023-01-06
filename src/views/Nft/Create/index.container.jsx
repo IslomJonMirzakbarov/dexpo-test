@@ -277,7 +277,7 @@ const NftCreate = () => {
           {isLoading ? (
             <SpinningIcon className={styles.SpinningIcon} />
           ) : (
-            "Mint"
+            t("Mint")
           )}
         </Button>
         {(errorChecker > 0 || errBool) && (
