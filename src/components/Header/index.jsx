@@ -16,6 +16,7 @@ import { ToggleButton, ToggleButtonGroup, useMediaQuery } from "@mui/material";
 import Img from "react-cool-img";
 import { useTranslation } from "react-i18next";
 import LangIcon from "../../assets/icons/lang-icon.svg?component";
+import HoveredLangIcon from "../../assets/icons/hovered-lang-icon.svg?component";
 import EnglishIcon from "../../assets/icons/en-lang-icon.svg";
 import KoreanIcon from "../../assets/icons/kr-lang-icon.svg";
 
@@ -88,6 +89,7 @@ const Header = ({
 
   const [search, setSearch] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
+  const [hovered, setHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isOpenResponsive, setIsOpenResponsive] = useState(false);
@@ -214,10 +216,29 @@ const Header = ({
       <div className={styles.rightSide}>
         <div className={styles.links}>{children}</div>
         {extra}
-        <LangIcon
-          className={styles.icon}
-          onClick={() => setIsLangOpen(!isLangOpen)}
-        />
+        <div
+          className={styles.LangIconBox}
+          onMouseEnter={() => {
+            setIsLangOpen(true);
+            setHovered(true);
+          }}
+          onMouseLeave={() => {
+            setIsLangOpen(false);
+            setHovered(false);
+          }}
+        >
+          {!hovered ? (
+            <LangIcon
+              className={styles.icon}
+              onClick={() => setIsLangOpen(!isLangOpen)}
+            />
+          ) : (
+            <HoveredLangIcon
+              className={styles.icon}
+              onClick={() => setIsLangOpen(!isLangOpen)}
+            />
+          )}
+        </div>
       </div>
       <div className={styles.rightSideResponsive}>
         <SearchFieldResponsive value={search} onChange={handleChange} />
@@ -234,7 +255,11 @@ const Header = ({
       </div>
 
       {isLangOpen && (
-        <div className={styles.languageSwitch}>
+        <div
+          className={styles.languageSwitch}
+          onMouseEnter={() => setIsLangOpen(true)}
+          onMouseLeave={() => setIsLangOpen(false)}
+        >
           <ToggleButtonGroup
             value={i18n.language}
             exclusive
@@ -244,7 +269,10 @@ const Header = ({
               <ToggleButton
                 key={lng}
                 value={lng}
-                onClick={() => handleLanguageChange(lng)}
+                onClick={() => {
+                  handleLanguageChange(lng);
+                  setIsLangOpen(false);
+                }}
                 className={classes.ToggleButton}
               >
                 {nativeImage} {nativeName}

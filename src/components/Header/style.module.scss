@@ -84,14 +84,21 @@
     }
   }
 
+  .LangIconBox {
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+
   .icon {
     margin-left: 17px;
     margin-right: 15px;
+    cursor: pointer;
   }
 
   .languageSwitch {
     position: absolute;
-    top: calc(100% + 3px);
+    top: calc(100%);
     right: 10px;
     display: flex;
     flex-direction: column;
