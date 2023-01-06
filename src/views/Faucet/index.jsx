@@ -10,6 +10,7 @@ import NumberFormat from "react-number-format";
 import useToast from "../../hooks/useToast";
 import useCurrnetProvider from "../../hooks/useCurrentProvider";
 import numFormat from "../../utils/numFormat";
+import { useTranslation } from "react-i18next";
 
 const price = 1000;
 
@@ -68,7 +69,7 @@ const Faucet = () => {
       console.log(err);
     }
   };
-
+  const { t } = useTranslation();
   return (
     <Paper className={styles.container}>
       <form className={styles.wrapper} onSubmit={handleSubmit(onSubmit)}>
@@ -79,7 +80,7 @@ const Faucet = () => {
             mb={1}
             color="common.white"
           >
-            Only for Beta TestNet
+            {t("Only for Beta TestNet")}
           </Typography>
         </Box>
         <TokenIcon className={classes.icon} />
@@ -90,10 +91,10 @@ const Faucet = () => {
             fontSize="40px!important"
             color="grey.1400"
           >
-            CYCON Faucet
+            {t('CYCON Faucet')}
           </Typography>
           <Typography variant="placeholder" fontWeight={600} color="grey.1000">
-            You can get test 1000 CYCON token for each wallet.
+            {t('You can get test 1000 CYCON token for each wallet.')}
           </Typography>
         </Box>
         <Box className={styles.form}>
@@ -105,13 +106,13 @@ const Faucet = () => {
               ml={1}
               mb={1}
             >
-              Account Address <Typography color="primary">*</Typography>
+              {t('Account Address')} <Typography color="primary">*</Typography>
             </Typography>
             <FormInputText
               artistInput
               control={control}
               name="account"
-              label="Please put your wallet address here"
+              label={t("Please put your wallet address here")}
             />
           </Box>
           <Box className={styles.field}>
@@ -122,7 +123,7 @@ const Faucet = () => {
               ml={1}
               mb={1}
             >
-              CYCON Balance
+              {t('CYCON Balance')}
             </Typography>
             <Box
               display="flex"
@@ -147,7 +148,7 @@ const Faucet = () => {
         </Box>
 
         <Button variant="contained" type="submit" className={classes.btn}>
-          Run Faucet
+          {t("Run Faucet")}
         </Button>
       </form>
     </Paper>

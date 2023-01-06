@@ -260,5 +260,13 @@
   "enter all required values.": "enter all required values.",
   "Congrats!": "Congrats!",
   "You created": "You created",
-  "You've rejected creating NFT": "You've rejected creating NFT"
+  "You've rejected creating NFT": "You've rejected creating NFT",
+  "You can receive and own the artworks of the original page by purchasing with CYCON.": "You can receive and own the artworks of the original page by purchasing with CYCON.",
+  "Only for Beta TestNet": "Only for Beta TestNet",
+  "CYCON Faucet": "CYCON Faucet",
+  "You can get test 1000 CYCON token for each wallet.": "You can get test 1000 CYCON token for each wallet.",
+  "Account Address": "Account Address",
+  "Please put your wallet address here": "Please put your wallet address here",
+  "CYCON Balance": "CYCON Balance",
+  "Run Faucet": "Run Faucet"
 }
