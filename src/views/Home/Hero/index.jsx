@@ -36,16 +36,16 @@ var items = [
     imageMobile: banner2Mobile,
     link: '/marketplace/1/0xf17e008aea6fb483f9e025f165918b7340bc0bfc'
   },
-  {
-    pretitle: '이우환',
-    title: '도판',
-    titleColor: '#121212',
-    pretitleColor: '#2D2D2D',
-    image: banner3,
-    arrowColor: '#7D8890',
-    imageMobile: banner3Mobile,
-    link: '/marketplace/original/2/0xeeb6b4126288e270fcec9fc9ddf98b0ed8b610b4'
-  }
+  // {
+  //   pretitle: '이우환',
+  //   title: '도판',
+  //   titleColor: '#121212',
+  //   pretitleColor: '#2D2D2D',
+  //   image: banner3,
+  //   arrowColor: '#7D8890',
+  //   imageMobile: banner3Mobile,
+  //   link: '/marketplace/original/2/0xeeb6b4126288e270fcec9fc9ddf98b0ed8b610b4'
+  // }
 ]
 
 const settings = {
