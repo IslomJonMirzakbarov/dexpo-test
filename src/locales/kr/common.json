@@ -269,5 +269,6 @@
   "Please put your wallet address here": "여기에 지갑주소를 입력해주세요",
   "CYCON Balance": "CYCON 밸런스",
   "Run Faucet": "런 포세트",
-  "Invalid wallet address!": "지갑 주소가 잘못되었습니다!"
+  "Invalid wallet address!": "지갑 주소가 잘못되었습니다!",
+  "No items found": "등록된 내용이 없습니다"
 }
