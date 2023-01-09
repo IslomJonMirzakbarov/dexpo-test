@@ -270,5 +270,26 @@
   "CYCON Balance": "CYCON Balance",
   "Run Faucet": "Run Faucet",
   "Invalid wallet address!": "Invalid wallet address!",
-  "No items found": "No items found"
+  "No items found": "No items found",
+  "Not enough CYCON Amount": "Not enough CYCON Amount",
+  "Bid price should be greater than": "Bid price should be greater than",
+  "Your bid of": "Your bid of",
+  "Your bid is processing...": "Your bid is processing...",
+  "Your purchase is processing...": "Your purchase is processing...",
+  "Cancel Listing": "Cancel Listing",
+  "Listing canceled!": "Listing canceled!",
+  "Please enter the selling price.": "Please enter the selling price.",
+  "Please enter auction starting price": "Please enter auction starting price",
+  "Fill the price form": "Fill the price form",
+  "Ending Date should be greater than Starting Date": "Ending Date should be greater than Starting Date",
+  "Price should be greater or equal to": "Price should be greater or equal to",
+  "Starting Date": "Starting Date",
+  "Ending Date": "Ending Date",
+
+  "Not started yet": "Not started yet",
+  " months left": " months left",
+  " days left": " days left",
+  " hours left": " hours left",
+  " minutes left": " minutes left",
+  "Auction finished": "Auction finished"
 }

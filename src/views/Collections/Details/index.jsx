@@ -15,6 +15,7 @@ import {
   metamaskError,
 } from "../../../constants/metamaskErrors";
 import useCurrnetProvider from "../../../hooks/useCurrentProvider";
+import { useTranslation } from "react-i18next";
 
 const CollectionDetails = ({
   nftID: id,
@@ -40,6 +41,8 @@ const CollectionDetails = ({
       bidPrice: "",
     },
   });
+
+  const { t } = useTranslation();
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address, id);
 
@@ -166,10 +169,10 @@ const CollectionDetails = ({
     const bidPrice = getValues("bidPrice");
     const price = market?.price;
 
-    if (notEnoughBalance) return setError(metamaskError["-32603"]);
+    if (notEnoughBalance) return setError(t(metamaskError["-32603"]));
 
     if (isAuction && bidPrice <= price)
-      return setError(`Bid price should be greater than ${price} CYCON`);
+      return setError(`${t("Bid price should be greater than") }${price} CYCON`);
 
     return makePurchase();
   };

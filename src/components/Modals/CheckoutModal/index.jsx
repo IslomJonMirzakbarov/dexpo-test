@@ -48,7 +48,6 @@ const CheckoutModal = ({
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-
   const leftDeadline = calculateDeadline(null, parseNormalizedDate(endDate));
 
   const onClose = () => toggle();
@@ -63,7 +62,11 @@ const CheckoutModal = ({
     [checkoutStatuses.PENDING]: <PendingFooter />,
     [checkoutStatuses.PROCESSING]: <div />,
     [checkoutStatuses.COMPLETE]: (
-      <CompleteFooter onConfirm={onConfirm} viewClick={viewClick} isAuction={isAuction} />
+      <CompleteFooter
+        onConfirm={onConfirm}
+        viewClick={viewClick}
+        isAuction={isAuction}
+      />
     ),
   };
 

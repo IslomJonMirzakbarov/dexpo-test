@@ -10,7 +10,7 @@ const CancelSell = ({ canceling, error }) => {
   const { t } = useTranslation();
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <Typography variant="modalTitle">{title}</Typography>
+      <Typography variant="modalTitle">{t(title)}</Typography>
       <Typography
         variant="placeholder"
         fontWeight={500}
