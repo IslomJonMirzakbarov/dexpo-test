@@ -14,7 +14,6 @@ import { Box } from "@mui/system";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import { Link, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 const CollectionCreate = () => {
   const navigate = useNavigate();
@@ -87,11 +86,11 @@ const CollectionCreate = () => {
     setShowModal(false);
     navigate("/user/my-page/collection-status-created");
   };
-  const { t } = useTranslation();
+
   return (
     <Box className={styles.Container}>
       <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
-        <Box className={styles.Title}>{t("Create a Collection")}</Box>
+        <Box className={styles.Title}>Create a Collection</Box>
 
         <Box className={styles.ModeContainer}>
           <Box className={classNames(styles.SingleMode)}>
@@ -106,7 +105,7 @@ const CollectionCreate = () => {
             >
               <Box className={styles.TopIContainer}>
                 <Box className={styles.SingleTypeText}>
-                  {t("Single")} <br /> <span>ERC-721</span>
+                  Single <br /> <span>ERC-721</span>
                 </Box>
               </Box>
               <MiddleCircleType className={styles.MiddleCircle} />
@@ -200,14 +199,13 @@ const CollectionCreate = () => {
         </Box>
         <Box className={classNames(styles.CollectionName, styles.InputHolder)}>
           <Typography variant="label" className={styles.Label}>
-            {t("Collection Name")}
-            <span className={styles.LabelSpan}>*</span>
+            Collection Name<span className={styles.LabelSpan}>*</span>
           </Typography>
           <FormInputText
             artistInput
             name="name"
             control={control}
-            label={t("Enter a collection name")}
+            label="Enter a collection name"
           />
           <Box className={styles.LagInfo}>ex: BoredApeYachtClub</Box>
         </Box>
@@ -215,14 +213,13 @@ const CollectionCreate = () => {
           className={classNames(styles.CollectionSymbol, styles.InputHolder)}
         >
           <Typography variant="label" className={styles.Label}>
-            {t("Collection Symbol")}
-            <span className={styles.LabelSpan}>*</span>
+            Collection Symbol<span className={styles.LabelSpan}>*</span>
           </Typography>
           <FormInputText
             artistInput
             name="symbol"
             control={control}
-            label={t("Enter a collection symbol")}
+            label="Enter a collection symbol"
           />
           <Box className={styles.LagInfo}>ex: (BAYC)</Box>
         </Box>
@@ -236,16 +233,16 @@ const CollectionCreate = () => {
             {fakeLoading ? (
               <SpinningIcon className={styles.SpinningIcon} />
             ) : (
-              t("Submit")
+              "Submit"
             )}
           </PrimaryButton>
           {errorChecker > 0 && (
             <Box className={styles.ErrorPhrase}>
-              {t("Please enter all input values.")}
+              Please enter all input values.
             </Box>
           )}
           {errBool && (
-            <Box className={styles.ErrorPhrase}>{t("Please upload logo.")}</Box>
+            <Box className={styles.ErrorPhrase}>Please upload logo.</Box>
           )}
         </Box>
       </form>
@@ -273,17 +270,15 @@ const CollectionCreate = () => {
           <Typography className={styles.SuccessProcessDesc}>
             <>
               <span className={styles.Sphrase}>
-                {t("Your request was submitted successfully and")}
-                <br /> {t("sent to admin for review.")}
+                Your request was submitted successfully and
+                <br /> sent to admin for review.
               </span>
               <br />
               <br />
-              {t(
-                "1. Scan the QR code and you will be directed to Telegram."
-              )}{" "}
-              <br /> {t("2. You can also check your status on")}{" "}
+              1. Scan the QR code and you will be directed to Telegram. <br />{" "}
+              2. You can also check your status on{" "}
               <span className={styles.MainDesc}>
-                {t("My Page > My application tab.")}
+                My Page {">"} My application tab.
               </span>
             </>
           </Typography>

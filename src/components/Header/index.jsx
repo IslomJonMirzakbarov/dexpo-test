@@ -1,70 +1,21 @@
-import { createRef, useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import SearchField from "../Autocomplete";
-import AutocompleteList from "../AutocompleteList";
-import BackButton from "../BackButton";
-import IconGenerator from "../IconPicker/IconGenerator";
-import styles from "./style.module.scss";
-import { debounce } from "lodash";
-import useSearchAPI from "../../hooks/useSearchAPI";
-import LinkListResponsive from "../../layouts/MergedLayout/LinkList/index.responsive";
-import SearchFieldResponsive from "../Autocomplete/index.responsive";
-import { useOnClickOutside } from "../../hooks/useOnOutsideClick";
-import { useTheme } from "@mui/styles";
-import { ToggleButton, ToggleButtonGroup, useMediaQuery } from "@mui/material";
-import Img from "react-cool-img";
-import { useTranslation } from "react-i18next";
-import LangIcon from "../../assets/icons/lang-icon.svg?component";
-import EngLangImage from "../../assets/images/english-language-img.png";
-import KrLangImage from "../../assets/images/korean-language-img.png";
-
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  ToggleButtonGroup: (props) => ({
-    display: "flex",
-    flexDirection: "column",
-    width: 180,
-    height: 90,
-    background: "#ffffff",
-    boxShadow: "5px 5px 30px rgba(180, 180, 180, 0.3)",
-    "&.MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:not(:first-of-type)":
-      {
-        borderBottomLeftRadius: 7,
-        borderBottomRightRadius: 7,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-        marginLeft: 0,
-      },
-    "&.MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:not(:last-of-type)":
-      {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        borderTopLeftRadius: 7,
-        borderTopRightRadius: 7,
-      },
-  }),
-  ToggleButton: (props) => ({
-    "&.MuiToggleButton-root": {
-      height: 45,
-      display: "flex",
-      justifyContent: "flex-start",
-      gap: 15,
-      fontWeight: "500",
-      fontSize: 13,
-      lineHeight: 20,
-    },
-    "&.Mui-selected": {
-      color: "#1F1F1F",
-      backgroundColor: "#ffffff",
-      boxShadow: "-1px 1px 16px 7px rgba(0, 0, 0, 0.06)",
-      borderBottomLeftRadius: 7,
-    },
-  }),
-});
+import { createRef, useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import SearchField from '../Autocomplete';
+import AutocompleteList from '../AutocompleteList';
+import BackButton from '../BackButton';
+import IconGenerator from '../IconPicker/IconGenerator';
+import styles from './style.module.scss';
+import { debounce } from 'lodash';
+import useSearchAPI from '../../hooks/useSearchAPI';
+import LinkListResponsive from '../../layouts/MergedLayout/LinkList/index.responsive';
+import SearchFieldResponsive from '../Autocomplete/index.responsive';
+import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
+import { useTheme } from '@mui/styles';
+import { useMediaQuery } from '@mui/material';
+import Img from 'react-cool-img';
 
 const Header = ({
-  title = "",
+  title = '',
   subtitle,
   extra,
   children,
@@ -75,19 +26,16 @@ const Header = ({
   sticky,
   ...props
 }) => {
-  const classes = useStyles();
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
   const location = useLocation();
   const listRef = createRef();
   const listResponsiveRef = createRef();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [search, setSearch] = useState("");
-  const [debouncedValue, setDebouncedValue] = useState("");
+  const [search, setSearch] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
   const [isOpenResponsive, setIsOpenResponsive] = useState(false);
 
   const { data, isLoading } = useSearchAPI(debouncedValue);
@@ -98,7 +46,7 @@ const Header = ({
   );
 
   const clear = () => {
-    setSearch("");
+    setSearch('');
     setIsOpen(false);
     setIsOpenResponsive(false);
   };
@@ -133,21 +81,9 @@ const Header = ({
 
   useOnClickOutside(listResponsiveRef, handleCloseResponsive);
 
-  const lngs = {
-    en: {
-      nativeName: "En",
-      nativeImage: <img src={EngLangImage} alt="lang" />,
-    },
-    kr: { nativeName: "Kr", nativeImage: <img src={KrLangImage} alt="lang" /> },
-  };
-
-  const handleLanguageChange = (language) => {
-    i18n.changeLanguage(language);
-  };
-
   return (
     <div
-      className={`${styles.header} ${sticky ? styles.sticky : ""}`}
+      className={`${styles.header} ${sticky ? styles.sticky : ''}`}
       {...props}
     >
       <div className={styles.leftSide}>
@@ -161,7 +97,7 @@ const Header = ({
             alt="logo"
             width={132}
             height={30}
-            onClick={() => navigate("/")}
+            onClick={() => navigate('/')}
           />
         )}
 
@@ -187,10 +123,6 @@ const Header = ({
       <div className={styles.rightSide}>
         <div className={styles.links}>{children}</div>
         {extra}
-        <LangIcon
-          className={styles.icon}
-          onClick={() => setIsLangOpen(!isLangOpen)}
-        />
       </div>
       <div className={styles.rightSideResponsive}>
         <SearchFieldResponsive value={search} onChange={handleChange} />
@@ -205,27 +137,6 @@ const Header = ({
           />
         </div>
       </div>
-
-      {isLangOpen && (
-        <div className={styles.languageSwitch}>
-          <ToggleButtonGroup
-            value={i18n.language}
-            exclusive
-            className={classes.ToggleButtonGroup}
-          >
-            {Object.entries(lngs).map(([lng, { nativeName, nativeImage }]) => (
-              <ToggleButton
-                key={lng}
-                value={lng}
-                onClick={() => handleLanguageChange(lng)}
-                className={classes.ToggleButton}
-              >
-                {nativeImage} {nativeName}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </div>
-      )}
     </div>
   );
 };

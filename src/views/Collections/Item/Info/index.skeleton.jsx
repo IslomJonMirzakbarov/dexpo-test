@@ -1,24 +1,22 @@
-import { Box, Paper, Skeleton, Typography } from "@mui/material";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import styles from "./style.module.scss";
+import { Box, Paper, Skeleton, Typography } from '@mui/material';
+import React from 'react';
+import styles from './style.module.scss';
 
 const CollectionInfoSkeleton = () => {
   const prices = [
     {
-      key: "Items",
+      key: 'Items'
     },
     {
-      key: "Owners",
+      key: 'Owners'
     },
     {
-      key: "Floor",
+      key: 'Floor'
     },
     {
-      key: "Total Vol",
-    },
+      key: 'Total Vol'
+    }
   ];
-  const { t } = useTranslation();
   return (
     <Paper variant="div" className={styles.container}>
       <Box display="flex" alignItems="center" flexDirection="column">
@@ -33,7 +31,7 @@ const CollectionInfoSkeleton = () => {
           {prices.map((price, p) => (
             <Box className={styles.price} key={p}>
               <Typography color="grey.1000" fontWeight={500}>
-                {t(price.key)}
+                {price.key}
               </Typography>
               <Skeleton animation="wave" height={30} width={30} />
             </Box>

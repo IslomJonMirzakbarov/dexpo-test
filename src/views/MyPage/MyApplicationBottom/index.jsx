@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import classNames from "classnames";
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import useCollectionAPI from "../../../hooks/useCollectionApi";
 import ArtistStatusTable from "./ArtistStatusTable";
 import CollectionStatusTable from "./CollectionStatusTable";
@@ -48,7 +47,7 @@ const MyApplicationBottom = ({ artist, id }) => {
   }
 
   const [active, setActive] = useState(statusWord);
-  const { t } = useTranslation();
+
   return (
     <Box className={styles.Container}>
       <Box className={styles.ButtonsBox}>
@@ -61,7 +60,7 @@ const MyApplicationBottom = ({ artist, id }) => {
               })}
               onClick={() => setActive(key)}
             >
-              {t(Btns[key])}
+              {Btns[key]}
             </Box>
           );
         })}

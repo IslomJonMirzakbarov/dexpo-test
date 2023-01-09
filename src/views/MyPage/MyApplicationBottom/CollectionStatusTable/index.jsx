@@ -5,7 +5,6 @@ import CollectionStatusSvg from "../../../../assets/icons/collection-status-svg.
 import useCollectionAPI from "../../../../hooks/useCollectionApi";
 
 import styles from "./style.module.scss";
-import { useTranslation } from "react-i18next";
 
 const CollectionStatusTable = ({ id }) => {
   const [refetchInterval, setRefetchInterval] = useState(false);
@@ -25,14 +24,14 @@ const CollectionStatusTable = ({ id }) => {
     }
   }, [id]);
   const collectionItems = collections?.data?.items;
-  const { t } = useTranslation();
+
   return (
     <table className={styles.Table}>
       <thead className={styles.TableHead}>
         <tr className={styles.TableHeadRow}>
-          <th>{t("Collection logo & Name")}</th>
-          <th>{t("Status")}</th>
-          <th>{t("Date")}</th>
+          <th>Collection logo & Name</th>
+          <th>Status</th>
+          <th>Date</th>
         </tr>
       </thead>
 
@@ -41,10 +40,10 @@ const CollectionStatusTable = ({ id }) => {
           collectionItems.map((item) => {
             const itemStatus =
               item.status === "IDLE" || item.status === "PENDING"
-                ? t("Under Review")
+                ? "Under Review"
                 : item.status === "REJECT"
-                ? t("Rejected")
-                : t("Approved");
+                ? "Rejected"
+                : "Approved";
             return (
               <tr className={styles.TableBodyRow}>
                 <td>

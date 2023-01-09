@@ -13,7 +13,6 @@ import { clearWallet } from "../../../store/wallet/wallet.slice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
 const ProfileMenu = ({ options }) => {
   const navigate = useNavigate();
@@ -61,18 +60,6 @@ const ProfileMenu = ({ options }) => {
 
   const lastItems = options || items;
 
-  const { t } = useTranslation();
-
-  const hoverNames = (item) => {
-    if (item.name === "My Collections") {
-      return t("MyCollections");
-    } else if (item.name === "My Application") {
-      return t("MyApplication");
-    } else {
-      return t(item.name);
-    }
-  };
-
   return (
     <Paper variant="div" className={styles.menu}>
       <Box className={styles.wrapper}>
@@ -94,7 +81,7 @@ const ProfileMenu = ({ options }) => {
                     fontSize="13px!important"
                     style={{ color: "black" }}
                   >
-                    {t(item.name)}
+                    {item.name}
                   </Typography>
                 </a>
               );
@@ -113,7 +100,7 @@ const ProfileMenu = ({ options }) => {
                     fontSize="13px!important"
                     style={{ color: "black" }}
                   >
-                    {t(item.name)}
+                    {item.name}
                   </Typography>
                 </a>
               );
@@ -128,9 +115,7 @@ const ProfileMenu = ({ options }) => {
                 onClick={handleClick}
               >
                 {item.icon}
-                <Typography fontSize="13px!important">
-                  {hoverNames(item)}
-                </Typography>
+                <Typography fontSize="13px!important">{item.name}</Typography>
               </li>
             );
           })}

@@ -4,150 +4,147 @@ import {
   Grid,
   Paper,
   Typography,
-  useMediaQuery,
-} from "@mui/material";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import DSelect from "../../components/DSelect";
-import styles from "./style.module.scss";
-import SearchField from "../../components/Autocomplete";
-import NFTCard from "../../components/NFTCard";
-import CPagination from "../../components/CPagination";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
-import useMarketAPI from "../../hooks/useMarketAPI";
-import { priceTypeChar } from "../../constants";
-import NFTCardSkeleton from "../../components/NFTCard/index.skeleton";
-import NoItemsFound from "../../components/NoItems";
-import { marketFilterList } from "../../constants/marketFilter";
-import { debounce } from "lodash";
-import { makeStyles, useTheme } from "@mui/styles";
-import { getPaginationDetailsByPathname } from "../../utils/paginationQueries";
-import CustomSwitch from "../../components/CustomSwitch";
-import { useTranslation } from "react-i18next";
+  useMediaQuery
+} from '@mui/material'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import DSelect from '../../components/DSelect'
+import styles from './style.module.scss'
+import SearchField from '../../components/Autocomplete'
+import NFTCard from '../../components/NFTCard'
+import CPagination from '../../components/CPagination'
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
+import useMarketAPI from '../../hooks/useMarketAPI'
+import { priceTypeChar } from '../../constants'
+import NFTCardSkeleton from '../../components/NFTCard/index.skeleton'
+import NoItemsFound from '../../components/NoItems'
+import { marketFilterList } from '../../constants/marketFilter'
+import { debounce } from 'lodash'
+import { makeStyles, useTheme } from '@mui/styles'
+import { getPaginationDetailsByPathname } from '../../utils/paginationQueries'
+import CustomSwitch from '../../components/CustomSwitch'
 
 const useStyles = makeStyles((theme) => ({
   filter: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: "15px",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-      alignItems: "flex-end",
-      width: "100%",
-      marginTop: 15,
-    },
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '15px',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      width: '100%',
+      marginTop: 15
+    }
   },
   search: {
-    [theme.breakpoints.down("sm")]: {
-      display: "flex",
-      width: "100%",
-      marginBottom: 0,
-    },
-  },
-}));
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      width: '100%',
+      marginBottom: 0
+    }
+  }
+}))
 
 const Collections = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  const urlDetails = getPaginationDetailsByPathname(location.search);
+  const urlDetails = getPaginationDetailsByPathname(location.search)
 
-  const classes = useStyles();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const classes = useStyles()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const [search, setSearch] = useState(urlDetails?.search);
-  const [input, setInput] = useState(urlDetails?.search);
+  const [search, setSearch] = useState(urlDetails?.search)
+  const [input, setInput] = useState(urlDetails?.search)
 
   const filter = useMemo(() => {
     if (urlDetails?.filter) {
       const seletedFilter = marketFilterList.find((item) =>
         item.value.includes(urlDetails?.filter)
-      );
-      return seletedFilter;
+      )
+      return seletedFilter
     }
-    return "";
-  }, [urlDetails?.filter]);
+    return ''
+  }, [urlDetails?.filter])
 
   const page = useMemo(
     () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
     [urlDetails?.page]
-  );
+  )
 
   const { data, isLoading } = useMarketAPI({
     page,
     type: filter?.value,
-    search,
-  });
+    search
+  })
 
-  const noItems = !data?.items?.length || data?.items?.length === 0;
-  const mockData = Array(8).fill(12);
+  const noItems = !data?.items?.length || data?.items?.length === 0
+  const mockData = Array(8).fill(12)
 
   const debounced = useCallback(
     debounce((val) => setSearch(val), 300),
     []
-  );
+  )
 
   useEffect(() => {
-    debounced(input);
-  }, [input]);
+    debounced(input)
+  }, [input])
 
   const handleSwitchClick = (index) => {
     if (index === 1) {
-      navigate(`/originalNft`);
+      navigate(`/originalNft`)
     }
     if (index === 2) {
-      navigate(`/marketplace`);
+      navigate(`/marketplace`)
     }
-  };
+  }
 
-  console.log("filter", filter);
+  console.log('filter', filter)
 
   const handleChange = (e) => {
-    setInput(e.target.value);
+    setInput(e.target.value)
     navigate({
-      pathname: "/marketplace",
+      pathname: '/marketplace',
       search: createSearchParams({
         page: 1,
-        filter: filter?.value || "",
-        search: e.target.value,
-      }).toString(),
-    });
-  };
+        filter: filter?.value || '',
+        search: e.target.value
+      }).toString()
+    })
+  }
 
   const handleSelect = (item) => {
     navigate(
       `/marketplace?page=1&filter=${item.value}${
-        search ? `&search=${search}` : ""
+        search ? `&search=${search}` : ''
       }`
-    );
-  };
+    )
+  }
 
   const handleNavigate = (tokenId, address, wallet) => {
-    return navigate(`/marketplace/${tokenId}/${address}`);
-  };
+    return navigate(`/marketplace/${tokenId}/${address}`)
+  }
 
   const handlePaginate = (next) => {
     navigate(
-      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ""}${
-        search ? `&search=${search}` : ""
+      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ''}${
+        search ? `&search=${search}` : ''
       }`
-    );
-  };
-
-  const { t } = useTranslation();
+    )
+  }
 
   return (
     <Paper className={styles.container}>
       <Container maxWidth>
-        <Box display="flex" justifyContent="center">
+        <Box display='flex' justifyContent='center'>
           <Typography
-            variant="h2"
+            variant='h2'
             fontWeight={700}
-            fontSize="40px!important"
-            lineHeight="60px"
+            fontSize='40px!important'
+            lineHeight='60px'
           >
-            {t("Marketplace")}
+            Marketplace
           </Typography>
         </Box>
         <Box className={styles.SwitchFilterBox} mt={5}>
@@ -158,20 +155,20 @@ const Collections = () => {
             <SearchField
               isDark={true}
               isBackdrop={false}
-              placeholder={t("Search items & creators")}
+              placeholder='Search items & creators'
               value={input}
               onChange={handleChange}
               paperClass={classes.search}
             />
             <DSelect
-              label="Filter"
+              label='Filter'
               value={filter}
               items={marketFilterList}
               onSelect={(item) => handleSelect(item)}
             />
           </Box>
         </Box>
-        <Box display="flex" my={4}>
+        <Box display='flex' my={4}>
           <Grid container spacing={matches ? 0 : 3}>
             {isLoading
               ? mockData.map((_, i) => (
@@ -180,7 +177,7 @@ const Collections = () => {
                     key={i}
                     lg={12 / 5}
                     my={matches ? 2 : 0}
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                   >
                     <NFTCardSkeleton />
                   </Grid>
@@ -192,7 +189,7 @@ const Collections = () => {
                     lg={12 / 5}
                     sm={1}
                     my={matches ? 2 : 0}
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                   >
                     <NFTCard
                       collection={collection}
@@ -244,7 +241,7 @@ const Collections = () => {
         )}
       </Container>
     </Paper>
-  );
-};
+  )
+}
 
-export default Collections;
+export default Collections

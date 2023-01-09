@@ -3,10 +3,8 @@ import React from "react";
 import classNames from "classnames";
 
 import styles from "./style.module.scss";
-import { useTranslation } from "react-i18next";
 
 const ArtistStatusTable = ({ artist }) => {
-  const { t } = useTranslation();
   const fdate =
     artist?.data?.timestamp &&
     moment(artist?.data?.timestamp * 1000).format("YYYY.MM.DD HH:mm:ss");
@@ -14,17 +12,17 @@ const ArtistStatusTable = ({ artist }) => {
   const artistStatus = artist?.data?.status;
   const ArtistStatus =
     artistStatus === "IDLE" || artistStatus === "PENDING"
-      ? t("Under Review")
+      ? "Under Review"
       : artistStatus === "REJECT"
-      ? t("Rejected")
-      : t("Approved");
+      ? "Rejected"
+      : "Approved";
   return (
     <table className={styles.Table}>
       <thead className={styles.TableHead}>
         <tr className={styles.TableHeadRow}>
-          <th>{t('Email address')}</th>
-          <th>{t('Status')}</th>
-          <th>{t('Date')}</th>
+          <th>Email address</th>
+          <th>Status</th>
+          <th>Date</th>
         </tr>
       </thead>
 

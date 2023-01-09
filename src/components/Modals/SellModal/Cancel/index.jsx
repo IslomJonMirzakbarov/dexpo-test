@@ -1,13 +1,12 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import { awaitStatus } from "../Pending/ConditionAwaitLabel";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+import { awaitStatus } from '../Pending/ConditionAwaitLabel';
 
 const CancelSell = ({ canceling, error }) => {
   const title = !canceling.includes(awaitStatus.COMPLETE)
-    ? "Cancel Listing"
-    : "Listing canceled!";
-  const { t } = useTranslation();
+    ? 'Cancel Listing'
+    : 'Listing canceled!';
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Typography variant="modalTitle">{title}</Typography>
@@ -17,11 +16,10 @@ const CancelSell = ({ canceling, error }) => {
         width={369}
         textAlign="center"
         mt="10px"
-        mb={!error ? "80px" : "0"}
+        mb={!error ? '80px' : '0'}
       >
-        {t(
-          "This will cancel your listing. You will also asked to confirm this cancellation from your wallet."
-        )}
+        This will cancel your listing. You will also asked to confirm this
+        cancellation from your wallet.
       </Typography>
       {error && (
         <Typography
