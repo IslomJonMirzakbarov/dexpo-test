@@ -1,67 +1,69 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import React from 'react';
-import { truncateAddress } from '../../../../utils';
-import { redirectTx } from '../../../../utils/redirect';
+import { Box, CircularProgress, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { truncateAddress } from "../../../../utils";
+import { redirectTx } from "../../../../utils/redirect";
 
 const useStyles = makeStyles({
   wrapper: {
     width: 650,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '17px 17px 55px 17px'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "17px 17px 55px 17px",
   },
   box: {
     marginTop: 19,
-    display: 'flex',
-    justifyContent: 'center',
-    '& img': {
+    display: "flex",
+    justifyContent: "center",
+    "& img": {
       borderRadius: 7,
-      objectFit: 'cover'
-    }
+      objectFit: "cover",
+    },
   },
   text: {
     marginTop: 22,
-    width: '70%',
-    textAlign: 'center',
-    fontWeight: 500
+    width: "70%",
+    textAlign: "center",
+    fontWeight: 500,
   },
   transaction: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     marginTop: 20,
-    alignItems: 'center'
+    alignItems: "center",
   },
   hash: {
-    color: 'rgba(30, 76, 237, 1)',
-    cursor: 'pointer'
-  }
+    color: "rgba(30, 76, 237, 1)",
+    cursor: "pointer",
+  },
 });
 
 const CompleteCheckout = ({ name, txHash, img, isAuction }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
-  const word = isAuction ? 'bid' : 'purchase';
+  const word = isAuction ? "bid" : "purchase";
 
   const handleCopy = () => navigator.clipboard.writeText(txHash);
 
   return (
     <Box className={classes.wrapper}>
       <Typography fontSize={22} fontWeight={700} lineHeight="33px">
-        Your {word} is complete
+        {t(`Your ${word} is complete`)}
       </Typography>
       <Box className={classes.box}>
         <img src={img} alt={name} width={193} height={193} />
       </Box>
       <Typography variant="placeholder" className={classes.text}>
-        Congrats you just {isAuction ? 'bided' : 'purchased'}&nbsp;
+        {t(`Congrats you just ${isAuction ? "bidded" : "purchased"}`)}&nbsp;
         <Typography variant="placeholder" color="primary" fontWeight={700}>
-          {name}!
+          {t(name)}!
         </Typography>
       </Typography>
       <Box className={classes.transaction}>
         <Typography variant="placeholder" fontWeight={500}>
-          TRANSACTION HASH
+          {t('TRANSACTION HASH')}
         </Typography>
         <Typography
           variant="placeholder"

@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import { clearWallet } from "../../../store/wallet/wallet.slice";
 import { logout } from "../../../store/auth/auth.slice";
+import { useTranslation } from "react-i18next";
 
 const FramerList = motion(Box);
 
@@ -39,6 +40,7 @@ const variantChild = {
 
 const ToggleList = ({ page, location, navigate, token }) => {
   const [openList, setOpenList] = useState(false);
+  const { t } = useTranslation();
   return (
     <>
       <Box
@@ -60,7 +62,7 @@ const ToggleList = ({ page, location, navigate, token }) => {
             alignItems="center"
             fontWeight={600}
           >
-            {page.name}&nbsp;{" "}
+            {t(page.name)}&nbsp;{" "}
           </Typography>
           <ArrowForwardIosRoundedIcon />
         </Box>
@@ -84,7 +86,7 @@ const ToggleList = ({ page, location, navigate, token }) => {
                   >
                     {child.icon}
                     <Typography fontSize={13} fontWeight={500} ml="17px">
-                      {child.name}
+                      {t(child.name)}
                     </Typography>
                   </Box>
                 </a>
@@ -107,7 +109,7 @@ const ToggleList = ({ page, location, navigate, token }) => {
                   >
                     {child.icon}
                     <Typography fontSize={13} fontWeight={500} ml="17px">
-                      {child.name}
+                      {t(child.name)}
                     </Typography>
                   </Box>
                 </a>
@@ -132,7 +134,11 @@ const ToggleList = ({ page, location, navigate, token }) => {
                 >
                   {child.icon}
                   <Typography fontSize={13} fontWeight={500} ml="17px">
-                    {child.name}
+                    {child.name === "My Collections"
+                      ? t("MyCollections")
+                      : child.name === "My Application"
+                      ? t("MyApplication")
+                      : t(child.name)}
                   </Typography>
                 </Box>
               </Box>
@@ -164,6 +170,8 @@ const LinkListResponsive = () => {
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
+
+  const { t } = useTranslation();
 
   return (
     <Box display="flex" alignItems="center">
@@ -220,7 +228,10 @@ const LinkListResponsive = () => {
                       alignItems="center"
                       fontWeight={600}
                     >
-                      {page.name}&nbsp;{" "}
+                      {page.name === "Create NFT"
+                        ? t("CreateNFT")
+                        : t(page.name)}
+                      &nbsp;{" "}
                     </Typography>
                     <ArrowForwardIosRoundedIcon />
                   </Box>
@@ -237,7 +248,7 @@ const LinkListResponsive = () => {
           onClick={() => navigate("/login")}
         >
           <Button variant="containedInherit" fullWidth>
-            Connect Wallet
+            {t("ConnectWallet")}
           </Button>
         </Box>
       </FramerList>

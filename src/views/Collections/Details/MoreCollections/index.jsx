@@ -1,14 +1,15 @@
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from '../../../Home/NFTCollections/style.module.scss';
-import Slider from 'react-slick';
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../../../Home/NFTCollections/style.module.scss";
+import Slider from "react-slick";
+import { useTranslation } from "react-i18next";
 
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
-import NFTCard from '../../../../components/NFTCard';
-import { priceTypeChar } from '../../../../constants';
+import NFTCard from "../../../../components/NFTCard";
+import { priceTypeChar } from "../../../../constants";
 
 const slidesToShow = 4;
 
@@ -19,11 +20,13 @@ const settings = {
   slidesToShow,
   slidesToScroll: 1,
   prevArrow: <ArrowBackIosNewRoundedIcon />,
-  nextArrow: <ArrowForwardIosRoundedIcon />
+  nextArrow: <ArrowForwardIosRoundedIcon />,
 };
 
 const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const handleNavigate = () =>
     navigate(`/collections/${contractAddress}?user=false`);
@@ -36,12 +39,12 @@ const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
         <Box display="flex" justifyContent="center" alignItems="center" mb={5}>
           <Typography
             variant="h2"
-            fontSize={`${isResponsive ? '28px' : '40px'}!important`}
-            lineHeight={`${isResponsive ? '42px' : '60px'}`}
+            fontSize={`${isResponsive ? "28px" : "40px"}!important`}
+            lineHeight={`${isResponsive ? "42px" : "60px"}`}
             fontWeight={700}
             textAlign="center"
           >
-            {title}
+            {t(title)}
           </Typography>
         </Box>
         <Box className={styles.collection}>
@@ -117,10 +120,10 @@ const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
             onClick={handleNavigate}
             sx={{
               width: 185,
-              height: 55
+              height: 55,
             }}
           >
-            View collection
+            {t("View collection")}
           </Button>
         </Box>
       </Box>
