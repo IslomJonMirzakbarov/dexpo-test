@@ -21,12 +21,10 @@ import styles from "./style.module.scss";
 import { convertToRaw, Editor, EditorState } from "draft-js";
 import "draft-js/dist/Draft.css";
 import draftToHtml from "draftjs-to-html";
-import { useTranslation } from "react-i18next";
 
 const NftCreate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const { mint, getTransactionReceipt } = useCurrentProvider();
 
@@ -163,11 +161,11 @@ const NftCreate = () => {
 
   return (
     <Box className={styles.Container}>
-      <Box className={styles.Title}>{t("Create New Item")}</Box>
+      <Box className={styles.Title}>Create New Item</Box>
 
       <Box className={styles.TopSideContainer}>
         <Box className={styles.TypeLagInfo}>
-          {t("Content types supported: JPG, PNG *")}
+          Content types supported: JPG, PNG *
         </Box>
         <Box className={styles.TopSide}>
           <Box className={styles.LeftSide}>
@@ -188,9 +186,9 @@ const NftCreate = () => {
                       id="terms-checkbox"
                     />
                     <Box className={styles.AgreementTxt}>
-                      {t(
-                        "I declare that this is an original artwork. I understand that no plagiarism is allowed, and that the artwork can be removed anytime if detected."
-                      )}
+                      I declare that this is an original artwork. I understand
+                      that no plagiarism is allowed, and that the artwork can be
+                      removed anytime if detected.
                     </Box>
                   </Box>
                 </label>
@@ -199,13 +197,13 @@ const NftCreate = () => {
           </Box>
 
           <Box className={styles.RightSide}>
-            <Box className={styles.RightTitle}>{t("Collection")}</Box>
+            <Box className={styles.RightTitle}>Collection</Box>
             <Box className={styles.TitleDesc}>
-              {t("If you have no collection yet, then")}{" "}
+              If you have no collection yet, then{" "}
               <div onClick={() => navigate("/user/collections/create")}>
-                {t("create a collection")}
+                create a collection
               </div>{" "}
-              {t("first, and your item will appear in this collection.")}
+              first, and your item will appear in this collection.
             </Box>
             <FormControl fullWidth className={styles.CollectionForm}>
               <Controller
@@ -223,7 +221,7 @@ const NftCreate = () => {
                       }}
                       getOptionValue={(item) => item.contract_id}
                       shouldControlInputValue={false}
-                      placeholder={t("Select Collection")}
+                      placeholder="Select Collection"
                       components={{
                         Option: CollectionOption,
                       }}
@@ -236,13 +234,13 @@ const NftCreate = () => {
                 className={classNames(styles.ArtworkName, styles.InputWrapper)}
               >
                 <Typography variant="label" className={styles.Label}>
-                  {t("Artwork Name")}
+                  Artwork Name
                 </Typography>
                 <FormInputText
                   artistInput
                   control={control}
                   name="artworkName"
-                  label={t("Enter an artwork name")}
+                  label="Enter an artwork name"
                 />
               </Box>
               <Box
@@ -252,13 +250,13 @@ const NftCreate = () => {
                 )}
               >
                 <Typography variant="label" className={styles.Label}>
-                  {t("Artwork Description")}
+                  Artwork Description
                 </Typography>
                 <Box className={styles.DraftEditorRoot}>
                   <Editor
                     editorState={editorState}
                     onChange={setEditorState}
-                    placeholder={t("Enter an artwork description")}
+                    placeholder="Enter an artwork description"
                   />
                 </Box>
               </Box>
@@ -282,13 +280,12 @@ const NftCreate = () => {
         </Button>
         {(errorChecker > 0 || errBool) && (
           <Box className={styles.Error}>
-            {t("Please")}{" "}
-            {!watch("collection") ? ` ${t("Select collection")}` : ""}{" "}
-            {!watch("artworkName") ? ` ${t("Enter artwork name")}` : ""}
+            Please {!watch("collection") ? ' "Select collection"' : ""}{" "}
+            {!watch("artworkName") ? ' "Enter artwork name"' : ""}
             {!watch("artworkDescription")
-              ? ` ${t("Enter artwork description")}`
+              ? ' "Enter artwork description"'
               : ""}{" "}
-            {t("enter all required values.")}
+            enter all required values.
           </Box>
         )}
       </Box>
@@ -309,8 +306,8 @@ const NftCreate = () => {
           <Box className={styles.IconContainer}>
             <img src={uploadedImg.preview} alt={uploadedImg.name} />
           </Box>
-          <div className={styles.Congrats}>{t("Congrats!")}</div>
-          <div className={styles.Created}>{t("You created")}</div>
+          <div className={styles.Congrats}>Congrats!</div>
+          <div className={styles.Created}>You created</div>
           <div className={styles.TokCol}>{artName}</div>
         </ModalCard>
       )}
@@ -328,10 +325,8 @@ const NftCreate = () => {
           <Box className={styles.IconContainer}>
             <RejectIcon />
           </Box>
-          <div className={styles.Congrats}>{t("Rejected!")}</div>
-          <div className={styles.Created}>
-            {t("You've rejected creating NFT")}
-          </div>
+          <div className={styles.Congrats}>Rejected!</div>
+          <div className={styles.Created}>You've rejected creating NFT</div>
         </ModalCard>
       )}
     </Box>

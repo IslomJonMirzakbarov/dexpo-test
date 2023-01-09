@@ -4,7 +4,6 @@ import SearchIcon from '@mui/icons-material/Search'
 import classnames from 'classnames'
 import { useState } from 'react'
 import { makeStyles } from '@mui/styles'
-import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -64,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 const SearchField = ({
   isDark = false,
   isBackdrop = true,
-  // placeholder = 'Search items, collections, and accounts',
+  placeholder = 'Search items, collections, and accounts',
   paperClass,
   ...props
 }) => {
@@ -72,7 +71,6 @@ const SearchField = ({
   const [focused, setFocused] = useState(false)
   const onFocus = () => setFocused(true)
   const onBlur = () => setFocused(false)
-  const { t } = useTranslation();
 
   return (
     <Paper
@@ -91,7 +89,7 @@ const SearchField = ({
         className={classnames(classes.input, {
           [classes.input_dark]: isDark
         })}
-        placeholder={t('searchPlaceHolder')}
+        placeholder={placeholder}
         inputProps={{ 'aria-label': 'search nfts' }}
         onFocus={onFocus}
         onBlur={onBlur}

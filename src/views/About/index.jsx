@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/system";
-import AboutCoverage from "../../assets/icons/about-coverage2.svg?component";
-import DexpoIcon from "../../assets/icons/edit-collection-hover.svg?component";
-import StorageImage from "../../assets/images/storage-image.png";
-import MintImage from "../../assets/images/mint-image2.png";
-import TradeImage from "../../assets/images/trade-image.png";
-import AuditionImage from "../../assets/images/audition-image.png";
-import CollabImage from "../../assets/images/collab-image.png";
-import { Button, Container, Grid, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/styles";
-import classNames from "classnames";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/system';
+import AboutCoverage from '../../assets/icons/about-coverage2.svg?component';
+import DexpoIcon from '../../assets/icons/edit-collection-hover.svg?component';
+import StorageImage from '../../assets/images/storage-image.png';
+import MintImage from '../../assets/images/mint-image2.png';
+import TradeImage from '../../assets/images/trade-image.png';
+import AuditionImage from '../../assets/images/audition-image.png';
+import CollabImage from '../../assets/images/collab-image.png';
+import { Button, Container, Grid, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/styles';
+import classNames from 'classnames';
 import useCollecionsByCategory, {
-  categoryTypes,
-} from "../../hooks/useCollectionsByCategoryAPI";
-import NFTCard from "../../components/NFTCard";
-import { priceTypeChar } from "../../constants";
-import Slider from "react-slick";
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import styles from "./style.module.scss";
-import styles2 from "./style2.module.scss";
-import { useTranslation } from "react-i18next";
+  categoryTypes
+} from '../../hooks/useCollectionsByCategoryAPI';
+import NFTCard from '../../components/NFTCard';
+import { priceTypeChar } from '../../constants';
+import Slider from 'react-slick';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+
+import styles from './style.module.scss';
+import styles2 from './style2.module.scss';
 
 const slidesToShow = 4;
 
@@ -40,23 +40,23 @@ const settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: false,
-        dots: true,
-      },
-    },
-  ],
+        dots: true
+      }
+    }
+  ]
 };
 
 const About = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const [refetchInterval, setRefetchInterval] = useState(false);
 
   const { collections, isLoading } = useCollecionsByCategory(
     categoryTypes.NOTABLE,
     refetchInterval
   );
-  const { t } = useTranslation();
+
   return (
     <Box className={styles.Container}>
       <div className={styles.AboutCoverage}>
@@ -68,49 +68,45 @@ const About = () => {
           <DexpoIcon className={styles.DexpoIcon} />
         </div>
 
-        <div className={styles.Title}>{t("World Art DEXPO")}</div>
+        <div className={styles.Title}>World Art DEXPO</div>
 
         <div className={styles.PreInfo}>
-          {t("World Art DEXPO is a next-generation")} <br />{" "}
-          {t("NFT trading platform that combines blockchain")} <br />
-          {t("technology with existing real artworks.")}
+          World Art DEXPO is a next-generation <br /> NFT trading platform that
+          combines blockchain <br /> technology with existing real artworks.
         </div>
 
         <Button
           variant="containedPrimary"
           className={styles.ExploreBtn}
-          onClick={() => navigate("/marketplace")}
+          onClick={() => navigate('/marketplace')}
         >
-          {t("Explore")}
+          Explore
         </Button>
 
-        <div className={styles.WhatWeDoTxt}>{t("What We Do")}</div>
+        <div className={styles.WhatWeDoTxt}>What We Do</div>
 
         <div className={styles.CollabContainer}>
           <img src={CollabImage} alt="collab" />
           <div className={styles.CollabRightSide}>
             <div className={styles.RightSideTitle}>
-              {t("Collaboration with KFAA(Korean Fine Arts Association)")}
+              Collaboration with KFAA(Korean Fine Arts Association)
             </div>
             <div className={styles.CollabParagraphContainer}>
               <div className={styles.CollabText}>
-                {t(
-                  "- Buy or collect artworks owned by KFAA(Korean Fine Arts Association)"
-                )}
+                - Buy or collect artworks owned by KFAA(Korean Fine Arts
+                Association)
               </div>
               <div
                 className={classNames(styles.CollabText, styles.ArtworkStyle)}
               >
                 <div>-</div>
                 <div>
-                  {t(
-                    "See artworks of national treasures, works by famous painters, and even"
-                  )}{" "}
-                  <br /> {t("the up-and-coming artists!")}
+                  See artworks of national treasures, works by famous painters,
+                  and even <br /> the up-and-coming artists!
                 </div>
               </div>
               <div className={styles.CollabText}>
-                {t("- Discover the valuable artworks at World Art DEXPO")}
+                - Discover the valuable artworks at World Art DEXPO
               </div>
             </div>
           </div>
@@ -119,18 +115,15 @@ const About = () => {
         <div className={classNames(styles.CollabContainer, styles.CollabKfa)}>
           <img src={StorageImage} alt="storage" />
           <div className={styles.CollabRightSide}>
-            <div className={styles.RightSideTitle}>
-              {t("OceanDrive Storage")}
-            </div>
+            <div className={styles.RightSideTitle}>OceanDrive Storage</div>
             <div className={styles.CollabParagraphContainer}>
               <div
                 className={classNames(styles.CollabText, styles.ArtworkStyle)}
               >
                 <div>-</div>
                 <div>
-                  {t(
-                    "A secure and reliable artwork trading platform with distributed storage technology."
-                  )}
+                  A secure and reliable artwork trading platform with
+                  distributed storage technology.
                 </div>
               </div>
 
@@ -139,9 +132,8 @@ const About = () => {
               >
                 <div>-</div>
                 <div>
-                  {t(
-                    "World Art DEXPO does not use third-party cloud storage, but uses OceanDrive with distributed storage technology."
-                  )}
+                  World Art DEXPO does not use third-party cloud storage, but
+                  uses OceanDrive with distributed storage technology.
                 </div>
               </div>
 
@@ -150,9 +142,9 @@ const About = () => {
               >
                 <div>-</div>
                 <div>
-                  {t(
-                    "A more secure trading is made because encrypted data is stored in OceanDrive and cannot be accessed without permission from the owner."
-                  )}
+                  A more secure trading is made because encrypted data is stored
+                  in OceanDrive and cannot be accessed without permission from
+                  the owner.
                 </div>
               </div>
             </div>
@@ -160,7 +152,7 @@ const About = () => {
         </div>
 
         <div className={classNames(styles.WhatWeDoTxt, styles.ExploreTxt)}>
-          {t("Explore World Art DEXPO!")}
+          Explore World Art DEXPO!
         </div>
 
         <div className={styles.ExploreContainer}>
@@ -170,43 +162,40 @@ const About = () => {
               <img src={MintImage} alt="" />
             </div>
             <div className={styles.MintTxt}>
-              {t("Various NFT artworks")} <br /> {t("can be created.")}
+              Various NFT artworks <br /> can be created.
             </div>
           </div>
 
           <div className={classNames(styles.Trade, styles.InnerContainer)}>
-            <div className={styles.TradeTitle}>{t("Trade with CYCON")}</div>
+            <div className={styles.TradeTitle}>Trade with CYCON</div>
             <div className={styles.TradeImg}>
               <img src={TradeImage} alt="" />
             </div>
             <div className={styles.TradeTxt}>
-              {t("OceanDrive users can be rewarded")} <br />{" "}
-              {t("with CYCON COIN and can")} <br />{" "}
-              {t("buy and sell NFTs with CYCON in DEXPO.")}
+              OceanDrive users can be rewarded <br /> with CYCON COIN and can{' '}
+              <br /> buy and sell NFTs with CYCON in DEXPO.
             </div>
           </div>
 
           <div className={classNames(styles.Audition, styles.InnerContainer)}>
-            <div className={styles.AuditionTitle}>{t("Audition")}</div>
+            <div className={styles.AuditionTitle}>Audition</div>
             <div className={styles.AuditionImg}>
               <img src={AuditionImage} alt="" />
             </div>
             <div className={styles.AuditionTxt}>
-              {t("Through an audition, all")} <br />{" "}
-              {t("information regarding the artists")} <br />{" "}
-              {t("will be checked and processed.")}
+              Through an audition, all <br /> information regarding the artists{' '}
+              <br /> will be checked and processed.
             </div>
           </div>
         </div>
 
         <div className={classNames(styles.WhatWeDoTxt, styles.InvestTxt)}>
-          {t("Invest in valuable NFT artworks!")}
+          Invest in valuable NFT artworks!
         </div>
 
         <div className={styles.InvestInfoTxt}>
-          {t(
-            "We would like to present a list of works and top collections to consumers."
-          )}
+          We would like to present a list of works and top collections to
+          consumers.
         </div>
 
         <Box className={classNames(styles2.container)}>

@@ -1,20 +1,19 @@
-import React, { useRef, useState } from "react";
-import { ListItem, List, Box, Typography } from "@mui/material";
-import { NavLink, useLocation } from "react-router-dom";
-import { pages } from "../../../constants";
-import { useSelector } from "react-redux";
-import { useOnClickOutside } from "../../../hooks/useOnOutsideClick";
-import styles from "../../AuthLayout/style.module.scss";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import ProfileMenu from "../ProfileMenu";
-import classNames from "classnames";
-import { useTranslation } from "react-i18next";
+import React, { useRef, useState } from 'react';
+import { ListItem, List, Box, Typography } from '@mui/material';
+import { NavLink, useLocation } from 'react-router-dom';
+import { pages } from '../../../constants';
+import { useSelector } from 'react-redux';
+import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
+import styles from '../../AuthLayout/style.module.scss';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import ProfileMenu from '../ProfileMenu';
+import classNames from 'classnames';
 
 const LinkList = () => {
   const { pathname } = useLocation();
   const contactRef = useRef(null);
   const { token } = useSelector((store) => store.auth);
-  const { t } = useTranslation();
+
   const [contactOpen, setContactOpen] = useState(false);
 
   const handleToggleContact = () => setContactOpen((prev) => !prev);
@@ -26,7 +25,7 @@ const LinkList = () => {
       {pages.map((page) => (
         <ListItem
           className={classNames(styles.navItem, {
-            [styles.active]: pathname.includes(page.to),
+            [styles.active]: pathname.includes(page.to)
           })}
           key={page.name}
         >
@@ -38,8 +37,8 @@ const LinkList = () => {
                 alignItems="center"
                 onClick={handleToggleContact}
               >
-                {t(page.name)}
-                &nbsp; {!!page.children && <KeyboardArrowDownRoundedIcon />}
+                {page.name}&nbsp;{' '}
+                {!!page.children && <KeyboardArrowDownRoundedIcon />}
               </Typography>
               {!!page.children && contactOpen && (
                 <ProfileMenu options={page.children} />
@@ -48,17 +47,16 @@ const LinkList = () => {
           ) : page.target ? (
             <a href={page.to} target={page.target}>
               <Typography variant="body2" display="flex" alignItems="center">
-                {page.name}&nbsp;{" "}
+                {page.name}&nbsp;{' '}
               </Typography>
             </a>
           ) : (
             <NavLink
-              to={page.isAuthenticated && !token ? "/login" : page.to}
+              to={page.isAuthenticated && !token ? '/login' : page.to}
               target={page.target}
             >
               <Typography variant="body2" display="flex" alignItems="center">
-                {page.name === "Create NFT" ? t("CreateNFT") : t(page.name)}
-                &nbsp;{" "}
+                {page.name}&nbsp;{' '}
               </Typography>
             </NavLink>
           )}

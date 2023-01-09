@@ -1,22 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import useMoreByCollectionAPI from "../../../hooks/useMoreByCollectionAPI";
-import NFTSellRequestContainer from "./index.container";
+import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI';
+import NFTSellRequestContainer from './index.container';
 
-import { DATE_FORMAT, priceType } from "../../../constants";
-import { useForm } from "react-hook-form";
-import { nftSellBtnLabels } from "../../../constants/marketStatuses";
-import useSellNFT from "./hook/useSellNFT";
-import { useSelector } from "react-redux";
-import { parseNormalizedDate } from "../../../utils/parseDate";
-import moment from "moment";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { DATE_FORMAT, priceType } from '../../../constants';
+import { useForm } from 'react-hook-form';
+import { nftSellBtnLabels } from '../../../constants/marketStatuses';
+import useSellNFT from './hook/useSellNFT';
+import { useSelector } from 'react-redux';
+import { parseNormalizedDate } from '../../../utils/parseDate';
+import moment from 'moment';
+import { useEffect } from 'react';
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
-  { value: priceType.AUCTION.key, label: priceType.AUCTION.value },
+  { value: priceType.AUCTION.key, label: priceType.AUCTION.value }
 ];
 
 const NFTSellRequest = ({
@@ -31,7 +30,7 @@ const NFTSellRequest = ({
   market,
   nft,
   collection,
-  artist,
+  artist
 }) => {
   const { newNftSrc } = useSelector((store) => store.nft);
 
@@ -47,7 +46,7 @@ const NFTSellRequest = ({
   }, [newNftSrc]);
 
   const { control, watch } = useForm({
-    price: "",
+    price: ''
   });
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address);
@@ -63,9 +62,9 @@ const NFTSellRequest = ({
   const [sendStartDate, setSendStartDate] = useState(null);
   const [sendEndDate, setSendEndDate] = useState(null);
 
-  const isAuction = type?.value === "auction" || market?.type === "A";
+  const isAuction = type?.value === 'auction' || market?.type === 'A';
 
-  const sellPrice = !!control && watch("price");
+  const sellPrice = !!control && watch('price');
 
   const handleChangeStartingDate = (e) => {
     const val = e.target.value;
@@ -96,7 +95,7 @@ const NFTSellRequest = ({
     marketStatus,
     onBack,
     handeConfirm,
-    handleToggle,
+    handleToggle
   } = useSellNFT({
     collection,
     status,
@@ -113,9 +112,9 @@ const NFTSellRequest = ({
     type,
     startDate,
     endDate,
-    refetchBid,
+    refetchBid
   });
-  const { t } = useTranslation();
+
   return (
     <NFTSellRequestContainer
       nft={nft}
@@ -141,7 +140,7 @@ const NFTSellRequest = ({
       bidHistory={bidHistory}
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
-      submitLabel={isCancel ? t("Cancel") : t(nftSellBtnLabels[marketStatus])}
+      submitLabel={isCancel ? 'Cancel' : nftSellBtnLabels[marketStatus]}
       marketStatus={marketStatus}
       onLike={handleLike}
       sdValue={sendStartDate}

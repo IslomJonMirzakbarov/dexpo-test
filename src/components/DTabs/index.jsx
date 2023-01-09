@@ -5,7 +5,6 @@ import classNames from "classnames";
 import { setSelectedTab } from "../../store/myPage/myPage.slice";
 import DSelect from "../DSelect";
 import styles from "./style.module.scss";
-import { useTranslation } from "react-i18next";
 
 const DTabs = ({
   values,
@@ -23,7 +22,7 @@ const DTabs = ({
     );
     onSelect(item);
   };
-  const { t } = useTranslation();
+
   return (
     <Paper className={classNames(styles.tabs, className)}>
       <ul className={styles.list}>
@@ -44,7 +43,7 @@ const DTabs = ({
                 onSelect={(val) => handleSelect(val, v)}
               />
             ) : (
-              <Typography variant="placeholder">{t(value.label)}</Typography>
+              <Typography variant="placeholder">{value.label}</Typography>
             )}
           </li>
         ))}
