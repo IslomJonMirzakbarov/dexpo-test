@@ -1,4 +1,4 @@
-import { createRef, useCallback, useEffect, useRef, useState } from "react";
+import { createRef, useCallback, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SearchField from "../Autocomplete";
 import AutocompleteList from "../AutocompleteList";
@@ -12,59 +12,13 @@ import { ReactSVG } from "react-svg";
 import SearchFieldResponsive from "../Autocomplete/index.responsive";
 import { useOnClickOutside } from "../../hooks/useOnOutsideClick";
 import { useTheme } from "@mui/styles";
-import { ToggleButton, ToggleButtonGroup, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import Img from "react-cool-img";
 import { useTranslation } from "react-i18next";
 import LangIcon from "../../assets/icons/lang-icon.svg?component";
 import HoveredLangIcon from "../../assets/icons/hovered-lang-icon.svg?component";
 import EnglishIcon from "../../assets/icons/en-lang-icon.svg";
 import KoreanIcon from "../../assets/icons/kr-lang-icon.svg";
-
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  ToggleButtonGroup: (props) => ({
-    display: "flex",
-    flexDirection: "column",
-    width: 180,
-    height: 90,
-    background: "#ffffff",
-    boxShadow: "5px 5px 30px rgba(180, 180, 180, 0.3)",
-    "&.MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:not(:first-of-type)":
-      {
-        borderBottomLeftRadius: 7,
-        borderBottomRightRadius: 7,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-        marginLeft: 0,
-      },
-    "&.MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:not(:last-of-type)":
-      {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        borderTopLeftRadius: 7,
-        borderTopRightRadius: 7,
-      },
-  }),
-  ToggleButton: (props) => ({
-    "&.MuiToggleButton-root": {
-      height: 45,
-      display: "flex",
-      justifyContent: "flex-start",
-      alignItems: "center",
-      gap: 15,
-      fontWeight: "500",
-      fontSize: 13,
-      lineHeight: 20,
-    },
-    "&.Mui-selected": {
-      color: "#1F1F1F",
-      backgroundColor: "#ffffff",
-      boxShadow: "-1px 1px 16px 7px rgba(0, 0, 0, 0.06)",
-      borderBottomLeftRadius: 7,
-    },
-  }),
-});
 
 const Header = ({
   title = "",
@@ -78,7 +32,6 @@ const Header = ({
   sticky,
   ...props
 }) => {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const location = useLocation();
@@ -260,25 +213,26 @@ const Header = ({
           onMouseEnter={() => setIsLangOpen(true)}
           onMouseLeave={() => setIsLangOpen(false)}
         >
-          <ToggleButtonGroup
+          <Box
             value={i18n.language}
             exclusive
-            className={classes.ToggleButtonGroup}
+            className={styles.ToggleButtonGroup}
           >
             {Object.entries(lngs).map(([lng, { nativeName, nativeImage }]) => (
-              <ToggleButton
+              <Box
                 key={lng}
                 value={lng}
                 onClick={() => {
                   handleLanguageChange(lng);
                   setIsLangOpen(false);
                 }}
-                className={classes.ToggleButton}
+                className={styles.ToggleButton}
               >
-                {nativeImage} {nativeName}
-              </ToggleButton>
+                <Box>{nativeImage}</Box>
+                <Typography className={styles.ToggleItemText}>{nativeName}</Typography>
+              </Box>
             ))}
-          </ToggleButtonGroup>
+          </Box>
         </div>
       )}
     </div>
