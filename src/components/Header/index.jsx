@@ -196,6 +196,19 @@ const Header = ({
       <div className={styles.rightSideResponsive}>
         <SearchFieldResponsive value={search} onChange={handleChange} />
         <LinkListResponsive />
+
+        {!hovered ? (
+          <LangIcon
+            className={styles.icon}
+            onClick={() => setIsLangOpen(!isLangOpen)}
+          />
+        ) : (
+          <HoveredLangIcon
+            className={styles.icon}
+            onClick={() => setIsLangOpen(!isLangOpen)}
+          />
+        )}
+
         <div className={styles.result}>
           <AutocompleteList
             isLoading={isLoading}
@@ -229,7 +242,9 @@ const Header = ({
                 className={styles.ToggleButton}
               >
                 <Box>{nativeImage}</Box>
-                <Typography className={styles.ToggleItemText}>{nativeName}</Typography>
+                <Typography className={styles.ToggleItemText}>
+                  {nativeName}
+                </Typography>
               </Box>
             ))}
           </Box>
