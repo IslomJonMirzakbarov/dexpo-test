@@ -45,7 +45,7 @@ const CollectedBottom = ({ tabValue, id }) => {
         setRefetchInterval(false);
       }, 5000);
     }
-  }, [tabValue]);
+  }, [tabValue]);       
 
   return (
     <Box className={styles.Container}>

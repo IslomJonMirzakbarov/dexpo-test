@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Button, Typography } from '@mui/material'
-import NumberFormat from 'react-number-format'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import TokenImg from '../../assets/images/con-token.svg?component'
-import OriginalIcon from '../../assets/icons/original.svg?component'
-import classNames from 'classnames'
-import { calculateDeadline } from '../../utils/deadline'
+import React, { useState, useEffect } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import NumberFormat from "react-number-format";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import TokenImg from "../../assets/images/con-token.svg?component";
+import OriginalIcon from "../../assets/icons/original.svg?component";
+import classNames from "classnames";
+import { calculateDeadline } from "../../utils/deadline";
 
 // import loader from '../../assets/gif/loader.gif';
-import styles from './style.module.scss'
-import Img from 'react-cool-img'
-import { urlToIpfs } from '../../utils'
-import loader from '../../assets/gif/ring.gif'
-import numFormat from '../../utils/numFormat'
+import styles from "./style.module.scss";
+import Img from "react-cool-img";
+import { urlToIpfs } from "../../utils";
+import loader from "../../assets/gif/ring.gif";
+import numFormat from "../../utils/numFormat";
+import { useTranslation } from "react-i18next";
 
 const NFTCard = ({
   collection,
@@ -31,23 +32,25 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = 'containedInherit',
+  buttonVariant = "containedInherit",
   isDefault = false,
   className,
   hasShadow = true,
   hasOriginal,
   isSold,
-  isOriginalNft
+  isOriginalNft,
 }) => {
-  // console.log(collection);
-  const leftDays = endDate && startDate && calculateDeadline(startDate, endDate)
+  const { t } = useTranslation();
+  const leftDays =
+    endDate && startDate && calculateDeadline(startDate, endDate);
+  const firstStopIndex = leftDays?.indexOf(" ");
 
   return (
     <Box
       className={classNames(styles.card, className, {
-        [styles.CollectedCard]: page === 'collectedBottom',
+        [styles.CollectedCard]: page === "collectedBottom",
         [styles.minified]: !price,
-        [styles.default]: isDefault
+        [styles.default]: isDefault,
       })}
     >
       {hasOriginal && (
@@ -63,43 +66,51 @@ const NFTCard = ({
           placeholder={loader}
           error={urlToIpfs(img)}
         />
-        {priceType && <span className={styles.price_type}>{priceType}</span>}
+        {priceType && <span className={styles.price_type}>{t(priceType)}</span>}
         {leftDays && (
           <Box className={styles.leftDays}>
             <TimelapseRoundedIcon className={styles.icon} />
-            <span>{leftDays}</span>
+            <span>
+              {leftDays === "Not started yet" && t("Not started yet")}
+              {leftDays === "Auction finished" && t("Auction finished")}
+              {leftDays !== "Not started yet" &&
+                leftDays !== "Auction finished" &&
+                `${leftDays?.slice(0, firstStopIndex)} ${t(
+                  leftDays?.slice(firstStopIndex)
+                )}`}
+            </span>
           </Box>
         )}
       </Box>
       <Box
         className={classNames(styles.wrapper, {
-          [styles.noShadow]: !hasShadow
+          [styles.noShadow]: !hasShadow,
         })}
       >
-        <Box display='flex' flexDirection='column'>
+        <Box display="flex" flexDirection="column">
           <Box className={classNames(styles.body, { [styles.last]: !price })}>
             <div className={styles.artist}>
               {/* <span className={styles.name}>{artistName}</span> */}
               {collection?.name && (
                 <span className={styles.name}>Artist: {collection?.name}</span>
               )}
-              <Typography variant='placeholder' fontWeight={500}>
+              <Typography variant="placeholder" fontWeight={500}>
                 Artwork: {description}
               </Typography>
             </div>
             <div className={styles.actions}>
               <span
                 className={classNames(styles.count, {
-                  [styles.liked]: page === 'favoritesBottom'
+                  [styles.liked]: page === "favoritesBottom",
                 })}
               >
                 <NumberFormat
                   value={numFormat(purchaseCount)}
-                  displayType={'text'}
+                  displayType={"text"}
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg}>
-                  {page === 'favoritesBottom' ? (
+                  {page === "favoritesBottom" ? (
                     <FavoriteRoundedIcon />
                   ) : (
                     <FavoriteBorderIcon />
@@ -115,12 +126,12 @@ const NFTCard = ({
                   className={styles.coin}
                   style={{
                     width: 16,
-                    height: 16
+                    height: 16,
                   }}
                 />
                 <NumberFormat
                   value={numFormat(price)}
-                  displayType={'text'}
+                  displayType={"text"}
                   thousandSeparator={true}
                 />
               </>
@@ -133,9 +144,9 @@ const NFTCard = ({
               fullWidth
               variant={buttonVariant}
               onClick={onAction}
-              className={page === 'about' && styles.aboutBtn}
+              className={page === "about" && styles.aboutBtn}
             >
-              Buy now
+              {t("BuyNow")}
             </Button>
           )}
           {isOriginalNft && (
@@ -145,13 +156,13 @@ const NFTCard = ({
               variant={buttonVariant}
               onClick={onAction}
             >
-              {isSold ? 'Sold out' : 'Buy now'}
+              {isSold ? t("SoldOut") : t("BuyNow")}
             </Button>
           )}
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default NFTCard
+export default NFTCard;

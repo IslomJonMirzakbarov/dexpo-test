@@ -9,7 +9,7 @@ const useStyles = makeStyles((_) => ({
     padding: '15px'
   }
 }));
-const CompleteFooter = ({ onConfirm, isAuction }) => {
+const CompleteFooter = ({ onConfirm, isAuction, viewClick }) => {
   const classes = useStyles();
 
   return (
@@ -17,7 +17,14 @@ const CompleteFooter = ({ onConfirm, isAuction }) => {
       fullWidth
       className={classes.button}
       variant="containedSecondary1"
-      onClick={onConfirm}
+      onClick={() => {
+        if (isAuction) {
+          viewClick();
+          onConfirm();
+        } else {
+          viewClick();
+        }
+      }}
     >
       <Typography variant="placeholder" fontWeight={600}>
         {isAuction ? 'Confirm' : 'View Item'}

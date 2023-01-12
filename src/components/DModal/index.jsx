@@ -6,6 +6,7 @@ import { useOnClickOutside } from "../../hooks/useOnOutsideClick";
 import styles from "./style.module.scss";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import Rotate90DegreesCcwIcon from "@mui/icons-material/Rotate90DegreesCcw";
+import { useTranslation } from "react-i18next";
 
 const DModal = ({
   open,
@@ -18,6 +19,7 @@ const DModal = ({
   confirmLabel = "Confirm",
   isExpandedImg = false,
 }) => {
+  const { t } = useTranslation();
   const ref = useRef();
   const [angle, setAngle] = useState(0);
   const handleClick = () => {
@@ -84,7 +86,7 @@ const DModal = ({
               fullWidth
             >
               <Typography variant="placeholder" fontWeight={600}>
-                {confirmLabel}
+                {t(confirmLabel)}
               </Typography>
             </Button>
           )}

@@ -1,40 +1,40 @@
-import { Box, Container } from '@mui/material'
-import React, { useRef, useState } from 'react'
-import styles from './style.module.scss'
-import CarouselItem from './CarouselItem'
-import Slider from 'react-slick'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import classNames from 'classnames'
-import banner1 from '../../../assets/images/hero/banner1.jpg'
-import banner2 from '../../../assets/images/hero/banner2.jpg'
-import banner3 from '../../../assets/images/hero/banner3.jpg'
-import banner1Mobile from '../../../assets/images/hero/banner1Mobile.jpg'
-import banner2Mobile from '../../../assets/images/hero/banner2Mobile.jpg'
-import banner3Mobile from '../../../assets/images/hero/banner3Mobile.jpg'
+import { Box, Container } from "@mui/material";
+import React, { useRef, useState } from "react";
+import styles from "./style.module.scss";
+import CarouselItem from "./CarouselItem";
+import Slider from "react-slick";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import classNames from "classnames";
+import banner1 from "../../../assets/images/hero/banner1.jpg";
+import banner2 from "../../../assets/images/hero/banner2.jpg";
+import banner3 from "../../../assets/images/hero/banner3.jpg";
+import banner1Mobile from "../../../assets/images/hero/banner1Mobile.jpg";
+import banner2Mobile from "../../../assets/images/hero/banner2Mobile.jpg";
+import banner3Mobile from "../../../assets/images/hero/banner3Mobile.jpg";
 
 var items = [
   {
-    pretitle: '작가_미상',
-    title: '백자철화용문호',
-    titleColor: '#fff',
-    pretitleColor: '#EAEFF3',
+    pretitle: "작가_미상",
+    title: "백자철화용문호",
+    titleColor: "#fff",
+    pretitleColor: "#EAEFF3",
     image: banner1,
-    gradient: 'linear-gradient(90deg, #000000 0%, rgba(255, 255, 255, 0) 100%)',
-    arrowColor: '#fff',
+    gradient: "linear-gradient(90deg, #000000 0%, rgba(255, 255, 255, 0) 100%)",
+    arrowColor: "#fff",
     imageMobile: banner1Mobile,
-    link: '/marketplace/15/0x46c258a6ced7d47810a0e4057e140bcdec3126c9'
+    link: "/marketplace/15/0x46c258a6ced7d47810a0e4057e140bcdec3126c9",
   },
   {
-    pretitle: '미석 박수근',
-    title: '나무와여인들',
-    titleColor: '#fff',
-    pretitleColor: '#EAEFF3',
+    pretitle: "미석 박수근",
+    title: "나무와여인들",
+    titleColor: "#fff",
+    pretitleColor: "#EAEFF3",
     image: banner2,
-    gradient: 'linear-gradient(90deg, #000000 0%, rgba(255, 255, 255, 0) 100%)',
-    arrowColor: '#fff',
+    gradient: "linear-gradient(90deg, #000000 0%, rgba(255, 255, 255, 0) 100%)",
+    arrowColor: "#fff",
     imageMobile: banner2Mobile,
-    link: '/marketplace/1/0xf17e008aea6fb483f9e025f165918b7340bc0bfc'
+    link: "/marketplace/1/0xf17e008aea6fb483f9e025f165918b7340bc0bfc",
   },
   // {
   //   pretitle: '이우환',
@@ -44,9 +44,9 @@ var items = [
   //   image: banner3,
   //   arrowColor: '#7D8890',
   //   imageMobile: banner3Mobile,
-  //   link: '/marketplace/original/2/0xeeb6b4126288e270fcec9fc9ddf98b0ed8b610b4'
+  //   link: '/original/2/0xeeb6b4126288e270fcec9fc9ddf98b0ed8b610b4'
   // }
-]
+];
 
 const settings = {
   dots: true,
@@ -56,30 +56,30 @@ const settings = {
   slidesToScroll: 1,
   arrows: false,
   autoplay: true,
-  autoplaySpeed: 5000
+  autoplaySpeed: 5000,
   // prevArrow: <ArrowBackIosNewRoundedIcon />,
   // nextArrow: <ArrowForwardIosRoundedIcon />
-}
+};
 
 const Hero = () => {
-  const ref = useRef()
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const ref = useRef();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const slideNext = () => {
-    ref.current.slickNext()
-  }
+    ref.current.slickNext();
+  };
   const slidePrevious = () => {
-    ref.current.slickPrev()
-  }
+    ref.current.slickPrev();
+  };
 
   return (
-    <Box className={classNames(styles.wrapper, 'hero')}>
+    <Box className={classNames(styles.wrapper, "hero")}>
       <Container className={styles.container} maxWidth>
         <Slider
           {...settings}
           ref={ref}
           beforeChange={(currentSlide, nextSlide) => {
-            setCurrentIndex(nextSlide)
+            setCurrentIndex(nextSlide);
           }}
         >
           {items.map((item, i) => (
@@ -94,7 +94,7 @@ const Hero = () => {
           >
             <ArrowBackIosNewRoundedIcon
               style={{ color: items[currentIndex].arrowColor }}
-              fontSize='small'
+              fontSize="small"
             />
           </div>
           <div
@@ -104,13 +104,13 @@ const Hero = () => {
           >
             <ArrowForwardIosRoundedIcon
               style={{ color: items[currentIndex].arrowColor }}
-              fontSize='small'
+              fontSize="small"
             />
           </div>
         </div>
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

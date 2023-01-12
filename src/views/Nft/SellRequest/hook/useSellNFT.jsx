@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { awaitStatus } from '../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
-import { marketStatuses } from '../../../../constants/marketStatuses';
-import { getRPCErrorMessage } from '../../../../constants/metamaskErrors';
-import { sellReqStatuses } from '../../../../constants/sellRequestStatuses';
-import useCurrnetProvider from '../../../../hooks/useCurrentProvider';
-import useToast from '../../../../hooks/useToast';
-import { securedAPI } from '../../../../services/api';
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { awaitStatus } from "../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel";
+import { marketStatuses } from "../../../../constants/marketStatuses";
+import { getRPCErrorMessage } from "../../../../constants/metamaskErrors";
+import { sellReqStatuses } from "../../../../constants/sellRequestStatuses";
+import useCurrnetProvider from "../../../../hooks/useCurrentProvider";
+import useToast from "../../../../hooks/useToast";
+import { securedAPI } from "../../../../services/api";
 
 const useSellNFT = ({
   collection,
@@ -26,16 +27,17 @@ const useSellNFT = ({
   type,
   startDate,
   endDate,
-  refetchBid
+  refetchBid,
 }) => {
   const navigate = useNavigate();
   const marketStatus = collection?.market_status;
   const sellerAddress = market?.seller_address?.toLowerCase();
   const isCancel = status?.includes(sellReqStatuses.CANCEL);
   const isCompleted = status?.includes(sellReqStatuses.COMPLETE);
+  const { t } = useTranslation();
   const isDisabledSellBtn = [
     marketStatuses.PENDING,
-    marketStatuses.REJECT
+    marketStatuses.REJECT,
   ].includes(marketStatus);
 
   const { token } = useSelector((store) => store.auth);
@@ -47,7 +49,7 @@ const useSellNFT = ({
     sell,
     cancel,
     createAuction,
-    cancelAuction
+    cancelAuction,
   } = useCurrnetProvider();
 
   const { toast } = useToast();
@@ -56,7 +58,7 @@ const useSellNFT = ({
   const [isListing, setIsListing] = useState(awaitStatus.INITIAL);
   const [isCanceling, setIsCanceling] = useState(awaitStatus.INITIAL);
 
-  const isFixedContract = type?.value === 'fixed' || market?.type === 'F';
+  const isFixedContract = type?.value === "fixed" || market?.type === "F";
 
   const handleToggle = () => setOpenModal((prev) => !prev);
 
@@ -68,7 +70,7 @@ const useSellNFT = ({
 
   const clear = () => {
     setOpenModal(false);
-    setError('');
+    setError("");
     setIsListing(awaitStatus.INITIAL);
     setIsApprove(awaitStatus.INITIAL);
     setIsCanceling(awaitStatus.INITIAL);
@@ -76,12 +78,12 @@ const useSellNFT = ({
   };
 
   const handleRequest = async () => {
-    if (openModal) return navigate('/user/my-page/sell-request');
+    if (openModal) return navigate("/user/my-page/sell-request");
 
     const data = { contract_address: collection?.contract_address };
 
     await securedAPI(token)
-      .post('/api/collection/sellRequest', data)
+      .post("/api/collection/sellRequest", data)
       .then((_) => {
         setOpenModal(true);
       })
@@ -193,23 +195,23 @@ const useSellNFT = ({
 
     if (isIDLEMarketStatus) return handleRequest();
     if (!isCancel && isTypeNotSelected)
-      return toast.error('Select a sell type');
+      return toast.error(t("Select a sell type"));
     if (!isCancel && isEmptyPriceField)
-      return toast.error('Fill the price form');
+      return toast.error(t("Fill the price form"));
 
     if (!isCancel && !isFixedContract && startDate >= endDate)
-      return toast.error('Ending Date should be greater than Starting Date');
+      return toast.error(t("Ending Date should be greater than Starting Date"));
 
     if (isCompleted) return clear();
 
-    setError('');
+    setError("");
 
     const price = sellPrice;
     const floorPrice = collection?.floor_price;
 
     if (floorPrice > price)
       return toast.error(
-        `Price should be greater or equal to ${floorPrice} CYCON`
+        `${t('Price should be greater or equal to')} ${floorPrice} CYCON`
       );
 
     if (isCancel) handleCancel();
@@ -228,7 +230,7 @@ const useSellNFT = ({
   };
 
   useEffect(() => {
-    setError('');
+    setError("");
   }, [openModal]);
 
   useEffect(() => {
@@ -254,7 +256,7 @@ const useSellNFT = ({
     marketStatus,
     onBack: handleBack,
     handeConfirm,
-    handleToggle
+    handleToggle,
   };
 };
 

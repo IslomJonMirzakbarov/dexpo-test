@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CollectionDetailsContainer = ({
+  viewClick,
   id,
   contract_address,
   data,
@@ -350,6 +351,7 @@ const CollectionDetailsContainer = ({
       </Container>
 
       <CheckoutModal
+        viewClick={viewClick}
         artistName={artist?.artist_name}
         name={nft?.token_name}
         type={priceTypeChar?.[market?.type]}

@@ -1,23 +1,22 @@
-import i18next from "i18next";
-import Backend from "i18next-http-backend";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import { initReactI18next } from 'react-i18next'
+import enData from "./locales/en/common.json";
+import krData from "./locales/kr/common.json";
 
-
-i18next
-  .use(Backend)
+i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    debug: true,
     fallbackLng: "en",
-    whiteList: ["en", "ru", "uz"],
-    detection: {
-      order: ['localStorage'],
-      caches: ['localStorage'],
+    interpolation: {
+      escapeValue: false,
     },
-    backend: {
-      loadPath: "/locales/{{lng}}.json",
-    }
-  })
+    resources: {
+      en: { translation: enData },
+      kr: { translation: krData },
+    },
+  });
 
-  export default i18next;
+export default i18n;
