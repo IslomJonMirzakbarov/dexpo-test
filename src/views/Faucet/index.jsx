@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Paper, Box, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import styles from "./style.module.scss";
@@ -7,7 +7,6 @@ import TokenIcon from "../../assets/images/con-token.svg?component";
 import { useForm } from "react-hook-form";
 import FormInputText from "../../components/FormInputText";
 import NumberFormat from "react-number-format";
-import useWeb3 from "../../hooks/useWeb3";
 import useToast from "../../hooks/useToast";
 import useCurrnetProvider from "../../hooks/useCurrentProvider";
 import numFormat from "../../utils/numFormat";
