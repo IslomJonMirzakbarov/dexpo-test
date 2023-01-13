@@ -172,7 +172,7 @@ const CollectionDetails = ({
     if (notEnoughBalance) return setError(t(metamaskError["-32603"]));
 
     if (isAuction && bidPrice <= price)
-      return setError(`${t("Bid price should be greater than") }${price} CYCON`);
+      return setError(`${t("Bid price should be greater than")}${price} CYCON`);
 
     return makePurchase();
   };

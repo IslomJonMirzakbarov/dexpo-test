@@ -211,7 +211,7 @@ const useSellNFT = ({
 
     if (floorPrice > price)
       return toast.error(
-        `${t('Price should be greater or equal to')} ${floorPrice} CYCON`
+        `${t("Price should be greater or equal to")} ${floorPrice} CYCON`
       );
 
     if (isCancel) handleCancel();

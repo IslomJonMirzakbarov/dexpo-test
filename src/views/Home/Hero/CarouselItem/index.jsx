@@ -211,7 +211,7 @@ const CarouselItem = ({ item }) => {
             sx={{ width: 180, height: 55, padding: 0 }}
             onClick={() => navigate(item.link)}
           >
-            {t('Detailed page')}
+            {t("Detailed page")}
           </Button>
           {/* <Button
             variant='outlinedDark'
