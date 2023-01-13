@@ -18,6 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import classNames from "classnames";
 import useUserAPI from "../../hooks/useUserAPI";
+import { useTranslation } from "react-i18next";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ const MyPage = () => {
     setShowCopied(true);
     setTimeout(() => setShowCopied(false), 1000);
   };
-
+  const { t } = useTranslation();
   return (
     <Box className={styles.Container}>
       <Box className={styles.SettingsIconContainer}>
@@ -153,7 +154,7 @@ const MyPage = () => {
             ? OtherUserInfo?.data?.username
             : userInfo?.data?.username
             ? userInfo?.data?.username
-            : "UserName"}
+            : t("UserName")}
         </Box>
         <Box
           className={styles.WalletAddress}
@@ -164,14 +165,14 @@ const MyPage = () => {
           onMouseLeave={() => setShowCopy(false)}
         >
           {showCopy && (
-            <Box className={classNames(styles.CopiedText)}>Copy</Box>
+            <Box className={classNames(styles.CopiedText)}>{t("Copy")}</Box>
           )}
           {showCopied && (
-            <div className={classNames(styles.CopiedText)}>Copied</div>
+            <div className={classNames(styles.CopiedText)}>{t("Copied")}</div>
           )}
           {selectedWalletAddress || ""}
         </Box>
-        <Box className={styles.Bio}>Bio</Box>
+        <Box className={styles.Bio}>{t("Bio")}</Box>
         <Box className={styles.BioDescription}>
           {otherUser
             ? OtherUserInfo?.data?.description

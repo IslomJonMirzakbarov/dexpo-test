@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import moment from 'moment'
-import { useNavigate } from 'react-router-dom'
-import classNames from 'classnames'
-import { Box, Button, CircularProgress } from '@mui/material'
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
+import { Box, Button, CircularProgress } from "@mui/material";
 
-import useNftAPI from '../../../hooks/useNftApi'
-import Loader from '../../../components/Loader'
-import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component'
-import useWeb3 from '../../../hooks/useWeb3'
+import useNftAPI from "../../../hooks/useNftApi";
+import Loader from "../../../components/Loader";
+import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
+import useWeb3 from "../../../hooks/useWeb3";
 
-import styles from './style.module.scss'
-import { useSelector } from 'react-redux'
-import NumberFormat from 'react-number-format'
-import SellModal from '../../../components/Modals/SellModal'
-import { sellReqStatuses } from '../../../constants/sellRequestStatuses'
-import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel'
-import useCurrnetProvider from '../../../hooks/useCurrentProvider'
-import numFormat from '../../../utils/numFormat'
+import styles from "./style.module.scss";
+import { useSelector } from "react-redux";
+import NumberFormat from "react-number-format";
+import SellModal from "../../../components/Modals/SellModal";
+import { sellReqStatuses } from "../../../constants/sellRequestStatuses";
+import { awaitStatus } from "../../../components/Modals/SellModal/Pending/ConditionAwaitLabel";
+import useCurrnetProvider from "../../../hooks/useCurrentProvider";
+import numFormat from "../../../utils/numFormat";
+import { useTranslation } from "react-i18next";
 
 const TableRow = ({
   item,
   navigateClick,
   dateConverter,
   price_usd,
-  handleClick
+  handleClick,
 }) => {
-  const exchangedPrice = item?.market?.price * price_usd
-
+  const exchangedPrice = item?.market?.price * price_usd;
+  const { t } = useTranslation();
   return (
     <tr className={styles.TableBodyRow} key={item?.nft?.token_id}>
       <td onClick={navigateClick}>
-        <img src={item?.nft?.token_image} alt='img' />
+        <img src={item?.nft?.token_image} alt="img" />
       </td>
       <td onClick={navigateClick}>{item?.nft?.token_name}</td>
 
@@ -39,9 +40,9 @@ const TableRow = ({
         <Box className={styles.UsdPrice}>
           <NumberFormat
             value={numFormat(exchangedPrice)}
-            displayType={'text'}
+            displayType={"text"}
             thousandSeparator={true}
-            prefix='￦'
+            prefix="￦"
           />
         </Box>
       </td>
@@ -49,75 +50,75 @@ const TableRow = ({
       <td>{dateConverter(item?.market?.created_at)}</td>
       <td>
         <Button className={styles.BtnCancel} onClick={() => handleClick(item)}>
-          Cancel
+          {t("Cancel")}
         </Button>
       </td>
     </tr>
-  )
-}
+  );
+};
 
 const ListedArtworkBottom = () => {
-  const navigate = useNavigate()
-  const { price_usd } = useSelector((store) => store.wallet)
+  const navigate = useNavigate();
+  const { price_usd } = useSelector((store) => store.wallet);
 
-  const [openModal, setOpenModal] = useState(false)
-  const [selectedItem, setSelectedItem] = useState(null)
-  const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL)
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL);
 
-  const handleToggleModal = () => setOpenModal((prev) => !prev)
+  const handleToggleModal = () => setOpenModal((prev) => !prev);
 
   const { list, refetchList } = useNftAPI({
     isGetList: true,
-    type: 'LISTED',
-    size: 20000
-  })
+    type: "LISTED",
+    size: 20000,
+  });
 
-  const { cancel, cancelAuction } = useCurrnetProvider()
+  const { cancel, cancelAuction } = useCurrnetProvider();
 
   useEffect(() => {
-    if (!openModal) setIsLoading(awaitStatus.INITIAL)
-  }, [openModal])
+    if (!openModal) setIsLoading(awaitStatus.INITIAL);
+  }, [openModal]);
 
   const handleCancel = async (isFixedContract, contract_address, id) => {
-    setIsLoading(awaitStatus.PENDING)
+    setIsLoading(awaitStatus.PENDING);
     try {
-      let res
+      let res;
 
-      if (isFixedContract) res = await cancel(contract_address, id)
-      else res = await cancelAuction(contract_address, id)
+      if (isFixedContract) res = await cancel(contract_address, id);
+      else res = await cancelAuction(contract_address, id);
 
       if (!!res) {
-        setIsLoading(awaitStatus.COMPLETE)
-        refetchList()
+        setIsLoading(awaitStatus.COMPLETE);
+        refetchList();
       }
     } catch (err) {
-      console.log(err.message)
-      setIsLoading(awaitStatus.ERROR)
+      console.log(err.message);
+      setIsLoading(awaitStatus.ERROR);
     }
-  }
+  };
 
   const handleConfirm = () => {
-    const { market, collection, nft } = selectedItem
-    const isFixed = market.type.includes('F')
-    const contractAddress = collection.contract_address
-    const id = nft.token_id
+    const { market, collection, nft } = selectedItem;
+    const isFixed = market.type.includes("F");
+    const contractAddress = collection.contract_address;
+    const id = nft.token_id;
 
-    handleCancel(isFixed, contractAddress, id)
-  }
+    handleCancel(isFixed, contractAddress, id);
+  };
 
   const handleClick = (item) => {
-    setSelectedItem(item)
-    setOpenModal(true)
-  }
+    setSelectedItem(item);
+    setOpenModal(true);
+  };
 
   const dateConverter = (stringNum) => {
-    const date = new Date(Number(stringNum) * 1000)
-    const fdate = moment(date).format('YYYY.MM.DD hh:mm:ss')
-    return fdate
-  }
+    const date = new Date(Number(stringNum) * 1000);
+    const fdate = moment(date).format("YYYY.MM.DD hh:mm:ss");
+    return fdate;
+  };
 
-  const loadChecker = list?.data?.items[0]?.request_type !== 'LISTED'
-
+  const loadChecker = list?.data?.items[0]?.request_type !== "LISTED";
+  const { t } = useTranslation();
   return (
     <Box className={styles.Container}>
       <SellModal
@@ -131,25 +132,25 @@ const ListedArtworkBottom = () => {
       {list?.data?.items.length === 0 ? (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
-          <Box className={styles.NoItemsText}>No items yet</Box>
+          <Box className={styles.NoItemsText}>{t("No items yet")}</Box>
         </Box>
       ) : loadChecker ? (
-        <Loader page='my-page' />
+        <Loader page="my-page" />
       ) : (
         <table className={styles.Table}>
           <thead className={styles.TableHead}>
             <tr className={styles.TableHeadRow}>
-              <th>Item</th>
-              <th>Artwork name</th>
-              <th>Unit Price</th>
-              <th>Date</th>
+              <th>{t("Item")}</th>
+              <th>{t("Artwork name")}</th>
+              <th>{t("Unit Price")}</th>
+              <th>{t("Date")}</th>
               <th></th>
             </tr>
           </thead>
 
           <tbody
             className={classNames(styles.TableBody, {
-              [styles.LoaderPos]: true
+              [styles.LoaderPos]: true,
             })}
           >
             {list?.data?.items.length === 0
@@ -158,7 +159,7 @@ const ListedArtworkBottom = () => {
                   const navigateClick = () =>
                     navigate(
                       `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
-                    )
+                    );
                   return (
                     <TableRow
                       navigateClick={navigateClick}
@@ -167,13 +168,13 @@ const ListedArtworkBottom = () => {
                       price_usd={price_usd}
                       handleClick={handleClick}
                     />
-                  )
+                  );
                 })}
           </tbody>
         </table>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default ListedArtworkBottom
+export default ListedArtworkBottom;
