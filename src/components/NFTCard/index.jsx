@@ -45,6 +45,19 @@ const NFTCard = ({
     endDate && startDate && calculateDeadline(startDate, endDate);
   const firstStopIndex = leftDays?.indexOf(" ");
 
+  const leftDaysPhrase = (remainDays) => {
+    switch (remainDays) {
+      case "Not started yet":
+        return t("Not started yet");
+      case "Auction finished":
+        return t("Auction finished");
+      default:
+        return `${remainDays?.slice(0, firstStopIndex)} ${t(
+          remainDays?.slice(firstStopIndex)
+        )}`;
+    }
+  };
+
   return (
     <Box
       className={classNames(styles.card, className, {
@@ -70,15 +83,7 @@ const NFTCard = ({
         {leftDays && (
           <Box className={styles.leftDays}>
             <TimelapseRoundedIcon className={styles.icon} />
-            <span>
-              {leftDays === "Not started yet" && t("Not started yet")}
-              {leftDays === "Auction finished" && t("Auction finished")}
-              {leftDays !== "Not started yet" &&
-                leftDays !== "Auction finished" &&
-                `${leftDays?.slice(0, firstStopIndex)} ${t(
-                  leftDays?.slice(firstStopIndex)
-                )}`}
-            </span>
+            <span>{leftDaysPhrase(leftDays)}</span>
           </Box>
         )}
       </Box>

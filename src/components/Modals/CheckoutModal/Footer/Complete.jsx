@@ -13,19 +13,20 @@ const useStyles = makeStyles((_) => ({
 const CompleteFooter = ({ onConfirm, isAuction, viewClick }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const footerBtnClick = () => {
+    if (isAuction) {
+      viewClick();
+      onConfirm();
+    } else {
+      viewClick();
+    }
+  };
   return (
     <Button
       fullWidth
       className={classes.button}
       variant="containedSecondary1"
-      onClick={() => {
-        if (isAuction) {
-          viewClick();
-          onConfirm();
-        } else {
-          viewClick();
-        }
-      }}
+      onClick={footerBtnClick}
     >
       <Typography variant="placeholder" fontWeight={600}>
         {t(`${isAuction ? "Confirm" : "View Item"}`)}

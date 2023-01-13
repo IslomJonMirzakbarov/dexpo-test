@@ -8,7 +8,6 @@ import styles from "./style.module.scss";
 import { debounce } from "lodash";
 import useSearchAPI from "../../hooks/useSearchAPI";
 import LinkListResponsive from "../../layouts/MergedLayout/LinkList/index.responsive";
-import { ReactSVG } from "react-svg";
 import SearchFieldResponsive from "../Autocomplete/index.responsive";
 import { useOnClickOutside } from "../../hooks/useOnOutsideClick";
 import { useTheme } from "@mui/styles";
@@ -17,8 +16,8 @@ import Img from "react-cool-img";
 import { useTranslation } from "react-i18next";
 import LangIcon from "../../assets/icons/lang-icon.svg?component";
 import HoveredLangIcon from "../../assets/icons/hovered-lang-icon.svg?component";
-import EnglishIcon from "../../assets/icons/en-lang-icon.svg";
-import KoreanIcon from "../../assets/icons/kr-lang-icon.svg";
+import { lngs } from "../../constants";
+import LangsIconBox from "../LangsIconBox";
 
 const Header = ({
   title = "",
@@ -90,39 +89,6 @@ const Header = ({
 
   useOnClickOutside(listResponsiveRef, handleCloseResponsive);
 
-  const lngs = {
-    en: {
-      nativeName: "En",
-      nativeImage: (
-        <ReactSVG
-          src={EnglishIcon}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: 20,
-            marginTop: 10,
-          }}
-        />
-      ),
-    },
-    kr: {
-      nativeName: "Kr",
-      nativeImage: (
-        <ReactSVG
-          src={KoreanIcon}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: 20,
-            marginTop: 10,
-          }}
-        />
-      ),
-    },
-  };
-
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
   };
@@ -169,29 +135,12 @@ const Header = ({
       <div className={styles.rightSide}>
         <div className={styles.links}>{children}</div>
         {extra}
-        <div
-          className={styles.LangIconBox}
-          onMouseEnter={() => {
-            setIsLangOpen(true);
-            setHovered(true);
-          }}
-          onMouseLeave={() => {
-            setIsLangOpen(false);
-            setHovered(false);
-          }}
-        >
-          {!hovered ? (
-            <LangIcon
-              className={styles.icon}
-              onClick={() => setIsLangOpen(!isLangOpen)}
-            />
-          ) : (
-            <HoveredLangIcon
-              className={styles.icon}
-              onClick={() => setIsLangOpen(!isLangOpen)}
-            />
-          )}
-        </div>
+        <LangsIconBox
+          setIsLangOpen={setIsLangOpen}
+          setHovered={setHovered}
+          hovered={hovered}
+          isLangOpen={isLangOpen}
+        />
       </div>
       <div className={styles.rightSideResponsive}>
         <SearchFieldResponsive value={search} onChange={handleChange} />
