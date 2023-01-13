@@ -1,23 +1,25 @@
-import { Box, Paper, Typography } from '@mui/material'
-import React from 'react'
-import FormInputText from '../FormInputText'
-import ConToken from '../../assets/images/con-token.svg?component'
-import NumberFormat from 'react-number-format'
-import styles from './style.module.scss'
-import numFormat from '../../utils/numFormat'
+import { Box, Paper, Typography } from "@mui/material";
+import React from "react";
+import FormInputText from "../FormInputText";
+import ConToken from "../../assets/images/con-token.svg?component";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import numFormat from "../../utils/numFormat";
+import { useTranslation } from "react-i18next";
 
 const PriceInput = ({ control, exchangedPrice, ...props }) => {
+  const { t } = useTranslation();
   return (
     <Paper className={styles.wrapper}>
       <Box className={styles.box}>
         <FormInputText
-          label='Please enter the selling price.'
+          label={t("Please enter the selling price.")}
           control={control}
-          type='number'
+          type="number"
           className={styles.input}
           {...props}
         />
-        <Box display='flex' alignItems='center'>
+        <Box display="flex" alignItems="center">
           <ConToken className={styles.token} />
           <Typography fontWeight={600} ml={1}>
             CYCON
@@ -30,18 +32,18 @@ const PriceInput = ({ control, exchangedPrice, ...props }) => {
           mt={1}
           ml={2}
           className={styles.exchangedPrice}
-          color='grey.1000'
+          color="grey.1000"
         >
           <NumberFormat
             value={numFormat(exchangedPrice)}
-            displayType={'text'}
+            displayType={"text"}
             thousandSeparator={true}
-            prefix='~￦ '
+            prefix="~￦ "
           />
         </Typography>
       </Box>
     </Paper>
-  )
-}
+  );
+};
 
-export default PriceInput
+export default PriceInput;

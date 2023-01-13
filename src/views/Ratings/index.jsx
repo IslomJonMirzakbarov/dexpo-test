@@ -3,69 +3,71 @@ import {
   Container,
   Paper,
   Typography,
-  useMediaQuery
-} from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/styles';
+  useMediaQuery,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/styles";
 import {
   CTable,
   CTableBody,
   CTableCell,
   CTableHead,
-  CTableHeadRow
-} from '../../components/CTable';
-import DSelect from '../../components/DSelect';
-import DTabs from '../../components/DTabs';
-import useTopArtists from '../../hooks/useTopArtistsAPI';
-import useTopCollections from '../../hooks/useTopCollectionsAPI';
+  CTableHeadRow,
+} from "../../components/CTable";
+import DSelect from "../../components/DSelect";
+import DTabs from "../../components/DTabs";
+import useTopArtists from "../../hooks/useTopArtistsAPI";
+import useTopCollections from "../../hooks/useTopCollectionsAPI";
 import {
   rankingSorts,
   rankingTabs,
   tableRows,
   topTypes,
-  tableRowsResponsive
-} from './mocks';
-import ArtistSkeleton from './Skeletons/Artist';
-import styles from './style.module.scss';
-import TableItem from './TableItem';
+  tableRowsResponsive,
+} from "./mocks";
+import ArtistSkeleton from "./Skeletons/Artist";
+import styles from "./style.module.scss";
+import TableItem from "./TableItem";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   filter: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column-reverse',
-      alignItems: 'flex-end'
-    }
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+      alignItems: "flex-end",
+    },
   },
   tabs: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      width: '100%',
-      marginTop: 40
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      width: "100%",
+      marginTop: 40,
+    },
   },
   head: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'none'
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   table: {
-    [theme.breakpoints.down('sm')]: {
-      overflowX: 'scroll'
-    }
-  }
+    [theme.breakpoints.down("sm")]: {
+      overflowX: "scroll",
+    },
+  },
 }));
 
 const Ratings = () => {
+  const { t } = useTranslation();
   const ref = useRef();
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
 
   const [filter, setFilter] = useState(rankingSorts[0]);
@@ -75,13 +77,13 @@ const Ratings = () => {
   const {
     collections,
     connectCollections,
-    isLoading: loadingCollections
+    isLoading: loadingCollections,
   } = useTopCollections();
 
   const {
     artists,
     connectArtists,
-    isLoading: loadingArtists
+    isLoading: loadingArtists,
   } = useTopArtists();
 
   const isLoading = loadingArtists || loadingCollections;
@@ -89,13 +91,13 @@ const Ratings = () => {
   const storeCollections = useMemo(
     () => ({
       [topTypes.ARTISTS]: {
-        title: 'Top Artists',
-        data: artists
+        title: t("Top Artists"),
+        data: artists,
       },
       [topTypes.COLLECTIONS]: {
-        title: 'Top NFTs',
-        data: collections
-      }
+        title: t("Top NFTs"),
+        data: collections,
+      },
     }),
     [collections, tab, artists]
   );
@@ -112,8 +114,8 @@ const Ratings = () => {
   const handleClick = (link) => navigate(link);
 
   useEffect(() => {
-    if (tab.value.includes('artists')) connectArtists();
-    if (tab.value.includes('collections')) connectCollections();
+    if (tab.value.includes("artists")) connectArtists();
+    if (tab.value.includes("collections")) connectCollections();
   }, [tab]);
 
   return (
@@ -143,7 +145,7 @@ const Ratings = () => {
             <CTableHead className={classes.head}>
               <CTableHeadRow>
                 {rows.map((item, i) => (
-                  <CTableCell key={i}>{item}</CTableCell>
+                  <CTableCell key={i}>{t(item)}</CTableCell>
                 ))}
               </CTableHeadRow>
             </CTableHead>

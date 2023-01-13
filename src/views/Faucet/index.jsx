@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Paper, Box, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import styles from "./style.module.scss";
@@ -7,10 +7,10 @@ import TokenIcon from "../../assets/images/con-token.svg?component";
 import { useForm } from "react-hook-form";
 import FormInputText from "../../components/FormInputText";
 import NumberFormat from "react-number-format";
-import useWeb3 from "../../hooks/useWeb3";
 import useToast from "../../hooks/useToast";
 import useCurrnetProvider from "../../hooks/useCurrentProvider";
 import numFormat from "../../utils/numFormat";
+import { useTranslation } from "react-i18next";
 
 const price = 1000;
 
@@ -53,12 +53,13 @@ const Faucet = () => {
   const { toast } = useToast();
   const { faucet } = useCurrnetProvider();
   const { control, handleSubmit } = useForm();
+  const { t } = useTranslation();
 
   const onSubmit = async (data) => {
     const inputAccount = data.account;
 
     if (inputAccount?.length !== 42)
-      return toast.error("Invalid wallet address!");
+      return toast.error(t("Invalid wallet address!"));
 
     try {
       const res = await faucet(inputAccount);
@@ -69,7 +70,6 @@ const Faucet = () => {
       console.log(err);
     }
   };
-
   return (
     <Paper className={styles.container}>
       <form className={styles.wrapper} onSubmit={handleSubmit(onSubmit)}>
@@ -80,7 +80,7 @@ const Faucet = () => {
             mb={1}
             color="common.white"
           >
-            Only for Beta TestNet
+            {t("Only for Beta TestNet")}
           </Typography>
         </Box>
         <TokenIcon className={classes.icon} />
@@ -91,10 +91,10 @@ const Faucet = () => {
             fontSize="40px!important"
             color="grey.1400"
           >
-            CYCON Faucet
+            {t("CYCON Faucet")}
           </Typography>
           <Typography variant="placeholder" fontWeight={600} color="grey.1000">
-            You can get test 1000 CYCON token for each wallet.
+            {t("You can get test 1000 CYCON token for each wallet.")}
           </Typography>
         </Box>
         <Box className={styles.form}>
@@ -106,13 +106,13 @@ const Faucet = () => {
               ml={1}
               mb={1}
             >
-              Account Address <Typography color="primary">*</Typography>
+              {t("Account Address")} <Typography color="primary">*</Typography>
             </Typography>
             <FormInputText
               artistInput
               control={control}
               name="account"
-              label="Please put your wallet address here"
+              label={t("Please put your wallet address here")}
             />
           </Box>
           <Box className={styles.field}>
@@ -123,7 +123,7 @@ const Faucet = () => {
               ml={1}
               mb={1}
             >
-              CYCON Balance
+              {t("CYCON Balance")}
             </Typography>
             <Box
               display="flex"
@@ -148,7 +148,7 @@ const Faucet = () => {
         </Box>
 
         <Button variant="contained" type="submit" className={classes.btn}>
-          Run Faucet
+          {t("Run Faucet")}
         </Button>
       </form>
     </Paper>

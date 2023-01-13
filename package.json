@@ -52,6 +52,7 @@
     "react-select": "^5.4.0",
     "react-simple-image-viewer": "^1.2.2",
     "react-slick": "^0.29.0",
+    "react-svg": "^15.1.17",
     "react-tabs": "^5.1.0",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",

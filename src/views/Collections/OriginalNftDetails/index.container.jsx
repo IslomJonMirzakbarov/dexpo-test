@@ -8,62 +8,63 @@ import {
   Grid,
   Paper,
   Typography,
-  useMediaQuery
-} from '@mui/material'
-import React, { useState } from 'react'
-import CollectionDetailImage from './Image'
-import CollectionDetailsInfo from './Info'
-import NumberFormat from 'react-number-format'
-import styles from './style.module.scss'
-import { makeStyles, useTheme } from '@mui/styles'
-import TokenImg from '../../../assets/images/con-token.svg?component'
-import AddIcon from '../../../assets/icons/add.svg?component'
-import { priceTypeChar } from '../../../constants'
-import { useSelector } from 'react-redux'
-import DModal from '../../../components/DModal'
-import numFormat from '../../../utils/numFormat'
-import NftInfo from './NftInfo'
-import ContactUsModal from './ContactUsModal'
+  useMediaQuery,
+} from "@mui/material";
+import React, { useState } from "react";
+import CollectionDetailImage from "./Image";
+import CollectionDetailsInfo from "./Info";
+import NumberFormat from "react-number-format";
+import styles from "./style.module.scss";
+import { makeStyles, useTheme } from "@mui/styles";
+import TokenImg from "../../../assets/images/con-token.svg?component";
+import AddIcon from "../../../assets/icons/add.svg?component";
+import { priceTypeChar } from "../../../constants";
+import { useSelector } from "react-redux";
+import DModal from "../../../components/DModal";
+import numFormat from "../../../utils/numFormat";
+import NftInfo from "./NftInfo";
+import ContactUsModal from "./ContactUsModal";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   priceBox: {
-    marginTop: 61
+    marginTop: 61,
   },
   boxWrapper: {
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column-reverse'
-    }
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+    },
   },
   box: {
-    width: '50%',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%'
-    }
+    width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   button: {
-    padding: '16px 0',
+    padding: "16px 0",
     marginTop: 17,
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: 20
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: 20,
     },
-    '&:hover': {
-      boxShadow: '5px 5px 52px 2px rgba(0, 0, 0, 0.1)'
-    }
+    "&:hover": {
+      boxShadow: "5px 5px 52px 2px rgba(0, 0, 0, 0.1)",
+    },
   },
   grid: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%'
-    }
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   table: {
-    [theme.breakpoints.down('sm')]: {
-      overflowX: 'scroll'
-    }
-  }
-}))
+    [theme.breakpoints.down("sm")]: {
+      overflowX: "scroll",
+    },
+  },
+}));
 
 const CollectionDetailsContainer = ({
   id,
@@ -71,17 +72,17 @@ const CollectionDetailsContainer = ({
   data,
   onLike,
   setRefetchInterval,
-  orginalNftDetail
+  orginalNftDetail,
 }) => {
-  const theme = useTheme()
-  const classes = useStyles()
-  const matches = useMediaQuery(theme.breakpoints.down('sm'))
-  const [openContactInfo, setOpenContactInfo] = useState(false)
-  const { nft, artist, market, collection } = data || {}
-  const { price_krw } = useSelector((store) => store.wallet)
-  const [openImg, setOpenImg] = useState(false)
-  const exchangedPrice = orginalNftDetail?.price / price_krw
-
+  const theme = useTheme();
+  const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const [openContactInfo, setOpenContactInfo] = useState(false);
+  const { nft, artist, market, collection } = data || {};
+  const { price_krw } = useSelector((store) => store.wallet);
+  const [openImg, setOpenImg] = useState(false);
+  const exchangedPrice = orginalNftDetail?.price / price_krw;
+  const { t } = useTranslation();
   return (
     <Paper className={styles.container}>
       <Container>
@@ -91,7 +92,7 @@ const CollectionDetailsContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               isLiked={nft?.is_liked}
-              alt='nft picture'
+              alt="nft picture"
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
@@ -120,58 +121,58 @@ const CollectionDetailsContainer = ({
               artistWallet={nft?.creator_address}
             />
             <Box
-              display='flex'
-              justifyContent='space-between'
+              display="flex"
+              justifyContent="space-between"
               mt={3}
               className={classes.boxWrapper}
             >
               <Box className={classes.box} mr={3}></Box>
               <Box
-                display='flex'
-                justifyContent='space-between'
-                flexDirection='column'
-                alignItems='end'
+                display="flex"
+                justifyContent="space-between"
+                flexDirection="column"
+                alignItems="end"
                 className={classes.box}
               >
                 <Box
-                  display='flex'
-                  flexDirection='column'
-                  alignItems='end'
-                  sx={{ width: '100%' }}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="end"
+                  sx={{ width: "100%" }}
                 >
                   {orginalNftDetail?.price && (
                     <>
                       <Box
-                        display='flex'
-                        alignItems='center'
+                        display="flex"
+                        alignItems="center"
                         className={classes.priceBox}
                       >
                         <TokenImg style={{ width: 28, height: 28 }} />
                         <Typography
                           ml={1}
-                          variant='body2'
-                          fontSize='30px!important'
+                          variant="body2"
+                          fontSize="30px!important"
                           fontWeight={600}
-                          lineHeight='45px'
+                          lineHeight="45px"
                         >
                           <NumberFormat
                             value={numFormat(exchangedPrice)}
-                            displayType={'text'}
+                            displayType={"text"}
                             thousandSeparator={true}
                           />
                         </Typography>
                       </Box>
                       <Typography
-                        variant='placeholder'
+                        variant="placeholder"
                         fontWeight={500}
                         color={theme.palette.grey[1000]}
                       >
                         (
                         <NumberFormat
                           value={numFormat(orginalNftDetail?.price)}
-                          displayType={'text'}
+                          displayType={"text"}
                           thousandSeparator={true}
-                          prefix='￦'
+                          prefix="￦"
                         />
                         )
                       </Typography>
@@ -180,13 +181,15 @@ const CollectionDetailsContainer = ({
 
                   <Button
                     className={classes.button}
-                    variant='containedSecondary'
+                    variant="containedSecondary"
                     fullWidth
                     sx={{ height: 55 }}
                     disabled={orginalNftDetail?.is_sold}
                     onClick={() => setOpenContactInfo((prev) => !prev)}
                   >
-                    {orginalNftDetail?.is_sold ? 'Sold out' : 'Contact us'}
+                    {orginalNftDetail?.is_sold
+                      ? t("Sold out")
+                      : t("Contact us")}
                   </Button>
                 </Box>
               </Box>
@@ -205,13 +208,13 @@ const CollectionDetailsContainer = ({
         <Accordion
           defaultExpanded={true}
           square={true}
-          style={{ margin: 0, boxShadow: 'none' }}
+          style={{ margin: 0, boxShadow: "none" }}
         >
           <AccordionSummary
             className={styles.AccordionSummary}
             expandIcon={<AddIcon className={styles.AddIcon} />}
-            aria-controls='panel1a-content'
-            id='panel1a-header'
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
             <Typography className={styles.AccordionSummaryText}>
               결제 후 취소/환불 불가 안내
@@ -250,7 +253,7 @@ const CollectionDetailsContainer = ({
         handleClose={() => setOpenContactInfo((prev) => !prev)}
       />
     </Paper>
-  )
-}
+  );
+};
 
-export default CollectionDetailsContainer
+export default CollectionDetailsContainer;

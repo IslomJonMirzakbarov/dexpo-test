@@ -6,6 +6,7 @@ import SecondaryButton from "../Buttons/SecondaryButton";
 import SpinningIcon from "../../assets/icons/spinning-icon.svg?component";
 
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 
 const ModalCard = ({
   responseChecker,
@@ -24,7 +25,7 @@ const ModalCard = ({
   const { ARTIST_FORM, CREATE_COLLECTION, NFT_CREATE, NFT_IMG_POPUP } = pages;
   const SelectedPages =
     page === ARTIST_FORM || page === CREATE_COLLECTION || page === NFT_CREATE;
-
+  const { t } = useTranslation();
   return (
     <div>
       <Modal open className={styles.modal} onClose={onClose}>
@@ -53,7 +54,7 @@ const ModalCard = ({
             >
               {SelectedPages ? null : (
                 <SecondaryButton className={styles.button} onClick={onClose}>
-                  Cancel
+                  {t("Cancel")}
                 </SecondaryButton>
               )}
               <PrimaryButton
@@ -63,7 +64,7 @@ const ModalCard = ({
                 {!responseChecker ? (
                   <SpinningIcon className={styles.SpinningIcon} />
                 ) : (
-                  "Confirm"
+                  t("Confirm")
                 )}
               </PrimaryButton>
             </dir>

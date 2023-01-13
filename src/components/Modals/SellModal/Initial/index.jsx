@@ -3,8 +3,10 @@ import { Box, Typography, Link } from "@mui/material";
 import TelegramQRCode from "../../../../assets/images/telegram-qrcode.png";
 
 import styles from "../../style.module.scss";
+import { useTranslation } from "react-i18next";
 
 const InitialSell = () => {
+  const { t } = useTranslation();
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box className={styles.SuccessIconContainer}>
@@ -25,15 +27,15 @@ const InitialSell = () => {
       <Typography className={styles.SuccessProcessDesc}>
         <>
           <span className={styles.Sphrase}>
-            Your request was submitted successfully and
-            <br /> sent to admin for review.
+            {t("Your request was submitted successfully and")}
+            <br /> {t("sent to admin for review.")}
           </span>
           <br />
           <br />
-          1. Scan the QR code and you will be directed to Telegram. <br /> 2.
-          You can also check your status on{" "}
+          {t("1. Scan the QR code and you will be directed to Telegram.")}{" "}
+          <br /> {t("2. You can also check your status on")}{" "}
           <span className={styles.MainDesc}>
-            My Page {">"} My application tab.
+            {t("My Page > My application tab.")}
           </span>
         </>
       </Typography>

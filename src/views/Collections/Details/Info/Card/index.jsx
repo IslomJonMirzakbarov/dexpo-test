@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -33,22 +34,21 @@ const useStyles = makeStyles((theme) => ({
 
 const CollectionDetailCard = ({ name, type, description }) => {
   const classes = useStyles();
-
+  const { t } = useTranslation();
   return (
     <Box className={classes.card}>
       <Box className={classes.header} p={2}>
         <Typography variant="h4" textTransform="uppercase" fontWeight={700}>
           {name}
         </Typography>
-        {type && <span className={classes.type}>{type}</span>}
+        {type && <span className={classes.type}>{t(type)}</span>}
       </Box>
       <Box className={classes.body} p={2}>
         <Typography
           variant="placeholder"
           fontWeight={400}
           dangerouslySetInnerHTML={{ __html: description }}
-        >
-        </Typography>
+        ></Typography>
       </Box>
     </Box>
   );

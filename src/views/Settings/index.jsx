@@ -14,6 +14,7 @@ import styles from "./style.module.scss";
 import useUserAPI from "../../hooks/useUserAPI";
 import { useDispatch } from "react-redux";
 import { setUserDesc, setUserName } from "../../store/user/user.slice";
+import { useTranslation } from "react-i18next";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -114,11 +115,11 @@ const Settings = () => {
       navigate("/user/my-page");
     }
   };
-
+  const { t } = useTranslation();
   return (
     <Box className={styles.Container}>
       <form className={styles.FormContainer} onSubmit={handleSubmit(onSubmit)}>
-        <Box className={styles.Title}>Profile Settings</Box>
+        <Box className={styles.Title}>{t("Profile Settings")}</Box>
 
         <Box className={styles.UploadLogo}>
           <FileUploadWithDrag
@@ -132,25 +133,27 @@ const Settings = () => {
         </Box>
         <Box className={classNames(styles.CollectionName, styles.InputHolder)}>
           <Typography variant="label" className={styles.Label}>
-            Username
+            {t("Username")}
           </Typography>
           <FormInputText
             artistInput
             name="userEditName"
             control={control}
-            label="Enter an username"
+            label={t("Enter an username")}
           />
         </Box>
         <Box
           className={classNames(styles.CollectionSymbol, styles.InputHolder)}
         >
           <Typography variant="label" className={styles.Label}>
-            Bio
+            {t("Bio")}
           </Typography>
           <FormInputText artistInput name="userEditBio" control={control} />
         </Box>
         <Box className={styles.BtnErrorContainer}>
-          <PrimaryButton className={classNames(styles.Btn)}>Save</PrimaryButton>
+          <PrimaryButton className={classNames(styles.Btn)}>
+            {t("Save")}
+          </PrimaryButton>
         </Box>
       </form>
       {showModal && (
@@ -162,9 +165,9 @@ const Settings = () => {
           <Box className={styles.IconContainer}>
             <CreateCollectionForm />
           </Box>
-          <Typography className={styles.ProcessTitle}>Saved!</Typography>
+          <Typography className={styles.ProcessTitle}>{t("Saved!")}</Typography>
           <Typography className={styles.ProcessDesc}>
-            <>Your information saved successfully</>
+            <>{t("Your information saved successfully")}</>
           </Typography>
         </ModalCard>
       )}

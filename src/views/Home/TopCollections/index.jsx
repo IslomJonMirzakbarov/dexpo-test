@@ -1,5 +1,6 @@
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 
@@ -25,13 +26,13 @@ const TopCollections = () => {
   const collections3 = collections?.items?.slice(6, 9);
 
   const mockedColls = Array(3).fill(1);
-
+  const { t } = useTranslation();
   return (
     <Paper variant="div" className={styles.container}>
       <Container maxWidth>
         <Box display="flex" justifyContent="center" className={styles.filter}>
           <Typography variant="h2" fontWeight={700}>
-            Top Collections
+            {t("TopCollections")}
           </Typography>
         </Box>
         <Grid container spacing={2} mt={2} className={styles.grid} ref={ref}>
@@ -110,7 +111,7 @@ const TopCollections = () => {
             onClick={() => navigate("/rankings")}
             sx={{ width: 180, height: 55, padding: 0 }}
           >
-            Go To Rankings
+            {t("GoToRankings")}
           </Button>
         </Box>
       </Container>

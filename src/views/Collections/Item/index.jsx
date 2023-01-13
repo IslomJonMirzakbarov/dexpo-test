@@ -13,6 +13,7 @@ import CPagination from "../../../components/CPagination";
 import useNftAPI from "../../../hooks/useNftApi";
 import { getPaginationDetailsByPathname } from "../../../utils/paginationQueries";
 import { sortTypes } from "./List/Items/Header";
+import { useTranslation } from "react-i18next";
 
 const getCollectionDetail = (token, id) =>
   securedAPI(token)
@@ -95,7 +96,7 @@ const CollectionItem = () => {
   const totalPages = nftListCollection?.data?.totalPages;
   const noItems = !innerList?.length || innerList?.length === 0;
   const isGuest = search?.includes("user=false");
-
+  const { t } = useTranslation();
   return (
     <div className={styles.container}>
       <Box className={styles.info}>
