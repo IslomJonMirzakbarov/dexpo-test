@@ -1,10 +1,11 @@
-import { Box, IconButton, Paper, Tooltip, Typography } from '@mui/material';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './style.module.scss';
+import { Box, IconButton, Paper, Tooltip, Typography } from "@mui/material";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./style.module.scss";
 
-import dexpoImg from '../../assets/images/dexpo-main-logo.svg';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import dexpoImg from "../../assets/images/dexpo-main-logo.svg";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import { useTranslation } from "react-i18next";
 
 const CollectionCard = ({
   symbol,
@@ -12,13 +13,14 @@ const CollectionCard = ({
   img,
   name,
   logo = dexpoImg,
-  artistName = 'Artist Name',
-  collectionName = 'Collection Name',
+  artistName = "Artist Name",
+  collectionName = "Collection Name",
   count = 100,
-  isEditable = false
+  isEditable = false,
 }) => {
+  const { t } = useTranslation();
   return (
-    <NavLink to={id ? `/collections/${id}` : '#'}>
+    <NavLink to={id ? `/collections/${id}` : "#"}>
       <Paper className={styles.card}>
         <img src={img} alt={name} className={styles.img} />
         {isEditable && (
@@ -45,7 +47,7 @@ const CollectionCard = ({
         </Box>
         <Box className={styles.footer}>
           <Typography variant="placeholder" fontWeight={600} color="primary">
-            {count} items
+            {count} {t("items")}
           </Typography>
         </Box>
       </Paper>

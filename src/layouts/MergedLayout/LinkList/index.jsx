@@ -48,7 +48,7 @@ const LinkList = () => {
           ) : page.target ? (
             <a href={page.to} target={page.target}>
               <Typography variant="body2" display="flex" alignItems="center">
-                {page.name}&nbsp;{" "}
+                {t(page.name)}&nbsp;{" "}
               </Typography>
             </a>
           ) : (
