@@ -17,6 +17,7 @@ const OriginalCollection = ({ collections, ref, matches, settings }) => {
             return (
               <Box key={c} className={styles.card}>
                 <NFTCard
+                  hasShadow={false}
                   collection={collection}
                   img={nft.token_image}
                   name={nft.token_name}
@@ -55,6 +56,7 @@ const OriginalCollection = ({ collections, ref, matches, settings }) => {
               <div className={styles.card} key={c}>
                 <NFTCard
                   className={styles.card_item}
+                  hasShadow={false}
                   collection={collection}
                   img={nft.token_image}
                   name={nft.token_name}

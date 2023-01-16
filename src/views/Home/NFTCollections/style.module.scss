@@ -1,6 +1,6 @@
 .container {
   overflow: hidden;
-  background-image: url('/src/assets/images/collection-bg.png');
+  background-image: url("/src/assets/images/collection-bg.png");
   background-position: top;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -11,7 +11,7 @@
     background-position: 0 0;
   }
   h2 {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
   }
   .block {
     margin-top: 40px;
