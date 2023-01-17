@@ -11,9 +11,11 @@ import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
 
 import styles from "./style.module.scss";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const CollectedBottom = ({ tabValue, id }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { otherUserInfo } = useSelector((store) => store.user);
 
   const [refetchInterval, setRefetchInterval] = useState(false);
@@ -53,7 +55,7 @@ const CollectedBottom = ({ tabValue, id }) => {
         {selectedList?.data?.items.length === 0 ? (
           <Box className={styles.NoItemsContainer}>
             <NoItemsYet />
-            <Box className={styles.NoItemsText}>No items yet</Box>
+            <Box className={styles.NoItemsText}>{t("No items yet")}</Box>
           </Box>
         ) : selectedList?.data?.items[0]?.request_type !== "COLLECTED" ? (
           <Loader page="my-page" />
