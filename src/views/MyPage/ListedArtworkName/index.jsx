@@ -36,7 +36,16 @@ const TableRow = ({
       <td onClick={navigateClick}>{item?.nft?.token_name}</td>
 
       <td className={styles.ThirdOne}>
-        <Box className={styles.CycPrice}>CYCON {item?.market?.price}</Box>
+        <Box className={styles.CycPrice}>
+          {
+            <NumberFormat
+              value={numFormat(item?.market?.price)}
+              displayType={"text"}
+              thousandSeparator={true}
+              prefix="CYCON "
+            />
+          }
+        </Box>
         <Box className={styles.UsdPrice}>
           <NumberFormat
             value={numFormat(exchangedPrice)}
