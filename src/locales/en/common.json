@@ -294,5 +294,24 @@
   " minutes left": " minutes left",
   "Auction finished": "Auction finished",
   "Detailed page": "Detailed page",
-  "Sold Out Artworks": "Sold Out Artworks"
+  "Sold Out Artworks": "Sold Out Artworks",
+  "Confirmation of Purchase": "Confirmation of Purchase",
+  "Notice: Non-cancellation/ refund after purchase": "Notice: Non-cancellation/ refund after purchase",
+  "Because of the use of art blockchain technology, purchases cannot be canceled or refunded after the payment is complete.": "Because of the use of art blockchain technology, purchases cannot be canceled or refunded after the payment is complete.",
+
+  "Artwork Details": "Artwork Details",
+  "Serial Number": "Serial Number",
+  "Entry Agency": "Entry Agency",
+  "Entry Form": "Entry Form",
+  "Exhibitor (Artist)": "Exhibitor (Artist)",
+  "Classification and Dimensions": "Classification and Dimensions",
+  "Title": "Title",
+  "Medium": "Medium",
+  "text": "text",
+  "Year": "Year",
+  "Korean Literature and Arts Copyright Association": "Korean Literature and Arts Copyright Association",
+  "view": "view",
+  "Certification Agency": "Certification Agency",
+  "Certification": "Certification",
+  "Work review": "Work review"
 }

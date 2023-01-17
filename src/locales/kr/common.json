@@ -293,5 +293,24 @@
   " minutes left": " 분 남음",
   "Auction finished": "경매 종료",
   "Detailed page": "상세보기",
-  "Sold Out Artworks": "품절된 작품"
+  "Sold Out Artworks": "품절된 작품",
+  "Confirmation of Purchase": "구매 확인사항",
+  "Notice: Non-cancellation/ refund after purchase": "결제 후 취소/환불 불가 안내",
+  "Because of the use of art blockchain technology, purchases cannot be canceled or refunded after the payment is complete.": "아트라는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된 이후에는 구매 취소 또는 환불이 되지 않습니다.",
+
+  "Artwork Details": "작품상세",
+  "Serial Number": "작품 일련번호",
+  "Entry Agency": "출품자(작가)",
+  "Entry Form": "규격",
+  "Exhibitor (Artist)": "작품명",
+  "Classification and Dimensions": "작품재료 및 형식",
+  "Title": "제작년도",
+  "Medium": "작품가격",
+  "text": "텍스트",
+  "Year": "제작년도",
+  "Korean Literature and Arts Copyright Association": "한국문학예술저작권협회",
+  "view": "보기",
+  "Certification Agency": "작가약력",
+  "Certification": "인증서",
+  "Work review": "작품평론"
 }

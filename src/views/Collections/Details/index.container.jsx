@@ -312,7 +312,9 @@ const CollectionDetailsContainer = ({
       />
 
       <Container>
-        <Typography className={styles.AccordionTitle}>구매 확인사항</Typography>
+        <Typography className={styles.AccordionTitle}>
+          {t("Confirmation of Purchase")}
+        </Typography>
 
         <Accordion
           defaultExpanded={true}
@@ -326,13 +328,14 @@ const CollectionDetailsContainer = ({
             id="panel1a-header"
           >
             <Typography className={styles.AccordionSummaryText}>
-              결제 후 취소/환불 불가 안내
+              {t("Notice: Non-cancellation/ refund after purchase")}
             </Typography>
           </AccordionSummary>
           <AccordionDetails className={styles.AccordionDetails}>
             <Typography className={styles.AccordionDetailsText}>
-              WAD는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된
-              이후에는 구매 취소 또는 환불이 되지 않습니다.
+              {t(
+                "Because of the use of art blockchain technology, purchases cannot be canceled or refunded after the payment is complete."
+              )}
             </Typography>
           </AccordionDetails>
         </Accordion>
