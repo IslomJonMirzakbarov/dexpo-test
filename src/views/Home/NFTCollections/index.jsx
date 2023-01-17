@@ -52,7 +52,7 @@ const NFTCollections = () => {
             ref={ref}
           >
             <Typography variant="h2" fontWeight={700}>
-              {t("Soldout Artworks")}
+              {t("Sold Out Artworks")}
               {/* {t("HottestArtworks")} */}
             </Typography>
           </Box>
