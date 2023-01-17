@@ -73,6 +73,7 @@ const NFTCard = ({
       <Box className={styles.header} onClick={onClick}>
         <Img
           src={img}
+          style={{ backgroundColor: "#ffffff" }}
           alt={name}
           debounce={500}
           placeholder={loader}

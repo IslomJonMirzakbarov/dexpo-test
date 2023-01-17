@@ -53,7 +53,6 @@ const NFTCollections = () => {
           >
             <Typography variant="h2" fontWeight={700}>
               {t("Sold Out Artworks")}
-              {/* {t("HottestArtworks")} */}
             </Typography>
           </Box>
           {isLoadingSoldOut || soldOutCollections?.length < 1 ? (
