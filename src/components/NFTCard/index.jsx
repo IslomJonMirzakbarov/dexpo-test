@@ -8,7 +8,6 @@ import TokenImg from "../../assets/images/con-token.svg?component";
 import OriginalIcon from "../../assets/icons/original.svg?component";
 import classNames from "classnames";
 import { calculateDeadline } from "../../utils/deadline";
-
 // import loader from '../../assets/gif/loader.gif';
 import styles from "./style.module.scss";
 import Img from "react-cool-img";
