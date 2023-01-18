@@ -57,7 +57,11 @@ const Collections = () => {
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [search, setSearch] = useState(urlDetails?.search);
-  const [input, setInput] = useState(urlDetails?.search);
+  const [input, setInput] = useState(
+    urlDetails?.search
+      ? decodeURIComponent(urlDetails?.search)
+      : urlDetails?.search
+  );
 
   const filter = useMemo(() => {
     if (urlDetails?.filter) {
