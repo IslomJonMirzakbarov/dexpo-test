@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import NumberFormat from "react-number-format";
 import numFormat from "../../../../utils/numFormat";
@@ -57,7 +58,7 @@ export default function NftInfo({ orginalNftDetail, setOpentImage }) {
           </a>
         </p>
       </div>
-      <div className={cls.info}>
+      <div className={classNames(cls.info, cls.wLabel)}>
         <p className={cls.label}>{t("Work review")}</p>
         <p className={cls.value}>{orginalNftDetail?.work_review}</p>
       </div>
