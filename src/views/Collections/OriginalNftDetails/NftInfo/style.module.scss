@@ -30,11 +30,11 @@
     .label {
       width: 150px;
     }
-    .wLabel {
-      white-space: pre-line;
-    }
     .value {
       width: calc(100% - 150px);
     }
+  }
+  .wLabel {
+    white-space: pre-line;
   }
 }
