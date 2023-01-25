@@ -46,7 +46,7 @@ export default function NftInfo({ orginalNftDetail, setOpentImage }) {
       <div className={cls.info}>
         <p className={cls.label}>{t("Certification")}</p>
         <p className={cls.value}>
-          {t("Korean Literature and Arts Copyright Association")}{" "}
+          {t("Korean Copyright Association for Arts")}{" "}
           <a
             onClick={(e) => {
               e.preventDefault();

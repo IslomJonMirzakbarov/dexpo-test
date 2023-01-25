@@ -28,7 +28,7 @@ const ConnectionModal = ({ onClick }) => {
           textAlign="center"
           mb={4}
         >
-          {t("Something went wrong. Please check your network and try again.")}
+          {t("Error, check network")}
         </Typography>
       </Box>
     </DModal>

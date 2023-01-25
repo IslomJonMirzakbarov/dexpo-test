@@ -26,11 +26,7 @@ const LoginForm = () => {
       <div className={classes.formArea}>
         <div className={classes.wallets}>
           <Typography variant="h2">{t("Connect your wallet")}</Typography>
-          <Typography variant="p">
-            {t(
-              "Connect your wallet one of available provider by importing or creating new one."
-            )}
-          </Typography>
+          <Typography variant="p">{t("Connect Wallet")}</Typography>
           <ul>
             {wallets.map((wallet) => (
               <li key={wallet.key} onClick={() => connectWallet(wallet.key)}>

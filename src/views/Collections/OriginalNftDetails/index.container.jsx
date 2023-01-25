@@ -219,14 +219,12 @@ const CollectionDetailsContainer = ({
             id="panel1a-header"
           >
             <Typography className={styles.AccordionSummaryText}>
-              {t("Notice: Non-cancellation/ refund after purchase")}
+              {t("No Cancellation or Refund after Purchase")}
             </Typography>
           </AccordionSummary>
           <AccordionDetails className={styles.AccordionDetails}>
             <Typography className={styles.AccordionDetailsText}>
-              {t(
-                "Because of the use of art blockchain technology, purchases cannot be canceled or refunded after the payment is complete."
-              )}
+              {t("Art Blockchain No Refunds")}
             </Typography>
           </AccordionDetails>
         </Accordion>

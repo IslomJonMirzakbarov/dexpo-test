@@ -27,9 +27,7 @@ const SubmittedModal = ({ onClick, submitted }) => {
           width={290}
           textAlign="center"
         >
-          {t(
-            "Your request is submitted successfully and sent to admin to review. After reviewing we will inform you via email. You can also check your status on"
-          )}
+          {t("Request submitted, check status")}
         </Typography>
         <Typography
           variant="placeholder"

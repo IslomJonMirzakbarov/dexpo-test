@@ -12,22 +12,22 @@ import { useTranslation } from "react-i18next";
 const data = [
   {
     title: "What is DEXPO NFT Marketplace ?",
-    description: `World Art DEXPO NFT Marketplace is a platform built to gather like-minded creators, artists, and crypto enthusiasts to create, trade, and share top NFTs. Platform Features: Users can mint, list, purchase, and bid on NFTs by using CYCON coins around the world.`,
+    description: "DEXPO NFT Marketplace Description",
     icon: detail1Img,
   },
   {
     title: "How do I buy an NFT ?",
-    description: `For NFTs with a fixed price, click the [Purchase Artwork] button on the Marketplace Details page and complete the transaction. For NFTs on auction, If another user exceeds the bid price you offered, the amount of CYCON that has already been bid will be returned.`,
+    description: "How to Buy an NFT",
     icon: detail2Img,
   },
   {
     title: "How do I sell an NFT ?",
-    description: `To list an NFT for sale, first of all artists need approval from our admin. This process usually takes 1-2 hours. After successful approval, your NFT will list immediately on the Marketplace as either an auction or fixed price sale.`,
+    description: "How to Sell an NFT",
     icon: detail3Img,
   },
   {
     title: "How do I create an NFT ?",
-    description: `Once you are approved as an artist, click [Create NFT] and choose your file to upload We currently support JPG and PNG. Please note that your NFT cannot be changed or revised once created.`,
+    description: "How to Create an NFT",
     icon: detail4Img,
   },
 ];
