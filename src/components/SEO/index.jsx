@@ -5,13 +5,15 @@ export default function SEO({
   title,
   description,
   name = 'CONUN GLOBAL',
-  type = 'website'
+  type = 'website',
+  keywords
 }) {
   return (
     <>
       {/* Standard metadata tags */}
       <Title>{title}</Title>
       <Meta name="description" content={description} />
+      <Meta name="keywords" content={keywords} />
       {/* End standard metadata tags */}
 
       {/* Facebook tags */}

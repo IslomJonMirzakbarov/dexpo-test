@@ -35,7 +35,11 @@ function App() {
   return (
     <Suspense fallback={<Loader />}>
       <div className="App">
-        <SEO title={t('HOME_TITLE')} description={t('HOME_DESCRIPTION')} />
+        <SEO
+          title={t('HOME_TITLE')}
+          description={t('HOME_DESCRIPTION')}
+          keywords={t('HOME_KEYWORDS')}
+        />
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <QueryClientProvider client={queryClient}>
