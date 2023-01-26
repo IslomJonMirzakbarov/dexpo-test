@@ -39,15 +39,16 @@ export default function SEO({
       {/* End Twitter tags */}
 
       {/* Start custom scripts */}
-      <Meta
+      <meta
         name="naver-site-verification"
-        content="7ea0672e4e92e32e34de348a77635273976b88d3"
+        content="8e223ab64ceb9456a5ae51e69052ea1447b47fcb"
       />
       <Meta
         name="naver-search-plugin"
-        content="title=WORLD ART DEXPO|description=Create, Sell and Collect Extraordinary NFTs
-// Great chance for artists to create their own items. Lowest fee for selling and buying NFTs"
+        content={`title=${title}|description=${description}`}
       />
+
+      <script src="//code.jivosite.com/widget/TRxHRYL4j1" async></script>
 
       {/* End custom scripts */}
     </>
