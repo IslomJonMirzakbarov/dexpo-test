@@ -234,6 +234,20 @@ const NftCreate = () => {
                 className={classNames(styles.ArtworkName, styles.InputWrapper)}
               >
                 <Typography variant="label" className={styles.Label}>
+                  {t("Token Quantity")}
+                </Typography>
+                <FormInputText
+                  artistInput
+                  control={control}
+                  name="tokenQuantity"
+                  label={t("Enter a quantity")}
+                  type='number'
+                />
+              </Box>
+              <Box
+                className={classNames(styles.ArtworkName, styles.InputWrapper)}
+              >
+                <Typography variant="label" className={styles.Label}>
                   {t("Artwork Name")}
                 </Typography>
                 <FormInputText
