@@ -42,8 +42,6 @@ const useStyles = makeStyles((theme) => ({
 
 const HistoryTable = ({ data, title = "NFT History" }) => {
   const classes = useStyles();
-  console.log("data: ", data);
-  const { price_usd } = useSelector((store) => store.wallet);
   const { t } = useTranslation();
   return (
     <Box className={classes.root} mt={5}>
