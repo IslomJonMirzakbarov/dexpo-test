@@ -200,7 +200,7 @@ const useSellNFT = ({
       return toast.error(t("Fill the price form"));
 
     if (!isCancel && !isFixedContract && startDate >= endDate)
-      return toast.error(t("Ending Date should be greater than Starting Date"));
+      return toast.error(t("End Date must be after Start Date"));
 
     if (isCompleted) return clear();
 

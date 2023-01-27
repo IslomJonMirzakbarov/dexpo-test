@@ -160,7 +160,7 @@ const PendingCheckout = ({
                 {t(`Confirm ${word}`)}
               </Typography>
               <Typography fontWeight={400} color="grey.1000" mt="3px">
-                {t(`You’ll be asked to approve this ${word} from your wallet.`)}
+                {t(`Approve ${word} from Wallet`)}
               </Typography>
             </Box>
           </Box>

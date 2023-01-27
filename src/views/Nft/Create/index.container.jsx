@@ -188,9 +188,7 @@ const NftCreate = () => {
                       id="terms-checkbox"
                     />
                     <Box className={styles.AgreementTxt}>
-                      {t(
-                        "I declare that this is an original artwork. I understand that no plagiarism is allowed, and that the artwork can be removed anytime if detected."
-                      )}
+                      {t("Original Artwork Declaration")}
                     </Box>
                   </Box>
                 </label>
@@ -205,7 +203,7 @@ const NftCreate = () => {
               <div onClick={() => navigate("/user/collections/create")}>
                 {t("create a collection")}
               </div>{" "}
-              {t("first, and your item will appear in this collection.")}
+              {t("Add to Collection")}
             </Box>
             <FormControl fullWidth className={styles.CollectionForm}>
               <Controller

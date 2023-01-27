@@ -94,7 +94,7 @@ const Faucet = () => {
             {t("CYCON Faucet")}
           </Typography>
           <Typography variant="placeholder" fontWeight={600} color="grey.1000">
-            {t("You can get test 1000 CYCON token for each wallet.")}
+            {t("Get 1000 CYCON Test Token per Wallet")}
           </Typography>
         </Box>
         <Box className={styles.form}>

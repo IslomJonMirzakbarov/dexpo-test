@@ -273,15 +273,12 @@ const CollectionCreate = () => {
           <Typography className={styles.SuccessProcessDesc}>
             <>
               <span className={styles.Sphrase}>
-                {t("Your request was submitted successfully and")}
+                {t("Request Submitted Successfully")}
                 <br /> {t("sent to admin for review.")}
               </span>
               <br />
               <br />
-              {t(
-                "1. Scan the QR code and you will be directed to Telegram."
-              )}{" "}
-              <br /> {t("2. You can also check your status on")}{" "}
+              {t("Scan QR for Telegram")} <br /> {t("Check Status")}{" "}
               <span className={styles.MainDesc}>
                 {t("My Page > My application tab.")}
               </span>

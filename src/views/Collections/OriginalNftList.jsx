@@ -161,9 +161,7 @@ const OriginalNftList = () => {
             <Typography className={styles.SwitchText}>
               <Typography>*</Typography>
               <Typography>
-                {t(
-                  "You can receive and own the artworks of the original page by purchasing with CYCON."
-                )}
+                {t("Purchase Original Artworks with CYCON")}
               </Typography>
             </Typography>
           </Box>

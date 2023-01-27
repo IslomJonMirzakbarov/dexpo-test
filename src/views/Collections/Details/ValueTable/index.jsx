@@ -88,12 +88,7 @@ const ValueTable = ({
           alignItems="center"
         >
           2%{" "}
-          <Tooltip
-            title={t(
-              "The creator will receive 2% for every sale of this collection."
-            )}
-            placement="right"
-          >
+          <Tooltip title={t("Creator's Commission")} placement="right">
             <IconButton className={classes.img}>
               <InfoIcon />
             </IconButton>
