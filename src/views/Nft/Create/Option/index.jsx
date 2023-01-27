@@ -4,6 +4,7 @@ import styles from "./style.module.scss";
 
 const CollectionOption = (props) => {
   const { data, label, selectOption } = props || {};
+  console.log("props: ", props);
   const collectionType =
     data?.type === "S" ? "Single" : data?.type === "M" ? "Multiple" : "";
 
@@ -17,8 +18,15 @@ const CollectionOption = (props) => {
         justifyContent="space-between"
         width="100%"
       >
-        <Box>{label}</Box>
-        <Box fontWeight="700">{collectionType}</Box>
+        <Box fontSize={15}>{label}</Box>
+        <Box
+          fontWeight="700"
+          fontSize={12}
+          fontStyle="italic"
+          className={styles.collectionType}
+        >
+          {collectionType}
+        </Box>
       </Typography>
     </Box>
   );
