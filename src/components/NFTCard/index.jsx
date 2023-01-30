@@ -36,9 +36,9 @@ const NFTCard = ({
   className,
   hasShadow = true,
   hasOriginal,
-  isSold, 
+  isSold,
   isOriginalNft,
-  tokenQuantity=1,
+  tokenQuantity = 1,
 }) => {
   const { t } = useTranslation();
   const leftDays =
@@ -57,6 +57,10 @@ const NFTCard = ({
         )}`;
     }
   };
+
+  const isVisible =
+    tokenQuantity > 1 &&
+    (page === "collectedBottom" || page === "createdItems");
 
   return (
     <Box
@@ -80,7 +84,7 @@ const NFTCard = ({
           placeholder={loader}
           error={urlToIpfs(img)}
         />
-        {tokenQuantity > 1 && (
+        {isVisible && (
           <Box className={styles.numberPlate}>
             <span>x{tokenQuantity}</span>
           </Box>

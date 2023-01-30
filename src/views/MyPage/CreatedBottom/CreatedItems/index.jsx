@@ -47,6 +47,7 @@ const CreatedItems = ({ id }) => {
                 description={nftItem?.nft?.token_name}
                 priceType={priceType.AUCTION.value.value}
                 purchaseCount={nftItem?.nft?.like_count}
+                page='createdItems'
                 onClick={() =>
                   navigate(
                     `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
