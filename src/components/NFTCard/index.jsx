@@ -36,8 +36,9 @@ const NFTCard = ({
   className,
   hasShadow = true,
   hasOriginal,
-  isSold,
+  isSold, 
   isOriginalNft,
+  tokenQuantity=1,
 }) => {
   const { t } = useTranslation();
   const leftDays =
@@ -79,6 +80,11 @@ const NFTCard = ({
           placeholder={loader}
           error={urlToIpfs(img)}
         />
+        {tokenQuantity > 1 && (
+          <Box className={styles.numberPlate}>
+            <span>x{tokenQuantity}</span>
+          </Box>
+        )}
         {priceType && <span className={styles.price_type}>{t(priceType)}</span>}
         {leftDays && (
           <Box className={styles.leftDays}>
