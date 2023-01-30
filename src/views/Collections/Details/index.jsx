@@ -56,8 +56,6 @@ const CollectionDetails = ({
     [multiNftOffers]
   )
 
-  console.log('nft===>', nft)
-
   const { t } = useTranslation()
 
   const { data: moreNFTs } = useMoreByCollectionAPI(contract_address, id)
@@ -65,7 +63,7 @@ const CollectionDetails = ({
   const [isAuctionBeingFinished, setIsAuctionBeingFinished] = useState(false)
 
   const handleQuantity = (str) => {
-    if (str === '+' && balance > quantity) {
+    if (str === '+' && balance >= quantity) {
       setQuantity((prev) => prev + 1)
       return
     }
@@ -173,7 +171,6 @@ const CollectionDetails = ({
   const viewClick = () => handleRefresh()
 
   const handlePurchaseWithQuantity = async () => {
-    console.log('quantity', quantity, nft.nft_id)
     try {
       let res = await purchaseMultiNft(+nft.nft_id, quantity)
 

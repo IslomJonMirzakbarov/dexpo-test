@@ -114,7 +114,10 @@ const NFTSellRequestContainer = ({
   sdValue,
   edValue,
   isAuction,
-  bidHistory
+  bidHistory,
+  quantity,
+  handleChangeQuantity,
+  balance
 }) => {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -239,7 +242,13 @@ const NFTSellRequestContainer = ({
                 alignItems='end'
                 className={classes.box}
               >
-                {!isCancel && !!type && <QuantityInput />}
+                {!isCancel && !!type && (
+                  <QuantityInput
+                    available={balance}
+                    handleChange={handleChangeQuantity}
+                    value={quantity}
+                  />
+                )}
                 {nft?.standard === 'M' && (
                   <>
                     <div className={styles.totalList}>
@@ -357,6 +366,7 @@ const NFTSellRequestContainer = ({
         sellPrice={sellPrice}
         isCanceling={isCanceling}
         onBack={onBack}
+        quantity={quantity}
       />
       <DModal
         isExpandedImg

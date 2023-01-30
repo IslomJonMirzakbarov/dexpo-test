@@ -53,7 +53,8 @@ const PendingSell = ({
   approve,
   listing,
   error,
-  sellPrice
+  sellPrice,
+  count
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -106,7 +107,7 @@ const PendingSell = ({
                 </Typography>
               </Box>
               <Typography fontWeight={600} color='grey.2000'>
-                Quantity: 10
+                Quantity: {count}
               </Typography>
             </Box>
             <Box className={classes.countBox} px={2} mt={1}>
