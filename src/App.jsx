@@ -16,11 +16,11 @@ import Router from './router';
 import Loader from './components/Loader';
 import MergedLayout from './layouts/MergedLayout';
 import ScrollToTop from './components/ScrollToTop';
+import SEO from './components/SEO';
 
 import './i18n.js';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import SEO from './components/SEO';
 
 const toastOptions = {
   duration: 3000,

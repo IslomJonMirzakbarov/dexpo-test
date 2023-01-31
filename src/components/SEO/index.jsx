@@ -11,9 +11,9 @@ export default function SEO({
   return (
     <>
       {/* Standard metadata tags */}
-      <Title>{title}</Title>
+      {/* <Title>{title}</Title> */}
       <Meta name="description" content={description} />
-      <Meta name="keywords" content={keywords} />
+      {/* <Meta name="keywords" content={keywords} /> */}
       <Meta name="website" content="https://www.dexpo.world" />
       {/* End standard metadata tags */}
 
@@ -42,16 +42,11 @@ export default function SEO({
       {/* End Twitter tags */}
 
       {/* Start custom scripts */}
-      <meta
-        name="naver-site-verification"
-        content="8e223ab64ceb9456a5ae51e69052ea1447b47fcb"
-      />
+
       <Meta
         name="naver-search-plugin"
         content={`title=${title}|description=${description}`}
       />
-
-      <script src="//code.jivosite.com/widget/TRxHRYL4j1" async></script>
 
       {/* End custom scripts */}
     </>
