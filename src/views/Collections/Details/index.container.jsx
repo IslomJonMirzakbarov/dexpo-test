@@ -232,7 +232,9 @@ const CollectionDetailsContainer = ({
                       <Countdown date={endDate} onFinish={onTimeOut} />
                     </Box>
                   )
-                ) : null}
+                ) : (
+                  <Box />
+                )}
                 <Box
                   display='flex'
                   flexDirection='column'

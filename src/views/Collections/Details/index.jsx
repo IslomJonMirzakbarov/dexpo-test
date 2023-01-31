@@ -194,7 +194,6 @@ const CollectionDetails = ({
 
       if (numericAllowance > 0) {
         if (data.nft.standard === 'M') {
-          console.log('handlePurchaseWithQuantity', data)
           handlePurchaseWithQuantity()
         } else {
           handlePurchase()
