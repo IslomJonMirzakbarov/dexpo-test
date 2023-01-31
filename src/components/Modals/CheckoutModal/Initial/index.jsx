@@ -66,7 +66,8 @@ const InitialCheckout = ({
   isResponsive,
   handleQuantity,
   count,
-  balance
+  balance,
+  nftStandard
 }) => {
   const classes = useStyles()
   const imgDim = !isResponsive ? 150 : 85
@@ -91,11 +92,13 @@ const InitialCheckout = ({
             width={imgDim}
             height={imgDim}
           />
-          <Counter
-            handleChange={handleQuantity}
-            value={count}
-            available={balance}
-          />
+          {nftStandard === 'M' && (
+            <Counter
+              handleChange={handleQuantity}
+              value={count}
+              available={balance}
+            />
+          )}
         </Box>
         <Box className={classes.box}>
           <Box display='flex' flexDirection='column' py={1} px={2}>

@@ -13,6 +13,8 @@ import { redirectAccount, redirectTx } from '../../../../../utils/redirect'
 import TokenIcon from '../../../../../assets/images/con-token.svg?component'
 import { charCurrency } from '../../../../../utils/currency'
 import numFormat from '../../../../../utils/numFormat'
+import moment from 'moment/moment'
+import { useSelector } from 'react-redux'
 
 const eventTypes = {
   SOLD: {
@@ -56,24 +58,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ListingTableItem = ({
-  event = 'TRADE',
-  amount,
-  price,
-  from,
-  to,
-  txHash,
-  date,
-  type
-}) => {
+const ListingTableItem = ({ item, from, account, toggle }) => {
   const classes = useStyles()
-
+  const { price_krw } = useSelector((store) => store.wallet)
   const handleCopy = (val) => navigator.clipboard.writeText(val)
   return (
     <CTableRow>
-      <CTableCell className={classes.cell}>1,000 CYCON</CTableCell>
-      <CTableCell className={classes.cell}>₩ 15,000.12</CTableCell>
-      <CTableCell className={classes.cell}>10</CTableCell>
+      <CTableCell className={classes.cell}>{item.price} CYCON</CTableCell>
+      <CTableCell className={classes.cell}>
+        ₩ {item.price * price_krw}
+      </CTableCell>
+      <CTableCell className={classes.cell}>{item.quantity}</CTableCell>
       <CTableCell className={classes.cell}>
         <a
           className={classes.link}
@@ -81,20 +76,34 @@ const ListingTableItem = ({
           target='_blank'
           rel='noreferrer'
         >
-          {truncateAddress('0x716b0Ad6d4cE4F94EE2486Cca1107d462e224250')}
+          {truncateAddress(item.seller_address)}
         </a>
       </CTableCell>
-      <CTableCell className={classes.cell}>2022.04.13 17:48:29</CTableCell>
+      <CTableCell className={classes.cell}>
+        {moment(item.created_at).format('DD.MM.yyyy HH:mm')}
+      </CTableCell>
 
       <CTableCell className={classes.cell}>
-        <Button
-          className={classes.button}
-          variant='outlined'
-          sx={{ height: 45 }}
-          fullWidth
-        >
-          Cancel
-        </Button>
+        {account === item.seller_address.toLowerCase() ? (
+          <Button
+            className={classes.button}
+            variant='outlined'
+            sx={{ height: 45 }}
+            fullWidth
+          >
+            Cancel
+          </Button>
+        ) : (
+          <Button
+            className={classes.button}
+            variant='containedSecondary'
+            sx={{ height: 45 }}
+            fullWidth
+            onClick={toggle}
+          >
+            Purchase
+          </Button>
+        )}
       </CTableCell>
     </CTableRow>
   )

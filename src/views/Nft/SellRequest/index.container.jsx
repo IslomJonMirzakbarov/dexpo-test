@@ -242,7 +242,7 @@ const NFTSellRequestContainer = ({
                 alignItems='end'
                 className={classes.box}
               >
-                {!isCancel && !!type && (
+                {nft?.standard === 'M' && !isCancel && !!type && (
                   <QuantityInput
                     available={balance}
                     handleChange={handleChangeQuantity}
@@ -367,6 +367,7 @@ const NFTSellRequestContainer = ({
         isCanceling={isCanceling}
         onBack={onBack}
         quantity={quantity}
+        nftStandard={nft.standard}
       />
       <DModal
         isExpandedImg

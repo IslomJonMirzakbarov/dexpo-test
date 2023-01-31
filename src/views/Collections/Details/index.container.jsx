@@ -101,7 +101,8 @@ const CollectionDetailsContainer = ({
   isAuctionBeingFinished,
   handleQuantity,
   quantity,
-  balance
+  balance,
+  multiNftOffers
 }) => {
   const navigate = useNavigate()
 
@@ -311,7 +312,9 @@ const CollectionDetailsContainer = ({
             </Box>
           </Grid>
         </Grid>
-        <ListingTable />
+        {nft.standard === 'M' && (
+          <ListingTable multiNftOffers={multiNftOffers} toggle={toggle} />
+        )}
         {isBidHistory && (
           <Grid container className={classes.table}>
             <Grid item lg={12}>
@@ -397,6 +400,7 @@ const CollectionDetailsContainer = ({
         isAuction={isAuction}
         handleQuantity={handleQuantity}
         quantity={quantity}
+        nftStandard={nft.standard}
         balance={balance}
       />
       <DModal

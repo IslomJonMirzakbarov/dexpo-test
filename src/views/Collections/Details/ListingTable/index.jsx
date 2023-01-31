@@ -66,9 +66,9 @@ const columns = [
   }
 ]
 
-const ListingTable = ({ data, title = 'NFT History' }) => {
+const ListingTable = ({ toggle, multiNftOffers }) => {
   const classes = useStyles()
-  const { price_usd } = useSelector((store) => store.wallet)
+  const { account } = useSelector((store) => store.wallet)
   const { t } = useTranslation()
   return (
     <Box className={classes.root} mt={5}>
@@ -92,8 +92,13 @@ const ListingTable = ({ data, title = 'NFT History' }) => {
           </CTableHead>
 
           <CTableBody loader={false} columnsCount={6} dataLength={3}>
-            {columns?.map((_, i) => (
-              <ListingTableItem key={i} />
+            {multiNftOffers?.items?.map((item) => (
+              <ListingTableItem
+                toggle={toggle}
+                account={account}
+                item={item}
+                key={item.created_at}
+              />
             ))}
           </CTableBody>
         </CTable>

@@ -269,6 +269,7 @@ const CollectionDetails = ({
       quantity={quantity}
       id={id}
       contract_address={contract_address}
+      multiNftOffers={multiNftOffers}
       balance={balance}
     />
   )

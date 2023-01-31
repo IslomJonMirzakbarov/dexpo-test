@@ -48,7 +48,8 @@ const SellModal = ({
   error,
   sellPrice,
   onBack,
-  quantity
+  quantity,
+  nftStandard
 }) => {
   const Footer = {
     [sellReqStatuses.INITIAL]: null,
@@ -96,6 +97,7 @@ const SellModal = ({
         error={error}
         sellPrice={sellPrice}
         count={quantity}
+        nftStandard={nftStandard}
       />
     </DModal>
   )

@@ -85,7 +85,7 @@ const NFTCard = ({
           {priceType && (
             <span className={styles.price_type}>{t(priceType)}</span>
           )}
-          {quantity && <Box className={styles.quantity}>x{quantity}</Box>}
+          {/* {quantity && <Box className={styles.quantity}>x{quantity}</Box>} */}
         </Box>
         {leftDays && (
           <Box className={styles.leftDays}>

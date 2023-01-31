@@ -54,7 +54,8 @@ const PendingSell = ({
   listing,
   error,
   sellPrice,
-  count
+  count,
+  nftStandard
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -106,9 +107,11 @@ const PendingSell = ({
                   2%
                 </Typography>
               </Box>
-              <Typography fontWeight={600} color='grey.2000'>
-                Quantity: {count}
-              </Typography>
+              {nftStandard === 'M' && (
+                <Typography fontWeight={600} color='grey.2000'>
+                  Quantity: {count}
+                </Typography>
+              )}
             </Box>
             <Box className={classes.countBox} px={2} mt={1}>
               <Box

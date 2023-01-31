@@ -46,7 +46,8 @@ const CheckoutModal = ({
   isAuction,
   handleQuantity,
   quantity,
-  balance
+  balance,
+  nftStandard
 }) => {
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
@@ -100,6 +101,7 @@ const CheckoutModal = ({
           onClick={onClick}
           img={img}
           name={name}
+          nftStandard={nftStandard}
           artistName={artistName}
           price={price}
           exchangedPrice={exchangedPrice}

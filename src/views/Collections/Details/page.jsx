@@ -51,8 +51,6 @@ const CollectionDetailsPage = () => {
     contractAddress: contract_address
   })
 
-  console.log('multiOffers', multiNftOffers)
-
   const {
     data: bidHistory,
     isLoading: loadingBid,
