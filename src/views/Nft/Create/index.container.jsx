@@ -133,7 +133,11 @@ const NftCreate = () => {
     await create?.mutateAsync(formData, {
       onSuccess: async (res) => {
         try {
-          const response = await mint(res?.data?.metadata, contractAddress);
+          const response = await mint(
+            res?.data?.metadata,
+            contractAddress,
+            data.tokenQuantity
+          );
           if (response) {
             postMint(response.transactionHash);
             if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
@@ -145,7 +149,9 @@ const NftCreate = () => {
             setIsLoading(false);
             setRejected(true);
           }
-        } catch (err) {}
+        } catch (err) {
+          console.log("errMint: ", err);
+        }
       },
     });
   });
@@ -241,7 +247,7 @@ const NftCreate = () => {
                   control={control}
                   name="tokenQuantity"
                   label={t("Enter a quantity")}
-                  type='number'
+                  type="number"
                 />
               </Box>
               <Box

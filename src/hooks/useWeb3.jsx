@@ -348,6 +348,36 @@ const useWeb3 = () => {
     });
   };
 
+  // const mint = async (metadata, contractAddress, tokenQuantity = 1) => {
+  //   const contract =
+  //     tokenQuantity > 1
+  //       ? new web3.eth.Contract(SingleABI, contractAddress)
+  //       : // ? new web3.eth.Contract(MultiABI, contractAddress)
+  //         new web3.eth.Contract(SingleABI, contractAddress);
+
+  //   try {
+  //     const gasPrice = await web3.eth.getGasPrice();
+  //     const estimatedGas = await contract.methods
+  //       .mint(account, metadata)
+  //       .estimateGas({
+  //         gasPrice,
+  //         from: account,
+  //       });
+
+  //     const res = await contract.methods.mint(account, metadata).send({
+  //       gasPrice,
+  //       from: account,
+  //       gas: estimatedGas,
+  //     });
+
+  //     return res;
+  //   } catch (err) {
+  //     console.log(err);
+
+  //     return null;
+  //   }
+  // };
+
   const mint = async (metadata, contractAddress) => {
     const contractERC721 = new web3.eth.Contract(SingleABI, contractAddress);
     try {
