@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 
 const HistoryTable = ({ data, title = "NFT History" }) => {
   const classes = useStyles();
-  const { price_usd } = useSelector((store) => store.wallet);
   const { t } = useTranslation();
   return (
     <Box className={classes.root} mt={5}>
@@ -72,8 +71,8 @@ const HistoryTable = ({ data, title = "NFT History" }) => {
                   index={i + 1}
                   type={item.type}
                   event={item.event}
-                  amount={item.price}
-                  price={item.price * price_usd}
+                  amount={item.amount}
+                  price={item.price}
                   from={item.from_address}
                   to={item.to_address}
                   txHash={item.tx_hash}

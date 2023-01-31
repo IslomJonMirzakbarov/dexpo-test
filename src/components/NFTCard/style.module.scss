@@ -1,5 +1,5 @@
-@use '../../scss/colors';
-@import '../../styles/fonts';
+@use "../../scss/colors";
+@import "../../styles/fonts";
 
 .card {
   display: flex;
@@ -104,6 +104,26 @@
         font-size: 15px;
         margin-right: 5px;
         color: colors.$primary;
+      }
+    }
+
+    .numberPlate {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 13px;
+      left: 13px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444444;
+      border-radius: 7px;
+      width: 60px;
+      height: 29px;
+
+      span {
+        @include fontLabel;
+        text-align: center;
+        color: colors.$whiteBg;
       }
     }
   }

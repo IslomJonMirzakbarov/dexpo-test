@@ -50,7 +50,7 @@ export const historyMockData = [
 
 export const historyMockHeadRows = [
   'Event',
-  'Amount',
+  'Quantity',
   'Price',
   'From',
   'To',
