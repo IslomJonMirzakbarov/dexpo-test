@@ -41,13 +41,13 @@ const NftCreate = () => {
 
   const approvedCollectionList = useMemo(() => {
     return collections?.data?.items?.filter(
-      (collectionItem) =>
-        collectionItem.status === "COMPLETE" && collectionItem.type === "S"
+      (collectionItem) => collectionItem.status === "COMPLETE"
     );
   }, [collections]);
 
   const [showModal, setShowModal] = useState(false);
   const [contractAddress, setContractAddress] = useState("");
+  const [collectionType, setCollectionType] = useState("");
   const [artName, setArtName] = useState("");
   const [checked, setChecked] = useState(false);
   const [uploadedImg, setUploadedImg] = useState({});
@@ -75,9 +75,10 @@ const NftCreate = () => {
     try {
       const response = await getTransactionReceipt(tx);
 
-      if (response?.logs[0]?.topics[3]) {
-        const newId = Web3.utils.hexToNumber(response?.logs[0]?.topics[3]);
-
+      if (response?.logs[0]?.topics[collectionType === "M" ? 1 : 3]) {
+        const newId = Web3.utils.hexToNumber(
+          response?.logs[0]?.topics[collectionType === "M" ? 1 : 3]
+        );
         setNewItemConAd(response?.to);
         setNewItemId(newId);
 
@@ -135,8 +136,9 @@ const NftCreate = () => {
         try {
           const response = await mint(
             res?.data?.metadata,
+            Number(data?.tokenQuantity),
             contractAddress,
-            data.tokenQuantity
+            collectionType
           );
           if (response) {
             postMint(response.transactionHash);
@@ -223,6 +225,7 @@ const NftCreate = () => {
                       options={approvedCollectionList}
                       getOptionLabel={(item) => {
                         setContractAddress(item.contract_address);
+                        setCollectionType(item?.type);
                         return item.name;
                       }}
                       getOptionValue={(item) => item.contract_id}
@@ -236,20 +239,25 @@ const NftCreate = () => {
                 }}
               />
 
-              <Box
-                className={classNames(styles.ArtworkName, styles.InputWrapper)}
-              >
-                <Typography variant="label" className={styles.Label}>
-                  {t("Token Quantity")}
-                </Typography>
-                <FormInputText
-                  artistInput
-                  control={control}
-                  name="tokenQuantity"
-                  label={t("Enter a quantity")}
-                  type="number"
-                />
-              </Box>
+              {collectionType && collectionType === "M" && (
+                <Box
+                  className={classNames(
+                    styles.ArtworkName,
+                    styles.InputWrapper
+                  )}
+                >
+                  <Typography variant="label" className={styles.Label}>
+                    {t("Token Quantity")}
+                  </Typography>
+                  <FormInputText
+                    artistInput
+                    control={control}
+                    name="tokenQuantity"
+                    label={t("Enter a quantity")}
+                    type="number"
+                  />
+                </Box>
+              )}
               <Box
                 className={classNames(styles.ArtworkName, styles.InputWrapper)}
               >
