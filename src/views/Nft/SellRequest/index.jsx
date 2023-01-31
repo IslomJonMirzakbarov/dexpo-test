@@ -62,7 +62,7 @@ const NFTSellRequest = ({
     }
   }, [account])
 
-  console.log('balance==>', balance)
+  // console.log('balance==>', balance)
 
   useEffect(() => {
     if (!account) return

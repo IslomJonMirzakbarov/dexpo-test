@@ -74,7 +74,9 @@ const CollectedBottom = ({ tabValue, id }) => {
                   priceType={priceType.AUCTION.value.value}
                   purchaseCount={nftItem?.nft?.like_count}
                   tokenId={nftItem?.nft?.token_id}
+                  quantity={nftItem?.nft?.token_quantity}
                   contractAddress={nftItem?.nft?.contract_address}
+                  page="collectedBottom"
                   onClick={() =>
                     navigate(
                       `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.nft?.contract_address}`

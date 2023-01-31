@@ -4,7 +4,6 @@ import styles from "./style.module.scss";
 
 const CollectionOption = (props) => {
   const { data, label, selectOption } = props || {};
-  console.log("props: ", props);
   const collectionType =
     data?.type === "S" ? "Single" : data?.type === "M" ? "Multiple" : "";
 
