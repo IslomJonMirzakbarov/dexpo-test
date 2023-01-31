@@ -11,9 +11,7 @@ export default function SEO({
   return (
     <>
       {/* Standard metadata tags */}
-      {/* <Title>{title}</Title> */}
       <Meta name="description" content={description} />
-      {/* <Meta name="keywords" content={keywords} /> */}
       <Meta name="website" content="https://www.dexpo.world" />
       {/* End standard metadata tags */}
 
