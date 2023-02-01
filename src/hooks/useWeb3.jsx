@@ -119,8 +119,12 @@ const useWeb3 = () => {
     return approve
   }
 
-  const makeApprove = async (isFixed = true) => {
-    const contract = isFixed ? fixedContract : auctionContract
+  const makeApprove = async (isFixed = true, type) => {
+    const contract = isFixed
+      ? type === 'M'
+        ? multiNftContract
+        : fixedContract
+      : auctionContract
     const contractRC20 = new web3.eth.Contract(ERC20_ABI, conAddress)
     const gasLimitApprove = await contractRC20.methods
       .approve(contract, approveAmount)
@@ -166,18 +170,19 @@ const useWeb3 = () => {
   }
 
   const purchaseMultiNft = async (nftId, quantity) => {
+    console.log('nftId', nftId, quantity)
     const fixedMarket = new web3.eth.Contract(
       FIXED_MULTI_MARKET_ABI,
       multiNftContract
     )
 
     const gasLimit = await fixedMarket.methods
-      .buy(nftId, quantity)
+      .buy(+nftId, quantity)
       .estimateGas({
         from: account
       })
 
-    const result = await fixedMarket.methods.buy(nftId, quantity).send({
+    const result = await fixedMarket.methods.buy(+nftId, quantity).send({
       from: account,
       gas: gasLimit
     })

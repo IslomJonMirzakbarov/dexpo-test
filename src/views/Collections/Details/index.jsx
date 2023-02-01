@@ -137,10 +137,14 @@ const CollectionDetails = ({
 
   const handleContract = async () => {
     try {
-      const approve = await makeApprove(!isAuction)
+      const approve = await makeApprove(!isAuction, data.nft.standard)
 
       if (!!approve) {
-        handlePurchase()
+        if (data.nft.standard === 'M') {
+          handlePurchaseMultiNft()
+        } else {
+          handlePurchase()
+        }
       }
     } catch (err) {
       setStatus(checkoutStatuses.INITIAL)
@@ -192,7 +196,7 @@ const CollectionDetails = ({
       const allowance = await checkAllowance(!isAuction, data.nft.standard)
 
       const numericAllowance = Number(allowance)
-
+      console.log('numericAllowance', numericAllowance)
       if (numericAllowance > 0) {
         if (data.nft.standard === 'M') {
           handlePurchaseMultiNft()
