@@ -28,7 +28,6 @@ const TableRow = ({
 }) => {
   const exchangedPrice = item?.market?.price * price_usd;
   const { t } = useTranslation();
-  console.log('item: ', item?.nft?.token_quantity);
   return (
     <tr className={styles.TableBodyRow} key={item?.nft?.token_id}>
       <td onClick={navigateClick}>
