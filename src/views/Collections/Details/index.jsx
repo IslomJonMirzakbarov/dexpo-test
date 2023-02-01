@@ -170,9 +170,9 @@ const CollectionDetails = ({
 
   const viewClick = () => handleRefresh()
 
-  const handlePurchaseWithQuantity = async () => {
+  const handlePurchaseMultiNft = async () => {
     try {
-      let res = await purchaseMultiNft(+nft.nft_id, quantity)
+      let res = await purchaseMultiNft(nft.nft_id, quantity)
 
       if (!!res) {
         setTxHash(res.transactionHash)
@@ -189,12 +189,13 @@ const CollectionDetails = ({
     setStatus(checkoutStatuses.PENDING)
 
     try {
-      const allowance = await checkAllowance(!isAuction)
+      const allowance = await checkAllowance(!isAuction, data.nft.standard)
+
       const numericAllowance = Number(allowance)
 
       if (numericAllowance > 0) {
         if (data.nft.standard === 'M') {
-          handlePurchaseWithQuantity()
+          handlePurchaseMultiNft()
         } else {
           handlePurchase()
         }
