@@ -17,12 +17,21 @@ const CollectionCard = ({
   collectionName = "Collection Name",
   count = 100,
   isEditable = false,
+  type,
 }) => {
   const { t } = useTranslation();
+  const typeWord = type === "S" ? "Single" : "Multiple";
   return (
     <NavLink to={id ? `/collections/${id}` : "#"}>
       <Paper className={styles.card}>
         <img src={img} alt={name} className={styles.img} />
+        {!!type && (
+          <Box className={styles.typePlate}>
+            <span style={{ color: type === "S" ? "#FF006B" : "#183dbe" }}>
+              {typeWord}
+            </span>
+          </Box>
+        )}
         {isEditable && (
           <Box className={styles.edit}>
             <Tooltip title="Edit" placement="top">

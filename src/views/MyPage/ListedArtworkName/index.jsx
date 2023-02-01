@@ -35,6 +35,8 @@ const TableRow = ({
       </td>
       <td onClick={navigateClick}>{item?.nft?.token_name}</td>
 
+      <td>{item?.nft?.token_quantity}</td>
+
       <td className={styles.ThirdOne}>
         <Box className={styles.CycPrice}>
           {
@@ -151,6 +153,7 @@ const ListedArtworkBottom = () => {
             <tr className={styles.TableHeadRow}>
               <th>{t("Item")}</th>
               <th>{t("Artwork name")}</th>
+              <th>{t("Quantity")}</th>
               <th>{t("Unit Price")}</th>
               <th>{t("Date")}</th>
               <th></th>

@@ -19,6 +19,7 @@ import { FIXED_MARKET_ABI } from "../utils/abi/FixedMarketABI";
 import { AUCTION_MARKET_ABI } from "../utils/abi/AuctionMarketABI";
 import { FAUCET_ABI } from "../utils/abi/FaucetABI";
 import SingleABI from "../utils/abi/SingleABI";
+import MultipleABI from "../utils/abi/MultipleABI";
 
 // const { klaytn } = window;
 // const caver = new Caver(klaytn);
@@ -363,22 +364,40 @@ const useKaikas = () => {
     });
   };
 
-  const mint = async (metadata, contractAddress) => {
-    const contractERC721 = new caver.klay.Contract(SingleABI, contractAddress);
+  const mint = async (
+    metadata,
+    tokenQuantity = 1,
+    contractAddress,
+    collectionType = "S"
+  ) => {
+    const isMultiple = collectionType === "M";
+    const contract = isMultiple
+      ? new caver.klay.Contract(MultipleABI, contractAddress)
+      : new caver.klay.Contract(SingleABI, contractAddress);
     try {
       const gasPrice = await caver.klay.getGasPrice();
-      const estimatedGas = await contractERC721.methods
-        .mint(account, metadata)
-        .estimateGas({
-          gasPrice,
-          from: account,
-        });
-
-      const res = await contractERC721.methods.mint(account, metadata).send({
-        gasPrice,
-        from: account,
-        gas: estimatedGas,
-      });
+      const estimatedGas = isMultiple
+        ? await contract.methods
+            .mint(account, tokenQuantity, metadata)
+            .estimateGas({
+              gasPrice,
+              from: account,
+            })
+        : await contract.methods.mint(account, metadata).estimateGas({
+            gasPrice,
+            from: account,
+          });
+      const res = isMultiple
+        ? await contract.methods.mint(account, tokenQuantity, metadata).send({
+            gasPrice,
+            from: account,
+            gas: estimatedGas,
+          })
+        : await contract.methods.mint(account, metadata).send({
+            gasPrice,
+            from: account,
+            gas: estimatedGas,
+          });
 
       return res;
     } catch (err) {
