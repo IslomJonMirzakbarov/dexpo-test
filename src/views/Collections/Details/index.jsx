@@ -44,6 +44,7 @@ const CollectionDetails = ({
     purchaseMultiNft
   } = useCurrnetProvider()
   const [balance, setBalance] = useState(0)
+  const [purchaseNft, setPurchaseNft] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const { control, getValues } = useForm({
     defaultValues: {
@@ -51,10 +52,11 @@ const CollectionDetails = ({
     }
   })
 
-  const nft = useMemo(
-    () => multiNftOffers?.items?.sort((a, b) => a.price - b.price)?.[0],
-    [multiNftOffers]
-  )
+  useEffect(() => {
+    setPurchaseNft(
+      multiNftOffers?.items?.sort((a, b) => a.price - b.price)?.[0]
+    )
+  }, [multiNftOffers])
 
   const { t } = useTranslation()
 
@@ -62,7 +64,11 @@ const CollectionDetails = ({
 
   const [isAuctionBeingFinished, setIsAuctionBeingFinished] = useState(false)
 
-  const handleQuantity = (str) => {
+  const handleQuantity = (str, value) => {
+    if (!str) {
+      setQuantity(value)
+      return
+    }
     if (str === '+' && balance >= quantity) {
       setQuantity((prev) => prev + 1)
       return
@@ -176,14 +182,13 @@ const CollectionDetails = ({
 
   const handlePurchaseMultiNft = async () => {
     try {
-      let res = await purchaseMultiNft(nft.nft_id, quantity)
+      let res = await purchaseMultiNft(purchaseNft.nft_id, quantity)
 
       if (!!res) {
         setTxHash(res.transactionHash)
         setStatus(checkoutStatuses.COMPLETE)
       }
     } catch (err) {
-      console.log('err', err)
       setError(getRPCErrorMessage(err))
       setStatus(checkoutStatuses.INITIAL)
     }
@@ -196,7 +201,7 @@ const CollectionDetails = ({
       const allowance = await checkAllowance(!isAuction, data.nft.standard)
 
       const numericAllowance = Number(allowance)
-      console.log('numericAllowance', numericAllowance)
+
       if (numericAllowance > 0) {
         if (data.nft.standard === 'M') {
           handlePurchaseMultiNft()
@@ -224,7 +229,13 @@ const CollectionDetails = ({
     return makePurchase()
   }
 
-  const toggle = () => {
+  const toggle = (nft) => {
+    if (nft && nft?.nft_id) setPurchaseNft(nft)
+    else
+      setPurchaseNft(
+        multiNftOffers?.items?.sort((a, b) => a.price - b.price)?.[0]
+      )
+
     setOpenModal((prev) => !prev)
   }
 
@@ -274,7 +285,7 @@ const CollectionDetails = ({
       id={id}
       contract_address={contract_address}
       multiNftOffers={multiNftOffers}
-      balance={balance}
+      purchaseNft={purchaseNft}
     />
   )
 }

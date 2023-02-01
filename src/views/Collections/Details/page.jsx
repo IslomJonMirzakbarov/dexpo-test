@@ -46,10 +46,11 @@ const CollectionDetailsPage = () => {
     contractAddress: contract_address
   })
 
-  const { data: multiNftOffers } = useMultiNFTOffers({
-    tokenId: id,
-    contractAddress: contract_address
-  })
+  const { data: multiNftOffers, refetch: refetchMultiNftOffers } =
+    useMultiNFTOffers({
+      tokenId: id,
+      contractAddress: contract_address
+    })
 
   const {
     data: bidHistory,
@@ -98,6 +99,7 @@ const CollectionDetailsPage = () => {
       contract_address={contract_address}
       setRefetchInterval={setRefetchInterval}
       multiNftOffers={multiNftOffers}
+      refetchMultiNftOffers={refetchMultiNftOffers}
       {...detail?.data}
     />
   )

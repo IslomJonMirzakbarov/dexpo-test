@@ -101,8 +101,8 @@ const CollectionDetailsContainer = ({
   isAuctionBeingFinished,
   handleQuantity,
   quantity,
-  balance,
-  multiNftOffers
+  multiNftOffers,
+  purchaseNft
 }) => {
   const navigate = useNavigate()
 
@@ -115,8 +115,8 @@ const CollectionDetailsContainer = ({
   const { price_krw } = useSelector((store) => store.wallet)
   const [openImg, setOpenImg] = useState(false)
 
-  const handleClick = () => {
-    if (token) toggle()
+  const handleClick = (value) => {
+    if (token) toggle(value)
     else navigate('/login')
   }
   const endDate = useMemo(() => {
@@ -315,7 +315,10 @@ const CollectionDetailsContainer = ({
           </Grid>
         </Grid>
         {nft.standard === 'M' && (
-          <ListingTable multiNftOffers={multiNftOffers} toggle={toggle} />
+          <ListingTable
+            onConfirm={handleClick}
+            multiNftOffers={multiNftOffers}
+          />
         )}
         {isBidHistory && (
           <Grid container className={classes.table}>
@@ -403,7 +406,7 @@ const CollectionDetailsContainer = ({
         handleQuantity={handleQuantity}
         quantity={quantity}
         nftStandard={nft.standard}
-        balance={balance}
+        availableQuantity={purchaseNft?.quantity}
       />
       <DModal
         isExpandedImg

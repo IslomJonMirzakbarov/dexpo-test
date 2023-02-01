@@ -90,8 +90,16 @@ const useWeb3 = () => {
     return allowance
   }
 
-  const checkAllowance721 = async (contract_address, isFixed = true) => {
-    const contract = isFixed ? fixedContract : auctionContract
+  const checkAllowance721 = async (
+    contract_address,
+    isFixed = true,
+    standard
+  ) => {
+    const contract = isFixed
+      ? standard === 'M'
+        ? multiNftContract
+        : fixedContract
+      : auctionContract
     const contractRC721 = new web3.eth.Contract(ERC721, contract_address)
     const allowance = await contractRC721.methods
       .isApprovedForAll(account, contract)
@@ -100,8 +108,12 @@ const useWeb3 = () => {
     return allowance
   }
 
-  const makeApprove721 = async (contract_address, isFixed = true) => {
-    const contract = isFixed ? fixedContract : auctionContract
+  const makeApprove721 = async (contract_address, isFixed = true, standard) => {
+    const contract = isFixed
+      ? standard === 'M'
+        ? multiNftContract
+        : fixedContract
+      : auctionContract
     const contractERC721 = new web3.eth.Contract(ERC721, contract_address)
     const gasLimitApprove = await contractERC721.methods
       .setApprovalForAll(contract, true)
@@ -142,7 +154,44 @@ const useWeb3 = () => {
     return approve
   }
 
-  const sell = async (contract_address, tokenId, price) => {
+  const sellMultipleNft = async (
+    contract_address,
+    tokenId,
+    price,
+    quantity
+  ) => {
+    const fixedMarket = new web3.eth.Contract(
+      FIXED_MULTI_MARKET_ABI,
+      multiNftContract
+    )
+
+    const gasLimit = await fixedMarket.methods
+      .place(
+        contract_address,
+        tokenId,
+        quantity,
+        Web3.utils.toWei(String(price), 'ether')
+      )
+      .estimateGas({
+        from: account
+      })
+
+    const result = await fixedMarket.methods
+      .place(
+        contract_address,
+        tokenId,
+        quantity,
+        Web3.utils.toWei(String(price), 'ether')
+      )
+      .send({
+        from: account,
+        gas: gasLimit
+      })
+
+    return result
+  }
+
+  const sell = async (contract_address, tokenId, price, standard) => {
     const fixedMarket = new web3.eth.Contract(FIXED_MARKET_ABI, fixedContract)
 
     const gasLimit = await fixedMarket.methods
@@ -170,19 +219,18 @@ const useWeb3 = () => {
   }
 
   const purchaseMultiNft = async (nftId, quantity) => {
-    console.log('nftId', nftId, quantity)
     const fixedMarket = new web3.eth.Contract(
       FIXED_MULTI_MARKET_ABI,
       multiNftContract
     )
 
     const gasLimit = await fixedMarket.methods
-      .buy(+nftId, quantity)
+      .buy(+nftId, +quantity)
       .estimateGas({
         from: account
       })
 
-    const result = await fixedMarket.methods.buy(+nftId, quantity).send({
+    const result = await fixedMarket.methods.buy(+nftId, +quantity).send({
       from: account,
       gas: gasLimit
     })
@@ -205,6 +253,24 @@ const useWeb3 = () => {
         from: account,
         gas: gasLimit
       })
+
+    return result
+  }
+
+  const cancelMultipleNft = async (nftId) => {
+    const fixedMarket = new web3.eth.Contract(
+      FIXED_MULTI_MARKET_ABI,
+      multiNftContract
+    )
+
+    const gasLimit = await fixedMarket.methods.unPlace(nftId).estimateGas({
+      from: account
+    })
+
+    const result = await fixedMarket.methods.unPlace(nftId).send({
+      from: account,
+      gas: gasLimit
+    })
 
     return result
   }
@@ -452,7 +518,9 @@ const useWeb3 = () => {
     makeApprove721,
     checkAllowance721,
     getTransactionReceipt,
-    purchaseMultiNft
+    purchaseMultiNft,
+    sellMultipleNft,
+    cancelMultipleNft
   }
 }
 

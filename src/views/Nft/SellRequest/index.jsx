@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react'
-
+import React, { useMemo, useState } from 'react'
 import useMoreByCollectionAPI from '../../../hooks/useMoreByCollectionAPI'
 import NFTSellRequestContainer from './index.container'
-
 import { DATE_FORMAT, priceType } from '../../../constants'
 import { useForm } from 'react-hook-form'
 import { nftSellBtnLabels } from '../../../constants/marketStatuses'
@@ -34,13 +32,15 @@ const NFTSellRequest = ({
   nft,
   collection,
   artist,
-  account
+  account,
+  multiNftOffers,
+  refetchMultiNftOffers
 }) => {
   const { newNftSrc } = useSelector((store) => store.nft)
   const { getUserBalance } = useCurrnetProvider()
   const [quantity, setQuantity] = useState(1)
   const [balance, setBalance] = useState(0)
-
+  const [nftId, setNftId] = useState(null)
   useEffect(() => {
     setTimeout(() => {
       if (newNftSrc) {
@@ -55,18 +55,14 @@ const NFTSellRequest = ({
   const getBalnc = useCallback(async () => {
     try {
       const res = await getUserBalance(account)
-
       setBalance(res)
     } catch (err) {
       console.log(err)
     }
   }, [account])
 
-  // console.log('balance==>', balance)
-
   useEffect(() => {
     if (!account) return
-
     getBalnc()
   }, [account])
 
@@ -90,6 +86,22 @@ const NFTSellRequest = ({
   const isAuction = type?.value === 'auction' || market?.type === 'A'
 
   const sellPrice = !!control && watch('price')
+
+  useEffect(() => {
+    if (nft.standard === 'M') {
+      setType(types[0])
+    }
+  }, [nft])
+
+  const ownerAddress = useMemo(
+    () =>
+      account
+        ? nft?.holders.find(
+            (item) => item?.owner_address?.toLowerCase() === account
+          )
+        : null,
+    [account, nft?.holders]
+  )
 
   const handleChangeQuantity = (e) => {
     setQuantity(e.target.value)
@@ -141,9 +153,27 @@ const NFTSellRequest = ({
     type,
     startDate,
     endDate,
-    refetchBid
+    refetchBid,
+    ownerAddress,
+    standard: nft.standard,
+    quantity,
+    refetchMultiNftOffers,
+    nftId
   })
+
+  const handleSellConfirm = () => {
+    handeConfirm(nft.standard, quantity)
+  }
+
+  const handleCancel = (value) => {
+    setNftId(value)
+    setTimeout(() => {
+      handleToggle()
+    }, 500)
+  }
+
   const { t } = useTranslation()
+
   return (
     <NFTSellRequestContainer
       nft={nft}
@@ -159,8 +189,8 @@ const NFTSellRequest = ({
       control={control}
       openModal={openModal}
       toggle={handleToggle}
-      handleClick={handeConfirm}
-      handleConfirm={handeConfirm}
+      handleClick={handleSellConfirm}
+      handleConfirm={handleSellConfirm}
       isApprove={isApprove}
       isListing={isListing}
       isCanceling={isCanceling}
@@ -169,7 +199,11 @@ const NFTSellRequest = ({
       bidHistory={bidHistory}
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
-      submitLabel={isCancel ? t('Cancel') : t(nftSellBtnLabels[marketStatus])}
+      submitLabel={
+        isCancel && ownerAddress && ownerAddress?.token_quantity === 0
+          ? t('Cancel')
+          : t(nftSellBtnLabels[marketStatus])
+      }
       marketStatus={marketStatus}
       onLike={handleLike}
       sdValue={sendStartDate}
@@ -181,6 +215,9 @@ const NFTSellRequest = ({
       handleChangeQuantity={handleChangeQuantity}
       quantity={quantity}
       balance={balance}
+      handleCancel={handleCancel}
+      ownerAddress={ownerAddress}
+      multiNftOffers={multiNftOffers}
     />
   )
 }

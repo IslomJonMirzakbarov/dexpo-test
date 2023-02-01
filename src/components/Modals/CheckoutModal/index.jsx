@@ -46,7 +46,7 @@ const CheckoutModal = ({
   isAuction,
   handleQuantity,
   quantity,
-  balance,
+  availableQuantity,
   nftStandard
 }) => {
   const theme = useTheme()
@@ -97,7 +97,7 @@ const CheckoutModal = ({
         />
         <RenderComponent
           viewClick={viewClick}
-          balance={balance}
+          availableQuantity={availableQuantity}
           onClick={onClick}
           img={img}
           name={name}

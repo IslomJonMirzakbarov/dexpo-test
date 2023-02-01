@@ -66,7 +66,7 @@ const columns = [
   }
 ]
 
-const ListingTable = ({ toggle, multiNftOffers }) => {
+const ListingTable = ({ toggle, multiNftOffers, handleCancel, onConfirm }) => {
   const classes = useStyles()
   const { account } = useSelector((store) => store.wallet)
   const { t } = useTranslation()
@@ -94,10 +94,11 @@ const ListingTable = ({ toggle, multiNftOffers }) => {
           <CTableBody loader={false} columnsCount={6} dataLength={3}>
             {multiNftOffers?.items?.map((item) => (
               <ListingTableItem
-                toggle={toggle}
                 account={account}
                 item={item}
                 key={item.created_at}
+                handleCancel={handleCancel}
+                onConfirm={onConfirm}
               />
             ))}
           </CTableBody>

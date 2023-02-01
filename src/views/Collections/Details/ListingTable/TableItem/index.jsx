@@ -58,10 +58,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ListingTableItem = ({ item, from, account, toggle }) => {
+const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
   const classes = useStyles()
   const { price_krw } = useSelector((store) => store.wallet)
-  const handleCopy = (val) => navigator.clipboard.writeText(val)
+
   return (
     <CTableRow>
       <CTableCell className={classes.cell}>{item.price} CYCON</CTableCell>
@@ -84,26 +84,25 @@ const ListingTableItem = ({ item, from, account, toggle }) => {
       </CTableCell>
 
       <CTableCell className={classes.cell}>
-        {account === item.seller_address.toLowerCase() ? (
-          <Button
-            className={classes.button}
-            variant='outlined'
-            sx={{ height: 45 }}
-            fullWidth
-          >
-            Cancel
-          </Button>
-        ) : (
-          <Button
-            className={classes.button}
-            variant='containedSecondary'
-            sx={{ height: 45 }}
-            fullWidth
-            onClick={toggle}
-          >
-            Purchase
-          </Button>
-        )}
+        <Button
+          className={classes.button}
+          variant={
+            account === item.seller_address.toLowerCase()
+              ? 'outlined'
+              : 'containedSecondary'
+          }
+          sx={{ height: 45 }}
+          fullWidth
+          onClick={
+            account === item.seller_address.toLowerCase()
+              ? () => handleCancel(item.nft_id)
+              : () => onConfirm(item)
+          }
+        >
+          {account === item.seller_address.toLowerCase()
+            ? 'Cancel'
+            : 'Purchase'}
+        </Button>
       </CTableCell>
     </CTableRow>
   )

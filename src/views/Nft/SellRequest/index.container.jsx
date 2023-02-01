@@ -28,6 +28,7 @@ import CalendarIcon from '../../../assets/icons/calendar.svg'
 import numFormat from '../../../utils/numFormat'
 import { useTranslation } from 'react-i18next'
 import QuantityInput from '../../../components/QuantityInput'
+import ListingTable from '../../Collections/Details/ListingTable'
 
 const auctionLabel = 'Please enter auction starting price'
 const fixedLabel = 'Please enter the selling price.'
@@ -117,7 +118,9 @@ const NFTSellRequestContainer = ({
   bidHistory,
   quantity,
   handleChangeQuantity,
-  balance
+  ownerAddress,
+  multiNftOffers,
+  handleCancel
 }) => {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -127,7 +130,7 @@ const NFTSellRequestContainer = ({
   const { newNftSrc } = useSelector((store) => store.nft)
 
   const [openImg, setOpenImg] = useState(false)
-  const { price_krw, account } = useSelector((store) => store.wallet)
+  const { price_krw } = useSelector((store) => store.wallet)
 
   const isTypeHidden = isDisabled || marketStatuses.IDLE.includes(marketStatus)
 
@@ -176,16 +179,6 @@ const NFTSellRequestContainer = ({
     </>
   )
 
-  const ownerAddress = useMemo(
-    () =>
-      account
-        ? nft?.holders.find(
-            (item) => item?.owner_address?.toLowerCase() === account
-          )?.owner_address
-        : '',
-    [account, nft]
-  )
-
   return (
     <Paper className={styles.container}>
       <Container>
@@ -217,7 +210,7 @@ const NFTSellRequestContainer = ({
               nftName={nft?.token_name}
               description={nft?.token_description}
               type={priceTypeChar?.[market?.type]}
-              isArtwork={!isCancel}
+              isArtwork={nft.standard === 'M' ? false : !isCancel}
               sellType={type}
               types={types}
               handleChangeType={handleChangeType}
@@ -231,7 +224,7 @@ const NFTSellRequestContainer = ({
                   tokenStandard={nft?.standard}
                   blockchain='Klaytn'
                   addrressCreator={nft?.creator_address}
-                  addrressOwner={ownerAddress}
+                  addrressOwner={ownerAddress?.owner_address}
                   sellerAddress={market?.seller_address}
                 />
               </Box>
@@ -244,28 +237,10 @@ const NFTSellRequestContainer = ({
               >
                 {nft?.standard === 'M' && !isCancel && !!type && (
                   <QuantityInput
-                    available={balance}
+                    available={ownerAddress?.token_quantity}
                     handleChange={handleChangeQuantity}
                     value={quantity}
                   />
-                )}
-                {nft?.standard === 'M' && (
-                  <>
-                    <div className={styles.totalList}>
-                      <div className={styles.total}>
-                        <span>Total minted</span>
-                        <span>{nft?.total_minted}</span>
-                      </div>
-                      <div className={styles.total}>
-                        <span>Total listed</span>
-                        <span>{nft?.total_listed}</span>
-                      </div>
-                      <div className={styles.total}>
-                        <span>Current sales</span>
-                        <span>{nft?.total_sales}</span>
-                      </div>
-                    </div>
-                  </>
                 )}
                 {market?.end_date && <Countdown date={endDate} />}
                 {!isCancel && (
@@ -323,9 +298,21 @@ const NFTSellRequestContainer = ({
                   {isCancel && market?.price && <SetPrice key={submitLabel} />}
                   <Button
                     className={classes.button}
-                    variant={isCancel ? 'outlined' : 'containedSecondary'}
+                    variant={
+                      isCancel &&
+                      ownerAddress &&
+                      ownerAddress?.token_quantity === 0
+                        ? 'outlined'
+                        : 'containedSecondary'
+                    }
                     fullWidth
-                    onClick={isCancel ? toggle : handleClick}
+                    onClick={
+                      isCancel &&
+                      ownerAddress &&
+                      ownerAddress?.token_quantity === 0
+                        ? toggle
+                        : handleClick
+                    }
                     disabled={isDisabled}
                   >
                     {submitLabel}
@@ -335,6 +322,13 @@ const NFTSellRequestContainer = ({
             </Box>
           </Grid>
         </Grid>
+        {nft.standard === 'M' && (
+          <ListingTable
+            handleCancel={handleCancel}
+            multiNftOffers={multiNftOffers}
+            toggle={toggle}
+          />
+        )}
         {isBidHistory && (
           <Grid container>
             <Grid item lg={12}>

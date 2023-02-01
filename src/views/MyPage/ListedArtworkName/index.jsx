@@ -28,12 +28,15 @@ const TableRow = ({
 }) => {
   const exchangedPrice = item?.market?.price * price_usd;
   const { t } = useTranslation();
+  console.log('item: ', item?.nft?.token_quantity);
   return (
     <tr className={styles.TableBodyRow} key={item?.nft?.token_id}>
       <td onClick={navigateClick}>
         <img src={item?.nft?.token_image} alt="img" />
       </td>
       <td onClick={navigateClick}>{item?.nft?.token_name}</td>
+
+      <td>{item?.nft?.token_quantity}</td>
 
       <td className={styles.ThirdOne}>
         <Box className={styles.CycPrice}>
@@ -151,6 +154,7 @@ const ListedArtworkBottom = () => {
             <tr className={styles.TableHeadRow}>
               <th>{t("Item")}</th>
               <th>{t("Artwork name")}</th>
+              <th>{t("Quantity")}</th>
               <th>{t("Unit Price")}</th>
               <th>{t("Date")}</th>
               <th></th>

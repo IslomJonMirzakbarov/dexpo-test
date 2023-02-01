@@ -66,7 +66,7 @@ const InitialCheckout = ({
   isResponsive,
   handleQuantity,
   count,
-  balance,
+  availableQuantity,
   nftStandard
 }) => {
   const classes = useStyles()
@@ -96,7 +96,7 @@ const InitialCheckout = ({
             <Counter
               handleChange={handleQuantity}
               value={count}
-              available={balance}
+              available={availableQuantity}
             />
           )}
         </Box>

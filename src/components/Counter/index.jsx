@@ -10,7 +10,11 @@ const Counter = ({ handleChange, value, available }) => {
         <div className={styles.minus} onClick={() => handleChange('-')}>
           <MinusIcon />
         </div>
-        <input type='number' value={value} />
+        <input
+          type='number'
+          value={value}
+          onChange={(e) => handleChange(null, e.target.value)}
+        />
         <div className={styles.plus} onClick={() => handleChange('+')}>
           <PlusIcon />
         </div>
