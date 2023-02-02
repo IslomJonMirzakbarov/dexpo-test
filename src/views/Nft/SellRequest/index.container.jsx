@@ -132,7 +132,9 @@ const NFTSellRequestContainer = ({
   purchaseNft,
   checkoutStatus,
   openCheckoutModal,
-  checkoutToggle
+  checkoutToggle,
+  count,
+  handleChangeCount
 }) => {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -240,101 +242,101 @@ const NFTSellRequestContainer = ({
                   sellerAddress={market?.seller_address}
                 />
               </Box>
-              <Box
-                display='flex'
-                justifyContent='space-between'
-                flexDirection='column'
-                alignItems='end'
-                className={classes.box}
-              >
-                {nft?.standard === 'M' && !isCancel && !!type && (
-                  <QuantityInput
-                    available={ownerAddress?.token_quantity}
-                    handleChange={handleChangeQuantity}
-                    value={quantity}
-                  />
-                )}
-                {market?.end_date && <Countdown date={endDate} />}
-                {!isCancel && (
+              {ownerAddress || nft.standard === 'S' ? (
+                <Box
+                  display='flex'
+                  justifyContent='space-between'
+                  flexDirection='column'
+                  alignItems='end'
+                  className={classes.box}
+                >
+                  {nft?.standard === 'M' && !!type && (
+                    <QuantityInput
+                      available={ownerAddress?.token_quantity}
+                      handleChange={handleChangeQuantity}
+                      value={quantity}
+                    />
+                  )}
+                  {market?.end_date && <Countdown date={endDate} />}
+                  {!isCancel && (
+                    <Box
+                      display='flex'
+                      flexDirection='column'
+                      sx={{ width: '100%' }}
+                      className={styles.dates}
+                    >
+                      {!!type && (
+                        <PriceInput
+                          control={control}
+                          name='price'
+                          label={t(isAuction ? auctionLabel : fixedLabel)}
+                          exchangedPrice={price_krw * sellPrice}
+                        />
+                      )}
+                      {isAuction && (
+                        <>
+                          <Box mt='15px' display='flex' alignItems='center'>
+                            <TextField
+                              label={t('Starting Date')}
+                              type='datetime-local'
+                              value={sdValue}
+                              className={classes.datetime}
+                              onChange={handleChangeStartingDate}
+                              InputLabelProps={{
+                                shrink: true
+                              }}
+                            />
+                            &nbsp;~&nbsp;
+                            <TextField
+                              label={t('Ending Date')}
+                              type='datetime-local'
+                              value={edValue}
+                              className={classes.datetime}
+                              onChange={handleChangeEndingDate}
+                              InputLabelProps={{
+                                shrink: true
+                              }}
+                            />
+                          </Box>
+                        </>
+                      )}
+                    </Box>
+                  )}
+
+                  {!market?.end_date && isCancel && <Box />}
                   <Box
                     display='flex'
                     flexDirection='column'
+                    alignItems='end'
                     sx={{ width: '100%' }}
-                    className={styles.dates}
                   >
-                    {!!type && (
-                      <PriceInput
-                        control={control}
-                        name='price'
-                        label={t(isAuction ? auctionLabel : fixedLabel)}
-                        exchangedPrice={price_krw * sellPrice}
-                      />
+                    {isCancel && market?.price && (
+                      <SetPrice key={submitLabel} />
                     )}
-                    {isAuction && (
-                      <>
-                        <Box mt='15px' display='flex' alignItems='center'>
-                          <TextField
-                            label={t('Starting Date')}
-                            type='datetime-local'
-                            value={sdValue}
-                            className={classes.datetime}
-                            onChange={handleChangeStartingDate}
-                            InputLabelProps={{
-                              shrink: true
-                            }}
-                          />
-                          &nbsp;~&nbsp;
-                          <TextField
-                            label={t('Ending Date')}
-                            type='datetime-local'
-                            value={edValue}
-                            className={classes.datetime}
-                            onChange={handleChangeEndingDate}
-                            InputLabelProps={{
-                              shrink: true
-                            }}
-                          />
-                        </Box>
-                      </>
-                    )}
+                    <Button
+                      className={classes.button}
+                      variant={
+                        isCancel || (!ownerAddress && nft.standard === 'M')
+                          ? 'outlined'
+                          : 'containedSecondary'
+                      }
+                      fullWidth
+                      onClick={
+                        isCancel || (!ownerAddress && nft.standard === 'M')
+                          ? toggle
+                          : handleClick
+                      }
+                      disabled={isDisabled}
+                    >
+                      {submitLabel}
+                    </Button>
                   </Box>
-                )}
-
-                {!market?.end_date && isCancel && <Box />}
-                <Box
-                  display='flex'
-                  flexDirection='column'
-                  alignItems='end'
-                  sx={{ width: '100%' }}
-                >
-                  {isCancel && market?.price && <SetPrice key={submitLabel} />}
-                  <Button
-                    className={classes.button}
-                    variant={
-                      isCancel &&
-                      ownerAddress &&
-                      ownerAddress?.token_quantity === 0
-                        ? 'outlined'
-                        : 'containedSecondary'
-                    }
-                    fullWidth
-                    onClick={
-                      isCancel &&
-                      ownerAddress &&
-                      ownerAddress?.token_quantity === 0
-                        ? toggle
-                        : handleClick
-                    }
-                    disabled={isDisabled}
-                  >
-                    {submitLabel}
-                  </Button>
                 </Box>
-              </Box>
+              ) : null}
             </Box>
           </Grid>
         </Grid>
-        {nft.standard === 'M' && (
+        {nft.standard === 'M' && multiNftOffers?.items?.length > 0 && (
           <ListingTable
             handleCancel={handleCancel}
             multiNftOffers={multiNftOffers}
@@ -397,8 +399,8 @@ const NFTSellRequestContainer = ({
         bidPriceControl={bidPriceControl}
         endDate={endDate}
         isAuction={isAuction}
-        handleQuantity={handleChangeQuantity}
-        quantity={quantity}
+        handleQuantity={handleChangeCount}
+        quantity={count}
         nftStandard={nft.standard}
         availableQuantity={purchaseNft?.quantity}
       />

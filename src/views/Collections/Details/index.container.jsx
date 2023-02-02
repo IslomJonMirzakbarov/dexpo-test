@@ -315,7 +315,7 @@ const CollectionDetailsContainer = ({
             </Box>
           </Grid>
         </Grid>
-        {nft.standard === 'M' && multiNftOffers?.items.length > 0 && (
+        {nft.standard === 'M' && multiNftOffers?.items?.length > 0 && (
           <ListingTable
             onConfirm={handleClick}
             multiNftOffers={multiNftOffers}

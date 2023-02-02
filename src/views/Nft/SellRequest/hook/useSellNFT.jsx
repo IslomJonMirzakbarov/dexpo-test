@@ -265,7 +265,7 @@ const useSellNFT = ({
       return
     }
 
-    if (standard !== 'M') {
+    if (standard === 'S') {
       setStatus(
         sellerAddress?.includes(account?.toLowerCase())
           ? sellReqStatuses.CANCEL

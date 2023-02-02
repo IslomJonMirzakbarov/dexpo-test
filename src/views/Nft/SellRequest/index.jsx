@@ -39,17 +39,44 @@ const NFTSellRequest = ({
   refetchMultiNftOffers,
   refetchHistory
 }) => {
-  const { newNftSrc } = useSelector((store) => store.nft)
-  const { token } = useSelector((store) => store.auth)
-  const { getUserBalance, purchase, purchaseMultiNft, checkAllowance } =
-    useCurrnetProvider()
   const [quantity, setQuantity] = useState(1)
   const [balance, setBalance] = useState(0)
   const [nftId, setNftId] = useState(null)
   const [txHash, setTxHash] = useState('')
   const [bidPrice, setBidPrice] = useState()
   const [purchaseNft, setPurchaseNft] = useState(null)
+  const { t } = useTranslation()
+  const [status, setStatus] = useState()
+  const [checkoutStatus, setCheckoutStatus] = useState(checkoutStatuses.INITIAL)
+  const [openModal, setOpenModal] = useState(false)
+  const [openCheckoutModal, setOpenCheckoutModal] = useState(false)
+  const [type, setType] = useState()
+  const [error, setError] = useState()
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [sendStartDate, setSendStartDate] = useState(null)
+  const [sendEndDate, setSendEndDate] = useState(null)
+  const [count, setCount] = useState(1)
+
+  const { newNftSrc } = useSelector((store) => store.nft)
+
+  const { token } = useSelector((store) => store.auth)
+
+  const { getUserBalance, purchase, purchaseMultiNft, checkAllowance } =
+    useCurrnetProvider()
+
+  const isAuction = type?.value === 'auction' || market?.type === 'A'
+  const { control, watch, getValues } = useForm({
+    price: '',
+    bidPrice: ''
+  })
+
+  const sellPrice = !!control && watch('price')
+
+  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address)
+
   const notEnoughBalance = balance < market?.price
+
   useEffect(() => {
     setTimeout(() => {
       if (newNftSrc) {
@@ -75,30 +102,6 @@ const NFTSellRequest = ({
     getBalnc()
   }, [account])
 
-  const { control, watch, getValues } = useForm({
-    price: '',
-    bidPrice: ''
-  })
-
-  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address)
-
-  const [status, setStatus] = useState()
-  const [checkoutStatus, setCheckoutStatus] = useState(checkoutStatuses.INITIAL)
-  const [openModal, setOpenModal] = useState(false)
-  const [openCheckoutModal, setOpenCheckoutModal] = useState(false)
-  const [type, setType] = useState()
-  const [error, setError] = useState()
-
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
-
-  const [sendStartDate, setSendStartDate] = useState(null)
-  const [sendEndDate, setSendEndDate] = useState(null)
-
-  const isAuction = type?.value === 'auction' || market?.type === 'A'
-
-  const sellPrice = !!control && watch('price')
-
   useEffect(() => {
     if (nft.standard === 'M') {
       setType(types[0])
@@ -115,18 +118,22 @@ const NFTSellRequest = ({
     [account, nft?.holders]
   )
 
-  const handleChangeQuantity = (str, value) => {
+  const handleChangeCount = (str, value) => {
     if (!str) {
-      setQuantity(value)
+      setCount(value)
       return
     }
     if (str === '+' && balance >= quantity) {
-      setQuantity((prev) => +prev + 1)
+      setCount((prev) => +prev + 1)
       return
     }
     if (str === '-' && quantity !== 1) {
-      setQuantity((prev) => +prev - 1)
+      setCount((prev) => +prev - 1)
     }
+  }
+
+  const handleChangeQuantity = (e) => {
+    setQuantity(e.target.value)
   }
 
   const handleContract = async () => {
@@ -297,8 +304,8 @@ const NFTSellRequest = ({
       setOpenCheckoutModal((prev) => !prev)
     } else navigate('/login')
   }
-  console.log('checkoutStatuses', checkoutStatus)
-  const { t } = useTranslation()
+
+  console.log('isCancel', isCancel, ownerAddress)
 
   return (
     <NFTSellRequestContainer
@@ -326,7 +333,7 @@ const NFTSellRequest = ({
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
       submitLabel={
-        isCancel && ownerAddress && ownerAddress?.token_quantity === 0
+        isCancel || (nft.standard === 'M' && !ownerAddress)
           ? t('Cancel')
           : t(nftSellBtnLabels[marketStatus])
       }
@@ -354,6 +361,8 @@ const NFTSellRequest = ({
       checkoutStatus={checkoutStatus}
       openCheckoutModal={openCheckoutModal}
       checkoutToggle={checkoutToggle}
+      handleChangeCount={handleChangeCount}
+      count={count}
     />
   )
 }

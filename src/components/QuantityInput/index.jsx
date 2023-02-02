@@ -10,11 +10,7 @@ const QuantityInput = ({ handleChange, value, available }) => {
     <div className={styles.wrapper}>
       <label>Quantity</label>
       <Box className={styles.box}>
-        <input
-          type='number'
-          value={value}
-          onChange={() => handleChange(e.target.value)}
-        />
+        <input type='number' value={value} onChange={handleChange} />
         <div className={styles.minQuantity}>{available} available</div>
       </Box>
     </div>
