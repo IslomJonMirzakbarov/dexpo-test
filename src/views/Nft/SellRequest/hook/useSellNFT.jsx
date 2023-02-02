@@ -68,7 +68,7 @@ const useSellNFT = ({
   const isFixedContract = type?.value === 'fixed' || market?.type === 'F'
 
   const handleToggle = () => {
-    setOpenModal((prev) => !prev)
+    setOpenModal('sell')
   }
 
   const handleRefetch = () => {
@@ -265,7 +265,7 @@ const useSellNFT = ({
       return
     }
 
-    if (standard !== 'M') {
+    if (standard === 'S') {
       setStatus(
         sellerAddress?.includes(account?.toLowerCase())
           ? sellReqStatuses.CANCEL

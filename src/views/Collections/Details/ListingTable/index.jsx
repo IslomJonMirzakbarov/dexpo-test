@@ -66,7 +66,7 @@ const columns = [
   }
 ]
 
-const ListingTable = ({ toggle, multiNftOffers, handleCancel, onConfirm }) => {
+const ListingTable = ({ multiNftOffers, handleCancel, onConfirm }) => {
   const classes = useStyles()
   const { account } = useSelector((store) => store.wallet)
   const { t } = useTranslation()

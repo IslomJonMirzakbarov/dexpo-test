@@ -33,7 +33,8 @@ const CollectionDetails = ({
   postLike,
   market,
   data,
-  multiNftOffers
+  multiNftOffers,
+  refetchMultiNftOffers
 }) => {
   const {
     checkAllowance,
@@ -123,6 +124,7 @@ const CollectionDetails = ({
     refetchDetail()
     refetchHistory()
     refetchBid()
+    refetchMultiNftOffers()
   }, [])
 
   const onTimeout = useCallback(() => {

@@ -13,6 +13,8 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCallback } from 'react'
 import useCurrnetProvider from '../../../hooks/useCurrentProvider'
+import { getRPCErrorMessage } from '../../../constants/metamaskErrors'
+import { checkoutStatuses } from '../../../constants/checkoutStatuses'
 
 const types = [
   { value: priceType.FIXED.key, label: priceType.FIXED.value },
@@ -34,13 +36,47 @@ const NFTSellRequest = ({
   artist,
   account,
   multiNftOffers,
-  refetchMultiNftOffers
+  refetchMultiNftOffers,
+  refetchHistory
 }) => {
-  const { newNftSrc } = useSelector((store) => store.nft)
-  const { getUserBalance } = useCurrnetProvider()
   const [quantity, setQuantity] = useState(1)
   const [balance, setBalance] = useState(0)
   const [nftId, setNftId] = useState(null)
+  const [txHash, setTxHash] = useState('')
+  const [bidPrice, setBidPrice] = useState()
+  const [purchaseNft, setPurchaseNft] = useState(null)
+  const { t } = useTranslation()
+  const [status, setStatus] = useState()
+  const [checkoutStatus, setCheckoutStatus] = useState(checkoutStatuses.INITIAL)
+  const [openModal, setOpenModal] = useState(false)
+  const [openCheckoutModal, setOpenCheckoutModal] = useState(false)
+  const [type, setType] = useState()
+  const [error, setError] = useState()
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [sendStartDate, setSendStartDate] = useState(null)
+  const [sendEndDate, setSendEndDate] = useState(null)
+  const [count, setCount] = useState(1)
+
+  const { newNftSrc } = useSelector((store) => store.nft)
+
+  const { token } = useSelector((store) => store.auth)
+
+  const { getUserBalance, purchase, purchaseMultiNft, checkAllowance } =
+    useCurrnetProvider()
+
+  const isAuction = type?.value === 'auction' || market?.type === 'A'
+  const { control, watch, getValues } = useForm({
+    price: '',
+    bidPrice: ''
+  })
+
+  const sellPrice = !!control && watch('price')
+
+  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address)
+
+  const notEnoughBalance = balance < market?.price
+
   useEffect(() => {
     setTimeout(() => {
       if (newNftSrc) {
@@ -66,27 +102,6 @@ const NFTSellRequest = ({
     getBalnc()
   }, [account])
 
-  const { control, watch } = useForm({
-    price: ''
-  })
-
-  const { data: moreNFTs } = useMoreByCollectionAPI(contract_address)
-
-  const [status, setStatus] = useState()
-  const [openModal, setOpenModal] = useState(false)
-  const [type, setType] = useState()
-  const [error, setError] = useState()
-
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
-
-  const [sendStartDate, setSendStartDate] = useState(null)
-  const [sendEndDate, setSendEndDate] = useState(null)
-
-  const isAuction = type?.value === 'auction' || market?.type === 'A'
-
-  const sellPrice = !!control && watch('price')
-
   useEffect(() => {
     if (nft.standard === 'M') {
       setType(types[0])
@@ -103,9 +118,119 @@ const NFTSellRequest = ({
     [account, nft?.holders]
   )
 
+  const handleChangeCount = (str, value) => {
+    if (!str) {
+      setCount(value)
+      return
+    }
+    if (str === '+' && balance >= quantity) {
+      setCount((prev) => +prev + 1)
+      return
+    }
+    if (str === '-' && quantity !== 1) {
+      setCount((prev) => +prev - 1)
+    }
+  }
+
   const handleChangeQuantity = (e) => {
     setQuantity(e.target.value)
   }
+
+  const handleContract = async () => {
+    try {
+      const approve = await makeApprove(!isAuction, nft.standard)
+
+      if (!!approve) {
+        if (nft.standard === 'M') {
+          handlePurchaseMultiNft()
+        } else {
+          handlePurchase()
+        }
+      }
+    } catch (err) {
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+      setError(getRPCErrorMessage(err))
+    }
+  }
+
+  const handlePurchase = async () => {
+    setCheckoutStatus(checkoutStatuses.PROCESSING)
+
+    try {
+      let res
+      const bidPrice = getValues('bidPrice')
+
+      if (!isAuction) res = await purchase(contract_address, id)
+      else res = await bid(contract_address, id, bidPrice)
+
+      if (!!res) {
+        setTxHash(res.transactionHash)
+        setStatus(checkoutStatuses.COMPLETE)
+      }
+    } catch (err) {
+      setError(getRPCErrorMessage(err))
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+    }
+  }
+
+  const handlePurchaseMultiNft = async () => {
+    try {
+      let res = await purchaseMultiNft(purchaseNft.nft_id, quantity)
+
+      if (!!res) {
+        setTxHash(res.transactionHash)
+        setCheckoutStatus(checkoutStatuses.COMPLETE)
+      }
+    } catch (err) {
+      setError(getRPCErrorMessage(err))
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+    }
+  }
+
+  const makePurchase = async () => {
+    setCheckoutStatus(checkoutStatuses.PENDING)
+
+    try {
+      const allowance = await checkAllowance(!isAuction, nft.standard)
+
+      const numericAllowance = Number(allowance)
+
+      if (numericAllowance > 0) {
+        if (nft.standard === 'M') {
+          handlePurchaseMultiNft()
+        } else {
+          handlePurchase()
+        }
+      } else {
+        handleContract()
+      }
+    } catch (err) {
+      console.log('error', error)
+      setError(getRPCErrorMessage(err))
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+    }
+  }
+
+  const makeContract = async () => {
+    const bidPrice = getValues('bidPrice')
+    const price = market?.price
+
+    if (notEnoughBalance) return setError(t(metamaskError['-32603']))
+
+    if (isAuction && bidPrice <= price)
+      return setError(`${t('Bid price should be greater than')}${price} CYCON`)
+
+    return makePurchase()
+  }
+
+  const handleRefresh = useCallback(() => {
+    refetchDetail()
+    refetchHistory()
+    refetchBid()
+    refetchMultiNftOffers()
+  }, [])
+
+  const viewClick = () => handleRefresh()
 
   const handleChangeStartingDate = (e) => {
     const val = e.target.value
@@ -172,7 +297,15 @@ const NFTSellRequest = ({
     }, 500)
   }
 
-  const { t } = useTranslation()
+  const checkoutToggle = (value) => {
+    if (token) {
+      if (value && value?.nft_id) setPurchaseNft(value)
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+      setOpenCheckoutModal((prev) => !prev)
+    } else navigate('/login')
+  }
+
+  console.log('isCancel', isCancel, ownerAddress)
 
   return (
     <NFTSellRequestContainer
@@ -200,7 +333,7 @@ const NFTSellRequest = ({
       isCancel={isCancel}
       isDisabled={isDisabledSellBtn}
       submitLabel={
-        isCancel && ownerAddress && ownerAddress?.token_quantity === 0
+        isCancel || (nft.standard === 'M' && !ownerAddress)
           ? t('Cancel')
           : t(nftSellBtnLabels[marketStatus])
       }
@@ -218,6 +351,18 @@ const NFTSellRequest = ({
       handleCancel={handleCancel}
       ownerAddress={ownerAddress}
       multiNftOffers={multiNftOffers}
+      viewClick={viewClick}
+      onConfirm={makeContract}
+      txHash={txHash}
+      setBidPrice={setBidPrice}
+      bidPrice={bidPrice}
+      bidPriceControl={control}
+      purchaseNft={purchaseNft}
+      checkoutStatus={checkoutStatus}
+      openCheckoutModal={openCheckoutModal}
+      checkoutToggle={checkoutToggle}
+      handleChangeCount={handleChangeCount}
+      count={count}
     />
   )
 }
