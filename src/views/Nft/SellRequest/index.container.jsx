@@ -29,6 +29,7 @@ import numFormat from '../../../utils/numFormat'
 import { useTranslation } from 'react-i18next'
 import QuantityInput from '../../../components/QuantityInput'
 import ListingTable from '../../Collections/Details/ListingTable'
+import CheckoutModal from '../../../components/Modals/CheckoutModal'
 
 const auctionLabel = 'Please enter auction starting price'
 const fixedLabel = 'Please enter the selling price.'
@@ -120,7 +121,18 @@ const NFTSellRequestContainer = ({
   handleChangeQuantity,
   ownerAddress,
   multiNftOffers,
-  handleCancel
+  handleCancel,
+
+  viewClick,
+  onConfirm,
+  txHash,
+  bidPrice,
+  setBidPrice,
+  bidPriceControl,
+  purchaseNft,
+  checkoutStatus,
+  openCheckoutModal,
+  checkoutToggle
 }) => {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -326,7 +338,7 @@ const NFTSellRequestContainer = ({
           <ListingTable
             handleCancel={handleCancel}
             multiNftOffers={multiNftOffers}
-            toggle={toggle}
+            onConfirm={checkoutToggle}
           />
         )}
         {isBidHistory && (
@@ -362,6 +374,33 @@ const NFTSellRequestContainer = ({
         onBack={onBack}
         quantity={quantity}
         nftStandard={nft.standard}
+      />
+      <CheckoutModal
+        viewClick={viewClick}
+        artistName={artist?.artist_name}
+        name={nft?.token_name}
+        type={priceTypeChar?.[market?.type]}
+        price={market?.price}
+        exchangedPrice={exchangedPrice}
+        img={nft?.token_image}
+        collectionName={collection?.name}
+        status={checkoutStatus}
+        onClick={onConfirm}
+        txHash={txHash}
+        openModal={openCheckoutModal}
+        toggle={checkoutToggle}
+        error={error}
+        tokenId={nft?.token_id}
+        contractAddress={collection?.contract_address}
+        bidPrice={bidPrice}
+        setBidPrice={setBidPrice}
+        bidPriceControl={bidPriceControl}
+        endDate={endDate}
+        isAuction={isAuction}
+        handleQuantity={handleChangeQuantity}
+        quantity={quantity}
+        nftStandard={nft.standard}
+        availableQuantity={purchaseNft?.quantity}
       />
       <DModal
         isExpandedImg

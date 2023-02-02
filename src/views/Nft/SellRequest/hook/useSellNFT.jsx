@@ -68,7 +68,7 @@ const useSellNFT = ({
   const isFixedContract = type?.value === 'fixed' || market?.type === 'F'
 
   const handleToggle = () => {
-    setOpenModal((prev) => !prev)
+    setOpenModal('sell')
   }
 
   const handleRefetch = () => {

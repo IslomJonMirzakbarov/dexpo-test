@@ -203,6 +203,24 @@ const CollectionDetailsContainer = ({
                 alignItems='end'
                 className={classes.box}
               >
+                {nft?.standard === 'M' && (
+                  <>
+                    <div className={styles.totalList}>
+                      <div className={styles.total}>
+                        <span>Total minted</span>
+                        <span>{nft?.total_minted}</span>
+                      </div>
+                      <div className={styles.total}>
+                        <span>Total listed</span>
+                        <span>{nft?.total_listed}</span>
+                      </div>
+                      <div className={styles.total}>
+                        <span>Current sales</span>
+                        <span>{nft?.total_sales}</span>
+                      </div>
+                    </div>
+                  </>
+                )}
                 {isAuction && endDate ? (
                   isAuctionNotStarted ? (
                     <Typography variant='placeholder' fontWeight={500}>
@@ -241,25 +259,7 @@ const CollectionDetailsContainer = ({
                   alignItems='end'
                   sx={{ width: '100%' }}
                 >
-                  {nft?.standard === 'M' && (
-                    <>
-                      <div className={styles.totalList}>
-                        <div className={styles.total}>
-                          <span>Total minted</span>
-                          <span>{nft?.total_minted}</span>
-                        </div>
-                        <div className={styles.total}>
-                          <span>Total listed</span>
-                          <span>{nft?.total_listed}</span>
-                        </div>
-                        <div className={styles.total}>
-                          <span>Current sales</span>
-                          <span>{nft?.total_sales}</span>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                  {market?.price && (
+                  {nft.standard !== 'M' && market?.price && (
                     <>
                       <Box
                         display='flex'
@@ -297,7 +297,8 @@ const CollectionDetailsContainer = ({
                       </Typography>
                     </>
                   )}
-                  {!isSoldOut && (
+
+                  {nft.standard !== 'M' && !isSoldOut && (
                     <Button
                       className={classes.button}
                       variant='containedSecondary'
@@ -314,7 +315,7 @@ const CollectionDetailsContainer = ({
             </Box>
           </Grid>
         </Grid>
-        {nft.standard === 'M' && (
+        {nft.standard === 'M' && multiNftOffers?.items.length > 0 && (
           <ListingTable
             onConfirm={handleClick}
             multiNftOffers={multiNftOffers}

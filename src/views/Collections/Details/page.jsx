@@ -73,7 +73,12 @@ const CollectionDetailsPage = () => {
     (item) => item?.owner_address?.toLowerCase() === loweredAccount
   )
 
-  const isOwner = !market?.price ? isUserOwner : isUserSeller
+  const isOwner =
+    nft?.standard === 'M' && isUserOwner
+      ? isUserOwner
+      : !market?.price
+      ? isUserOwner
+      : isUserSeller
   const labelType = isOwner ? 'SELL' : 'PURCHASE'
   const loading = loadingDetail || loadingHistory
   const fetching = isFetchingDetail || isFetchingHistory
