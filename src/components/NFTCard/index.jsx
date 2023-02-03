@@ -83,12 +83,12 @@ const NFTCard = ({
           error={urlToIpfs(img)}
         />
         <div className={styles.badge}>
-          {isVisible && (
-            <Box className={styles.numberPlate}>
+          {quantity && (
+            <Box className={styles.quantity}>
               <span>x{quantity}</span>
             </Box>
           )}
-          {priceType && (
+          {!quantity && priceType && (
             <span className={styles.price_type}>{t(priceType)}</span>
           )}
         </div>

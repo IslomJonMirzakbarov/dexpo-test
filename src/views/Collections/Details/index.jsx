@@ -183,11 +183,6 @@ const CollectionDetails = ({
   const viewClick = () => handleRefresh()
 
   const handlePurchaseMultiNft = async () => {
-    if (quantity > purchaseNft.quantity) {
-      setError(`Max avaible quantity ${purchaseNft.quantity}`)
-      setStatus(checkoutStatuses.INITIAL)
-      return
-    }
     try {
       let res = await purchaseMultiNft(purchaseNft.nft_id, quantity)
 
@@ -202,6 +197,11 @@ const CollectionDetails = ({
   }
 
   const makePurchase = async () => {
+    if (data.nft?.standard === 'M' && quantity > purchaseNft.quantity) {
+      setError(`Max avaible quantity ${purchaseNft.quantity}`)
+      setStatus(checkoutStatuses.INITIAL)
+      return
+    }
     setStatus(checkoutStatuses.PENDING)
 
     try {

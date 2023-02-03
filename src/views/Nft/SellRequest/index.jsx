@@ -174,11 +174,6 @@ const NFTSellRequest = ({
   }
 
   const handlePurchaseMultiNft = async () => {
-    if (count > purchaseNft.quantity) {
-      setError(`Max avaible quantity ${purchaseNft.quantity}`)
-      setCheckoutStatus(checkoutStatuses.INITIAL)
-      return
-    }
     try {
       let res = await purchaseMultiNft(purchaseNft.nft_id, quantity)
 
@@ -193,6 +188,11 @@ const NFTSellRequest = ({
   }
 
   const makePurchase = async () => {
+    if (nft.standard === 'M' && count > purchaseNft.quantity) {
+      setError(`Max avaible quantity ${purchaseNft.quantity}`)
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+      return
+    }
     setCheckoutStatus(checkoutStatuses.PENDING)
 
     try {
