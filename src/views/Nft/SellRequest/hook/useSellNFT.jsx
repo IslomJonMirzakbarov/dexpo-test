@@ -32,7 +32,8 @@ const useSellNFT = ({
   standard,
   quantity,
   refetchMultiNftOffers,
-  nftId
+  nftId,
+  availableQuantity
 }) => {
   const navigate = useNavigate()
   const marketStatus = collection?.market_status
@@ -219,6 +220,7 @@ const useSellNFT = ({
     const isTypeNotSelected = !type
 
     if (isIDLEMarketStatus) return handleRequest()
+
     if (!isCancel && isTypeNotSelected)
       return toast.error(t('Select a sell type'))
     if (!isCancel && isEmptyPriceField)
@@ -238,6 +240,8 @@ const useSellNFT = ({
       return toast.error(
         `${t('Price should be greater or equal to')} ${floorPrice} CYCON`
       )
+    if (availableQuantity && quantity > availableQuantity)
+      return toast.error(t(`Max available quantity ${availableQuantity}`))
 
     if (isCancel) handleCancel()
     else {

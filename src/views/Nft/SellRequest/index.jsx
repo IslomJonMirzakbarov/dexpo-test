@@ -174,6 +174,11 @@ const NFTSellRequest = ({
   }
 
   const handlePurchaseMultiNft = async () => {
+    if (count > purchaseNft.quantity) {
+      setError(`Max avaible quantity ${purchaseNft.quantity}`)
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+      return
+    }
     try {
       let res = await purchaseMultiNft(purchaseNft.nft_id, quantity)
 
@@ -283,12 +288,9 @@ const NFTSellRequest = ({
     standard: nft.standard,
     quantity,
     refetchMultiNftOffers,
-    nftId
+    nftId,
+    availableQuantity: ownerAddress?.token_quantity
   })
-
-  const handleSellConfirm = () => {
-    handeConfirm(nft.standard, quantity)
-  }
 
   const handleCancel = (value) => {
     setNftId(value)
@@ -305,8 +307,6 @@ const NFTSellRequest = ({
     } else navigate('/login')
   }
 
-  console.log('isCancel', isCancel, ownerAddress)
-
   return (
     <NFTSellRequestContainer
       nft={nft}
@@ -322,8 +322,8 @@ const NFTSellRequest = ({
       control={control}
       openModal={openModal}
       toggle={handleToggle}
-      handleClick={handleSellConfirm}
-      handleConfirm={handleSellConfirm}
+      handleClick={handeConfirm}
+      handleConfirm={handeConfirm}
       isApprove={isApprove}
       isListing={isListing}
       isCanceling={isCanceling}
