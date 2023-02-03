@@ -88,7 +88,7 @@ const PendingSell = ({
             </Box>
             <Box display='flex' justifyContent='space-between' px={2} pb={1}>
               <Typography fontWeight={700}>{name}</Typography>
-              {nftStandard === 'M' && (
+              {nftStandard !== 'M' && (
                 <Typography>
                   {t('Quantity:')} {quantity}
                 </Typography>
