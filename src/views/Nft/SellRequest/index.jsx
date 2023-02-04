@@ -37,7 +37,10 @@ const NFTSellRequest = ({
   account,
   multiNftOffers,
   refetchMultiNftOffers,
-  refetchHistory
+  refetchHistory,
+  handlePaginateMultipleNft,
+  multiOffersPage,
+  isLoadingMultiNft
 }) => {
   const [quantity, setQuantity] = useState(1)
   const [balance, setBalance] = useState(0)
@@ -363,6 +366,9 @@ const NFTSellRequest = ({
       checkoutToggle={checkoutToggle}
       handleChangeCount={handleChangeCount}
       count={count}
+      handlePaginateMultipleNft={handlePaginateMultipleNft}
+      multiOffersPage={multiOffersPage}
+      isLoadingMultiNft={isLoadingMultiNft}
     />
   )
 }

@@ -102,7 +102,10 @@ const CollectionDetailsContainer = ({
   handleQuantity,
   quantity,
   multiNftOffers,
-  purchaseNft
+  purchaseNft,
+  handlePaginateMultipleNft,
+  multiOffersPage,
+  isLoadingMultiNft
 }) => {
   const navigate = useNavigate()
 
@@ -315,10 +318,13 @@ const CollectionDetailsContainer = ({
             </Box>
           </Grid>
         </Grid>
-        {nft.standard === 'M' && multiNftOffers?.items?.length > 0 && (
+        {nft.standard === 'M' && (
           <ListingTable
             onConfirm={handleClick}
             multiNftOffers={multiNftOffers}
+            handlePaginate={handlePaginateMultipleNft}
+            page={multiOffersPage}
+            isLoadingMultiNft={isLoadingMultiNft}
           />
         )}
         {isBidHistory && (

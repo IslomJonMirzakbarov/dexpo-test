@@ -134,7 +134,10 @@ const NFTSellRequestContainer = ({
   openCheckoutModal,
   checkoutToggle,
   count,
-  handleChangeCount
+  handleChangeCount,
+  handlePaginateMultipleNft,
+  multiOffersPage,
+  isLoadingMultiNft
 }) => {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -336,11 +339,14 @@ const NFTSellRequestContainer = ({
             </Box>
           </Grid>
         </Grid>
-        {nft.standard === 'M' && multiNftOffers?.items?.length > 0 && (
+        {nft.standard === 'M' && (
           <ListingTable
             handleCancel={handleCancel}
             multiNftOffers={multiNftOffers}
             onConfirm={checkoutToggle}
+            handlePaginate={handlePaginateMultipleNft}
+            page={multiOffersPage}
+            isLoadingMultiNft={isLoadingMultiNft}
           />
         )}
         {isBidHistory && (

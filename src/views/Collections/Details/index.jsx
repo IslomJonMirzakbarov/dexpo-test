@@ -34,7 +34,10 @@ const CollectionDetails = ({
   market,
   data,
   multiNftOffers,
-  refetchMultiNftOffers
+  refetchMultiNftOffers,
+  handlePaginateMultipleNft,
+  multiOffersPage,
+  isLoadingMultiNft
 }) => {
   const {
     checkAllowance,
@@ -293,6 +296,9 @@ const CollectionDetails = ({
       contract_address={contract_address}
       multiNftOffers={multiNftOffers}
       purchaseNft={purchaseNft}
+      handlePaginateMultipleNft={handlePaginateMultipleNft}
+      multiOffersPage={multiOffersPage}
+      isLoadingMultiNft={isLoadingMultiNft}
     />
   )
 }

@@ -13,6 +13,8 @@ import ListingTableItem from './TableItem'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import CPagination from '../../../../components/CPagination'
+import Loader from '../../../../components/Loader'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,44 +68,73 @@ const columns = [
   }
 ]
 
-const ListingTable = ({ multiNftOffers, handleCancel, onConfirm }) => {
+const ListingTable = ({
+  multiNftOffers,
+  handleCancel,
+  onConfirm,
+  page,
+  handlePaginate,
+  isLoadingMultiNft
+}) => {
   const classes = useStyles()
   const { account } = useSelector((store) => store.wallet)
   const { t } = useTranslation()
   return (
     <Box className={classes.root} mt={5}>
-      <Box className={classes.header}>
-        <Typography variant='h4' fontSize='18px!important' lineHeight={'30px'}>
-          Listings
-        </Typography>
-      </Box>
-      <Box className={classes.body}>
-        <CTable disablePagination={true} removableHeight={false} count={10}>
-          <CTableHead className={classes.head}>
-            <CTableHeadRow>
-              {columns.map((item) => (
-                <CTableCell key={item.key}>
-                  <Typography fontSize='15px' fontWeight={700}>
-                    {item.title}
-                  </Typography>
-                </CTableCell>
-              ))}
-            </CTableHeadRow>
-          </CTableHead>
+      {isLoadingMultiNft && <Loader />}
+      {!isLoadingMultiNft && multiNftOffers.totalPages !== 0 && (
+        <>
+          <Box className={classes.header}>
+            <Typography
+              variant='h4'
+              fontSize='18px!important'
+              lineHeight={'30px'}
+            >
+              Listings
+            </Typography>
+          </Box>
+          <Box className={classes.body}>
+            <CTable disablePagination={true} removableHeight={false} count={10}>
+              <CTableHead className={classes.head}>
+                <CTableHeadRow>
+                  {columns.map((item) => (
+                    <CTableCell key={item.key}>
+                      <Typography fontSize='15px' fontWeight={700}>
+                        {item.title}
+                      </Typography>
+                    </CTableCell>
+                  ))}
+                </CTableHeadRow>
+              </CTableHead>
 
-          <CTableBody loader={false} columnsCount={6} dataLength={3}>
-            {multiNftOffers?.items?.map((item) => (
-              <ListingTableItem
-                account={account}
-                item={item}
-                key={item.created_at}
-                handleCancel={handleCancel}
-                onConfirm={onConfirm}
-              />
-            ))}
-          </CTableBody>
-        </CTable>
-      </Box>
+              <CTableBody loader={false} columnsCount={6} dataLength={3}>
+                {multiNftOffers?.items?.map((item) => (
+                  <ListingTableItem
+                    account={account}
+                    item={item}
+                    key={item.created_at}
+                    handleCancel={handleCancel}
+                    onConfirm={onConfirm}
+                  />
+                ))}
+              </CTableBody>
+            </CTable>
+          </Box>
+        </>
+      )}
+      {multiNftOffers?.totalPages > 1 && (
+        <CPagination
+          mt={3}
+          count={multiNftOffers?.totalPages}
+          page={page ? Number(page) : 1}
+          setCurrentPage={handlePaginate}
+          hidePrevButton={false}
+          hideNextButton={false}
+          showFirstButton={true}
+          showLastButton={true}
+          siblingCount={1}
+        />
+      )}
     </Box>
   )
 }

@@ -20,7 +20,7 @@ const CollectionDetailsPage = () => {
   const { id, contract_address } = useParams()
 
   const { account } = useSelector((store) => store.wallet)
-
+  const [multiOffersPage, setMultiOffersPage] = useState(1)
   const [refetchInterval, setRefetchInterval] = useState(false)
 
   const {
@@ -46,11 +46,20 @@ const CollectionDetailsPage = () => {
     contractAddress: contract_address
   })
 
-  const { data: multiNftOffers, refetch: refetchMultiNftOffers } =
-    useMultiNFTOffers({
-      tokenId: id,
-      contractAddress: contract_address
-    })
+  const handlePaginateMultipleNft = (value) => {
+    console.log('value', value)
+    setMultiOffersPage(value)
+  }
+
+  const {
+    data: multiNftOffers,
+    refetch: refetchMultiNftOffers,
+    isLoading: isLoadingMultiNft
+  } = useMultiNFTOffers({
+    tokenId: id,
+    contractAddress: contract_address,
+    page: multiOffersPage
+  })
 
   const {
     data: bidHistory,
@@ -105,6 +114,9 @@ const CollectionDetailsPage = () => {
       setRefetchInterval={setRefetchInterval}
       multiNftOffers={multiNftOffers}
       refetchMultiNftOffers={refetchMultiNftOffers}
+      handlePaginateMultipleNft={handlePaginateMultipleNft}
+      multiOffersPage={multiOffersPage}
+      isLoadingMultiNft={isLoadingMultiNft}
       {...detail?.data}
     />
   )
