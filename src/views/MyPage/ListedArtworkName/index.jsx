@@ -18,6 +18,7 @@ import { awaitStatus } from "../../../components/Modals/SellModal/Pending/Condit
 import useCurrnetProvider from "../../../hooks/useCurrentProvider";
 import numFormat from "../../../utils/numFormat";
 import { useTranslation } from "react-i18next";
+import CPagination from "../../../components/CPagination";
 
 const TableRow = ({
   item,
@@ -68,6 +69,11 @@ const TableRow = ({
   );
 };
 
+const Btns = {
+  SINGLE: "Single",
+  MULTIPLE: "Multiple",
+};
+
 const ListedArtworkBottom = () => {
   const navigate = useNavigate();
   const { price_usd } = useSelector((store) => store.wallet);
@@ -75,14 +81,30 @@ const ListedArtworkBottom = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL);
+  const [active, setActive] = useState("SINGLE");
 
   const handleToggleModal = () => setOpenModal((prev) => !prev);
 
+  const [page, setPage] = useState(1);
   const { list, refetchList } = useNftAPI({
     isGetList: true,
     type: "LISTED",
-    size: 20000,
+    size: 10,
+    page: page,
   });
+
+  const handlePaginate = (p) => {
+    setPage(p);
+  };
+
+  useEffect(() => {
+    refetchList({
+      isGetList: true,
+      type: "LISTED",
+      size: 10,
+      page: page,
+    });
+  }, [page, refetchList]);
 
   const { cancel, cancelAuction } = useCurrnetProvider();
 
@@ -129,6 +151,7 @@ const ListedArtworkBottom = () => {
   };
 
   const loadChecker = list?.data?.items[0]?.request_type !== "LISTED";
+  const data = active === "SINGLE" ? list?.data?.items : list?.data?.items;
   const { t } = useTranslation();
   return (
     <Box className={styles.Container}>
@@ -140,7 +163,23 @@ const ListedArtworkBottom = () => {
         isCanceling={isLoading}
       />
 
-      {list?.data?.items.length === 0 ? (
+      <Box className={styles.ButtonsBox}>
+        {Object.keys(Btns).map((key) => {
+          return (
+            <Box
+              key={key}
+              className={classNames(styles.Button, {
+                [styles.Active]: active === key,
+              })}
+              onClick={() => setActive(key)}
+            >
+              {t(Btns[key])}
+            </Box>
+          );
+        })}
+      </Box>
+
+      {data.length === 0 ? (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
           <Box className={styles.NoItemsText}>{t("No items yet")}</Box>
@@ -165,9 +204,9 @@ const ListedArtworkBottom = () => {
               [styles.LoaderPos]: true,
             })}
           >
-            {list?.data?.items.length === 0
+            {data?.length === 0
               ? null
-              : list?.data?.items.map((item) => {
+              : data.map((item) => {
                   const navigateClick = () =>
                     navigate(
                       `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
@@ -184,6 +223,19 @@ const ListedArtworkBottom = () => {
                 })}
           </tbody>
         </table>
+      )}
+
+      {list?.data?.totalPages > 1 && (
+        <CPagination
+          count={list?.data?.totalPages}
+          page={page}
+          setCurrentPage={handlePaginate}
+          hidePrevButton={false}
+          hideNextButton={false}
+          showFirstButton={true}
+          showLastButton={true}
+          siblingCount={1}
+        />
       )}
     </Box>
   );

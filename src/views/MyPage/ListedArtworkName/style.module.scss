@@ -8,6 +8,39 @@
     padding-bottom: 30px;
   }
 
+  .ButtonsBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .Button {
+      width: 165px;
+      height: 55px;
+      background: colors.$headBg;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      @include fontLabel;
+      text-align: right;
+      color: colors.$greyBg;
+      cursor: pointer;
+
+      @media (max-width: 600px) {
+        max-width: 112px;
+        text-align: center;
+      }
+    }
+
+    .Active {
+      background: colors.$whiteBg;
+      color: colors.$primary;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  }
+
   .NoItemsContainer {
     width: 100%;
     padding-top: 130px;
@@ -140,7 +173,7 @@
           }
         }
 
-        & :nth-child(3){
+        & :nth-child(3) {
         }
 
         & :nth-child(5) {
