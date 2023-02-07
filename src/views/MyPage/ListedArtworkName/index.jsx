@@ -129,41 +129,52 @@ const ListedArtworkBottom = () => {
     if (!openModal) setIsLoading(awaitStatus.INITIAL);
   }, [openModal]);
 
-  const handleCancel = async (isFixedContract, contract_address, id, type) => {
+  const handleCancel = async (
+    isFixedContract,
+    contract_address,
+    id,
+    selectedItem
+  ) => {
+    console.log('selectedItem');
     setIsLoading(awaitStatus.PENDING);
-    try {
-      let res;
-
-      if (type === 'MULTI_LISTED') {
-        res = await cancelMultipleNft(id);
-        console.log('res: ', res);
+    if (selectedItem?.request_type === 'MULTI_LISTED' && !isFixedContract) {
+      try {
+        const res = await cancelMultipleNft(selectedItem?.multi?.nft_id);
+        if (!!res) {
+          setIsLoading(awaitStatus.COMPLETE);
+          refetchList();
+        }
+      } catch (err) {
+        console.log(err.message);
+        setIsLoading(awaitStatus.ERROR);
       }
+    } else {
+      try {
+        let res;
+        if (isFixedContract && selectedItem?.request_type === 'LISTED') {
+          res = await cancel(contract_address, id);
+        } else {
+          res = await cancelAuction(contract_address, id);
+        }
 
-      if (isFixedContract) {
-        res = await cancel(contract_address, id);
-      } else {
-        res = await cancelAuction(contract_address, id);
+        if (!!res) {
+          setIsLoading(awaitStatus.COMPLETE);
+          refetchList();
+        }
+      } catch (err) {
+        console.log(err.message);
+        setIsLoading(awaitStatus.ERROR);
       }
-
-      if (!!res) {
-        setIsLoading(awaitStatus.COMPLETE);
-        refetchList();
-      }
-    } catch (err) {
-      console.log(err.message);
-      setIsLoading(awaitStatus.ERROR);
     }
   };
 
   const handleConfirm = () => {
-    const type = selectedItem?.request_type;
     const { market, collection, nft } = selectedItem;
-    const isFixed = market?.type?.includes('F');
+    const isFixed = market?.type.includes('F');
     const contractAddress = collection?.contract_address;
-    const id =
-      type === 'MULTI_LISTED' ? selectedItem?.multi?.nft_id : nft?.token_id;
+    const id = nft?.token_id;
 
-    handleCancel(isFixed, contractAddress, id, type);
+    handleCancel(isFixed, contractAddress, id, selectedItem);
   };
 
   const handleClick = (item) => {
