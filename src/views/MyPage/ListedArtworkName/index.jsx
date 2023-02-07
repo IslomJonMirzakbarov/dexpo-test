@@ -14,7 +14,7 @@ import NumberFormat from 'react-number-format';
 import SellModal from '../../../components/Modals/SellModal';
 import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
 import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
-import useCurrnetProvider from '../../../hooks/useCurrentProvider';
+import useCurrentProvider from '../../../hooks/useCurrentProvider';
 import numFormat from '../../../utils/numFormat';
 import { useTranslation } from 'react-i18next';
 import CPagination from '../../../components/CPagination';
@@ -27,23 +27,35 @@ const TableRow = ({
   handleClick,
   type,
 }) => {
-  const exchangedPrice =
-    (type === 'L' ? item?.market?.price : item?.multi?.price) * price_usd;
   const { t } = useTranslation();
+  const isListed = type === 'L';
+  const exchangedPrice =
+    (isListed ? item?.market?.price : item?.multi?.price) * price_usd;
   return (
-    <tr className={styles.TableBodyRow} key={item?.nft?.token_id}>
+    <tr
+      className={styles.TableBodyRow}
+      key={isListed ? item?.nft?.token_id : item?.multi?.nft_id}
+    >
       <td onClick={navigateClick}>
-        <img src={item?.nft?.token_image} alt="img" />
+        <img
+          src={isListed ? item?.nft?.token_image : item?.multi?.token_image}
+          alt="img"
+        />
       </td>
-      <td onClick={navigateClick}>{item?.nft?.token_name}</td>
 
-      <td>{item?.nft?.token_quantity}</td>
+      <td onClick={navigateClick}>
+        {isListed ? item?.nft?.token_name : item?.multi?.token_name}
+      </td>
+
+      <td>{isListed ? item?.nft?.token_quantity : item?.multi?.amount}</td>
 
       <td className={styles.ThirdOne}>
         <Box className={styles.CycPrice}>
           {
             <NumberFormat
-              value={numFormat(item?.market?.price)}
+              value={numFormat(
+                isListed ? item?.market?.price : item?.multi?.price
+              )}
               displayType={'text'}
               thousandSeparator={true}
               prefix="CYCON "
@@ -60,7 +72,12 @@ const TableRow = ({
         </Box>
       </td>
 
-      <td>{dateConverter(item?.market?.created_at)}</td>
+      <td>
+        {dateConverter(
+          isListed ? item?.market?.created_at : item?.multi?.created_at
+        )}
+      </td>
+
       <td>
         <Button className={styles.BtnCancel} onClick={() => handleClick(item)}>
           {t('Cancel')}
@@ -89,12 +106,10 @@ const ListedArtworkBottom = () => {
   const [page, setPage] = useState(1);
   const { list, refetchList } = useNftAPI({
     isGetList: true,
-    type: 'MULTI_LISTED',
+    type: active === 'MULTIPLE' ? 'MULTI_LISTED' : 'LISTED',
     size: 10,
     page: page,
   });
-
-  console.log('Multi list: ', list);
 
   const handlePaginate = (p) => {
     setPage(p);
@@ -103,24 +118,27 @@ const ListedArtworkBottom = () => {
   useEffect(() => {
     refetchList({
       isGetList: true,
-      type: 'LISTED',
       size: 10,
       page: page,
     });
-  }, [page, refetchList]);
+  }, [active, page, refetchList]);
 
-  const { cancel, cancelAuction } = useCurrnetProvider();
+  const { cancel, cancelMultipleNft, cancelAuction } = useCurrentProvider();
 
   useEffect(() => {
     if (!openModal) setIsLoading(awaitStatus.INITIAL);
   }, [openModal]);
 
-  const handleCancel = async (isFixedContract, contract_address, id) => {
+  const handleCancel = async (isFixedContract, contract_address, id, type) => {
     setIsLoading(awaitStatus.PENDING);
     try {
       let res;
 
-      if (isFixedContract) res = await cancel(contract_address, id);
+      if (isFixedContract)
+        res =
+          type === 'MULTI_LISTED'
+            ? await cancelMultipleNft(id)
+            : await cancel(contract_address, id);
       else res = await cancelAuction(contract_address, id);
 
       if (!!res) {
@@ -134,12 +152,16 @@ const ListedArtworkBottom = () => {
   };
 
   const handleConfirm = () => {
+    console.log('selectedItem: ', selectedItem?.request_type);
     const { market, collection, nft } = selectedItem;
-    const isFixed = market.type.includes('F');
-    const contractAddress = collection.contract_address;
-    const id = nft.token_id;
+    const isFixed = market?.type?.includes('F');
+    const contractAddress = collection?.contract_address;
+    const id =
+      selectedItem?.request_type === 'MULTI_LISTED'
+        ? selectedItem?.multi?.nft_id
+        : nft?.token_id;
 
-    handleCancel(isFixed, contractAddress, id);
+    handleCancel(isFixed, contractAddress, id, selectedItem?.request_type);
   };
 
   const handleClick = (item) => {
@@ -148,13 +170,23 @@ const ListedArtworkBottom = () => {
   };
 
   const dateConverter = (stringNum) => {
-    const date = new Date(Number(stringNum) * 1000);
+    let date;
+    if (stringNum.includes('-')) {
+      date = stringNum;
+    } else {
+      date = new Date(Number(stringNum) * 1000);
+    }
     const fdate = moment(date).format('YYYY.MM.DD hh:mm:ss');
     return fdate;
   };
 
-  const loadChecker = list?.data?.items[0]?.request_type !== 'LISTED';
-  const data = active === 'SINGLE' ? list?.data?.items : list?.data?.items;
+  const data = list?.data?.items;
+  const loadChecker =
+    data.length > 0
+      ? (active === 'SINGLE' && data[0]?.request_type !== 'LISTED') ||
+        (active === 'MULTIPLE' && data[0]?.request_type !== 'MULTI_LISTED')
+      : false;
+
   const { t } = useTranslation();
   return (
     <Box className={styles.Container}>
