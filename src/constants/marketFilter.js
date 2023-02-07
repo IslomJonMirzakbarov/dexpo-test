@@ -9,6 +9,14 @@ export const marketFilters = {
 
 export const marketFilterList = [
   {
+    value: 'SINGLE',
+    label: 'Single'
+  },
+  {
+    value: 'MULTI',
+    label: 'Multi'
+  },
+  {
     value: 'RECENTLY_LISTED',
     label: 'Recently listed'
   },

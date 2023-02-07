@@ -37,7 +37,10 @@ const CollectionDetails = ({
   refetchMultiNftOffers,
   handlePaginateMultipleNft,
   multiOffersPage,
-  isLoadingMultiNft
+  isLoadingMultiNft,
+  historyPage,
+  handlePaginateHistory,
+  loadingHistory
 }) => {
   const {
     checkAllowance,
@@ -299,6 +302,9 @@ const CollectionDetails = ({
       handlePaginateMultipleNft={handlePaginateMultipleNft}
       multiOffersPage={multiOffersPage}
       isLoadingMultiNft={isLoadingMultiNft}
+      historyPage={historyPage}
+      handlePaginateHistory={handlePaginateHistory}
+      loadingHistory={loadingHistory}
     />
   )
 }

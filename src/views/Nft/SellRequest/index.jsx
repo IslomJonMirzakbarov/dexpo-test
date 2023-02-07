@@ -178,7 +178,7 @@ const NFTSellRequest = ({
 
   const handlePurchaseMultiNft = async () => {
     try {
-      let res = await purchaseMultiNft(purchaseNft.nft_id, quantity)
+      let res = await purchaseMultiNft(purchaseNft.nft_id, count)
 
       if (!!res) {
         setTxHash(res.transactionHash)
