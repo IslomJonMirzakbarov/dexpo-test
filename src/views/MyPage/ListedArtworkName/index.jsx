@@ -25,8 +25,10 @@ const TableRow = ({
   dateConverter,
   price_usd,
   handleClick,
+  type,
 }) => {
-  const exchangedPrice = item?.market?.price * price_usd;
+  const exchangedPrice =
+    (type === 'L' ? item?.market?.price : item?.multi?.price) * price_usd;
   const { t } = useTranslation();
   return (
     <tr className={styles.TableBodyRow} key={item?.nft?.token_id}>
@@ -87,10 +89,12 @@ const ListedArtworkBottom = () => {
   const [page, setPage] = useState(1);
   const { list, refetchList } = useNftAPI({
     isGetList: true,
-    type: 'LISTED',
+    type: 'MULTI_LISTED',
     size: 10,
     page: page,
   });
+
+  console.log('Multi list: ', list);
 
   const handlePaginate = (p) => {
     setPage(p);
@@ -170,7 +174,10 @@ const ListedArtworkBottom = () => {
               className={classNames(styles.Button, {
                 [styles.Active]: active === key,
               })}
-              onClick={() => setActive(key)}
+              onClick={() => {
+                setActive(key);
+                setPage(1);
+              }}
             >
               {t(Btns[key])}
             </Box>
@@ -210,6 +217,8 @@ const ListedArtworkBottom = () => {
                     navigate(
                       `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
                     );
+                  const type =
+                    item?.request_type === 'MULTI_LISTED' ? 'M' : 'L';
                   return (
                     <TableRow
                       navigateClick={navigateClick}
@@ -217,6 +226,7 @@ const ListedArtworkBottom = () => {
                       dateConverter={dateConverter}
                       price_usd={price_usd}
                       handleClick={handleClick}
+                      type={type}
                     />
                   );
                 })}
