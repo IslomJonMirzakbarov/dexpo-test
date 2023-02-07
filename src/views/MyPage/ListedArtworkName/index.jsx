@@ -195,7 +195,7 @@ const ListedArtworkBottom = () => {
 
   const data = list?.data?.items;
   const loadChecker =
-    data.length > 0
+    data?.length > 0
       ? (active === 'SINGLE' && data[0]?.request_type !== 'LISTED') ||
         (active === 'MULTIPLE' && data[0]?.request_type !== 'MULTI_LISTED')
       : false;
@@ -230,7 +230,7 @@ const ListedArtworkBottom = () => {
         })}
       </Box>
 
-      {data.length === 0 ? (
+      {data?.length === 0 ? (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
           <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
