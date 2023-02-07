@@ -14,7 +14,7 @@ export const marketFilterList = [
   },
   {
     value: 'MULTI',
-    label: 'Multi'
+    label: 'Multiple'
   },
   {
     value: 'RECENTLY_LISTED',
