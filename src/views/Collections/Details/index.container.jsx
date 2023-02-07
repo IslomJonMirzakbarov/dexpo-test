@@ -132,7 +132,10 @@ const CollectionDetailsContainer = ({
   }, [market?.end_date])
 
   const isBidHistory = isAuction && bidHistory?.length > 0
-  const exchangedPrice = price_krw * market?.price * quantity
+  const exchangedPrice =
+    nft.standard === 'M'
+      ? price_krw * purchaseNft?.price * quantity
+      : price_krw * market?.price * quantity
 
   const btnLabel = getPurchaseLabel({
     isSoldOut,
@@ -401,7 +404,7 @@ const CollectionDetailsContainer = ({
         artistName={artist?.artist_name}
         name={nft?.token_name}
         type={priceTypeChar?.[market?.type]}
-        price={market?.price}
+        price={nft.standard === 'M' ? purchaseNft?.price : market?.price}
         exchangedPrice={exchangedPrice}
         img={nft?.token_image}
         collectionName={collection?.name}

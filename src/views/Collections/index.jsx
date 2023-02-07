@@ -105,8 +105,6 @@ const Collections = () => {
     }
   }
 
-  console.log('filter', filter)
-
   const handleChange = (e) => {
     setInput(e.target.value)
     navigate({

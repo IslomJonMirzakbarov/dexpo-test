@@ -160,6 +160,7 @@ const NFTSellRequestContainer = ({
   }, [market?.end_date])
 
   const exchangedPrice = price_krw * (market?.price || sellPrice)
+  const exchangedPriceCheckoutModal = price_krw * purchaseNft?.price * count
 
   const SetPrice = () => (
     <>
@@ -388,8 +389,8 @@ const NFTSellRequestContainer = ({
         artistName={artist?.artist_name}
         name={nft?.token_name}
         type={priceTypeChar?.[market?.type]}
-        price={market?.price}
-        exchangedPrice={exchangedPrice}
+        price={nft.standard === 'M' ? purchaseNft?.price : market?.price}
+        exchangedPrice={exchangedPriceCheckoutModal}
         img={nft?.token_image}
         collectionName={collection?.name}
         status={checkoutStatus}

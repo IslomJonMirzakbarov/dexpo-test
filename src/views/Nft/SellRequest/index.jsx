@@ -126,12 +126,13 @@ const NFTSellRequest = ({
       setCount(value)
       return
     }
-    if (str === '+' && balance >= quantity) {
-      setCount((prev) => +prev + 1)
+    if (str === '+' && balance >= count) {
+      setCount((prev) => prev + 1)
       return
     }
-    if (str === '-' && quantity !== 1) {
-      setCount((prev) => +prev - 1)
+
+    if (str === '-' && count > 1) {
+      setCount((prev) => prev - 1)
     }
   }
 

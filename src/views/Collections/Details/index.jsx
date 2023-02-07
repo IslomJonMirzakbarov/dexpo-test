@@ -80,7 +80,7 @@ const CollectionDetails = ({
       setQuantity((prev) => prev + 1)
       return
     }
-    if (str === '-' && quantity !== 1) {
+    if (str === '-' && quantity > 1) {
       setQuantity((prev) => prev - 1)
     }
   }
