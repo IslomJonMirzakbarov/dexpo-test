@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { useNavigate } from "react-router-dom";
-import classNames from "classnames";
-import { Box, Button, CircularProgress } from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
+import { Box, Button } from '@mui/material';
 
-import useNftAPI from "../../../hooks/useNftApi";
-import Loader from "../../../components/Loader";
-import NoItemsYet from "../../../assets/icons/no-items-yet.svg?component";
-import useWeb3 from "../../../hooks/useWeb3";
+import useNftAPI from '../../../hooks/useNftApi';
+import Loader from '../../../components/Loader';
+import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component';
 
-import styles from "./style.module.scss";
-import { useSelector } from "react-redux";
-import NumberFormat from "react-number-format";
-import SellModal from "../../../components/Modals/SellModal";
-import { sellReqStatuses } from "../../../constants/sellRequestStatuses";
-import { awaitStatus } from "../../../components/Modals/SellModal/Pending/ConditionAwaitLabel";
-import useCurrnetProvider from "../../../hooks/useCurrentProvider";
-import numFormat from "../../../utils/numFormat";
-import { useTranslation } from "react-i18next";
-import CPagination from "../../../components/CPagination";
+import styles from './style.module.scss';
+import { useSelector } from 'react-redux';
+import NumberFormat from 'react-number-format';
+import SellModal from '../../../components/Modals/SellModal';
+import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
+import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
+import useCurrnetProvider from '../../../hooks/useCurrentProvider';
+import numFormat from '../../../utils/numFormat';
+import { useTranslation } from 'react-i18next';
+import CPagination from '../../../components/CPagination';
 
 const TableRow = ({
   item,
@@ -43,7 +42,7 @@ const TableRow = ({
           {
             <NumberFormat
               value={numFormat(item?.market?.price)}
-              displayType={"text"}
+              displayType={'text'}
               thousandSeparator={true}
               prefix="CYCON "
             />
@@ -52,7 +51,7 @@ const TableRow = ({
         <Box className={styles.UsdPrice}>
           <NumberFormat
             value={numFormat(exchangedPrice)}
-            displayType={"text"}
+            displayType={'text'}
             thousandSeparator={true}
             prefix="￦"
           />
@@ -62,7 +61,7 @@ const TableRow = ({
       <td>{dateConverter(item?.market?.created_at)}</td>
       <td>
         <Button className={styles.BtnCancel} onClick={() => handleClick(item)}>
-          {t("Cancel")}
+          {t('Cancel')}
         </Button>
       </td>
     </tr>
@@ -70,8 +69,8 @@ const TableRow = ({
 };
 
 const Btns = {
-  SINGLE: "Single",
-  MULTIPLE: "Multiple",
+  SINGLE: 'Single',
+  MULTIPLE: 'Multiple',
 };
 
 const ListedArtworkBottom = () => {
@@ -81,14 +80,14 @@ const ListedArtworkBottom = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL);
-  const [active, setActive] = useState("SINGLE");
+  const [active, setActive] = useState('SINGLE');
 
   const handleToggleModal = () => setOpenModal((prev) => !prev);
 
   const [page, setPage] = useState(1);
   const { list, refetchList } = useNftAPI({
     isGetList: true,
-    type: "LISTED",
+    type: 'LISTED',
     size: 10,
     page: page,
   });
@@ -100,7 +99,7 @@ const ListedArtworkBottom = () => {
   useEffect(() => {
     refetchList({
       isGetList: true,
-      type: "LISTED",
+      type: 'LISTED',
       size: 10,
       page: page,
     });
@@ -132,7 +131,7 @@ const ListedArtworkBottom = () => {
 
   const handleConfirm = () => {
     const { market, collection, nft } = selectedItem;
-    const isFixed = market.type.includes("F");
+    const isFixed = market.type.includes('F');
     const contractAddress = collection.contract_address;
     const id = nft.token_id;
 
@@ -146,12 +145,12 @@ const ListedArtworkBottom = () => {
 
   const dateConverter = (stringNum) => {
     const date = new Date(Number(stringNum) * 1000);
-    const fdate = moment(date).format("YYYY.MM.DD hh:mm:ss");
+    const fdate = moment(date).format('YYYY.MM.DD hh:mm:ss');
     return fdate;
   };
 
-  const loadChecker = list?.data?.items[0]?.request_type !== "LISTED";
-  const data = active === "SINGLE" ? list?.data?.items : list?.data?.items;
+  const loadChecker = list?.data?.items[0]?.request_type !== 'LISTED';
+  const data = active === 'SINGLE' ? list?.data?.items : list?.data?.items;
   const { t } = useTranslation();
   return (
     <Box className={styles.Container}>
@@ -182,7 +181,7 @@ const ListedArtworkBottom = () => {
       {data.length === 0 ? (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
-          <Box className={styles.NoItemsText}>{t("No items yet")}</Box>
+          <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
         </Box>
       ) : loadChecker ? (
         <Loader page="my-page" />
@@ -190,11 +189,11 @@ const ListedArtworkBottom = () => {
         <table className={styles.Table}>
           <thead className={styles.TableHead}>
             <tr className={styles.TableHeadRow}>
-              <th>{t("Item")}</th>
-              <th>{t("Artwork name")}</th>
-              <th>{t("Quantity")}</th>
-              <th>{t("Unit Price")}</th>
-              <th>{t("Date")}</th>
+              <th>{t('Item')}</th>
+              <th>{t('Artwork name')}</th>
+              <th>{t('Quantity')}</th>
+              <th>{t('Unit Price')}</th>
+              <th>{t('Date')}</th>
               <th></th>
             </tr>
           </thead>

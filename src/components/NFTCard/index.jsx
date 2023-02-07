@@ -39,6 +39,7 @@ const NFTCard = ({
   isSold,
   isOriginalNft,
   quantity = 1,
+  type = "S",
 }) => {
   const { t } = useTranslation();
   const leftDays =
@@ -59,7 +60,9 @@ const NFTCard = ({
   };
 
   const isVisible =
-    quantity > 1 && (page === "collectedBottom" || page === "createdItems");
+    quantity &&
+    type === "M" &&
+    (page === "collectedBottom" || page === "createdItems");
 
   return (
     <Box
@@ -89,7 +92,7 @@ const NFTCard = ({
               <span>x{quantity}</span>
             </Box>
           )}
-          {priceType && (
+          {!quantity && priceType && (
             <span className={styles.price_type}>{t(priceType)}</span>
           )}
         </div>
