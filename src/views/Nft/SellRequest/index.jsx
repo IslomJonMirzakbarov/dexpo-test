@@ -126,12 +126,13 @@ const NFTSellRequest = ({
       setCount(value)
       return
     }
-    if (str === '+' && balance >= quantity) {
-      setCount((prev) => +prev + 1)
+    if (str === '+' && balance >= count) {
+      setCount((prev) => prev + 1)
       return
     }
-    if (str === '-' && quantity !== 1) {
-      setCount((prev) => +prev - 1)
+
+    if (str === '-' && count > 1) {
+      setCount((prev) => prev - 1)
     }
   }
 
@@ -178,7 +179,7 @@ const NFTSellRequest = ({
 
   const handlePurchaseMultiNft = async () => {
     try {
-      let res = await purchaseMultiNft(purchaseNft.nft_id, quantity)
+      let res = await purchaseMultiNft(purchaseNft.nft_id, count)
 
       if (!!res) {
         setTxHash(res.transactionHash)

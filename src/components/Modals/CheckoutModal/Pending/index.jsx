@@ -122,7 +122,9 @@ const PendingCheckout = ({
               >
                 <Typography variant='placeholder' fontWeight={600}>
                   <NumberFormat
-                    value={numFormat(price)}
+                    value={numFormat(
+                      nftStandard === 'M' ? price * count : price
+                    )}
                     displayType={'text'}
                     thousandSeparator={true}
                   />

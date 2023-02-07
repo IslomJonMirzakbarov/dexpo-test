@@ -37,7 +37,10 @@ const CollectionDetails = ({
   refetchMultiNftOffers,
   handlePaginateMultipleNft,
   multiOffersPage,
-  isLoadingMultiNft
+  isLoadingMultiNft,
+  historyPage,
+  handlePaginateHistory,
+  loadingHistory
 }) => {
   const {
     checkAllowance,
@@ -77,7 +80,7 @@ const CollectionDetails = ({
       setQuantity((prev) => prev + 1)
       return
     }
-    if (str === '-' && quantity !== 1) {
+    if (str === '-' && quantity > 1) {
       setQuantity((prev) => prev - 1)
     }
   }
@@ -299,6 +302,9 @@ const CollectionDetails = ({
       handlePaginateMultipleNft={handlePaginateMultipleNft}
       multiOffersPage={multiOffersPage}
       isLoadingMultiNft={isLoadingMultiNft}
+      historyPage={historyPage}
+      handlePaginateHistory={handlePaginateHistory}
+      loadingHistory={loadingHistory}
     />
   )
 }

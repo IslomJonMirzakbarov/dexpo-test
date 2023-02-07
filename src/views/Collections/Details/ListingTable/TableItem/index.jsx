@@ -45,9 +45,9 @@ const eventTypes = {
 
 const useStyles = makeStyles((theme) => ({
   cell: {
-    padding: "18px 26px",
-    fontSize: "15px",
-    lineHeight: "22px",
+    padding: '18px 26px!important',
+    fontSize: '15px',
+    lineHeight: '22px'
     // '& svg': {
     //   width: 32
     // }
@@ -74,9 +74,9 @@ const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
       <CTableCell className={classes.cell}>
         <a
           className={classes.link}
-          href={redirectAccount(from)}
-          target="_blank"
-          rel="noreferrer"
+          href={redirectAccount(item.seller_address)}
+          target='_blank'
+          rel='noreferrer'
         >
           {truncateAddress(item.seller_address)}
         </a>
@@ -89,21 +89,21 @@ const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
         <Button
           className={classes.button}
           variant={
-            account === item.seller_address.toLowerCase()
-              ? "outlined"
-              : "containedSecondary"
+            account === item.seller_address?.toLowerCase()
+              ? 'outlined'
+              : 'containedSecondary'
           }
           sx={{ height: 45 }}
           fullWidth
           onClick={
-            account === item.seller_address.toLowerCase()
+            account === item.seller_address?.toLowerCase()
               ? () => handleCancel(item.nft_id)
               : () => onConfirm(item)
           }
         >
-          {account === item.seller_address.toLowerCase()
-            ? "Cancel"
-            : "Purchase"}
+          {account === item.seller_address?.toLowerCase()
+            ? 'Cancel'
+            : 'Purchase'}
         </Button>
       </CTableCell>
     </CTableRow>

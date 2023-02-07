@@ -21,6 +21,7 @@ const CollectionDetailsPage = () => {
 
   const { account } = useSelector((store) => store.wallet)
   const [multiOffersPage, setMultiOffersPage] = useState(1)
+  const [historyPage, sethistoryPage] = useState(1)
   const [refetchInterval, setRefetchInterval] = useState(false)
 
   const {
@@ -43,12 +44,16 @@ const CollectionDetailsPage = () => {
     refetch
   } = useNFTHistoryAPI({
     tokenId: id,
-    contractAddress: contract_address
+    contractAddress: contract_address,
+    page: historyPage
   })
 
   const handlePaginateMultipleNft = (value) => {
-    console.log('value', value)
     setMultiOffersPage(value)
+  }
+
+  const handlePaginateHistory = (value) => {
+    sethistoryPage(value)
   }
 
   const {
@@ -60,6 +65,8 @@ const CollectionDetailsPage = () => {
     contractAddress: contract_address,
     page: multiOffersPage
   })
+
+  console.log('multiNftOffers', multiNftOffers)
 
   const {
     data: bidHistory,
@@ -89,7 +96,7 @@ const CollectionDetailsPage = () => {
       ? isUserOwner
       : isUserSeller
   const labelType = isOwner ? 'SELL' : 'PURCHASE'
-  const loading = loadingDetail || loadingHistory
+  const loading = loadingDetail
   const fetching = isFetchingDetail || isFetchingHistory
 
   const Renderer = Render[labelType]
@@ -117,6 +124,9 @@ const CollectionDetailsPage = () => {
       handlePaginateMultipleNft={handlePaginateMultipleNft}
       multiOffersPage={multiOffersPage}
       isLoadingMultiNft={isLoadingMultiNft}
+      handlePaginateHistory={handlePaginateHistory}
+      historyPage={historyPage}
+      loadingHistory={loadingHistory}
       {...detail?.data}
     />
   )

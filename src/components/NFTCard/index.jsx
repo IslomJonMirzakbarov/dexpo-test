@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import NumberFormat from "react-number-format";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import TimelapseRoundedIcon from "@mui/icons-material/TimelapseRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import TokenImg from "../../assets/images/con-token.svg?component";
-import OriginalIcon from "../../assets/icons/original.svg?component";
-import classNames from "classnames";
-import { calculateDeadline } from "../../utils/deadline";
+import React, { useState, useEffect } from 'react';
+import { Box, Button, Typography } from '@mui/material';
+import NumberFormat from 'react-number-format';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import TokenImg from '../../assets/images/con-token.svg?component';
+import OriginalIcon from '../../assets/icons/original.svg?component';
+import classNames from 'classnames';
+import { calculateDeadline } from '../../utils/deadline';
 // import loader from '../../assets/gif/loader.gif';
-import styles from "./style.module.scss";
-import Img from "react-cool-img";
-import { urlToIpfs } from "../../utils";
-import loader from "../../assets/gif/ring.gif";
-import numFormat from "../../utils/numFormat";
-import { useTranslation } from "react-i18next";
+import styles from './style.module.scss';
+import Img from 'react-cool-img';
+import { urlToIpfs } from '../../utils';
+import loader from '../../assets/gif/ring.gif';
+import numFormat from '../../utils/numFormat';
+import { useTranslation } from 'react-i18next';
 
 const NFTCard = ({
   collection,
@@ -31,7 +31,7 @@ const NFTCard = ({
   artistName,
   description,
   purchaseCount,
-  buttonVariant = "containedInherit",
+  buttonVariant = 'containedInherit',
   isDefault = false,
   className,
   hasShadow = true,
@@ -39,19 +39,19 @@ const NFTCard = ({
   isSold,
   isOriginalNft,
   quantity = 1,
-  type = "S",
+  type = 'S',
 }) => {
   const { t } = useTranslation();
   const leftDays =
     endDate && startDate && calculateDeadline(startDate, endDate);
-  const firstStopIndex = leftDays?.indexOf(" ");
+  const firstStopIndex = leftDays?.indexOf(' ');
 
   const leftDaysPhrase = (remainDays) => {
     switch (remainDays) {
-      case "Not started yet":
-        return t("Not started yet");
-      case "Auction finished":
-        return t("Auction finished");
+      case 'Not started yet':
+        return t('Not started yet');
+      case 'Auction finished':
+        return t('Auction finished');
       default:
         return `${remainDays?.slice(0, firstStopIndex)} ${t(
           remainDays?.slice(firstStopIndex)
@@ -61,13 +61,15 @@ const NFTCard = ({
 
   const isVisible =
     quantity &&
-    type === "M" &&
-    (page === "collectedBottom" || page === "createdItems");
+    type === 'M' &&
+    (page === 'collectedBottom' ||
+      page === 'createdItems' ||
+      page === 'collections');
 
   return (
     <Box
       className={classNames(styles.card, className, {
-        [styles.CollectedCard]: page === "collectedBottom",
+        [styles.CollectedCard]: page === 'collectedBottom',
         [styles.minified]: !price,
         [styles.default]: isDefault,
       })}
@@ -80,7 +82,7 @@ const NFTCard = ({
       <Box className={styles.header} onClick={onClick}>
         <Img
           src={img}
-          style={{ backgroundColor: "#ffffff" }}
+          style={{ backgroundColor: '#ffffff' }}
           alt={name}
           debounce={500}
           placeholder={loader}
@@ -122,16 +124,16 @@ const NFTCard = ({
             <div className={styles.actions}>
               <span
                 className={classNames(styles.count, {
-                  [styles.liked]: page === "favoritesBottom",
+                  [styles.liked]: page === 'favoritesBottom',
                 })}
               >
                 <NumberFormat
                   value={numFormat(purchaseCount)}
-                  displayType={"text"}
+                  displayType={'text'}
                   thousandSeparator={true}
                 />
                 <div className={styles.LikeSvg}>
-                  {page === "favoritesBottom" ? (
+                  {page === 'favoritesBottom' ? (
                     <FavoriteRoundedIcon />
                   ) : (
                     <FavoriteBorderIcon />
@@ -152,7 +154,7 @@ const NFTCard = ({
                 />
                 <NumberFormat
                   value={numFormat(price)}
-                  displayType={"text"}
+                  displayType={'text'}
                   thousandSeparator={true}
                 />
               </>
@@ -165,9 +167,9 @@ const NFTCard = ({
               fullWidth
               variant={buttonVariant}
               onClick={onAction}
-              className={page === "about" && styles.aboutBtn}
+              className={page === 'about' && styles.aboutBtn}
             >
-              {t("BuyNow")}
+              {t('BuyNow')}
             </Button>
           )}
           {isOriginalNft && (
@@ -177,7 +179,7 @@ const NFTCard = ({
               variant={buttonVariant}
               onClick={onAction}
             >
-              {isSold ? t("SoldOut") : t("BuyNow")}
+              {isSold ? t('SoldOut') : t('BuyNow')}
             </Button>
           )}
         </Box>
