@@ -105,7 +105,10 @@ const CollectionDetailsContainer = ({
   purchaseNft,
   handlePaginateMultipleNft,
   multiOffersPage,
-  isLoadingMultiNft
+  isLoadingMultiNft,
+  historyPage,
+  handlePaginateHistory,
+  loadingHistory
 }) => {
   const navigate = useNavigate()
 
@@ -213,10 +216,10 @@ const CollectionDetailsContainer = ({
                         <span>Total minted</span>
                         <span>{nft?.total_minted}</span>
                       </div>
-                      <div className={styles.total}>
+                      {/* <div className={styles.total}>
                         <span>Total listed</span>
                         <span>{nft?.total_listed}</span>
-                      </div>
+                      </div> */}
                       <div className={styles.total}>
                         <span>Current sales</span>
                         <span>{nft?.total_sales}</span>
@@ -336,7 +339,12 @@ const CollectionDetailsContainer = ({
         )}
         <Grid container className={classes.table}>
           <Grid item lg={12}>
-            <HistoryTable data={history} />
+            <HistoryTable
+              data={history}
+              page={historyPage}
+              loading={loadingHistory}
+              handlePaginate={handlePaginateHistory}
+            />
           </Grid>
         </Grid>
       </Container>

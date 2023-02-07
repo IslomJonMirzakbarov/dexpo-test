@@ -83,7 +83,7 @@ const NFTCard = ({
           error={urlToIpfs(img)}
         />
         <div className={styles.badge}>
-          {quantity && (
+          {quantity && quantity !== 1 && (
             <Box className={styles.quantity}>
               <span>x{quantity}</span>
             </Box>

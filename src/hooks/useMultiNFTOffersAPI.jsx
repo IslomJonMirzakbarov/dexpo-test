@@ -23,7 +23,7 @@ const useMultiNFTOffers = ({
   const { token } = useSelector((store) => store.auth)
 
   const { data, isLoading, refetch } = useQuery(
-    `GET-NFT-HISTORY-${contractAddress}-${tokenId}-${page}-${size}`,
+    `GET-MULTIPLE-NFT-${contractAddress}-${tokenId}-${page}-${size}`,
     () =>
       getMultiNFTOffers(token, {
         contract_address: contractAddress,
