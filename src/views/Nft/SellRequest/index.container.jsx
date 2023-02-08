@@ -233,6 +233,7 @@ const NFTSellRequestContainer = ({
               types={types}
               handleChangeType={handleChangeType}
               hideSelect={isTypeHidden}
+              nftStandard={nft?.standard}
             />
             <Box display='flex' justifyContent='space-between' mt={3} gap={3}>
               <Box className={classes.box}>

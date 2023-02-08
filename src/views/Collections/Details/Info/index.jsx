@@ -23,7 +23,8 @@ const CollectionDetailsInfo = ({
   artistWallet,
   isOriginal,
   id,
-  contract_address
+  contract_address,
+  nftStandard
 }) => {
   const { t } = useTranslation()
 
@@ -81,6 +82,7 @@ const CollectionDetailsInfo = ({
         description={description}
         name={nftName}
         type={isArtwork ? sellType?.label : type}
+        nftStandard={nftStandard}
       />
     </Box>
   )

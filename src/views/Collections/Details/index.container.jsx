@@ -187,6 +187,7 @@ const CollectionDetailsContainer = ({
               type={priceTypeChar?.[market?.type]}
               isResponsive={matches}
               artistWallet={nft?.creator_address}
+              nftStandard={nft?.standard}
             />
             <Box
               display='flex'
