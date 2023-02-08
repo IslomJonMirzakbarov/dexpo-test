@@ -135,7 +135,6 @@ const ListedArtworkBottom = () => {
     id,
     selectedItem
   ) => {
-    console.log('selectedItem')
     setIsLoading(awaitStatus.PENDING)
     if (selectedItem?.request_type === 'MULTI_LISTED' && !isFixedContract) {
       try {
@@ -252,10 +251,17 @@ const ListedArtworkBottom = () => {
             {data?.length === 0
               ? null
               : data.map((item) => {
-                  const navigateClick = () =>
-                    navigate(
-                      `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
-                    )
+                  const navigateClick = () => {
+                    if (item?.request_type === 'MULTI_LISTED') {
+                      navigate(
+                        `/marketplace/${item?.multi?.token_id}/${item?.multi?.contract_address}`
+                      )
+                    } else {
+                      navigate(
+                        `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
+                      )
+                    }
+                  }
                   const typeNft =
                     item?.request_type === 'MULTI_LISTED' ? 'M' : 'L'
                   if (typeNft === 'L' && item?.collection?.type === 'M') {
