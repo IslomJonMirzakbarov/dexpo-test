@@ -22,8 +22,8 @@ export const toHex = (num) => {
 }
 
 export const urlToIpfs = (url) => {
-  const arrUrl = url.split('/')
-  const cid = arrUrl[arrUrl.length - 1]
+  const arrUrl = url && url?.split('/')
+  const cid = arrUrl && arrUrl[arrUrl.length - 1]
 
   return `https://ipfs.io/ipfs/${cid}`
 }

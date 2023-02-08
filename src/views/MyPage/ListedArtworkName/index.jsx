@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
-import { Box, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
+import classNames from 'classnames'
+import { Box, Button } from '@mui/material'
 
-import useNftAPI from '../../../hooks/useNftApi';
-import Loader from '../../../components/Loader';
-import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component';
+import useNftAPI from '../../../hooks/useNftApi'
+import Loader from '../../../components/Loader'
+import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component'
 
-import styles from './style.module.scss';
-import { useSelector } from 'react-redux';
-import NumberFormat from 'react-number-format';
-import SellModal from '../../../components/Modals/SellModal';
-import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
-import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel';
-import useCurrentProvider from '../../../hooks/useCurrentProvider';
-import numFormat from '../../../utils/numFormat';
-import { useTranslation } from 'react-i18next';
-import CPagination from '../../../components/CPagination';
+import styles from './style.module.scss'
+import { useSelector } from 'react-redux'
+import NumberFormat from 'react-number-format'
+import SellModal from '../../../components/Modals/SellModal'
+import { sellReqStatuses } from '../../../constants/sellRequestStatuses'
+import { awaitStatus } from '../../../components/Modals/SellModal/Pending/ConditionAwaitLabel'
+import useCurrentProvider from '../../../hooks/useCurrentProvider'
+import numFormat from '../../../utils/numFormat'
+import { useTranslation } from 'react-i18next'
+import CPagination from '../../../components/CPagination'
 
 const TableRow = ({
   item,
@@ -27,10 +27,10 @@ const TableRow = ({
   handleClick,
   type,
 }) => {
-  const { t } = useTranslation();
-  const isListed = type === 'L';
+  const { t } = useTranslation()
+  const isListed = type === 'L'
   const exchangedPrice =
-    (isListed ? item?.market?.price : item?.multi?.price) * price_usd;
+    (isListed ? item?.market?.price : item?.multi?.price) * price_usd
   return (
     <tr
       className={styles.TableBodyRow}
@@ -84,52 +84,50 @@ const TableRow = ({
         </Button>
       </td>
     </tr>
-  );
-};
+  )
+}
 
 const Btns = {
   SINGLE: 'Single',
   MULTIPLE: 'Multiple',
-};
+}
 
 const ListedArtworkBottom = () => {
-  const navigate = useNavigate();
-  const { price_usd } = useSelector((store) => store.wallet);
+  const navigate = useNavigate()
+  const { price_usd } = useSelector((store) => store.wallet)
 
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL);
-  const [active, setActive] = useState('SINGLE');
+  const [openModal, setOpenModal] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null)
+  const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL)
+  const [active, setActive] = useState('SINGLE')
 
-  const handleToggleModal = () => setOpenModal((prev) => !prev);
+  const handleToggleModal = () => setOpenModal((prev) => !prev)
 
-  const [page, setPage] = useState(1);
-  const { list, refetchList } = useNftAPI({
+  const [page, setPage] = useState(1)
+  const { list, refetchList, loadingList } = useNftAPI({
     isGetList: true,
     type: active === 'MULTIPLE' ? 'MULTI_LISTED' : 'LISTED',
     size: 10,
     page: page,
-  });
-
-  console.log('list: ', list);
+  })
 
   const handlePaginate = (p) => {
-    setPage(p);
-  };
+    setPage(p)
+  }
 
   useEffect(() => {
     refetchList({
       isGetList: true,
       size: 10,
       page: page,
-    });
-  }, [active, page, refetchList]);
+    })
+  }, [active, page, refetchList])
 
-  const { cancel, cancelMultipleNft, cancelAuction } = useCurrentProvider();
+  const { cancel, cancelMultipleNft, cancelAuction } = useCurrentProvider()
 
   useEffect(() => {
-    if (!openModal) setIsLoading(awaitStatus.INITIAL);
-  }, [openModal]);
+    if (!openModal) setIsLoading(awaitStatus.INITIAL)
+  }, [openModal])
 
   const handleCancel = async (
     isFixedContract,
@@ -137,72 +135,66 @@ const ListedArtworkBottom = () => {
     id,
     selectedItem
   ) => {
-    console.log('selectedItem');
-    setIsLoading(awaitStatus.PENDING);
+    console.log('selectedItem')
+    setIsLoading(awaitStatus.PENDING)
     if (selectedItem?.request_type === 'MULTI_LISTED' && !isFixedContract) {
       try {
-        const res = await cancelMultipleNft(selectedItem?.multi?.nft_id);
+        const res = await cancelMultipleNft(selectedItem?.multi?.nft_id)
         if (!!res) {
-          setIsLoading(awaitStatus.COMPLETE);
-          refetchList();
+          setIsLoading(awaitStatus.COMPLETE)
+          refetchList()
         }
       } catch (err) {
-        console.log(err.message);
-        setIsLoading(awaitStatus.ERROR);
+        console.log(err.message)
+        setIsLoading(awaitStatus.ERROR)
       }
     } else {
       try {
-        let res;
+        let res
         if (isFixedContract && selectedItem?.request_type === 'LISTED') {
-          res = await cancel(contract_address, id);
+          res = await cancel(contract_address, id)
         } else {
-          res = await cancelAuction(contract_address, id);
+          res = await cancelAuction(contract_address, id)
         }
 
         if (!!res) {
-          setIsLoading(awaitStatus.COMPLETE);
-          refetchList();
+          setIsLoading(awaitStatus.COMPLETE)
+          refetchList()
         }
       } catch (err) {
-        console.log(err.message);
-        setIsLoading(awaitStatus.ERROR);
+        console.log(err.message)
+        setIsLoading(awaitStatus.ERROR)
       }
     }
-  };
+  }
 
   const handleConfirm = () => {
-    const { market, collection, nft } = selectedItem;
-    const isFixed = market?.type.includes('F');
-    const contractAddress = collection?.contract_address;
-    const id = nft?.token_id;
+    const { market, collection, nft } = selectedItem
+    const isFixed = market?.type.includes('F')
+    const contractAddress = collection?.contract_address
+    const id = nft?.token_id
 
-    handleCancel(isFixed, contractAddress, id, selectedItem);
-  };
+    handleCancel(isFixed, contractAddress, id, selectedItem)
+  }
 
   const handleClick = (item) => {
-    setSelectedItem(item);
-    setOpenModal(true);
-  };
+    setSelectedItem(item)
+    setOpenModal(true)
+  }
 
   const dateConverter = (stringNum) => {
-    let date;
+    let date
     if (stringNum && stringNum.includes('-')) {
-      date = stringNum;
+      date = stringNum
     } else {
-      date = new Date(Number(stringNum) * 1000);
+      date = new Date(Number(stringNum) * 1000)
     }
-    const fdate = moment(date).format('YYYY.MM.DD hh:mm:ss');
-    return fdate;
-  };
+    const fdate = moment(date).format('YYYY.MM.DD hh:mm:ss')
+    return fdate
+  }
 
-  const data = list?.data?.items;
-  const loadChecker =
-    data?.length > 0
-      ? (active === 'SINGLE' && data[0]?.request_type !== 'LISTED') ||
-        (active === 'MULTIPLE' && data[0]?.request_type !== 'MULTI_LISTED')
-      : false;
-
-  const { t } = useTranslation();
+  const data = list?.data?.items
+  const { t } = useTranslation()
   return (
     <Box className={styles.Container}>
       <SellModal
@@ -222,23 +214,23 @@ const ListedArtworkBottom = () => {
                 [styles.Active]: active === key,
               })}
               onClick={() => {
-                setActive(key);
-                setPage(1);
+                setActive(key)
+                setPage(1)
               }}
             >
               {t(Btns[key])}
             </Box>
-          );
+          )
         })}
       </Box>
 
-      {data?.length === 0 ? (
+      {loadingList ? (
+        <Loader page="my-page" />
+      ) : data?.length === 0 ? (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
           <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
         </Box>
-      ) : loadChecker ? (
-        <Loader page="my-page" />
       ) : (
         <table className={styles.Table}>
           <thead className={styles.TableHead}>
@@ -263,11 +255,11 @@ const ListedArtworkBottom = () => {
                   const navigateClick = () =>
                     navigate(
                       `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
-                    );
+                    )
                   const typeNft =
-                    item?.request_type === 'MULTI_LISTED' ? 'M' : 'L';
+                    item?.request_type === 'MULTI_LISTED' ? 'M' : 'L'
                   if (typeNft === 'L' && item?.collection?.type === 'M') {
-                    return null;
+                    return null
                   }
                   return (
                     <TableRow
@@ -278,7 +270,7 @@ const ListedArtworkBottom = () => {
                       handleClick={handleClick}
                       type={typeNft}
                     />
-                  );
+                  )
                 })}
           </tbody>
         </table>
@@ -297,7 +289,7 @@ const ListedArtworkBottom = () => {
         />
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default ListedArtworkBottom;
+export default ListedArtworkBottom

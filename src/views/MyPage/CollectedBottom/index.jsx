@@ -1,65 +1,64 @@
-import { Box, Grid } from '@mui/material';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Loader from '../../../components/Loader';
-import NFTCard from '../../../components/NFTCard';
-import { priceType } from '../../../constants';
-import useNftAPI from '../../../hooks/useNftApi';
-import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component';
+import { Box, Grid } from '@mui/material'
+import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Loader from '../../../components/Loader'
+import NFTCard from '../../../components/NFTCard'
+import { priceType } from '../../../constants'
+import useNftAPI from '../../../hooks/useNftApi'
+import NoItemsYet from '../../../assets/icons/no-items-yet.svg?component'
 
-import styles from './style.module.scss';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import styles from './style.module.scss'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const CollectedBottom = ({ tabValue, id }) => {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const { otherUserInfo } = useSelector((store) => store.user);
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const { otherUserInfo } = useSelector((store) => store.user)
 
-  const [refetchInterval, setRefetchInterval] = useState(false);
+  const [refetchInterval, setRefetchInterval] = useState(false)
 
-  const otherUser = id && id[0] === '0';
+  const otherUser = id && id[0] === '0'
 
-  const { list, listByUser } = useNftAPI({
+  const { list, listByUser, loadingList, loadingListByUser } = useNftAPI({
     isGetList: !otherUser,
     isGetListByUser: otherUser,
     type: 'COLLECTED',
     size: 20000,
     walletAddress: otherUser && id,
     refetchInterval,
-  });
-  const selectedList = otherUser ? listByUser : list;
+  })
+  const selectedList = otherUser ? listByUser : list
   useEffect(() => {
     if (id && otherUserInfo?.otherUserId !== id) {
-      setRefetchInterval(300);
+      setRefetchInterval(300)
       setTimeout(() => {
-        setRefetchInterval(false);
-      }, 400);
+        setRefetchInterval(false)
+      }, 400)
     }
-  }, [id, otherUserInfo?.otherUserId]);
+  }, [id, otherUserInfo?.otherUserId])
 
   useEffect(() => {
     if (tabValue === 'collected') {
-      setRefetchInterval(500);
+      setRefetchInterval(500)
       setTimeout(() => {
-        setRefetchInterval(false);
-      }, 5000);
+        setRefetchInterval(false)
+      }, 5000)
     }
-  }, [tabValue]);
-  const data = selectedList?.data?.items;
-  const loadChecker = data?.length > 0 && data[0]?.request_type !== 'COLLECTED';
+  }, [tabValue])
+  const data = selectedList?.data?.items
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {data?.length === 0 ? (
+        {loadingList || loadingListByUser ? (
+          <Loader page="my-page" />
+        ) : data?.length === 0 ? (
           <Box className={styles.NoItemsContainer}>
             <NoItemsYet />
             <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
           </Box>
-        ) : loadChecker ? (
-          <Loader page="my-page" />
         ) : (
           data?.map((nftItem, index) => {
             return (
@@ -91,12 +90,12 @@ const CollectedBottom = ({ tabValue, id }) => {
                   }
                 />
               </Grid>
-            );
+            )
           })
         )}
       </Grid>
     </Box>
-  );
-};
+  )
+}
 
-export default CollectedBottom;
+export default CollectedBottom
