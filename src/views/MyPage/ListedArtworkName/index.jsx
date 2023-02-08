@@ -111,6 +111,8 @@ const ListedArtworkBottom = () => {
     page: page,
   });
 
+  console.log('list: ', list);
+
   const handlePaginate = (p) => {
     setPage(p);
   };
@@ -184,7 +186,7 @@ const ListedArtworkBottom = () => {
 
   const dateConverter = (stringNum) => {
     let date;
-    if (stringNum.includes('-')) {
+    if (stringNum && stringNum.includes('-')) {
       date = stringNum;
     } else {
       date = new Date(Number(stringNum) * 1000);
@@ -262,8 +264,11 @@ const ListedArtworkBottom = () => {
                     navigate(
                       `/marketplace/${item?.nft?.token_id}/${item?.collection?.contract_address}`
                     );
-                  const type =
+                  const typeNft =
                     item?.request_type === 'MULTI_LISTED' ? 'M' : 'L';
+                  if (typeNft === 'L' && item?.collection?.type === 'M') {
+                    return null;
+                  }
                   return (
                     <TableRow
                       navigateClick={navigateClick}
@@ -271,7 +276,7 @@ const ListedArtworkBottom = () => {
                       dateConverter={dateConverter}
                       price_usd={price_usd}
                       handleClick={handleClick}
-                      type={type}
+                      type={typeNft}
                     />
                   );
                 })}
