@@ -1,47 +1,47 @@
-import { Box, Button, Typography } from "@mui/material";
-import React from "react";
-import NumberFormat from "react-number-format";
-import { CTableCell, CTableRow } from "../../../../../components/CTable";
-import CartIcon from "../../../../../assets/icons/cart.svg?component";
-import OfferIcon from "../../../../../assets/icons/offer.svg?component";
-import CancelIcon from "../../../../../assets/icons/cancel.svg?component";
-import ListedIcon from "../../../../../assets/icons/listed.svg?component";
-import MintedIcon from "../../../../../assets/icons/minted.svg?component";
-import { makeStyles } from "@mui/styles";
-import { truncateAddress } from "../../../../../utils";
-import { redirectAccount, redirectTx } from "../../../../../utils/redirect";
-import TokenIcon from "../../../../../assets/images/con-token.svg?component";
-import { charCurrency } from "../../../../../utils/currency";
-import numFormat from "../../../../../utils/numFormat";
-import moment from "moment/moment";
-import { useSelector } from "react-redux";
+import { Box, Button, Typography } from '@mui/material'
+import React from 'react'
+import NumberFormat from 'react-number-format'
+import { CTableCell, CTableRow } from '../../../../../components/CTable'
+import CartIcon from '../../../../../assets/icons/cart.svg?component'
+import OfferIcon from '../../../../../assets/icons/offer.svg?component'
+import CancelIcon from '../../../../../assets/icons/cancel.svg?component'
+import ListedIcon from '../../../../../assets/icons/listed.svg?component'
+import MintedIcon from '../../../../../assets/icons/minted.svg?component'
+import { makeStyles } from '@mui/styles'
+import { truncateAddress } from '../../../../../utils'
+import { redirectAccount, redirectTx } from '../../../../../utils/redirect'
+import TokenIcon from '../../../../../assets/images/con-token.svg?component'
+import { charCurrency } from '../../../../../utils/currency'
+import numFormat from '../../../../../utils/numFormat'
+import moment from 'moment/moment'
+import { useSelector } from 'react-redux'
 
 const eventTypes = {
   SOLD: {
-    label: "Trade",
-    icon: <CartIcon />,
+    label: 'Trade',
+    icon: <CartIcon />
   },
   FINISH: {
-    label: "Trade",
-    icon: <CartIcon />,
+    label: 'Trade',
+    icon: <CartIcon />
   },
   BID: {
-    label: "Offer",
-    icon: <OfferIcon />,
+    label: 'Offer',
+    icon: <OfferIcon />
   },
   CANCEL: {
-    label: "Cancel",
-    icon: <CancelIcon />,
+    label: 'Cancel',
+    icon: <CancelIcon />
   },
   PLACE: {
-    label: "Listed",
-    icon: <ListedIcon />,
+    label: 'Listed',
+    icon: <ListedIcon />
   },
   MINT: {
-    label: "Minted",
-    icon: <MintedIcon />,
-  },
-};
+    label: 'Minted',
+    icon: <MintedIcon />
+  }
+}
 
 const useStyles = makeStyles((theme) => ({
   cell: {
@@ -54,21 +54,31 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: theme.palette.info.main1,
-    textDecoration: "underline",
-  },
-}));
+    textDecoration: 'underline'
+  }
+}))
 
 const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
-  const classes = useStyles();
-  const { price_krw } = useSelector((store) => store.wallet);
+  const classes = useStyles()
+  const { price_krw } = useSelector((store) => store.wallet)
 
   return (
     <CTableRow>
       <CTableCell className={classes.cell}>
-        {numFormat(item.price)} CYCON
+        <NumberFormat
+          value={numFormat(item.price)}
+          displayType={'text'}
+          thousandSeparator={true}
+        />{' '}
+        CYCON
       </CTableCell>
       <CTableCell className={classes.cell}>
-        ₩ {numFormat(item.price * price_krw)}
+        ￦{' '}
+        <NumberFormat
+          value={numFormat(item.price * price_krw)}
+          displayType={'text'}
+          thousandSeparator={true}
+        />
       </CTableCell>
       <CTableCell className={classes.cell}>{item.quantity}</CTableCell>
       <CTableCell className={classes.cell}>
@@ -82,7 +92,7 @@ const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
         </a>
       </CTableCell>
       <CTableCell className={classes.cell}>
-        {moment(item.created_at).format("DD.MM.yyyy HH:mm")}
+        {moment(item.created_at).format('yyyy.MM.DD HH:mm')}
       </CTableCell>
 
       <CTableCell className={classes.cell}>
@@ -107,7 +117,7 @@ const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
         </Button>
       </CTableCell>
     </CTableRow>
-  );
-};
+  )
+}
 
-export default ListingTableItem;
+export default ListingTableItem
