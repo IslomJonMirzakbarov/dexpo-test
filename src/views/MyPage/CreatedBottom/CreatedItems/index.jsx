@@ -50,6 +50,7 @@ const CreatedItems = ({ id }) => {
                 purchaseCount={nftItem?.nft?.like_count}
                 quantity={nftItem?.nft?.token_quantity}
                 page="createdItems"
+                nftStandard={nftItem?.collection?.type}
                 onClick={() =>
                   navigate(
                     `/marketplace/${nftItem?.nft?.token_id}/${nftItem?.collection?.contract_address}`
