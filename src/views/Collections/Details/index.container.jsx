@@ -21,7 +21,8 @@ import ValueTable from './ValueTable'
 import moment from 'moment'
 import HistoryTable from './HistoryTable'
 import TokenImg from '../../../assets/images/con-token.svg?component'
-import AddIcon from '../../../assets/icons/add.svg?component'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import CheckoutModal from '../../../components/Modals/CheckoutModal'
 import { DATE_FORMAT, priceTypeChar } from '../../../constants'
 import MoreCollections from './MoreCollections'
@@ -371,7 +372,7 @@ const CollectionDetailsContainer = ({
         >
           <AccordionSummary
             className={styles.AccordionSummary}
-            expandIcon={<AddIcon className={styles.AddIcon} />}
+            expandIcon={<CustomExpandIcon />}
             aria-controls='panel1a-content'
             id='panel1a-header'
           >
@@ -438,3 +439,31 @@ const CollectionDetailsContainer = ({
 }
 
 export default CollectionDetailsContainer
+
+const CustomExpandIcon = () => {
+  return (
+    <Box
+      sx={{
+        '.collapsIconWrapper': {
+          display: 'flex'
+        },
+        '.Mui-expanded & > .collapsIconWrapper': {
+          display: 'none'
+        },
+        '.expandIconWrapper': {
+          display: 'none'
+        },
+        '.Mui-expanded & > .expandIconWrapper': {
+          display: 'flex'
+        }
+      }}
+    >
+      <div className='expandIconWrapper'>
+        <RemoveIcon />
+      </div>
+      <div className='collapsIconWrapper'>
+        <AddIcon />
+      </div>
+    </Box>
+  )
+}
