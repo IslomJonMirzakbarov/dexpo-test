@@ -80,16 +80,16 @@ const NFTSellRequest = ({
 
   const notEnoughBalance = balance < market?.price
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (newNftSrc) {
-        setRefetchInterval(300)
-        setTimeout(() => {
-          setRefetchInterval(false)
-        }, 500)
-      }
-    }, 7000)
-  }, [newNftSrc])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (newNftSrc) {
+  //       setRefetchInterval(300)
+  //       setTimeout(() => {
+  //         setRefetchInterval(false)
+  //       }, 500)
+  //     }
+  //   }, 7000)
+  // }, [newNftSrc])
 
   const getBalnc = useCallback(async () => {
     try {
