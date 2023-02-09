@@ -53,6 +53,7 @@ const CollectionDetailsPage = () => {
   }
 
   const handlePaginateHistory = (value) => {
+    console.log('value', value)
     sethistoryPage(value)
   }
 
@@ -65,8 +66,6 @@ const CollectionDetailsPage = () => {
     contractAddress: contract_address,
     page: multiOffersPage
   })
-
-  console.log('multiNftOffers', multiNftOffers)
 
   const {
     data: bidHistory,

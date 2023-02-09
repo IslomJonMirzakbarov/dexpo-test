@@ -137,7 +137,10 @@ const NFTSellRequestContainer = ({
   handleChangeCount,
   handlePaginateMultipleNft,
   multiOffersPage,
-  isLoadingMultiNft
+  isLoadingMultiNft,
+  loadingHistory,
+  handlePaginateHistory,
+  historyPage
 }) => {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -364,7 +367,12 @@ const NFTSellRequestContainer = ({
         )}
         <Grid container>
           <Grid item lg={12}>
-            <HistoryTable data={history} />
+            <HistoryTable
+              data={history}
+              page={historyPage}
+              loading={loadingHistory}
+              handlePaginate={handlePaginateHistory}
+            />
           </Grid>
         </Grid>
       </Container>
