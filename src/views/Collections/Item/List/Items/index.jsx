@@ -65,8 +65,8 @@ const CollectionItems = ({
                       priceType={nft?.token_price}
                       hasAction={!!nft?.token_price}
                       purchaseCount={nft?.like_count}
-                      page="collectionItem"
-                      nftStandard={collection?.type}
+                      // page="collectionItem"
+                      // nftStandard={collection?.type}
                       onClick={() =>
                         getNavigate(
                           market,
