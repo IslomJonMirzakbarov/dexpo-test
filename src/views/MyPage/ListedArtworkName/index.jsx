@@ -19,16 +19,12 @@ import numFormat from '../../../utils/numFormat'
 import { useTranslation } from 'react-i18next'
 import CPagination from '../../../components/CPagination'
 
-const TableRow = ({
-  item,
-  navigateClick,
-  dateConverter,
-  price_usd,
-  handleClick,
-  type,
-}) => {
+const TableRow = ({ item, navigateClick, price_usd, handleClick, type }) => {
   const { t } = useTranslation()
   const isListed = type === 'L'
+  const formattedDate = isListed
+    ? moment.unix(item?.market?.created_at).format('YYYY-MM-DD HH:mm:ss')
+    : moment(item?.multi?.created_at).format('YYYY-MM-DD HH:mm:ss')
   const exchangedPrice =
     (isListed ? item?.market?.price : item?.multi?.price) * price_usd
   return (
@@ -72,11 +68,7 @@ const TableRow = ({
         </Box>
       </td>
 
-      <td>
-        {dateConverter(
-          isListed ? item?.market?.created_at : item?.multi?.created_at
-        )}
-      </td>
+      <td>{formattedDate}</td>
 
       <td>
         <Button className={styles.BtnCancel} onClick={() => handleClick(item)}>
@@ -181,17 +173,6 @@ const ListedArtworkBottom = () => {
     setOpenModal(true)
   }
 
-  const dateConverter = (stringNum) => {
-    let date
-    if (stringNum && stringNum.includes('-')) {
-      date = stringNum
-    } else {
-      date = new Date(Number(stringNum) * 1000)
-    }
-    const fdate = moment(date).format('YYYY.MM.DD hh:mm:ss')
-    return fdate
-  }
-
   const data = list?.data?.items
   const { t } = useTranslation()
   return (
@@ -271,7 +252,6 @@ const ListedArtworkBottom = () => {
                     <TableRow
                       navigateClick={navigateClick}
                       item={item}
-                      dateConverter={dateConverter}
                       price_usd={price_usd}
                       handleClick={handleClick}
                       type={typeNft}
