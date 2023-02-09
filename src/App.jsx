@@ -6,8 +6,6 @@ import { queryClient } from './constants/queryClients';
 import { Toaster } from 'react-hot-toast';
 import { persistor, store } from './store';
 import { Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
-import { HelmetProvider } from 'react-helmet-async';
 
 import AlertProvider from './providers/AlertProvider';
 import GlobalFunctionsProvider from './providers/GlobalFunctionsProvider';
@@ -16,7 +14,6 @@ import Router from './router';
 import Loader from './components/Loader';
 import MergedLayout from './layouts/MergedLayout';
 import ScrollToTop from './components/ScrollToTop';
-import SEO from './components/SEO';
 
 import './i18n.js';
 import 'slick-carousel/slick/slick.css';
@@ -30,16 +27,9 @@ const toastOptions = {
 };
 
 function App() {
-  const { t } = useTranslation();
-
   return (
     <Suspense fallback={<Loader />}>
       <div className="App">
-        <SEO
-          title={t('HOME_TITLE')}
-          description={t('HOME_DESCRIPTION')}
-          keywords={t('HOME_KEYWORDS')}
-        />
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <QueryClientProvider client={queryClient}>
