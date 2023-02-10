@@ -52,15 +52,15 @@ const CollectedBottom = ({ tabValue, id }) => {
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {loadingList ||
-        loadingListByUser ||
-        data[0]?.request_type !== 'COLLECTED' ? (
-          <Loader page="my-page" />
-        ) : data?.length === 0 ? (
+        {data?.length === 0 ? (
           <Box className={styles.NoItemsContainer}>
             <NoItemsYet />
             <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
           </Box>
+        ) : loadingList ||
+          loadingListByUser ||
+          data[0]?.request_type !== 'COLLECTED' ? (
+          <Loader page="my-page" />
         ) : (
           data?.map((nftItem, index) => {
             return (
