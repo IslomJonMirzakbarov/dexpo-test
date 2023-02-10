@@ -3,6 +3,12 @@ import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { securedAPI } from '../services/api'
 
+const configQuery = {
+  refetchOnMount: 'always',
+  refetchOnWindowFocus: true, // constantly updating when newCollection created
+  refetchOnReconnect: true,
+}
+
 const getHistory = (token, { contract_address, token_id, page, size }) =>
   securedAPI(token)
     .get(`/api/nft/history`, {
@@ -10,8 +16,8 @@ const getHistory = (token, { contract_address, token_id, page, size }) =>
         contract_address,
         token_id,
         page,
-        size
-      }
+        size,
+      },
     })
     .then((res) => res?.data?.data)
 
@@ -30,10 +36,11 @@ const useNFTHistoryAPI = ({
         contract_address: contractAddress,
         token_id: tokenId,
         page,
-        size
+        size,
       }),
     {
-      enabled: !!contractAddress && !!tokenId
+      enabled: !!contractAddress && !!tokenId,
+      ...configQuery,
     }
   )
 

@@ -87,7 +87,6 @@ const Btns = {
 const ListedArtworkBottom = () => {
   const navigate = useNavigate()
   const { price_usd } = useSelector((store) => store.wallet)
-
   const [openModal, setOpenModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
   const [isLoading, setIsLoading] = useState(awaitStatus.INITIAL)
@@ -107,9 +106,21 @@ const ListedArtworkBottom = () => {
     setPage(p)
   }
 
+  const requestType = list?.data?.items[0]?.request_type
+  useEffect(() => {
+    if (requestType !== 'LISTED' && requestType !== 'MULTI_LISTED') {
+      refetchList({
+        isGetList: true,
+        size: 10,
+        page: page,
+      })
+    }
+  }, [list, page, refetchList, requestType])
+
   useEffect(() => {
     refetchList({
       isGetList: true,
+      type: active === 'MULTIPLE' ? 'MULTI_LISTED' : 'LISTED',
       size: 10,
       page: page,
     })
@@ -204,7 +215,8 @@ const ListedArtworkBottom = () => {
         })}
       </Box>
 
-      {loadingList ? (
+      {loadingList ||
+      (requestType !== 'LISTED' && requestType !== 'MULTI_LISTED') ? (
         <Loader page="my-page" />
       ) : data?.length === 0 ? (
         <Box className={styles.NoItemsContainer}>

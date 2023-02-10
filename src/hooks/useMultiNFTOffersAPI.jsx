@@ -2,6 +2,12 @@ import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { securedAPI } from '../services/api'
 
+const configQuery = {
+  refetchOnMount: 'always',
+  refetchOnWindowFocus: true, // constantly updating when newCollection created
+  refetchOnReconnect: true,
+}
+
 const getMultiNFTOffers = (token, { contract_address, token_id, page, size }) =>
   securedAPI(token)
     .get(`/api/nft/multiNftOffers`, {
@@ -9,8 +15,8 @@ const getMultiNFTOffers = (token, { contract_address, token_id, page, size }) =>
         contract_address,
         token_id,
         page,
-        size
-      }
+        size,
+      },
     })
     .then((res) => res?.data?.data)
 
@@ -18,7 +24,7 @@ const useMultiNFTOffers = ({
   contractAddress,
   tokenId,
   page = 1,
-  size = 10
+  size = 10,
 }) => {
   const { token } = useSelector((store) => store.auth)
 
@@ -29,10 +35,11 @@ const useMultiNFTOffers = ({
         contract_address: contractAddress,
         token_id: tokenId,
         page,
-        size
+        size,
       }),
     {
-      enabled: !!contractAddress && !!tokenId
+      enabled: !!contractAddress && !!tokenId,
+      ...configQuery,
     }
   )
 
