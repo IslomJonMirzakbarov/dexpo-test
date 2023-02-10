@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom'
 import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton'
 import NoItemsFound from '../../../../../components/NoItems'
 import { useTheme } from '@mui/styles'
-import { useSelector } from 'react-redux'
 
 const CollectionItems = ({
   sort = '',

@@ -52,7 +52,9 @@ const CollectedBottom = ({ tabValue, id }) => {
   return (
     <Box className={styles.Container}>
       <Grid container spacing={3} columns={16}>
-        {loadingList || loadingListByUser ? (
+        {loadingList ||
+        loadingListByUser ||
+        data[0]?.request_type !== 'COLLECTED' ? (
           <Loader page="my-page" />
         ) : data?.length === 0 ? (
           <Box className={styles.NoItemsContainer}>
