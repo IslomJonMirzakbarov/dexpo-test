@@ -61,17 +61,17 @@ const PendingSell = ({
   const { t } = useTranslation()
   return (
     <Box
-      display='flex'
-      flexDirection='column'
-      alignItems='center'
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
       className={classes.wrapper}
       my={2}
       px={3}
     >
-      <Typography variant='modalTitle' mb={2}>
+      <Typography variant="modalTitle" mb={2}>
         {t('Complete your listing')}
       </Typography>
-      <Box display='flex' mb={5}>
+      <Box display="flex" mb={5}>
         <img
           className={classes.img}
           src={img}
@@ -79,14 +79,14 @@ const PendingSell = ({
           width={150}
           height={150}
         />
-        <Box display='flex' flexDirection='column'>
+        <Box display="flex" flexDirection="column">
           <Box className={classes.box}>
-            <Box display='flex' flexDirection='column' py={1} px={2}>
-              <Typography fontWeight={600} color='grey.2000' mt={1}>
+            <Box display="flex" flexDirection="column" py={1} px={2}>
+              <Typography fontWeight={600} color="grey.2000" mt={1}>
                 {collectionName}
               </Typography>
             </Box>
-            <Box display='flex' justifyContent='space-between' px={2} pb={1}>
+            <Box display="flex" justifyContent="space-between" px={2} pb={1}>
               <Typography fontWeight={700}>{name}</Typography>
               {nftStandard !== 'M' && (
                 <Typography>
@@ -95,23 +95,23 @@ const PendingSell = ({
               )}
             </Box>
             <Box
-              display='flex'
-              alignItems='center'
-              justifyContent='space-between'
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
               px={2}
             >
-              <Box display='flex' alignItems='center'>
-                <Typography color='grey.1000' fontWeight={400}>
+              <Box display="flex" alignItems="center">
+                <Typography color="grey.1000" fontWeight={400}>
                   {t("Creator's fee:")}
                 </Typography>
                 &nbsp;&nbsp;
-                <Typography color='primary' fontWeight={600}>
+                <Typography color="primary" fontWeight={600}>
                   2%
                 </Typography>
               </Box>
               {nftStandard === 'M' && (
-                <Typography fontWeight={600} color='grey.2000'>
-                  Quantity: {count}
+                <Typography fontWeight={600} color="grey.2000">
+                  {t('Quantity:')} {count}
                 </Typography>
               )}
             </Box>
@@ -119,18 +119,18 @@ const PendingSell = ({
               <Box
                 px={2}
                 py={1}
-                display='flex'
-                justifyContent='space-between'
+                display="flex"
+                justifyContent="space-between"
                 className={classes.price}
               >
-                <Typography variant='placeholder' fontWeight={600}>
+                <Typography variant="placeholder" fontWeight={600}>
                   <NumberFormat
                     value={numFormat(sellPrice)}
                     displayType={'text'}
                     thousandSeparator={true}
                   />
                 </Typography>
-                <Box display='flex' alignItems='center'>
+                <Box display="flex" alignItems="center">
                   <ConToken className={classes.token} />
                   <Typography fontWeight={600} ml={1}>
                     CYCON
@@ -148,19 +148,19 @@ const PendingSell = ({
                   value={numFormat(exchangedPrice)}
                   displayType={'text'}
                   thousandSeparator={true}
-                  prefix='￦'
+                  prefix="￦"
                 />
               </Typography>
             </Box>
           </Box>
-          <Box mt='19px'>
+          <Box mt="19px">
             <ConditionAwaitLabel
               type={approve}
               index={1}
               title={t('Approve collection')}
             />
           </Box>
-          <Box mt='19px'>
+          <Box mt="19px">
             <ConditionAwaitLabel
               type={listing}
               index={2}
@@ -172,7 +172,7 @@ const PendingSell = ({
       </Box>
       {error && (
         <Box maxWidth={550}>
-          <Typography color='error'>{error}</Typography>
+          <Typography color="error">{error}</Typography>
         </Box>
       )}
     </Box>
