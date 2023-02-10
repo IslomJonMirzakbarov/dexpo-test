@@ -69,7 +69,7 @@ const useSellNFT = ({
   const isFixedContract = type?.value === 'fixed' || market?.type === 'F'
 
   const handleToggle = () => {
-    setOpenModal('sell')
+    setOpenModal(true)
   }
 
   const handleRefetch = () => {
@@ -241,7 +241,7 @@ const useSellNFT = ({
         `${t('Price should be greater or equal to')} ${floorPrice} CYCON`
       )
     if (availableQuantity && quantity > availableQuantity)
-      return toast.error(t(`Max available quantity ${availableQuantity}`))
+      return toast.error(`Max available quantity ${availableQuantity}`)
 
     if (isCancel) handleCancel()
     else {
