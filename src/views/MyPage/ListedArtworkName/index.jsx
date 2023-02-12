@@ -215,14 +215,14 @@ const ListedArtworkBottom = () => {
         })}
       </Box>
 
-      {loadingList ||
-      (requestType !== 'LISTED' && requestType !== 'MULTI_LISTED') ? (
-        <Loader page="my-page" />
-      ) : data?.length === 0 ? (
+      {data?.length === 0 ? (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
           <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
         </Box>
+      ) : loadingList ||
+        (requestType !== 'LISTED' && requestType !== 'MULTI_LISTED') ? (
+        <Loader page="my-page" />
       ) : (
         <table className={styles.Table}>
           <thead className={styles.TableHead}>
