@@ -23,6 +23,7 @@ import { makeStyles, useTheme } from '@mui/styles'
 import { getPaginationDetailsByPathname } from '../../utils/paginationQueries'
 import CustomSwitch from '../../components/CustomSwitch'
 import { useTranslation } from 'react-i18next'
+import CTabs from '../../components/CTabs'
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -45,6 +46,42 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }))
+
+const tabs = [
+  {
+    title: 'All NFTs',
+    link: '/marketplace?filter=RECENTLY_LISTED',
+    id: 1
+  },
+  {
+    title: 'WADS',
+    link: '/marketplace?filter=WADS',
+    id: 2
+  },
+  {
+    title: 'Single',
+    link: '/marketplace?filter=SINGLE',
+    id: 3
+  },
+  {
+    title: 'Multiple',
+    link: '/marketplace?filter=MULTI',
+    id: 4
+  },
+  {
+    title: 'Original',
+    link: '/originalNft',
+    id: 5
+  }
+  // {
+  //   title: 'Ceramic',
+  //   link: '/marketplace?filter=CERAMIC'
+  // },
+  // {
+  //   title: 'Jewel',
+  //   link: '/marketplace?filter=JEWEL'
+  // }
+]
 
 const Collections = () => {
   const navigate = useNavigate()
@@ -91,6 +128,10 @@ const Collections = () => {
     debounce((val) => setSearch(val), 300),
     []
   )
+
+  // const activeTab = useMemo(()=>{
+
+  // },[filter?.value])
 
   useEffect(() => {
     debounced(input)
@@ -153,9 +194,7 @@ const Collections = () => {
           </Typography>
         </Box>
         <Box className={styles.SwitchFilterBox} mt={5}>
-          <Box className={styles.SwitchBox}>
-            <CustomSwitch handleClick={handleSwitchClick} activeOption={2} />
-          </Box>
+          <CTabs items={tabs} />
           <Box className={classes.filter}>
             <SearchField
               isDark={true}

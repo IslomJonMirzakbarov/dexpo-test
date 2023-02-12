@@ -195,11 +195,6 @@ const NFTSellRequest = ({
   }
 
   const makePurchase = async () => {
-    if (nft.standard === 'M' && count > purchaseNft.quantity) {
-      setError(`Max avaible quantity ${purchaseNft.quantity}`)
-      setCheckoutStatus(checkoutStatuses.INITIAL)
-      return
-    }
     setCheckoutStatus(checkoutStatuses.PENDING)
 
     try {
@@ -226,6 +221,12 @@ const NFTSellRequest = ({
   const makeContract = async () => {
     const bidPrice = getValues('bidPrice')
     const price = market?.price
+
+    if (nft.standard === 'M' && count > purchaseNft.quantity) {
+      setError(`Max avaible quantity ${purchaseNft.quantity}`)
+      setCheckoutStatus(checkoutStatuses.INITIAL)
+      return
+    }
 
     if (notEnoughBalance) return setError(t(metamaskError['-32603']))
 
@@ -275,6 +276,7 @@ const NFTSellRequest = ({
     handeConfirm,
     handleToggle
   } = useSellNFT({
+    setCheckoutStatus,
     collection,
     status,
     setStatus,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import CollectionDetails from './index'
 import Loader from '../../../components/Loader'
@@ -84,17 +84,25 @@ const CollectionDetailsPage = () => {
     ?.toLowerCase()
     ?.includes(loweredAccount)
 
-  const isUserOwner = nft?.holders.find(
-    (item) => item?.owner_address?.toLowerCase() === loweredAccount
+  const isUserOwner = useMemo(
+    () =>
+      nft?.holders.find(
+        (item) => item?.owner_address?.toLowerCase() === loweredAccount
+      ),
+    [nft?.holders]
   )
 
-  const isOwner =
-    nft?.standard === 'M' && isUserOwner
-      ? isUserOwner
-      : !market?.price
-      ? isUserOwner
-      : isUserSeller
-  const labelType = isOwner ? 'SELL' : 'PURCHASE'
+  const isOwner = useMemo(
+    () =>
+      nft?.standard === 'M' && isUserOwner
+        ? isUserOwner
+        : !market?.price
+        ? isUserOwner
+        : isUserSeller,
+    [isUserOwner, nft?.standard, market?.price]
+  )
+
+  const labelType = useMemo(() => (isOwner ? 'SELL' : 'PURCHASE'), [isOwner])
   const loading = loadingDetail
   const fetching = isFetchingDetail || isFetchingHistory
 

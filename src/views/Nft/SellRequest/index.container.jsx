@@ -148,7 +148,6 @@ const NFTSellRequestContainer = ({
   const classes = useStyles()
 
   const { newNftSrc } = useSelector((store) => store.nft)
-  console.log('marketStatus', marketStatus)
   const [openImg, setOpenImg] = useState(false)
   const { price_krw } = useSelector((store) => store.wallet)
 
