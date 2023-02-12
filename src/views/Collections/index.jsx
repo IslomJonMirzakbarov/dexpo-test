@@ -194,7 +194,10 @@ const Collections = () => {
           </Typography>
         </Box>
         <Box className={styles.SwitchFilterBox} mt={5}>
-          <CTabs items={tabs} />
+          {/* <CTabs items={tabs} /> */}
+          <Box className={styles.SwitchBox}>
+            <CustomSwitch handleClick={handleSwitchClick} activeOption={2} />
+          </Box>
           <Box className={classes.filter}>
             <SearchField
               isDark={true}
