@@ -1,17 +1,18 @@
-import { Paper } from '@mui/material';
-import React from 'react';
-import useCollectionAPI from '../../../hooks/useCollectionApi';
+import { Paper } from '@mui/material'
+import React from 'react'
+import useCollectionAPI from '../../../hooks/useCollectionApi'
 
-import MyCollectionsInfo from './Info';
-import MyCollectionsList from './List';
-import styles from './style.module.scss';
+import MyCollectionsInfo from './Info'
+import MyCollectionsList from './List'
+import styles from './style.module.scss'
 
 const MyCollections = () => {
   const { collections, isLoading } = useCollectionAPI({
     isDetail: true,
     page: 1,
-    filter_type: 'COMPLETE'
-  });
+    filter_type: 'COMPLETE',
+    size: 20000,
+  })
 
   return (
     <Paper className={styles.container}>
@@ -21,7 +22,7 @@ const MyCollections = () => {
         collections={collections?.data?.items}
       />
     </Paper>
-  );
-};
+  )
+}
 
-export default MyCollections;
+export default MyCollections

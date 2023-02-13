@@ -28,7 +28,7 @@ const CollectionCard = ({
         {!!type && (
           <Box className={styles.typePlate}>
             <span style={{ color: type === "S" ? "#FF006B" : "#183dbe" }}>
-              {typeWord}
+              {t(typeWord)}
             </span>
           </Box>
         )}

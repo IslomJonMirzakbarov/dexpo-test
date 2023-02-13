@@ -4,7 +4,7 @@ import {
   Grid,
   Paper,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import DSelect from '../../components/DSelect'
@@ -19,7 +19,7 @@ import NFTCardSkeleton from '../../components/NFTCard/index.skeleton'
 import NoItemsFound from '../../components/NoItems'
 import {
   marketFilterList,
-  orginalNftFilterList
+  orginalNftFilterList,
 } from '../../constants/marketFilter'
 import { debounce } from 'lodash'
 import { makeStyles, useTheme } from '@mui/styles'
@@ -40,44 +40,44 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'column',
       alignItems: 'flex-end',
       width: '100%',
-      marginTop: 15
-    }
+      marginTop: 15,
+    },
   },
   search: {
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
       width: '100%',
-      marginBottom: 0
-    }
-  }
+      marginBottom: 0,
+    },
+  },
 }))
 
 const tabs = [
   {
     title: 'All NFTs',
     link: '/marketplace?categoryType=ALL&page=1',
-    key: 'ALL'
+    key: 'ALL',
   },
   {
     title: 'WADS',
     link: '/marketplace?categoryType=WADS&page=1',
-    key: 'WADS'
+    key: 'WADS',
   },
   {
     title: 'Single',
     link: '/marketplace?categoryType=SINGLE&page=1',
-    key: 'SINGLE'
+    key: 'SINGLE',
   },
   {
     title: 'Multiple',
     link: '/marketplace?categoryType=MULTI&page=1',
-    key: 'MULTI'
+    key: 'MULTI',
   },
   {
     title: 'Original',
     link: '/marketplace?categoryType=ORIGINAL_NFT&page=1',
-    key: 'ORIGINAL_NFT'
-  }
+    key: 'ORIGINAL_NFT',
+  },
   // {
   //   title: 'Ceramic',
   //   link: '/marketplace?filter=CERAMIC'
@@ -129,7 +129,7 @@ const Collections = () => {
     page,
     type: filter?.value,
     search,
-    categoryType: categoryType
+    categoryType: categoryType,
   })
 
   useEffect(() => {
@@ -169,8 +169,8 @@ const Collections = () => {
         page: 1,
         filter: filter?.value || '',
         search: e.target.value,
-        categoryType
-      }).toString()
+        categoryType,
+      }).toString(),
     })
   }
 
@@ -202,12 +202,12 @@ const Collections = () => {
   return (
     <Paper className={styles.container}>
       <Container maxWidth>
-        <Box display='flex' justifyContent='center'>
+        <Box display="flex" justifyContent="center">
           <Typography
-            variant='h2'
+            variant="h2"
             fontWeight={700}
-            fontSize='40px!important'
-            lineHeight='60px'
+            fontSize="40px!important"
+            lineHeight="60px"
           >
             {t('Marketplace')}
           </Typography>
@@ -228,7 +228,7 @@ const Collections = () => {
               paperClass={classes.search}
             />
             <DSelect
-              label='Filter'
+              label="Filter"
               value={filter}
               items={
                 categoryType === 'ORIGINAL_NFT'
@@ -240,7 +240,7 @@ const Collections = () => {
           </Box>
         </Box>
         {categoryType !== 'WADS' && (
-          <Box display='flex' my={4}>
+          <Box display="flex" my={4}>
             <Grid container spacing={matches ? 0 : 3}>
               {isLoading
                 ? mockData.map((_, i) => (
@@ -278,7 +278,7 @@ const Collections = () => {
                         hasAction={!!market?.price}
                         purchaseCount={nft.like_count}
                         tokenId={nft?.token_id}
-                        page='collections'
+                        page="collections"
                         type={collection?.type}
                         quantity={nft.standard === 'M' ? market?.amount : null}
                         nftStandard={nft.standard}

@@ -91,7 +91,7 @@ const NFTCard = ({
         <div className={styles.badge}>
           {isVisible && (
             <Box className={styles.numberPlate}>
-              <span>x{quantity}</span>
+              <span style={{ fontSize: 13 }}>x{quantity}</span>
             </Box>
           )}
           {nftStandard === 'S' && priceType && (

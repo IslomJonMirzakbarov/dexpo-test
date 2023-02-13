@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form'
 import { parseDate } from '../../../utils/parseDate'
 import {
   getRPCErrorMessage,
-  metamaskError
+  metamaskError,
 } from '../../../constants/metamaskErrors'
 import useCurrnetProvider from '../../../hooks/useCurrentProvider'
 import { useTranslation } from 'react-i18next'
@@ -40,7 +40,7 @@ const CollectionDetails = ({
   isLoadingMultiNft,
   historyPage,
   handlePaginateHistory,
-  loadingHistory
+  loadingHistory,
 }) => {
   const {
     checkAllowance,
@@ -48,17 +48,16 @@ const CollectionDetails = ({
     purchase,
     bid,
     getUserBalance,
-    purchaseMultiNft
+    purchaseMultiNft,
   } = useCurrnetProvider()
   const [balance, setBalance] = useState(0)
   const [purchaseNft, setPurchaseNft] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const { control, getValues } = useForm({
     defaultValues: {
-      bidPrice: ''
-    }
+      bidPrice: '',
+    },
   })
-
   useEffect(() => {
     setPurchaseNft(
       multiNftOffers?.items?.sort((a, b) => a.price - b.price)?.[0]
@@ -144,7 +143,7 @@ const CollectionDetails = ({
   const handleLike = () => {
     const payload = {
       token_id: id,
-      contract_address: contract_address
+      contract_address: contract_address,
     }
     postLike.mutate(payload, { onSuccess: () => refetchDetail() })
   }
@@ -201,7 +200,6 @@ const CollectionDetails = ({
       setStatus(checkoutStatuses.INITIAL)
     }
   }
-
   const makePurchase = async () => {
     setStatus(checkoutStatuses.PENDING)
 
@@ -260,10 +258,10 @@ const CollectionDetails = ({
   if (isNotExist)
     return (
       <Box
-        display='flex'
-        alignItems='center'
-        justifyContent='center'
-        height='80vh'
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        height="80vh"
       >
         <NoItemsFound />
       </Box>

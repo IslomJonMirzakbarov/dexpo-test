@@ -8,10 +8,10 @@ const QuantityInput = ({ handleChange, value, available }) => {
   const { t } = useTranslation()
   return (
     <div className={styles.wrapper}>
-      <label>Quantity</label>
+      <label>{t('Quantity')}</label>
       <Box className={styles.box}>
         <input type='number' value={value} onChange={handleChange} />
-        <div className={styles.minQuantity}>{available} available</div>
+        <div className={styles.minQuantity}>{available} {t('available')}</div>
       </Box>
     </div>
   )

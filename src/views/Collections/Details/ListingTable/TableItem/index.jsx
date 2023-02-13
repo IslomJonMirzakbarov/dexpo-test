@@ -15,53 +15,54 @@ import { charCurrency } from '../../../../../utils/currency'
 import numFormat from '../../../../../utils/numFormat'
 import moment from 'moment/moment'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const eventTypes = {
   SOLD: {
     label: 'Trade',
-    icon: <CartIcon />
+    icon: <CartIcon />,
   },
   FINISH: {
     label: 'Trade',
-    icon: <CartIcon />
+    icon: <CartIcon />,
   },
   BID: {
     label: 'Offer',
-    icon: <OfferIcon />
+    icon: <OfferIcon />,
   },
   CANCEL: {
     label: 'Cancel',
-    icon: <CancelIcon />
+    icon: <CancelIcon />,
   },
   PLACE: {
     label: 'Listed',
-    icon: <ListedIcon />
+    icon: <ListedIcon />,
   },
   MINT: {
     label: 'Minted',
-    icon: <MintedIcon />
-  }
+    icon: <MintedIcon />,
+  },
 }
 
 const useStyles = makeStyles((theme) => ({
   cell: {
     padding: '18px 26px!important',
     fontSize: '15px',
-    lineHeight: '22px'
+    lineHeight: '22px',
     // '& svg': {
     //   width: 32
     // }
   },
   link: {
     color: theme.palette.info.main1,
-    textDecoration: 'underline'
-  }
+    textDecoration: 'underline',
+  },
 }))
 
 const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
   const classes = useStyles()
   const { price_krw } = useSelector((store) => store.wallet)
-
+  const { t } = useTranslation()
   return (
     <CTableRow>
       <CTableCell className={classes.cell}>
@@ -85,8 +86,8 @@ const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
         <a
           className={classes.link}
           href={redirectAccount(item.seller_address)}
-          target='_blank'
-          rel='noreferrer'
+          target="_blank"
+          rel="noreferrer"
         >
           {truncateAddress(item.seller_address)}
         </a>
@@ -112,8 +113,8 @@ const ListingTableItem = ({ item, from, account, handleCancel, onConfirm }) => {
           }
         >
           {account === item.seller_address?.toLowerCase()
-            ? 'Cancel'
-            : 'Purchase'}
+            ? t('Cancel')
+            : t('Purchase')}
         </Button>
       </CTableCell>
     </CTableRow>

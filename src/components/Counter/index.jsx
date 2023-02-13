@@ -19,7 +19,7 @@ const Counter = ({ handleChange, value, available }) => {
           <PlusIcon />
         </div>
       </div>
-      <p>{available} available</p>
+      <p>{available} {t('available')}</p>
     </div>
   )
 }
