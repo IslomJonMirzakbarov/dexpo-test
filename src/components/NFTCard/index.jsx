@@ -39,7 +39,7 @@ const NFTCard = ({
   isSold,
   isOriginalNft,
   quantity = 1,
-  nftStandard = 'S',
+  nftStandard = 'S'
 }) => {
   const { t } = useTranslation()
   const leftDays = endDate && startDate && calculateDeadline(startDate, endDate)
@@ -71,7 +71,7 @@ const NFTCard = ({
       className={classNames(styles.card, className, {
         [styles.CollectedCard]: page === 'collectedBottom',
         [styles.minified]: !price,
-        [styles.default]: isDefault,
+        [styles.default]: isDefault
       })}
     >
       {hasOriginal && (
@@ -107,24 +107,24 @@ const NFTCard = ({
       </Box>
       <Box
         className={classNames(styles.wrapper, {
-          [styles.noShadow]: !hasShadow,
+          [styles.noShadow]: !hasShadow
         })}
       >
-        <Box display="flex" flexDirection="column">
+        <Box display='flex' flexDirection='column'>
           <Box className={classNames(styles.body, { [styles.last]: !price })}>
             <div className={styles.artist}>
               {/* <span className={styles.name}>{artistName}</span> */}
               {collection?.name && (
                 <span className={styles.name}>Artist: {collection?.name}</span>
               )}
-              <Typography variant="placeholder" fontWeight={500}>
+              <Typography variant='placeholder' fontWeight={500}>
                 Artwork: {description}
               </Typography>
             </div>
             <div className={styles.actions}>
               <span
                 className={classNames(styles.count, {
-                  [styles.liked]: page === 'favoritesBottom',
+                  [styles.liked]: page === 'favoritesBottom'
                 })}
               >
                 <NumberFormat
@@ -149,7 +149,7 @@ const NFTCard = ({
                   className={styles.coin}
                   style={{
                     width: 16,
-                    height: 16,
+                    height: 16
                   }}
                 />
                 <NumberFormat

@@ -85,6 +85,10 @@ body {
   background: #ff006b !important;
 }
 
+#nprogress .spinner {
+  display: none;
+}
+
 .date-picker-app-wrapper {
   width: 100%;
   z-index: 13;
