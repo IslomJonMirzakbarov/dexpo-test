@@ -10,7 +10,9 @@ export default function CTabs({ items, active }) {
       {items?.map((item) => (
         <Link to={item.link}>
           <div className={styles.item}>
-            {t(item.title)}
+            <span className={item.key === active && styles.title}>
+              {t(item.title)}
+            </span>
             {item.key === active && <div className={classNames(styles.box)} />}
           </div>
         </Link>
