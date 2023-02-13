@@ -210,7 +210,7 @@
   "Saved!": "저장되었습니다!",
   "Your information saved successfully": "귀하의 정보가 성공적으로 저장되었습니다",
   "Create a Collection": "컬렉션 만들기",
-  "Single": "Single",
+  "Single": "단품판매",
   "Collection Name": "컬렉션명",
   "Collection Symbol": "컬렉션 심벌",
   "Please enter all input values.": "모든 입력 값을 입력하십시오.",
@@ -332,5 +332,6 @@
   "Invalid file type": "잘못된 파일 형식",
   "All NFTs": "모든 NFTs",
   "Ceramic": "도자기",
-  "Jewel": "보석"
+  "Jewel": "보석",
+  "Unit price": "단가"
 }

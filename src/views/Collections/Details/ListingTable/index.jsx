@@ -100,7 +100,9 @@ const ListingTable = ({
                   {columns.map((item) => (
                     <CTableCell key={item.key}>
                       <Typography fontSize="15px" fontWeight={700}>
-                        {t(item.title)}
+                        {item?.title === 'Unit price'
+                          ? t('Unit price')
+                          : t(item.title)}
                       </Typography>
                     </CTableCell>
                   ))}
