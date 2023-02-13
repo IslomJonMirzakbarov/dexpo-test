@@ -223,7 +223,7 @@ const NFTSellRequest = ({
     const price = market?.price
 
     if (nft.standard === 'M' && count > purchaseNft.quantity) {
-      setError(`Max avaible quantity ${purchaseNft.quantity}`)
+      setError(`${t('Max available quantity')} ${purchaseNft.quantity}`)
       setCheckoutStatus(checkoutStatuses.INITIAL)
       return
     }

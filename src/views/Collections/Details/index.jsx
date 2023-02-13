@@ -228,7 +228,7 @@ const CollectionDetails = ({
     const price = market?.price
 
     if (data.nft?.standard === 'M' && quantity > purchaseNft.quantity) {
-      setError(`Max avaible quantity ${purchaseNft.quantity}`)
+      setError(`${t('Max available quantity')} ${purchaseNft.quantity}`)
       setStatus(checkoutStatuses.INITIAL)
       return
     }

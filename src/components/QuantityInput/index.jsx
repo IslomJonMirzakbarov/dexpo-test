@@ -11,7 +11,7 @@ const QuantityInput = ({ handleChange, value, available }) => {
       <label>{t('Quantity')}</label>
       <Box className={styles.box}>
         <input type='number' value={value} onChange={handleChange} />
-        <div className={styles.minQuantity}>{available} {t('available')}</div>
+        <div className={styles.minQuantity}>{available} {t('available.')}</div>
       </Box>
     </div>
   )
