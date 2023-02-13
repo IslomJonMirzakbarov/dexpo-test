@@ -10,12 +10,12 @@ import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    height: 375
+    height: 375,
   },
   img: {
     borderRadius: 7,
     marginRight: 14,
-    objectFit: 'cover'
+    objectFit: 'cover',
   },
   box: {
     width: 432,
@@ -24,23 +24,23 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.grey[1500]}`,
     borderRadius: 7,
     backgroundColor: theme.palette.common.white,
-    paddingBottom: 15
+    paddingBottom: 15,
   },
   countBox: {
     height: '100%',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   price: {
     backgroundColor: theme.palette.common.white,
     transition: '0.4s ease all',
     borderRadius: 7,
     cursor: 'pointer',
-    boxShadow: '-1px 1px 16px 7px rgba(0, 0, 0, 0.06)'
+    boxShadow: '-1px 1px 16px 7px rgba(0, 0, 0, 0.06)',
   },
   exchangedPrice: {
-    color: theme.palette.grey[1000]
-  }
+    color: theme.palette.grey[1000],
+  },
 }))
 
 const PendingSell = ({
@@ -55,7 +55,7 @@ const PendingSell = ({
   error,
   sellPrice,
   count,
-  nftStandard
+  nftStandard,
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -110,8 +110,8 @@ const PendingSell = ({
                 </Typography>
               </Box>
               {nftStandard === 'M' && (
-                <Typography fontWeight={600} color='grey.2000'>
-                  {t('Quantity:')} {count}
+                <Typography fontWeight={600} color="grey.2000">
+                  {t('Quantity')}: {count}
                 </Typography>
               )}
             </Box>
