@@ -10,12 +10,7 @@ export default function CTabs({ items, active }) {
         <Link to={item.link}>
           <div className={styles.item}>
             {item.title}
-            {item.key === active && (
-              <motion.div
-                className={classNames(styles.box)}
-                layoutId='underline'
-              />
-            )}
+            {item.key === active && <div className={classNames(styles.box)} />}
           </div>
         </Link>
       ))}
