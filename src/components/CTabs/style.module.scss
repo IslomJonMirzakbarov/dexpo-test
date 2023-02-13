@@ -10,13 +10,14 @@
     font-size: 15px;
     line-height: 22px;
     color: #dedede;
+    border-bottom: 3px solid #dedede;
     .box {
       position: absolute;
-      bottom: 0;
+      bottom: -3px;
       left: 0;
       right: 0;
       height: 3px;
-      background: #dedede;
+      background: #ff006b;
     }
   }
 }

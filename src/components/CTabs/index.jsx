@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import styles from './style.module.scss'
 
@@ -9,11 +10,12 @@ export default function CTabs({ items, active }) {
         <Link to={item.link}>
           <div className={styles.item}>
             {item.title}
-            <div
-              className={classNames(styles.box, {
-                [styles.active]: item.id === active
-              })}
-            />
+            {item.key === active && (
+              <motion.div
+                className={classNames(styles.box)}
+                layoutId='underline'
+              />
+            )}
           </div>
         </Link>
       ))}

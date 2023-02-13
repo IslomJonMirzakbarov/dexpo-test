@@ -17,13 +17,18 @@ import useMarketAPI from '../../hooks/useMarketAPI'
 import { priceTypeChar } from '../../constants'
 import NFTCardSkeleton from '../../components/NFTCard/index.skeleton'
 import NoItemsFound from '../../components/NoItems'
-import { marketFilterList } from '../../constants/marketFilter'
+import {
+  marketFilterList,
+  orginalNftFilterList
+} from '../../constants/marketFilter'
 import { debounce } from 'lodash'
 import { makeStyles, useTheme } from '@mui/styles'
 import { getPaginationDetailsByPathname } from '../../utils/paginationQueries'
 import CustomSwitch from '../../components/CustomSwitch'
 import { useTranslation } from 'react-i18next'
 import CTabs from '../../components/CTabs'
+import { AnimateSharedLayout } from 'framer-motion'
+import comingSoonImg from '../../assets/icons/coming-soon.svg'
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -50,28 +55,28 @@ const useStyles = makeStyles((theme) => ({
 const tabs = [
   {
     title: 'All NFTs',
-    link: '/marketplace?filter=RECENTLY_LISTED',
-    id: 1
+    link: '/marketplace?categoryType=ALL&page=1',
+    key: 'ALL'
   },
   {
     title: 'WADS',
-    link: '/marketplace?filter=WADS',
-    id: 2
+    link: '/marketplace?categoryType=WADS&page=1',
+    key: 'WADS'
   },
   {
     title: 'Single',
-    link: '/marketplace?filter=SINGLE',
-    id: 3
+    link: '/marketplace?categoryType=SINGLE&page=1',
+    key: 'SINGLE'
   },
   {
     title: 'Multiple',
-    link: '/marketplace?filter=MULTI',
-    id: 4
+    link: '/marketplace?categoryType=MULTI&page=1',
+    key: 'MULTI'
   },
   {
     title: 'Original',
-    link: '/originalNft',
-    id: 5
+    link: '/marketplace?categoryType=ORIGINAL_NFT&page=1',
+    key: 'ORIGINAL_NFT'
   }
   // {
   //   title: 'Ceramic',
@@ -115,10 +120,16 @@ const Collections = () => {
     [urlDetails?.page]
   )
 
+  const categoryType = useMemo(
+    () => urlDetails?.categoryType || '',
+    [urlDetails?.categoryType]
+  )
+
   const { data, isLoading } = useMarketAPI({
     page,
     type: filter?.value,
-    search
+    search,
+    categoryType: categoryType
   })
 
   const noItems = !data?.items?.length || data?.items?.length === 0
@@ -128,10 +139,6 @@ const Collections = () => {
     debounce((val) => setSearch(val), 300),
     []
   )
-
-  // const activeTab = useMemo(()=>{
-
-  // },[filter?.value])
 
   useEffect(() => {
     debounced(input)
@@ -153,28 +160,32 @@ const Collections = () => {
       search: createSearchParams({
         page: 1,
         filter: filter?.value || '',
-        search: e.target.value
+        search: e.target.value,
+        categoryType
       }).toString()
     })
   }
 
   const handleSelect = (item) => {
     navigate(
-      `/marketplace?page=1&filter=${item.value}${
+      `/marketplace?categoryType=${categoryType}&page=1&filter=${item.value}${
         search ? `&search=${search}` : ''
       }`
     )
   }
 
   const handleNavigate = (tokenId, address, wallet) => {
-    return navigate(`/marketplace/${tokenId}/${address}`)
+    if (categoryType === 'ORIGINAL_NFT') {
+      return navigate(`/marketplace/original/${tokenId}/${address}`)
+    }
+    navigate(`/marketplace/${tokenId}/${address}`)
   }
 
   const handlePaginate = (next) => {
     navigate(
-      `/marketplace?page=${next}${filter ? `&filter=${filter?.value}` : ''}${
-        search ? `&search=${search}` : ''
-      }`
+      `/marketplace?categoryType=${categoryType}&page=${next}${
+        filter ? `&filter=${filter?.value}` : ''
+      }${search ? `&search=${search}` : ''}`
     )
   }
 
@@ -194,10 +205,11 @@ const Collections = () => {
           </Typography>
         </Box>
         <Box className={styles.SwitchFilterBox} mt={5}>
-          {/* <CTabs items={tabs} /> */}
-          <Box className={styles.SwitchBox}>
+          <CTabs items={tabs} active={categoryType} />
+
+          {/* <Box className={styles.SwitchBox}>
             <CustomSwitch handleClick={handleSwitchClick} activeOption={2} />
-          </Box>
+          </Box> */}
           <Box className={classes.filter}>
             <SearchField
               isDark={true}
@@ -210,75 +222,87 @@ const Collections = () => {
             <DSelect
               label='Filter'
               value={filter}
-              items={marketFilterList}
+              items={
+                categoryType === 'ORIGINAL_NFT'
+                  ? orginalNftFilterList
+                  : marketFilterList
+              }
               onSelect={(item) => handleSelect(item)}
             />
           </Box>
         </Box>
-        <Box display='flex' my={4}>
-          <Grid container spacing={matches ? 0 : 3}>
-            {isLoading
-              ? mockData.map((_, i) => (
-                  <Grid
-                    item
-                    key={i}
-                    lg={12 / 5}
-                    my={matches ? 2 : 0}
-                    sx={{ width: '100%' }}
-                  >
-                    <NFTCardSkeleton />
-                  </Grid>
-                ))
-              : data?.items?.map(({ nft, artist, market, collection }, i) => (
-                  <Grid
-                    item
-                    key={i}
-                    lg={12 / 5}
-                    sm={1}
-                    my={matches ? 2 : 0}
-                    sx={{ width: '100%' }}
-                  >
-                    <NFTCard
-                      collection={collection}
-                      img={nft.token_image}
-                      name={nft.token_name}
-                      price={market?.price}
-                      startDate={market?.start_date}
-                      endDate={market?.end_date}
-                      leftDays={null}
-                      artistName={artist.artist_name}
-                      description={nft.token_name}
-                      hasOriginal={nft?.has_original}
-                      priceType={priceTypeChar?.[market?.type]}
-                      hasAction={!!market?.price}
-                      purchaseCount={nft.like_count}
-                      tokenId={nft?.token_id}
-                      page='collections'
-                      type={collection?.type}
-                      quantity={nft.standard === 'M' ? market?.amount : null}
-                      nftStandard={nft.standard}
-                      contractAddress={collection?.contract_address}
-                      onClick={() =>
-                        handleNavigate(
-                          nft.token_id,
-                          collection?.contract_address,
-                          market?.seller_address
-                        )
-                      }
-                      onAction={() =>
-                        handleNavigate(
-                          nft.token_id,
-                          collection?.contract_address,
-                          market?.seller_address
-                        )
-                      }
-                    />
-                  </Grid>
-                ))}
-          </Grid>
-        </Box>
-        {!isLoading && noItems && <NoItemsFound />}
-        {data?.totalPages > 1 && (
+        {categoryType !== 'WADS' && (
+          <Box display='flex' my={4}>
+            <Grid container spacing={matches ? 0 : 3}>
+              {isLoading
+                ? mockData.map((_, i) => (
+                    <Grid
+                      item
+                      key={i}
+                      lg={12 / 5}
+                      my={matches ? 2 : 0}
+                      sx={{ width: '100%' }}
+                    >
+                      <NFTCardSkeleton />
+                    </Grid>
+                  ))
+                : data?.items?.map(({ nft, artist, market, collection }, i) => (
+                    <Grid
+                      item
+                      key={i}
+                      lg={12 / 5}
+                      sm={1}
+                      my={matches ? 2 : 0}
+                      sx={{ width: '100%' }}
+                    >
+                      <NFTCard
+                        collection={collection}
+                        img={nft.token_image}
+                        name={nft.token_name}
+                        price={market?.price}
+                        startDate={market?.start_date}
+                        endDate={market?.end_date}
+                        leftDays={null}
+                        artistName={artist.artist_name}
+                        description={nft.token_name}
+                        hasOriginal={nft?.has_original}
+                        priceType={priceTypeChar?.[market?.type]}
+                        hasAction={!!market?.price}
+                        purchaseCount={nft.like_count}
+                        tokenId={nft?.token_id}
+                        page='collections'
+                        type={collection?.type}
+                        quantity={nft.standard === 'M' ? market?.amount : null}
+                        nftStandard={nft.standard}
+                        contractAddress={collection?.contract_address}
+                        onClick={() =>
+                          handleNavigate(
+                            nft.token_id,
+                            collection?.contract_address,
+                            market?.seller_address
+                          )
+                        }
+                        onAction={() =>
+                          handleNavigate(
+                            nft.token_id,
+                            collection?.contract_address,
+                            market?.seller_address
+                          )
+                        }
+                      />
+                    </Grid>
+                  ))}
+            </Grid>
+          </Box>
+        )}
+        {(categoryType === 'WADS' || (!isLoading && noItems)) && (
+          <NoItemsFound
+            image={categoryType === 'WADS' ? comingSoonImg : null}
+            text={categoryType === 'WADS' ? 'Coming soon' : null}
+          />
+        )}
+
+        {categoryType !== 'WADS' && data?.totalPages > 1 && (
           <CPagination
             count={data?.totalPages}
             page={page ? Number(page) : 1}
