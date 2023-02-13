@@ -33,7 +33,8 @@ const useSellNFT = ({
   quantity,
   refetchMultiNftOffers,
   nftId,
-  availableQuantity
+  availableQuantity,
+  setCheckoutStatus
 }) => {
   const navigate = useNavigate()
   const marketStatus = collection?.market_status
@@ -69,7 +70,7 @@ const useSellNFT = ({
   const isFixedContract = type?.value === 'fixed' || market?.type === 'F'
 
   const handleToggle = () => {
-    setOpenModal('sell')
+    setOpenModal(true)
   }
 
   const handleRefetch = () => {
@@ -282,7 +283,7 @@ const useSellNFT = ({
           : sellReqStatuses.PENDING
       )
     }
-  }, [sellerAddress, openModal, marketStatus, ownerAddress, standard])
+  }, [sellerAddress, openModal, marketStatus, ownerAddress, standard, nftId])
 
   return {
     isCancel,

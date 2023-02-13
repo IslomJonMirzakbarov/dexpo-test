@@ -201,11 +201,6 @@ const CollectionDetails = ({
     }
   }
   const makePurchase = async () => {
-    if (data.nft?.standard === 'M' && quantity > purchaseNft.quantity) {
-      setError(`${t('Max available quantity')} ${purchaseNft.quantity}`)
-      setStatus(checkoutStatuses.INITIAL)
-      return
-    }
     setStatus(checkoutStatuses.PENDING)
 
     try {
@@ -231,6 +226,12 @@ const CollectionDetails = ({
   const makeContract = async () => {
     const bidPrice = getValues('bidPrice')
     const price = market?.price
+
+    if (data.nft?.standard === 'M' && quantity > purchaseNft.quantity) {
+      setError(`Max avaible quantity ${purchaseNft.quantity}`)
+      setStatus(checkoutStatuses.INITIAL)
+      return
+    }
 
     if (notEnoughBalance) return setError(t(metamaskError['-32603']))
 

@@ -1,0 +1,23 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  .item {
+    padding: 10px 25px;
+    height: 45px;
+    position: relative;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: #dedede;
+    border-bottom: 3px solid #dedede;
+    .box {
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #ff006b;
+    }
+  }
+}

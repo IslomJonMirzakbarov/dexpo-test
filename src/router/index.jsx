@@ -1,18 +1,26 @@
-import { useRoutes } from 'react-router-dom';
-import { privateRoutes } from './privateRoute';
-import { publicRoutes } from './publicRoute';
-import { useSelector } from 'react-redux';
+import { useRoutes } from 'react-router-dom'
+import { privateRoutes } from './privateRoute'
+import { publicRoutes } from './publicRoute'
+import { useSelector } from 'react-redux'
+// import nprogress from 'nprogress'
+// import { useEffect } from 'react'
 
 const Router = () => {
-  const { token } = useSelector((store) => store.auth);
+  const { token } = useSelector((store) => store.auth)
 
-  let filteredRoutes;
-  if (token) filteredRoutes = privateRoutes;
-  else filteredRoutes = publicRoutes;
+  // let location = useLocation()
+  // useEffect(() => {
+  //   nprogress.start()
+  //   nprogress.done()
+  // }, [location.pathname])
 
-  const routes = useRoutes(filteredRoutes);
+  let filteredRoutes
+  if (token) filteredRoutes = privateRoutes
+  else filteredRoutes = publicRoutes
 
-  return routes;
-};
+  const routes = useRoutes(filteredRoutes)
 
-export default Router;
+  return routes
+}
+
+export default Router

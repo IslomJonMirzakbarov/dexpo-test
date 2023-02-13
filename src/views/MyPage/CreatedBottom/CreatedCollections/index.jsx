@@ -29,7 +29,7 @@ const CreatedCollections = ({ id, artistName }) => {
   return (
     <Box className={styles.Container}>
       <Box className={styles.Title}>{t('Collections')}</Box>
-      {!selectedList?.data?.items && (
+      {selectedList?.data?.items.length === 0 && (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
           <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
