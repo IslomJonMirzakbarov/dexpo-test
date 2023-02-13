@@ -111,7 +111,7 @@ const PendingSell = ({
               </Box>
               {nftStandard === 'M' && (
                 <Typography fontWeight={600} color='grey.2000'>
-                  Quantity: {count}
+                  {t('Quantity:')} {count}
                 </Typography>
               )}
             </Box>

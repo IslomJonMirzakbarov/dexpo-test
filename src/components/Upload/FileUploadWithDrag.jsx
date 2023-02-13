@@ -1,56 +1,57 @@
-import { useCallback, useRef, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import RingLoader from "../Loaders/RingLoader";
+import { useCallback, useRef, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import RingLoader from '../Loaders/RingLoader'
 
-import UploadImg from "../../assets/icons/upload-img-icon.svg?component";
-import UploadImgHovered from "../../assets/icons/upload-img-hovered-icon.svg?component";
-import InvalidLogo from "../../assets/icons/invalid-logo.svg?component";
-import EditCollectionHover from "../../assets/icons/edit-collection-hover.svg?component";
-import CollectionEditVector from "../../assets/icons/collection-edit-vector.svg?component";
-import EditUnhoveredIcon from "../../assets/icons/edit-unhovered-icon.svg?component";
-import defaultImage from "/src/assets/images/artist-default2.jpg";
+import UploadImg from '../../assets/icons/upload-img-icon.svg?component'
+import UploadImgHovered from '../../assets/icons/upload-img-hovered-icon.svg?component'
+import InvalidLogo from '../../assets/icons/invalid-logo.svg?component'
+import EditCollectionHover from '../../assets/icons/edit-collection-hover.svg?component'
+import CollectionEditVector from '../../assets/icons/collection-edit-vector.svg?component'
+import EditUnhoveredIcon from '../../assets/icons/edit-unhovered-icon.svg?component'
+import defaultImage from '/src/assets/images/artist-default2.jpg'
 
-import styles from "./style.module.scss";
-import classNames from "classnames";
+import styles from './style.module.scss'
+import classNames from 'classnames'
+import { useTranslation } from 'react-i18next'
 
 const FileUploadWithDrag = ({
   onUpload,
   loader,
   page,
-  src = "",
+  src = '',
   imgBool = false,
   defaultImg,
 }) => {
-  const inputRef = useRef(null);
-  const [hovered, setHovered] = useState(false);
+  const inputRef = useRef(null)
+  const [hovered, setHovered] = useState(false)
 
   const onDrop = useCallback((files) => {
-    const file = files[0];
+    const file = files[0]
 
-    const reader = new FileReader();
+    const reader = new FileReader()
     Object.assign(file, {
       preview: URL.createObjectURL(file),
-    });
+    })
     reader.onload = function (e) {
-      file["src"] = e.target.result;
-      onUpload(file);
-    };
-    reader.readAsDataURL(file);
-  }, []);
+      file['src'] = e.target.result
+      onUpload(file)
+    }
+    reader.readAsDataURL(file)
+  }, [])
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-  });
+  })
 
   const pages = {
-    CREATE_COLLECTION: "create-collection",
-    EDIT_COLLECTION: "edit-collection",
-    CREATE_NFT: "create-nft",
-    USER_SETTINGS: "user-settings",
-  };
+    CREATE_COLLECTION: 'create-collection',
+    EDIT_COLLECTION: 'edit-collection',
+    CREATE_NFT: 'create-nft',
+    USER_SETTINGS: 'user-settings',
+  }
   const { CREATE_COLLECTION, CREATE_NFT, EDIT_COLLECTION, USER_SETTINGS } =
-    pages;
-
+    pages
+  const { t } = useTranslation()
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -68,7 +69,7 @@ const FileUploadWithDrag = ({
         { [styles.GreyBorder]: src.length === 0 },
         { [styles.RedBorder]: src.length > 0 }
       )}
-      style={{ border: (imgBool || page === USER_SETTINGS) && "none" }}
+      style={{ border: (imgBool || page === USER_SETTINGS) && 'none' }}
     >
       <div
         {...getRootProps()}
@@ -76,7 +77,7 @@ const FileUploadWithDrag = ({
           [styles.BorderNone]: imgBool,
         })}
         ref={inputRef}
-        style={{ border: (imgBool || page === USER_SETTINGS) && "none" }}
+        style={{ border: (imgBool || page === USER_SETTINGS) && 'none' }}
       >
         <input {...getInputProps()} />
         {!loader ? (
@@ -138,10 +139,10 @@ const FileUploadWithDrag = ({
                   {page !== EDIT_COLLECTION && page !== USER_SETTINGS && (
                     <p
                       className={styles.dropzoneTitle}
-                      style={{ color: hovered && "#1f1f1f" }}
+                      style={{ color: hovered && '#1f1f1f' }}
                     >
-                      Upload {page === CREATE_COLLECTION && "logo"}{" "}
-                      {page === CREATE_NFT && "image"}
+                      {page === CREATE_COLLECTION && t('Upload logo')}{' '}
+                      {page === CREATE_NFT && t('Upload image')}
                     </p>
                   )}
                 </div>
@@ -151,7 +152,7 @@ const FileUploadWithDrag = ({
               <div className={styles.UploadLogo}>
                 <div
                   style={{
-                    border: (imgBool || page === USER_SETTINGS) && "none",
+                    border: (imgBool || page === USER_SETTINGS) && 'none',
                   }}
                 >
                   {!imgBool ? (
@@ -161,11 +162,11 @@ const FileUploadWithDrag = ({
                         height={page === CREATE_COLLECTION ? 40 : 79}
                       />
                       <div className={styles.InvalidPhrase}>
-                        Invalid file type
+                        {t('Invalid file type')}
                       </div>
                     </div>
                   ) : (
-                    <img src={src} style={{ objectFit: "cover" }} alt="" />
+                    <img src={src} style={{ objectFit: 'cover' }} alt="" />
                   )}
                   {page === EDIT_COLLECTION
                     ? hovered && (
@@ -188,14 +189,16 @@ const FileUploadWithDrag = ({
                             <UploadImg
                               width={page === CREATE_NFT ? 93 : 42}
                               height={page === CREATE_NFT ? 68 : 31}
-                              fill={"#ffffff"}
+                              fill={'#ffffff'}
                               className={styles.UploadImg}
                             />
                           )}
                           {page !== EDIT_COLLECTION && (
                             <p className={styles.dropzoneTitle}>
-                              {page === CREATE_COLLECTION ? "Upload logo" : ""}{" "}
-                              {page === CREATE_NFT && "image"}
+                              {page === CREATE_COLLECTION
+                                ? t('Upload logo')
+                                : ''}{' '}
+                              {page === CREATE_NFT && 'image'}
                             </p>
                           )}
                         </div>
@@ -213,7 +216,7 @@ const FileUploadWithDrag = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FileUploadWithDrag;
+export default FileUploadWithDrag

@@ -6,7 +6,7 @@ import {
   CTableBody,
   CTableCell,
   CTableHead,
-  CTableHeadRow
+  CTableHeadRow,
 } from '../../../../components/CTable'
 import React from 'react'
 import ListingTableItem from './TableItem'
@@ -22,50 +22,50 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     overflow: 'hidden',
     borderRadius: 7,
-    width: '100%'
+    width: '100%',
   },
   header: {
     backgroundColor: theme.palette.grey[1600],
     padding: '11px 26px',
     border: `1px solid ${theme.palette.grey[1500]}`,
-    borderRadius: '7px 7px 0px 0px'
+    borderRadius: '7px 7px 0px 0px',
   },
   head: {
     backgroundColor: 'white!important',
     '& tr': {
-      borderRadius: '0!important'
+      borderRadius: '0!important',
     },
     '& td': {
-      padding: '18px 26px'
-    }
-  }
+      padding: '18px 26px',
+    },
+  },
 }))
 
 const columns = [
   {
     key: 'unit-ptice',
-    title: 'Unit price'
+    title: 'Unit price',
   },
   {
     key: 'krw',
-    title: 'KRW'
+    title: 'KRW',
   },
   {
     key: 'quantity',
-    title: 'Quantity'
+    title: 'Quantity',
   },
   {
     key: 'seller',
-    title: 'Seller'
+    title: 'Seller',
   },
   {
     key: 'date',
-    title: 'Date'
+    title: 'Date',
   },
   {
     key: 'action',
-    title: ''
-  }
+    title: '',
+  },
 ]
 
 const ListingTable = ({
@@ -74,7 +74,7 @@ const ListingTable = ({
   onConfirm,
   page,
   handlePaginate,
-  isLoadingMultiNft
+  isLoadingMultiNft,
 }) => {
   const classes = useStyles()
   const { account } = useSelector((store) => store.wallet)
@@ -86,11 +86,11 @@ const ListingTable = ({
         <>
           <Box className={classes.header}>
             <Typography
-              variant='h4'
-              fontSize='18px!important'
+              variant="h4"
+              fontSize="18px!important"
               lineHeight={'30px'}
             >
-              Listings
+              {t('Listings')}
             </Typography>
           </Box>
           <Box className={classes.body}>
@@ -99,8 +99,8 @@ const ListingTable = ({
                 <CTableHeadRow>
                   {columns.map((item) => (
                     <CTableCell key={item.key}>
-                      <Typography fontSize='15px' fontWeight={700}>
-                        {item.title}
+                      <Typography fontSize="15px" fontWeight={700}>
+                        {t(item.title)}
                       </Typography>
                     </CTableCell>
                   ))}

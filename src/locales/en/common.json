@@ -317,5 +317,17 @@
   "Work review": "Work review",
   "Enter a quantity": "Enter a quantity",
   "Token Quantity": "Token Quantity",
-  "Quantity": "Quantity"
+  "Quantity": "Quantity",
+  "available": "available",
+  "Total minted": "Total minted",
+  "Current sales": "Current sales",
+  "Listings": "Listings",
+  "KRW": "KRW",
+  "Seller": "Seller",
+  "Purchase": "Purchase",
+  "Max available quantity": "Max available quantity",
+  "Multiple": "Multiple",
+  "Upload logo": "Upload logo",
+  "Upload image": "Upload image",
+  "Invalid file type": "Invalid file type"
 }
