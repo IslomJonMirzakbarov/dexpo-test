@@ -2,6 +2,10 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
+  @media (max-width: 600px) {
+    width: 100%;
+    overflow: auto;
+  }
   .item {
     padding: 10px 25px;
     height: 45px;
@@ -11,6 +15,9 @@
     line-height: 22px;
     color: #dedede;
     border-bottom: 3px solid #dedede;
+    @media (max-width: 600px) {
+      white-space: nowrap;
+    }
     .box {
       position: absolute;
       bottom: -3px;

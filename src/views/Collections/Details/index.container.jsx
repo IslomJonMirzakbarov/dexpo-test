@@ -8,7 +8,7 @@ import {
   Grid,
   Paper,
   Typography,
-  useMediaQuery,
+  useMediaQuery
 } from '@mui/material'
 import React, { useMemo, useState } from 'react'
 import CollectionDetailImage from './Image'
@@ -36,42 +36,42 @@ import ListingTable from './ListingTable'
 
 const useStyles = makeStyles((theme) => ({
   priceBox: {
-    marginTop: 61,
+    marginTop: 61
   },
   boxWrapper: {
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column-reverse',
-    },
+      flexDirection: 'column-reverse'
+    }
   },
   box: {
     width: '50%',
     [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
+      width: '100%'
+    }
   },
   button: {
     padding: '16px 0',
     marginTop: 17,
     [theme.breakpoints.down('sm')]: {
-      marginBottom: 20,
+      marginBottom: 20
     },
     '&:hover': {
-      boxShadow: '5px 5px 52px 2px rgba(0, 0, 0, 0.1)',
-    },
+      boxShadow: '5px 5px 52px 2px rgba(0, 0, 0, 0.1)'
+    }
   },
   grid: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
+      width: '100%'
+    }
   },
   table: {
     [theme.breakpoints.down('sm')]: {
-      overflowX: 'scroll',
-    },
-  },
+      overflowX: 'scroll'
+    }
+  }
 }))
 
 const CollectionDetailsContainer = ({
@@ -109,7 +109,7 @@ const CollectionDetailsContainer = ({
   isLoadingMultiNft,
   historyPage,
   handlePaginateHistory,
-  loadingHistory,
+  loadingHistory
 }) => {
   const navigate = useNavigate()
 
@@ -143,7 +143,7 @@ const CollectionDetailsContainer = ({
     isAuction,
     isAuctionEnded,
     isAuctionNotStarted,
-    isAuctionBeingFinished,
+    isAuctionBeingFinished
   })
 
   const auctionStartDate = moment(market?.start_date * 1000).format(
@@ -161,7 +161,7 @@ const CollectionDetailsContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               isLiked={nft?.is_liked}
-              alt="nft picture"
+              alt='nft picture'
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
@@ -191,8 +191,8 @@ const CollectionDetailsContainer = ({
               nftStandard={nft?.standard}
             />
             <Box
-              display="flex"
-              justifyContent="space-between"
+              display='flex'
+              justifyContent='space-between'
               mt={3}
               className={classes.boxWrapper}
             >
@@ -201,17 +201,17 @@ const CollectionDetailsContainer = ({
                   smartContract={collection?.contract_address}
                   tokenID={nft?.token_id}
                   tokenStandard={nft?.standard}
-                  blockchain="Klaytn"
+                  blockchain='Klaytn'
                   addrressCreator={nft?.creator_address}
                   addrressOwner={nft?.owner_address}
                   sellerAddress={market?.seller_address}
                 />
               </Box>
               <Box
-                display="flex"
-                justifyContent="space-between"
-                flexDirection="column"
-                alignItems="end"
+                display='flex'
+                justifyContent='space-between'
+                flexDirection='column'
+                alignItems='end'
                 className={classes.box}
               >
                 {nft?.standard === 'M' && (
@@ -234,19 +234,19 @@ const CollectionDetailsContainer = ({
                 )}
                 {isAuction && endDate ? (
                   isAuctionNotStarted ? (
-                    <Typography variant="placeholder" fontWeight={500}>
+                    <Typography variant='placeholder' fontWeight={500}>
                       Auction will start on{' '}
                       <Typography
-                        variant="placeholder"
-                        color="primary"
+                        variant='placeholder'
+                        color='primary'
                         fontWeight={500}
                       >
                         {auctionStartDate}
                       </Typography>{' '}
                       at{' '}
                       <Typography
-                        variant="placeholder"
-                        color="primary"
+                        variant='placeholder'
+                        color='primary'
                         fontWeight={500}
                       >
                         {auctionStartTime}
@@ -254,9 +254,9 @@ const CollectionDetailsContainer = ({
                     </Typography>
                   ) : (
                     <Box
-                      display="flex"
+                      display='flex'
                       justifyContent={matches ? 'center' : 'end'}
-                      width="100%"
+                      width='100%'
                     >
                       <Countdown date={endDate} onFinish={onTimeOut} />
                     </Box>
@@ -265,25 +265,25 @@ const CollectionDetailsContainer = ({
                   <Box />
                 )}
                 <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="end"
+                  display='flex'
+                  flexDirection='column'
+                  alignItems='end'
                   sx={{ width: '100%' }}
                 >
                   {nft.standard !== 'M' && market?.price && (
                     <>
                       <Box
-                        display="flex"
-                        alignItems="center"
+                        display='flex'
+                        alignItems='center'
                         className={classes.priceBox}
                       >
                         <TokenImg style={{ width: 28, height: 28 }} />
                         <Typography
                           ml={1}
-                          variant="body2"
-                          fontSize="30px!important"
+                          variant='body2'
+                          fontSize='30px!important'
                           fontWeight={600}
-                          lineHeight="45px"
+                          lineHeight='45px'
                         >
                           <NumberFormat
                             value={numFormat(market?.price)}
@@ -293,7 +293,7 @@ const CollectionDetailsContainer = ({
                         </Typography>
                       </Box>
                       <Typography
-                        variant="placeholder"
+                        variant='placeholder'
                         fontWeight={500}
                         color={theme.palette.grey[1000]}
                       >
@@ -302,7 +302,7 @@ const CollectionDetailsContainer = ({
                           value={numFormat(exchangedPrice)}
                           displayType={'text'}
                           thousandSeparator={true}
-                          prefix="￦"
+                          prefix='￦'
                         />
                         )
                       </Typography>
@@ -312,7 +312,7 @@ const CollectionDetailsContainer = ({
                   {nft.standard !== 'M' && !isSoldOut && (
                     <Button
                       className={classes.button}
-                      variant="containedSecondary"
+                      variant='containedSecondary'
                       fullWidth
                       onClick={handleClick}
                       disabled={isSoldOut || isDisabled}
@@ -327,13 +327,17 @@ const CollectionDetailsContainer = ({
           </Grid>
         </Grid>
         {nft.standard === 'M' && (
-          <ListingTable
-            onConfirm={handleClick}
-            multiNftOffers={multiNftOffers}
-            handlePaginate={handlePaginateMultipleNft}
-            page={multiOffersPage}
-            isLoadingMultiNft={isLoadingMultiNft}
-          />
+          <Grid container className={classes.table}>
+            <Grid item lg={12}>
+              <ListingTable
+                onConfirm={handleClick}
+                multiNftOffers={multiNftOffers}
+                handlePaginate={handlePaginateMultipleNft}
+                page={multiOffersPage}
+                isLoadingMultiNft={isLoadingMultiNft}
+              />
+            </Grid>
+          </Grid>
         )}
         {isBidHistory && (
           <Grid container className={classes.table}>
@@ -373,8 +377,8 @@ const CollectionDetailsContainer = ({
           <AccordionSummary
             className={styles.AccordionSummary}
             expandIcon={<CustomExpandIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+            aria-controls='panel1a-content'
+            id='panel1a-header'
           >
             <Typography className={styles.AccordionSummaryText}>
               {t('No Cancellation or Refund after Purchase')}
@@ -445,23 +449,23 @@ const CustomExpandIcon = () => {
     <Box
       sx={{
         '.collapsIconWrapper': {
-          display: 'flex',
+          display: 'flex'
         },
         '.Mui-expanded & > .collapsIconWrapper': {
-          display: 'none',
+          display: 'none'
         },
         '.expandIconWrapper': {
-          display: 'none',
+          display: 'none'
         },
         '.Mui-expanded & > .expandIconWrapper': {
-          display: 'flex',
-        },
+          display: 'flex'
+        }
       }}
     >
-      <div className="expandIconWrapper">
+      <div className='expandIconWrapper'>
         <RemoveIcon />
       </div>
-      <div className="collapsIconWrapper">
+      <div className='collapsIconWrapper'>
         <AddIcon />
       </div>
     </Box>
