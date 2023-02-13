@@ -27,8 +27,8 @@ import { getPaginationDetailsByPathname } from '../../utils/paginationQueries'
 import CustomSwitch from '../../components/CustomSwitch'
 import { useTranslation } from 'react-i18next'
 import CTabs from '../../components/CTabs'
-import { AnimateSharedLayout } from 'framer-motion'
 import comingSoonImg from '../../assets/icons/coming-soon.svg'
+import nprogress from 'nprogress'
 
 const useStyles = makeStyles((theme) => ({
   filter: {
@@ -125,12 +125,20 @@ const Collections = () => {
     [urlDetails?.categoryType]
   )
 
-  const { data, isLoading } = useMarketAPI({
+  const { data, isLoading, isFetching } = useMarketAPI({
     page,
     type: filter?.value,
     search,
     categoryType: categoryType
   })
+
+  useEffect(() => {
+    if (isFetching) {
+      nprogress.start()
+    } else {
+      nprogress.done()
+    }
+  }, [isFetching])
 
   const noItems = !data?.items?.length || data?.items?.length === 0
   const mockData = Array(8).fill(12)

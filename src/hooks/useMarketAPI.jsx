@@ -37,7 +37,7 @@ const useMarketAPI = ({
 }) => {
   const { token } = useSelector((store) => store.auth)
 
-  const { data, refetch, isLoading, error } = useQuery(
+  const { data, refetch, isLoading, error, isFetching } = useQuery(
     `GET-NFT-MARKET-LIST-${type}-${search || ''}-${page}-${orderBy || ''}-${
       categoryType || ''
     }`,
@@ -53,6 +53,7 @@ const useMarketAPI = ({
     data,
     refetch,
     isLoading,
+    isFetching,
     error
   }
 }
