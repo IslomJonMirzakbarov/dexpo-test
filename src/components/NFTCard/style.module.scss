@@ -1,5 +1,5 @@
-@use "../../scss/colors";
-@import "../../styles/fonts";
+@use '../../scss/colors';
+@import '../../styles/fonts';
 
 .card {
   display: flex;
@@ -78,6 +78,12 @@
         justify-content: center;
       }
       .price_type {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 13px;
+        left: 13px;
         background-color: colors.$greyBg;
         color: white;
         padding: 5px 10px;
