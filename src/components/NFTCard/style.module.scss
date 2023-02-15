@@ -57,15 +57,40 @@
       border-top-right-radius: 7px;
     }
 
-    .price_type {
-      position: absolute;
+    .badge {
+      display: flex;
+      align-items: flex-start;
+      column-gap: 10px;
       top: 10px;
       left: 10px;
-      background-color: colors.$greyBg;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 3px;
-      @include fontBodyXSS;
+      position: absolute;
+      .quantity {
+        background: colors.$greyBg;
+        border: 1px solid #444444;
+        border-radius: 3px;
+        width: 60px;
+        padding: 4px 10px;
+        font-weight: 600;
+        @include fontBodyXSS;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .price_type {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 13px;
+        left: 13px;
+        background-color: colors.$greyBg;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        @include fontBodyXSS;
+        width: 50px;
+      }
     }
 
     .leftDays {
@@ -86,6 +111,26 @@
         font-size: 15px;
         margin-right: 5px;
         color: colors.$primary;
+      }
+    }
+
+    .numberPlate {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 13px;
+      left: 13px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444444;
+      border-radius: 7px;
+      width: 60px;
+      height: 29px;
+
+      span {
+        @include fontLabel;
+        text-align: center;
+        color: colors.$whiteBg;
       }
     }
   }

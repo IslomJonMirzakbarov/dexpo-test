@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
 const SearchField = ({
   isDark = false,
   isBackdrop = true,
-  // placeholder = 'Search items, collections, and accounts',
   paperClass,
   ...props
 }) => {

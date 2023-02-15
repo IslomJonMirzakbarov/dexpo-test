@@ -43,7 +43,7 @@ const eventTypes = {
 
 const useStyles = makeStyles((theme) => ({
   cell: {
-    padding: '18px 26px',
+    padding: '18px 26px!important',
     '& svg': {
       width: 32
     }
@@ -71,16 +71,16 @@ const HistoryTableItem = ({
     <CTableRow>
       <CTableCell className={classes.cell}>
         <Box display='flex' alignItems='center' justifyContent='flex-start'>
-          {eventTypes[event].icon}
+          {event && eventTypes[event]?.icon}
           <Typography variant='placeholder' fontWeight={500} ml={1}>
-            {type === 'A' ? 'Auction' : ''}&nbsp;{eventTypes[event].label}
+            {type === 'A' ? 'Auction' : ''}&nbsp;
+            {event && eventTypes[event]?.label}
           </Typography>
         </Box>
       </CTableCell>
       <CTableCell className={classes.cell}>
         {amount && (
-          <Box display='flex' alignItems='center'>
-            <TokenIcon style={{ width: 16, height: 16 }} />
+          <Box display='flex' alignItems='center' paddingLeft={1}>
             <Typography variant='placeholder' fontWeight={500} ml={1}>
               <NumberFormat
                 value={numFormat(amount)}
@@ -93,16 +93,19 @@ const HistoryTableItem = ({
       </CTableCell>
       <CTableCell className={classes.cell}>
         {price && (
-          <Typography variant='placeholder' fontWeight={500}>
-            <NumberFormat
-              value={numFormat(price)}
-              prefix='￦'
-              displayType={'text'}
-              thousandSeparator={true}
-            />
-          </Typography>
+          <Box display='flex' alignItems='center'>
+            <TokenIcon style={{ width: 16, height: 16 }} />
+            <Typography variant='placeholder' fontWeight={500} ml={1}>
+              <NumberFormat
+                value={numFormat(price)}
+                displayType={'text'}
+                thousandSeparator={true}
+              />
+            </Typography>
+          </Box>
         )}
       </CTableCell>
+
       <CTableCell className={classes.cell}>
         <Typography
           variant='placeholder'

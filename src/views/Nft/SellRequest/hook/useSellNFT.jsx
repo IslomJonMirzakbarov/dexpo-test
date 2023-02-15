@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { awaitStatus } from "../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel";
-import { marketStatuses } from "../../../../constants/marketStatuses";
-import { getRPCErrorMessage } from "../../../../constants/metamaskErrors";
-import { sellReqStatuses } from "../../../../constants/sellRequestStatuses";
-import useCurrnetProvider from "../../../../hooks/useCurrentProvider";
-import useToast from "../../../../hooks/useToast";
-import { securedAPI } from "../../../../services/api";
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { awaitStatus } from '../../../../components/Modals/SellModal/Pending/ConditionAwaitLabel'
+import { marketStatuses } from '../../../../constants/marketStatuses'
+import { getRPCErrorMessage } from '../../../../constants/metamaskErrors'
+import { sellReqStatuses } from '../../../../constants/sellRequestStatuses'
+import useCurrnetProvider from '../../../../hooks/useCurrentProvider'
+import useToast from '../../../../hooks/useToast'
+import { securedAPI } from '../../../../services/api'
 
 const useSellNFT = ({
   collection,
@@ -28,20 +28,27 @@ const useSellNFT = ({
   startDate,
   endDate,
   refetchBid,
+  ownerAddress,
+  standard,
+  quantity,
+  refetchMultiNftOffers,
+  nftId,
+  availableQuantity,
+  setCheckoutStatus
 }) => {
-  const navigate = useNavigate();
-  const marketStatus = collection?.market_status;
-  const sellerAddress = market?.seller_address?.toLowerCase();
-  const isCancel = status?.includes(sellReqStatuses.CANCEL);
-  const isCompleted = status?.includes(sellReqStatuses.COMPLETE);
-  const { t } = useTranslation();
+  const navigate = useNavigate()
+  const marketStatus = collection?.market_status
+  const sellerAddress = market?.seller_address?.toLowerCase()
+  const isCancel = status?.includes(sellReqStatuses.CANCEL)
+  const isCompleted = status?.includes(sellReqStatuses.COMPLETE)
+  const { t } = useTranslation()
   const isDisabledSellBtn = [
     marketStatuses.PENDING,
-    marketStatuses.REJECT,
-  ].includes(marketStatus);
+    marketStatuses.REJECT
+  ].includes(marketStatus)
 
-  const { token } = useSelector((store) => store.auth);
-  const { account } = useSelector((store) => store.wallet);
+  const { token } = useSelector((store) => store.auth)
+  const { account } = useSelector((store) => store.wallet)
 
   const {
     checkAllowance721,
@@ -50,62 +57,71 @@ const useSellNFT = ({
     cancel,
     createAuction,
     cancelAuction,
-  } = useCurrnetProvider();
+    sellMultipleNft,
+    cancelMultipleNft
+  } = useCurrnetProvider()
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
-  const [isApprove, setIsApprove] = useState(awaitStatus.PENDING);
-  const [isListing, setIsListing] = useState(awaitStatus.INITIAL);
-  const [isCanceling, setIsCanceling] = useState(awaitStatus.INITIAL);
+  const [isApprove, setIsApprove] = useState(awaitStatus.PENDING)
+  const [isListing, setIsListing] = useState(awaitStatus.INITIAL)
+  const [isCanceling, setIsCanceling] = useState(awaitStatus.INITIAL)
 
-  const isFixedContract = type?.value === "fixed" || market?.type === "F";
+  const isFixedContract = type?.value === 'fixed' || market?.type === 'F'
 
-  const handleToggle = () => setOpenModal((prev) => !prev);
+  const handleToggle = () => {
+    setOpenModal(true)
+  }
 
   const handleRefetch = () => {
-    refetch();
-    refetchDetail();
-    refetchBid();
-  };
+    refetch()
+    refetchDetail()
+    refetchBid()
+    refetchMultiNftOffers()
+  }
 
   const clear = () => {
-    setOpenModal(false);
-    setError("");
-    setIsListing(awaitStatus.INITIAL);
-    setIsApprove(awaitStatus.INITIAL);
-    setIsCanceling(awaitStatus.INITIAL);
-    handleRefetch();
-  };
+    setOpenModal(false)
+    setError('')
+    setIsListing(awaitStatus.INITIAL)
+    setIsApprove(awaitStatus.INITIAL)
+    setIsCanceling(awaitStatus.INITIAL)
+    handleRefetch()
+  }
 
   const handleRequest = async () => {
-    if (openModal) return navigate("/user/my-page/sell-request");
+    if (openModal) return navigate('/user/my-page/sell-request')
 
-    const data = { contract_address: collection?.contract_address };
+    const data = { contract_address: collection?.contract_address }
 
     await securedAPI(token)
-      .post("/api/collection/sellRequest", data)
+      .post('/api/collection/sellRequest', data)
       .then((_) => {
-        setOpenModal(true);
+        setOpenModal(true)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
 
   const handleContract = async () => {
-    setIsApprove(awaitStatus.PENDING);
+    setIsApprove(awaitStatus.PENDING)
     try {
-      const approve = await makeApprove721(contract_address, isFixedContract);
+      const approve = await makeApprove721(
+        contract_address,
+        isFixedContract,
+        standard
+      )
 
       if (!!approve) {
-        handleSell();
-        setIsApprove(awaitStatus.COMPLETE);
+        handleSell()
+        setIsApprove(awaitStatus.COMPLETE)
       }
     } catch (err) {
-      setError(getRPCErrorMessage(err));
-      setIsApprove(awaitStatus.ERROR);
+      setError(getRPCErrorMessage(err))
+      setIsApprove(awaitStatus.ERROR)
     }
-  };
+  }
 
   const handleAuction = async () => {
     try {
@@ -115,137 +131,159 @@ const useSellNFT = ({
         sellPrice,
         startDate,
         endDate
-      );
+      )
 
       if (!!res) {
-        setIsListing(awaitStatus.COMPLETE);
-        setTimeout(() => setStatus(sellReqStatuses.COMPLETE), 1200);
+        setIsListing(awaitStatus.COMPLETE)
+        setTimeout(() => setStatus(sellReqStatuses.COMPLETE), 1200)
       }
     } catch (err) {
-      setError(getRPCErrorMessage(err));
-      setIsListing(awaitStatus.ERROR);
+      setError(getRPCErrorMessage(err))
+      setIsListing(awaitStatus.ERROR)
     }
-  };
+  }
 
   const handleFixed = async () => {
     try {
-      const res = await sell(contract_address, id, sellPrice);
+      let res
 
+      if (standard === 'M') {
+        res = await sellMultipleNft(contract_address, id, sellPrice, quantity)
+      } else {
+        res = await sell(contract_address, id, sellPrice)
+      }
       if (!!res) {
-        setIsListing(awaitStatus.COMPLETE);
-        setTimeout(() => setStatus(sellReqStatuses.COMPLETE), 1200);
+        setIsListing(awaitStatus.COMPLETE)
+        setTimeout(() => setStatus(sellReqStatuses.COMPLETE), 1200)
       }
     } catch (err) {
-      setError(getRPCErrorMessage(err));
-      setIsListing(awaitStatus.ERROR);
+      setError(getRPCErrorMessage(err))
+      setIsListing(awaitStatus.ERROR)
     }
-  };
+  }
 
   const handleSell = async () => {
-    setIsListing(awaitStatus.PENDING);
+    setIsListing(awaitStatus.PENDING)
 
-    if (isFixedContract) handleFixed();
-    else handleAuction();
-  };
+    if (isFixedContract) handleFixed()
+    else handleAuction()
+  }
 
   const makeContract = async () => {
-    setStatus(sellReqStatuses.PENDING);
-    setIsApprove(awaitStatus.PENDING);
+    setStatus(sellReqStatuses.PENDING)
+    setIsApprove(awaitStatus.PENDING)
     try {
       const allowance = await checkAllowance721(
         contract_address,
-        isFixedContract
-      );
+        isFixedContract,
+        standard
+      )
 
       if (allowance) {
-        handleSell();
-        setIsApprove(awaitStatus.COMPLETE);
+        handleSell()
+        setIsApprove(awaitStatus.COMPLETE)
       } else {
-        handleContract();
+        handleContract()
       }
     } catch (err) {
-      setError(getRPCErrorMessage(err));
-      setIsApprove(awaitStatus.ERROR);
+      setError(getRPCErrorMessage(err))
+      setIsApprove(awaitStatus.ERROR)
     }
-  };
+  }
 
   const handleCancel = async () => {
-    setIsCanceling(awaitStatus.PENDING);
-    try {
-      let res;
+    setIsCanceling(awaitStatus.PENDING)
 
-      if (isFixedContract) res = await cancel(contract_address, id);
-      else res = await cancelAuction(contract_address, id);
+    try {
+      let res
+
+      if (isFixedContract)
+        res =
+          standard === 'M'
+            ? await cancelMultipleNft(nftId)
+            : await cancel(contract_address, id)
+      else res = await cancelAuction(contract_address, id)
 
       if (!!res) {
-        setIsCanceling(awaitStatus.COMPLETE);
+        setIsCanceling(awaitStatus.COMPLETE)
       }
     } catch (err) {
-      setError(getRPCErrorMessage(err));
-      setIsCanceling(awaitStatus.ERROR);
+      setError(getRPCErrorMessage(err))
+      setIsCanceling(awaitStatus.ERROR)
     }
-  };
+  }
 
   const handeConfirm = () => {
-    if (isDisabledSellBtn) return;
+    if (isDisabledSellBtn) return
 
-    const isIDLEMarketStatus = status.includes(sellReqStatuses.INITIAL);
-    const isEmptyPriceField = !sellPrice && !isCancel;
-    const isTypeNotSelected = !type;
+    const isIDLEMarketStatus = status.includes(sellReqStatuses.INITIAL)
+    const isEmptyPriceField = !sellPrice && !isCancel
+    const isTypeNotSelected = !type
 
-    if (isIDLEMarketStatus) return handleRequest();
+    if (isIDLEMarketStatus) return handleRequest()
+
     if (!isCancel && isTypeNotSelected)
-      return toast.error(t("Select a sell type"));
+      return toast.error(t('Select a sell type'))
     if (!isCancel && isEmptyPriceField)
-      return toast.error(t("Fill the price form"));
+      return toast.error(t('Fill the price form'))
 
     if (!isCancel && !isFixedContract && startDate >= endDate)
-      return toast.error(t("Ending Date should be greater than Starting Date"));
+      return toast.error(t('End Date must be after Start Date'))
 
-    if (isCompleted) return clear();
+    if (isCompleted) return clear()
 
-    setError("");
+    setError('')
 
-    const price = sellPrice;
-    const floorPrice = collection?.floor_price;
+    const price = sellPrice
+    const floorPrice = collection?.floor_price
 
     if (floorPrice > price)
       return toast.error(
-        `${t("Price should be greater or equal to")} ${floorPrice} CYCON`
-      );
+        `${t('Price should be greater or equal to')} ${floorPrice} CYCON`
+      )
+    if (availableQuantity && quantity > availableQuantity)
+      return toast.error(t(`${t('Max available quantity')} ${availableQuantity}`))
 
-    if (isCancel) handleCancel();
+    if (isCancel) handleCancel()
     else {
-      handleToggle();
-      makeContract();
+      handleToggle()
+      makeContract()
     }
-  };
+  }
 
-  const handleBack = () => clear();
+  const handleBack = () => clear()
 
   const handleStatus = () => {
     if (marketStatus?.includes(marketStatuses.COMPLETE))
-      setStatus(sellReqStatuses.PENDING);
-    else setStatus(sellReqStatuses.INITIAL);
-  };
+      setStatus(sellReqStatuses.PENDING)
+    else setStatus(sellReqStatuses.INITIAL)
+  }
 
   useEffect(() => {
-    setError("");
-  }, [openModal]);
+    setError('')
+  }, [openModal])
 
   useEffect(() => {
     if (!sellerAddress) {
-      handleStatus();
+      handleStatus()
 
-      return;
+      return
     }
 
-    setStatus(
-      sellerAddress?.includes(account?.toLowerCase())
-        ? sellReqStatuses.CANCEL
-        : sellReqStatuses.INITIAL
-    );
-  }, [sellerAddress, openModal, marketStatus]);
+    if (standard === 'S') {
+      setStatus(
+        sellerAddress?.includes(account?.toLowerCase())
+          ? sellReqStatuses.CANCEL
+          : sellReqStatuses.INITIAL
+      )
+    } else {
+      setStatus(
+        (ownerAddress && ownerAddress?.token_quantity === 0) || nftId
+          ? sellReqStatuses.CANCEL
+          : sellReqStatuses.PENDING
+      )
+    }
+  }, [sellerAddress, openModal, marketStatus, ownerAddress, standard, nftId])
 
   return {
     isCancel,
@@ -256,8 +294,8 @@ const useSellNFT = ({
     marketStatus,
     onBack: handleBack,
     handeConfirm,
-    handleToggle,
-  };
-};
+    handleToggle
+  }
+}
 
-export default useSellNFT;
+export default useSellNFT

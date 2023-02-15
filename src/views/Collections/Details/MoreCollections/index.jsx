@@ -1,17 +1,17 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "../../../Home/NFTCollections/style.module.scss";
-import Slider from "react-slick";
-import { useTranslation } from "react-i18next";
+import { Box, Button, Container, Grid, Typography } from '@mui/material'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import styles from '../../../Home/NFTCollections/style.module.scss'
+import Slider from 'react-slick'
+import { useTranslation } from 'react-i18next'
 
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
-import NFTCard from "../../../../components/NFTCard";
-import { priceTypeChar } from "../../../../constants";
+import NFTCard from '../../../../components/NFTCard'
+import { priceTypeChar } from '../../../../constants'
 
-const slidesToShow = 4;
+const slidesToShow = 4
 
 const settings = {
   dots: true,
@@ -20,29 +20,29 @@ const settings = {
   slidesToShow,
   slidesToScroll: 1,
   prevArrow: <ArrowBackIosNewRoundedIcon />,
-  nextArrow: <ArrowForwardIosRoundedIcon />,
-};
+  nextArrow: <ArrowForwardIosRoundedIcon />
+}
 
 const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const handleNavigate = () =>
-    navigate(`/collections/${contractAddress}?user=false`);
+    navigate(`/collections/${contractAddress}?user=false`)
 
-  if (data?.length === 0) return;
+  if (data?.length === 0) return
 
   return (
     <Container>
-      <Box className={styles.block} mt="125px">
-        <Box display="flex" justifyContent="center" alignItems="center" mb={5}>
+      <Box className={styles.block} mt='125px'>
+        <Box display='flex' justifyContent='center' alignItems='center' mb={5}>
           <Typography
-            variant="h2"
-            fontSize={`${isResponsive ? "28px" : "40px"}!important`}
-            lineHeight={`${isResponsive ? "42px" : "60px"}`}
+            variant='h2'
+            fontSize={`${isResponsive ? '28px' : '40px'}!important`}
+            lineHeight={`${isResponsive ? '42px' : '60px'}`}
             fontWeight={700}
-            textAlign="center"
+            textAlign='center'
           >
             {t(title)}
           </Typography>
@@ -51,8 +51,8 @@ const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
           {data?.length < 5 ? (
             <Grid
               container
-              display="flex"
-              justifyContent="center"
+              display='flex'
+              justifyContent='center'
               spacing={3}
               mb={10}
             >
@@ -66,9 +66,12 @@ const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
                     endDate={market?.end_date}
                     artistName={artist.artist_name}
                     description={nft.token_name}
+                    page='collections'
                     priceType={priceTypeChar?.[market?.type]}
                     hasAction={!!market?.price}
                     purchaseCount={nft.like_count}
+                    quantity={nft.standard === 'M' ? market?.amount : null}
+                    nftStandard={nft.standard}
                     onClick={() =>
                       navigate(
                         `/marketplace/${nft.token_id}/${collection?.contract_address}`
@@ -114,21 +117,21 @@ const MoreCollections = ({ data, title, contractAddress, isResponsive }) => {
             </Slider>
           )}
         </Box>
-        <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
+        <Box display='flex' justifyContent='center' alignItems='center' mt={2}>
           <Button
-            variant="containedSecondary1"
+            variant='containedSecondary1'
             onClick={handleNavigate}
             sx={{
               width: 185,
-              height: 55,
+              height: 55
             }}
           >
-            {t("View collection")}
+            {t('View collection')}
           </Button>
         </Box>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default MoreCollections;
+export default MoreCollections

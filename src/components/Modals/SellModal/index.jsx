@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import DModal from '../../DModal';
+import React, { useState } from 'react'
+import DModal from '../../DModal'
 
-import { sellReqStatuses } from '../../../constants/sellRequestStatuses';
-import PendingFooter from './Footer/Pending';
-import submittedImg from '../../../assets/icons/submitted.svg';
-import cancelImg from '../../../assets/icons/cancel-list.svg';
+import { sellReqStatuses } from '../../../constants/sellRequestStatuses'
+import PendingFooter from './Footer/Pending'
+import submittedImg from '../../../assets/icons/submitted.svg'
+import cancelImg from '../../../assets/icons/cancel-list.svg'
 
-import InitialSell from './Initial';
-import PendingSell from './Pending';
-import CompleteSell from './Complete';
-import CancelSell from './Cancel';
-import CancelFooter from './Footer/Cancel';
-import { awaitStatus } from './Pending/ConditionAwaitLabel';
+import InitialSell from './Initial'
+import PendingSell from './Pending'
+import CompleteSell from './Complete'
+import CancelSell from './Cancel'
+import CancelFooter from './Footer/Cancel'
+import { awaitStatus } from './Pending/ConditionAwaitLabel'
 
 const Render = {
   [sellReqStatuses.INITIAL]: InitialSell,
   [sellReqStatuses.PENDING]: PendingSell,
   [sellReqStatuses.COMPLETE]: CompleteSell,
   [sellReqStatuses.CANCEL]: CancelSell
-};
+}
 
 const Images = {
   [sellReqStatuses.INITIAL]: null,
   [sellReqStatuses.PENDING]: null,
   [sellReqStatuses.COMPLETE]: null,
   [sellReqStatuses.CANCEL]: cancelImg
-};
+}
 
 const SellModal = ({
   onClick,
@@ -47,7 +47,9 @@ const SellModal = ({
   isCanceling,
   error,
   sellPrice,
-  onBack
+  onBack,
+  quantity,
+  nftStandard
 }) => {
   const Footer = {
     [sellReqStatuses.INITIAL]: null,
@@ -63,10 +65,10 @@ const SellModal = ({
         type={isCanceling}
       />
     )
-  };
+  }
 
-  const RenderComponent = Render[status];
-  const FooterComponent = Footer[status];
+  const RenderComponent = Render[status]
+  const FooterComponent = Footer[status]
 
   return (
     <DModal
@@ -94,9 +96,11 @@ const SellModal = ({
         canceling={isCanceling}
         error={error}
         sellPrice={sellPrice}
+        count={quantity}
+        nftStandard={nftStandard}
       />
     </DModal>
-  );
-};
+  )
+}
 
-export default SellModal;
+export default SellModal

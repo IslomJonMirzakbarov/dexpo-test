@@ -32,6 +32,14 @@ export const marketFilterList = [
     value: 'MOST_FAVORITE',
     label: 'Most favorite'
   }
+  // {
+  //   value: 'SINGLE',
+  //   label: 'Single'
+  // },
+  // {
+  //   value: 'MULTI',
+  //   label: 'Multiple'
+  // }
 ]
 
 export const orginalNftFilterList = [

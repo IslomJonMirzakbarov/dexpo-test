@@ -28,8 +28,8 @@ const RejectedModal = ({ onClick, rejected }) => {
           textAlign="center"
           mb={4}
         >
-          {t("Artist registration has been rejected.")} <br />
-          {t("Please contact [support@dexpo.world] for resubmission.")}
+          {t("Artist registration rejected")} <br />
+          {t("Contact Support for resubmission")}
         </Typography>
       </Box>
     </DModal>

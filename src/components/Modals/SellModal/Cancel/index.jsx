@@ -19,9 +19,7 @@ const CancelSell = ({ canceling, error }) => {
         mt="10px"
         mb={!error ? "80px" : "0"}
       >
-        {t(
-          "This will cancel your listing. You will also asked to confirm this cancellation from your wallet."
-        )}
+        {t("Cancel Listing, confirm from Wallet")}
       </Typography>
       {error && (
         <Typography

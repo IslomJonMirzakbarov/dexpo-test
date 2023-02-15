@@ -1,34 +1,50 @@
-import React from 'react';
-import { useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
-import { securedAPI } from '../services/api';
+import React from 'react'
+import { useQuery } from 'react-query'
+import { useSelector } from 'react-redux'
+import { securedAPI } from '../services/api'
 
-const getHistory = (token, { contract_address, token_id }) =>
+const configQuery = {
+  refetchOnMount: 'always',
+  refetchOnWindowFocus: true, // constantly updating when newCollection created
+  refetchOnReconnect: true,
+}
+
+const getHistory = (token, { contract_address, token_id, page, size }) =>
   securedAPI(token)
     .get(`/api/nft/history`, {
       params: {
         contract_address,
-        token_id
-      }
+        token_id,
+        page,
+        size,
+      },
     })
-    .then((res) => res?.data?.data);
+    .then((res) => res?.data?.data)
 
-const useNFTHistoryAPI = ({ contractAddress, tokenId }) => {
-  const { token } = useSelector((store) => store.auth);
+const useNFTHistoryAPI = ({
+  contractAddress,
+  tokenId,
+  page = 1,
+  size = 15
+}) => {
+  const { token } = useSelector((store) => store.auth)
 
   const { data, isLoading, refetch } = useQuery(
-    `GET-NFT-HISTORY-${contractAddress}-${tokenId}`,
+    `GET-NFT-HISTORY-${contractAddress}-${tokenId}-${page}-${size}`,
     () =>
       getHistory(token, {
         contract_address: contractAddress,
-        token_id: tokenId
+        token_id: tokenId,
+        page,
+        size,
       }),
     {
-      enabled: !!contractAddress && !!tokenId
+      enabled: !!contractAddress && !!tokenId,
+      ...configQuery,
     }
-  );
+  )
 
-  return { data, isLoading, refetch };
-};
+  return { data, isLoading, refetch }
+}
 
-export default useNFTHistoryAPI;
+export default useNFTHistoryAPI

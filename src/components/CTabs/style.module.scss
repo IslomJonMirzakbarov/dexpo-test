@@ -1,0 +1,37 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  @media (max-width: 600px) {
+    width: 100%;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .item {
+    padding: 10px 25px;
+    height: 45px;
+    position: relative;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: #dedede;
+    border-bottom: 3px solid #dedede;
+    @media (max-width: 600px) {
+      white-space: nowrap;
+    }
+    .box {
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #ff006b;
+    }
+
+    .title {
+      color: #1f1f1f;
+    }
+  }
+}

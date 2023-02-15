@@ -53,7 +53,7 @@ const MyCollectionsList = ({
           ))}
         {!isLoading &&
           collections.map(
-            ({ contract_address, symbol, logo_url, name, items_count }, c) => (
+            ({ contract_address, symbol, logo_url, name, items_count, type }, c) => (
               <Grid
                 item
                 lg={6}
@@ -71,6 +71,7 @@ const MyCollectionsList = ({
                   artistName={artistName || full?.artist_name || 'You'}
                   collectionName={name}
                   count={items_count}
+                  type={type}
                 />
               </Grid>
             )

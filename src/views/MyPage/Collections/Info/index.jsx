@@ -17,9 +17,7 @@ const MyCollectionsInfo = () => {
         mt="10px"
         fontWeight={400}
       >
-        {t(
-          "Create, curate, and manage collections of unique NFTs to share and sell."
-        )}
+        {t("Create and Manage NFT Collections")}
       </Typography>
       <NavLink to="/user/collections/create">
         <Button

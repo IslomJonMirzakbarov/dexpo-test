@@ -13,7 +13,7 @@ const configQuery = {
   staleTime: 0
 }
 
-const getList = ({ filterType, page, orderBy, search }, token) =>
+const getList = ({ filterType, page, orderBy, search, categoryType }, token) =>
   securedAPI(token)
     .get(`/api/market/${!!search ? 'search' : 'list'}`, {
       params: {
@@ -21,7 +21,8 @@ const getList = ({ filterType, page, orderBy, search }, token) =>
         order_by: orderBy,
         size,
         filter_type: filterType,
-        search_query: search
+        search_query: search,
+        category_type: categoryType
       }
     })
     .then((res) => res?.data?.data)
@@ -31,13 +32,17 @@ const useMarketAPI = ({
   page = 1,
   orderBy = 'desc',
   refetchInterval,
-  search
+  search,
+  categoryType
 }) => {
   const { token } = useSelector((store) => store.auth)
 
-  const { data, refetch, isLoading, error } = useQuery(
-    `GET-NFT-MARKET-LIST-${type}-${search || ''}-${page}-${orderBy || ''}`,
-    () => getList({ filterType: type, page, orderBy, search }, token),
+  const { data, refetch, isLoading, error, isFetching } = useQuery(
+    `GET-NFT-MARKET-LIST-${type}-${search || ''}-${page}-${orderBy || ''}-${
+      categoryType || ''
+    }`,
+    () =>
+      getList({ filterType: type, page, orderBy, search, categoryType }, token),
     {
       refetchInterval,
       ...configQuery
@@ -48,6 +53,7 @@ const useMarketAPI = ({
     data,
     refetch,
     isLoading,
+    isFetching,
     error
   }
 }
