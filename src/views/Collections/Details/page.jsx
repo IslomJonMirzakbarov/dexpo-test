@@ -53,7 +53,6 @@ const CollectionDetailsPage = () => {
   }
 
   const handlePaginateHistory = (value) => {
-    console.log('value', value)
     sethistoryPage(value)
   }
 
