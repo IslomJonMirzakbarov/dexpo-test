@@ -52,7 +52,6 @@ const HistoryTable = ({
   const classes = useStyles()
   const { t } = useTranslation()
 
-  console.log('data', data)
   return (
     <Box className={classes.root} mt={5}>
       {loading && <Loader />}
