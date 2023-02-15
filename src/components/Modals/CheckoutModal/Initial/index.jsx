@@ -1,46 +1,47 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import NumberFormat from "react-number-format";
-import AuctionBox from "../AuctionBox";
-import BidInput from "../BidInput";
+import React from 'react'
+import { Box, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import NumberFormat from 'react-number-format'
+import AuctionBox from '../AuctionBox'
+import BidInput from '../BidInput'
 
-import ConToken from "../../../../assets/images/con-token.svg?component";
-import numFormat from "../../../../utils/numFormat";
-import { useTranslation } from "react-i18next";
+import ConToken from '../../../../assets/images/con-token.svg?component'
+import numFormat from '../../../../utils/numFormat'
+import { useTranslation } from 'react-i18next'
+import Counter from '../../../Counter'
 
 const useStyles = makeStyles((theme) => ({
   img: {
     borderRadius: 7,
     marginRight: 14,
-    objectFit: "cover",
+    objectFit: 'cover',
   },
   box: {
     width: 432,
     minHeight: 179,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     border: `1px solid ${theme.palette.grey[1500]}`,
     borderRadius: 7,
     backgroundColor: theme.palette.common.white,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       width: 223,
     },
   },
   countBox: {
     backgroundColor: theme.palette.grey[1700],
     borderTop: `1px dashed ${theme.palette.grey[1800]}`,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   price: {
     backgroundColor: theme.palette.common.white,
-    transition: "0.4s ease all",
+    transition: '0.4s ease all',
     borderRadius: 7,
-    cursor: "pointer",
-    "&:hover": {
-      boxShadow: "-1px 1px 16px 7px rgba(0, 0, 0, 0.06)",
+    cursor: 'pointer',
+    '&:hover': {
+      boxShadow: '-1px 1px 16px 7px rgba(0, 0, 0, 0.06)',
     },
   },
   exchangedPrice: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     width: 22,
     height: 22,
   },
-}));
+}))
 
 const InitialCheckout = ({
   img,
@@ -63,10 +64,14 @@ const InitialCheckout = ({
   bidPriceControl,
   isAuction,
   isResponsive,
+  handleQuantity,
+  count,
+  availableQuantity,
+  nftStandard,
 }) => {
-  const classes = useStyles();
-  const imgDim = !isResponsive ? 150 : 85;
-  const { t } = useTranslation();
+  const classes = useStyles()
+  const imgDim = !isResponsive ? 150 : 85
+  const { t } = useTranslation()
   return (
     <Box
       display="flex"
@@ -76,20 +81,29 @@ const InitialCheckout = ({
       px={3}
     >
       <Typography variant="modalTitle" mb={2}>
-        {t("Checkout")}
+        {t('Checkout')}
       </Typography>
-      <Box display="flex" mb={5}>
-        <img
-          className={classes.img}
-          src={img}
-          alt={name}
-          width={imgDim}
-          height={imgDim}
-        />
+      <Box display="flex" mb={5} gap={2}>
+        <Box width={imgDim} height={imgDim}>
+          <img
+            className={classes.img}
+            src={img}
+            alt={name}
+            width={imgDim}
+            height={imgDim}
+          />
+          {nftStandard === 'M' && (
+            <Counter
+              handleChange={handleQuantity}
+              value={count}
+              available={availableQuantity}
+            />
+          )}
+        </Box>
         <Box className={classes.box}>
           <Box display="flex" flexDirection="column" py={1} px={2}>
             <Typography variant="placeholder" fontSize={15} fontWeight={600}>
-              {t("Item")}
+              {t('Item')}
             </Typography>
             <Box
               display="flex"
@@ -100,7 +114,7 @@ const InitialCheckout = ({
                 {name}
               </Typography>
               <Typography variant="body1" color="primary">
-                Artist: {artistName}
+                {artistName}
               </Typography>
             </Box>
             <Box display="flex" alignItems="center">
@@ -117,7 +131,7 @@ const InitialCheckout = ({
             {isAuction ? (
               <AuctionBox leftDays={leftDays} />
             ) : (
-              <Typography>{t("Total")}</Typography>
+              <Typography>{t('Total')}</Typography>
             )}
             <Box
               px={2}
@@ -129,8 +143,8 @@ const InitialCheckout = ({
             >
               <Typography variant="placeholder" fontWeight={600}>
                 <NumberFormat
-                  value={numFormat(price)}
-                  displayType={"text"}
+                  value={numFormat(price * count)}
+                  displayType={'text'}
                   thousandSeparator={true}
                 />
               </Typography>
@@ -169,7 +183,7 @@ const InitialCheckout = ({
         </Box>
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default InitialCheckout;
+export default InitialCheckout

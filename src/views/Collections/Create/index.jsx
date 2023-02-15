@@ -25,7 +25,7 @@ const CollectionCreate = () => {
     size: 10,
   });
   const [showModal, setShowModal] = useState(false);
-  const collectionType = { SINGLE: "S", MULTIIPLE: "M" };
+  const collectionType = { SINGLE: "S", MULTIPLE: "M" };
   const [type, setType] = useState(collectionType.SINGLE);
   const [uploadedImg, setUploadedImg] = useState({});
   const [errBool, setErrBool] = useState(false);
@@ -97,14 +97,16 @@ const CollectionCreate = () => {
           <Box className={classNames(styles.SingleMode)}>
             {/* <SingleMode /> */}
             <Box
-              className={classNames(styles.SingleIContainer, {
-                [styles.ClickShadow]: type === collectionType.SINGLE,
-              })}
+              className={classNames(styles.SingleIContainer)}
               onClick={() => {
                 setType(collectionType.SINGLE);
               }}
             >
-              <Box className={styles.TopIContainer}>
+              <Box
+                className={classNames(styles.TopIContainer, {
+                  [styles.ClickShadow]: type === collectionType.SINGLE,
+                })}
+              >
                 <Box className={styles.SingleTypeText}>
                   {t("Single")} <br /> <span>ERC-721</span>
                 </Box>
@@ -112,11 +114,11 @@ const CollectionCreate = () => {
               <MiddleCircleType className={styles.MiddleCircle} />
               <Box className={styles.BottomIContainer}></Box>
             </Box>
-            {/* <Box
+            <Box
               className={classNames(styles.HorizontalLine, {
                 [styles.Higlighted]: type === collectionType.SINGLE,
               })}
-            ></Box> */}
+            ></Box>
             {/* <Box
               className={classNames(styles.TypePhrase, {
                 [styles.HiglightedCol]: type === collectionType.SINGLE,
@@ -126,22 +128,35 @@ const CollectionCreate = () => {
             </Box> */}
           </Box>
 
-          {/* below code will be available when we add erc-1155 type */}
-          {/*PLEASE DON'T REMOVE IT!!! */}
-          {/* <Box className={classNames(styles.MultipleMode)}>
+          <Box className={classNames(styles.MultipleMode)}>
             <Box
               className={classNames(styles.MultipleModeContainer)}
               onClick={() => {
-                setType(collectionType.MULTIIPLE);
+                setType(collectionType.MULTIPLE);
               }}
             >
               <Box
                 className={classNames(
                   styles.SingleIContainer,
-                  styles.FirstItem,
-                  {
-                    [styles.ClickShadow]: type === collectionType.MULTIIPLE,
-                  }
+                  styles.FirstItem
+                )}
+              >
+                <Box
+                  className={classNames(styles.TopIContainer, {
+                    [styles.ClickShadow]: type === collectionType.MULTIPLE,
+                  })}
+                >
+                  <Box className={styles.SingleTypeText}>
+                    {t("Multiple")} <br /> <span>ERC-1155</span>
+                  </Box>
+                </Box>
+                <MiddleCircleType className={styles.MiddleCircle} />
+                <Box className={styles.BottomIContainer}></Box>
+              </Box>
+              <Box
+                className={classNames(
+                  styles.SingleIContainer,
+                  styles.SecondItem
                 )}
               >
                 <Box className={styles.TopIContainer}></Box>
@@ -151,23 +166,7 @@ const CollectionCreate = () => {
               <Box
                 className={classNames(
                   styles.SingleIContainer,
-                  styles.SecondItem,
-                  {
-                    [styles.ClickShadow]: type === collectionType.MULTIIPLE,
-                  }
-                )}
-              >
-                <Box className={styles.TopIContainer}></Box>
-                <MiddleCircleType className={styles.MiddleCircle} />
-                <Box className={styles.BottomIContainer}></Box>
-              </Box>
-              <Box
-                className={classNames(
-                  styles.SingleIContainer,
-                  styles.ThirdItem,
-                  {
-                    [styles.ClickShadow]: type === collectionType.MULTIIPLE,
-                  }
+                  styles.ThirdItem
                 )}
               >
                 <Box className={styles.TopIContainer}></Box>
@@ -177,17 +176,17 @@ const CollectionCreate = () => {
             </Box>
             <Box
               className={classNames(styles.HorizontalLine, {
-                [styles.Higlighted]: type === collectionType.MULTIIPLE,
+                [styles.Higlighted]: type === collectionType.MULTIPLE,
               })}
             ></Box>
-            <Box
+            {/* <Box
               className={classNames(styles.TypePhrase, {
                 [styles.HiglightedCol]: type === collectionType.MULTIIPLE,
               })}
             >
               Multiple <span>ERC-1151</span>
-            </Box>
-          </Box> */}
+            </Box> */}
+          </Box>
         </Box>
 
         <Box className={styles.UploadLogo}>
@@ -273,15 +272,12 @@ const CollectionCreate = () => {
           <Typography className={styles.SuccessProcessDesc}>
             <>
               <span className={styles.Sphrase}>
-                {t("Your request was submitted successfully and")}
+                {t("Request Submitted Successfully")}
                 <br /> {t("sent to admin for review.")}
               </span>
               <br />
               <br />
-              {t(
-                "1. Scan the QR code and you will be directed to Telegram."
-              )}{" "}
-              <br /> {t("2. You can also check your status on")}{" "}
+              {t("Scan QR for Telegram")} <br /> {t("Check Status")}{" "}
               <span className={styles.MainDesc}>
                 {t("My Page > My application tab.")}
               </span>

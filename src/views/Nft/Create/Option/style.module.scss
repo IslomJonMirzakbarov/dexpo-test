@@ -1,4 +1,4 @@
-@use '/src/scss/colors';
+@use "/src/scss/colors";
 
 .Option {
   display: flex;
@@ -10,6 +10,10 @@
   &:hover {
     background-color: colors.$primary;
     color: #fff;
+  }
+
+  &:hover .collectionType {
+    color: #1E4CED;
   }
 
   img {

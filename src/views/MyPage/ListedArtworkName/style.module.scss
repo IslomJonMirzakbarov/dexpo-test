@@ -8,9 +8,43 @@
     padding-bottom: 30px;
   }
 
+  .ButtonsBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .Button {
+      width: 165px;
+      height: 55px;
+      background: colors.$headBg;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      @include fontLabel;
+      text-align: right;
+      color: colors.$greyBg;
+      cursor: pointer;
+
+      @media (max-width: 600px) {
+        max-width: 112px;
+        text-align: center;
+      }
+    }
+
+    .Active {
+      background: colors.$whiteBg;
+      color: colors.$primary;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  }
+
   .NoItemsContainer {
     width: 100%;
-    padding-top: 154px;
+    padding-top: 130px;
+    margin-left: -12px;
     text-align: center;
 
     @media (max-width: 600px) {
@@ -50,7 +84,7 @@
         }
 
         & :nth-child(1) {
-          width: 114px;
+          width: 10%;
           text-align: left;
           border-radius: 7px 0 0 0;
           border-left: colors.$border;
@@ -58,22 +92,27 @@
         }
 
         & :nth-child(2) {
-          width: 324px;
+          width: 28%;
           padding-left: 48px;
           text-align: left;
         }
         & :nth-child(3) {
+          width: 10%;
+          text-align: left;
+        }
+        & :nth-child(4) {
+          width: 19%;
           text-align: right;
-          width: 299px;
           padding-right: 79px;
         }
 
-        & :nth-child(4) {
-          text-align: right;
-          width: 239px;
-        }
         & :nth-child(5) {
-          margin-right: 75px;
+          width: 19%;
+          text-align: right;
+          padding-right: 10px;
+        }
+        & :nth-child(6) {
+          width: 14%;
           border-radius: 0 7px 0 0;
           border-right: colors.$border;
         }
@@ -99,7 +138,6 @@
           cursor: pointer;
         }
         & :nth-child(2) {
-          width: 324px;
           padding-left: 48px;
           text-align: left;
           font-style: normal;
@@ -111,7 +149,6 @@
         & :nth-child(3) {
           font-style: normal;
           @include fontProcessDesc;
-          color: #fd9330;
         }
 
         .ThirdOne {
@@ -120,7 +157,6 @@
           justify-content: center;
           align-items: flex-end;
           text-align: right;
-          width: 299px;
           padding-right: 79px;
 
           .CycPrice {
@@ -136,20 +172,22 @@
             color: #2bbeac;
           }
         }
-        & :nth-child(4) {
+
+        & :nth-child(3) {
+        }
+
+        & :nth-child(5) {
           text-align: right;
-          width: 320px;
           font-style: normal;
           @include fontProcessDesc;
           color: colors.$greyBg;
         }
-        & :nth-child(5) {
+        & :nth-child(6) {
           text-align: left;
-          width: 170px;
 
           .BtnCancel {
-            width: 140px;
             height: 45px;
+            width: 140px;
             margin-left: 75px;
             margin-right: 30px;
             border: 1px solid colors.$primary;

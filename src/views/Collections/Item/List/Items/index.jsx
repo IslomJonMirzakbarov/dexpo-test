@@ -1,15 +1,14 @@
-import { Grid, Paper, useMediaQuery } from '@mui/material';
-import { Box } from '@mui/system';
-import React from 'react';
-import styles from './style.module.scss';
-import CollectionHeader from './Header';
-import { fakeNFTs } from '../../../../../constants/faker';
-import NFTCard from '../../../../../components/NFTCard';
-import { useNavigate } from 'react-router-dom';
-import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton';
-import NoItemsFound from '../../../../../components/NoItems';
-import { useTheme } from '@mui/styles';
-import { useSelector } from 'react-redux';
+import { Grid, Paper, useMediaQuery } from '@mui/material'
+import { Box } from '@mui/system'
+import React from 'react'
+import styles from './style.module.scss'
+import CollectionHeader from './Header'
+import { fakeNFTs } from '../../../../../constants/faker'
+import NFTCard from '../../../../../components/NFTCard'
+import { useNavigate } from 'react-router-dom'
+import NFTCardSkeleton from '../../../../../components/NFTCard/index.skeleton'
+import NoItemsFound from '../../../../../components/NoItems'
+import { useTheme } from '@mui/styles'
 
 const CollectionItems = ({
   sort = '',
@@ -20,19 +19,19 @@ const CollectionItems = ({
   data,
   contract_address,
   isGuest,
-  noItems
+  noItems,
 }) => {
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const width = matches ? '100%' : '';
+  const width = matches ? '100%' : ''
 
   const getNavigate = (market, nft, tokenId, contractAddress, ownerAddress) => {
     return navigate(
       `/marketplace/${tokenId}/${contractAddress || contract_address}`
-    );
-  };
+    )
+  }
 
   return (
     <Paper variant="div" className={styles.container}>
@@ -65,6 +64,8 @@ const CollectionItems = ({
                       priceType={nft?.token_price}
                       hasAction={!!nft?.token_price}
                       purchaseCount={nft?.like_count}
+                      // page="collectionItem"
+                      // nftStandard={collection?.type}
                       onClick={() =>
                         getNavigate(
                           market,
@@ -88,7 +89,7 @@ const CollectionItems = ({
         )}
       </Box>
     </Paper>
-  );
-};
+  )
+}
 
-export default CollectionItems;
+export default CollectionItems

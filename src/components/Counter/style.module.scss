@@ -1,0 +1,47 @@
+@use '/src/scss/colors';
+
+.wrapper {
+  width: 100%;
+  margin-top: 10px;
+  p {
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+    color: #f20000;
+    margin-top: 8px;
+  }
+  .box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .minus,
+    .plus {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #d1d1d1;
+      cursor: pointer;
+      &:hover {
+        background: #393939;
+      }
+    }
+    input {
+      background: #f3f3f3;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 7px;
+      padding: 7px 5px;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: center;
+      color: #1f1f1f;
+      height: 29px;
+      width: 70px;
+    }
+  }
+}

@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react'
 
-import CollectionDetails from './index';
-import Loader from '../../../components/Loader';
+import CollectionDetails from './index'
+import Loader from '../../../components/Loader'
 
-import NFTSellRequest from '../../Nft/SellRequest';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import useNFTAPI from '../../../hooks/useNFT';
-import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI';
-import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI';
+import NFTSellRequest from '../../Nft/SellRequest'
+import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import useNFTAPI from '../../../hooks/useNFT'
+import useBidHistoryAPI from '../../../hooks/useBidHistoryAPI'
+import useNFTHistoryAPI from '../../../hooks/useNFTHistoryAPI'
+import useMultiNFTOffers from '../../../hooks/useMultiNFTOffersAPI'
 
 const Render = {
   PURCHASE: CollectionDetails,
   SELL: NFTSellRequest
-};
+}
 
 const CollectionDetailsPage = () => {
-  const { id, contract_address } = useParams();
+  const { id, contract_address } = useParams()
 
-  const { account } = useSelector((store) => store.wallet);
-
-  const [refetchInterval, setRefetchInterval] = useState(false);
+  const { account } = useSelector((store) => store.wallet)
+  const [multiOffersPage, setMultiOffersPage] = useState(1)
+  const [historyPage, sethistoryPage] = useState(1)
+  const [refetchInterval, setRefetchInterval] = useState(false)
 
   const {
     detail,
@@ -34,7 +36,7 @@ const CollectionDetailsPage = () => {
     contractAddress: contract_address,
     wallet: account,
     refetchInterval
-  });
+  })
 
   const {
     data: history,
@@ -42,8 +44,28 @@ const CollectionDetailsPage = () => {
     refetch
   } = useNFTHistoryAPI({
     tokenId: id,
-    contractAddress: contract_address
-  });
+    contractAddress: contract_address,
+    page: historyPage
+  })
+
+  const handlePaginateMultipleNft = (value) => {
+    setMultiOffersPage(value)
+  }
+
+  const handlePaginateHistory = (value) => {
+    console.log('value', value)
+    sethistoryPage(value)
+  }
+
+  const {
+    data: multiNftOffers,
+    refetch: refetchMultiNftOffers,
+    isLoading: isLoadingMultiNft
+  } = useMultiNFTOffers({
+    tokenId: id,
+    contractAddress: contract_address,
+    page: multiOffersPage
+  })
 
   const {
     data: bidHistory,
@@ -52,28 +74,41 @@ const CollectionDetailsPage = () => {
   } = useBidHistoryAPI({
     tokenId: id,
     contractAddress: contract_address
-  });
+  })
 
-  const { market, nft } = detail?.data || {};
+  const { market, nft } = detail?.data || {}
 
-  const loweredAccount = account?.toLowerCase();
+  const loweredAccount = account?.toLowerCase()
 
   const isUserSeller = market?.seller_address
     ?.toLowerCase()
-    ?.includes(loweredAccount);
+    ?.includes(loweredAccount)
 
-  const isUserOwner = nft?.owner_address
-    ?.toLowerCase()
-    ?.includes(loweredAccount);
+  const isUserOwner = useMemo(
+    () =>
+      nft?.holders.find(
+        (item) => item?.owner_address?.toLowerCase() === loweredAccount
+      ),
+    [nft?.holders]
+  )
 
-  const isOwner = !market?.price ? isUserOwner : isUserSeller;
-  const labelType = isOwner ? 'SELL' : 'PURCHASE';
-  const loading = loadingDetail || loadingHistory;
-  const fetching = isFetchingDetail || isFetchingHistory;
+  const isOwner = useMemo(
+    () =>
+      nft?.standard === 'M' && isUserOwner
+        ? isUserOwner
+        : !market?.price
+        ? isUserOwner
+        : isUserSeller,
+    [isUserOwner, nft?.standard, market?.price]
+  )
 
-  const Renderer = Render[labelType];
+  const labelType = useMemo(() => (isOwner ? 'SELL' : 'PURCHASE'), [isOwner])
+  const loading = loadingDetail
+  const fetching = isFetchingDetail || isFetchingHistory
 
-  if (loading || fetching || loadingBid) return <Loader />;
+  const Renderer = Render[labelType]
+
+  if (loading || fetching || loadingBid) return <Loader />
 
   return (
     <Renderer
@@ -91,9 +126,17 @@ const CollectionDetailsPage = () => {
       refetchInterval={refetchInterval}
       contract_address={contract_address}
       setRefetchInterval={setRefetchInterval}
+      multiNftOffers={multiNftOffers}
+      refetchMultiNftOffers={refetchMultiNftOffers}
+      handlePaginateMultipleNft={handlePaginateMultipleNft}
+      multiOffersPage={multiOffersPage}
+      isLoadingMultiNft={isLoadingMultiNft}
+      handlePaginateHistory={handlePaginateHistory}
+      historyPage={historyPage}
+      loadingHistory={loadingHistory}
       {...detail?.data}
     />
-  );
-};
+  )
+}
 
-export default CollectionDetailsPage;
+export default CollectionDetailsPage

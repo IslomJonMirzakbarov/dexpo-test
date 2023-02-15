@@ -11,11 +11,19 @@ const ValueContainer = (item) => {
     selectProps || {};
 
   const label = getOptionLabel(value);
+  const collectionType = value?.type === "M" ? "Multiple" : "Single";
 
   return (
-    <Typography variant="placeholder" fontWeight={400} onClick={getOptionValue}>
-      {label || placeholder}
-    </Typography>
+    <Box onClick={getOptionValue} className={styles.ValueContainer}>
+      <Typography variant="placeholder" fontWeight={400}>
+        {label || placeholder}
+      </Typography>
+      {!!value && (
+        <Typography className={styles.CollectionType}>
+          {collectionType}
+        </Typography>
+      )}
+    </Box>
   );
 };
 

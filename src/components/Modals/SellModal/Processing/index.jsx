@@ -52,7 +52,7 @@ const ProcessingCheckout = ({ name, txHash }) => {
         <Typography variant="placeholder" color="primary" fontWeight={700}>
           {name}
         </Typography>{" "}
-        {t("processing. It should be confirmed on the blockchain shortly.")}
+        {t("Transaction Processing")}
       </Typography>
     </Box>
   );

@@ -203,7 +203,9 @@ const CollectionDetailsContainer = ({
           orginalNftDetail={orginalNftDetail}
           setOpentImage={(url) => setOpenImg(url)}
         />
-        <Typography className={styles.AccordionTitle}>구매 확인사항</Typography>
+        <Typography className={styles.AccordionTitle}>
+          {t("Confirmation of Purchase")}
+        </Typography>
 
         <Accordion
           defaultExpanded={true}
@@ -217,29 +219,15 @@ const CollectionDetailsContainer = ({
             id="panel1a-header"
           >
             <Typography className={styles.AccordionSummaryText}>
-              결제 후 취소/환불 불가 안내
+              {t("No Cancellation or Refund after Purchase")}
             </Typography>
           </AccordionSummary>
           <AccordionDetails className={styles.AccordionDetails}>
             <Typography className={styles.AccordionDetailsText}>
-              WAD는 블록체인 기술을 이용하여 작품을 거래하므로, 결제가 완료된
-              이후에는 구매 취소 또는 환불이 되지 않습니다.
+              {t("Art Blockchain No Refunds")}
             </Typography>
           </AccordionDetails>
         </Accordion>
-
-        {/* <Accordion square={true} style={{ margin: 0, boxShadow: 'none' }}>
-          <AccordionSummary
-            className={styles.AccordionSummary}
-            expandIcon={<AddIcon className={styles.AddIcon} />}
-            aria-controls='panel1a-content'
-            id='panel1a-header'
-          >
-            <Typography className={styles.AccordionSummaryText}>
-              에디션 구매 가이드
-            </Typography>
-          </AccordionSummary>
-        </Accordion> */}
       </Container>
 
       <DModal

@@ -72,7 +72,7 @@ const About = () => {
 
         <div className={styles.PreInfo}>
           {t("World Art DEXPO is a next-generation")} <br />{" "}
-          {t("NFT trading platform that combines blockchain")} <br />
+          {t("Blockchain NFT Trading Platform")} <br />
           {t("technology with existing real artworks.")}
         </div>
 
@@ -90,27 +90,23 @@ const About = () => {
           <img src={CollabImage} alt="collab" />
           <div className={styles.CollabRightSide}>
             <div className={styles.RightSideTitle}>
-              {t("Collaboration with KFAA(Korean Fine Arts Association)")}
+              {t("Collaboration with KFAA")}
             </div>
             <div className={styles.CollabParagraphContainer}>
               <div className={styles.CollabText}>
-                {t(
-                  "- Buy or collect artworks owned by KFAA(Korean Fine Arts Association)"
-                )}
+                {t("Buy or Collect KFAA Artworks")}
               </div>
               <div
                 className={classNames(styles.CollabText, styles.ArtworkStyle)}
               >
                 <div>-</div>
                 <div>
-                  {t(
-                    "See artworks of national treasures, works by famous painters, and even"
-                  )}{" "}
-                  <br /> {t("the up-and-coming artists!")}
+                  {t("View Famous Artists' Art")} <br />{" "}
+                  {t("the up-and-coming artists!")}
                 </div>
               </div>
               <div className={styles.CollabText}>
-                {t("- Discover the valuable artworks at World Art DEXPO")}
+                {t("Discover Valuable Artworks")}
               </div>
             </div>
           </div>
@@ -127,33 +123,21 @@ const About = () => {
                 className={classNames(styles.CollabText, styles.ArtworkStyle)}
               >
                 <div>-</div>
-                <div>
-                  {t(
-                    "A secure and reliable artwork trading platform with distributed storage technology."
-                  )}
-                </div>
+                <div>{t("Secure Trading Platform")}</div>
               </div>
 
               <div
                 className={classNames(styles.CollabText, styles.ArtworkStyle)}
               >
                 <div>-</div>
-                <div>
-                  {t(
-                    "World Art DEXPO does not use third-party cloud storage, but uses OceanDrive with distributed storage technology."
-                  )}
-                </div>
+                <div>{t("Distributed Storage with OceanDrive")}</div>
               </div>
 
               <div
                 className={classNames(styles.CollabText, styles.ArtworkStyle)}
               >
                 <div>-</div>
-                <div>
-                  {t(
-                    "A more secure trading is made because encrypted data is stored in OceanDrive and cannot be accessed without permission from the owner."
-                  )}
-                </div>
+                <div>{t("Secure Trading Encryption")}</div>
               </div>
             </div>
           </div>
@@ -204,9 +188,7 @@ const About = () => {
         </div>
 
         <div className={styles.InvestInfoTxt}>
-          {t(
-            "We would like to present a list of works and top collections to consumers."
-          )}
+          {t("Presenting Top Works and Collections")}
         </div>
 
         <Box className={classNames(styles2.container)}>

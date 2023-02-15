@@ -33,7 +33,11 @@ const CollectionItem = () => {
 
   const urlDetails = getPaginationDetailsByPathname(search);
 
-  const [searchInput, setSearchInput] = useState(urlDetails?.search);
+  const [searchInput, setSearchInput] = useState(
+    urlDetails?.search
+      ? decodeURIComponent(urlDetails?.search)
+      : urlDetails?.search
+  );
 
   const page = useMemo(
     () => (urlDetails?.page > 0 ? urlDetails?.page : 1),
