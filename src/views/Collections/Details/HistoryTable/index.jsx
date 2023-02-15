@@ -51,10 +51,12 @@ const HistoryTable = ({
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
+
+  console.log('data', data)
   return (
     <Box className={classes.root} mt={5}>
       {loading && <Loader />}
-      {!loading && data?.totalPages !== 0 && (
+      {!loading && data?.items?.length > 0 && (
         <>
           <Box className={classes.header}>
             <Typography
