@@ -85,7 +85,7 @@ const NFTCard = ({
           style={{ backgroundColor: '#ffffff' }}
           alt={name}
           debounce={500}
-          //placeholder={loader}
+          placeholder={loader}
           error={urlToIpfs(img)}
         />
         <div className={styles.badge}>
