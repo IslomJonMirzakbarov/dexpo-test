@@ -3,9 +3,8 @@
 # as .css, .js, but Google needs them for rendering, so Googlebot is allowed
 # to crawl them.
 User-agent: *
-Disallow: /includes/
 
-User-agent: Googlebot
-Allow: /includes/
+Allow: /*
+Disallow: /user/*
 
 Sitemap: https://dexpo.world/sitemap.xml
