@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { useTheme } from '@mui/styles'
 import { useInView } from 'react-intersection-observer'
 import useCollecionsByCategory, {
-  categoryTypes,
+  categoryTypes
 } from '../../../hooks/useCollectionsByCategoryAPI'
 import { CollectionsSuspence } from './CollectionsContainer'
 import { useTranslation } from 'react-i18next'
@@ -15,17 +15,17 @@ const CollectionsContainer = React.lazy(() => import('./CollectionsContainer')) 
 
 const NFTCollections = () => {
   const { ref, inView } = useInView({
-    threshold: 0,
+    threshold: 0
   })
 
   const { ref: ref1, inView: inView1 } = useInView({
-    threshold: 0,
+    threshold: 0
   })
 
   const { data: soldOutData, isLoading: isLoadingSoldOut } = useOriginalNftAPI({
     page: 1,
     search: '',
-    type: 'RECENTLY_SOLD',
+    type: 'RECENTLY_SOLD'
   })
   const soldOutCollections = soldOutData?.items
 
@@ -51,26 +51,20 @@ const NFTCollections = () => {
             mb={5}
             ref={ref}
           >
-            {/* Below code will be switched with the above one as soon as items will start sell, so please don't remove it */}
-            {/* <Typography variant="h2" fontWeight={700}>
+            <Typography variant="h2" fontWeight={700}>
               {t('Sold Out Artworks')}
             </Typography>
           </Box>
-          {isLoadingSoldOut || soldOutCollections?.length < 1 ? ( */}
-            <Typography variant="h2" fontWeight={700}>
-              {t('HottestArtworks')}
-            </Typography>
-          </Box>
-          {isLoadingHottest || hottestCollections?.length < 1 ? (
+          {isLoadingSoldOut || soldOutCollections?.length < 1 ? (
             <CollectionsSuspence />
           ) : (
             <CollectionsContainer
-              collections={hottestCollections}
+              soldOut
+              collections={soldOutCollections}
               matches={matches}
             />
           )}
         </Box>
-
         <Box className={styles.block}>
           <Box
             display="flex"
