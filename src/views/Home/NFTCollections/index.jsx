@@ -51,20 +51,26 @@ const NFTCollections = () => {
             mb={5}
             ref={ref}
           >
-            <Typography variant="h2" fontWeight={700}>
+            {/* Below code will be switched with the above one as soon as items will start sell, so please don't remove it */}
+            {/* <Typography variant="h2" fontWeight={700}>
               {t('Sold Out Artworks')}
             </Typography>
           </Box>
-          {isLoadingSoldOut || soldOutCollections?.length < 1 ? (
+          {isLoadingSoldOut || soldOutCollections?.length < 1 ? ( */}
+            <Typography variant="h2" fontWeight={700}>
+              {t('HottestArtworks')}
+            </Typography>
+          </Box>
+          {isLoadingHottest || hottestCollections?.length < 1 ? (
             <CollectionsSuspence />
           ) : (
             <CollectionsContainer
-              soldOut
-              collections={soldOutCollections}
+              collections={hottestCollections}
               matches={matches}
             />
           )}
         </Box>
+
         <Box className={styles.block}>
           <Box
             display="flex"
