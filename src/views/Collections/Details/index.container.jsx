@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
   box: {
     width: '50%',
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
+      width: '100%',
+      gap: 10
     }
   },
   button: {
@@ -161,7 +162,7 @@ const CollectionDetailsContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               isLiked={nft?.is_liked}
-              alt='nft picture'
+              alt="nft picture"
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
@@ -191,8 +192,8 @@ const CollectionDetailsContainer = ({
               nftStandard={nft?.standard}
             />
             <Box
-              display='flex'
-              justifyContent='space-between'
+              display="flex"
+              justifyContent="space-between"
               mt={3}
               className={classes.boxWrapper}
             >
@@ -201,17 +202,17 @@ const CollectionDetailsContainer = ({
                   smartContract={collection?.contract_address}
                   tokenID={nft?.token_id}
                   tokenStandard={nft?.standard}
-                  blockchain='Klaytn'
+                  blockchain="Klaytn"
                   addrressCreator={nft?.creator_address}
                   addrressOwner={nft?.owner_address}
                   sellerAddress={market?.seller_address}
                 />
               </Box>
               <Box
-                display='flex'
-                justifyContent='space-between'
-                flexDirection='column'
-                alignItems='end'
+                display="flex"
+                justifyContent="space-between"
+                flexDirection="column"
+                alignItems="end"
                 className={classes.box}
               >
                 {nft?.standard === 'M' && (
@@ -234,19 +235,19 @@ const CollectionDetailsContainer = ({
                 )}
                 {isAuction && endDate ? (
                   isAuctionNotStarted ? (
-                    <Typography variant='placeholder' fontWeight={500}>
+                    <Typography variant="placeholder" fontWeight={500}>
                       Auction will start on{' '}
                       <Typography
-                        variant='placeholder'
-                        color='primary'
+                        variant="placeholder"
+                        color="primary"
                         fontWeight={500}
                       >
                         {auctionStartDate}
                       </Typography>{' '}
                       at{' '}
                       <Typography
-                        variant='placeholder'
-                        color='primary'
+                        variant="placeholder"
+                        color="primary"
                         fontWeight={500}
                       >
                         {auctionStartTime}
@@ -254,9 +255,9 @@ const CollectionDetailsContainer = ({
                     </Typography>
                   ) : (
                     <Box
-                      display='flex'
+                      display="flex"
                       justifyContent={matches ? 'center' : 'end'}
-                      width='100%'
+                      width="100%"
                     >
                       <Countdown date={endDate} onFinish={onTimeOut} />
                     </Box>
@@ -265,25 +266,25 @@ const CollectionDetailsContainer = ({
                   <Box />
                 )}
                 <Box
-                  display='flex'
-                  flexDirection='column'
-                  alignItems='end'
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="end"
                   sx={{ width: '100%' }}
                 >
                   {nft.standard !== 'M' && market?.price && (
                     <>
                       <Box
-                        display='flex'
-                        alignItems='center'
+                        display="flex"
+                        alignItems="center"
                         className={classes.priceBox}
                       >
                         <TokenImg style={{ width: 28, height: 28 }} />
                         <Typography
                           ml={1}
-                          variant='body2'
-                          fontSize='30px!important'
+                          variant="body2"
+                          fontSize="30px!important"
                           fontWeight={600}
-                          lineHeight='45px'
+                          lineHeight="45px"
                         >
                           <NumberFormat
                             value={numFormat(market?.price)}
@@ -293,7 +294,7 @@ const CollectionDetailsContainer = ({
                         </Typography>
                       </Box>
                       <Typography
-                        variant='placeholder'
+                        variant="placeholder"
                         fontWeight={500}
                         color={theme.palette.grey[1000]}
                       >
@@ -302,7 +303,7 @@ const CollectionDetailsContainer = ({
                           value={numFormat(exchangedPrice)}
                           displayType={'text'}
                           thousandSeparator={true}
-                          prefix='￦'
+                          prefix="￦"
                         />
                         )
                       </Typography>
@@ -312,7 +313,7 @@ const CollectionDetailsContainer = ({
                   {nft.standard !== 'M' && !isSoldOut && (
                     <Button
                       className={classes.button}
-                      variant='containedSecondary'
+                      variant="containedSecondary"
                       fullWidth
                       onClick={handleClick}
                       disabled={isSoldOut || isDisabled}
@@ -377,8 +378,8 @@ const CollectionDetailsContainer = ({
           <AccordionSummary
             className={styles.AccordionSummary}
             expandIcon={<CustomExpandIcon />}
-            aria-controls='panel1a-content'
-            id='panel1a-header'
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
             <Typography className={styles.AccordionSummaryText}>
               {t('No Cancellation or Refund after Purchase')}
@@ -462,10 +463,10 @@ const CustomExpandIcon = () => {
         }
       }}
     >
-      <div className='expandIconWrapper'>
+      <div className="expandIconWrapper">
         <RemoveIcon />
       </div>
-      <div className='collapsIconWrapper'>
+      <div className="collapsIconWrapper">
         <AddIcon />
       </div>
     </Box>
