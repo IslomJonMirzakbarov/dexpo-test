@@ -1,10 +1,10 @@
-import { Box, Paper, Typography } from '@mui/material';
-import React, { forwardRef } from 'react';
-import styles from './style.module.scss';
-import classNames from 'classnames';
-import DefaultImg from '../../assets/icons/profile-img-icon.svg?component';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useOnClickOutside } from '../../hooks/useOnOutsideClick';
+import { Box, Paper, Typography } from '@mui/material'
+import React, { forwardRef } from 'react'
+import styles from './style.module.scss'
+import classNames from 'classnames'
+import DefaultImg from '../../assets/icons/profile-img-icon.svg?component'
+import CircularProgress from '@mui/material/CircularProgress'
+import { useOnClickOutside } from '../../hooks/useOnOutsideClick'
 
 const Loading = () => {
   return (
@@ -18,8 +18,8 @@ const Loading = () => {
         </Typography>
       </Box>
     </Paper>
-  );
-};
+  )
+}
 
 const NoItems = () => {
   return (
@@ -30,16 +30,16 @@ const NoItems = () => {
         </Typography>
       </Box>
     </Paper>
-  );
-};
+  )
+}
 
 const AutocompleteList = forwardRef(
   ({ isOpen = false, data = [], isLoading = false }, ref) => {
-    if (!isOpen) return;
+    if (!isOpen) return
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <Loading />
 
-    if (!data?.length || data?.length === 0) return <NoItems />;
+    if (!data?.length || data?.length === 0) return <NoItems />
 
     return (
       <Paper className={styles.container} ref={ref}>
@@ -54,45 +54,63 @@ const AutocompleteList = forwardRef(
               {item.children.map((child, c) => {
                 return (
                   <Box
-                    key={c}
-                    onClick={child.action}
                     display="flex"
-                    justifyContent="flex-start"
+                    justifyContent="space-between"
                     alignItems="center"
                     className={classNames(styles.item, styles.child)}
                   >
-                    {child.img ? (
-                      <img
-                        src={child.img}
-                        alt={child.label}
-                        width={24}
-                        height={24}
-                      />
-                    ) : (
-                      <DefaultImg
-                        style={{
-                          width: 24,
-                          height: 24
-                        }}
-                      />
-                    )}
+                    <Box
+                      key={c}
+                      onClick={child.action}
+                      display="flex"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                    >
+                      {child.img ? (
+                        <img
+                          src={child.img}
+                          alt={child.label}
+                          width={24}
+                          height={24}
+                        />
+                      ) : (
+                        <DefaultImg
+                          style={{
+                            width: 24,
+                            height: 24
+                          }}
+                        />
+                      )}
+
+                      <Typography
+                        ml="7px"
+                        fontWeight={500}
+                        className={styles.title}
+                      >
+                        {child.label}
+                      </Typography>
+                    </Box>
 
                     <Typography
                       ml="7px"
                       fontWeight={500}
-                      className={styles.title}
+                      className={styles.type}
                     >
-                      {child.label}
+                      {item?.label !== 'Collections'
+                        ? ''
+                        : child?.type === 'S'
+                        ? 'Single'
+                        : 'Multiple'}
                     </Typography>
                   </Box>
-                );
+                )
               })}
             </>
           ))}
         </Box>
       </Paper>
-    );
+    )
   }
-);
+)
 
-export default AutocompleteList;
+export default AutocompleteList

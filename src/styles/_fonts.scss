@@ -111,3 +111,10 @@
   font-size: 75px;
   line-height: 90px;
 }
+
+@mixin fontCollectionType {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+}
