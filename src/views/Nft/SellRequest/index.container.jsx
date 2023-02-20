@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   Grid,
+  Hidden,
   Paper,
   TextField,
   Typography
@@ -82,6 +83,27 @@ const useStyles = makeStyles({
         border: ' none!important',
         outline: 'none'
       }
+    }
+  },
+  '@media (max-width: 600px)': {
+    outerBox: {
+      maxWidth: '120%',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 15
+    },
+    box: {
+      maxWidth: '123%',
+      width: '123%',
+      gap: 15
+    },
+    infoBox: {
+      maxWidth: '120%',
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    fBox: {
+      width: '100% !important'
     }
   }
 })
@@ -222,22 +244,32 @@ const NFTSellRequestContainer = ({
             flexDirection="column"
             justifyContent="space-between"
           >
-            <CollectionDetailsInfo
-              collection={collection}
-              artistWallet={artist?.wallet_address}
-              artistName={artist?.artist_name}
-              youtubeURL={artist?.youtube_url}
-              nftName={nft?.token_name}
-              description={nft?.token_description}
-              type={priceTypeChar?.[market?.type]}
-              isArtwork={nft.standard === 'M' ? false : !isCancel}
-              sellType={type}
-              types={types}
-              handleChangeType={handleChangeType}
-              hideSelect={isTypeHidden}
-              nftStandard={nft?.standard}
-            />
-            <Box display="flex" justifyContent="space-between" mt={3} gap={3}>
+            <Box className={styles.fBox}>
+              <CollectionDetailsInfo
+                collection={collection}
+                artistWallet={artist?.wallet_address}
+                artistName={artist?.artist_name}
+                youtubeURL={artist?.youtube_url}
+                nftName={nft?.token_name}
+                description={nft?.token_description}
+                type={priceTypeChar?.[market?.type]}
+                isArtwork={nft.standard === 'M' ? false : !isCancel}
+                sellType={type}
+                types={types}
+                handleChangeType={handleChangeType}
+                hideSelect={isTypeHidden}
+                nftStandard={nft?.standard}
+                className={classes.infoBox}
+              />
+            </Box>
+
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              mt={3}
+              gap={3}
+              className={classes.outerBox}
+            >
               <Box className={classes.box}>
                 <ValueTable
                   smartContract={collection?.contract_address}
