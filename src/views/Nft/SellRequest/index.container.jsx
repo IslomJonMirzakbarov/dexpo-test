@@ -243,6 +243,7 @@ const NFTSellRequestContainer = ({
             display="flex"
             flexDirection="column"
             justifyContent="space-between"
+            width='100%'
           >
             <Box className={classes.fBox}>
               <CollectionDetailsInfo
