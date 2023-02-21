@@ -93,17 +93,17 @@ const useStyles = makeStyles({
       gap: 15
     },
     box: {
-      maxWidth: '123%',
-      width: '123%',
+      maxWidth: '122%',
+      width: '122%',
       gap: 15
     },
     infoBox: {
-      maxWidth: '120%',
+      maxWidth: '122%',
       display: 'flex',
       flexDirection: 'column'
     },
     fBox: {
-      width: '100% !important'
+      width: '122%'
     }
   }
 })
@@ -244,7 +244,7 @@ const NFTSellRequestContainer = ({
             flexDirection="column"
             justifyContent="space-between"
           >
-            <Box className={styles.fBox}>
+            <Box className={classes.fBox}>
               <CollectionDetailsInfo
                 collection={collection}
                 artistWallet={artist?.wallet_address}
@@ -380,14 +380,18 @@ const NFTSellRequestContainer = ({
           </Grid>
         </Grid>
         {nft.standard === 'M' && (
-          <ListingTable
-            handleCancel={handleCancel}
-            multiNftOffers={multiNftOffers}
-            onConfirm={checkoutToggle}
-            handlePaginate={handlePaginateMultipleNft}
-            page={multiOffersPage}
-            isLoadingMultiNft={isLoadingMultiNft}
-          />
+          <Grid container style={{overflow: 'auto'}}>
+            <Grid item lg={12}>
+              <ListingTable
+                handleCancel={handleCancel}
+                multiNftOffers={multiNftOffers}
+                onConfirm={checkoutToggle}
+                handlePaginate={handlePaginateMultipleNft}
+                page={multiOffersPage}
+                isLoadingMultiNft={isLoadingMultiNft}
+              />
+            </Grid>
+          </Grid>
         )}
         {isBidHistory && (
           <Grid container>
