@@ -87,23 +87,23 @@ const useStyles = makeStyles({
   },
   '@media (max-width: 600px)': {
     outerBox: {
-      maxWidth: '120%',
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
       gap: 15
     },
     box: {
-      maxWidth: '122%',
-      width: '122%',
+      maxWidth: '100%',
+      width: '100%',
       gap: 15
     },
     infoBox: {
-      maxWidth: '122%',
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column'
     },
     fBox: {
-      width: '122%'
+      width: '100%'
     }
   }
 })
@@ -380,7 +380,7 @@ const NFTSellRequestContainer = ({
           </Grid>
         </Grid>
         {nft.standard === 'M' && (
-          <Grid container style={{overflow: 'auto'}}>
+          <Grid container style={{ overflow: 'auto' }}>
             <Grid item lg={12}>
               <ListingTable
                 handleCancel={handleCancel}
