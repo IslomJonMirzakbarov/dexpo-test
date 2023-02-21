@@ -14,6 +14,10 @@
     align-items: center;
     margin-bottom: 30px;
 
+    @media (max-width: 600px) {
+      width: 950px;
+    }
+
     .Button {
       width: 165px;
       height: 55px;
@@ -67,6 +71,10 @@
     width: 100%;
     border-spacing: 0;
 
+    @media (max-width: 600px) {
+      width: 950px;
+    }
+
     .TableHead {
       border-radius: 7px 7px 0px 0px;
       border: colors.$border;
@@ -80,6 +88,7 @@
         th {
           border-top: colors.$border;
           border-bottom: colors.$border;
+          @include fontTableHead;
         }
 
         & :nth-child(1) {

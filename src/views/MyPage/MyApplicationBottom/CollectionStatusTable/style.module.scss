@@ -21,6 +21,7 @@
       th {
         border-top: colors.$border;
         border-bottom: colors.$border;
+        @include fontTableHead;
 
         background: colors.$headBg;
         position: sticky;
