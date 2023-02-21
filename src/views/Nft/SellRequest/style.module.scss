@@ -4,6 +4,10 @@
 .container {
   padding: 90px 0;
 
+  @media (max-width: 600px) {
+    padding-top: 45px;
+  }
+
   .totalList {
     width: 100%;
     .total {
