@@ -1,5 +1,5 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
 
 .Container {
   width: 100%;
@@ -7,12 +7,21 @@
   background-color: #000000;
   color: white;
   padding-top: 89px;
+  overflow: hidden;
+
+  @media (max-width: 600px) {
+    padding-top: 69px;
+  }
 
   .AboutCoverage {
     width: 100%;
     position: relative;
     top: 221px;
     z-index: 4;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
 
     .AboutIcon {
       top: -80px;
@@ -53,6 +62,10 @@
     .ExploreBtn {
       z-index: 5;
       margin-bottom: 453px;
+
+      @media (max-width: 600px) {
+        margin-bottom: 83px;
+      }
     }
 
     .WhatWeDoTxt {
@@ -60,6 +73,10 @@
       text-align: center;
       color: colors.$whiteBg;
       margin-bottom: 20px;
+
+      @media (max-width: 600px) {
+        margin-bottom: 0;
+      }
     }
 
     .CollabContainer {
@@ -69,16 +86,37 @@
       gap: 33px;
       margin-bottom: 94px;
 
+      @media (max-width: 600px) {
+        img {
+          display: none;
+        }
+      }
+
       .CollabRightSide {
+        @media (max-width: 600px) {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          max-width: 100%;
+        }
         .RightSideTitle {
           @include fontProcessTitle;
           color: colors.$whiteBg;
           margin-bottom: 12px;
+
+          @media (max-width: 600px) {
+            text-align: center;
+          }
         }
 
         .CollabParagraphContainer {
           width: 545px;
           height: 92px;
+
+          @media (max-width: 600px) {
+            max-width: 340px;
+          }
 
           .CollabText {
             @include fontTypePhrase;
@@ -99,13 +137,26 @@
       gap: 76px;
       margin-bottom: 246.37px;
 
+      @media (max-width: 600px) {
+        margin-bottom: 200px;
+      }
+
       & > div {
         margin-left: -30px;
+
+        @media (max-width: 600px) {
+          margin-left: 0;
+        }
       }
     }
 
     .ExploreTxt {
       margin-bottom: 50px;
+
+      @media (max-width: 600px) {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
 
     .ExploreContainer {
@@ -114,6 +165,14 @@
       align-items: flex-start;
       justify-content: space-between;
       margin-bottom: 237px;
+
+      @media (max-width: 600px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 77px;
+        margin-top: -30px;
+      }
 
       .InnerContainer {
         display: flex;
@@ -150,6 +209,12 @@
       text-align: center;
       color: colors.$whiteBg;
       margin-bottom: 50px;
+
+      @media (max-width: 600px) {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 20px;
+      }
     }
   }
 }
