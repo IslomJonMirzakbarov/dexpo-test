@@ -1,5 +1,5 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
 
 .Table {
   display: block;
@@ -22,11 +22,14 @@
         border-top: colors.$border;
         border-bottom: colors.$border;
         @include fontTableHead;
-
         background: colors.$headBg;
         position: sticky;
         top: 0;
         z-index: 10;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
 
       & :nth-child(1) {
@@ -71,6 +74,10 @@
         line-height: 22px;
         color: colors.$greyBg;
 
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
+
         svg {
           padding-left: 0;
         }
@@ -89,6 +96,10 @@
         font-weight: 500;
         font-size: 15px;
         line-height: 22px;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
       .UnderReview {
         color: #fd9330;
@@ -107,6 +118,10 @@
         font-style: normal;
         @include fontProcessDesc;
         color: colors.$greyBg;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
     }
   }

@@ -19,6 +19,10 @@
         border-top: colors.$border;
         border-bottom: colors.$border;
         @include fontTableHead;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
 
       & :nth-child(1) {
@@ -59,12 +63,20 @@
         text-decoration-line: underline;
         color: #1e4ced;
         cursor: pointer;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
 
       & :nth-child(2) {
         text-align: left;
         font-style: normal;
         @include fontProcessDesc;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
 
       .UnderReview {
@@ -85,6 +97,10 @@
         font-style: normal;
         @include fontProcessDesc;
         color: #1f1f1f;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
     }
   }

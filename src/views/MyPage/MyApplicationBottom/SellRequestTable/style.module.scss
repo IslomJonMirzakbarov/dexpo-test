@@ -19,6 +19,10 @@
         border-top: colors.$border;
         border-bottom: colors.$border;
         @include fontTableHead;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
 
       & :nth-child(1) {
@@ -72,12 +76,20 @@
         @include fontLabel;
         font-weight: 700;
         color: colors.$greyBg;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
       & :nth-child(3) {
         text-align: left;
         width: 367px;
         font-style: normal;
         @include fontProcessDesc;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
       .UnderReview {
         color: #fd9330;
@@ -96,6 +108,10 @@
         font-style: normal;
         @include fontProcessDesc;
         color: colors.$greyBg;
+
+        @media (max-width: 600px) {
+          font-size: 13px;
+        }
       }
     }
   }
