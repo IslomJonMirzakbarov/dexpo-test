@@ -13,7 +13,10 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCallback } from 'react'
 import useCurrnetProvider from '../../../hooks/useCurrentProvider'
-import { getRPCErrorMessage } from '../../../constants/metamaskErrors'
+import {
+  getRPCErrorMessage,
+  metamaskError
+} from '../../../constants/metamaskErrors'
 import { checkoutStatuses } from '../../../constants/checkoutStatuses'
 
 const types = [
