@@ -123,6 +123,7 @@
           width: 19%;
           text-align: right;
           padding-right: 79px;
+          white-space: nowrap;
           @media (max-width: 600px) {
             align-items: flex-start;
             text-align: left;
