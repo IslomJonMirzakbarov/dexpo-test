@@ -309,7 +309,6 @@ const NftCreate = () => {
         {(errorChecker > 0 || errBool) && (
           <Box className={styles.Error}>
             {(!watch('collection') ||
-              !watch('collection') ||
               !watch('artworkName') ||
               !description ||
               !uploadedImg ||
