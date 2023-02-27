@@ -45,7 +45,8 @@ const useMarketAPI = ({
       getList({ filterType: type, page, orderBy, search, categoryType }, token),
     {
       refetchInterval,
-      ...configQuery
+      ...configQuery,
+      cacheTime: 60000
     }
   )
 

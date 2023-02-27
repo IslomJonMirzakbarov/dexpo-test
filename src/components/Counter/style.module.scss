@@ -29,6 +29,11 @@
       &:hover {
         background: #393939;
       }
+
+      @media (max-width: 600px) {
+        width: 14px;
+        height: 14px;
+      }
     }
     input {
       background: #f3f3f3;
@@ -42,6 +47,11 @@
       color: #1f1f1f;
       height: 29px;
       width: 70px;
+
+      @media (max-width: 600px) {
+        width: 47.65px;
+        height: 20.97px;
+      }
     }
   }
 }

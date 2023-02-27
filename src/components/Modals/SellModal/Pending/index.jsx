@@ -11,36 +11,48 @@ import { useTranslation } from 'react-i18next'
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     height: 375,
+    [theme.breakpoints.down('sm')]: {
+      height: '100%'
+    }
   },
   img: {
     borderRadius: 7,
     marginRight: 14,
     objectFit: 'cover',
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 8,
+      width: 195,
+      height: 105,
+      marginLeft: -15
+    }
   },
   box: {
     width: 432,
+    [theme.breakpoints.down('sm')]: {
+      width: 223
+    },
     display: 'flex',
     flexDirection: 'column',
     border: `1px solid ${theme.palette.grey[1500]}`,
     borderRadius: 7,
     backgroundColor: theme.palette.common.white,
-    paddingBottom: 15,
+    paddingBottom: 15
   },
   countBox: {
     height: '100%',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   price: {
     backgroundColor: theme.palette.common.white,
     transition: '0.4s ease all',
     borderRadius: 7,
     cursor: 'pointer',
-    boxShadow: '-1px 1px 16px 7px rgba(0, 0, 0, 0.06)',
+    boxShadow: '-1px 1px 16px 7px rgba(0, 0, 0, 0.06)'
   },
   exchangedPrice: {
-    color: theme.palette.grey[1000],
-  },
+    color: theme.palette.grey[1000]
+  }
 }))
 
 const PendingSell = ({
@@ -55,7 +67,7 @@ const PendingSell = ({
   error,
   sellPrice,
   count,
-  nftStandard,
+  nftStandard
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -153,7 +165,7 @@ const PendingSell = ({
               </Typography>
             </Box>
           </Box>
-          <Box mt="19px">
+          <Box mt="19px" width='100%'>
             <ConditionAwaitLabel
               type={approve}
               index={1}

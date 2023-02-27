@@ -1,6 +1,27 @@
 @use '../../scss/colors';
 @import '../../styles/fonts';
 
+@mixin skeleton {
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 10%,
+    #f6f7f8 20%,
+    #f6f7f8 100%
+  );
+  background-size: 200% 100%;
+  animation: bgPos 1s linear infinite;
+  @keyframes bgPos {
+    0% {
+      background-position: 50% 0;
+    }
+
+    100% {
+      background-position: -150% 0;
+    }
+  }
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -34,7 +55,7 @@
     overflow: hidden;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-
+    @include skeleton;
     &:hover {
       img {
         transform: scale(1.1);
@@ -55,6 +76,7 @@
       height: 292px;
       border-top-left-radius: 7px;
       border-top-right-radius: 7px;
+      background-color: transparent !important;
     }
 
     .badge {
@@ -89,7 +111,7 @@
         padding: 5px 10px;
         border-radius: 3px;
         @include fontBodyXSS;
-        width: 50px;
+        min-width: max-content;
       }
     }
 

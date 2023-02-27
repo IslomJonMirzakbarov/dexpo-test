@@ -1,6 +1,6 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
-@import "/src/styles/scrollbar.scss";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
+@import '/src/styles/scrollbar.scss';
 
 @keyframes spin {
   0% {
@@ -25,7 +25,7 @@
   @media (max-width: 600px) {
     margin-top: 30px;
     margin-bottom: 164px;
-    // max-width: 335px;
+    overflow: hidden;
   }
 
   .Title {
@@ -323,4 +323,22 @@
   padding: 11px 2px 11px 15px;
   @include scrollbar;
   overflow: auto;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.ErrMessage {
+  margin-top: -18px;
+  margin-bottom: -10px;
+  margin-left: 15px;
+  font-style: normal;
+  @include fontLagInfo;
+  font-size: 14px !important;
+  color: colors.$errorColor;
+
+  @media (max-width: 600px) {
+    font-size: 12px !important;
+  }
 }

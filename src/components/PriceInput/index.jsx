@@ -1,19 +1,19 @@
-import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
-import FormInputText from "../FormInputText";
-import ConToken from "../../assets/images/con-token.svg?component";
-import NumberFormat from "react-number-format";
-import styles from "./style.module.scss";
-import numFormat from "../../utils/numFormat";
-import { useTranslation } from "react-i18next";
+import { Box, Paper, Typography } from '@mui/material'
+import React from 'react'
+import FormInputText from '../FormInputText'
+import ConToken from '../../assets/images/con-token.svg?component'
+import NumberFormat from 'react-number-format'
+import styles from './style.module.scss'
+import numFormat from '../../utils/numFormat'
+import { useTranslation } from 'react-i18next'
 
 const PriceInput = ({ control, exchangedPrice, ...props }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <Paper className={styles.wrapper}>
       <Box className={styles.box}>
         <FormInputText
-          label={t("Please enter the selling price.")}
+          label={t('Please enter the selling price.')}
           control={control}
           type="number"
           className={styles.input}
@@ -36,14 +36,14 @@ const PriceInput = ({ control, exchangedPrice, ...props }) => {
         >
           <NumberFormat
             value={numFormat(exchangedPrice)}
-            displayType={"text"}
+            displayType={'text'}
             thousandSeparator={true}
             prefix="~￦ "
           />
         </Typography>
       </Box>
     </Paper>
-  );
-};
+  )
+}
 
-export default PriceInput;
+export default PriceInput

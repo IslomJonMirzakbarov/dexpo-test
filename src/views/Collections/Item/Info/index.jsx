@@ -12,10 +12,10 @@ const CollectionInfo = ({
   artistName = "Artist Name",
   collectionName = "Collection Name",
   artistImg = defaultImg,
-  items = 4,
-  owners = 45,
-  totalVol = 912,
-  floorPrice = 0.09,
+  items=0,
+  owners = 0,
+  totalVol = 0,
+  floorPrice = 0,
 }) => {
   const prices = [
     {

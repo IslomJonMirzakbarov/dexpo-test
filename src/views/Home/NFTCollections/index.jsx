@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { useTheme } from '@mui/styles'
 import { useInView } from 'react-intersection-observer'
 import useCollecionsByCategory, {
-  categoryTypes,
+  categoryTypes
 } from '../../../hooks/useCollectionsByCategoryAPI'
 import { CollectionsSuspence } from './CollectionsContainer'
 import { useTranslation } from 'react-i18next'
@@ -15,17 +15,17 @@ const CollectionsContainer = React.lazy(() => import('./CollectionsContainer')) 
 
 const NFTCollections = () => {
   const { ref, inView } = useInView({
-    threshold: 0,
+    threshold: 0
   })
 
   const { ref: ref1, inView: inView1 } = useInView({
-    threshold: 0,
+    threshold: 0
   })
 
   const { data: soldOutData, isLoading: isLoadingSoldOut } = useOriginalNftAPI({
     page: 1,
     search: '',
-    type: 'RECENTLY_SOLD',
+    type: 'RECENTLY_SOLD'
   })
   const soldOutCollections = soldOutData?.items
 

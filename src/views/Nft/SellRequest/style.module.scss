@@ -4,6 +4,10 @@
 .container {
   padding: 90px 0;
 
+  @media (max-width: 600px) {
+    padding-top: 35px;
+  }
+
   .totalList {
     width: 100%;
     .total {
@@ -24,13 +28,11 @@
     }
   }
   .img {
-    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     background: #fff;
-
     border: 1px solid colors.$icon;
     border-radius: 7px;
     overflow: hidden;

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[1600],
     padding: '11px 26px',
     border: `1px solid ${theme.palette.grey[1500]}`,
-    borderRadius: '7px 7px 0px 0px'
+    borderRadius: '7px 7px 0px 0px',
   },
   head: {
     backgroundColor: 'white!important',
@@ -86,8 +86,8 @@ const ListingTable = ({
         <>
           <Box className={classes.header}>
             <Typography
-              variant='h4'
-              fontSize='18px!important'
+              variant="h4"
+              fontSize="18px!important"
               lineHeight={'30px'}
             >
               {t('Listings')}
@@ -99,7 +99,7 @@ const ListingTable = ({
                 <CTableHeadRow>
                   {columns.map((item) => (
                     <CTableCell key={item.key}>
-                      <Typography fontSize='15px' fontWeight={700}>
+                      <Typography fontSize="15px" fontWeight={700}>
                         {item?.title === 'Unit price'
                           ? t('Unit price')
                           : t(item.title)}

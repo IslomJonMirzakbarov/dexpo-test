@@ -84,20 +84,19 @@ const CollectionDetailImage = ({
   return (
     <>
       {isResponsive && (
-        <Box display='flex' flexDirection='column' mb={1}>
+        <Box display="flex" flexDirection="column" mb={1}>
           <Typography
-            variant='placeholder'
+            variant="placeholder"
             fontWeight={700}
-            textTransform='uppercase'
+            textTransform="uppercase"
           >
-            Artist:{' '}
             <NavLink to={`/user/my-page/${artistWallet}`}>{artistName}</NavLink>
           </Typography>
           <a
             href={youtubeURL}
             className={styles.link}
-            target='_blank'
-            rel='noreferrer'
+            target="_blank"
+            rel="noreferrer"
           >
             {youtubeURL}
           </a>
@@ -107,9 +106,9 @@ const CollectionDetailImage = ({
       <Box className={classNames(styles.img, styles.HoverCursor)}>
         {isSoldOut && <Box className={styles.soldImg}></Box>}
         <Typography
-          variant='placeholder'
-          display='flex'
-          alignItems='center'
+          variant="placeholder"
+          display="flex"
+          alignItems="center"
           p={1}
           style={valueStyle}
           onClick={likeClick}
@@ -121,7 +120,7 @@ const CollectionDetailImage = ({
           src={newNftSrc || img}
           alt={alt}
           height={554}
-          width='100%'
+          width="100%"
           onClick={onClick}
           {...props}
         />

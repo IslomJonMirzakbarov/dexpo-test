@@ -20,7 +20,7 @@ const CollectionOption = (props) => {
         <Box fontSize={15}>{label}</Box>
         <Box
           fontWeight="700"
-          fontSize={12}
+          fontSize={10}
           fontStyle="italic"
           className={styles.collectionType}
         >

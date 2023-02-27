@@ -13,6 +13,10 @@
   overflow: hidden;
   cursor: pointer;
 
+  @media (max-width: 600px) {
+    height: 335px;
+  }
+
   .soldImg {
     position: absolute;
     bottom: 0;
