@@ -295,7 +295,7 @@
   font-style: normal;
   @include fontTypePhrase;
   text-align: center;
-  color: colors.$greyBg;
+  color: colors.$errorColor;
 
   @media (max-width: 600px) {
     font-size: 12px;

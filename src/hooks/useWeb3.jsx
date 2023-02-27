@@ -483,7 +483,7 @@ const useWeb3 = () => {
       return res
     } catch (err) {
       console.log(err)
-      return null
+      return err
     }
   }
 
