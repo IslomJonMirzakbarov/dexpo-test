@@ -334,5 +334,11 @@
   "All NFTs": "모든 NFTs",
   "Ceramic": "도자기",
   "Jewel": "보석",
-  "Unit price": "단가"
+  "Unit price": "단가",
+  "select-collection": "컬랙션을 선택해주세요.",
+  "enter-token-quantity": "토큰 수량을 입력해주세요.",
+  "enter-artwork-name": "아트워크 이름을 입력해주세요.",
+  "enter-artwork-description": "아트워크에 대한 설명을 입력해주세요.",
+  "upload-image": "이미지를 업로드 해주세요.",
+  "username-exists": "사용자 이름이 이미 존재합니다."
 }

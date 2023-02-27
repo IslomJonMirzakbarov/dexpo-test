@@ -1,6 +1,6 @@
-@use "/src/scss/colors";
-@import "/src/styles/fonts";
-@import "/src/styles/scrollbar.scss";
+@use '/src/scss/colors';
+@import '/src/styles/fonts';
+@import '/src/styles/scrollbar.scss';
 
 @keyframes spin {
   0% {
@@ -326,5 +326,19 @@
 
   @media (max-width: 600px) {
     width: 100%;
+  }
+}
+
+.ErrMessage {
+  margin-top: -18px;
+  margin-bottom: -10px;
+  margin-left: 15px;
+  font-style: normal;
+  @include fontLagInfo;
+  font-size: 14px !important;
+  color: colors.$errorColor;
+
+  @media (max-width: 600px) {
+    font-size: 12px !important;
   }
 }

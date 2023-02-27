@@ -28,7 +28,6 @@ const updateUsername = (data, token) =>
   securedAPI(token)
     .post('/api/user/updateUsername', data)
     .then((res) => {
-      console.log('resD: ', res?.data)
       return res?.data
     })
 

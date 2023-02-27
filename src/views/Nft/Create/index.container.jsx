@@ -163,6 +163,7 @@ const NftCreate = () => {
 
     if (Object.keys(uploadedImg).length === 0 || description.length === 0) {
       setErrBool(true)
+      onSubmit()
     } else {
       setErrBool(false)
       onSubmit()
@@ -238,6 +239,11 @@ const NftCreate = () => {
                   )
                 }}
               />
+              {errorChecker > 0 && !watch('collection') && (
+                <Typography className={styles.ErrMessage}>
+                  {t('select-collection')}
+                </Typography>
+              )}
 
               {collectionType && collectionType === 'M' && (
                 <Box
@@ -258,6 +264,15 @@ const NftCreate = () => {
                   />
                 </Box>
               )}
+              {collectionType &&
+                collectionType === 'M' &&
+                errorChecker > 0 &&
+                !watch('tokenQuantity') && (
+                  <Typography className={styles.ErrMessage}>
+                    {t('enter-token-quantity')}
+                  </Typography>
+                )}
+
               <Box
                 className={classNames(styles.ArtworkName, styles.InputWrapper)}
               >
@@ -271,6 +286,12 @@ const NftCreate = () => {
                   label={t('Enter an artwork name')}
                 />
               </Box>
+              {errorChecker > 0 && !watch('artworkName') && (
+                <Typography className={styles.ErrMessage}>
+                  {t('enter-artwork-name')}
+                </Typography>
+              )}
+
               <Box
                 className={classNames(
                   styles.ArtworkDescription,
@@ -288,6 +309,11 @@ const NftCreate = () => {
                   />
                 </Box>
               </Box>
+              {errBool && !description && (
+                <Typography className={styles.ErrMessage}>
+                  {t('enter-artwork-description')}
+                </Typography>
+              )}
             </FormControl>
           </Box>
         </Box>
@@ -307,23 +333,7 @@ const NftCreate = () => {
           )}
         </Button>
         {(errorChecker > 0 || errBool) && (
-          <Box className={styles.Error}>
-            {(!watch('collection') ||
-              !watch('artworkName') ||
-              !description ||
-              !uploadedImg ||
-              (collectionType &&
-                collectionType === 'M' &&
-                !watch('tokenQuantity'))) &&
-              t('Please')}{' '}
-            {!watch('collection') ? ` ${t('Select collection')}` : ''}{' '}
-            {!watch('artworkName') ? ` ${t('Enter artwork name')}` : ''}{' '}
-            {collectionType && collectionType === 'M' && !watch('tokenQuantity')
-              ? ` ${t('Enter token quantity')}`
-              : ''}{' '}
-            {!description ? t('Enter artwork description') : ''}{' '}
-            {errBool && t('Select an image')}
-          </Box>
+          <Box className={styles.Error}>{errBool && t('upload-image')}</Box>
         )}
       </Box>
 
