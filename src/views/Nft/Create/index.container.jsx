@@ -143,12 +143,7 @@ const NftCreate = () => {
             collectionType
           )
 
-          const errMess = getRPCErrorMessage(response)
-          if (errMess === 'GAS REQUIRED EXCEEDS ALLOWANCE (2730)') {
-            setError(t('not-enough-klay'))
-          }
-
-          if (errMess !== 'GAS REQUIRED EXCEEDS ALLOWANCE (2730)' && response) {
+          if (response) {
             postMint(response.transactionHash)
             if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
               reset()
@@ -381,7 +376,7 @@ const NftCreate = () => {
           </Box>
           <div className={styles.Congrats}>{t('Rejected!')}</div>
           <div className={styles.Created}>
-            {!error ? t("You've rejected creating NFT") : error}
+            {t("You've rejected creating NFT")}
           </div>
         </ModalCard>
       )}
