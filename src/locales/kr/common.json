@@ -340,5 +340,6 @@
   "enter-artwork-name": "아트워크 이름을 입력해주세요.",
   "enter-artwork-description": "아트워크에 대한 설명을 입력해주세요.",
   "upload-image": "이미지를 업로드 해주세요.",
-  "username-exists": "사용자 이름이 이미 존재합니다."
+  "username-exists": "사용자 이름이 이미 존재합니다.",
+  "not-enough-klay": "KLAY 금액이 부족합니다"
 }

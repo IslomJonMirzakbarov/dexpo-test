@@ -22,6 +22,7 @@ import { convertToRaw, Editor, EditorState } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import draftToHtml from 'draftjs-to-html'
 import { useTranslation } from 'react-i18next'
+import { getRPCErrorMessage } from '../../../constants/metamaskErrors'
 
 const NftCreate = () => {
   const dispatch = useDispatch()
@@ -61,6 +62,7 @@ const NftCreate = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   )
+  const [error, setError] = useState('')
   const description = editorState.getCurrentContent().getPlainText()
   const rawContentState = convertToRaw(editorState.getCurrentContent())
   const markup = draftToHtml(
@@ -140,7 +142,13 @@ const NftCreate = () => {
             contractAddress,
             collectionType
           )
-          if (response) {
+
+          const errMess = getRPCErrorMessage(response)
+          if (errMess === 'GAS REQUIRED EXCEEDS ALLOWANCE (2730)') {
+            setError(t('not-enough-klay'))
+          }
+
+          if (errMess !== 'GAS REQUIRED EXCEEDS ALLOWANCE (2730)' && response) {
             postMint(response.transactionHash)
             if (errorChecker === 0 && Object.keys(uploadedImg).length > 0) {
               reset()
@@ -163,7 +171,6 @@ const NftCreate = () => {
 
     if (Object.keys(uploadedImg).length === 0 || description.length === 0) {
       setErrBool(true)
-      onSubmit()
     } else {
       setErrBool(false)
       onSubmit()
@@ -374,7 +381,7 @@ const NftCreate = () => {
           </Box>
           <div className={styles.Congrats}>{t('Rejected!')}</div>
           <div className={styles.Created}>
-            {t("You've rejected creating NFT")}
+            {!error ? t("You've rejected creating NFT") : error}
           </div>
         </ModalCard>
       )}
