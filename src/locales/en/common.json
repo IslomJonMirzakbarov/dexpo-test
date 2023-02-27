@@ -334,5 +334,11 @@
   "All NFTs": "All NFTs",
   "Ceramic": "Ceramic",
   "Jewel": "Jewel",
-  "Unit price": "Unit price"
+  "Unit price": "Unit price",
+  "select-collection": "Please select a collection.",
+  "enter-token-quantity": "Please enter the token quantity.",
+  "enter-artwork-name": "Please enter the artwork name.",
+  "enter-artwork-description": "Please enter a description of the artwork.",
+  "upload-image": "Please upload an image.",
+  "username-exists": "Username is already existed."
 }

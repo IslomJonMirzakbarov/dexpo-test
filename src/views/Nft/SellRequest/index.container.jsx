@@ -87,23 +87,23 @@ const useStyles = makeStyles({
   },
   '@media (max-width: 600px)': {
     outerBox: {
-      maxWidth: '120%',
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
       gap: 15
     },
     box: {
-      maxWidth: '123%',
-      width: '123%',
+      maxWidth: '100%',
+      width: '100%',
       gap: 15
     },
     infoBox: {
-      maxWidth: '120%',
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column'
     },
     fBox: {
-      width: '100% !important'
+      width: '100%'
     }
   }
 })
@@ -243,8 +243,9 @@ const NFTSellRequestContainer = ({
             display="flex"
             flexDirection="column"
             justifyContent="space-between"
+            width='100%'
           >
-            <Box className={styles.fBox}>
+            <Box className={classes.fBox}>
               <CollectionDetailsInfo
                 collection={collection}
                 artistWallet={artist?.wallet_address}
@@ -380,14 +381,18 @@ const NFTSellRequestContainer = ({
           </Grid>
         </Grid>
         {nft.standard === 'M' && (
-          <ListingTable
-            handleCancel={handleCancel}
-            multiNftOffers={multiNftOffers}
-            onConfirm={checkoutToggle}
-            handlePaginate={handlePaginateMultipleNft}
-            page={multiOffersPage}
-            isLoadingMultiNft={isLoadingMultiNft}
-          />
+          <Grid container style={{ overflow: 'auto' }}>
+            <Grid item lg={12}>
+              <ListingTable
+                handleCancel={handleCancel}
+                multiNftOffers={multiNftOffers}
+                onConfirm={checkoutToggle}
+                handlePaginate={handlePaginateMultipleNft}
+                page={multiOffersPage}
+                isLoadingMultiNft={isLoadingMultiNft}
+              />
+            </Grid>
+          </Grid>
         )}
         {isBidHistory && (
           <Grid container>

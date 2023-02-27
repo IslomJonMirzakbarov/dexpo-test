@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const historyMockData = [
   {
@@ -46,14 +46,14 @@ export const historyMockData = [
     txHash: '0x184e73…b2448912',
     date: '2022.04.13 17:48:29'
   }
-];
+]
 
 export const historyMockHeadRows = [
   'Event',
   'Quantity',
-  'Price',
+  'Unit Price',
   'From',
   'To',
   'Tx Hash',
   'Date'
-];
+]
