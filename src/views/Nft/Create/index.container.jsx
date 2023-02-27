@@ -145,7 +145,7 @@ const NftCreate = () => {
 
           const errMess = getRPCErrorMessage(response)
           if (errMess === 'GAS REQUIRED EXCEEDS ALLOWANCE (2730)') {
-            setError('Not enough KLAY amount')
+            setError(t('not-enough-klay'))
           }
 
           if (errMess !== 'GAS REQUIRED EXCEEDS ALLOWANCE (2730)' && response) {
