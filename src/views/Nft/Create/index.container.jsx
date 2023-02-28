@@ -155,7 +155,10 @@ const NftCreate = () => {
             setRejected(true)
           }
         } catch (err) {
-          console.log('errMint: ', err)
+          const errMess = getRPCErrorMessage(err)
+          setError(errMess)
+          setRejected(true)
+          setIsLoading(false)
         }
       }
     })
@@ -376,7 +379,9 @@ const NftCreate = () => {
           </Box>
           <div className={styles.Congrats}>{t('Rejected!')}</div>
           <div className={styles.Created}>
-            {t("You've rejected creating NFT")}
+            {error.includes('GAS REQUIRED EXCEEDS ALLOWANCE')
+              ? t('not-enough-klay')
+              : t("You've rejected creating NFT")}
           </div>
         </ModalCard>
       )}
