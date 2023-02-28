@@ -43,6 +43,28 @@ const NFTCollections = () => {
   return (
     <Box className={classNames(styles.container, 'collections')}>
       <Container>
+        {/* <Box className={styles.block}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mb={5}
+            ref={ref}
+          >
+            <Typography variant="h2" fontWeight={700}>
+              {t('HottestArtworks')}
+            </Typography>
+          </Box>
+          {isLoadingHottest || hottestCollections?.length < 1 ? (
+            <CollectionsSuspence />
+          ) : (
+            <CollectionsContainer
+              collections={hottestCollections}
+              matches={matches}
+            />
+          )}
+        </Box> */}
+
         <Box className={styles.block}>
           <Box
             display="flex"
