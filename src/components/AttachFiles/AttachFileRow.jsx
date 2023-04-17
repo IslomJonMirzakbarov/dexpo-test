@@ -1,29 +1,29 @@
-import RectangleIconButton from '../Buttons/RectangleIconButton';
-import { Download, Delete, Visibility } from '@mui/icons-material';
-import FileIcon from '../FileIcon';
-import { useState } from 'react';
-import subtaskService from '../../services/subtaskService';
-import { biteToKilobite } from '../../utils/biteToKilobite';
-import axios from 'axios';
-import useDownloader from '../../hooks/useDownloader';
+import RectangleIconButton from '../Buttons/RectangleIconButton'
+import { Download, Delete, Visibility } from '@mui/icons-material'
+import FileIcon from '../FileIcon'
+import { useState } from 'react'
+import subtaskService from '../../services/subtaskService'
+import { biteToKilobite } from '../../utils/biteToKilobite'
+import axios from 'axios'
+import useDownloader from '../../hooks/useDownloader'
 
 const AttachFileRow = ({ subtaskId, file, removeFile, openFile }) => {
-  const [loader, setLoader] = useState(false);
-  const [download, downloadLoader] = useDownloader();
+  const [loader, setLoader] = useState(false)
+  const [download, downloadLoader] = useDownloader()
 
   const deleteHandler = () => {
-    setLoader(true);
+    setLoader(true)
 
     subtaskService
       .deleteAttachFile(subtaskId, file.id)
       .then((res) => {
-        removeFile(file.id);
+        removeFile(file.id)
       })
-      .catch(() => setLoader(false));
-  };
+      .catch(() => setLoader(false))
+  }
 
   const downloadHandler = () => {
-    download({ fileId: file.id, fileName: file.name });
+    download({ fileId: file.id, fileName: file.name })
 
     // const downloadLink =
     //   process.env.REACT_APP_CDN_API_URL + "/file/" + file.id + "/download"
@@ -47,44 +47,44 @@ const AttachFileRow = ({ subtaskId, file, removeFile, openFile }) => {
     //   .then((response) => response.blob())
 
     // window.open(downloadLink, "_blank")
-  };
+  }
 
   const openHandler = () => {
-    openFile(file);
-  };
+    openFile(file)
+  }
 
   return (
-    <div className="AttachFileRow silver-bottom-border">
+    <div className='AttachFileRow silver-bottom-border'>
       <FileIcon />
-      <div className="icon"></div>
-      <div className="info">
-        <p className="name">
+      <div className='icon'></div>
+      <div className='info'>
+        <p className='name'>
           {file.file_name}.{file.file_ext}
         </p>
-        <div className="size">{biteToKilobite(file.size)}</div>
+        <div className='size'>{biteToKilobite(file.size)}</div>
       </div>
 
-      <div className="btns-block">
-        <RectangleIconButton color="primary" onClick={openHandler}>
-          <Visibility color="primary" />
+      <div className='btns-block'>
+        <RectangleIconButton color='primary' onClick={openHandler}>
+          <Visibility color='primary' />
         </RectangleIconButton>
         <RectangleIconButton
           loader={downloadLoader}
-          color="primary"
+          color='primary'
           onClick={downloadHandler}
         >
-          <Download color="primary" />
+          <Download color='primary' />
         </RectangleIconButton>
         <RectangleIconButton
           loader={loader}
-          color="error"
+          color='error'
           onClick={deleteHandler}
         >
-          <Delete color="error" />
+          <Delete color='error' />
         </RectangleIconButton>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AttachFileRow;
+export default AttachFileRow
