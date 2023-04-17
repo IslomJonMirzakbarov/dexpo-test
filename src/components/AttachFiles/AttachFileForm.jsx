@@ -1,16 +1,16 @@
-import AttachmentIcon from '@mui/icons-material/Attachment';
-import { format } from 'date-fns/esm';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import fileService from '../../services/fileService';
-import subtaskService from '../../services/subtaskService';
-import FileUploadButton from '../FileUploadButton';
-import RowLinearLoader from '../RowLinearLoader';
-import TypographyWithIcon from '../TypographyWithIcon';
+import AttachmentIcon from '@mui/icons-material/Attachment'
+import { format } from 'date-fns'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import fileService from '../../services/fileService'
+import subtaskService from '../../services/subtaskService'
+import FileUploadButton from '../FileUploadButton'
+import RowLinearLoader from '../RowLinearLoader'
+import TypographyWithIcon from '../TypographyWithIcon/TypographyWithIcon'
 
 const AttachFileForm = ({ subtaskId, addFile }) => {
-  const projectInfo = useSelector((state) => state.project.info);
-  const [loader, setLoader] = useState(false);
+  const projectInfo = useSelector((state) => state.project.info)
+  const [loader, setLoader] = useState(false)
 
   const onUpload = (file) => {
     subtaskService
@@ -19,62 +19,62 @@ const AttachFileForm = ({ subtaskId, addFile }) => {
         subtask_id: subtaskId
       })
       .then((res) => addFile(file))
-      .finally(() => setLoader(false));
-  };
+      .finally(() => setLoader(false))
+  }
 
   useEffect(() => {
     const onUploadHandler = (file) => {
-      setLoader(true);
+      setLoader(true)
 
-      const data = new FormData();
+      const data = new FormData()
 
       if (file.name === 'image.png') {
         data.append(
           'file',
           file,
           `screenshot-${format(new Date(), 'dd.MM.yyyy HH:mm:ss')}.png`
-        );
+        )
       } else {
-        data.append('file', file);
+        data.append('file', file)
       }
 
       fileService
         .createFile(projectInfo?.attached_files_folder_id, data)
         .then((res) => {
-          onUpload(res);
+          onUpload(res)
         })
-        .catch(() => setLoader(false));
-    };
+        .catch(() => setLoader(false))
+    }
 
     const pasteHandler = (event) => {
-      const items = event.clipboardData.items;
+      const items = event.clipboardData.items
 
       for (let index = 0; index < items.length; index++) {
-        const element = items[index];
+        const element = items[index]
       }
 
       var item = (event.clipboardData || event.originalEvent.clipboardData)
-        .items[0];
+        .items[0]
 
       if (item.kind === 'file') {
-        var blob = item.getAsFile();
+        var blob = item.getAsFile()
 
-        onUploadHandler(blob);
+        onUploadHandler(blob)
       }
-    };
+    }
 
-    window.addEventListener('paste', pasteHandler);
+    window.addEventListener('paste', pasteHandler)
 
     return () => {
-      window.removeEventListener('paste', pasteHandler);
-    };
-  }, []);
+      window.removeEventListener('paste', pasteHandler)
+    }
+  }, [])
 
   return (
-    <div className="AttachFileForm">
+    <div className='AttachFileForm'>
       <RowLinearLoader visible={loader} />
 
-      <TypographyWithIcon icon={AttachmentIcon} variant="h6">
+      <TypographyWithIcon icon={AttachmentIcon} variant='h6'>
         ATTACHEMENTS
       </TypographyWithIcon>
 
@@ -83,7 +83,7 @@ const AttachFileForm = ({ subtaskId, addFile }) => {
         onChange={onUpload}
       />
     </div>
-  );
-};
+  )
+}
 
-export default AttachFileForm;
+export default AttachFileForm
