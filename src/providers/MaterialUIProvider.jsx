@@ -1,9 +1,10 @@
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import ThemeConfig from '../theme/index';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import React from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import ThemeConfig from '../theme/index'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
 const MaterialUIProvider = ({ children }) => {
-  const theme = 'light';
+  const theme = 'light'
 
   return (
     <div className={theme === 'dark' ? 'night-mode' : ''}>
@@ -13,7 +14,7 @@ const MaterialUIProvider = ({ children }) => {
         </LocalizationProvider>
       </ThemeConfig>
     </div>
-  );
-};
+  )
+}
 
-export default MaterialUIProvider;
+export default MaterialUIProvider

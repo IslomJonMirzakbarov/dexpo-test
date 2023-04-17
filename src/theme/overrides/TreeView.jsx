@@ -2,11 +2,12 @@
 // import plusSquareOutline from '@iconify/icons-eva/plus-square-outline';
 // import minusSquareOutline from '@iconify/icons-eva/minus-square-outline';
 // import closeSquareOutline from '@iconify/icons-eva/close-square-outline';
-import { Box } from '@mui/system';
+import React from 'react'
+import { Box } from '@mui/system'
 
 // ----------------------------------------------------------------------
 
-const ICON_SIZE = { width: 20, height: 20 };
+const ICON_SIZE = { width: 20, height: 20 }
 
 export default function TreeView(theme) {
   return {
@@ -30,5 +31,5 @@ export default function TreeView(theme) {
         iconContainer: { width: 'auto' }
       }
     }
-  };
+  }
 }
