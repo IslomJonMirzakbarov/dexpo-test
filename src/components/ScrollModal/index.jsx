@@ -1,7 +1,9 @@
 import { Box, Modal, Typography } from '@mui/material'
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded'
+import { useTranslation } from 'react-i18next'
 
 const ScrollModal = ({ open, handleClose, description }) => {
+  const { t } = useTranslation()
   return (
     <Modal open={open} onClose={handleClose}>
       <Box
@@ -59,7 +61,7 @@ const ScrollModal = ({ open, handleClose, description }) => {
                 }
               }}
             >
-              작품상세
+              {t('artwork_details')}
             </Typography>
           </Box>
           <Box
@@ -74,7 +76,7 @@ const ScrollModal = ({ open, handleClose, description }) => {
               id='modal-description'
               variant='body1'
               fontWeight={400}
-              fontSize={16}
+              fontSize={18}
               sx={{
                 '@media (max-width: 600px)': {
                   fontSize: '16px !important'
