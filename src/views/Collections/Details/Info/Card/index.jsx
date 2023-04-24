@@ -30,6 +30,21 @@ const useStyles = makeStyles((theme) => ({
     height: 140,
     maxHeight: 140,
     overflowY: 'scroll'
+  },
+  seeBtn: {
+    width: 'max-content',
+    height: 19,
+    fontFamily: "'Noto Sans KR', sans-serif",
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: 13,
+    lineHeight: '19px',
+    textTransform: 'none',
+    cursor: 'pointer',
+    color: '#1E4CED',
+    marginTop: 16.5,
+    position: 'absolute',
+    right: 0
   }
 }))
 
@@ -40,23 +55,27 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   return (
-    <Box className={classes.card}>
-      <Box className={classes.header} p={2}>
-        <Typography variant='h4' textTransform='uppercase' fontWeight={700}>
-          {name}
-        </Typography>
-        {nftStandard !== 'M' && type && (
-          <span className={classes.type}>{t(type)}</span>
-        )}
+    <Box style={{ position: 'relative', marginBottom: '100px' }}>
+      <Box className={classes.card}>
+        <Box className={classes.header} p={2}>
+          <Typography variant='h4' textTransform='uppercase' fontWeight={700}>
+            {name}
+          </Typography>
+          {nftStandard !== 'M' && type && (
+            <span className={classes.type}>{t(type)}</span>
+          )}
+        </Box>
+        <Box className={classes.body} p={2}>
+          <Typography
+            variant='placeholder'
+            fontWeight={400}
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></Typography>
+        </Box>
       </Box>
-      <Box className={classes.body} p={2}>
-        <Typography
-          variant='placeholder'
-          fontWeight={400}
-          dangerouslySetInnerHTML={{ __html: description }}
-        ></Typography>
-      </Box>
-      <Button onClick={handleOpen}>see more</Button>
+      <Typography onClick={handleOpen} className={classes.seeBtn}>
+        {t('see_more')}
+      </Typography>
       <ScrollModal
         open={open}
         handleClose={handleClose}

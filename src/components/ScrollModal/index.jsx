@@ -19,24 +19,70 @@ const ScrollModal = ({ open, handleClose, description }) => {
       >
         <Box
           sx={{
-            width: '70vw',
+            width: '745px',
             bgcolor: 'background.paper',
-            borderRadius: 2,
             boxShadow: 24,
             p: 4,
-            overflowY: 'scroll',
             height: '70vh',
-            margin: '100px'
+            margin: '100px',
+            '@media (max-width: 600px)': {
+              margin: '20px'
+            },
+            position: 'relative',
+            borderRadius: '7px'
           }}
           onClick={(event) => event.stopPropagation()}
         >
-          <Typography
-            id='modal-description'
-            variant='body1'
-            fontWeight={400}
-            fontSize={18}
-            dangerouslySetInnerHTML={{ __html: description }}
-          ></Typography>
+          <Box
+            sx={{
+              width: '100%',
+              height: '60px',
+              background: '#F4F4F4',
+              border: '1px solid #DEDEDE',
+              borderRadius: '7px 7px 0px 0px',
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              right: '0'
+            }}
+          >
+            <Typography
+              variant='h4'
+              textTransform='uppercase'
+              fontWeight={700}
+              marginLeft='26px'
+              marginTop='15px'
+              fontSize={20}
+              sx={{
+                '@media (max-width: 600px)': {
+                  fontSize: '20px !important'
+                }
+              }}
+            >
+              작품상세
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              marginTop: '50px',
+              height: 'calc(100% - 50px)',
+              overflowY: 'scroll',
+              paddingRight: '8px'
+            }}
+          >
+            <Typography
+              id='modal-description'
+              variant='body1'
+              fontWeight={400}
+              fontSize={16}
+              sx={{
+                '@media (max-width: 600px)': {
+                  fontSize: '16px !important'
+                }
+              }}
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></Typography>
+          </Box>
         </Box>
 
         <Box
@@ -48,6 +94,9 @@ const ScrollModal = ({ open, handleClose, description }) => {
             position: 'fixed',
             top: 35,
             right: 35,
+            '@media (max-width: 600px)': {
+              right: 15
+            },
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
