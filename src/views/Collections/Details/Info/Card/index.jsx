@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import ScrollModal from '../../../../../components/ScrollModal'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
 const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
   const classes = useStyles()
   const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   return (
     <Box className={classes.card}>
       <Box className={classes.header} p={2}>
@@ -52,6 +56,12 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
           dangerouslySetInnerHTML={{ __html: description }}
         ></Typography>
       </Box>
+      <Button onClick={handleOpen}>see more</Button>
+      <ScrollModal
+        open={open}
+        handleClose={handleClose}
+        description={description}
+      />
     </Box>
   )
 }
