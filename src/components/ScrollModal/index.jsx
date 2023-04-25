@@ -61,7 +61,7 @@ const ScrollModal = ({ open, handleClose, description }) => {
                 }
               }}
             >
-              {t('artwork_details')}
+              {t('artwork_detail')}
             </Typography>
           </Box>
           <Box
