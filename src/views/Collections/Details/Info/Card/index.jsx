@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 16.5,
     position: 'absolute',
     right: 0
+  },
+  descriptionText: {
+    whiteSpace: 'pre-wrap'
   }
 }))
 
@@ -70,6 +73,7 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
             variant='placeholder'
             fontWeight={400}
             dangerouslySetInnerHTML={{ __html: description }}
+            className={classes.descriptionText}
           ></Typography>
         </Box>
       </Box>
