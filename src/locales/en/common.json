@@ -343,5 +343,8 @@
   "username-exists": "Username is already existed.",
   "not-enough-klay": "Not enough KLAY amount",
   "see_more": "see more...",
-  "artwork_detail": "Artwork Details"
+  "artwork_detail": "Artwork Details",
+  "describe_fields": "Describe your fields of artwork",
+  "write_about_yourself": "Please write about yourself",
+  "enter_artwork_description": "Enter an artwork description"
 }
