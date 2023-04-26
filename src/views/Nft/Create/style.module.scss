@@ -296,10 +296,12 @@
   @include fontTypePhrase;
   text-align: center;
   color: colors.$errorColor;
+  padding: 0 20px;
 
   @media (max-width: 600px) {
     font-size: 12px;
     margin-bottom: 23px;
+    padding: 0 10px;
   }
 }
 
