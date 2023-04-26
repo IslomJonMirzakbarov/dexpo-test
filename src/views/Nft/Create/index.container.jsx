@@ -191,15 +191,15 @@ const NftCreate = () => {
                   imgBool={imgBool}
                   src={uploadedImg?.preview}
                   onUpload={setUploadedImg}
-                  page="create-nft"
+                  page='create-nft'
                 />
-                <label htmlFor="terms-checkbox" style={{ cursor: 'pointer' }}>
+                <label htmlFor='terms-checkbox' style={{ cursor: 'pointer' }}>
                   <Box className={styles.TermsAgreement}>
                     <Checkbox
                       checked={checked}
                       onChange={handleChange}
                       className={styles.CheckBox}
-                      id="terms-checkbox"
+                      id='terms-checkbox'
                     />
                     <Box className={styles.AgreementTxt}>
                       {t('Original Artwork Declaration')}
@@ -221,7 +221,7 @@ const NftCreate = () => {
             </Box>
             <FormControl fullWidth className={styles.CollectionForm}>
               <Controller
-                name="collection"
+                name='collection'
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => {
@@ -257,15 +257,15 @@ const NftCreate = () => {
                     styles.InputWrapper
                   )}
                 >
-                  <Typography variant="label" className={styles.Label}>
+                  <Typography variant='label' className={styles.Label}>
                     {t('Token Quantity')}
                   </Typography>
                   <FormInputText
                     artistInput
                     control={control}
-                    name="tokenQuantity"
+                    name='tokenQuantity'
                     label={t('Enter a quantity')}
-                    type="number"
+                    type='number'
                   />
                 </Box>
               )}
@@ -281,13 +281,13 @@ const NftCreate = () => {
               <Box
                 className={classNames(styles.ArtworkName, styles.InputWrapper)}
               >
-                <Typography variant="label" className={styles.Label}>
+                <Typography variant='label' className={styles.Label}>
                   {t('Artwork Name')}
                 </Typography>
                 <FormInputText
                   artistInput
                   control={control}
-                  name="artworkName"
+                  name='artworkName'
                   label={t('Enter an artwork name')}
                 />
               </Box>
@@ -303,7 +303,7 @@ const NftCreate = () => {
                   styles.InputWrapper
                 )}
               >
-                <Typography variant="label" className={styles.Label}>
+                <Typography variant='label' className={styles.Label}>
                   {t('Artwork Description')}
                 </Typography>
                 <Box className={styles.DraftEditorRoot}>
@@ -327,7 +327,7 @@ const NftCreate = () => {
       <Box className={styles.BottomSide}>
         <Button
           disabled={!checked}
-          variant="containedSecondary"
+          variant='containedSecondary'
           className={classNames(styles.Btn)}
           onClick={mintClick}
         >
@@ -345,7 +345,7 @@ const NftCreate = () => {
       {showModal && (
         <ModalCard
           responseChecker={responseChecker}
-          page="nft-create"
+          page='nft-create'
           onSaveButtonClick={() => {
             if (responseChecker && previewImgSrc && newItemId) {
               setShowModal(false)
@@ -366,7 +366,7 @@ const NftCreate = () => {
       {rejected && (
         <ModalCard
           responseChecker={true}
-          page="nft-create"
+          page='nft-create'
           onSaveButtonClick={() => {
             setShowModal(false)
             // setUploadedImg({});
@@ -381,7 +381,7 @@ const NftCreate = () => {
           <div className={styles.Created}>
             {error.includes('GAS REQUIRED EXCEEDS ALLOWANCE')
               ? t('not-enough-klay')
-              : t("You've rejected creating NFT")}
+              : error}
           </div>
         </ModalCard>
       )}

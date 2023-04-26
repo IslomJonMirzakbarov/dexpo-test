@@ -5,6 +5,8 @@ export const metamaskError = {
 }
 
 export function getRPCErrorMessage(err) {
+  if (err) return err?.message?.toUpperCase()
+
   var open = err.stack.indexOf('{')
   var close = err.stack.lastIndexOf('}')
   var j_s = err.stack.substring(open, close + 1)
