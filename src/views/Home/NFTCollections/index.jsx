@@ -43,7 +43,7 @@ const NFTCollections = () => {
   return (
     <Box className={classNames(styles.container, 'collections')}>
       <Container>
-        {/* <Box className={styles.block}>
+        <Box className={styles.block}>
           <Box
             display="flex"
             justifyContent="center"
@@ -63,9 +63,9 @@ const NFTCollections = () => {
               matches={matches}
             />
           )}
-        </Box> */}
+        </Box>
 
-        <Box className={styles.block}>
+        {/* <Box className={styles.block}>
           <Box
             display="flex"
             justifyContent="center"
@@ -86,7 +86,7 @@ const NFTCollections = () => {
               matches={matches}
             />
           )}
-        </Box>
+        </Box> */}
         <Box className={styles.block}>
           <Box
             display="flex"
