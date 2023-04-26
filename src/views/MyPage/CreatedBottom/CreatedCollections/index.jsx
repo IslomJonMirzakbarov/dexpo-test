@@ -13,7 +13,7 @@ const CreatedCollections = ({ id, artistName }) => {
     isDetail: true,
     page: 1,
     filter_type: 'COMPLETE',
-    size: 200,
+    size: 200
   })
   const otherUser = id && id[0] === '0'
 
@@ -21,7 +21,7 @@ const CreatedCollections = ({ id, artistName }) => {
     isGetListByUser: otherUser,
     type: 'CREATED_BY_COLLECTIONS',
     size: 200,
-    walletAddress: otherUser && id,
+    walletAddress: otherUser && id
   })
 
   const selectedList = otherUser ? listByUser : collections
@@ -29,7 +29,8 @@ const CreatedCollections = ({ id, artistName }) => {
   return (
     <Box className={styles.Container}>
       <Box className={styles.Title}>{t('Collections')}</Box>
-      {selectedList?.data?.items.length === 0 && (
+      {(!selectedList?.data?.items ||
+        selectedList?.data?.items.length === 0) && (
         <Box className={styles.NoItemsContainer}>
           <NoItemsYet />
           <Box className={styles.NoItemsText}>{t('No items yet')}</Box>
@@ -37,7 +38,7 @@ const CreatedCollections = ({ id, artistName }) => {
       )}
       <MyCollectionsList
         id={id}
-        page="my-page"
+        page='my-page'
         className={styles.CollectionList}
         isLoading={otherUser ? loadingListByUser : isLoading}
         collections={selectedList?.data?.items}

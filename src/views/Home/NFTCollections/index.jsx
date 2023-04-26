@@ -67,13 +67,13 @@ const NFTCollections = () => {
 
         <Box className={styles.block}>
           <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
             mb={5}
             ref={ref}
           >
-            <Typography variant="h2" fontWeight={700}>
+            <Typography variant='h2' fontWeight={700}>
               {t('Sold Out Artworks')}
             </Typography>
           </Box>
@@ -89,13 +89,13 @@ const NFTCollections = () => {
         </Box>
         <Box className={styles.block}>
           <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
             mb={5}
             ref={ref1}
           >
-            <Typography variant="h2" fontWeight={700}>
+            <Typography variant='h2' fontWeight={700}>
               {t('NotableArtworks')}
             </Typography>
           </Box>

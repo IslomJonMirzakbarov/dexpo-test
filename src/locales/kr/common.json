@@ -343,5 +343,8 @@
   "username-exists": "사용자 이름이 이미 존재합니다.",
   "not-enough-klay": "KLAY 금액이 부족합니다",
   "see_more": "더보기...",
-  "artwork_detail": "작품상세"
+  "artwork_detail": "작품상세",
+  "describe_fields": "작품 분야를 설명해주세요",
+  "write_about_yourself": "자신에 대해 적어주세요",
+  "enter_artwork_description": "작품 설명을 입력해주세요"
 }
