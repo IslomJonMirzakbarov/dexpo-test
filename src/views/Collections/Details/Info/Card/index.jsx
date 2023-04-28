@@ -44,11 +44,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#1E4CED',
     marginTop: 16.5,
     position: 'absolute',
-    right: 0
+    right: 0,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4
   },
-  descriptionText: {
-    whiteSpace: 'pre-wrap'
-  }
+  descriptionText: {}
 }))
 
 const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
@@ -79,6 +80,7 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
       </Box>
       <Typography onClick={handleOpen} className={classes.seeBtn}>
         {t('see_more')}
+        <img src='/src/assets/icons/right-arrow.svg' alt='icon' />
       </Typography>
       <ScrollModal
         open={open}

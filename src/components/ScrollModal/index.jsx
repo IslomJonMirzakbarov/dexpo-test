@@ -78,7 +78,6 @@ const ScrollModal = ({ open, handleClose, description }) => {
               fontWeight={400}
               fontSize={18}
               sx={{
-                whiteSpace: 'pre-wrap',
                 '@media (max-width: 600px)': {
                   fontSize: '16px !important'
                 }
