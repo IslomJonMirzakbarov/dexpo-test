@@ -35,12 +35,6 @@ const useStyles = makeStyles((theme) => ({
   seeBtn: {
     width: 'max-content',
     height: 19,
-    fontFamily: "'Noto Sans KR', sans-serif",
-    fontStyle: 'normal',
-    fontWeight: 700,
-    fontSize: 13,
-    lineHeight: '19px',
-    textTransform: 'none',
     cursor: 'pointer',
     color: '#1E4CED',
     marginTop: 16.5,
@@ -49,6 +43,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     gap: 4
+  },
+  seeTxt: {
+    fontSize: '16px',
+    fontWeight: 700,
+    lineHeight: '19px',
+    textTransform: 'none'
+  },
+  seeSvg: {
+    marginTop: 1
   },
   descriptionText: {}
 }))
@@ -81,8 +84,8 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
         </Box>
       </Box>
       <Box onClick={handleOpen} className={classes.seeBtn}>
-        <Typography>{t('see_more')}</Typography>
-        <RightArrow />
+        <Typography className={classes.seeTxt}>{t('see_more')}</Typography>
+        <RightArrow className={classes.seeSvg} />
       </Box>
       <ScrollModal
         open={open}
