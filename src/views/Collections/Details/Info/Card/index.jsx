@@ -48,7 +48,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px',
     fontWeight: 700,
     lineHeight: '19px',
-    textTransform: 'none'
+    textTransform: 'none',
+    '@media (max-width: 600px)': {
+      fontSize: '14px !important'
+    }
   },
   seeSvg: {
     marginTop: 1
