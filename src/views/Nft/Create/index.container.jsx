@@ -66,10 +66,7 @@ const NftCreate = () => {
   const description = editorState.getCurrentContent().getPlainText()
   const rawContentState = convertToRaw(editorState.getCurrentContent())
   const markup = draftToHtml(
-    rawContentState,
-    {
-      whiteSpace: 'pre-wrap'
-    }
+    rawContentState
     // hashtagConfig,
     // directional,
     // customEntityTransform
