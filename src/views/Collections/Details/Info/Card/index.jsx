@@ -59,6 +59,7 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const formattedDescription = description.replace(/<p><\/p>/g, '<p><br /></p>')
   return (
     <Box style={{ position: 'relative', marginBottom: '100px' }}>
       <Box className={classes.card}>
@@ -74,7 +75,7 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
           <Typography
             variant='placeholder'
             fontWeight={400}
-            dangerouslySetInnerHTML={{ __html: description }}
+            dangerouslySetInnerHTML={{ __html: formattedDescription }}
             className={classes.descriptionText}
           ></Typography>
         </Box>
@@ -86,7 +87,7 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
       <ScrollModal
         open={open}
         handleClose={handleClose}
-        description={description}
+        description={formattedDescription}
       />
     </Box>
   )
