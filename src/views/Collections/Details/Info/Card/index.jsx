@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ScrollModal from '../../../../../components/ScrollModal'
+import RightArrow from '../../../../../assets/icons/right-arrow.svg?component'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -80,7 +81,7 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
       </Box>
       <Box onClick={handleOpen} className={classes.seeBtn}>
         <Typography>{t('see_more')}</Typography>
-        <img src='/src/assets/images/right-arrow.png' alt='icon' />
+        <RightArrow />
       </Box>
       <ScrollModal
         open={open}
