@@ -78,10 +78,10 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
           ></Typography>
         </Box>
       </Box>
-      <Typography onClick={handleOpen} className={classes.seeBtn}>
+      <Box onClick={handleOpen} className={classes.seeBtn}>
         {t('see_more')}
         <img src='/src/assets/icons/right-arrow.svg' alt='icon' />
-      </Typography>
+      </Box>
       <ScrollModal
         open={open}
         handleClose={handleClose}
