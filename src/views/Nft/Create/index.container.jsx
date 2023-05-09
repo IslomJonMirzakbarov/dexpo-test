@@ -71,6 +71,10 @@ const NftCreate = () => {
     // directional,
     // customEntityTransform
   )
+  const descriptionJSON = {
+    description: description
+  }
+  const descriptionText = JSON.stringify(descriptionJSON)
 
   const postMint = async (tx) => {
     setIsLoading(false)
@@ -128,7 +132,8 @@ const NftCreate = () => {
 
     let formData = new FormData()
     formData.append('name', data.artworkName)
-    formData.append('description', markup)
+    // formData.append('description', markup)
+    formData.append('description', descriptionText)
     formData.append('image', data.imageFile)
 
     setIsLoading(true)
