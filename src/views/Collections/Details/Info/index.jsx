@@ -26,6 +26,21 @@ const CollectionDetailsInfo = ({
   contract_address,
   nftStandard
 }) => {
+  let parsedDescription
+  try {
+    const parsedJSON = JSON.parse(description)
+    if (
+      typeof parsedJSON === 'object' &&
+      parsedJSON !== null &&
+      'description' in parsedJSON
+    ) {
+      parsedDescription = parsedJSON.description
+    }
+  } catch (error) {
+    console.log('jsonerror: ', error)
+  }
+  const finalDescription =
+    parsedDescription !== undefined ? parsedDescription : description
   const { t } = useTranslation()
 
   return (
@@ -79,7 +94,7 @@ const CollectionDetailsInfo = ({
         )}
       </Box>
       <CollectionDetailCard
-        description={description}
+        description={finalDescription}
         name={nftName}
         type={isArtwork ? sellType?.label : type}
         nftStandard={nftStandard}
