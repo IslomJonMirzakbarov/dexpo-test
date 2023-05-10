@@ -1,0 +1,74 @@
+.horizontalLine {
+  width: 100%;
+  height: 1px;
+  background: #d1d1d1;
+  border-radius: 7px;
+  margin-bottom: 55px;
+}
+
+.artworkInformation {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  color: #1f1f1f;
+  margin-bottom: 27px;
+}
+
+.inputSection {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.inputItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputItemMb {
+  margin-bottom: 70px;
+}
+
+.inputItemGp {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  color: #1f1f1f;
+  margin-bottom: 8px;
+}
+
+.exhibitionSection {
+  display: flex;
+  justify-content: space-between;
+  gap: 13px;
+}
+
+.input {
+  width: 573.01px;
+  height: 45px;
+  background: #f3f3f3;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 7px;
+
+  &::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    color: #7d8890;
+  }
+}

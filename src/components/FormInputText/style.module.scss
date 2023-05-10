@@ -1,5 +1,5 @@
-@use "/src/scss/colors";
-@import "../../styles/scrollbar.scss";
+@use '/src/scss/colors';
+@import '../../styles/scrollbar.scss';
 
 .Test {
   .InputText {
@@ -80,5 +80,13 @@
     height: 185px;
     resize: none;
     @include scrollbar;
+  }
+}
+
+.ExpandableOption {
+  width: 430px;
+
+  .ArtistInputText {
+    width: 430px;
   }
 }

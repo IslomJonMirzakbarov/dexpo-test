@@ -10,8 +10,9 @@ import useCollectionAPI from '../../../hooks/useCollectionApi'
 import { useDispatch } from 'react-redux'
 import SpinningIcon from '../../../assets/icons/spinning-icon.svg?component'
 import RejectIcon from '../../../assets/icons/artist-form-reject.svg?component'
+import PlusIcon from '../../../assets/icons/expandable-options/plus-icon.svg?component'
+import MinusIcon from '../../../assets/icons/expandable-options/minus-icon.svg?component'
 import classNames from 'classnames'
-
 import useNFTCreateApi from '../../../hooks/useNFTCreateApi'
 import SelectAsync from '../../../components/SelectAsync'
 import CollectionOption from './Option'
@@ -23,6 +24,7 @@ import 'draft-js/dist/Draft.css'
 import draftToHtml from 'draftjs-to-html'
 import { useTranslation } from 'react-i18next'
 import { getRPCErrorMessage } from '../../../constants/metamaskErrors'
+import ExpandableOptions from './ExpandableOptions'
 
 const NftCreate = () => {
   const dispatch = useDispatch()
@@ -59,6 +61,9 @@ const NftCreate = () => {
   const [newItemConAd, setNewItemConAd] = useState('')
   const [newItemId, setNewItemId] = useState('')
   const [previewImgSrc, setPreviewImgSrc] = useState('')
+  const [isFormExpanded, setIsFormExpanded] = useState(false)
+  const [formData, setFormData] = useState({ field1: '' /* ... */ })
+
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   )
@@ -75,6 +80,10 @@ const NftCreate = () => {
     description: description
   }
   const descriptionText = JSON.stringify(descriptionJSON)
+
+  const handleFormChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+  }
 
   const postMint = async (tx) => {
     setIsLoading(false)
@@ -319,6 +328,24 @@ const NftCreate = () => {
                   />
                 </Box>
               </Box>
+              <Box className={styles.ExpandableOptions}>
+                <Typography
+                  variant='body1'
+                  className={styles.ExpandableOptionsText}
+                >
+                  작품정보 입력하기
+                </Typography>
+                <div onClick={() => setIsFormExpanded(!isFormExpanded)}>
+                  {isFormExpanded ? <MinusIcon /> : <PlusIcon />}
+                </div>
+              </Box>
+
+              {/* <ExpandableOptions
+                isFormExpanded={isFormExpanded}
+                formData={formData}
+                handleFormChange={handleFormChange}
+              /> */}
+
               {errBool && !description && (
                 <Typography className={styles.ErrMessage}>
                   {t('enter-artwork-description')}
@@ -328,6 +355,13 @@ const NftCreate = () => {
           </Box>
         </Box>
       </Box>
+
+      <ExpandableOptions
+        isFormExpanded={isFormExpanded}
+        formData={formData}
+        handleFormChange={handleFormChange}
+        control={control}
+      />
 
       <Box className={styles.BottomSide}>
         <Button

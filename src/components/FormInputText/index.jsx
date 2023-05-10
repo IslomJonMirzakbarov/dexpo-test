@@ -20,6 +20,7 @@ const FormInputText = ({
     name === 'description' ||
     name === 'artworkDescription' ||
     name === 'userEditBio'
+  const isExpandableOption = name === 'exhibitionText'
 
   const optionals =
     name === 'userEditBio' || name === 'youtubeURL' || name === 'userEditName'
@@ -30,6 +31,9 @@ const FormInputText = ({
         { [styles.ArtistInput]: artistInput },
         {
           [styles.CollectionEdit]: isCollectionEdit
+        },
+        {
+          [styles.ExpandableOption]: isExpandableOption
         }
       )}
     >
