@@ -1,26 +1,26 @@
-import { createRef, useCallback, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import SearchField from "../Autocomplete";
-import AutocompleteList from "../AutocompleteList";
-import BackButton from "../BackButton";
-import IconGenerator from "../IconPicker/IconGenerator";
-import styles from "./style.module.scss";
-import { debounce } from "lodash";
-import useSearchAPI from "../../hooks/useSearchAPI";
-import LinkListResponsive from "../../layouts/MergedLayout/LinkList/index.responsive";
-import SearchFieldResponsive from "../Autocomplete/index.responsive";
-import { useOnClickOutside } from "../../hooks/useOnOutsideClick";
-import { useTheme } from "@mui/styles";
-import { Box, Typography, useMediaQuery } from "@mui/material";
-import Img from "react-cool-img";
-import { useTranslation } from "react-i18next";
-import LangIcon from "../../assets/icons/lang-icon.svg?component";
-import HoveredLangIcon from "../../assets/icons/hovered-lang-icon.svg?component";
-import { lngs } from "../../constants";
-import LangsIconBox from "../LangsIconBox";
+import { createRef, useCallback, useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import SearchField from '../Autocomplete'
+import AutocompleteList from '../AutocompleteList'
+import BackButton from '../BackButton'
+import IconGenerator from '../IconPicker/IconGenerator'
+import styles from './style.module.scss'
+import { debounce } from 'lodash'
+import useSearchAPI from '../../hooks/useSearchAPI'
+import LinkListResponsive from '../../layouts/MergedLayout/LinkList/index.responsive'
+import SearchFieldResponsive from '../Autocomplete/index.responsive'
+import { useOnClickOutside } from '../../hooks/useOnOutsideClick'
+import { useTheme } from '@mui/styles'
+import { Box, Typography, useMediaQuery } from '@mui/material'
+import Img from 'react-cool-img'
+import { useTranslation } from 'react-i18next'
+import LangIcon from '../../assets/icons/lang-icon.svg?component'
+import HoveredLangIcon from '../../assets/icons/hovered-lang-icon.svg?component'
+import { lngs } from '../../constants'
+import LangsIconBox from '../LangsIconBox'
 
 const Header = ({
-  title = "",
+  title = '',
   subtitle,
   extra,
   children,
@@ -31,71 +31,71 @@ const Header = ({
   sticky,
   ...props
 }) => {
-  const navigate = useNavigate();
-  const { i18n } = useTranslation();
-  const location = useLocation();
-  const listRef = createRef();
-  const listResponsiveRef = createRef();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate()
+  const { i18n } = useTranslation()
+  const location = useLocation()
+  const listRef = createRef()
+  const listResponsiveRef = createRef()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const [search, setSearch] = useState("");
-  const [debouncedValue, setDebouncedValue] = useState("");
-  const [hovered, setHovered] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
-  const [isOpenResponsive, setIsOpenResponsive] = useState(false);
+  const [search, setSearch] = useState('')
+  const [debouncedValue, setDebouncedValue] = useState('')
+  const [hovered, setHovered] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isLangOpen, setIsLangOpen] = useState(false)
+  const [isOpenResponsive, setIsOpenResponsive] = useState(false)
 
-  const { data, isLoading } = useSearchAPI(debouncedValue);
+  const { data, isLoading } = useSearchAPI(debouncedValue)
 
   const debounced = useCallback(
     debounce((qry) => setDebouncedValue(qry), 300),
     []
-  );
+  )
 
   const clear = () => {
-    setSearch("");
-    setIsOpen(false);
-    setIsOpenResponsive(false);
-  };
+    setSearch('')
+    setIsOpen(false)
+    setIsOpenResponsive(false)
+  }
 
-  const handleChange = (e) => setSearch(e?.target?.value);
+  const handleChange = (e) => setSearch(e?.target?.value)
 
   const handleClose = () => {
-    if (matches) return;
+    if (matches) return
 
-    setIsOpen(false);
-  };
+    setIsOpen(false)
+  }
 
   const handleCloseResponsive = () => {
-    if (!matches) return;
+    if (!matches) return
 
-    setIsOpen(false);
-  };
-
-  useEffect(() => {
-    clear();
-  }, [location.pathname]);
+    setIsOpen(false)
+  }
 
   useEffect(() => {
-    setIsOpen(!!search);
-    setIsOpenResponsive(!!search);
-    if (!search) return;
+    clear()
+  }, [location.pathname])
 
-    debounced(search);
-  }, [search]);
+  useEffect(() => {
+    setIsOpen(!!search)
+    setIsOpenResponsive(!!search)
+    if (!search) return
 
-  useOnClickOutside(listRef, handleClose);
+    debounced(search)
+  }, [search])
 
-  useOnClickOutside(listResponsiveRef, handleCloseResponsive);
+  useOnClickOutside(listRef, handleClose)
+
+  useOnClickOutside(listResponsiveRef, handleCloseResponsive)
 
   const handleLanguageChange = (language) => {
-    i18n.changeLanguage(language);
-  };
+    i18n.changeLanguage(language)
+  }
 
   return (
     <div
-      className={`${styles.header} ${sticky ? styles.sticky : ""}`}
+      className={`${styles.header} ${sticky ? styles.sticky : ''}`}
       {...props}
     >
       <div className={styles.leftSide}>
@@ -106,10 +106,10 @@ const Header = ({
         {img && (
           <Img
             src={img}
-            alt="logo"
+            alt='logo'
             width={132}
             height={30}
-            onClick={() => navigate("/")}
+            onClick={() => navigate('/')}
           />
         )}
 
@@ -185,8 +185,8 @@ const Header = ({
                 key={lng}
                 value={lng}
                 onClick={() => {
-                  handleLanguageChange(lng);
-                  setIsLangOpen(false);
+                  handleLanguageChange(lng)
+                  setIsLangOpen(false)
                 }}
                 className={styles.ToggleButton}
               >
@@ -200,7 +200,7 @@ const Header = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

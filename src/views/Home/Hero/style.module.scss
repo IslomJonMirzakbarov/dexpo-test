@@ -9,12 +9,30 @@
   .container {
     position: relative;
     border-radius: 50%;
+
+    .textContainer {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 100px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #464646;
+    }
+
+    .imageContainer {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
     .arrows {
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: absolute;
-      top: calc(50% - 22.5px);
+      top: calc(50% + 142.5px);
       left: 50px;
       right: 50px;
       z-index: 10px;
