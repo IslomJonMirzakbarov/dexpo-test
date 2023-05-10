@@ -50,7 +50,7 @@ var items = [
 ]
 
 const settings = {
-  dots: false,
+  dots: true,
   infinite: true,
   speed: 1000,
   slidesToShow: 1,
