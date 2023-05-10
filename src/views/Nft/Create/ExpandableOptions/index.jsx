@@ -13,19 +13,6 @@ const ExpandableForm = ({
 }) => {
   return (
     <Collapse in={!isFormExpanded}>
-      {/* 
-        Create these:
-
-        first: horizontal line taking full width and style: height: 1px; background: #D1D1D1; border-radius: 7px; margin-bottom: 55px;
-
-        second: Text: 'Artwork Information', style: font-style: normal; font-weight: 700; font-size: 22px; line-height: 33px; color: #1F1F1F; margin-bottom: 27px;
-
-        third: this section has 3 input fields with labels, and they have same styles both input fields and labels, and this section box is flex has two item boxes displayed in a row justify-content space-between, and first item box icludes first and second input fields displayed in a column, gap: 30px, second item box has third input field  1) label: 'Artwork Size', style: font-style: normal; font-weight: 600; font-size: 15px; line-height: 22px; color: #1F1F1F; margin-bottom: 8px;
-        input: style: width: 573.01px; height: 45px; background: #F3F3F3; border: 1.5px solid #E8E8E8; border-radius: 7px; placeholder: style: font-style: normal; font-weight: 400; font-size: 15px; line-height: 22px; color: #7D8890; text: 'Enter the size of the artwork ex) 100x100 (cm)' 2) label: 'Year of Production', input: placeholder: text: 'Enter the year of production ex) 1996' 3) label: 'Medium', input: placeholder: text: 'Enter the medium ex) Oil painting, coating'
-
-
-      */}
-
       <div className={styles.horizontalLine} />
       <div className={styles.artworkInformation}>Artwork Information</div>
       <div className={styles.inputSection}>
