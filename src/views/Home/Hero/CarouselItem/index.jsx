@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     bottom: 0,
     left: 0,
-    objectFit: 'cover',
+    objectFit: 'contain',
     height: '100%',
     width: '100%'
     // borderRadius: "15px",
