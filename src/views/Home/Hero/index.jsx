@@ -12,6 +12,7 @@ import banner3 from '../../../assets/images/hero/banner3-img.png'
 import banner1Mobile from '../../../assets/images/hero/banner1Mobile.jpg'
 import banner2Mobile from '../../../assets/images/hero/banner2Mobile.jpg'
 import banner3Mobile from '../../../assets/images/hero/banner3Mobile.jpg'
+import ChinesePhrase from '../../../assets/images/hero/chinese-phrase.svg?component'
 
 var items = [
   {
@@ -81,10 +82,11 @@ const Hero = () => {
           <p>작가 양응식</p>
         </div>
         <div className={styles.imageContainer}>
-          <img
-            src='/src/assets/images/hero/chinese-phrase.svg'
-            alt='chinese phrase'
-          />
+          // <img
+            // src='/src/assets/images/hero/chinese-phrase.svg'
+            // alt='chinese phrase'
+          // />
+        <ChinesePhrase />
         </div>
         <Slider
           {...settings}
