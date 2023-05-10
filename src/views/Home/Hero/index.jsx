@@ -82,11 +82,11 @@ const Hero = () => {
           <p>작가 양응식</p>
         </div>
         <div className={styles.imageContainer}>
-          // <img
-            // src='/src/assets/images/hero/chinese-phrase.svg'
-            // alt='chinese phrase'
-          // />
-        <ChinesePhrase />
+          {/* <img
+            src='/src/assets/images/hero/chinese-phrase.svg'
+            alt='chinese phrase'
+          /> */}
+          <ChinesePhrase />
         </div>
         <Slider
           {...settings}
