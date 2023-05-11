@@ -15,8 +15,8 @@ const style = {
   zIndex: 1006
 }
 
-const SeeMoreModal = ({ handleClose, tokenAttributes }) => {
-  const data = JSON.parse(JSON.parse(JSON.parse(tokenAttributes)))
+const SeeMoreModal = ({ handleClose, data }) => {
+  console.log('data', data)
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => (document.body.style.overflow = 'unset')
@@ -90,20 +90,18 @@ const SeeMoreModal = ({ handleClose, tokenAttributes }) => {
               </div>
             )}
 
-            {data?.education1 ||
-              data?.education2 ||
-              (data?.education3 && (
-                <div className={styles.item}>
-                  <span className={styles.label}>학력</span>
-                  <span className={styles.value}>
-                    {data?.education1} <br />
-                    {data?.education2}
-                    <br />
-                    {data?.education3}
-                  </span>
-                </div>
-              ))}
-            {data?.soloExhibitions[0]?.value && (
+            {(data?.education1 || data?.education2 || data?.education3) && (
+              <div className={styles.item}>
+                <span className={styles.label}>학력</span>
+                <span className={styles.value}>
+                  {data?.education1} <br />
+                  {data?.education2}
+                  <br />
+                  {data?.education3}
+                </span>
+              </div>
+            )}
+            {data?.soloExhibitions[0]?.year?.value && (
               <div className={styles.item}>
                 <span className={styles.label}>개인전</span>
                 <div className={styles.value}>
@@ -116,7 +114,7 @@ const SeeMoreModal = ({ handleClose, tokenAttributes }) => {
                 </div>
               </div>
             )}
-            {data?.groupExhibitions[0]?.value && (
+            {data?.groupExhibitions[0]?.year?.value && (
               <div className={styles.item}>
                 <span className={styles.label}>단체전</span>
                 <div className={styles.value}>
@@ -129,7 +127,7 @@ const SeeMoreModal = ({ handleClose, tokenAttributes }) => {
                 </div>
               </div>
             )}
-            {data?.awards[0]?.value && (
+            {data?.awards[0]?.year?.value && (
               <div className={styles.item}>
                 <span className={styles.label}>수상</span>
                 <div className={styles.value}>

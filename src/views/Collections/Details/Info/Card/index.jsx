@@ -138,11 +138,7 @@ const CollectionDetailCard = ({
       ) : (
         <>
           {open && (
-            <SeeMoreModal
-              tokenAttributes={tokenAttributes}
-              handleClose={handleClose}
-              open={open}
-            />
+            <SeeMoreModal data={info} handleClose={handleClose} open={open} />
           )}
         </>
       )}
