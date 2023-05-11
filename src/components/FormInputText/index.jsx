@@ -11,7 +11,8 @@ const FormInputText = ({
   label,
   artistInput,
   type = 'string',
-  className
+  className,
+  rules
 }) => {
   const { t } = useTranslation()
   const isCollectionEdit =
@@ -41,7 +42,7 @@ const FormInputText = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: !optionals }}
+        rules={{ required: !optionals, ...rules }}
         render={({ field }) => {
           return isDescSection ? (
             <textarea

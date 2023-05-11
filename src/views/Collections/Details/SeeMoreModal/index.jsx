@@ -15,20 +15,8 @@ const style = {
   zIndex: 1006
 }
 
-const items1 = {
-  title: '작품정보',
-  data: [
-    {
-      label: '작품 규격',
-      value: '70x90.5 (가로x세로cm)'
-    },
-    {
-      label: '제작년도'
-    }
-  ]
-}
-
-const SeeMoreModal = ({ handleClose, open }) => {
+const SeeMoreModal = ({ handleClose, tokenAttributes }) => {
+  const data = JSON.parse(JSON.parse(JSON.parse(tokenAttributes)))
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => (document.body.style.overflow = 'unset')
@@ -57,22 +45,30 @@ const SeeMoreModal = ({ handleClose, open }) => {
         <div className={styles.box}>
           <h3>작품정보</h3>
           <div className={styles.items}>
-            <div className={styles.item}>
-              <span className={styles.label}>작품 규격</span>
-              <span className={styles.value}>70x90.5 (가로x세로cm)</span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.label}>제작년도</span>
-              <span className={styles.value}>2021</span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.label}>재료</span>
-              <span className={styles.value}>Acrylic on Canvas</span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.label}>제작년도</span>
-              <span className={styles.value}>2021</span>
-            </div>
+            {data?.workStandard && (
+              <div className={styles.item}>
+                <span className={styles.label}>작품 규격</span>
+                <span className={styles.value}>{data.workStandard}</span>
+              </div>
+            )}
+            {data?.year && (
+              <div className={styles.item}>
+                <span className={styles.label}>제작년도</span>
+                <span className={styles.value}>{data.year}</span>
+              </div>
+            )}
+            {data?.ingredient && (
+              <div className={styles.item}>
+                <span className={styles.label}>재료</span>
+                <span className={styles.value}>{data.ingredient}</span>
+              </div>
+            )}
+            {data?.etc && (
+              <div className={styles.item}>
+                <span className={styles.label}>기타</span>
+                <span className={styles.value}>{data.etc}</span>
+              </div>
+            )}
           </div>
           <h3>작가정보</h3>
           <div
@@ -81,40 +77,71 @@ const SeeMoreModal = ({ handleClose, open }) => {
               marginBottom: 0
             }}
           >
-            <div className={styles.item}>
-              <span className={styles.label}>이름</span>
-              <span className={styles.value}>홍길동</span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.label}>작품소장</span>
-              <span className={styles.value}>소장확인</span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.label}>재료</span>
-              <span className={styles.value}>Acrylic on Canvas</span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.label}>학력</span>
-              <span className={styles.value}>
-                홍익대학교 일반대학원 미술학과 회화 졸업 (박사) <br />
-                홍익대학교 일반대학원 회화과 졸업 (석사)
-                <br />
-                목원대학교 미술대학 회화과 졸업 (학사)
-              </span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.label}>개인전</span>
-              <div className={styles.value}>
-                <div className={styles.year}>
-                  <span>2022</span>
-                  <span>미국,이태리</span>
+            {data?.name && (
+              <div className={styles.item}>
+                <span className={styles.label}>이름</span>
+                <span className={styles.value}>{data.name}</span>
+              </div>
+            )}
+            {data?.artCollection && (
+              <div className={styles.item}>
+                <span className={styles.label}>작품소장</span>
+                <span className={styles.value}>{data.artCollection}</span>
+              </div>
+            )}
+
+            {data?.education1 ||
+              data?.education2 ||
+              (data?.education3 && (
+                <div className={styles.item}>
+                  <span className={styles.label}>학력</span>
+                  <span className={styles.value}>
+                    {data?.education1} <br />
+                    {data?.education2}
+                    <br />
+                    {data?.education3}
+                  </span>
                 </div>
-                <div className={styles.year}>
-                  <span>2019</span>
-                  <span>일본,이태리</span>
+              ))}
+            {data?.soloExhibitions[0]?.value && (
+              <div className={styles.item}>
+                <span className={styles.label}>개인전</span>
+                <div className={styles.value}>
+                  {data.soloExhibitions?.map((item) => (
+                    <div className={styles.year} key={item?.year?.value}>
+                      <span>{item?.year?.label}</span>
+                      <span>{item?.description}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
+            )}
+            {data?.groupExhibitions[0]?.value && (
+              <div className={styles.item}>
+                <span className={styles.label}>단체전</span>
+                <div className={styles.value}>
+                  {data.groupExhibitions?.map((item) => (
+                    <div className={styles.year} key={item?.year?.value}>
+                      <span>{item?.year?.label}</span>
+                      <span>{item?.description}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {data?.awards[0]?.value && (
+              <div className={styles.item}>
+                <span className={styles.label}>수상</span>
+                <div className={styles.value}>
+                  {data.awards?.map((item) => (
+                    <div className={styles.year} key={item?.year?.value}>
+                      <span>{item?.year?.label}</span>
+                      <span>{item?.description}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </Box>

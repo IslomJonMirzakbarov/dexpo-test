@@ -24,7 +24,8 @@ const CollectionDetailsInfo = ({
   isOriginal,
   id,
   contract_address,
-  nftStandard
+  nftStandard,
+  tokenAttributes
 }) => {
   let parsedDescription
   try {
@@ -98,6 +99,7 @@ const CollectionDetailsInfo = ({
         name={nftName}
         type={isArtwork ? sellType?.label : type}
         nftStandard={nftStandard}
+        tokenAttributes={tokenAttributes}
       />
     </Box>
   )

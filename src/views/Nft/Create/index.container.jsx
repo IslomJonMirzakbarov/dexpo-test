@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { Box, Button, Checkbox, FormControl, Typography } from '@mui/material'
 import Web3 from 'web3'
 import FormInputText from '../../../components/FormInputText'
@@ -128,12 +128,26 @@ const NftCreate = () => {
       collection: '',
       tokenQuantity: '',
       artworkName: '',
-      solo_exhibition: [
-        {
-          solo_exhibition: null,
-          description: ''
-        }
-      ]
+      info: {
+        soloExhibitions: [
+          {
+            year: null,
+            description: ''
+          }
+        ],
+        groupExhibitions: [
+          {
+            year: null,
+            description: ''
+          }
+        ],
+        awards: [
+          {
+            year: null,
+            description: ''
+          }
+        ]
+      }
     }
   })
 
@@ -149,7 +163,7 @@ const NftCreate = () => {
 
     let formData = new FormData()
     formData.append('name', data.artworkName)
-    // formData.append('description', markup)
+    formData.append('attributes', JSON.stringify(data.info))
     formData.append('description', descriptionText)
     formData.append('image', data.imageFile)
 
@@ -196,8 +210,6 @@ const NftCreate = () => {
       onSubmit()
     }
   }
-
-  console.log('approvedCollectionList', approvedCollectionList)
 
   return (
     <Box className={styles.Container}>

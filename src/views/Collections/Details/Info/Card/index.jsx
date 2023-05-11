@@ -1,10 +1,11 @@
 import { Box, Button, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ScrollModal from '../../../../../components/ScrollModal'
 import RightArrow from '../../../../../assets/icons/right-arrow.svg?component'
 import SeeMoreModal from '../../SeeMoreModal'
+import checkFields from '../../../../../utils/checkFields'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -60,13 +61,50 @@ const useStyles = makeStyles((theme) => ({
   descriptionText: {}
 }))
 
-const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
+const fields = [
+  'name',
+  'workStandard',
+  'year',
+  'ingredient',
+  'etc',
+  'workStandard',
+  'artCollection',
+  'education1',
+  'education2',
+  'education3'
+]
+
+const CollectionDetailCard = ({
+  name,
+  type,
+  description,
+  nftStandard,
+  tokenAttributes
+}) => {
   const classes = useStyles()
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const formattedDescription = description.replace(/<p><\/p>/g, '<p><br /></p>')
+  const info = useMemo(() => {
+    let checkValue = false
+    const value = JSON.parse(JSON.parse(JSON.parse(tokenAttributes)))
+    checkValue = checkFields(fields, value)
+    if (
+      value.soloExhibitions[0].value ||
+      value.groupExhibitions[0].value ||
+      value.awards[0].value
+    ) {
+      checkValue = true
+    }
+
+    if (checkValue) {
+      return value
+    }
+    return null
+  }, [tokenAttributes])
+
   return (
     <Box style={{ position: 'relative', marginBottom: '100px' }}>
       <Box className={classes.card}>
@@ -91,12 +129,23 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
         <Typography className={classes.seeTxt}>{t('see_more')}</Typography>
         <RightArrow className={classes.seeSvg} />
       </Box>
-      {/* <ScrollModal
-        open={open}
-        handleClose={handleClose}
-        description={formattedDescription}
-      /> */}
-      {open && <SeeMoreModal handleClose={handleClose} open={open} />}
+      {!info ? (
+        <ScrollModal
+          open={open}
+          handleClose={handleClose}
+          description={formattedDescription}
+        />
+      ) : (
+        <>
+          {open && (
+            <SeeMoreModal
+              tokenAttributes={tokenAttributes}
+              handleClose={handleClose}
+              open={open}
+            />
+          )}
+        </>
+      )}
     </Box>
   )
 }

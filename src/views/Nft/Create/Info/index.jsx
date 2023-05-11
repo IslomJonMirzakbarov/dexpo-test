@@ -5,18 +5,19 @@ import HFSelect from '../../../../components/FormElements/HFSelect'
 import { useFieldArray } from 'react-hook-form'
 
 export default function Info({ control }) {
-  const {
-    fields: soloExhibitions,
-    append,
-    prepend,
-    remove,
-    swap,
-    move,
-    insert
-  } = useFieldArray({
+  const { fields: soloExhibitions, append } = useFieldArray({
     control,
-    name: 'solo_exhibition'
+    name: 'info.soloExhibitions'
   })
+  const { fields: groupExhibitions, append: appendGroup } = useFieldArray({
+    control,
+    name: 'info.groupExhibitions'
+  })
+  const { fields: awards, append: appendAwards } = useFieldArray({
+    control,
+    name: 'info.awards'
+  })
+
   const startYear = 1900
   const endYear = 2023
   const years = []
@@ -37,8 +38,11 @@ export default function Info({ control }) {
             <label>Work standards</label>
             <FormInputText
               artistInput
+              rules={{
+                required: false
+              }}
               control={control}
-              name='work_standard'
+              name='info.workStandard'
               label='Please enter the specifications of the work. ex) 100x100 (cm)'
             />
           </div>
@@ -46,8 +50,11 @@ export default function Info({ control }) {
             <label>Ingredient</label>
             <FormInputText
               artistInput
+              rules={{
+                required: false
+              }}
               control={control}
-              name='ingredient'
+              name='info.ingredient'
               label='Please enter the ingredients. ex) oil painting, coating'
             />
           </div>
@@ -56,7 +63,10 @@ export default function Info({ control }) {
             <FormInputText
               artistInput
               control={control}
-              name='year'
+              rules={{
+                required: false
+              }}
+              name='info.year'
               label='Please enter the production year. ex) 1996'
             />
           </div>
@@ -71,7 +81,10 @@ export default function Info({ control }) {
               <FormInputText
                 artistInput
                 control={control}
-                name='name'
+                rules={{
+                  required: false
+                }}
+                name='info.name'
                 label='Please enter your name. ex) Hong Gil-dong'
               />
             </div>
@@ -80,7 +93,10 @@ export default function Info({ control }) {
               <FormInputText
                 artistInput
                 control={control}
-                name='art_collection'
+                rules={{
+                  required: false
+                }}
+                name='info.artCollection'
                 label='Art collection'
               />
             </div>
@@ -92,19 +108,28 @@ export default function Info({ control }) {
               <FormInputText
                 artistInput
                 control={control}
-                name='education'
+                rules={{
+                  required: false
+                }}
+                name='info.education1'
+                label='Please enter your academic background. ex) ~ Graduated from Department of Art Education at University'
+              />
+              <FormInputText
+                artistInput
+                rules={{
+                  required: false
+                }}
+                control={control}
+                name='info.education2'
                 label='Please enter your academic background. ex) ~ Graduated from Department of Art Education at University'
               />
               <FormInputText
                 artistInput
                 control={control}
-                name='education'
-                label='Please enter your academic background. ex) ~ Graduated from Department of Art Education at University'
-              />
-              <FormInputText
-                artistInput
-                control={control}
-                name='education'
+                rules={{
+                  required: false
+                }}
+                name='info.education3'
                 label='Please enter your academic background. ex) ~ Graduated from Department of Art Education at University'
               />
             </div>
@@ -119,7 +144,7 @@ export default function Info({ control }) {
                     options={years}
                     label='Solo exhibition'
                     className={styles.select}
-                    name={`solo_exhibition.${index}.solo_exhibition`}
+                    name={`info.soloExhibitions.${index}.year`}
                     placeholder='Select year'
                     value={item.solo_exhibition}
                   />
@@ -127,7 +152,10 @@ export default function Info({ control }) {
                     className={styles.input}
                     artistInput
                     control={control}
-                    name={`solo_exhibition.${index}.description`}
+                    rules={{
+                      required: false
+                    }}
+                    name={`info.soloExhibitions.${index}.description`}
                     label='Please enter your personal information. ex) DDP Gallery Seoul'
                   />
                 </div>
@@ -137,58 +165,93 @@ export default function Info({ control }) {
             <PlusBtn
               onClick={() =>
                 append({
-                  solo_exhibition: null,
+                  year: null,
                   description: ''
                 })
               }
             />
           </div>
           <div className={styles.input}>
-            <div className={styles.flex}>
-              <HFSelect
-                control={control}
-                options={years}
-                label='Group exhibition'
-                className={styles.select}
-                name='group_exhibition'
-                placeholder='Select year'
-              />
-              <FormInputText
-                className={styles.input}
-                artistInput
-                control={control}
-                name='education'
-                label='Please enter the contents of the group exhibition. ex) DDP Gallery Seoul'
-              />
+            <div className={styles.selectItems}>
+              {groupExhibitions.map((item, index) => (
+                <div className={styles.flex} key={item.id}>
+                  <HFSelect
+                    control={control}
+                    options={years}
+                    label='Group exhibition'
+                    className={styles.select}
+                    name={`info.groupExhibitions.${index}.year`}
+                    placeholder='Select year'
+                    value={item.solo_exhibition}
+                  />
+                  <FormInputText
+                    className={styles.input}
+                    artistInput
+                    control={control}
+                    rules={{
+                      required: false
+                    }}
+                    name={`info.groupExhibitions.${index}.description`}
+                    label='Please enter the contents of the group exhibition. ex) DDP Gallery Seoul'
+                  />
+                </div>
+              ))}
             </div>
-            <PlusBtn />
+
+            <PlusBtn
+              onClick={() =>
+                appendGroup({
+                  year: null,
+                  description: ''
+                })
+              }
+            />
           </div>
           <div className={styles.input}>
-            <div className={styles.flex}>
-              <HFSelect
-                control={control}
-                options={years}
-                label='Awards'
-                className={styles.select}
-                name='awards'
-                placeholder='Select year'
-              />
-              <FormInputText
-                className={styles.input}
-                artistInput
-                control={control}
-                name='education'
-                label='Please enter your personal information. ex) GIAF 3D category grand prize'
-              />
+            <div className={styles.selectItems}>
+              {awards.map((item, index) => (
+                <div className={styles.flex} key={item.id}>
+                  <HFSelect
+                    control={control}
+                    options={years}
+                    label='Awards'
+                    className={styles.select}
+                    name={`info.awards.${index}.year`}
+                    placeholder='Select year'
+                    value={item.solo_exhibition}
+                  />
+                  <FormInputText
+                    className={styles.input}
+                    artistInput
+                    control={control}
+                    rules={{
+                      required: false
+                    }}
+                    name={`info.awards.${index}.description`}
+                    label='Please enter your personal information. ex) GIAF 3D category grand prize'
+                  />
+                </div>
+              ))}
             </div>
-            <PlusBtn />
+
+            <PlusBtn
+              onClick={() =>
+                appendAwards({
+                  year: null,
+                  description: ''
+                })
+              }
+            />
           </div>
           <div className={styles.input}>
             <label>Etc</label>
             <FormInputText
               artistInput
               control={control}
-              name='education'
+              rules={{
+                required: false
+              }}
+              name='info.etc'
               label='Please fill in other information.'
             />
           </div>
