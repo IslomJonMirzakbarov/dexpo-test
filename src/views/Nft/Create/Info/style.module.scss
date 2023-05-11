@@ -1,0 +1,66 @@
+.box {
+  padding-top: 55px;
+  border-top: 1px solid #d1d1d1;
+  margin-top: 70px;
+  width: 100%;
+  h2 {
+    font-size: 22px;
+    line-height: 32px;
+    color: #1f1f1f;
+  }
+  .items {
+    display: grid;
+    gap: 26px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 28px;
+    .inputList {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .education,
+    .selectItems {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .selectItems {
+      gap: 20px;
+    }
+    .input {
+      label {
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 22px;
+        color: #1f1f1f;
+        display: block;
+        margin-bottom: 8px;
+        padding-left: 4px;
+      }
+      .flex {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        .select {
+          width: 129px;
+        }
+        .input {
+          width: calc(100% - 129px);
+        }
+      }
+    }
+  }
+}
+
+.plusBtn {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: -1px 1px 16px 7px rgba(0, 0, 0, 0.06);
+  border-radius: 7px;
+  margin: 30px auto 0;
+  cursor: pointer;
+}

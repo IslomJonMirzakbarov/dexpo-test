@@ -11,7 +11,7 @@ const FormInputText = ({
   label,
   artistInput,
   type = 'string',
-  parser
+  className
 }) => {
   const { t } = useTranslation()
   const isCollectionEdit =
@@ -28,6 +28,7 @@ const FormInputText = ({
     <div
       className={classNames(
         styles.Test,
+        className,
         { [styles.ArtistInput]: artistInput },
         {
           [styles.CollectionEdit]: isCollectionEdit

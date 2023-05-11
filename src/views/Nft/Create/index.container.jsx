@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { Box, Button, Checkbox, FormControl, Typography } from '@mui/material'
 import Web3 from 'web3'
 import FormInputText from '../../../components/FormInputText'
@@ -25,6 +25,7 @@ import draftToHtml from 'draftjs-to-html'
 import { useTranslation } from 'react-i18next'
 import { getRPCErrorMessage } from '../../../constants/metamaskErrors'
 import ExpandableOptions from './ExpandableOptions'
+import Info from './Info'
 
 const NftCreate = () => {
   const dispatch = useDispatch()
@@ -126,9 +127,16 @@ const NftCreate = () => {
     defaultValues: {
       collection: '',
       tokenQuantity: '',
-      artworkName: ''
+      artworkName: '',
+      solo_exhibition: [
+        {
+          solo_exhibition: null,
+          description: ''
+        }
+      ]
     }
   })
+
   const errorChecker = Object.keys(errors).length
 
   const handleChange = (event) => {
@@ -188,6 +196,8 @@ const NftCreate = () => {
       onSubmit()
     }
   }
+
+  console.log('approvedCollectionList', approvedCollectionList)
 
   return (
     <Box className={styles.Container}>
@@ -336,7 +346,7 @@ const NftCreate = () => {
                   작품정보 입력하기
                 </Typography>
                 <div onClick={() => setIsFormExpanded(!isFormExpanded)}>
-                  {isFormExpanded ? <MinusIcon /> : <PlusIcon />}
+                  {!isFormExpanded ? <MinusIcon /> : <PlusIcon />}
                 </div>
               </Box>
 
@@ -356,12 +366,14 @@ const NftCreate = () => {
         </Box>
       </Box>
 
-      <ExpandableOptions
+      {isFormExpanded && <Info control={control} />}
+
+      {/* <ExpandableOptions
         isFormExpanded={isFormExpanded}
         formData={formData}
         handleFormChange={handleFormChange}
         control={control}
-      />
+      /> */}
 
       <Box className={styles.BottomSide}>
         <Button

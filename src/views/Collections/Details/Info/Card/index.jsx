@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ScrollModal from '../../../../../components/ScrollModal'
 import RightArrow from '../../../../../assets/icons/right-arrow.svg?component'
+import SeeMoreModal from '../../SeeMoreModal'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -90,11 +91,12 @@ const CollectionDetailCard = ({ name, type, description, nftStandard }) => {
         <Typography className={classes.seeTxt}>{t('see_more')}</Typography>
         <RightArrow className={classes.seeSvg} />
       </Box>
-      <ScrollModal
+      {/* <ScrollModal
         open={open}
         handleClose={handleClose}
         description={formattedDescription}
-      />
+      /> */}
+      {open && <SeeMoreModal handleClose={handleClose} open={open} />}
     </Box>
   )
 }

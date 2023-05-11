@@ -1,4 +1,4 @@
-@use "/src/scss/colors";
+@use '/src/scss/colors';
 
 .tag {
   padding: 0 10px;
@@ -7,6 +7,21 @@
 }
 
 .placeholder {
-  color: #909EAB;
+  color: #909eab;
   font-weight: 400;
+}
+
+.select {
+  label {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: #1f1f1f;
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+}
+
+.indicator {
+  color: colors.$primary;
 }
