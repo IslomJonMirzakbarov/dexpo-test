@@ -87,14 +87,18 @@ const CollectionDetailCard = ({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const formattedDescription = description.replace(/<p><\/p>/g, '<p><br /></p>')
+
   const info = useMemo(() => {
     let checkValue = false
     const value = JSON.parse(JSON.parse(JSON.parse(tokenAttributes)))
+    if (!value) {
+      return null
+    }
     checkValue = checkFields(fields, value)
     if (
-      value.soloExhibitions[0].value ||
-      value.groupExhibitions[0].value ||
-      value.awards[0].value
+      value?.soloExhibitions[0].value ||
+      value?.groupExhibitions[0].value ||
+      value?.awards[0].value
     ) {
       checkValue = true
     }

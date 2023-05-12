@@ -10,7 +10,7 @@ const style = {
   marginLeft: 'auto',
   marginRight: 'auto',
   position: 'relative',
-  top: '300px',
+  top: '100px',
   overflowY: 'auto',
   zIndex: 1006
 }
@@ -61,12 +61,6 @@ const SeeMoreModal = ({ handleClose, data }) => {
               <div className={styles.item}>
                 <span className={styles.label}>재료</span>
                 <span className={styles.value}>{data.ingredient}</span>
-              </div>
-            )}
-            {data?.etc && (
-              <div className={styles.item}>
-                <span className={styles.label}>기타</span>
-                <span className={styles.value}>{data.etc}</span>
               </div>
             )}
           </div>
@@ -138,6 +132,12 @@ const SeeMoreModal = ({ handleClose, data }) => {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+            {data?.etc && (
+              <div className={styles.item}>
+                <span className={styles.label}>기타</span>
+                <span className={styles.value}>{data.etc}</span>
               </div>
             )}
           </div>

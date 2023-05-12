@@ -27,7 +27,8 @@
           display: block;
           background: #f3f3f3;
           border-right: 1px solid #e6e6e6;
-          width: 150px;
+          max-width: 150px;
+          min-width: 150px;
           padding: 12px 20px;
           font-weight: 500;
           font-size: 15px;
@@ -40,7 +41,7 @@
           line-height: 30px;
           .year {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 45px;
           }
         }
