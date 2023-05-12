@@ -16,7 +16,6 @@ const style = {
 }
 
 const SeeMoreModal = ({ handleClose, data }) => {
-  console.log('data', data)
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => (document.body.style.overflow = 'unset')
@@ -80,7 +79,12 @@ const SeeMoreModal = ({ handleClose, data }) => {
             {data?.artCollection && (
               <div className={styles.item}>
                 <span className={styles.label}>작품소장</span>
-                <span className={styles.value}>{data.artCollection}</span>
+                <span
+                  className={styles.value}
+                  dangerouslySetInnerHTML={{
+                    __html: data.artCollection.replace(/\n/g, '<br />')
+                  }}
+                ></span>
               </div>
             )}
 
@@ -137,7 +141,12 @@ const SeeMoreModal = ({ handleClose, data }) => {
             {data?.etc && (
               <div className={styles.item}>
                 <span className={styles.label}>기타</span>
-                <span className={styles.value}>{data.etc}</span>
+                <span
+                  className={styles.value}
+                  dangerouslySetInnerHTML={{
+                    __html: data.etc?.replace(/\n/g, '<br />')
+                  }}
+                />
               </div>
             )}
           </div>

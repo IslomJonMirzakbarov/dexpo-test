@@ -96,6 +96,7 @@ export default function Info({ control }) {
                 rules={{
                   required: false
                 }}
+                descRows={2}
                 name='info.artCollection'
                 label='Art collection'
               />
@@ -251,6 +252,7 @@ export default function Info({ control }) {
               rules={{
                 required: false
               }}
+              descRows={2}
               name='info.etc'
               label='Please fill in other information.'
             />

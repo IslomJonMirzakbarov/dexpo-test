@@ -44,7 +44,8 @@
     }
   }
   .DescriptionInput {
-    height: 185px;
+    //height: 185px;
+    height: auto;
     resize: none;
     @include scrollbar;
   }

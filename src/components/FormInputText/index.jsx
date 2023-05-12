@@ -12,7 +12,8 @@ const FormInputText = ({
   artistInput,
   type = 'string',
   className,
-  rules
+  rules,
+  descRows = 7
 }) => {
   const { t } = useTranslation()
   const isCollectionEdit =
@@ -20,7 +21,9 @@ const FormInputText = ({
   const isDescSection =
     name === 'description' ||
     name === 'artworkDescription' ||
-    name === 'userEditBio'
+    name === 'userEditBio' ||
+    name === 'info.etc' ||
+    name === 'info.artCollection'
   const isExpandableOption = name === 'exhibitionText'
 
   const optionals =
@@ -58,6 +61,7 @@ const FormInputText = ({
                 styles.DescriptionInput,
                 { [styles.CollectionEdit]: name === 'collectionEdit' }
               )}
+              rows={descRows}
               type={type}
               {...field}
             />
