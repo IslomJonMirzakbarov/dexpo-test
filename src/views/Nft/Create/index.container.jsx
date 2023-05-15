@@ -355,7 +355,7 @@ const NftCreate = () => {
                   variant='body1'
                   className={styles.ExpandableOptionsText}
                 >
-                  작품정보 입력하기
+                  {t('artwork_inf_label')}
                 </Typography>
                 <div onClick={() => setIsFormExpanded(!isFormExpanded)}>
                   {!isFormExpanded ? <MinusIcon /> : <PlusIcon />}
