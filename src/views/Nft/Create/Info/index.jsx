@@ -100,7 +100,7 @@ export default function Info({ control }) {
                 }}
                 descRows={2}
                 name='info.artCollection'
-                label={t('artworksCollection')}
+                label={t('collection_confirm')}
               />
             </div>
           </div>
