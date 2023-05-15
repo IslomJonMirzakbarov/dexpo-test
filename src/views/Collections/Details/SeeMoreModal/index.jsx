@@ -103,7 +103,7 @@ const SeeMoreModal = ({ handleClose, data }) => {
               </div>
             )}
 
-            {/* {(data?.education1 || data?.education2 || data?.education3) && (
+            {(data?.education1 || data?.education2 || data?.education3) && (
               <div className={styles.item}>
                 <span className={styles.label}>{t('artworksEducation')}</span>
                 <span className={styles.value}>
@@ -113,7 +113,7 @@ const SeeMoreModal = ({ handleClose, data }) => {
                   {data?.education3}
                 </span>
               </div>
-            )} */}
+            )}
             {data?.soloExhibitions[0]?.year?.value && (
               <div className={styles.item}>
                 <span className={styles.label}>{t('solo_exhibition')}</span>
