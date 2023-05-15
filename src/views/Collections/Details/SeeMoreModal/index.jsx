@@ -90,7 +90,20 @@ const SeeMoreModal = ({ handleClose, data }) => {
               </div>
             )}
 
-            {(data?.education1 || data?.education2 || data?.education3) && (
+            {data?.educations[0]?.description && (
+              <div className={styles.item}>
+                <span className={styles.label}>{t('artworksEducation')}</span>
+                <div className={styles.value}>
+                  {data.educations?.map((item, index) => (
+                    <div className={styles.year} key={'education' + index}>
+                      <span>{item?.description}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* {(data?.education1 || data?.education2 || data?.education3) && (
               <div className={styles.item}>
                 <span className={styles.label}>{t('artworksEducation')}</span>
                 <span className={styles.value}>
@@ -100,13 +113,16 @@ const SeeMoreModal = ({ handleClose, data }) => {
                   {data?.education3}
                 </span>
               </div>
-            )}
+            )} */}
             {data?.soloExhibitions[0]?.year?.value && (
               <div className={styles.item}>
                 <span className={styles.label}>{t('solo_exhibition')}</span>
                 <div className={styles.value}>
                   {data.soloExhibitions?.map((item) => (
-                    <div className={styles.year} key={item?.year?.value}>
+                    <div
+                      className={styles.year}
+                      key={item?.year?.value + 'solo_exhibition'}
+                    >
                       <span>{item?.year?.label}</span>
                       <span>{item?.description}</span>
                     </div>
@@ -119,7 +135,10 @@ const SeeMoreModal = ({ handleClose, data }) => {
                 <span className={styles.label}>{t('group_exhibition')}</span>
                 <div className={styles.value}>
                   {data.groupExhibitions?.map((item) => (
-                    <div className={styles.year} key={item?.year?.value}>
+                    <div
+                      className={styles.year}
+                      key={item?.year?.value + 'group_exhibition'}
+                    >
                       <span>{item?.year?.label}</span>
                       <span>{item?.description}</span>
                     </div>
@@ -134,7 +153,10 @@ const SeeMoreModal = ({ handleClose, data }) => {
                 </span>
                 <div className={styles.value}>
                   {data.awards?.map((item) => (
-                    <div className={styles.year} key={item?.year?.value}>
+                    <div
+                      className={styles.year}
+                      key={item?.year?.value + 'exhibitionTextAwards'}
+                    >
                       <span>{item?.year?.label}</span>
                       <span>{item?.description}</span>
                     </div>

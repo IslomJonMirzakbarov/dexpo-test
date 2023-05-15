@@ -131,6 +131,11 @@ const NftCreate = () => {
       tokenQuantity: '',
       artworkName: '',
       info: {
+        educations: [
+          {
+            description: ''
+          }
+        ],
         soloExhibitions: [
           {
             year: null,
