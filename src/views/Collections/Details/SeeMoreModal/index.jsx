@@ -1,6 +1,7 @@
 import { Box, Modal } from '@mui/material'
 import styles from './style.module.scss'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const style = {
   width: '1031px',
@@ -16,6 +17,7 @@ const style = {
 }
 
 const SeeMoreModal = ({ handleClose, data }) => {
+  const { t } = useTranslation()
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => (document.body.style.overflow = 'unset')
@@ -40,30 +42,30 @@ const SeeMoreModal = ({ handleClose, data }) => {
         className={styles.container}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2>작품상세</h2>
+        <h2>{t('Artwork Details')}</h2>
         <div className={styles.box}>
-          <h3>작품정보</h3>
+          <h3>{t('artwork_information')}</h3>
           <div className={styles.items}>
             {data?.workStandard && (
               <div className={styles.item}>
-                <span className={styles.label}>작품 규격</span>
+                <span className={styles.label}>{t('artwork_size')}</span>
                 <span className={styles.value}>{data.workStandard}</span>
               </div>
             )}
             {data?.year && (
               <div className={styles.item}>
-                <span className={styles.label}>제작년도</span>
+                <span className={styles.label}>{t('production_year')}</span>
                 <span className={styles.value}>{data.year}</span>
               </div>
             )}
             {data?.ingredient && (
               <div className={styles.item}>
-                <span className={styles.label}>재료</span>
+                <span className={styles.label}>{t('medium')}</span>
                 <span className={styles.value}>{data.ingredient}</span>
               </div>
             )}
           </div>
-          <h3>작가정보</h3>
+          <h3>{t('artist_information')}</h3>
           <div
             className={styles.items}
             style={{
@@ -72,13 +74,13 @@ const SeeMoreModal = ({ handleClose, data }) => {
           >
             {data?.name && (
               <div className={styles.item}>
-                <span className={styles.label}>이름</span>
+                <span className={styles.label}>{t('artistsName')}</span>
                 <span className={styles.value}>{data.name}</span>
               </div>
             )}
             {data?.artCollection && (
               <div className={styles.item}>
-                <span className={styles.label}>작품소장</span>
+                <span className={styles.label}>{t('artworksCollection')}</span>
                 <span
                   className={styles.value}
                   dangerouslySetInnerHTML={{
@@ -90,7 +92,7 @@ const SeeMoreModal = ({ handleClose, data }) => {
 
             {(data?.education1 || data?.education2 || data?.education3) && (
               <div className={styles.item}>
-                <span className={styles.label}>학력</span>
+                <span className={styles.label}>{t('artworksEducation')}</span>
                 <span className={styles.value}>
                   {data?.education1} <br />
                   {data?.education2}
@@ -101,7 +103,7 @@ const SeeMoreModal = ({ handleClose, data }) => {
             )}
             {data?.soloExhibitions[0]?.year?.value && (
               <div className={styles.item}>
-                <span className={styles.label}>개인전</span>
+                <span className={styles.label}>{t('solo_exhibition')}</span>
                 <div className={styles.value}>
                   {data.soloExhibitions?.map((item) => (
                     <div className={styles.year} key={item?.year?.value}>
@@ -114,7 +116,7 @@ const SeeMoreModal = ({ handleClose, data }) => {
             )}
             {data?.groupExhibitions[0]?.year?.value && (
               <div className={styles.item}>
-                <span className={styles.label}>단체전</span>
+                <span className={styles.label}>{t('group_exhibition')}</span>
                 <div className={styles.value}>
                   {data.groupExhibitions?.map((item) => (
                     <div className={styles.year} key={item?.year?.value}>
@@ -127,7 +129,9 @@ const SeeMoreModal = ({ handleClose, data }) => {
             )}
             {data?.awards[0]?.year?.value && (
               <div className={styles.item}>
-                <span className={styles.label}>수상</span>
+                <span className={styles.label}>
+                  {t('exhibitionTextAwards')}
+                </span>
                 <div className={styles.value}>
                   {data.awards?.map((item) => (
                     <div className={styles.year} key={item?.year?.value}>
@@ -140,7 +144,7 @@ const SeeMoreModal = ({ handleClose, data }) => {
             )}
             {data?.etc && (
               <div className={styles.item}>
-                <span className={styles.label}>기타</span>
+                <span className={styles.label}>{t('moreInformation')}</span>
                 <span
                   className={styles.value}
                   dangerouslySetInnerHTML={{

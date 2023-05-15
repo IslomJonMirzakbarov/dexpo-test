@@ -3,8 +3,10 @@ import styles from './style.module.scss'
 import FormInputText from '../../../../components/FormInputText'
 import HFSelect from '../../../../components/FormElements/HFSelect'
 import { useFieldArray } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 export default function Info({ control }) {
+  const { t } = useTranslation()
   const { fields: soloExhibitions, append } = useFieldArray({
     control,
     name: 'info.soloExhibitions'
@@ -32,10 +34,10 @@ export default function Info({ control }) {
   return (
     <Container>
       <Box className={styles.box}>
-        <h2>작품정보</h2>
+        <h2>{t('artwork_information')}</h2>
         <div className={styles.items}>
           <div className={styles.input}>
-            <label>Work standards</label>
+            <label>{t('artwork_size')}</label>
             <FormInputText
               artistInput
               rules={{
@@ -43,11 +45,11 @@ export default function Info({ control }) {
               }}
               control={control}
               name='info.workStandard'
-              label='Please enter the specifications of the work. ex) 100x100 (cm)'
+              label={t('art_size')}
             />
           </div>
           <div className={styles.input}>
-            <label>Ingredient</label>
+            <label>{t('medium')}</label>
             <FormInputText
               artistInput
               rules={{
@@ -55,11 +57,11 @@ export default function Info({ control }) {
               }}
               control={control}
               name='info.ingredient'
-              label='Please enter the ingredients. ex) oil painting, coating'
+              label={t('medium_ex')}
             />
           </div>
           <div className={styles.input}>
-            <label>Year of production</label>
+            <label>{t('production_year')}</label>
             <FormInputText
               artistInput
               control={control}
@@ -67,17 +69,17 @@ export default function Info({ control }) {
                 required: false
               }}
               name='info.year'
-              label='Please enter the production year. ex) 1996'
+              label={t('prod_year_ex')}
             />
           </div>
         </div>
       </Box>
       <Box className={styles.box}>
-        <h2>작가정보</h2>
+        <h2>{t('artist_information')}</h2>
         <div className={styles.items}>
           <div className={styles.inputList}>
             <div className={styles.input}>
-              <label>Name</label>
+              <label>{t('artistsName')}</label>
               <FormInputText
                 artistInput
                 control={control}
@@ -85,11 +87,11 @@ export default function Info({ control }) {
                   required: false
                 }}
                 name='info.name'
-                label='Please enter your name. ex) Hong Gil-dong'
+                label={t('artist_name_ex')}
               />
             </div>
             <div className={styles.input}>
-              <label>Art collection</label>
+              <label>{t('artworksCollection')}</label>
               <FormInputText
                 artistInput
                 control={control}
@@ -98,13 +100,13 @@ export default function Info({ control }) {
                 }}
                 descRows={2}
                 name='info.artCollection'
-                label='Art collection'
+                label={t('artworksCollection')}
               />
             </div>
           </div>
 
           <div className={styles.input}>
-            <label>Education</label>
+            <label>{t('artworksEducation')}</label>
             <div className={styles.education}>
               <FormInputText
                 artistInput
@@ -113,7 +115,7 @@ export default function Info({ control }) {
                   required: false
                 }}
                 name='info.education1'
-                label='Please enter your academic background. ex) ~ Graduated from Department of Art Education at University'
+                label={t('enter_acad_bg')}
               />
               <FormInputText
                 artistInput
@@ -122,7 +124,7 @@ export default function Info({ control }) {
                 }}
                 control={control}
                 name='info.education2'
-                label='Please enter your academic background. ex) ~ Graduated from Department of Art Education at University'
+                label={t('enter_acad_bg')}
               />
               <FormInputText
                 artistInput
@@ -131,7 +133,7 @@ export default function Info({ control }) {
                   required: false
                 }}
                 name='info.education3'
-                label='Please enter your academic background. ex) ~ Graduated from Department of Art Education at University'
+                label={t('enter_acad_bg')}
               />
             </div>
           </div>
@@ -143,10 +145,10 @@ export default function Info({ control }) {
                   <HFSelect
                     control={control}
                     options={years}
-                    label='Solo exhibition'
+                    label={t('solo_exhibition')}
                     className={styles.select}
                     name={`info.soloExhibitions.${index}.year`}
-                    placeholder='Select year'
+                    placeholder={t('year')}
                     value={item.solo_exhibition}
                   />
                   <FormInputText
@@ -157,7 +159,7 @@ export default function Info({ control }) {
                       required: false
                     }}
                     name={`info.soloExhibitions.${index}.description`}
-                    label='Please enter your personal information. ex) DDP Gallery Seoul'
+                    label={t('enter_solo_exhibition')}
                   />
                 </div>
               ))}
@@ -179,10 +181,10 @@ export default function Info({ control }) {
                   <HFSelect
                     control={control}
                     options={years}
-                    label='Group exhibition'
+                    label={t('group_exhibition')}
                     className={styles.select}
                     name={`info.groupExhibitions.${index}.year`}
-                    placeholder='Select year'
+                    placeholder={t('year')}
                     value={item.solo_exhibition}
                   />
                   <FormInputText
@@ -193,7 +195,7 @@ export default function Info({ control }) {
                       required: false
                     }}
                     name={`info.groupExhibitions.${index}.description`}
-                    label='Please enter the contents of the group exhibition. ex) DDP Gallery Seoul'
+                    label={t('enter_group_exhibition')}
                   />
                 </div>
               ))}
@@ -215,10 +217,10 @@ export default function Info({ control }) {
                   <HFSelect
                     control={control}
                     options={years}
-                    label='Awards'
+                    label={t('exhibitionTextAwards')}
                     className={styles.select}
                     name={`info.awards.${index}.year`}
-                    placeholder='Select year'
+                    placeholder={t('year')}
                     value={item.solo_exhibition}
                   />
                   <FormInputText
@@ -229,7 +231,7 @@ export default function Info({ control }) {
                       required: false
                     }}
                     name={`info.awards.${index}.description`}
-                    label='Please enter your personal information. ex) GIAF 3D category grand prize'
+                    label={t('enter_award')}
                   />
                 </div>
               ))}
@@ -245,7 +247,7 @@ export default function Info({ control }) {
             />
           </div>
           <div className={styles.input}>
-            <label>Etc</label>
+            <label>{t('moreInformation')}</label>
             <FormInputText
               artistInput
               control={control}
@@ -254,7 +256,7 @@ export default function Info({ control }) {
               }}
               descRows={2}
               name='info.etc'
-              label='Please fill in other information.'
+              label={t('enter_more_info')}
             />
           </div>
         </div>
