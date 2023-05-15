@@ -54,6 +54,8 @@ const FormInputText = ({
                   ? t('describe_fields')
                   : name === 'userEditBio'
                   ? t('write_about_yourself')
+                  : name === 'info.artCollection' || name === 'info.etc'
+                  ? label
                   : t('enter_artwork_description')
               }
               className={classNames(
