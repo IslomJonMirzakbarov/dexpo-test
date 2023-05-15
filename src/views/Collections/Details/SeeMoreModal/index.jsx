@@ -90,7 +90,7 @@ const SeeMoreModal = ({ handleClose, data }) => {
               </div>
             )}
 
-            {data?.educations[0]?.description && (
+            {data?.educations && data?.educations[0]?.description && (
               <div className={styles.item}>
                 <span className={styles.label}>{t('artworksEducation')}</span>
                 <div className={styles.value}>
