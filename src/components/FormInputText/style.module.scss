@@ -1,5 +1,5 @@
-@use "/src/scss/colors";
-@import "../../styles/scrollbar.scss";
+@use '/src/scss/colors';
+@import '../../styles/scrollbar.scss';
 
 .Test {
   .InputText {
@@ -15,6 +15,7 @@
     /*styles here*/
     color: colors.$text;
   }
+
   .ArtistInputText {
     background: #f3f3f3;
     border: 1.5px solid #e8e8e8;
@@ -27,7 +28,7 @@
     font-size: 15px;
     line-height: 22px;
     color: #1f1f1f;
-
+    width: 100%;
     &:focus {
       outline: none;
       border: 1.5px solid colors.$text;
@@ -43,7 +44,8 @@
     }
   }
   .DescriptionInput {
-    height: 185px;
+    //height: 185px;
+    height: auto;
     resize: none;
     @include scrollbar;
   }
@@ -80,5 +82,13 @@
     height: 185px;
     resize: none;
     @include scrollbar;
+  }
+}
+
+.ExpandableOption {
+  width: 430px;
+
+  .ArtistInputText {
+    width: 508px;
   }
 }

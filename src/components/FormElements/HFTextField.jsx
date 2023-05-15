@@ -1,33 +1,39 @@
-import { TextField } from "@mui/material"
-import { Controller } from "react-hook-form"
-
+import { TextField } from '@mui/material'
+import { Controller } from 'react-hook-form'
+import styles from './style.module.scss'
 const HFTextField = ({
   control,
-  name = "",
+  name = '',
   disabledHelperText = false,
-  required=false,
-  rules={},
+  required = false,
+  rules = {},
+  label,
   ...props
 }) => {
   return (
-    <Controller
-      control={control}
-      name={name}
-      defaultValue=""
-      rules={{ required: required ? 'This is required field' : false, ...rules }}
-      render={({ field : { onChange, value }, fieldState : { error  } })  => (
-        <TextField
-        size="small"
-        value={value}
-        onChange={e => onChange(e.target.value)}
+    <>
+      {/* {label && <label className={styles.label}>{label}</label>} */}
+      <Controller
+        control={control}
         name={name}
-        error={error}
-        helperText={!disabledHelperText && (error?.message ?? ' ')}
-        {...props}
-      />
-      )}
-    >
-    </Controller>
+        defaultValue=''
+        rules={{
+          required: required ? 'This is required field' : false,
+          ...rules
+        }}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <TextField
+            size='small'
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            name={name}
+            error={error}
+            helperText={!disabledHelperText && (error?.message ?? ' ')}
+            {...props}
+          />
+        )}
+      ></Controller>
+    </>
   )
 }
 
