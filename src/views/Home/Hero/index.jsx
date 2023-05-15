@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import styles from './style.module.scss'
 import CarouselItem from './CarouselItem'
@@ -13,6 +13,9 @@ import banner1Mobile from '../../../assets/images/hero/banner1Mobile.jpg'
 import banner2Mobile from '../../../assets/images/hero/banner2Mobile.jpg'
 import banner3Mobile from '../../../assets/images/hero/banner3Mobile.jpg'
 import ChinesePhrase from '../../../assets/images/hero/chinese-phrase.svg?component'
+import BannerLeftImg from '../../../assets/images/hero/banner-left-imgs.png'
+import BannerCenterImg from '../../../assets/images/hero/banner-center-img.png'
+import BannerRightImg from '../../../assets/images/hero/banner-right-imgs.png'
 
 var items = [
   {
@@ -50,7 +53,7 @@ var items = [
 ]
 
 const settings = {
-  dots: true,
+  dots: false,
   infinite: true,
   speed: 1000,
   slidesToShow: 1,
@@ -75,22 +78,27 @@ const Hero = () => {
 
   return (
     <Box className={classNames(styles.wrapper, 'hero')}>
+      <Typography className={styles.dateTxt}>2023.05.26</Typography>
       <Container className={styles.container} maxWidth>
         <div className={styles.textContainer}>
-          <p>2023.05.26</p>
-          <p>현호경</p>
-          <p>작가 양응식</p>
-        </div>
-        <div className={styles.imageContainer}>
-          {/* <img
-            src='/src/assets/images/hero/chinese-phrase.svg'
-            alt='chinese phrase'
-          /> */}
-          <ChinesePhrase />
+          <img
+            src={BannerLeftImg}
+            alt='banner-left-img'
+            width={400}
+            height={81}
+          />
+          <img src={BannerCenterImg} alt='banner-center-img' />
+          <img
+            src={BannerRightImg}
+            width={400}
+            height={81}
+            alt='banner-right-img'
+          />
         </div>
         <Slider
           {...settings}
           ref={ref}
+          style={{ backgroundColor: 'transparent' }}
           beforeChange={(currentSlide, nextSlide) => {
             setCurrentIndex(nextSlide)
           }}
