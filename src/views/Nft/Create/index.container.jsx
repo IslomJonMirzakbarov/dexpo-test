@@ -56,6 +56,7 @@ const NftCreate = () => {
   const [checked, setChecked] = useState(false)
   const [uploadedImg, setUploadedImg] = useState({})
   const [errBool, setErrBool] = useState(false)
+  const [imgErrBool, setImgErrBool] = useState(false)
   const [rejected, setRejected] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [responseChecker, setResponseChecker] = useState(false)
@@ -114,6 +115,7 @@ const NftCreate = () => {
       dispatch(setNewNftSrc(uploadedImg?.src))
       setPreviewImgSrc(uploadedImg?.src)
       setErrBool(false)
+      setImgErrBool(false)
     }
   }, [dispatch, uploadedImg])
 
@@ -202,6 +204,12 @@ const NftCreate = () => {
 
   const mintClick = () => {
     if (isLoading || !checked) return
+
+    if (Object.keys(uploadedImg).length === 0) {
+      setImgErrBool(true)
+    } else {
+      setImgErrBool(false)
+    }
 
     if (Object.keys(uploadedImg).length === 0 || description.length === 0) {
       setErrBool(true)
@@ -400,8 +408,8 @@ const NftCreate = () => {
             t('Mint')
           )}
         </Button>
-        {(errorChecker > 0 || errBool) && (
-          <Box className={styles.Error}>{errBool && t('upload-image')}</Box>
+        {imgErrBool && (
+          <Box className={styles.Error}>{imgErrBool && t('upload-image')}</Box>
         )}
       </Box>
 
