@@ -20,6 +20,11 @@ export default function Info({ control }) {
     name: 'info.awards'
   })
 
+  const { fields: educations, append: appendEducation } = useFieldArray({
+    control,
+    name: 'info.educations'
+  })
+
   const startYear = 1900
   const endYear = 2023
   const years = []
@@ -107,35 +112,26 @@ export default function Info({ control }) {
 
           <div className={styles.input}>
             <label>{t('artworksEducation')}</label>
-            <div className={styles.education}>
-              <FormInputText
-                artistInput
-                control={control}
-                rules={{
-                  required: false
-                }}
-                name='info.education1'
-                label={t('enter_acad_bg')}
-              />
-              <FormInputText
-                artistInput
-                rules={{
-                  required: false
-                }}
-                control={control}
-                name='info.education2'
-                label={t('enter_acad_bg')}
-              />
-              <FormInputText
-                artistInput
-                control={control}
-                rules={{
-                  required: false
-                }}
-                name='info.education3'
-                label={t('enter_acad_bg')}
-              />
+            <div className={styles.selectItems}>
+              {educations.map((_, index) => (
+                <FormInputText
+                  artistInput
+                  control={control}
+                  rules={{
+                    required: false
+                  }}
+                  name={`info.educations.${index}.description`}
+                  label={t('enter_acad_bg')}
+                />
+              ))}
             </div>
+            <PlusBtn
+              onClick={() =>
+                appendEducation({
+                  description: ''
+                })
+              }
+            />
           </div>
 
           <div className={styles.input}>
