@@ -188,7 +188,7 @@ const NFTSellRequestContainer = ({
 
   const SetPrice = () => (
     <>
-      <Box display="flex" alignItems="center" className={classes.priceBox}>
+      <Box display='flex' alignItems='center' className={classes.priceBox}>
         <TokenImg
           style={{
             width: 28,
@@ -196,7 +196,7 @@ const NFTSellRequestContainer = ({
           }}
         />
 
-        <Typography ml={1} fontSize={30} fontWeight={600} lineHeight="45px">
+        <Typography ml={1} fontSize={30} fontWeight={600} lineHeight='45px'>
           <NumberFormat
             value={numFormat(market?.price)}
             displayType={'text'}
@@ -205,7 +205,7 @@ const NFTSellRequestContainer = ({
         </Typography>
       </Box>
       <Typography
-        variant="placeholder"
+        variant='placeholder'
         fontWeight={500}
         color={theme.palette.grey[1000]}
       >
@@ -214,7 +214,7 @@ const NFTSellRequestContainer = ({
           value={numFormat(exchangedPrice)}
           displayType={'text'}
           thousandSeparator={true}
-          prefix="￦"
+          prefix='￦'
         />
         )
       </Typography>
@@ -230,7 +230,7 @@ const NFTSellRequestContainer = ({
               price={nft?.like_count}
               img={nft?.token_image}
               isLiked={nft?.is_liked}
-              alt="nft picture"
+              alt='nft picture'
               isPurchased={nft?.is_liked}
               tokenId={nft?.token_id}
               contractAddress={collection?.contract_address}
@@ -240,9 +240,9 @@ const NFTSellRequestContainer = ({
           <Grid
             item
             lg={7}
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
+            display='flex'
+            flexDirection='column'
+            justifyContent='space-between'
             width='100%'
           >
             <Box className={classes.fBox}>
@@ -257,6 +257,7 @@ const NFTSellRequestContainer = ({
                 isArtwork={nft.standard === 'M' ? false : !isCancel}
                 sellType={type}
                 types={types}
+                tokenAttributes={nft?.token_attributes}
                 handleChangeType={handleChangeType}
                 hideSelect={isTypeHidden}
                 nftStandard={nft?.standard}
@@ -265,8 +266,8 @@ const NFTSellRequestContainer = ({
             </Box>
 
             <Box
-              display="flex"
-              justifyContent="space-between"
+              display='flex'
+              justifyContent='space-between'
               mt={3}
               gap={3}
               className={classes.outerBox}
@@ -276,7 +277,7 @@ const NFTSellRequestContainer = ({
                   smartContract={collection?.contract_address}
                   tokenID={nft?.token_id}
                   tokenStandard={nft?.standard}
-                  blockchain="Klaytn"
+                  blockchain='Klaytn'
                   addrressCreator={nft?.creator_address}
                   addrressOwner={ownerAddress?.owner_address}
                   sellerAddress={market?.seller_address}
@@ -284,10 +285,10 @@ const NFTSellRequestContainer = ({
               </Box>
               {ownerAddress || nft.standard === 'S' ? (
                 <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  flexDirection="column"
-                  alignItems="end"
+                  display='flex'
+                  justifyContent='space-between'
+                  flexDirection='column'
+                  alignItems='end'
                   className={classes.box}
                 >
                   {nft?.standard === 'M' &&
@@ -304,25 +305,25 @@ const NFTSellRequestContainer = ({
                   {market?.end_date && <Countdown date={endDate} />}
                   {!isCancel && marketStatus === marketStatuses.COMPLETE && (
                     <Box
-                      display="flex"
-                      flexDirection="column"
+                      display='flex'
+                      flexDirection='column'
                       sx={{ width: '100%' }}
                       className={styles.dates}
                     >
                       {!!type && (
                         <PriceInput
                           control={control}
-                          name="price"
+                          name='price'
                           label={t(isAuction ? auctionLabel : fixedLabel)}
                           exchangedPrice={price_krw * sellPrice}
                         />
                       )}
                       {isAuction && (
                         <>
-                          <Box mt="15px" display="flex" alignItems="center">
+                          <Box mt='15px' display='flex' alignItems='center'>
                             <TextField
                               label={t('Starting Date')}
-                              type="datetime-local"
+                              type='datetime-local'
                               value={sdValue}
                               className={classes.datetime}
                               onChange={handleChangeStartingDate}
@@ -333,7 +334,7 @@ const NFTSellRequestContainer = ({
                             &nbsp;~&nbsp;
                             <TextField
                               label={t('Ending Date')}
-                              type="datetime-local"
+                              type='datetime-local'
                               value={edValue}
                               className={classes.datetime}
                               onChange={handleChangeEndingDate}
@@ -349,9 +350,9 @@ const NFTSellRequestContainer = ({
 
                   {!market?.end_date && isCancel && <Box />}
                   <Box
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="end"
+                    display='flex'
+                    flexDirection='column'
+                    alignItems='end'
                     sx={{ width: '100%' }}
                   >
                     {isCancel && market?.price && (
@@ -397,7 +398,7 @@ const NFTSellRequestContainer = ({
         {isBidHistory && (
           <Grid container>
             <Grid item lg={12}>
-              <HistoryTable data={bidHistory} title="BID History" />
+              <HistoryTable data={bidHistory} title='BID History' />
             </Grid>
           </Grid>
         )}

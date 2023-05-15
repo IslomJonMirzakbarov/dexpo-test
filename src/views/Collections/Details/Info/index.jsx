@@ -24,7 +24,8 @@ const CollectionDetailsInfo = ({
   isOriginal,
   id,
   contract_address,
-  nftStandard
+  nftStandard,
+  tokenAttributes
 }) => {
   let parsedDescription
   try {
@@ -34,10 +35,10 @@ const CollectionDetailsInfo = ({
       parsedJSON !== null &&
       'description' in parsedJSON
     ) {
-      parsedDescription = parsedJSON.description
+      parsedDescription = parsedJSON.description.replace(/\n/g, '<br />')
     }
   } catch (error) {
-    console.log('jsonerror: ', error)
+    console.log('jsonerror:')
   }
   const finalDescription =
     parsedDescription !== undefined ? parsedDescription : description
@@ -98,6 +99,7 @@ const CollectionDetailsInfo = ({
         name={nftName}
         type={isArtwork ? sellType?.label : type}
         nftStandard={nftStandard}
+        tokenAttributes={tokenAttributes}
       />
     </Box>
   )

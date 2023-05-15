@@ -11,7 +11,9 @@ const FormInputText = ({
   label,
   artistInput,
   type = 'string',
-  parser
+  className,
+  rules,
+  descRows = 7
 }) => {
   const { t } = useTranslation()
   const isCollectionEdit =
@@ -19,7 +21,10 @@ const FormInputText = ({
   const isDescSection =
     name === 'description' ||
     name === 'artworkDescription' ||
-    name === 'userEditBio'
+    name === 'userEditBio' ||
+    name === 'info.etc' ||
+    name === 'info.artCollection'
+  const isExpandableOption = name === 'exhibitionText'
 
   const optionals =
     name === 'userEditBio' || name === 'youtubeURL' || name === 'userEditName'
@@ -27,16 +32,20 @@ const FormInputText = ({
     <div
       className={classNames(
         styles.Test,
+        className,
         { [styles.ArtistInput]: artistInput },
         {
           [styles.CollectionEdit]: isCollectionEdit
+        },
+        {
+          [styles.ExpandableOption]: isExpandableOption
         }
       )}
     >
       <Controller
         name={name}
         control={control}
-        rules={{ required: !optionals }}
+        rules={{ required: !optionals, ...rules }}
         render={({ field }) => {
           return isDescSection ? (
             <textarea
@@ -45,6 +54,8 @@ const FormInputText = ({
                   ? t('describe_fields')
                   : name === 'userEditBio'
                   ? t('write_about_yourself')
+                  : name === 'info.artCollection' || name === 'info.etc'
+                  ? label
                   : t('enter_artwork_description')
               }
               className={classNames(
@@ -52,6 +63,7 @@ const FormInputText = ({
                 styles.DescriptionInput,
                 { [styles.CollectionEdit]: name === 'collectionEdit' }
               )}
+              rows={descRows}
               type={type}
               {...field}
             />
