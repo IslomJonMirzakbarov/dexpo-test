@@ -16,6 +16,10 @@
     line-height: 24px;
     text-align: right;
     color: #ffffff;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .container {
     position: relative;
@@ -31,6 +35,22 @@
       line-height: 24px;
       color: #464646;
       margin-bottom: 0px;
+
+      @media (max-width: 600px) {
+        justify-content: center;
+        margin-bottom: 40px;
+
+        img:nth-child(2) {
+          width: 200px;
+        }
+      }
+
+      img:first-child,
+      img:last-child {
+        @media (max-width: 600px) {
+          display: none;
+        }
+      }
     }
 
     // .imageContainer {
@@ -48,9 +68,7 @@
       left: 50px;
       right: 50px;
       z-index: 10px;
-      @media (max-width: 600px) {
-        display: none;
-      }
+
       .arrow {
         width: 45px;
         height: 45px;
@@ -64,6 +82,21 @@
           color: #fff;
           width: 15px;
           height: 15px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        top: calc(50% + 75px);
+        left: 20px;
+        right: 20px;
+
+        .arrow {
+          width: 30px;
+          height: 30px;
+          svg {
+            width: 10px;
+            height: 10px;
+          }
         }
       }
     }

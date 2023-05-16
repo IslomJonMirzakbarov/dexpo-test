@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import classNames from 'classnames'
@@ -129,7 +129,8 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     objectFit: 'contain',
     height: '100%',
-    width: '100%'
+    width: '100%',
+    backgroundColor: 'transparent'
     // borderRadius: "15px",
   }
 }))
@@ -140,6 +141,20 @@ const CarouselItem = ({ item }) => {
   const classes = useStyles()
   const [active] = useState(['h2', 'h4', 'p'])
   const { artist } = useArtistAPI({ isDetail: true })
+  const useMobileScreen = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
+
+    useEffect(() => {
+      const handleResize = () => setIsMobile(window.innerWidth <= 600)
+
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    return isMobile
+  }
+
+  const isMobile = useMobileScreen()
 
   const notAuthencticated =
     token === null || artist?.message === 'EXPIRED_TOKEN'
@@ -155,7 +170,7 @@ const CarouselItem = ({ item }) => {
     >
       <img
         className={classes.image}
-        src={window.innerWidth > 600 ? item.image : item.imageMobile}
+        src={isMobile ? item.imageMobile : item.image}
         alt={item.title}
       />
       {window.innerWidth > 600 && (
