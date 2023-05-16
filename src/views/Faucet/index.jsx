@@ -109,7 +109,7 @@ const Faucet = () => {
               {t("Account Address")} <Typography color="primary">*</Typography>
             </Typography>
             <FormInputText
-              artistInput
+              artistsInput
               control={control}
               name="account"
               label={t("Please put your wallet address here")}
