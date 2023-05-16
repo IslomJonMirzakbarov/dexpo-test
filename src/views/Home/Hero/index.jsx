@@ -97,7 +97,6 @@ const Hero = () => {
         <Slider
           {...settings}
           ref={ref}
-          style={{ backgroundColor: 'transparent' }}
           beforeChange={(currentSlide, nextSlide) => {
             setCurrentIndex(nextSlide)
           }}
