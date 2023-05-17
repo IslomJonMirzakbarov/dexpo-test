@@ -133,18 +133,18 @@ const Settings = () => {
             editCollection={true}
             imgBool={imgBool}
             onUpload={setUploadedImg}
-            page="user-settings"
+            page='user-settings'
             src={uploadedImg?.preview}
           />
         </Box>
 
         <Box className={classNames(styles.CollectionName, styles.InputHolder)}>
-          <Typography variant="label" className={styles.Label}>
+          <Typography variant='label' className={styles.Label}>
             {t('Username')}
           </Typography>
           <FormInputText
-            artistInput
-            name="userEditName"
+            artistsInput
+            name='userEditName'
             control={control}
             label={t('Enter an username')}
           />
@@ -158,10 +158,10 @@ const Settings = () => {
         <Box
           className={classNames(styles.CollectionSymbol, styles.InputHolder)}
         >
-          <Typography variant="label" className={styles.Label}>
+          <Typography variant='label' className={styles.Label}>
             {t('Bio')}
           </Typography>
-          <FormInputText artistInput name="userEditBio" control={control} />
+          <FormInputText artistInput name='userEditBio' control={control} />
         </Box>
         <Box className={styles.BtnErrorContainer}>
           <PrimaryButton className={classNames(styles.Btn)}>
@@ -171,7 +171,7 @@ const Settings = () => {
       </form>
       {!updateName?.data?.message && showModal && (
         <ModalCard
-          page="create-collection"
+          page='create-collection'
           responseChecker={responseChecker}
           onSaveButtonClick={modalClick}
         >
