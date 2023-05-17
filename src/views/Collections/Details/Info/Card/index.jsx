@@ -90,21 +90,23 @@ const CollectionDetailCard = ({
 
   const info = useMemo(() => {
     let checkValue = false
-    const value = JSON.parse(JSON.parse(JSON.parse(tokenAttributes)))
-    if (!value) {
-      return null
-    }
-    checkValue = checkFields(fields, value)
-    if (
-      value?.soloExhibitions[0].value ||
-      value?.groupExhibitions[0].value ||
-      value?.awards[0].value
-    ) {
-      checkValue = true
-    }
+    if (tokenAttributes) {
+      const value = JSON.parse(JSON.parse(JSON.parse(tokenAttributes)))
+      if (!value) {
+        return null
+      }
+      checkValue = checkFields(fields, value)
+      if (
+        value?.soloExhibitions[0].value ||
+        value?.groupExhibitions[0].value ||
+        value?.awards[0].value
+      ) {
+        checkValue = true
+      }
 
-    if (checkValue) {
-      return value
+      if (checkValue) {
+        return value
+      }
     }
     return null
   }, [tokenAttributes])
