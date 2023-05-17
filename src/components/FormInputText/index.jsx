@@ -10,6 +10,7 @@ const FormInputText = ({
   control,
   label,
   artistInput,
+  artistsInput,
   type = 'string',
   className,
   rules,
@@ -34,6 +35,7 @@ const FormInputText = ({
         styles.Test,
         className,
         { [styles.ArtistInput]: artistInput },
+        { [styles.ArtistsInput]: artistsInput },
         {
           [styles.CollectionEdit]: isCollectionEdit
         },
@@ -74,6 +76,9 @@ const FormInputText = ({
                 styles.InputText,
                 {
                   [styles.ArtistInputText]: artistInput
+                },
+                {
+                  [styles.ArtistsInputText]: artistsInput
                 },
                 {
                   [styles.SmWalletInputText]: name === 'walletAddress'

@@ -6,16 +6,15 @@ import Slider from 'react-slick'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import classNames from 'classnames'
-import banner1 from '../../../assets/images/hero/banner1.png'
-import banner2 from '../../../assets/images/hero/banner2.png'
-import banner3 from '../../../assets/images/hero/banner3.png'
-import banner1Mobile from '../../../assets/images/hero/banner1Mobile.jpg'
-import banner2Mobile from '../../../assets/images/hero/banner2Mobile.jpg'
-import banner3Mobile from '../../../assets/images/hero/banner3Mobile.jpg'
-import ChinesePhrase from '../../../assets/images/hero/chinese-phrase.svg?component'
-import BannerLeftImg from '../../../assets/images/hero/banner-left-imgs.png'
-import BannerCenterImg from '../../../assets/images/hero/banner-center-img.png'
-import BannerRightImg from '../../../assets/images/hero/banner-right-imgs.png'
+import banner1 from '../../../assets/images/hero/banner1.webp'
+import banner2 from '../../../assets/images/hero/banner2.webp'
+import banner3 from '../../../assets/images/hero/banner3.webp'
+import banner1Mobile from '../../../assets/images/hero/banner1Mobile.webp'
+import banner2Mobile from '../../../assets/images/hero/banner2Mobile.webp'
+import banner3Mobile from '../../../assets/images/hero/banner3Mobile.webp'
+import BannerLeftImg from '../../../assets/images/hero/banner-left-imgs.webp'
+import BannerCenterImg from '../../../assets/images/hero/banner-center-img.webp'
+import BannerRightImg from '../../../assets/images/hero/banner-right-imgs.webp'
 
 var items = [
   {
@@ -98,7 +97,6 @@ const Hero = () => {
         <Slider
           {...settings}
           ref={ref}
-          style={{ backgroundColor: 'transparent' }}
           beforeChange={(currentSlide, nextSlide) => {
             setCurrentIndex(nextSlide)
           }}
