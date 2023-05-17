@@ -9,11 +9,11 @@ import { useOnClickOutside } from '../../hooks/useOnOutsideClick'
 const Loading = () => {
   return (
     <Paper className={styles.container}>
-      <Box display="flex" justifyContent="center" my="25px">
+      <Box display='flex' justifyContent='center' my='25px'>
         <CircularProgress size={20} thickness={5} />
       </Box>
       <Box ml={2} mb={1}>
-        <Typography fontWeight={500} color="grey.1000">
+        <Typography fontWeight={500} color='grey.1000'>
           Press Enter to search all items
         </Typography>
       </Box>
@@ -24,8 +24,8 @@ const Loading = () => {
 const NoItems = () => {
   return (
     <Paper className={styles.container}>
-      <Box m="11px">
-        <Typography fontWeight={500} color="grey.1000">
+      <Box m='11px'>
+        <Typography fontWeight={500} color='grey.1000'>
           No items found
         </Typography>
       </Box>
@@ -47,24 +47,25 @@ const AutocompleteList = forwardRef(
           {data.map((item, i) => (
             <>
               <Box key={i} onClick={item.action} className={styles.item}>
-                <Typography fontWeight={500} color="grey.1000">
+                <Typography fontWeight={500} color='grey.1000'>
                   {item.label}
                 </Typography>
               </Box>
               {item.children.map((child, c) => {
                 return (
                   <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+                    display='flex'
+                    justifyContent='space-between'
+                    alignItems='center'
                     className={classNames(styles.item, styles.child)}
                   >
                     <Box
                       key={c}
                       onClick={child.action}
-                      display="flex"
-                      justifyContent="flex-start"
-                      alignItems="center"
+                      display='flex'
+                      justifyContent='flex-start'
+                      alignItems='center'
+                      style={{ width: '100%' }}
                     >
                       {child.img ? (
                         <img
@@ -83,7 +84,7 @@ const AutocompleteList = forwardRef(
                       )}
 
                       <Typography
-                        ml="7px"
+                        ml='7px'
                         fontWeight={500}
                         className={styles.title}
                       >
@@ -92,7 +93,7 @@ const AutocompleteList = forwardRef(
                     </Box>
 
                     <Typography
-                      ml="7px"
+                      ml='7px'
                       fontWeight={500}
                       className={styles.type}
                     >

@@ -1,15 +1,15 @@
-import { Box, Typography } from "@mui/material";
-import React from "react";
-import styles from "../style.module.scss";
-import CollectionDetailCard from "./Card";
-import DSelect from "../../../../components/DSelect";
-import { Link, NavLink } from "react-router-dom";
-import RedTgIcon from "../../../../assets/icons/red-tg-icon.svg?component";
+import { Box, Typography } from '@mui/material'
+import React from 'react'
+import styles from '../style.module.scss'
+import CollectionDetailCard from './Card'
+import DSelect from '../../../../components/DSelect'
+import { Link, NavLink } from 'react-router-dom'
+import RedTgIcon from '../../../../assets/icons/red-tg-icon.svg?component'
 
 const CollectionDetailsInfo = ({
   collection,
-  artistName = "TRISTAN EATON",
-  youtubeURL = "https://www.youtube.com/watch?v=3kcj7p8DUwE",
+  artistName = 'TRISTAN EATON',
+  youtubeURL = 'https://www.youtube.com/watch?v=3kcj7p8DUwE',
   description,
   nftName,
   type,
@@ -22,22 +22,23 @@ const CollectionDetailsInfo = ({
   artistWallet,
   isOriginal,
   id,
-  contract_address,
+  contract_address
 }) => {
+  const descr = JSON.parse(description)?.description
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display='flex' flexDirection='column'>
       <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="end"
+        display='flex'
+        justifyContent='space-between'
+        alignItems='end'
         mb={2}
       >
         {!isResponsive && (
-          <Box display="flex" flexDirection="column" mb={1}>
+          <Box display='flex' flexDirection='column' mb={1}>
             <Typography
-              variant="placeholder"
+              variant='placeholder'
               fontWeight={700}
-              textTransform="uppercase"
+              textTransform='uppercase'
             >
               {/* Artist:
               <NavLink to={`/user/my-page/${artistWallet}`}>
@@ -53,8 +54,8 @@ const CollectionDetailsInfo = ({
             <a
               href={youtubeURL}
               className={styles.link}
-              target="_blank"
-              rel="noreferrer"
+              target='_blank'
+              rel='noreferrer'
             >
               {youtubeURL}
             </a>
@@ -66,7 +67,7 @@ const CollectionDetailsInfo = ({
             value={sellType}
             onSelect={handleChangeType}
             items={types}
-            label="Select a sell type"
+            label='Select a sell type'
           />
         )}
         {isOriginal && !isArtwork && (
@@ -79,12 +80,12 @@ const CollectionDetailsInfo = ({
         )}
       </Box>
       <CollectionDetailCard
-        description={description}
+        description={descr}
         name={nftName}
         type={isArtwork ? sellType?.label : type}
       />
     </Box>
-  );
-};
+  )
+}
 
-export default CollectionDetailsInfo;
+export default CollectionDetailsInfo
