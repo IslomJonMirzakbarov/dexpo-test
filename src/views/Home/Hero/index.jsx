@@ -12,9 +12,9 @@ import banner3 from '../../../assets/images/hero/banner3.webp'
 import banner1Mobile from '../../../assets/images/hero/banner1Mobile.webp'
 import banner2Mobile from '../../../assets/images/hero/banner2Mobile.webp'
 import banner3Mobile from '../../../assets/images/hero/banner3Mobile.webp'
-import BannerLeftImg from '../../../assets/images/hero/banner-left-imgs.png'
-import BannerCenterImg from '../../../assets/images/hero/banner-center-img.png'
-import BannerRightImg from '../../../assets/images/hero/banner-right-imgs.png'
+import BannerLeftImg from '../../../assets/images/hero/banner-left-imgs.webp'
+import BannerCenterImg from '../../../assets/images/hero/banner-center-img.webp'
+import BannerRightImg from '../../../assets/images/hero/banner-right-imgs.webp'
 
 var items = [
   {
