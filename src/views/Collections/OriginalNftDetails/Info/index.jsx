@@ -24,7 +24,13 @@ const CollectionDetailsInfo = ({
   id,
   contract_address
 }) => {
-  const descr = JSON.parse(description)?.description
+  let descr
+
+  try {
+    descr = JSON.parse(description)?.description
+  } catch (error) {
+    descr = description
+  }
   return (
     <Box display='flex' flexDirection='column'>
       <Box
