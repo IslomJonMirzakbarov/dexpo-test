@@ -26,6 +26,12 @@ const Settings = () => {
   })
 
   console.log('updateName: ', updateName?.data?.message)
+  const isExistedUserOrArtist =
+    updateName?.data?.message === 'ALREADY_EXIST_ARTIST_NAME' ||
+    updateName?.data?.message === 'ALREADY_EXIST_USERNAME'
+  const isExistedUser = updateName?.data?.message === 'ALREADY_EXIST_USERNAME'
+  const isExistedArtist =
+    updateName?.data?.message === 'ALREADY_EXIST_ARTIST_NAME'
 
   const [uploadedImg, setUploadedImg] = useState({})
 
@@ -93,16 +99,20 @@ const Settings = () => {
       )
     }
     if (updateName?.data?.data?.username) {
-      if (updateName?.data?.message === 'ALREADY_EXIST_ARTIST_NAME') {
+      if (isExistedUserOrArtist) {
         setShowModal(false)
+      } else {
+        dispatch(
+          setUserName({
+            userName: updateName?.data?.data?.username
+          })
+        )
       }
-      dispatch(
-        setUserName({
-          userName: updateName?.data?.data?.username
-        })
-      )
     }
-    if (updateImg?.data || updateDesc?.data || updateName?.data) {
+    if (
+      (updateImg?.data || updateDesc?.data || updateName?.data) &&
+      !isExistedUserOrArtist
+    ) {
       setShowModal(true)
     }
   }, [
@@ -149,9 +159,14 @@ const Settings = () => {
             label={t('Enter an username')}
           />
         </Box>
-        {updateName?.data?.message === 'ALREADY_EXIST_ARTIST_NAME' && (
+        {isExistedUser && (
           <Typography className={styles.ErrMessage}>
             {t('username-exists')}
+          </Typography>
+        )}
+        {isExistedArtist && (
+          <Typography className={styles.ErrMessage}>
+            {t('artistname-exists')}
           </Typography>
         )}
 
