@@ -39,7 +39,15 @@
           padding: 12px 20px;
           font-size: 15px;
           line-height: 30px;
-          .year {
+          .education {
+            span {
+              width: auto;
+              max-width: none !important;
+              min-width: auto !important;
+            }
+          }
+          .year,
+          .education {
             display: flex;
             align-items: flex-start;
             gap: 45px;

@@ -23,6 +23,8 @@ const SeeMoreModal = ({ handleClose, data }) => {
     return () => (document.body.style.overflow = 'unset')
   }, [])
 
+  console.log('data', data)
+
   const checkArtistInfo =
     data?.name ||
     data?.artCollection ||
@@ -118,7 +120,10 @@ const SeeMoreModal = ({ handleClose, data }) => {
                     </span>
                     <div className={styles.value}>
                       {data.educations?.map((item, index) => (
-                        <div className={styles.year} key={'education' + index}>
+                        <div
+                          className={styles.education}
+                          key={'education' + index}
+                        >
                           <span>{item?.description}</span>
                         </div>
                       ))}
