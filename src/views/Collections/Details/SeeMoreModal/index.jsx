@@ -23,6 +23,18 @@ const SeeMoreModal = ({ handleClose, data }) => {
     return () => (document.body.style.overflow = 'unset')
   }, [])
 
+  const checkArtistInfo =
+    data?.name ||
+    data?.artCollection ||
+    (data?.educations && data?.educations[0]?.description) ||
+    data?.groupExhibitions[0]?.description ||
+    data?.education1 ||
+    data?.education2 ||
+    data?.education3 ||
+    data?.soloExhibitions[0]?.description ||
+    data?.awards[0]?.description ||
+    data?.etc
+
   return (
     <Box
       sx={{
@@ -44,138 +56,155 @@ const SeeMoreModal = ({ handleClose, data }) => {
       >
         <h2>{t('Artwork Details')}</h2>
         <div className={styles.box}>
-          <h3>{t('artwork_information')}</h3>
-          <div className={styles.items}>
-            {data?.workStandard && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('artwork_size')}</span>
-                <span className={styles.value}>{data.workStandard}</span>
-              </div>
-            )}
-            {data?.year && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('production_year')}</span>
-                <span className={styles.value}>{data.year}</span>
-              </div>
-            )}
-            {data?.ingredient && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('medium')}</span>
-                <span className={styles.value}>{data.ingredient}</span>
-              </div>
-            )}
-          </div>
-          <h3>{t('artist_information')}</h3>
-          <div
-            className={styles.items}
-            style={{
-              marginBottom: 0
-            }}
-          >
-            {data?.name && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('artistsName')}</span>
-                <span className={styles.value}>{data.name}</span>
-              </div>
-            )}
-            {data?.artCollection && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('artworksCollection')}</span>
-                <span
-                  className={styles.value}
-                  dangerouslySetInnerHTML={{
-                    __html: data.artCollection.replace(/\n/g, '<br />')
-                  }}
-                ></span>
-              </div>
-            )}
+          {(data?.workStandard || data?.year || data?.ingredient) && (
+            <>
+              <h3>{t('artwork_information')}</h3>
 
-            {data?.educations && data?.educations[0]?.description && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('artworksEducation')}</span>
-                <div className={styles.value}>
-                  {data.educations?.map((item, index) => (
-                    <div className={styles.year} key={'education' + index}>
-                      <span>{item?.description}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className={styles.items}>
+                {data?.workStandard && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>{t('artwork_size')}</span>
+                    <span className={styles.value}>{data.workStandard}</span>
+                  </div>
+                )}
+                {data?.year && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>{t('production_year')}</span>
+                    <span className={styles.value}>{data.year}</span>
+                  </div>
+                )}
+                {data?.ingredient && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>{t('medium')}</span>
+                    <span className={styles.value}>{data.ingredient}</span>
+                  </div>
+                )}
               </div>
-            )}
+            </>
+          )}
+          {checkArtistInfo && (
+            <>
+              <h3>{t('artist_information')}</h3>
+              <div
+                className={styles.items}
+                style={{
+                  marginBottom: 0
+                }}
+              >
+                {data?.name && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>{t('artistsName')}</span>
+                    <span className={styles.value}>{data.name}</span>
+                  </div>
+                )}
+                {data?.artCollection && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>
+                      {t('artworksCollection')}
+                    </span>
+                    <span
+                      className={styles.value}
+                      dangerouslySetInnerHTML={{
+                        __html: data.artCollection.replace(/\n/g, '<br />')
+                      }}
+                    ></span>
+                  </div>
+                )}
 
-            {(data?.education1 || data?.education2 || data?.education3) && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('artworksEducation')}</span>
-                <span className={styles.value}>
-                  {data?.education1} <br />
-                  {data?.education2}
-                  <br />
-                  {data?.education3}
-                </span>
-              </div>
-            )}
-            {data?.soloExhibitions[0]?.year?.value && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('solo_exhibition')}</span>
-                <div className={styles.value}>
-                  {data.soloExhibitions?.map((item) => (
-                    <div
-                      className={styles.year}
-                      key={item?.year?.value + 'solo_exhibition'}
-                    >
-                      <span>{item?.year?.label}</span>
-                      <span>{item?.description}</span>
+                {data?.educations && data?.educations[0]?.description && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>
+                      {t('artworksEducation')}
+                    </span>
+                    <div className={styles.value}>
+                      {data.educations?.map((item, index) => (
+                        <div className={styles.year} key={'education' + index}>
+                          <span>{item?.description}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {data?.groupExhibitions[0]?.year?.value && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('group_exhibition')}</span>
-                <div className={styles.value}>
-                  {data.groupExhibitions?.map((item) => (
-                    <div
-                      className={styles.year}
-                      key={item?.year?.value + 'group_exhibition'}
-                    >
-                      <span>{item?.year?.label}</span>
-                      <span>{item?.description}</span>
+                  </div>
+                )}
+
+                {(data?.education1 || data?.education2 || data?.education3) && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>
+                      {t('artworksEducation')}
+                    </span>
+                    <span className={styles.value}>
+                      {data?.education1} <br />
+                      {data?.education2}
+                      <br />
+                      {data?.education3}
+                    </span>
+                  </div>
+                )}
+                {data?.soloExhibitions[0]?.description && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>{t('solo_exhibition')}</span>
+                    <div className={styles.value}>
+                      {data.soloExhibitions?.map((item) => (
+                        <div
+                          className={styles.year}
+                          key={item?.year?.value + 'solo_exhibition'}
+                        >
+                          <span>{item?.year?.label}</span>
+                          <span>{item?.description}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {data?.awards[0]?.year?.value && (
-              <div className={styles.item}>
-                <span className={styles.label}>
-                  {t('exhibitionTextAwards')}
-                </span>
-                <div className={styles.value}>
-                  {data.awards?.map((item) => (
-                    <div
-                      className={styles.year}
-                      key={item?.year?.value + 'exhibitionTextAwards'}
-                    >
-                      <span>{item?.year?.label}</span>
-                      <span>{item?.description}</span>
+                  </div>
+                )}
+                {data?.groupExhibitions[0]?.description && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>
+                      {t('group_exhibition')}
+                    </span>
+                    <div className={styles.value}>
+                      {data.groupExhibitions?.map((item) => (
+                        <div
+                          className={styles.year}
+                          key={item?.year?.value + 'group_exhibition'}
+                        >
+                          <span>{item?.year?.label}</span>
+                          <span>{item?.description}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+                {data?.awards[0]?.description && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>
+                      {t('exhibitionTextAwards')}
+                    </span>
+                    <div className={styles.value}>
+                      {data.awards?.map((item) => (
+                        <div
+                          className={styles.year}
+                          key={item?.year?.value + 'exhibitionTextAwards'}
+                        >
+                          <span>{item?.year?.label}</span>
+                          <span>{item?.description}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {data?.etc && (
+                  <div className={styles.item}>
+                    <span className={styles.label}>{t('moreInformation')}</span>
+                    <span
+                      className={styles.value}
+                      dangerouslySetInnerHTML={{
+                        __html: data.etc?.replace(/\n/g, '<br />')
+                      }}
+                    />
+                  </div>
+                )}
               </div>
-            )}
-            {data?.etc && (
-              <div className={styles.item}>
-                <span className={styles.label}>{t('moreInformation')}</span>
-                <span
-                  className={styles.value}
-                  dangerouslySetInnerHTML={{
-                    __html: data.etc?.replace(/\n/g, '<br />')
-                  }}
-                />
-              </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </Box>
     </Box>
