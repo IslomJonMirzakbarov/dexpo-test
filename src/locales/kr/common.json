@@ -374,5 +374,7 @@
   "enter_solo_exhibition": "개인전 내용을 기입해주세요. ex) DDP 갤러리 서울",
   "enter_group_exhibition": "단체전 내용을 기입해주세요. ex) DDP 갤러리 서울",
   "year": "연도 선택",
-  "artwork_inf_label": "작품정보 입력하기"
+  "artwork_inf_label": "작품정보 입력하기",
+  "exceeds_file_size_limit": "파일 크기가 20MB 제한을 초과합니다",
+  "recommended_content_size": "추천 콘텐츠 크기 2MB, 최대 20MB"
 }

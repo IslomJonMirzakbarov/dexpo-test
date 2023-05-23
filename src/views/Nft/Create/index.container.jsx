@@ -109,6 +109,7 @@ const NftCreate = () => {
   }
 
   const imgBool = ['image/png', 'image/jpeg'].includes(uploadedImg.type)
+  const isImgOver20MB = uploadedImg.size > 20 * 1024 * 1024 // 20MB in bytes
 
   useEffect(() => {
     if (Object.keys(uploadedImg).length > 0) {
@@ -231,12 +232,15 @@ const NftCreate = () => {
       <Box className={styles.TopSideContainer}>
         <Box className={styles.TypeLagInfo}>
           {t('Content types supported: JPG, PNG *')}
+          <br />
+          {t('recommended_content_size')}
         </Box>
         <Box className={styles.TopSide}>
           <Box className={styles.LeftSide}>
             <Box>
               <Box className={styles.DropZone}>
                 <FileUploadWithDrag
+                  isImgOver20MB={isImgOver20MB}
                   imgBool={imgBool}
                   src={uploadedImg?.preview}
                   onUpload={setUploadedImg}

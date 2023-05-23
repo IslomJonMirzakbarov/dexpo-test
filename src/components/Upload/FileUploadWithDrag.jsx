@@ -20,7 +20,8 @@ const FileUploadWithDrag = ({
   page,
   src = '',
   imgBool = false,
-  defaultImg,
+  isImgOver20MB = false,
+  defaultImg
 }) => {
   const inputRef = useRef(null)
   const [hovered, setHovered] = useState(false)
@@ -30,7 +31,7 @@ const FileUploadWithDrag = ({
 
     const reader = new FileReader()
     Object.assign(file, {
-      preview: URL.createObjectURL(file),
+      preview: URL.createObjectURL(file)
     })
     reader.onload = function (e) {
       file['src'] = e.target.result
@@ -40,14 +41,14 @@ const FileUploadWithDrag = ({
   }, [])
 
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
+    onDrop
   })
 
   const pages = {
     CREATE_COLLECTION: 'create-collection',
     EDIT_COLLECTION: 'edit-collection',
     CREATE_NFT: 'create-nft',
-    USER_SETTINGS: 'user-settings',
+    USER_SETTINGS: 'user-settings'
   }
   const { CREATE_COLLECTION, CREATE_NFT, EDIT_COLLECTION, USER_SETTINGS } =
     pages
@@ -60,10 +61,10 @@ const FileUploadWithDrag = ({
         styles.FileUploadWithDrag,
         {
           [styles.FileUploadCreateCollection]:
-            page === CREATE_COLLECTION || page === EDIT_COLLECTION,
+            page === CREATE_COLLECTION || page === EDIT_COLLECTION
         },
         {
-          [styles.FileUploadCreateNft]: page === CREATE_NFT,
+          [styles.FileUploadCreateNft]: page === CREATE_NFT
         },
         { [styles.BorderNone]: imgBool },
         { [styles.GreyBorder]: src.length === 0 },
@@ -74,7 +75,7 @@ const FileUploadWithDrag = ({
       <div
         {...getRootProps()}
         className={classNames(styles.dropzone, {
-          [styles.BorderNone]: imgBool,
+          [styles.BorderNone]: imgBool
         })}
         ref={inputRef}
         style={{ border: (imgBool || page === USER_SETTINGS) && 'none' }}
@@ -87,11 +88,11 @@ const FileUploadWithDrag = ({
                 <div className={styles.HoverLogoSettingsContainer}>
                   <div className={styles.DefaultImgContainer}>
                     <CollectionEditVector />
-                    <img src={defaultImg} className={styles.ImgIcon} alt="" />
+                    <img src={defaultImg} className={styles.ImgIcon} alt='' />
                   </div>
                 </div>
               ) : (
-                <img src={defaultImg} className={styles.ImgIcon} alt="" />
+                <img src={defaultImg} className={styles.ImgIcon} alt='' />
               )
             ) : (
               src.length === 0 && (
@@ -116,7 +117,7 @@ const FileUploadWithDrag = ({
                     <UploadImg
                       width={page === CREATE_NFT ? 93 : 42}
                       height={page === CREATE_NFT ? 68 : 31}
-                      fill="#7D8890"
+                      fill='#7D8890'
                       className={styles.UploadImg}
                     />
                   ) : hovered ? (
@@ -124,14 +125,14 @@ const FileUploadWithDrag = ({
                       <CollectionEditVector className={styles.EditVector} />
                       <img
                         src={defaultImage}
-                        alt="name"
+                        alt='name'
                         className={styles.ImgIcon2}
                       />
                     </div>
                   ) : (
                     <img
                       src={defaultImage}
-                      alt="name"
+                      alt='name'
                       className={styles.ImgIcon}
                     />
                   )}
@@ -152,10 +153,20 @@ const FileUploadWithDrag = ({
               <div className={styles.UploadLogo}>
                 <div
                   style={{
-                    border: (imgBool || page === USER_SETTINGS) && 'none',
+                    border: (imgBool || page === USER_SETTINGS) && 'none'
                   }}
                 >
-                  {!imgBool ? (
+                  {isImgOver20MB ? (
+                    <div className={styles.InvalidBoxContainer}>
+                      <InvalidLogo
+                        width={page === CREATE_COLLECTION ? 40 : 79}
+                        height={page === CREATE_COLLECTION ? 40 : 79}
+                      />
+                      <div className={styles.InvalidPhrase}>
+                        {t('exceeds_file_size_limit')}
+                      </div>
+                    </div>
+                  ) : !imgBool ? (
                     <div className={styles.InvalidBoxContainer}>
                       <InvalidLogo
                         width={page === CREATE_COLLECTION ? 40 : 79}
@@ -166,8 +177,9 @@ const FileUploadWithDrag = ({
                       </div>
                     </div>
                   ) : (
-                    <img src={src} style={{ objectFit: 'cover' }} alt="" />
+                    <img src={src} style={{ objectFit: 'cover' }} alt='' />
                   )}
+
                   {page === EDIT_COLLECTION
                     ? hovered && (
                         <div className={styles.HoverLogoContainer}>

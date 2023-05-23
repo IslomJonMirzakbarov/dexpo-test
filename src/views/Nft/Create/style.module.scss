@@ -64,8 +64,9 @@
       font-style: normal;
       @include fontLabel;
       color: colors.$primary;
-      width: 278px;
+      width: max-content;
       height: 23px;
+      margin-bottom: 25px;
     }
     .TopSide {
       display: flex;

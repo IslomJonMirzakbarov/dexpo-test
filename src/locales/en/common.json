@@ -374,5 +374,7 @@
   "enter_solo_exhibition": "Enter solo exhibition ex) DDP Gallery Seoul",
   "enter_group_exhibition": "Enter group exhibition ex) DDP Gallery Seoul",
   "year": "year",
-  "artwork_inf_label": "Enter artwork information"
+  "artwork_inf_label": "Enter artwork information",
+  "exceeds_file_size_limit": "File size exceeds 20MB limit",
+  "recommended_content_size": "Recommended content size 2mb, max 20mb"
 }
