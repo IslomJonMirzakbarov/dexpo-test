@@ -183,9 +183,9 @@ const Collections = () => {
   }
 
   const handleNavigate = (tokenId, address, wallet) => {
-    if (categoryType === 'ORIGINAL_NFT') {
-      return navigate(`/marketplace/original/${tokenId}/${address}`)
-    }
+    // if (categoryType === 'ORIGINAL_NFT') {
+    //   return navigate(`/marketplace/original/${tokenId}/${address}`)
+    // }
     navigate(`/marketplace/${tokenId}/${address}`)
   }
 
