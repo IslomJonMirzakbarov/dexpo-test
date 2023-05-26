@@ -103,7 +103,7 @@ const Header = ({
 
         {icon && <IconGenerator className={styles.icon} icon={icon} />}
 
-        {MainLogo && <MainLogo />}
+        {MainLogo && <MainLogo onClick={() => navigate('/')} />}
 
         <div className={styles.titleBlock}>
           {title && <div className={styles.title}>{title}</div>}
