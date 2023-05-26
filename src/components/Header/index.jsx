@@ -27,7 +27,7 @@ const Header = ({
   loader,
   backButtonLink,
   icon,
-  img,
+  MainLogo,
   sticky,
   ...props
 }) => {
@@ -103,15 +103,7 @@ const Header = ({
 
         {icon && <IconGenerator className={styles.icon} icon={icon} />}
 
-        {img && (
-          <Img
-            src={img}
-            alt='logo'
-            width={132}
-            height={30}
-            onClick={() => navigate('/')}
-          />
-        )}
+        {MainLogo && <MainLogo />}
 
         <div className={styles.titleBlock}>
           {title && <div className={styles.title}>{title}</div>}
