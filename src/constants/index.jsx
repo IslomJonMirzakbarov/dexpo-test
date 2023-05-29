@@ -46,8 +46,8 @@ export const pages = [
     to: '/rankings'
   },
   {
-    name: isMainnet() ? 'Swap' : 'Faucet',
-    to: isMainnet() ? SWAP_LINK : '/faucet',
+    name: 'Swap',
+    to: SWAP_LINK,
     isAuthenticated: !isMainnet(),
     target: isMainnet() && '_blank',
     type: 'swap'
