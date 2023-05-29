@@ -50,7 +50,7 @@ export const pages = [
     to: isMainnet() ? SWAP_LINK : '/faucet',
     isAuthenticated: !isMainnet(),
     target: isMainnet() && '_blank',
-    type: isMainnet() ? 'swap' : undefined
+    type: 'swap'
   }
 ]
 
