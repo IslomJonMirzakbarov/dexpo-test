@@ -27,19 +27,30 @@ const CollectionDetailsInfo = ({
   nftStandard,
   tokenAttributes
 }) => {
+  function isJsonString(str) {
+    try {
+      JSON.parse(str)
+    } catch (e) {
+      return false
+    }
+    return true
+  }
   let parsedDescription
   try {
-    const parsedJSON = JSON.parse(description)
-    if (
-      typeof parsedJSON === 'object' &&
-      parsedJSON !== null &&
-      'description' in parsedJSON
-    ) {
-      parsedDescription = parsedJSON.description.replace(/\n/g, '<br />')
+    if (isJsonString(description)) {
+      const parsedJSON = JSON.parse(description)
+      if (
+        typeof parsedJSON === 'object' &&
+        parsedJSON !== null &&
+        'description' in parsedJSON
+      ) {
+        parsedDescription = parsedJSON.description.replace(/\n/g, '<br />')
+      }
     }
   } catch (error) {
-    console.log('jsonerror:')
+    console.log('jsonerror:', error)
   }
+
   const finalDescription =
     parsedDescription !== undefined ? parsedDescription : description
   const { t } = useTranslation()

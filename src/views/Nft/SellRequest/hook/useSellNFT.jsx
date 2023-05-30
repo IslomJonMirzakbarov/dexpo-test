@@ -235,14 +235,17 @@ const useSellNFT = ({
     setError('')
 
     const price = sellPrice
-    const floorPrice = collection?.floor_price
+    // const floorPrice = collection?.floor_price
+    const floorPrice = 0
 
     if (floorPrice > price)
       return toast.error(
         `${t('Price should be greater or equal to')} ${floorPrice} CYCON`
       )
     if (availableQuantity && quantity > availableQuantity)
-      return toast.error(t(`${t('Max available quantity')} ${availableQuantity}`))
+      return toast.error(
+        t(`${t('Max available quantity')} ${availableQuantity}`)
+      )
 
     if (isCancel) handleCancel()
     else {
