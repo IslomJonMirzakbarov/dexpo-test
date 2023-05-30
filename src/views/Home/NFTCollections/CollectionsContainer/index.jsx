@@ -84,9 +84,11 @@ const CollectionsContainer = forwardRef(
                   buttonVariant='containedSecondary'
                   key={c}
                   isDefault
-                  quantity={nft?.standard === 'M' ? market?.amount : null}
                   tokenId={nft?.token_id}
                   contractAddress={collection?.contract_address}
+                  page='homepageArtworks'
+                  quantity={nft?.standard === 'M' ? market?.amount : null}
+                  nftStandard={collection?.type}
                   onClick={() => {
                     navigate(
                       `/marketplace/${nft?.token_id}/${collection?.contract_address}`
@@ -121,6 +123,9 @@ const CollectionsContainer = forwardRef(
                   hasShadow={false}
                   isDefault
                   purchaseCount={nft.like_count}
+                  page='homepageArtworks'
+                  quantity={nft?.standard === 'M' ? market?.amount : null}
+                  nftStandard={collection?.type}
                   onClick={() =>
                     navigate(
                       `/marketplace/${nft.token_id}/${collection?.contract_address}`
