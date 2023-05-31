@@ -62,8 +62,9 @@ const CollectionDetailsInfo = ({
         justifyContent='space-between'
         alignItems='end'
         mb={2}
+        className={styles.sellTypeContainer}
       >
-        {!isResponsive && (
+        {!isResponsive && isResponsive !== undefined && (
           <Box display='flex' flexDirection='column' mb={1}>
             <Typography
               variant='placeholder'
