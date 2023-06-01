@@ -42,7 +42,7 @@ const MyPage = () => {
 
   const { userInfo, OtherUserInfo, refetchOtherUser } = useUserAPI({
     isUserInfo: true,
-    walletAddress: id,
+    walletAddress: id
   })
 
   useEffect(() => {
@@ -115,14 +115,14 @@ const MyPage = () => {
           <img
             src={OtherUserInfo?.data?.image_url}
             className={styles.InfoImg}
-            alt=""
+            alt=''
           />
         )}
         {!otherUser && userInfo?.data?.image_url && (
           <img
             src={userInfo?.data?.image_url}
             className={styles.InfoImg}
-            alt=""
+            alt=''
           />
         )}
         {(!userInfo?.data?.image_url &&
@@ -133,7 +133,7 @@ const MyPage = () => {
         (userInfo?.data?.image_url && OtherUserInfo?.data?.image_url) ? null : (
           <img
             src={defaultImg}
-            alt="Name"
+            alt='Name'
             width={140}
             height={140}
             className={styles.artistImg}
@@ -142,7 +142,7 @@ const MyPage = () => {
         {otherUser && !OtherUserInfo?.data?.image_url && (
           <img
             src={defaultImg}
-            alt="Name"
+            alt='Name'
             width={140}
             height={140}
             className={styles.artistImg}
@@ -159,7 +159,9 @@ const MyPage = () => {
         <Box
           className={styles.WalletAddress}
           onClick={() => {
-            copyToClipboard(otherUser ? id : artist?.data?.wallet_address)
+            copyToClipboard(
+              otherUser ? id : artist?.data?.wallet_address || account
+            )
           }}
           onMouseEnter={() => setShowCopy(true)}
           onMouseLeave={() => setShowCopy(false)}
