@@ -167,9 +167,11 @@
 }
 
 .sellTypeContainer {
+  flex-direction: row-reverse;
+  padding-right: 3px;
   @media (max-width: 600px) {
     display: flex;
     justify-content: flex-end;
-    padding-right: 3px;
+    flex-direction: row;
   }
 }
