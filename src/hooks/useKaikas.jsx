@@ -140,6 +140,43 @@ const useKaikas = () => {
     }
   }
 
+  const sellMultipleNft = async (
+    contract_address,
+    tokenId,
+    price,
+    quantity
+  ) => {
+    const fixedMarket = new caver.klay.Contract(
+      FIXED_MULTI_MARKET_ABI,
+      multiNftContract
+    )
+
+    const gasLimit = await fixedMarket.methods
+      .place(
+        contract_address,
+        tokenId,
+        quantity,
+        caver.utils.toPeb(String(price), 'KLAY')
+      )
+      .estimateGas({
+        from: window.klaytn.selectedAddress
+      })
+
+    const result = await fixedMarket.methods
+      .place(
+        contract_address,
+        tokenId,
+        quantity,
+        caver.utils.toPeb(String(price), 'KLAY')
+      )
+      .send({
+        from: window.klaytn.selectedAddress,
+        gas: gasLimit
+      })
+
+    return result
+  }
+
   const sell = async (contract_address, tokenId, price) => {
     const fixedMarket = new caver.klay.Contract(FIXED_MARKET_ABI, fixedContract)
 
@@ -443,6 +480,7 @@ const useKaikas = () => {
   return {
     bid,
     sell,
+    sellMultipleNft,
     mint,
     faucet,
     cancel,
