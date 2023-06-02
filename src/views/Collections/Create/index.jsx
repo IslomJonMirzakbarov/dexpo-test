@@ -203,7 +203,7 @@ const CollectionCreate = () => {
             <span className={styles.LabelSpan}>*</span>
           </Typography>
           <FormInputText
-            artistInput
+            artistsInput
             name='name'
             control={control}
             label={t('Enter a collection name')}
@@ -218,7 +218,7 @@ const CollectionCreate = () => {
             <span className={styles.LabelSpan}>*</span>
           </Typography>
           <FormInputText
-            artistInput
+            artistsInput
             name='symbol'
             control={control}
             label={t('Enter a collection symbol')}
