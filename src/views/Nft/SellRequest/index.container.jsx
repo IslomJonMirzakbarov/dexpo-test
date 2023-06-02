@@ -144,7 +144,6 @@ const NFTSellRequestContainer = ({
   ownerAddress,
   multiNftOffers,
   handleCancel,
-
   viewClick,
   onConfirm,
   txHash,

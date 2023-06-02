@@ -1,16 +1,16 @@
-import React, { forwardRef } from "react";
-import styles from "../style.module.scss";
-import { Box } from "@mui/material";
-import NFTCard from "../../../../components/NFTCard";
-import { priceTypeChar } from "../../../../constants";
-import { useNavigate } from "react-router-dom";
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import Slider from "react-slick";
-import NFTCardSkeleton from "../../../../components/NFTCard/index.skeleton";
-import OriginalCollection from "./OriginalCollection";
+import React, { forwardRef } from 'react'
+import styles from '../style.module.scss'
+import { Box } from '@mui/material'
+import NFTCard from '../../../../components/NFTCard'
+import { priceTypeChar } from '../../../../constants'
+import { useNavigate } from 'react-router-dom'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import Slider from 'react-slick'
+import NFTCardSkeleton from '../../../../components/NFTCard/index.skeleton'
+import OriginalCollection from './OriginalCollection'
 
-const slidesToShow = 4;
+const slidesToShow = 4
 
 const settings = {
   dots: true,
@@ -27,11 +27,11 @@ const settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: false,
-        dots: true,
-      },
-    },
-  ],
-};
+        dots: true
+      }
+    }
+  ]
+}
 
 export const CollectionsSuspence = () => {
   return (
@@ -49,12 +49,12 @@ export const CollectionsSuspence = () => {
         <NFTCardSkeleton isDefault={true} />
       </Box>
     </Box>
-  );
-};
+  )
+}
 
 const CollectionsContainer = forwardRef(
   ({ collections, matches, soldOut = false }, ref) => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     return soldOut ? (
       <OriginalCollection
         collections={collections}
@@ -81,24 +81,27 @@ const CollectionsContainer = forwardRef(
                   priceType={priceTypeChar?.[market?.type]}
                   hasAction={!!market?.price}
                   purchaseCount={nft?.like_count}
-                  buttonVariant="containedSecondary"
+                  buttonVariant='containedSecondary'
                   key={c}
                   isDefault
                   tokenId={nft?.token_id}
                   contractAddress={collection?.contract_address}
+                  page='homepageArtworks'
+                  quantity={nft?.standard === 'M' ? market?.amount : null}
+                  nftStandard={collection?.type}
                   onClick={() => {
                     navigate(
                       `/marketplace/${nft?.token_id}/${collection?.contract_address}`
-                    );
+                    )
                   }}
                   onAction={() => {
                     navigate(
                       `/marketplace/${nft?.token_id}/${collection?.contract_address}`
-                    );
+                    )
                   }}
                 />
               </Box>
-            );
+            )
           })
         ) : (
           <Slider {...settings}>
@@ -116,10 +119,13 @@ const CollectionsContainer = forwardRef(
                   description={nft.token_name}
                   priceType={priceTypeChar?.[market?.type]}
                   hasAction={!!market?.price}
-                  buttonVariant="containedSecondary"
+                  buttonVariant='containedSecondary'
                   hasShadow={false}
                   isDefault
                   purchaseCount={nft.like_count}
+                  page='homepageArtworks'
+                  quantity={nft?.standard === 'M' ? market?.amount : null}
+                  nftStandard={collection?.type}
                   onClick={() =>
                     navigate(
                       `/marketplace/${nft.token_id}/${collection?.contract_address}`
@@ -136,8 +142,8 @@ const CollectionsContainer = forwardRef(
           </Slider>
         )}
       </Box>
-    );
+    )
   }
-);
+)
 
-export default CollectionsContainer;
+export default CollectionsContainer

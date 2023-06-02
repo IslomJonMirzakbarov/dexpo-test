@@ -165,3 +165,13 @@
     color: #1f1f1f;
   }
 }
+
+.sellTypeContainer {
+  flex-direction: row-reverse;
+  padding-right: 3px;
+  @media (max-width: 600px) {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+  }
+}

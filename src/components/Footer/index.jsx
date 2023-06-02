@@ -6,7 +6,7 @@ import FacebookIcon from "../../assets/icons/facebook.svg?component";
 import DiscordIcon from "../../assets/icons/discord.svg?component";
 import TelegramIcon from "../../assets/icons/telegram.svg?component";
 import KakaoTalkIcon from "../../assets/icons/kakaotalk2.svg?component";
-import logoImg from "../../assets/images/logo.svg";
+import LogoImg from "../../assets/images/logo.svg?component";
 import { NavLink } from "react-router-dom";
 import styles from "./style.module.scss";
 import { useSelector } from "react-redux";
@@ -142,7 +142,8 @@ const Footer = () => {
         <Grid container py={4} mt={4} className={classes.wrapper}>
           <Grid item lg={3} xs={12}>
             <Box display="flex" flexDirection="column">
-              <Img src={logoImg} width={132} height={30} alt="logo" />
+              {/* <Img src={LogoImg} width={132} height={30} alt="logo" /> */}
+              <LogoImg />
               <Typography variant="p" mt={2}>
                 {t("footerDescription")}
               </Typography>

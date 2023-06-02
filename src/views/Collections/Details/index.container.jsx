@@ -134,7 +134,7 @@ const CollectionDetailsContainer = ({
     return moment(newDate).format(DATE_FORMAT)
   }, [market?.end_date])
 
-  const isBidHistory = isAuction && bidHistory?.length > 0
+  const isBidHistory = isAuction && bidHistory?.items?.length > 0
   const exchangedPrice =
     nft.standard === 'M'
       ? price_krw * purchaseNft?.price * quantity
