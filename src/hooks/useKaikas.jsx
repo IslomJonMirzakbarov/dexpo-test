@@ -87,29 +87,42 @@ const useKaikas = () => {
     return allowance
   }
 
-  const checkAllowance721 = async (contract_address, isFixed = true) => {
-    const contract = isFixed ? fixedContract : auctionContract
+  const checkAllowance721 = async (
+    contract_address,
+    isFixed = true,
+    standard
+  ) => {
+    const contract = isFixed
+      ? standard === 'M'
+        ? multiNftContract
+        : fixedContract
+      : auctionContract
+
     const contractRC721 = new caver.klay.Contract(ERC721, contract_address)
     const allowance = await contractRC721.methods
-      .isApprovedForAll(account, contract)
+      .isApprovedForAll(window.klaytn.selectedAddress, contract)
       .call()
 
     return allowance
   }
 
-  const makeApprove721 = async (contract_address, isFixed = true) => {
-    const contract = isFixed ? fixedContract : auctionContract
+  const makeApprove721 = async (contract_address, isFixed = true, standard) => {
+    const contract = isFixed
+      ? standard === 'M'
+        ? multiNftContract
+        : fixedContract
+      : auctionContract
     const contractERC721 = new caver.klay.Contract(ERC721, contract_address)
     const gasLimitApprove = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .estimateGas({
-        from: account
+        from: window.klaytn.selectedAddress
       })
 
     const approve = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .send({
-        from: account,
+        from: window.klaytn.selectedAddress,
         gas: gasLimitApprove
       })
 
@@ -146,35 +159,40 @@ const useKaikas = () => {
     price,
     quantity
   ) => {
-    const fixedMarket = new caver.klay.Contract(
-      FIXED_MULTI_MARKET_ABI,
-      multiNftContract
-    )
-
-    const gasLimit = await fixedMarket.methods
-      .place(
-        contract_address,
-        tokenId,
-        quantity,
-        caver.utils.toPeb(String(price), 'KLAY')
+    try {
+      const fixedMarket = new caver.klay.Contract(
+        FIXED_MULTI_MARKET_ABI,
+        multiNftContract
       )
-      .estimateGas({
-        from: window.klaytn.selectedAddress
-      })
 
-    const result = await fixedMarket.methods
-      .place(
-        contract_address,
-        tokenId,
-        quantity,
-        caver.utils.toPeb(String(price), 'KLAY')
-      )
-      .send({
-        from: window.klaytn.selectedAddress,
-        gas: gasLimit
-      })
+      const gasLimit = await fixedMarket.methods
+        .place(
+          contract_address,
+          tokenId,
+          quantity,
+          caver.utils.toPeb(String(price), 'KLAY')
+        )
+        .estimateGas({
+          from: window.klaytn.selectedAddress
+        })
 
-    return result
+      const result = await fixedMarket.methods
+        .place(
+          contract_address,
+          tokenId,
+          quantity,
+          caver.utils.toPeb(String(price), 'KLAY')
+        )
+        .send({
+          from: window.klaytn.selectedAddress,
+          gas: gasLimit
+        })
+
+      return result
+    } catch (error) {
+      console.log('sellErr: ', error)
+      throw error
+    }
   }
 
   const sell = async (contract_address, tokenId, price) => {
