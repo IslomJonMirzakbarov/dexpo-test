@@ -277,6 +277,24 @@ const useKaikas = () => {
     return result
   }
 
+  const cancelMultipleNft = async (nftId) => {
+    const fixedMarket = new caver.klay.Contract(
+      FIXED_MULTI_MARKET_ABI,
+      multiNftContract
+    )
+
+    const gasLimit = await fixedMarket.methods.unPlace(nftId).estimateGas({
+      from: account
+    })
+
+    const result = await fixedMarket.methods.unPlace(nftId).send({
+      from: account,
+      gas: gasLimit
+    })
+
+    return result
+  }
+
   const cancel = async (contract_address, tokenId) => {
     const fixedMarket = new caver.klay.Contract(FIXED_MARKET_ABI, fixedContract)
 
@@ -510,6 +528,7 @@ const useKaikas = () => {
     mint,
     faucet,
     cancel,
+    cancelMultipleNft,
     balance,
     purchase,
     purchaseMultiNft,
