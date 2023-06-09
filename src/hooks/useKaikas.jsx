@@ -77,8 +77,12 @@ const useKaikas = () => {
     return 0
   }
 
-  const checkAllowance = async (isFixed = true) => {
-    const contract = isFixed ? fixedContract : auctionContract
+  const checkAllowance = async (isFixed = true, type) => {
+    const contract = isFixed
+      ? type === 'M'
+        ? multiNftContract
+        : fixedContract
+      : auctionContract
     const contractRC20 = new caver.klay.Contract(ERC20_ABI, conAddress)
     const allowance = await contractRC20.methods
       .allowance(account, contract)
@@ -129,9 +133,13 @@ const useKaikas = () => {
     return approve
   }
 
-  const makeApprove = async (isFixed = true) => {
+  const makeApprove = async (isFixed = true, type) => {
     try {
-      const contract = isFixed ? fixedContract : auctionContract
+      const contract = isFixed
+        ? type === 'M'
+          ? multiNftContract
+          : fixedContract
+        : auctionContract
       const contractRC20 = new caver.klay.Contract(ERC20_ABI, conAddress)
 
       const gasLimitApprove = await contractRC20.methods
