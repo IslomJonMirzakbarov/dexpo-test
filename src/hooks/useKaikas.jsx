@@ -26,11 +26,9 @@ import { FIXED_MULTI_MARKET_ABI } from '../utils/abi/FixedMultiMarketABI'
 // const caver = new Caver(klaytn);
 export const multiNftContract = import.meta.env.VITE_MULTI_NFT_MARKET_HASH
 
-const { caver } = window
-
 const useKaikas = () => {
   const { account } = useSelector((store) => store.wallet)
-
+  const { caver } = window
   const [balance, setBalance] = useState()
 
   useEffect(() => {
@@ -104,7 +102,7 @@ const useKaikas = () => {
 
     const contractRC721 = new caver.klay.Contract(ERC721, contract_address)
     const allowance = await contractRC721.methods
-      .isApprovedForAll(window.klaytn.selectedAddress, contract)
+      .isApprovedForAll(account, contract)
       .call()
 
     return allowance
@@ -120,13 +118,13 @@ const useKaikas = () => {
     const gasLimitApprove = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .estimateGas({
-        from: window.klaytn.selectedAddress
+        from: account
       })
 
     const approve = await contractERC721.methods
       .setApprovalForAll(contract, true)
       .send({
-        from: window.klaytn.selectedAddress,
+        from: account,
         gas: gasLimitApprove
       })
 
@@ -181,7 +179,7 @@ const useKaikas = () => {
           caver.utils.toPeb(String(price), 'KLAY')
         )
         .estimateGas({
-          from: window.klaytn.selectedAddress
+          from: account
         })
 
       const result = await fixedMarket.methods
@@ -192,7 +190,7 @@ const useKaikas = () => {
           caver.utils.toPeb(String(price), 'KLAY')
         )
         .send({
-          from: window.klaytn.selectedAddress,
+          from: account,
           gas: gasLimit
         })
 
