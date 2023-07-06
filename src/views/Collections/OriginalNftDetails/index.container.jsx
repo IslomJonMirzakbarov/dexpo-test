@@ -16,7 +16,7 @@ import CollectionDetailsInfo from "./Info";
 import NumberFormat from "react-number-format";
 import styles from "./style.module.scss";
 import { makeStyles, useTheme } from "@mui/styles";
-import TokenImg from "../../../assets/images/con-token.svg?component";
+import TokenImg from "../../../assets/images/wads-token.svg?component";
 import AddIcon from "../../../assets/icons/add.svg?component";
 import { priceTypeChar } from "../../../constants";
 import { useSelector } from "react-redux";

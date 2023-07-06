@@ -100,7 +100,7 @@ const CollectionDetailsInfo = ({
             <Box className={styles.OriginalPageLink}>
               <RedTgIcon />
               <Typography className={styles.LinkTxt}>
-                {t('Original page')}
+                {t('WADS page')}
               </Typography>
             </Box>
           </Link>

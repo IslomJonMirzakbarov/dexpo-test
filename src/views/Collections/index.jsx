@@ -58,11 +58,11 @@ const tabs = [
     link: '/marketplace?categoryType=ALL&page=1',
     key: 'ALL'
   },
-  {
-    title: 'WADS',
-    link: '/marketplace?categoryType=WADS&page=1',
-    key: 'WADS'
-  },
+  // {
+  //   title: 'WADS',
+  //   link: '/marketplace?categoryType=WADS&page=1',
+  //   key: 'WADS'
+  // },
   {
     title: 'Single',
     link: '/marketplace?categoryType=SINGLE&page=1',
@@ -73,8 +73,13 @@ const tabs = [
     link: '/marketplace?categoryType=MULTI&page=1',
     key: 'MULTI'
   },
+  // {
+  //   title: 'Original',
+  //   link: '/marketplace?categoryType=ORIGINAL_NFT&page=1',
+  //   key: 'ORIGINAL_NFT'
+  // },
   {
-    title: 'Original',
+    title: 'WADS',
     link: '/marketplace?categoryType=ORIGINAL_NFT&page=1',
     key: 'ORIGINAL_NFT'
   }
