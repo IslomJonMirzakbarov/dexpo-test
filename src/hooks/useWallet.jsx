@@ -39,10 +39,11 @@ const useWallet = () => {
   const getAccountsByType = async (walletType) => {
     let accounts
     try {
-      if (walletType === 'metamask')
+      if (walletType === 'metamask' || walletType === 'tokenpocket')
         accounts = await window.ethereum.request({
           method: 'eth_requestAccounts'
         })
+      else if (walletType === 'kaikas') accounts = await window.klaytn.enable()
       else if (walletType === 'kaikas') accounts = await window.klaytn.enable()
 
       return accounts
@@ -55,7 +56,7 @@ const useWallet = () => {
     let signature
 
     try {
-      if (type === 'metamask')
+      if (type === 'metamask' || type === 'tokenpocket')
         signature = await window.ethereum.request({
           method: 'personal_sign',
           params: [message, account]
