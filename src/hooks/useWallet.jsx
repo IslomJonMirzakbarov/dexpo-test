@@ -31,9 +31,18 @@ const useWallet = () => {
     }
   }
 
+  const handleTokenPocket = () => {
+    if (typeof window.ethereum.isTokenPocket !== 'undefined') {
+      getAccount('tokenpocket')
+    } else {
+      toast.error('Please install Tokenpocket')
+    }
+  }
+
   const handleClick = (type) => {
     if (type === 'metamask') handleMetaMask()
     else if (type === 'kaikas') handleKaikas()
+    else if (type === 'tokenpocket') handleTokenPocket()
   }
 
   const getAccountsByType = async (walletType) => {
