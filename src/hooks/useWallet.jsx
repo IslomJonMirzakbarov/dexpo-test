@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setAccount, setType } from '../store/wallet/wallet.slice'
 
@@ -16,6 +15,7 @@ const useWallet = () => {
   const { mutation } = useVerifySign()
 
   const handleKaikas = () => {
+    console.log('handleTokenpocket clicked')
     if (typeof window.klaytn !== 'undefined') {
       getAccount('kaikas')
     } else {
@@ -24,7 +24,8 @@ const useWallet = () => {
   }
 
   const handleMetaMask = () => {
-    if (typeof window.ethereum !== 'undefined') {
+    console.log('handleMetamask clicked')
+    if (typeof window.ethereum.isMetaMask !== 'undefined') {
       getAccount('metamask')
     } else {
       toast.error('Please install MetaMask')
@@ -32,6 +33,7 @@ const useWallet = () => {
   }
 
   const handleTokenPocket = () => {
+    console.log('handleTokenpocket clicked')
     if (typeof window.ethereum.isTokenPocket !== 'undefined') {
       getAccount('tokenpocket')
     } else {
@@ -48,13 +50,15 @@ const useWallet = () => {
   const getAccountsByType = async (walletType) => {
     let accounts
     try {
-      if (walletType === 'metamask' || walletType === 'tokenpocket')
+      if (walletType === 'metamask' && window.ethereum.isMetaMask)
+        accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts'
+        })
+      else if (walletType === 'tokenpocket' && window.ethereum.isTokenPocket)
         accounts = await window.ethereum.request({
           method: 'eth_requestAccounts'
         })
       else if (walletType === 'kaikas') accounts = await window.klaytn.enable()
-      else if (walletType === 'kaikas') accounts = await window.klaytn.enable()
-
       return accounts
     } catch (err) {
       console.log(err)
@@ -65,7 +69,12 @@ const useWallet = () => {
     let signature
 
     try {
-      if (type === 'metamask' || type === 'tokenpocket')
+      if (type === 'metamask')
+        signature = await window.ethereum.request({
+          method: 'personal_sign',
+          params: [message, account]
+        })
+      else if (type === 'tokenpocket')
         signature = await window.ethereum.request({
           method: 'personal_sign',
           params: [message, account]
