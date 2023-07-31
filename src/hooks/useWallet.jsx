@@ -23,18 +23,24 @@ const useWallet = () => {
     }
   }
 
-  const handleMetaMask = () => {
-    console.log('handleMetamask clicked')
-    if (typeof window.ethereum.isMetaMask !== 'undefined') {
+  const handleMetaMask = (walletType) => {
+    if (window.ethereum.isTokenPocket) {
+      toast.error(
+        'Please remove Tokenpocket extension to continue with metamask'
+      )
+    } else if (walletType === 'metamask' && window.ethereum.isMetaMask) {
       getAccount('metamask')
     } else {
       toast.error('Please install MetaMask')
     }
   }
 
-  const handleTokenPocket = () => {
-    console.log('handleTokenpocket clicked')
-    if (typeof window.ethereum.isTokenPocket !== 'undefined') {
+  const handleTokenPocket = (walletType) => {
+    if (window.ethereum.isMetaMask) {
+      toast.error(
+        'Please remove Metamask extension to continue with tokenpocket'
+      )
+    } else if (walletType === 'tokenpocket' && window.ethereum.isTokenPocket) {
       getAccount('tokenpocket')
     } else {
       toast.error('Please install Tokenpocket')
@@ -42,7 +48,7 @@ const useWallet = () => {
   }
 
   const handleClick = (type) => {
-    if (type === 'metamask') handleMetaMask()
+    if (type === 'metamask') handleMetaMask(type)
     else if (type === 'kaikas') handleKaikas()
     else if (type === 'tokenpocket') handleTokenPocket()
   }
@@ -100,11 +106,13 @@ const useWallet = () => {
       const message = `Nonce: ${nonce}`
 
       const signature = await getSignatureByType(message, account, type)
+      const walletType =
+        type === 'metamask' || type === 'tokenpocket' ? 'metamask' : type
 
       mutation.mutate(
         {
           data: { wallet_address: account, signature: signature },
-          type
+          type: walletType
         },
         {
           onSuccess: (e) => {
