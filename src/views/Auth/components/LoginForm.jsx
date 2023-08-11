@@ -24,10 +24,10 @@ const LoginForm = () => {
     //       isPopular: true
     //     },
     {
-      name: 'TokenPocket',
-      key: 'tokenpocket',
-      img: 'https://static-s.aa-cdn.net/img/gp/20600010103522/G_BiKQ5vjnpL9dDr1nRnqZmnjGMNykYng1QDuv5S6C4Foqeye472WE3KM8rtJYGeGSLD?v=1',
-      isPopular: false
+      name: 'MetaMask',
+      key: 'metamask',
+      img: 'https://cdn.iconscout.com/icon/free/png-256/metamask-2728406-2261817.png',
+      isPopular: true
     },
     {
       name: 'Kaikas',
@@ -36,10 +36,10 @@ const LoginForm = () => {
       isPopular: false
     },
     {
-      name: 'MetaMask',
-      key: 'metamask',
-      img: 'https://cdn.iconscout.com/icon/free/png-256/metamask-2728406-2261817.png',
-      isPopular: true
+      name: 'TokenPocket',
+      key: 'tokenpocket',
+      img: 'https://static-s.aa-cdn.net/img/gp/20600010103522/G_BiKQ5vjnpL9dDr1nRnqZmnjGMNykYng1QDuv5S6C4Foqeye472WE3KM8rtJYGeGSLD?v=1',
+      isPopular: false
     }
   ]
 

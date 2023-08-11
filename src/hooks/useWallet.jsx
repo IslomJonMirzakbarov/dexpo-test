@@ -26,7 +26,7 @@ const useWallet = () => {
   const handleMetaMask = (walletType) => {
     if (window.ethereum.isTokenPocket) {
       toast.error(
-        'Please remove Tokenpocket extension to continue with metamask'
+        'Try disabling Tokenpocket extension to continue with metamask'
       )
     } else if (walletType === 'metamask' && window.ethereum.isMetaMask) {
       getAccount('metamask')
@@ -38,7 +38,7 @@ const useWallet = () => {
   const handleTokenPocket = (walletType) => {
     if (window.ethereum.isMetaMask) {
       toast.error(
-        'Please remove Metamask extension to continue with tokenpocket'
+        'Try disabling Metamask extension to continue with tokenpocket'
       )
     } else if (walletType === 'tokenpocket' && window.ethereum.isTokenPocket) {
       getAccount('tokenpocket')
