@@ -36,7 +36,7 @@ const useWallet = () => {
   }
 
   const handleTokenPocket = (walletType) => {
-    if (window.ethereum.isMetaMask) {
+    if (window.ethereum.isMetaMask && !window.ethereum.isTokenPocket) {
       toast.error(
         'Try disabling Metamask extension to continue with tokenpocket'
       )
@@ -50,7 +50,7 @@ const useWallet = () => {
   const handleClick = (type) => {
     if (type === 'metamask') handleMetaMask(type)
     else if (type === 'kaikas') handleKaikas()
-    else if (type === 'tokenpocket') handleTokenPocket()
+    else if (type === 'tokenpocket') handleTokenPocket(type)
   }
 
   const getAccountsByType = async (walletType) => {
